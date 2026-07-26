@@ -23,7 +23,9 @@
   *{box-sizing:border-box;margin:0;padding:0;}
   html{background:var(--near-black);}
   body{
-    background:var(--near-black);
+    background-color:var(--near-black);
+    background-image:radial-gradient(rgba(245,242,236,0.05) 1px, transparent 1px);
+    background-size:26px 26px;
     color:var(--warm-grey);
     font-family:'Instrument Sans', sans-serif;
     font-size:17px;
@@ -34,6 +36,22 @@
   a{color:inherit;text-decoration:none;}
   ul{list-style:none;}
   img,svg{display:block;}
+  .brand-rule{height:3px; background:linear-gradient(90deg, var(--amber), rgba(232,163,61,0.15));}
+  .accent{color:var(--amber);}
+
+  /* Oversized background numeral — editorial section marker */
+  .section-num{
+    position:absolute; top:52px; right:28px; z-index:0;
+    font-family:'Archivo', sans-serif; font-weight:800;
+    font-size:clamp(3.2rem, 9vw, 6.5rem); line-height:1;
+    color:transparent; -webkit-text-stroke:1.5px rgba(232,163,61,0.32);
+    pointer-events:none; user-select:none;
+  }
+  section{position:relative;}
+  section > .wrap{position:relative; z-index:1;}
+  @media (max-width:700px){
+    .section-num{font-size:2.6rem; top:32px; right:20px; -webkit-text-stroke:1.2px rgba(232,163,61,0.28);}
+  }
 
   .wrap{max-width:var(--max);margin:0 auto;padding:0 28px;}
 
@@ -200,9 +218,9 @@
     border-top:1px solid var(--hairline); margin-top:26px;
   }
 
-  /* Abgrenzung */
-  .differentiate .head{max-width:56ch; margin-bottom:44px;}
-  .differentiate h2{font-size:clamp(1.5rem, 2.6vw, 2.1rem);}
+  /* Abgrenzung — the manifesto moment */
+  .differentiate .head{max-width:44ch; margin-bottom:52px;}
+  .differentiate h2{font-size:clamp(2.1rem, 5.4vw, 3.4rem); line-height:1.05;}
   .diff-list{
     display:grid; grid-template-columns:repeat(3, 1fr); gap:26px;
   }
@@ -272,6 +290,7 @@
 </head>
 <body>
 
+<div class="brand-rule"></div>
 <header class="nav">
   <div class="nav-inner">
     <div class="logo">ONYX<span>.AI</span></div>
@@ -290,8 +309,9 @@
   <!-- HERO / WHITE-LABEL — first scroll -->
   <section class="hero">
     <div class="wrap">
+      <span class="section-num" aria-hidden="true">00</span>
       <span class="kicker">White-Label-Systeme · Bauen &amp; übergeben</span>
-      <h1>Wir bauen dir dein eigenes System.<br>Du besitzt es.</h1>
+      <h1>Wir bauen dir dein eigenes System.<br><span class="accent">Du besitzt es.</span></h1>
       <p class="subline">
         Personalisierte Dashboards, Portale und Automatisierungen im
         White-Label — fertig gebaut, an dich übergeben, auf deiner
@@ -319,6 +339,7 @@
 
   <!-- PROBLEM → LÖSUNG -->
   <section class="section-border">
+    <span class="section-num" aria-hidden="true">01</span>
     <div class="wrap">
       <div style="max-width:60ch;margin-bottom:44px;">
         <span class="kicker" style="display:block;margin-bottom:16px;">Problem &rarr; Lösung</span>
@@ -359,6 +380,7 @@
 
   <!-- LEISTUNGSBLOCK + REFERENZ -->
   <section class="section-border">
+    <span class="section-num" aria-hidden="true">02</span>
     <div class="wrap">
       <div class="grid-2">
         <div class="panel">
@@ -396,10 +418,11 @@
 
   <!-- ABGRENZUNG -->
   <section class="differentiate section-border">
+    <span class="section-num" aria-hidden="true">03</span>
     <div class="wrap">
       <div class="head">
         <span class="kicker" style="display:block;margin-bottom:16px;">Abgrenzung</span>
-        <h2>Kein Lock-in. Nie.</h2>
+        <h2><span style="white-space:nowrap;">Kein Lock-in.</span><br>Nie.</h2>
       </div>
       <div class="diff-list">
         <div class="diff-item">
@@ -426,9 +449,10 @@
 
   <!-- FINAL CTA BAND -->
   <section class="cta-band">
+    <span class="section-num" aria-hidden="true" style="left:28px; right:auto;">04</span>
     <div class="wrap">
       <span class="kicker" style="display:block;margin-bottom:16px;">Dein System, dein Eigentum</span>
-      <h2>Lass uns dein System besprechen — direkt, unkompliziert.</h2>
+      <h2>Lass uns dein System besprechen — <span class="accent">direkt, unkompliziert.</span></h2>
       <p class="subline">
         Kein Formular, kein Ticket-System. Schreib dem Gründer direkt und
         beschreib kurz, was dein Unternehmen braucht.
