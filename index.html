@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onyx.AI — White-Label-Systeme. Gebaut. Übergeben. Deins.</title>
+<meta name="description" content="Onyx baut dir dein eigenes System — Dashboards, Portale, interne Tools. Im White-Label, vollständig übergeben, auf deiner Infrastruktur, unter deiner Marke.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --near-black:#111111;
+    --near-black-2:#161616;
+    --amber:#E8A33D;
+    --amber-soft:rgba(232,163,61,0.14);
+    --warm-grey:#F5F2EC;
+    --warm-grey-dim:rgba(245,242,236,0.62);
+    --warm-grey-faint:rgba(245,242,236,0.34);
+    --hairline:rgba(245,242,236,0.12);
+    --max:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{background:var(--near-black);}
+  body{
+    background:var(--near-black);
+    color:var(--warm-grey);
+    font-family:'Instrument Sans', sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  img,svg{display:block;}
+
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px;}
+
+  h1,h2,h3{
+    font-family:'Archivo', sans-serif;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    color:var(--warm-grey);
+  }
+
+  .kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--amber);
+  }
+
+  /* ---------- Nav ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(17,17,17,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--hairline);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 28px; max-width:var(--max); margin:0 auto;
+  }
+  .logo{
+    font-family:'Archivo', sans-serif;
+    font-weight:800; font-size:19px; letter-spacing:-0.01em;
+    color:var(--warm-grey);
+  }
+  .logo span{color:var(--amber);}
+  .nav-cta{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px; font-weight:500;
+    color:var(--warm-grey);
+    border:1px solid var(--hairline);
+    padding:9px 16px; border-radius:999px;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .nav-cta:hover{border-color:var(--amber); color:var(--amber);}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'Instrument Sans', sans-serif;
+    font-weight:600; font-size:15.5px;
+    padding:15px 26px; border-radius:10px;
+    border:1px solid transparent;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--amber); color:#161104;
+  }
+  .btn-primary:hover{
+    transform:translateY(-1px);
+    box-shadow:0 10px 28px -8px rgba(232,163,61,0.55);
+  }
+  .btn-secondary{
+    background:transparent; color:var(--warm-grey);
+    border-color:var(--hairline);
+  }
+  .btn-secondary:hover{
+    border-color:var(--warm-grey-dim);
+    background:rgba(245,242,236,0.04);
+  }
+  .btn svg{width:18px;height:18px;flex-shrink:0;}
+
+  .cta-row{
+    display:flex; flex-wrap:wrap; gap:14px;
+  }
+
+  /* ---------- Hero (first scroll) ---------- */
+  .hero{
+    padding:96px 0 84px;
+    border-bottom:1px solid var(--hairline);
+    position:relative;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; top:-120px; right:-160px;
+    width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(circle, rgba(232,163,61,0.10) 0%, rgba(232,163,61,0) 70%);
+    pointer-events:none;
+  }
+  .hero .kicker{margin-bottom:22px; display:block;}
+  .hero h1{
+    font-size:clamp(2.4rem, 5.2vw, 4.1rem);
+    line-height:1.06;
+    max-width:14ch;
+  }
+  .hero .subline{
+    margin-top:26px;
+    max-width:52ch;
+    font-size:clamp(1.02rem, 1.6vw, 1.18rem);
+    color:var(--warm-grey-dim);
+    line-height:1.65;
+  }
+  .hero .cta-row{margin-top:38px;}
+  .hero .founder-note{
+    margin-top:16px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--warm-grey-faint);
+    letter-spacing:0.02em;
+  }
+
+  /* ---------- Section shell ---------- */
+  section{padding:88px 0;}
+  .section-border{border-bottom:1px solid var(--hairline);}
+
+  .grid-2{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:40px;
+    align-items:stretch;
+  }
+  @media (max-width:860px){
+    .grid-2{grid-template-columns:1fr;}
+  }
+
+  .panel{
+    background:var(--near-black-2);
+    border:1px solid var(--hairline);
+    border-radius:16px;
+    padding:40px;
+  }
+  .panel h2{font-size:clamp(1.5rem, 2.4vw, 1.9rem); margin-bottom:20px;}
+  .panel p{color:var(--warm-grey-dim); font-size:1.02rem; line-height:1.75;}
+  .panel p + p{margin-top:16px;}
+  .panel strong{color:var(--warm-grey); font-weight:600;}
+
+  /* Referenz card */
+  .ref-card{
+    background:linear-gradient(165deg, rgba(232,163,61,0.07), rgba(22,22,22,0) 55%), var(--near-black-2);
+    border:1px solid rgba(232,163,61,0.22);
+    border-radius:16px;
+    padding:36px;
+    display:flex; flex-direction:column;
+  }
+  .ref-tag{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--amber);
+    background:var(--amber-soft);
+    border:1px solid rgba(232,163,61,0.3);
+    padding:6px 12px; border-radius:999px;
+    width:fit-content;
+    margin-bottom:20px;
+  }
+  .ref-card h3{font-size:1.4rem; margin-bottom:14px;}
+  .ref-card p{color:var(--warm-grey-dim); font-size:0.98rem; line-height:1.7;}
+  .ref-card p + p{margin-top:12px;}
+  .ref-card .ref-foot{
+    margin-top:auto; padding-top:26px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; color:var(--warm-grey-faint);
+    border-top:1px solid var(--hairline); margin-top:26px;
+  }
+
+  /* Abgrenzung */
+  .differentiate .head{max-width:56ch; margin-bottom:44px;}
+  .differentiate h2{font-size:clamp(1.5rem, 2.6vw, 2.1rem);}
+  .diff-list{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:26px;
+  }
+  @media (max-width:860px){
+    .diff-list{grid-template-columns:1fr;}
+  }
+  .diff-item{
+    border:1px solid var(--hairline);
+    border-radius:14px;
+    padding:28px 26px;
+    background:var(--near-black-2);
+  }
+  .diff-item .icon{
+    width:38px; height:38px; border-radius:10px;
+    background:var(--amber-soft);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:18px;
+  }
+  .diff-item .icon svg{width:19px;height:19px; stroke:var(--amber);}
+  .diff-item p{font-size:1rem; color:var(--warm-grey); font-weight:500; line-height:1.55;}
+
+  /* Final CTA band */
+  .cta-band{
+    text-align:center;
+    padding:96px 0 100px;
+  }
+  .cta-band h2{
+    font-size:clamp(1.7rem, 3.4vw, 2.5rem);
+    max-width:20ch; margin:0 auto 18px;
+  }
+  .cta-band .subline{
+    max-width:46ch; margin:0 auto 38px;
+    color:var(--warm-grey-dim);
+    font-size:1.05rem;
+  }
+  .cta-band .cta-row{justify-content:center;}
+  .cta-band .contact-line{
+    margin-top:28px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--warm-grey-faint);
+  }
+  .cta-band .contact-line a{border-bottom:1px solid transparent; transition:border-color .2s ease, color .2s ease;}
+  .cta-band .contact-line a:hover{color:var(--amber); border-color:var(--amber);}
+
+  /* Footer */
+  footer{
+    padding:32px 0;
+    border-top:1px solid var(--hairline);
+  }
+  .footer-inner{
+    display:flex; flex-wrap:wrap; gap:14px;
+    align-items:center; justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--warm-grey-faint);
+  }
+  .footer-inner a:hover{color:var(--amber);}
+
+  @media (max-width:600px){
+    .hero{padding:76px 0 60px;}
+    section{padding:64px 0;}
+    .panel, .ref-card{padding:28px;}
+    .nav-cta span.nav-cta-label{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo">ONYX<span>.AI</span></div>
+    <a class="nav-cta" href="https://wa.me/4917632273522?text=Hallo%20Marvin%2C%20ich%20interessiere%20mich%20f%C3%BCr%20ein%20White-Label-System%20von%20Onyx." target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;">
+        <path d="M20.5 3.5a11 11 0 0 0-17.4 13.2L2 21l4.4-1.1A11 11 0 0 0 20.5 3.5Z"/>
+        <path d="M8.5 8.6c.3-.6.6-.6.9-.6h.7c.2 0 .5 0 .7.5.3.7.9 2.2.9 2.4.1.2.1.4 0 .6-.1.2-.2.3-.4.5l-.5.6c-.2.2-.3.4-.1.7.2.3 1 1.5 2 2.4 1.4 1.2 2.1 1.4 2.4 1.5.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.7-.1l2.1 1c.2.1.4.2.5.3.1.2.1 1-.3 1.9-.4.9-2 1.7-2.8 1.8-.7.1-1.6.2-5-1.2-4.1-1.8-6.6-6-6.8-6.3-.2-.3-1.6-2.2-1.6-4.2 0-2 1.1-3 1.5-3.4Z" fill="currentColor" stroke="none"/>
+      </svg>
+      <span class="nav-cta-label">Marvin auf WhatsApp</span>
+    </a>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO / WHITE-LABEL — first scroll -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="kicker">White-Label-Systeme · Bauen &amp; übergeben</span>
+      <h1>Wir bauen dir dein eigenes System.<br>Du besitzt es.</h1>
+      <p class="subline">
+        Personalisierte Dashboards, Portale und Automatisierungen im
+        White-Label — fertig gebaut, an dich übergeben, auf deiner
+        Infrastruktur, unter deiner Marke.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://wa.me/4917632273522?text=Hallo%20Marvin%2C%20ich%20interessiere%20mich%20f%C3%BCr%20ein%20White-Label-System%20von%20Onyx." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.5 3.5a11 11 0 0 0-17.4 13.2L2 21l4.4-1.1A11 11 0 0 0 20.5 3.5Z"/>
+            <path d="M8.5 8.6c.3-.6.6-.6.9-.6h.7c.2 0 .5 0 .7.5.3.7.9 2.2.9 2.4.1.2.1.4 0 .6-.1.2-.2.3-.4.5l-.5.6c-.2.2-.3.4-.1.7.2.3 1 1.5 2 2.4 1.4 1.2 2.1 1.4 2.4 1.5.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.7-.1l2.1 1c.2.1.4.2.5.3.1.2.1 1-.3 1.9-.4.9-2 1.7-2.8 1.8-.7.1-1.6.2-5-1.2-4.1-1.8-6.6-6-6.8-6.3-.2-.3-1.6-2.2-1.6-4.2 0-2 1.1-3 1.5-3.4Z" fill="#161104" stroke="none"/>
+          </svg>
+          Direkt mit Marvin auf WhatsApp
+        </a>
+        <a class="btn btn-secondary" href="mailto:info@onyx-ai.de?subject=Anfrage%20White-Label-System">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6.5A2.5 2.5 0 0 1 5.5 4h13A2.5 2.5 0 0 1 21 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5v-11Z"/>
+            <path d="m4 6.5 8 6.5 8-6.5"/>
+          </svg>
+          info@onyx-ai.de
+        </a>
+      </div>
+      <p class="founder-note">Kein Bot, kein Kundenservice-Team — der Gründer antwortet selbst.</p>
+    </div>
+  </section>
+
+  <!-- LEISTUNGSBLOCK + REFERENZ -->
+  <section class="section-border">
+    <div class="wrap">
+      <div class="grid-2">
+        <div class="panel">
+          <span class="kicker" style="display:block;margin-bottom:16px;">Was Onyx baut</span>
+          <h2>Maßgeschneiderte Systeme, keine Blackbox</h2>
+          <p>
+            Onyx baut maßgeschneiderte digitale Systeme für Unternehmen:
+            <strong>personalisierte Dashboards, Kundenportale, interne
+            Tools.</strong> Alles im White-Label — dein Branding, deine
+            Domain, dein Eigentum.
+          </p>
+          <p>
+            Wir entwickeln es, übergeben es vollständig und ziehen uns
+            zurück. Du hostest selbst, DSGVO-konform, mit AVV. Keine
+            Blackbox, kein Abo-Zwang.
+          </p>
+        </div>
+
+        <div class="ref-card">
+          <span class="ref-tag">Referenz · gebaut &amp; übergeben</span>
+          <h3>HausManager Pro</h3>
+          <p>
+            Gebaut für Hausverwaltungen. Ein komplettes CRM, von Grund auf
+            entwickelt und übergeben.
+          </p>
+          <p>
+            So sieht ein Onyx-System aus. Deins bauen wir für dein
+            Geschäft.
+          </p>
+          <div class="ref-foot">Case-Referenz — kein Produkt zum Kaufen</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABGRENZUNG -->
+  <section class="differentiate section-border">
+    <div class="wrap">
+      <div class="head">
+        <span class="kicker" style="display:block;margin-bottom:16px;">Abgrenzung</span>
+        <h2>Kein Lock-in. Nie.</h2>
+      </div>
+      <div class="diff-list">
+        <div class="diff-item">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg>
+          </div>
+          <p>Du besitzt Code und Daten — vollständig.</p>
+        </div>
+        <div class="diff-item">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><rect x="3" y="4" width="18" height="6" rx="1.4"/><rect x="3" y="14" width="18" height="6" rx="1.4"/><circle cx="7" cy="7" r="0.9" fill="currentColor" stroke="none"/><circle cx="7" cy="17" r="0.9" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <p>Du hostest auf deiner eigenen Infrastruktur.</p>
+        </div>
+        <div class="diff-item">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M17 10V7a5 5 0 0 0-9.9-1"/><rect x="4" y="10" width="16" height="10" rx="2"/></svg>
+          </div>
+          <p>Nach der Übergabe bist du unabhängig. Kein Lock-in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA BAND -->
+  <section class="cta-band">
+    <div class="wrap">
+      <span class="kicker" style="display:block;margin-bottom:16px;">Dein System, dein Eigentum</span>
+      <h2>Lass uns dein System besprechen — direkt, unkompliziert.</h2>
+      <p class="subline">
+        Kein Formular, kein Ticket-System. Schreib dem Gründer direkt und
+        beschreib kurz, was dein Unternehmen braucht.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://wa.me/4917632273522?text=Hallo%20Marvin%2C%20ich%20interessiere%20mich%20f%C3%BCr%20ein%20White-Label-System%20von%20Onyx." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.5 3.5a11 11 0 0 0-17.4 13.2L2 21l4.4-1.1A11 11 0 0 0 20.5 3.5Z"/>
+            <path d="M8.5 8.6c.3-.6.6-.6.9-.6h.7c.2 0 .5 0 .7.5.3.7.9 2.2.9 2.4.1.2.1.4 0 .6-.1.2-.2.3-.4.5l-.5.6c-.2.2-.3.4-.1.7.2.3 1 1.5 2 2.4 1.4 1.2 2.1 1.4 2.4 1.5.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.7-.1l2.1 1c.2.1.4.2.5.3.1.2.1 1-.3 1.9-.4.9-2 1.7-2.8 1.8-.7.1-1.6.2-5-1.2-4.1-1.8-6.6-6-6.8-6.3-.2-.3-1.6-2.2-1.6-4.2 0-2 1.1-3 1.5-3.4Z" fill="#161104" stroke="none"/>
+          </svg>
+          Marvin auf WhatsApp schreiben
+        </a>
+        <a class="btn btn-secondary" href="mailto:info@onyx-ai.de?subject=Anfrage%20White-Label-System">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6.5A2.5 2.5 0 0 1 5.5 4h13A2.5 2.5 0 0 1 21 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5v-11Z"/>
+            <path d="m4 6.5 8 6.5 8-6.5"/>
+          </svg>
+          E-Mail an info@onyx-ai.de
+        </a>
+      </div>
+      <p class="contact-line">
+        WhatsApp <a href="https://wa.me/4917632273522">0176 322 273 522</a> ·
+        <a href="mailto:info@onyx-ai.de">info@onyx-ai.de</a>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>© 2026 Onyx.AI — Marvin Weiß-Drumm, Landau in der Pfalz</span>
+    <a href="mailto:info@onyx-ai.de">info@onyx-ai.de</a>
+  </div>
+</footer>
+
+</body>
+</html>
