@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Über mich — Marvin Weiß-Drumm, Onyx.AI</title>
-<meta name="description" content="Marvin Weiß-Drumm, Gründer von Onyx.AI. Ich baue dein System, übergebe es dir vollständig und ziehe mich zurück — kein Team, kein Ticket-System, direkt.">
+<title>Datenschutzerklärung — Onyx.AI</title>
+<meta name="description" content="Datenschutzerklärung von Onyx.AI, Marvin Weiß-Drumm.">
 <!-- Meta Pixel (stub only — actually loaded from enableMetaPixel() after cookie consent) -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -55,21 +55,8 @@ function enableMetaPixel(){
   .brand-rule{height:3px; background:linear-gradient(90deg, var(--amber), rgba(232,163,61,0.15));}
   .accent{color:var(--amber);}
 
-  /* Oversized background numeral — editorial section marker */
-  .section-num{
-    position:absolute; top:52px; right:28px; z-index:0;
-    font-family:'Archivo', sans-serif; font-weight:800;
-    font-size:clamp(3.2rem, 9vw, 6.5rem); line-height:1;
-    color:transparent; -webkit-text-stroke:1.5px rgba(232,163,61,0.32);
-    pointer-events:none; user-select:none;
-  }
-  section{position:relative;}
-  section > .wrap{position:relative; z-index:1;}
-  @media (max-width:700px){
-    .section-num{font-size:2.6rem; top:32px; right:20px; -webkit-text-stroke:1.2px rgba(232,163,61,0.28);}
-  }
-
   .wrap{max-width:var(--max);margin:0 auto;padding:0 28px;}
+  .wrap-narrow{max-width:760px;margin:0 auto;padding:0 28px;}
 
   h1,h2,h3{
     font-family:'Archivo', sans-serif;
@@ -122,126 +109,30 @@ function enableMetaPixel(){
     transition:color .2s ease, border-color .2s ease;
   }
   .nav-link:hover{color:var(--amber); border-color:var(--amber);}
-  .nav-link.is-active{color:var(--amber); border-color:var(--amber);}
   @media (max-width:560px){
     .nav-link{display:none;}
   }
 
-  /* ---------- Buttons ---------- */
-  .btn{
-    display:inline-flex; align-items:center; gap:10px;
-    font-family:'Instrument Sans', sans-serif;
-    font-weight:600; font-size:15.5px;
-    padding:15px 26px; border-radius:10px;
-    border:1px solid transparent;
-    transition:transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
-    white-space:nowrap;
-  }
-  .btn-primary{
-    background:var(--amber); color:#161104;
-  }
-  .btn-primary:hover{
-    transform:translateY(-1px);
-    box-shadow:0 10px 28px -8px rgba(232,163,61,0.55);
-  }
-  .btn-secondary{
-    background:transparent; color:var(--warm-grey);
-    border-color:var(--hairline);
-  }
-  .btn-secondary:hover{
-    border-color:var(--warm-grey-dim);
-    background:rgba(245,242,236,0.04);
-  }
-  .btn svg{width:18px;height:18px;flex-shrink:0;}
-
-  .cta-row{
-    display:flex; flex-wrap:wrap; gap:14px;
-  }
-
-  /* ---------- Hero ---------- */
-  .hero{
-    padding:96px 0 84px;
+  /* ---------- Legal page ---------- */
+  .legal-hero{
+    padding:72px 0 44px;
     border-bottom:1px solid var(--hairline);
-    position:relative;
   }
-  .hero::before{
-    content:"";
-    position:absolute; top:-120px; right:-160px;
-    width:520px; height:520px; border-radius:50%;
-    background:radial-gradient(circle, rgba(232,163,61,0.10) 0%, rgba(232,163,61,0) 70%);
-    pointer-events:none;
-  }
-  .hero .kicker{margin-bottom:22px; display:block;}
-  .hero h1{
-    font-size:clamp(2.4rem, 5.2vw, 4.1rem);
-    line-height:1.06;
-    max-width:16ch;
-  }
-  .hero .subline{
-    margin-top:26px;
-    max-width:52ch;
-    font-size:clamp(1.02rem, 1.6vw, 1.18rem);
-    color:var(--warm-grey-dim);
-    line-height:1.65;
-  }
+  .legal-hero h1{font-size:clamp(1.9rem, 4vw, 2.6rem);}
+  .legal-hero .kicker{display:block; margin-bottom:18px;}
 
-  /* ---------- Section shell ---------- */
-  section{padding:88px 0;}
-  .section-border{border-bottom:1px solid var(--hairline);}
-
-  .grid-2{
-    display:grid;
-    grid-template-columns:1.15fr 0.85fr;
-    gap:40px;
-    align-items:stretch;
+  .legal-body{padding:56px 0 88px;}
+  .legal-body h2{
+    font-size:1.25rem; margin:40px 0 14px;
   }
-  @media (max-width:860px){
-    .grid-2{grid-template-columns:1fr;}
-  }
-
-  .panel{
-    background:var(--near-black-2);
-    border:1px solid var(--hairline);
-    border-radius:16px;
-    padding:40px;
-  }
-  .panel h2{font-size:clamp(1.5rem, 2.4vw, 1.9rem); margin-bottom:20px;}
-  .panel p{color:var(--warm-grey-dim); font-size:1.02rem; line-height:1.75;}
-  .panel p + p{margin-top:16px;}
-  .panel strong{color:var(--warm-grey); font-weight:600;}
-
-  /* Portrait */
-  .portrait-frame{
-    border-radius:16px; overflow:hidden;
-    border:1px solid rgba(232,163,61,0.22);
-    background:var(--near-black-2);
-    min-height:320px;
-  }
-  .portrait-frame img{width:100%; height:100%; object-fit:cover; display:block;}
-
-  /* Final CTA band */
-  .cta-band{
-    text-align:center;
-    padding:96px 0 100px;
-  }
-  .cta-band h2{
-    font-size:clamp(1.7rem, 3.4vw, 2.5rem);
-    max-width:20ch; margin:0 auto 18px;
-  }
-  .cta-band .subline{
-    max-width:46ch; margin:0 auto 38px;
-    color:var(--warm-grey-dim);
-    font-size:1.05rem;
-  }
-  .cta-band .cta-row{justify-content:center;}
-  .cta-band .contact-line{
-    margin-top:28px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:13px;
-    color:var(--warm-grey-faint);
-  }
-  .cta-band .contact-line a{border-bottom:1px solid transparent; transition:border-color .2s ease, color .2s ease;}
-  .cta-band .contact-line a:hover{color:var(--amber); border-color:var(--amber);}
+  .legal-body h2:first-child{margin-top:0;}
+  .legal-body h3{font-size:1.05rem; margin:22px 0 8px;}
+  .legal-body p{color:var(--warm-grey-dim); line-height:1.75; margin-bottom:14px; font-size:1rem;}
+  .legal-body ul{padding-left:22px; margin:0 0 14px; list-style:disc;}
+  .legal-body li{color:var(--warm-grey-dim); margin-bottom:6px; line-height:1.7;}
+  .legal-body strong{color:var(--warm-grey); font-weight:600;}
+  .legal-body a{color:var(--amber); border-bottom:1px solid rgba(232,163,61,0.3); transition:border-color .2s ease;}
+  .legal-body a:hover{border-color:var(--amber);}
 
   /* Footer */
   footer{
@@ -280,18 +171,26 @@ function enableMetaPixel(){
   }
   .consent-text strong{color:var(--warm-grey); font-weight:600;}
   .consent-actions{display:flex; gap:12px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'Instrument Sans', sans-serif;
+    font-weight:600; font-size:15.5px;
+    padding:15px 26px; border-radius:10px;
+    border:1px solid transparent;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--amber); color:#161104;}
+  .btn-secondary{background:transparent; color:var(--warm-grey); border-color:var(--hairline);}
+  .btn-secondary:hover{border-color:var(--warm-grey-dim); background:rgba(245,242,236,0.04);}
   .btn-sm{padding:11px 20px; font-size:14px;}
 
   @media (max-width:600px){
     .consent-banner{padding:18px 20px;}
     .consent-actions{width:100%;}
     .consent-actions .btn{flex:1 1 0;}
-  }
-
-  @media (max-width:600px){
-    .hero{padding:76px 0 60px;}
-    section{padding:64px 0;}
-    .panel{padding:28px;}
+    .legal-hero{padding:56px 0 36px;}
+    .legal-body{padding:44px 0 64px;}
     .nav-cta span.nav-cta-label{display:none;}
   }
 </style>
@@ -303,7 +202,7 @@ function enableMetaPixel(){
   <div class="nav-inner">
     <a href="index.html" class="logo">ONYX<span>.AI</span></a>
     <div class="nav-links">
-      <a class="nav-link is-active" href="ueber-mich.html">Über mich</a>
+      <a class="nav-link" href="ueber-mich.html">Über mich</a>
       <a class="nav-cta" href="https://wa.me/4917632273522?text=Hallo%20Marvin%2C%20ich%20interessiere%20mich%20f%C3%BCr%20ein%20White-Label-System%20von%20Onyx." target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;">
           <path d="M20.5 3.5a11 11 0 0 0-17.4 13.2L2 21l4.4-1.1A11 11 0 0 0 20.5 3.5Z"/>
@@ -317,83 +216,131 @@ function enableMetaPixel(){
 
 <main>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="wrap">
-      <span class="section-num" aria-hidden="true">00</span>
-      <span class="kicker">Über mich</span>
-      <h1>Marvin Weiß-Drumm</h1>
-      <p class="subline">
-        Gründer von Onyx.AI, Einzelunternehmen mit Sitz in Landau in der
-        Pfalz. Ich baue White-Label-Systeme — und zwar ich, persönlich.
-      </p>
+  <section class="legal-hero">
+    <div class="wrap-narrow">
+      <span class="kicker">Rechtliches</span>
+      <h1>Datenschutzerklärung</h1>
     </div>
   </section>
 
-  <!-- BIO -->
-  <section class="section-border">
-    <span class="section-num" aria-hidden="true">01</span>
-    <div class="wrap">
-      <div class="grid-2">
-        <div class="panel">
-          <h2>Ich baue Systeme, keine Folien.</h2>
-          <p>
-            Onyx.AI ist kein Team mit zehn Ansprechpartnern — sondern ich,
-            direkt. Ich entwickle dein System, übergebe es dir vollständig
-            und ziehe mich wieder zurück. Kein Projektmanager dazwischen,
-            keine Warteschleife.
-          </p>
-          <p>
-            Warum White-Label? Weil ich glaube, dass ein Unternehmen seine
-            eigene Software besitzen sollte — nicht mieten. Kein Abo, das
-            plötzlich teurer wird. Keine Blackbox, die ein Fremder
-            kontrolliert. Du bekommst ein System, das zu 100&nbsp;% dir
-            gehört.
-          </p>
-          <p>
-            Landau in der Pfalz ist meine Basis, gearbeitet wird
-            deutschlandweit. Schreibst du mir, antworte ich dir selbst —
-            kein Bot, kein Support-Ticket.
-          </p>
-        </div>
-        <div class="portrait-frame">
-          <img src="assets/marvin-portrait.jpg" alt="Marvin Weiß-Drumm, Gründer von Onyx.AI">
-        </div>
-      </div>
-    </div>
-  </section>
+  <section class="legal-body">
+    <div class="wrap-narrow">
 
-  <!-- FINAL CTA BAND -->
-  <section class="cta-band">
-    <span class="section-num" aria-hidden="true" style="left:28px; right:auto;">02</span>
-    <div class="wrap">
-      <span class="kicker" style="display:block;margin-bottom:16px;">Dein System, dein Eigentum</span>
-      <h2>Lass uns dein System besprechen — <span class="accent">direkt, unkompliziert.</span></h2>
-      <p class="subline">
-        Kein Formular, kein Ticket-System. Schreib mir direkt und beschreib
-        kurz, was dein Unternehmen braucht.
+      <h2>1. Verantwortlicher</h2>
+      <p>
+        Verantwortlicher im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:<br>
+        Marvin Weiß-Drumm<br>
+        Zweibrücker Straße 23<br>
+        76829 Landau in der Pfalz<br>
+        E-Mail: <a href="mailto:info@onyx-ai.de">info@onyx-ai.de</a><br>
+        Telefon: <a href="tel:+4917632273522">0176 322 273 522</a>
       </p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="https://wa.me/4917632273522?text=Hallo%20Marvin%2C%20ich%20interessiere%20mich%20f%C3%BCr%20ein%20White-Label-System%20von%20Onyx." target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20.5 3.5a11 11 0 0 0-17.4 13.2L2 21l4.4-1.1A11 11 0 0 0 20.5 3.5Z"/>
-            <path d="M8.5 8.6c.3-.6.6-.6.9-.6h.7c.2 0 .5 0 .7.5.3.7.9 2.2.9 2.4.1.2.1.4 0 .6-.1.2-.2.3-.4.5l-.5.6c-.2.2-.3.4-.1.7.2.3 1 1.5 2 2.4 1.4 1.2 2.1 1.4 2.4 1.5.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.7-.1l2.1 1c.2.1.4.2.5.3.1.2.1 1-.3 1.9-.4.9-2 1.7-2.8 1.8-.7.1-1.6.2-5-1.2-4.1-1.8-6.6-6-6.8-6.3-.2-.3-1.6-2.2-1.6-4.2 0-2 1.1-3 1.5-3.4Z" fill="#161104" stroke="none"/>
-          </svg>
-          Marvin auf WhatsApp schreiben
-        </a>
-        <a class="btn btn-secondary" href="https://calendly.com/onyx-ai/30min" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3.5" y="5" width="17" height="16" rx="2.2"/>
-            <path d="M8 3v4M16 3v4M3.5 10h17"/>
-            <path d="m8.5 14 1.8 1.8L14.5 12"/>
-          </svg>
-          30 Min. Termin buchen
-        </a>
-      </div>
-      <p class="contact-line">
-        WhatsApp <a href="https://wa.me/4917632273522">0176 322 273 522</a> ·
-        <a href="https://calendly.com/onyx-ai/30min" target="_blank" rel="noopener">Termin buchen</a>
+
+      <h2>2. Allgemeines zur Datenverarbeitung</h2>
+      <p>
+        Diese Website hat <strong>kein Kontaktformular und keine
+        eigene Datenbank</strong>, in der wir personenbezogene Daten
+        von Besuchern speichern. Kontakt läuft ausschließlich über
+        WhatsApp und Calendly (Terminbuchung) — beides Dienste
+        Dritter, die eigenständig Daten verarbeiten (siehe Punkt 5
+        und 6).
       </p>
+      <p>
+        Beim Aufruf dieser Website verarbeitet unser Hosting-Anbieter
+        automatisch technische Verbindungsdaten (z. B. IP-Adresse,
+        Datum und Uhrzeit des Zugriffs, aufgerufene Seite, verwendeter
+        Browser) in Server-Logfiles. Diese Verarbeitung ist für den
+        technischen Betrieb der Website notwendig (Art. 6 Abs. 1 lit.
+        f DSGVO) und wird nicht mit anderen Daten zusammengeführt.
+      </p>
+
+      <h2>3. Hosting</h2>
+      <p>
+        Diese Website wird bei <strong>Netlify, Inc.</strong> (USA)
+        gehostet. Beim Aufruf der Website verarbeitet Netlify
+        automatisch Verbindungsdaten (u. a. IP-Adresse) in
+        Server-Logfiles. Die Datenübertragung in die USA erfolgt auf
+        Grundlage geeigneter Garantien nach Art. 46 DSGVO bzw. des
+        EU-U.S. Data Privacy Framework. Weitere Informationen findest
+        du in der
+        <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener">Datenschutzerklärung von Netlify</a>.
+      </p>
+
+      <h2>4. Cookies &amp; Meta Pixel (nur mit deiner Einwilligung)</h2>
+      <p>
+        Diese Website verwendet den <strong>Meta Pixel</strong> (Meta
+        Platforms Ireland Ltd., bzw. Meta Platforms, Inc., USA), um
+        nachzuvollziehen, welche Werbeanzeigen zu einem Kontakt
+        führen. Der Pixel wird <strong>ausschließlich geladen, wenn du
+        aktiv zustimmst</strong> — über den Cookie-Banner beim ersten
+        Besuch oder jederzeit über "Cookie-Einstellungen" im Footer
+        dieser Seite.
+      </p>
+      <p>
+        Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs. 1 lit. a
+        DSGVO). Du kannst deine Einwilligung jederzeit mit Wirkung für
+        die Zukunft widerrufen, indem du die Cookie-Einstellungen
+        erneut öffnest und ablehnst. Ohne Einwilligung wird kein
+        Pixel geladen und keine Daten an Meta übermittelt.
+      </p>
+      <p>
+        Bei aktivierter Einwilligung erfasst der Pixel u. a.
+        Seitenaufrufe und Klicks auf Kontakt-Buttons (WhatsApp,
+        Terminbuchung) und übermittelt diese an Meta. Meta verarbeitet
+        diese Daten ggf. auch in den USA. Details dazu in der
+        <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">Datenschutzrichtlinie von Meta</a>.
+      </p>
+
+      <h2>5. WhatsApp</h2>
+      <p>
+        Klickst du auf einen WhatsApp-Button, öffnet sich WhatsApp
+        (Betreiber: WhatsApp Ireland Ltd. bzw. Meta Platforms, Inc.,
+        USA) mit einer vorausgefüllten Nachricht an uns. Dabei werden
+        deine Telefonnummer und der Nachrichteninhalt an WhatsApp/Meta
+        übermittelt und dort nach deren eigener Datenschutzrichtlinie
+        verarbeitet. Diese Verarbeitung findet außerhalb unserer
+        Website statt und liegt außerhalb unseres Einflusses. Siehe die
+        <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener">Datenschutzrichtlinie von WhatsApp</a>.
+      </p>
+
+      <h2>6. Calendly (Terminbuchung)</h2>
+      <p>
+        Für die Terminbuchung nutzen wir den externen Dienst
+        <strong>Calendly</strong> (Calendly LLC, USA). Wenn du über
+        einen "Termin buchen"-Button einen Termin auswählst, verarbeitet
+        Calendly die von dir eingegebenen Daten (z. B. Name, E-Mail,
+        Terminwunsch) eigenständig und nach eigener
+        Datenschutzerklärung. Diese Datenverarbeitung findet auf der
+        Website von Calendly statt, außerhalb unseres Einflussbereichs.
+        Siehe die
+        <a href="https://calendly.com/privacy" target="_blank" rel="noopener">Datenschutzerklärung von Calendly</a>.
+      </p>
+
+      <h2>7. Deine Rechte</h2>
+      <p>Du hast jederzeit das Recht auf:</p>
+      <ul>
+        <li>Auskunft über die zu deiner Person gespeicherten Daten (Art. 15 DSGVO)</li>
+        <li>Berichtigung unrichtiger Daten (Art. 16 DSGVO)</li>
+        <li>Löschung deiner Daten (Art. 17 DSGVO)</li>
+        <li>Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+        <li>Datenübertragbarkeit (Art. 20 DSGVO)</li>
+        <li>Widerspruch gegen die Verarbeitung (Art. 21 DSGVO)</li>
+        <li>Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO)</li>
+      </ul>
+      <p>
+        Wende dich dazu einfach an <a href="mailto:info@onyx-ai.de">info@onyx-ai.de</a>.
+        Außerdem hast du das Recht, dich bei einer
+        Datenschutz-Aufsichtsbehörde zu beschweren.
+      </p>
+
+      <h2>8. Änderungen dieser Datenschutzerklärung</h2>
+      <p>
+        Wir passen diese Datenschutzerklärung an, sobald sich die
+        Website, die eingesetzten Dienste oder die rechtlichen
+        Vorgaben ändern. Es gilt die jeweils aktuelle, hier
+        veröffentlichte Fassung.
+      </p>
+
     </div>
   </section>
 

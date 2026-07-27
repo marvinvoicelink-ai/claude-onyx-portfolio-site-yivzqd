@@ -311,6 +311,7 @@ function enableMetaPixel(){
     font-size:12.5px;
     color:var(--warm-grey-faint);
   }
+  .footer-links{display:flex; gap:16px; align-items:center; flex-wrap:wrap;}
   .footer-inner a:hover{color:var(--amber);}
   .footer-inner .cookie-settings-link{background:none; border:none; cursor:pointer; padding:0; font:inherit; color:inherit;}
   .footer-inner .cookie-settings-link:hover{color:var(--amber);}
@@ -571,7 +572,9 @@ function enableMetaPixel(){
 <footer>
   <div class="wrap footer-inner">
     <span>© 2026 Onyx.AI — Marvin Weiß-Drumm, Landau in der Pfalz</span>
-    <div style="display:flex; gap:16px; align-items:center;">
+    <div class="footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
       <button type="button" class="cookie-settings-link" id="cookie-settings-btn">Cookie-Einstellungen</button>
       <a href="https://calendly.com/onyx-ai/30min" target="_blank" rel="noopener">Termin buchen</a>
     </div>
@@ -583,7 +586,8 @@ function enableMetaPixel(){
     <p class="consent-text">
       Diese Seite nutzt <strong>Cookies für Werbe-Tracking (Meta Pixel)</strong>,
       damit wir sehen, welche Anzeigen funktionieren. Ohne deine Zustimmung
-      wird kein Pixel geladen — die Seite funktioniert in jedem Fall.
+      wird kein Pixel geladen — die Seite funktioniert in jedem Fall. Details
+      dazu in der <a href="datenschutz.html" style="color:var(--amber);">Datenschutzerklärung</a>.
     </p>
     <div class="consent-actions">
       <button type="button" class="btn btn-secondary btn-sm" id="consent-decline">Ablehnen</button>
