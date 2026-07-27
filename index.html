@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Onyx.AI — White-Label-Systeme. Gebaut. Übergeben. Deins.</title>
 <meta name="description" content="Onyx baut dir dein eigenes System — Dashboards, Portale, interne Tools. Im White-Label, vollständig übergeben, auf deiner Infrastruktur, unter deiner Marke.">
-<!-- Meta Pixel -->
+<!-- Meta Pixel (stub only — actually loaded from enableMetaPixel() after cookie consent) -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -15,12 +15,11 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1809916830386915');
-fbq('track', 'PageView');
+function enableMetaPixel(){
+  fbq('init', '1809916830386915');
+  fbq('track', 'PageView');
+}
 </script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1809916830386915&ev=PageView&noscript=1"
-/></noscript>
 <!-- End Meta Pixel -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -301,6 +300,36 @@ src="https://www.facebook.com/tr?id=1809916830386915&ev=PageView&noscript=1"
     color:var(--warm-grey-faint);
   }
   .footer-inner a:hover{color:var(--amber);}
+  .footer-inner .cookie-settings-link{background:none; border:none; cursor:pointer; padding:0; font:inherit; color:inherit;}
+  .footer-inner .cookie-settings-link:hover{color:var(--amber);}
+
+  /* Cookie consent banner */
+  .consent-banner{
+    position:fixed; left:0; right:0; bottom:0; z-index:100;
+    background:var(--near-black-2);
+    border-top:1px solid var(--hairline);
+    padding:22px 28px;
+    box-shadow:0 -12px 32px -12px rgba(0,0,0,0.4);
+  }
+  .consent-banner[hidden]{display:none;}
+  .consent-inner{
+    max-width:var(--max); margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:28px; flex-wrap:wrap;
+  }
+  .consent-text{
+    color:var(--warm-grey-dim); font-size:0.92rem; line-height:1.6;
+    max-width:62ch; flex:1 1 320px;
+  }
+  .consent-text strong{color:var(--warm-grey); font-weight:600;}
+  .consent-actions{display:flex; gap:12px; flex-wrap:wrap;}
+  .btn-sm{padding:11px 20px; font-size:14px;}
+
+  @media (max-width:600px){
+    .consent-banner{padding:18px 20px;}
+    .consent-actions{width:100%;}
+    .consent-actions .btn{flex:1 1 0;}
+  }
 
   @media (max-width:600px){
     .hero{padding:76px 0 60px;}
@@ -514,12 +543,53 @@ src="https://www.facebook.com/tr?id=1809916830386915&ev=PageView&noscript=1"
 <footer>
   <div class="wrap footer-inner">
     <span>© 2026 Onyx.AI — Marvin Weiß-Drumm, Landau in der Pfalz</span>
-    <a href="https://calendly.com/onyx-ai/30min" target="_blank" rel="noopener">Termin buchen</a>
+    <div style="display:flex; gap:16px; align-items:center;">
+      <button type="button" class="cookie-settings-link" id="cookie-settings-btn">Cookie-Einstellungen</button>
+      <a href="https://calendly.com/onyx-ai/30min" target="_blank" rel="noopener">Termin buchen</a>
+    </div>
   </div>
 </footer>
 
+<div class="consent-banner" id="consent-banner" hidden>
+  <div class="consent-inner">
+    <p class="consent-text">
+      Diese Seite nutzt <strong>Cookies für Werbe-Tracking (Meta Pixel)</strong>,
+      damit wir sehen, welche Anzeigen funktionieren. Ohne deine Zustimmung
+      wird kein Pixel geladen — die Seite funktioniert in jedem Fall.
+    </p>
+    <div class="consent-actions">
+      <button type="button" class="btn btn-secondary btn-sm" id="consent-decline">Ablehnen</button>
+      <button type="button" class="btn btn-primary btn-sm" id="consent-accept">Akzeptieren</button>
+    </div>
+  </div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+  var banner = document.getElementById('consent-banner');
+  var consent = localStorage.getItem('onyx_consent');
+
+  if (consent === 'granted') {
+    enableMetaPixel();
+  } else if (consent !== 'denied') {
+    banner.hidden = false;
+  }
+
+  document.getElementById('consent-accept').addEventListener('click', function () {
+    localStorage.setItem('onyx_consent', 'granted');
+    banner.hidden = true;
+    enableMetaPixel();
+  });
+
+  document.getElementById('consent-decline').addEventListener('click', function () {
+    localStorage.setItem('onyx_consent', 'denied');
+    banner.hidden = true;
+  });
+
+  document.getElementById('cookie-settings-btn').addEventListener('click', function () {
+    banner.hidden = false;
+  });
+
   document.querySelectorAll('a[href^="https://wa.me/"], a[href^="https://calendly.com/"]').forEach(function (el) {
     el.addEventListener('click', function () {
       if (typeof fbq === 'function') fbq('track', 'Lead');
