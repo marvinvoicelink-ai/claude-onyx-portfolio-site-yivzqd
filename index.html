@@ -116,10 +116,12 @@ function enableMetaPixel(){
   .nav-links{display:flex; align-items:center; gap:22px;}
   .nav-link{
     font-family:'IBM Plex Mono', monospace;
-    font-size:13px; color:var(--warm-grey-dim);
-    transition:color .2s ease;
+    font-size:13px; color:var(--warm-grey);
+    border-bottom:1px solid var(--hairline);
+    padding-bottom:2px;
+    transition:color .2s ease, border-color .2s ease;
   }
-  .nav-link:hover{color:var(--amber);}
+  .nav-link:hover{color:var(--amber); border-color:var(--amber);}
   @media (max-width:560px){
     .nav-link{display:none;}
   }
