@@ -209,6 +209,11 @@
     margin-bottom:20px;
   }
   .ref-card h3{font-size:1.4rem; margin-bottom:14px;}
+  .ref-video{
+    border-radius:10px; overflow:hidden; border:1px solid rgba(232,163,61,0.22);
+    margin-bottom:18px; background:#000; aspect-ratio:1280/828;
+  }
+  .ref-video video{width:100%; height:100%; display:block; object-fit:cover;}
   .ref-card p{color:var(--warm-grey-dim); font-size:0.98rem; line-height:1.7;}
   .ref-card p + p{margin-top:12px;}
   .ref-card .ref-foot{
@@ -402,6 +407,11 @@
         <div class="ref-card">
           <span class="ref-tag">Referenz · gebaut &amp; übergeben</span>
           <h3>HausManager Pro</h3>
+          <div class="ref-video">
+            <video controls preload="none" playsinline poster="assets/hausmanager-poster.jpg">
+              <source src="assets/hausmanager-demo.mp4" type="video/mp4">
+            </video>
+          </div>
           <p>
             Gebaut für Hausverwaltungen. Ein komplettes CRM, von Grund auf
             entwickelt und übergeben.
