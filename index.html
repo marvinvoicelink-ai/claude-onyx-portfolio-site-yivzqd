@@ -325,6 +325,97 @@ function enableMetaPixel(){
     border-top:1px solid var(--hairline); margin-top:26px;
   }
 
+  /* Kundencase — Referenz als Case-Card */
+  .case-study{
+    display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;
+  }
+  @media (max-width:900px){
+    .case-study{grid-template-columns:1fr; gap:40px;}
+  }
+  .case-logo{font-size:1.5rem; margin-bottom:22px;}
+  .case-desc{color:var(--warm-grey-dim); font-size:1.02rem; line-height:1.75; margin-bottom:28px;}
+  .case-stats{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:14px;
+    margin-bottom:24px;
+  }
+  @media (max-width:480px){
+    .case-stats{grid-template-columns:1fr;}
+  }
+  .case-stat{
+    border:1px solid rgba(232,163,61,0.3);
+    border-radius:12px;
+    padding:16px 18px;
+    background:var(--near-black-2);
+    display:flex; align-items:flex-start; gap:12px;
+    transition:border-color .22s ease, transform .22s ease;
+  }
+  .case-stat:hover{transform:translateY(-3px); border-color:rgba(232,163,61,0.6);}
+  .case-stat .icon{
+    width:30px; height:30px; border-radius:8px; flex-shrink:0;
+    background:var(--amber-soft);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .case-stat .icon svg{width:15px;height:15px; stroke:var(--amber);}
+  .case-stat strong{display:block; font-size:0.95rem; color:var(--warm-grey); font-weight:700;}
+  .case-stat span{display:block; font-size:0.82rem; color:var(--warm-grey-faint); margin-top:2px; line-height:1.4;}
+  .case-checklist{display:flex; flex-direction:column; gap:10px; margin-bottom:24px;}
+  .case-checklist li{
+    display:flex; align-items:center; gap:10px;
+    font-size:0.95rem; color:var(--warm-grey-dim);
+  }
+  .case-checklist svg{width:16px; height:16px; stroke:var(--amber); flex-shrink:0;}
+  .case-note{
+    display:flex; align-items:center; gap:12px;
+    border:1px solid var(--hairline); border-radius:12px;
+    padding:14px 18px;
+    font-size:0.88rem; color:var(--warm-grey-dim); line-height:1.5;
+  }
+  .case-note .icon{
+    width:30px; height:30px; border-radius:8px; flex-shrink:0;
+    background:var(--amber-soft);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .case-note .icon svg{width:15px;height:15px; stroke:var(--amber);}
+  .case-visual{
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+    min-height:340px;
+    overflow:visible;
+  }
+  .case-ring{
+    position:absolute;
+    top:50%; left:50%;
+    width:460px; height:460px;
+    max-width:calc(100vw - 40px);
+    aspect-ratio:1/1;
+    transform:translate(-56%, -47%) rotate(-10deg);
+    pointer-events:none;
+  }
+  .case-ring::after{
+    content:"";
+    position:absolute; inset:-30px;
+    border-radius:50%;
+    background:radial-gradient(circle at 32% 28%, rgba(232,163,61,0.16), rgba(232,163,61,0) 65%);
+  }
+  .case-ring::before{
+    content:"";
+    position:absolute; inset:0;
+    border-radius:50%;
+    border:5px solid rgba(232,163,61,0.85);
+    -webkit-mask-image:linear-gradient(120deg, black 8%, transparent 42%, transparent 58%, black 92%);
+    mask-image:linear-gradient(120deg, black 8%, transparent 42%, transparent 58%, black 92%);
+    box-shadow:0 0 30px 6px rgba(232,163,61,0.55), 0 0 70px 16px rgba(232,163,61,0.25);
+  }
+  .case-video-wrap{
+    position:relative; z-index:1;
+    width:100%; max-width:320px;
+  }
+  .case-video-wrap .ref-video{margin-bottom:0;}
+  .case-video-wrap .ref-foot{
+    text-align:center; margin-top:14px; padding-top:0; border-top:none;
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--warm-grey-faint);
+  }
+
   /* So läuft's ab — process steps */
   .process-list{
     display:grid; grid-template-columns:repeat(4, 1fr); gap:22px;
@@ -609,9 +700,67 @@ function enableMetaPixel(){
     </div>
   </section>
 
-  <!-- PROBLEM → LÖSUNG -->
+  <!-- REFERENZ / KUNDENCASE -->
   <section class="section-border">
     <span class="section-num" aria-hidden="true">01</span>
+    <div class="wrap">
+      <div class="case-study">
+        <div>
+          <span class="ref-tag">Kundencase · gebaut &amp; übergeben</span>
+          <h3 class="case-logo">HausManager Pro</h3>
+          <h2 style="font-size:clamp(1.5rem, 2.6vw, 2.1rem); margin-bottom:18px;">Vom Excel-Chaos zum eigenen System.</h2>
+          <p class="case-desc">
+            Für eine Hausverwaltung haben wir ein komplettes CRM von
+            Grund auf entwickelt und vollständig übergeben. Kein Produkt
+            zum Kaufen, sondern ein Beispiel dafür, was für dein
+            Unternehmen möglich ist.
+          </p>
+          <div class="case-stats">
+            <div class="case-stat">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M20 6 9 17l-5-5"/></svg></div>
+              <div><strong>Vollständig übergeben</strong><span>Code, Zugänge &amp; Dokumentation</span></div>
+            </div>
+            <div class="case-stat">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+              <div><strong>100&nbsp;% Eigentum</strong><span>Kein Onyx-Zugriff mehr danach</span></div>
+            </div>
+            <div class="case-stat">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6l7-3z"/></svg></div>
+              <div><strong>DSGVO-konform</strong><span>Gehostet in Deutschland, mit AVV</span></div>
+            </div>
+            <div class="case-stat">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg></div>
+              <div><strong>Im Alltag im Einsatz</strong><span>Seit der Übergabe produktiv genutzt</span></div>
+            </div>
+          </div>
+          <ul class="case-checklist">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Individuelle Prozessanalyse &amp; Konzept</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Vollständige Entwicklung im Onyx-Standard</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Übergabe von Code, Zugängen &amp; Doku</li>
+          </ul>
+          <div class="case-note">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M4 19V9M11 19V5M18 19v-7"/></svg></div>
+            <span>Case-Referenz, kein Produkt zum Kaufen — ein Beispiel, was für dein Unternehmen möglich ist.</span>
+          </div>
+        </div>
+        <div class="case-visual">
+          <div class="case-ring" aria-hidden="true"></div>
+          <div class="case-video-wrap">
+            <div class="ref-video">
+              <video controls preload="none" playsinline poster="assets/hausmanager-poster.jpg">
+                <source src="assets/hausmanager-demo.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="ref-foot">HausManager Pro — Onboarding-Ausschnitt</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM → LÖSUNG -->
+  <section class="section-border">
+    <span class="section-num" aria-hidden="true">02</span>
     <div class="wrap">
       <div style="max-width:60ch;margin-bottom:44px;">
         <span class="kicker" style="display:block;margin-bottom:16px;">Problem &rarr; Lösung</span>
@@ -652,7 +801,7 @@ function enableMetaPixel(){
 
   <!-- LEISTUNGSBLOCK -->
   <section class="section-border">
-    <span class="section-num" aria-hidden="true">02</span>
+    <span class="section-num" aria-hidden="true">03</span>
     <div class="wrap">
       <div class="panel" style="max-width:760px;">
         <span class="kicker" style="display:block;margin-bottom:16px;">Was Onyx baut</span>
@@ -732,7 +881,7 @@ function enableMetaPixel(){
 
   <!-- LÖSUNGSBEREICHE -->
   <section class="section-border">
-    <span class="section-num" aria-hidden="true">03</span>
+    <span class="section-num" aria-hidden="true">04</span>
     <div class="wrap">
       <div style="max-width:60ch;margin-bottom:44px;">
         <span class="kicker" style="display:block;margin-bottom:16px;">Lösungsbereiche</span>
@@ -792,7 +941,7 @@ function enableMetaPixel(){
 
   <!-- BRANCHEN -->
   <section class="section-border">
-    <span class="section-num" aria-hidden="true">04</span>
+    <span class="section-num" aria-hidden="true">05</span>
     <div class="wrap">
       <div style="max-width:60ch;margin-bottom:44px;">
         <span class="kicker" style="display:block;margin-bottom:16px;">Für wen wir bauen</span>
@@ -840,32 +989,6 @@ function enableMetaPixel(){
       <p style="margin-top:24px; font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--warm-grey-faint);">
         Beispiele, keine abschließende Liste — passt dein Prozess, passt Onyx.
       </p>
-    </div>
-  </section>
-
-  <!-- REFERENZ -->
-  <section class="section-border">
-    <span class="section-num" aria-hidden="true">05</span>
-    <div class="wrap">
-      <div style="max-width:65ch;margin-bottom:36px;">
-        <span class="ref-tag">Referenz · gebaut &amp; übergeben</span>
-        <h2 style="font-size:clamp(1.5rem, 2.6vw, 2.1rem); margin-top:20px;">So könnte deine Referenz aussehen</h2>
-        <p style="color:var(--warm-grey-dim); font-size:1.05rem; line-height:1.7; margin-top:18px;">
-          HausManager Pro — gebaut für eine Hausverwaltung, ein
-          komplettes CRM von Grund auf entwickelt und vollständig
-          übergeben. Kein Produkt zum Kaufen, sondern ein Beispiel dafür,
-          was für dein Unternehmen möglich ist.
-        </p>
-      </div>
-      <div style="max-width:960px;">
-        <h3 style="margin-bottom:14px;">HausManager Pro</h3>
-        <div class="ref-video">
-          <video controls preload="none" playsinline poster="assets/hausmanager-poster.jpg">
-            <source src="assets/hausmanager-demo.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="ref-foot" style="border-top:none; margin-top:16px; padding-top:0;">Case-Referenz — kein Produkt zum Kaufen</div>
-      </div>
     </div>
   </section>
 
