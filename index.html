@@ -364,6 +364,15 @@ function enableMetaPixel(){
     font-size:0.95rem; color:var(--warm-grey-dim);
   }
   .case-checklist svg{width:16px; height:16px; stroke:var(--amber); flex-shrink:0;}
+
+  /* Problem-Liste — gleiches Muster, gedämpfte Farbe statt amber */
+  .problem-list{display:flex; flex-direction:column; gap:10px; margin-top:6px;}
+  .problem-list li{
+    display:flex; align-items:flex-start; gap:10px;
+    font-size:0.95rem; color:var(--warm-grey-dim); line-height:1.5;
+  }
+  .problem-list svg{width:16px; height:16px; stroke:var(--warm-grey-faint); flex-shrink:0; margin-top:3px;}
+
   .case-note{
     display:flex; align-items:center; gap:12px;
     border:1px solid var(--hairline); border-radius:12px;
@@ -408,7 +417,7 @@ function enableMetaPixel(){
   }
   .case-video-wrap{
     position:relative; z-index:1;
-    width:100%; max-width:320px;
+    width:100%; max-width:380px;
   }
   .case-video-wrap .ref-video{margin-bottom:0;}
   .case-video-wrap .ref-foot{
@@ -700,67 +709,9 @@ function enableMetaPixel(){
     </div>
   </section>
 
-  <!-- REFERENZ / KUNDENCASE -->
-  <section class="section-border">
-    <span class="section-num" aria-hidden="true">01</span>
-    <div class="wrap">
-      <div class="case-study">
-        <div>
-          <span class="ref-tag">Kundencase · gebaut &amp; übergeben</span>
-          <h3 class="case-logo">HausManager Pro</h3>
-          <h2 style="font-size:clamp(1.5rem, 2.6vw, 2.1rem); margin-bottom:18px;">Vom Excel-Chaos zum eigenen System.</h2>
-          <p class="case-desc">
-            Für eine Hausverwaltung haben wir ein komplettes CRM von
-            Grund auf entwickelt und vollständig übergeben. Kein Produkt
-            zum Kaufen, sondern ein Beispiel dafür, was für dein
-            Unternehmen möglich ist.
-          </p>
-          <div class="case-stats">
-            <div class="case-stat">
-              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M20 6 9 17l-5-5"/></svg></div>
-              <div><strong>Vollständig übergeben</strong><span>Code, Zugänge &amp; Dokumentation</span></div>
-            </div>
-            <div class="case-stat">
-              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
-              <div><strong>100&nbsp;% Eigentum</strong><span>Kein Onyx-Zugriff mehr danach</span></div>
-            </div>
-            <div class="case-stat">
-              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6l7-3z"/></svg></div>
-              <div><strong>DSGVO-konform</strong><span>Gehostet in Deutschland, mit AVV</span></div>
-            </div>
-            <div class="case-stat">
-              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg></div>
-              <div><strong>Im Alltag im Einsatz</strong><span>Seit der Übergabe produktiv genutzt</span></div>
-            </div>
-          </div>
-          <ul class="case-checklist">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Individuelle Prozessanalyse &amp; Konzept</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Vollständige Entwicklung im Onyx-Standard</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Übergabe von Code, Zugängen &amp; Doku</li>
-          </ul>
-          <div class="case-note">
-            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M4 19V9M11 19V5M18 19v-7"/></svg></div>
-            <span>Case-Referenz, kein Produkt zum Kaufen — ein Beispiel, was für dein Unternehmen möglich ist.</span>
-          </div>
-        </div>
-        <div class="case-visual">
-          <div class="case-ring" aria-hidden="true"></div>
-          <div class="case-video-wrap">
-            <div class="ref-video">
-              <video controls preload="none" playsinline poster="assets/hausmanager-poster.jpg">
-                <source src="assets/hausmanager-demo.mp4" type="video/mp4">
-              </video>
-            </div>
-            <div class="ref-foot">HausManager Pro — Onboarding-Ausschnitt</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- PROBLEM → LÖSUNG -->
   <section class="section-border">
-    <span class="section-num" aria-hidden="true">02</span>
+    <span class="section-num" aria-hidden="true">01</span>
     <div class="wrap">
       <div style="max-width:60ch;margin-bottom:44px;">
         <span class="kicker" style="display:block;margin-bottom:16px;">Problem &rarr; Lösung</span>
@@ -779,6 +730,12 @@ function enableMetaPixel(){
             Kündigt ein Anbieter den Vertrag oder erhöht die Preise, stehst
             du ohne dein System da. Es war ohnehin nie deins.
           </p>
+          <ul class="problem-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M5 12h14"/></svg> Mehrere Excel-Listen und Tools, die nicht zusammenpassen</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M5 12h14"/></svg> Funktionen fehlen, aber das nächste Preispaket kostet doppelt</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M5 12h14"/></svg> Kundendaten liegen auf fremden Servern, oft außerhalb der EU</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M5 12h14"/></svg> Kündigt der Anbieter oder ändert er die Preise, stehst du ohne Alternative da</li>
+          </ul>
         </div>
 
         <div class="ref-card">
@@ -794,6 +751,11 @@ function enableMetaPixel(){
             Code, Daten, Infrastruktur. Kein Onyx-Branding, kein
             Onyx-Zugriff, kein Abo an uns.
           </p>
+          <ul class="case-checklist" style="margin-top:6px;">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Exakt auf deinen Prozess zugeschnitten</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Code, Daten &amp; Infrastruktur gehören dir</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Kein Onyx-Branding, kein Onyx-Zugriff danach</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -801,11 +763,11 @@ function enableMetaPixel(){
 
   <!-- LEISTUNGSBLOCK -->
   <section class="section-border">
-    <span class="section-num" aria-hidden="true">03</span>
-    <div class="wrap">
-      <div class="panel" style="max-width:760px;">
-        <span class="kicker" style="display:block;margin-bottom:16px;">Was Onyx baut</span>
-        <h2>Maßgeschneiderte Systeme, keine Blackbox</h2>
+    <span class="section-num" aria-hidden="true">02</span>
+    <div class="wrap" style="text-align:center;">
+      <div class="panel" style="max-width:760px; margin:0 auto; text-align:left;">
+        <span class="kicker" style="display:block;margin-bottom:16px; text-align:center;">Was Onyx baut</span>
+        <h2 style="text-align:center;">Maßgeschneiderte Systeme, keine Blackbox</h2>
         <p>
           Onyx baut maßgeschneiderte digitale Systeme für Unternehmen:
           <strong>personalisierte Dashboards, Kundenportale, interne
@@ -873,6 +835,64 @@ function enableMetaPixel(){
             <button type="button" class="owncompare-btn" id="owncompare-next" aria-label="Nächste Karte">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REFERENZ / KUNDENCASE -->
+  <section class="section-border">
+    <span class="section-num" aria-hidden="true">03</span>
+    <div class="wrap">
+      <div class="case-study">
+        <div>
+          <span class="ref-tag">Kundencase · gebaut &amp; übergeben</span>
+          <h3 class="case-logo">HausManager Pro</h3>
+          <h2 style="font-size:clamp(1.5rem, 2.6vw, 2.1rem); margin-bottom:18px;">Vom Excel-Chaos zum eigenen System.</h2>
+          <p class="case-desc">
+            Für eine Hausverwaltung haben wir ein komplettes CRM von
+            Grund auf entwickelt und vollständig übergeben. Kein Produkt
+            zum Kaufen, sondern ein Beispiel dafür, was für dein
+            Unternehmen möglich ist.
+          </p>
+          <div class="case-stats">
+            <div class="case-stat">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M20 6 9 17l-5-5"/></svg></div>
+              <div><strong>Vollständig übergeben</strong><span>Code, Zugänge &amp; Dokumentation</span></div>
+            </div>
+            <div class="case-stat">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+              <div><strong>100&nbsp;% Eigentum</strong><span>Kein Onyx-Zugriff mehr danach</span></div>
+            </div>
+            <div class="case-stat">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6l7-3z"/></svg></div>
+              <div><strong>DSGVO-konform</strong><span>Gehostet in Deutschland, mit AVV</span></div>
+            </div>
+            <div class="case-stat">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg></div>
+              <div><strong>Im Alltag im Einsatz</strong><span>Seit der Übergabe produktiv genutzt</span></div>
+            </div>
+          </div>
+          <ul class="case-checklist">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Individuelle Prozessanalyse &amp; Konzept</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Vollständige Entwicklung im Onyx-Standard</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Übergabe von Code, Zugängen &amp; Doku</li>
+          </ul>
+          <div class="case-note">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M4 19V9M11 19V5M18 19v-7"/></svg></div>
+            <span>Case-Referenz, kein Produkt zum Kaufen — ein Beispiel, was für dein Unternehmen möglich ist.</span>
+          </div>
+        </div>
+        <div class="case-visual">
+          <div class="case-ring" aria-hidden="true"></div>
+          <div class="case-video-wrap">
+            <div class="ref-video">
+              <video controls preload="none" playsinline poster="assets/hausmanager-poster.jpg">
+                <source src="assets/hausmanager-demo.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="ref-foot">HausManager Pro — Onboarding-Ausschnitt</div>
           </div>
         </div>
       </div>
