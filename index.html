@@ -399,6 +399,31 @@ function enableMetaPixel(){
   .solution-item h3{font-size:1.05rem; margin-bottom:8px;}
   .solution-item p{color:var(--warm-grey-dim); font-size:0.95rem; line-height:1.65;}
 
+  /* Branchen */
+  .industries-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:18px;
+  }
+  @media (max-width:960px){
+    .industries-grid{grid-template-columns:repeat(2, 1fr);}
+  }
+  @media (max-width:600px){
+    .industries-grid{grid-template-columns:1fr;}
+  }
+  .industry-item{
+    border:1px solid rgba(232,163,61,0.3);
+    border-radius:14px;
+    padding:22px 20px;
+    background:var(--near-black-2);
+    transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+  }
+  .industry-item:hover{
+    transform:translateY(-4px);
+    border-color:rgba(232,163,61,0.65);
+    box-shadow:0 18px 36px -20px rgba(0,0,0,0.55);
+  }
+  .industry-item h3{font-size:0.98rem; margin-bottom:8px;}
+  .industry-item p{color:var(--warm-grey-dim); font-size:0.88rem; line-height:1.55;}
+
   /* Final CTA band */
   .cta-band{
     text-align:center;
@@ -660,9 +685,62 @@ function enableMetaPixel(){
     </div>
   </section>
 
-  <!-- REFERENZ -->
+  <!-- BRANCHEN -->
   <section class="section-border">
     <span class="section-num" aria-hidden="true">04</span>
+    <div class="wrap">
+      <div style="max-width:60ch;margin-bottom:44px;">
+        <span class="kicker" style="display:block;margin-bottom:16px;">Für wen wir bauen</span>
+        <h2 style="font-size:clamp(1.5rem, 2.6vw, 2.1rem);">Kein Branchen-Fokus. Dein Prozess entscheidet.</h2>
+        <p style="color:var(--warm-grey-dim); font-size:1.05rem; line-height:1.7; margin-top:18px;">
+          Onyx ist nicht auf eine Branche spezialisiert — jedes System wird
+          um deinen konkreten Prozess herum gebaut. Ein paar Beispiele, wo
+          das typischerweise gebraucht wird:
+        </p>
+      </div>
+      <div class="industries-grid">
+        <div class="industry-item">
+          <h3>Handwerk &amp; Bau</h3>
+          <p>Aufträge, Aufmaße und Rechnungen digital statt auf Zetteln.</p>
+        </div>
+        <div class="industry-item">
+          <h3>Hausverwaltung &amp; Immobilien</h3>
+          <p>Eigentümer- und Mieterportale, Wartungsmanagement an einem Ort.</p>
+        </div>
+        <div class="industry-item">
+          <h3>Personaldienstleistung</h3>
+          <p>Bewerber-, Einsatz- und Zeiterfassung statt mehrerer Insellösungen.</p>
+        </div>
+        <div class="industry-item">
+          <h3>Logistik &amp; Spedition</h3>
+          <p>Sendungsverfolgung, Tourenplanung und Lagerbestand live im Blick.</p>
+        </div>
+        <div class="industry-item">
+          <h3>Praxen &amp; Gesundheitswesen</h3>
+          <p>Terminverwaltung und Patientenportale, DSGVO-konform umgesetzt.</p>
+        </div>
+        <div class="industry-item">
+          <h3>Handel &amp; E-Commerce</h3>
+          <p>Bestandsführung und eigene Auswertungen statt Excel-Ketten.</p>
+        </div>
+        <div class="industry-item">
+          <h3>Beratung &amp; Agenturen</h3>
+          <p>Projekt-, Kunden- und Zeiterfassung in einem gemeinsamen System.</p>
+        </div>
+        <div class="industry-item">
+          <h3>Versicherungen &amp; Finanzdienstleister</h3>
+          <p>Kundenportale und Vertragsverwaltung mit klar geregelten Rechten.</p>
+        </div>
+      </div>
+      <p style="margin-top:24px; font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--warm-grey-faint);">
+        Beispiele, keine abschließende Liste — passt dein Prozess, passt Onyx.
+      </p>
+    </div>
+  </section>
+
+  <!-- REFERENZ -->
+  <section class="section-border">
+    <span class="section-num" aria-hidden="true">05</span>
     <div class="wrap">
       <div style="max-width:65ch;margin-bottom:36px;">
         <span class="ref-tag">Referenz · gebaut &amp; übergeben</span>
@@ -688,7 +766,7 @@ function enableMetaPixel(){
 
   <!-- SO LÄUFT'S AB -->
   <section class="section-border">
-    <span class="section-num" aria-hidden="true">05</span>
+    <span class="section-num" aria-hidden="true">06</span>
     <div class="wrap">
       <div style="max-width:60ch;margin-bottom:44px;">
         <span class="kicker" style="display:block;margin-bottom:16px;">So läuft's ab</span>
@@ -721,7 +799,7 @@ function enableMetaPixel(){
 
   <!-- ABGRENZUNG -->
   <section class="differentiate section-border">
-    <span class="section-num" aria-hidden="true">06</span>
+    <span class="section-num" aria-hidden="true">07</span>
     <div class="wrap">
       <div class="head">
         <span class="kicker" style="display:block;margin-bottom:16px;">Abgrenzung</span>
@@ -765,7 +843,7 @@ function enableMetaPixel(){
 
   <!-- FAQ -->
   <section class="section-border">
-    <span class="section-num" aria-hidden="true">07</span>
+    <span class="section-num" aria-hidden="true">08</span>
     <div class="wrap">
       <div style="max-width:60ch;margin-bottom:44px;">
         <span class="kicker" style="display:block;margin-bottom:16px;">Häufige Fragen</span>
@@ -802,7 +880,7 @@ function enableMetaPixel(){
 
   <!-- FINAL CTA BAND -->
   <section class="cta-band">
-    <span class="section-num" aria-hidden="true" style="left:28px; right:auto;">08</span>
+    <span class="section-num" aria-hidden="true" style="left:28px; right:auto;">09</span>
     <div class="wrap">
       <span class="kicker" style="display:block;margin-bottom:16px;">Dein System, dein Eigentum</span>
       <h2>Lass uns dein System besprechen — <span class="accent">direkt, unkompliziert.</span></h2>
