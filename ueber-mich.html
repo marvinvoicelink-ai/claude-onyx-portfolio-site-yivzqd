@@ -210,14 +210,23 @@ function enableMetaPixel(){
   .panel p + p{margin-top:16px;}
   .panel strong{color:var(--warm-grey); font-weight:600;}
 
-  /* Portrait */
-  .portrait-frame{
+  /* Bio text (Über mich, no card wrapper) */
+  .bio-copy h2{font-size:clamp(1.5rem, 2.4vw, 1.9rem); margin-bottom:20px;}
+  .bio-copy p{color:var(--warm-grey-dim); font-size:1.02rem; line-height:1.75;}
+  .bio-copy p + p{margin-top:16px;}
+
+  /* Über mich — top banner strip */
+  .about-banner{
+    width:100%; height:320px;
     border-radius:16px; overflow:hidden;
     border:1px solid rgba(232,163,61,0.22);
     background:var(--near-black-2);
-    min-height:320px;
+    margin-bottom:36px;
   }
-  .portrait-frame img{width:100%; height:100%; object-fit:cover; display:block;}
+  .about-banner img{width:100%; height:100%; object-fit:cover; object-position:center 18%; display:block;}
+  @media (max-width:600px){
+    .about-banner{height:220px; margin-bottom:28px;}
+  }
 
   /* Final CTA band */
   .cta-band{
@@ -334,31 +343,29 @@ function enableMetaPixel(){
   <section class="section-border">
     <span class="section-num" aria-hidden="true">01</span>
     <div class="wrap">
-      <div class="grid-2">
-        <div class="panel">
-          <h2>Ich baue Systeme, keine Folien.</h2>
-          <p>
-            Onyx.AI ist kein Team mit zehn Ansprechpartnern — sondern ich,
-            direkt. Ich entwickle dein System, übergebe es dir vollständig
-            und ziehe mich wieder zurück. Kein Projektmanager dazwischen,
-            keine Warteschleife.
-          </p>
-          <p>
-            Warum White-Label? Weil ich glaube, dass ein Unternehmen seine
-            eigene Software besitzen sollte — nicht mieten. Kein Abo, das
-            plötzlich teurer wird. Keine Blackbox, die ein Fremder
-            kontrolliert. Du bekommst ein System, das zu 100&nbsp;% dir
-            gehört.
-          </p>
-          <p>
-            Landau in der Pfalz ist meine Basis, gearbeitet wird
-            deutschlandweit. Schreibst du mir, antworte ich dir selbst —
-            kein Bot, kein Support-Ticket.
-          </p>
-        </div>
-        <div class="portrait-frame">
-          <img src="assets/marvin-portrait.jpg" alt="Marvin Weiß-Drumm, Gründer von Onyx.AI">
-        </div>
+      <div class="about-banner">
+        <img src="assets/marvin-portrait.jpg" alt="Marvin Weiß-Drumm, Gründer von Onyx.AI">
+      </div>
+      <div class="bio-copy" style="max-width:70ch;">
+        <h2>Ich baue Systeme, keine Folien.</h2>
+        <p>
+          Onyx.AI ist kein Team mit zehn Ansprechpartnern — sondern ich,
+          direkt. Ich entwickle dein System, übergebe es dir vollständig
+          und ziehe mich wieder zurück. Kein Projektmanager dazwischen,
+          keine Warteschleife.
+        </p>
+        <p>
+          Warum White-Label? Weil ich glaube, dass ein Unternehmen seine
+          eigene Software besitzen sollte — nicht mieten. Kein Abo, das
+          plötzlich teurer wird. Keine Blackbox, die ein Fremder
+          kontrolliert. Du bekommst ein System, das zu 100&nbsp;% dir
+          gehört.
+        </p>
+        <p>
+          Landau in der Pfalz ist meine Basis, gearbeitet wird
+          deutschlandweit. Schreibst du mir, antworte ich dir selbst —
+          kein Bot, kein Support-Ticket.
+        </p>
       </div>
     </div>
   </section>
