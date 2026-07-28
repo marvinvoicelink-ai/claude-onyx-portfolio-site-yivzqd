@@ -468,6 +468,25 @@ function enableMetaPixel(){
     font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--warm-grey-faint);
   }
 
+  /* So läuft's ab — Fortschrittsbalken */
+  .steps-bar{
+    position:relative;
+    height:2px;
+    background:var(--hairline);
+    margin-bottom:44px;
+  }
+  .steps-bar-fill{
+    position:absolute; top:0; left:0; height:100%;
+    width:25%;
+    background:var(--amber);
+  }
+  @media (max-width:960px){
+    .steps-bar-fill{width:50%;}
+  }
+  @media (max-width:600px){
+    .steps-bar-fill{width:100%;}
+  }
+
   /* So läuft's ab — process steps */
   .process-list{
     display:grid; grid-template-columns:repeat(4, 1fr); gap:22px;
@@ -1262,6 +1281,7 @@ function enableMetaPixel(){
         <span class="kicker" style="display:block;margin-bottom:16px;">So läuft's ab</span>
         <h2 style="font-size:clamp(1.5rem, 2.6vw, 2.1rem);">Vier Schritte, kein Kleingedrucktes.</h2>
       </div>
+      <div class="steps-bar"><span class="steps-bar-fill"></span></div>
       <div class="process-list">
         <div class="process-item">
           <div class="num">1</div>
