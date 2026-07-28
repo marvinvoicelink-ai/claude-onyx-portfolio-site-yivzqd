@@ -286,6 +286,32 @@ function enableMetaPixel(){
     .owncompare-lead{font-size:1.3rem;}
   }
 
+  /* Beispielrechnung — Mietkosten-Zähler */
+  .savings-stat{
+    margin-top:44px; max-width:820px;
+    border:1px solid rgba(232,163,61,0.3);
+    border-radius:18px;
+    padding:40px 44px;
+    background:var(--near-black-2);
+  }
+  .savings-number{
+    font-family:'Archivo', sans-serif; font-weight:800;
+    font-size:clamp(2.4rem, 6vw, 3.8rem);
+    color:var(--amber);
+    line-height:1;
+    margin-bottom:16px;
+  }
+  .savings-desc{color:var(--warm-grey); font-size:1.02rem; line-height:1.7; max-width:56ch;}
+  .savings-source{
+    margin-top:16px; padding-top:16px;
+    border-top:1px solid var(--hairline);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; color:var(--warm-grey-faint); line-height:1.6;
+  }
+  @media (max-width:600px){
+    .savings-stat{padding:28px 24px;}
+  }
+
   /* Referenz card */
   .ref-card{
     background:linear-gradient(165deg, rgba(232,163,61,0.07), rgba(22,22,22,0) 55%), var(--near-black-2);
@@ -856,6 +882,22 @@ function enableMetaPixel(){
           </button>
         </div>
       </div>
+
+      <div class="savings-stat">
+        <span class="kicker" style="display:block;margin-bottom:14px;">Beispielrechnung</span>
+        <div class="savings-number" id="savings-number" data-target="8820">0&nbsp;€</div>
+        <p class="savings-desc">
+          Was ein gemietetes CRM allein an Software-Kosten über 3 Jahre
+          kostet — Beispiel: 5 Mitarbeiter im Pipedrive-Tarif "Premium"
+          (49&nbsp;€ pro Nutzer/Monat). Ohne Add-ons, Integrationen oder
+          Preiserhöhungen mitgerechnet.
+        </p>
+        <p class="savings-source">
+          Quelle: pipedrive.com/pricing, Stand Juli 2026 · Beispielrechnung,
+          keine Kundendaten · Dein System bei Onyx: einmaliger Festpreis,
+          danach 0&nbsp;€ Abo im Monat.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -1320,6 +1362,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('owncompare-prev').addEventListener('click', function () { ocGoTo(ocIndex - 1); });
     document.getElementById('owncompare-next').addEventListener('click', function () { ocGoTo(ocIndex + 1); });
+  }
+
+  var savingsEl = document.getElementById('savings-number');
+  if (savingsEl && 'IntersectionObserver' in window) {
+    var target = parseInt(savingsEl.getAttribute('data-target'), 10);
+    var animated = false;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !animated) {
+          animated = true;
+          var start = null;
+          var duration = 1400;
+          function step(timestamp) {
+            if (!start) start = timestamp;
+            var progress = Math.min((timestamp - start) / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            var value = Math.round(eased * target);
+            savingsEl.textContent = value.toLocaleString('de-DE') + ' €';
+            if (progress < 1) {
+              requestAnimationFrame(step);
+            }
+          }
+          requestAnimationFrame(step);
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.5 });
+    observer.observe(savingsEl);
   }
 });
 </script>
