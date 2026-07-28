@@ -230,6 +230,61 @@ function enableMetaPixel(){
   .panel p + p{margin-top:16px;}
   .panel strong{color:var(--warm-grey); font-weight:600;}
 
+  /* Besitzen vs. mieten — click-through carousel */
+  .owncompare{margin-top:52px; max-width:760px;}
+  .owncompare-head{font-size:1.15rem; margin-bottom:22px;}
+  .owncompare-viewport{overflow:hidden; border-radius:16px;}
+  .owncompare-track{
+    display:flex;
+    transition:transform .4s ease;
+  }
+  .owncompare-slide{
+    flex:0 0 100%;
+    border:1px solid rgba(232,163,61,0.3);
+    border-radius:16px;
+    padding:32px 34px;
+    background:var(--near-black-2);
+    min-height:168px;
+  }
+  .owncompare-index{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; color:var(--amber);
+    margin-bottom:14px;
+  }
+  .owncompare-lead{
+    font-family:'Archivo', sans-serif; font-weight:700;
+    font-size:1.15rem; color:var(--warm-grey);
+    margin-bottom:10px;
+  }
+  .owncompare-slide p:not(.owncompare-lead){color:var(--warm-grey-dim); font-size:0.98rem; line-height:1.7;}
+  .owncompare-nav{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-top:20px;
+  }
+  .owncompare-btn{
+    width:38px; height:38px; border-radius:50%;
+    border:1px solid var(--hairline);
+    background:transparent;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .owncompare-btn:hover{border-color:var(--amber); transform:translateY(-1px);}
+  .owncompare-btn svg{width:16px; height:16px; stroke:var(--warm-grey);}
+  .owncompare-btn:hover svg{stroke:var(--amber);}
+  .owncompare-dots{display:flex; gap:8px;}
+  .owncompare-dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--hairline);
+    border:none; padding:0; cursor:pointer;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .owncompare-dot.is-active{background:var(--amber); transform:scale(1.3);}
+  @media (max-width:600px){
+    .owncompare-slide{padding:26px 22px; min-height:200px;}
+  }
+
   /* Referenz card */
   .ref-card{
     background:linear-gradient(165deg, rgba(232,163,61,0.07), rgba(22,22,22,0) 55%), var(--near-black-2);
@@ -621,6 +676,56 @@ function enableMetaPixel(){
           Vorgaben. Auf Wunsch integrieren wir auch KI-Agenten, die
           wiederkehrende Aufgaben automatisch für dich erledigen.
         </p>
+        <p>
+          Der Unterschied zu gemieteter Software zeigt sich erst über Zeit:
+          Ein Abo-Tool nutzt sich ab — Preise steigen, Funktionen
+          verschwinden, der Anbieter setzt die Prioritäten, nicht du. Ein
+          eigenes System wird stattdessen mit dir größer. Es kostet dich
+          einmal, gehört danach dir, und wächst genau in die Richtung, die
+          dein Unternehmen braucht.
+        </p>
+
+        <div class="owncompare">
+          <h3 class="owncompare-head">Warum besitzen besser ist als mieten</h3>
+          <div class="owncompare-viewport">
+            <div class="owncompare-track" id="owncompare-track">
+              <div class="owncompare-slide">
+                <span class="owncompare-index">01 / 05</span>
+                <p class="owncompare-lead">Du zahlst einmal, nicht endlos.</p>
+                <p>Ein Abo-Tool kostet dich jeden Monat neu. Auf ein paar Jahre gerechnet zahlst du oft ein Vielfaches eines Festpreises — und besitzt am Ende trotzdem nichts.</p>
+              </div>
+              <div class="owncompare-slide">
+                <span class="owncompare-index">02 / 05</span>
+                <p class="owncompare-lead">Es passt sich dir an, nicht umgekehrt.</p>
+                <p>Standard-Software zwingt dich, deinen Prozess an ihre Vorlage anzupassen. Dein System wird um deinen Prozess herum gebaut — nicht umgekehrt.</p>
+              </div>
+              <div class="owncompare-slide">
+                <span class="owncompare-index">03 / 05</span>
+                <p class="owncompare-lead">Niemand schaltet es für dich ab.</p>
+                <p>Ändert ein SaaS-Anbieter Preise, Funktionen oder stellt den Dienst ein, hast du keine Wahl. Dein System läuft, solange du willst — auf deiner eigenen Infrastruktur.</p>
+              </div>
+              <div class="owncompare-slide">
+                <span class="owncompare-index">04 / 05</span>
+                <p class="owncompare-lead">Deine Daten bleiben bei dir.</p>
+                <p>Bei gemieteten Tools liegen deine Kundendaten auf fremden Servern. Du hostest selbst, DSGVO-konform, mit AVV — die Daten verlassen dein Unternehmen nie.</p>
+              </div>
+              <div class="owncompare-slide">
+                <span class="owncompare-index">05 / 05</span>
+                <p class="owncompare-lead">Es wächst mit dir mit.</p>
+                <p>Wächst dein Unternehmen, wächst dein System mit — ohne auf ein teureres Preispaket zu warten oder ein Modul zu kaufen, das es vielleicht gar nicht gibt.</p>
+              </div>
+            </div>
+          </div>
+          <div class="owncompare-nav">
+            <button type="button" class="owncompare-btn" id="owncompare-prev" aria-label="Vorherige Karte">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="owncompare-dots" id="owncompare-dots"></div>
+            <button type="button" class="owncompare-btn" id="owncompare-next" aria-label="Nächste Karte">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -972,6 +1077,33 @@ document.addEventListener('DOMContentLoaded', function () {
       if (typeof fbq === 'function') fbq('track', 'Lead');
     });
   });
+
+  var ocTrack = document.getElementById('owncompare-track');
+  if (ocTrack) {
+    var ocSlides = ocTrack.querySelectorAll('.owncompare-slide');
+    var ocDotsWrap = document.getElementById('owncompare-dots');
+    var ocIndex = 0;
+
+    ocSlides.forEach(function (_, i) {
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'owncompare-dot' + (i === 0 ? ' is-active' : '');
+      dot.setAttribute('aria-label', 'Karte ' + (i + 1));
+      dot.addEventListener('click', function () { ocGoTo(i); });
+      ocDotsWrap.appendChild(dot);
+    });
+
+    function ocGoTo(i) {
+      ocIndex = (i + ocSlides.length) % ocSlides.length;
+      ocTrack.style.transform = 'translateX(-' + (ocIndex * 100) + '%)';
+      ocDotsWrap.querySelectorAll('.owncompare-dot').forEach(function (d, di) {
+        d.classList.toggle('is-active', di === ocIndex);
+      });
+    }
+
+    document.getElementById('owncompare-prev').addEventListener('click', function () { ocGoTo(ocIndex - 1); });
+    document.getElementById('owncompare-next').addEventListener('click', function () { ocGoTo(ocIndex + 1); });
+  }
 });
 </script>
 
