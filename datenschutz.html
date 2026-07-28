@@ -310,13 +310,17 @@ function enableMetaPixel(){
       <h2>6. Calendly (Terminbuchung)</h2>
       <p>
         Für die Terminbuchung nutzen wir den externen Dienst
-        <strong>Calendly</strong> (Calendly LLC, USA). Wenn du über
-        einen "Termin buchen"-Button einen Termin auswählst, verarbeitet
+        <strong>Calendly</strong> (Calendly LLC, USA). Mit deiner
+        Cookie-Einwilligung öffnet sich ein "Termin buchen"-Button als
+        eingebettetes Calendly-Fenster direkt auf dieser Seite; dabei
+        lädt dein Browser Skripte und Inhalte von Calendly nach, wodurch
+        deine IP-Adresse an Calendly übermittelt wird. Ohne Einwilligung
+        öffnet sich Calendly stattdessen als gewöhnlicher externer Link
+        in einem neuen Tab. Wählst du einen Termin aus, verarbeitet
         Calendly die von dir eingegebenen Daten (z. B. Name, E-Mail,
         Terminwunsch) eigenständig und nach eigener
-        Datenschutzerklärung. Diese Datenverarbeitung findet auf der
-        Website von Calendly statt, außerhalb unseres Einflussbereichs.
-        Siehe die
+        Datenschutzerklärung, außerhalb unseres Einflussbereichs. Siehe
+        die
         <a href="https://calendly.com/privacy" target="_blank" rel="noopener">Datenschutzerklärung von Calendly</a>.
       </p>
 
@@ -365,10 +369,12 @@ function enableMetaPixel(){
 <div class="consent-banner" id="consent-banner" hidden>
   <div class="consent-inner">
     <p class="consent-text">
-      Diese Seite nutzt <strong>Cookies für Werbe-Tracking (Meta Pixel)</strong>,
-      damit wir sehen, welche Anzeigen funktionieren. Ohne deine Zustimmung
-      wird kein Pixel geladen — die Seite funktioniert in jedem Fall. Details
-      dazu in der <a href="datenschutz.html" style="color:var(--amber);">Datenschutzerklärung</a>.
+      Diese Seite nutzt <strong>Cookies für Werbe-Tracking (Meta Pixel)</strong>
+      und lädt die <strong>Calendly-Terminbuchung</strong> als eingebettetes
+      Widget, damit wir sehen, welche Anzeigen funktionieren. Ohne deine
+      Zustimmung wird kein Pixel geladen und Calendly öffnet stattdessen
+      als normaler externer Link — die Seite funktioniert in jedem Fall.
+      Details dazu in der <a href="datenschutz.html" style="color:var(--amber);">Datenschutzerklärung</a>.
     </p>
     <div class="consent-actions">
       <button type="button" class="btn btn-secondary btn-sm" id="consent-decline">Ablehnen</button>
@@ -403,9 +409,63 @@ document.addEventListener('DOMContentLoaded', function () {
     banner.hidden = false;
   });
 
-  document.querySelectorAll('a[href^="https://wa.me/"], a[href^="https://calendly.com/"]').forEach(function (el) {
+  // WhatsApp: Lead erst, wenn der Tab nach dem Klick wirklich in den
+  // Hintergrund geht — bestaetigt echte Navigation statt nur Klick.
+  document.querySelectorAll('a[href^="https://wa.me/"]').forEach(function (el) {
     el.addEventListener('click', function () {
-      if (typeof fbq === 'function') fbq('track', 'Lead');
+      var fired = false;
+      function onVisibilityChange() {
+        if (fired || !document.hidden) return;
+        fired = true;
+        if (typeof fbq === 'function') fbq('track', 'Lead');
+        document.removeEventListener('visibilitychange', onVisibilityChange);
+      }
+      document.addEventListener('visibilitychange', onVisibilityChange);
+      setTimeout(function () {
+        document.removeEventListener('visibilitychange', onVisibilityChange);
+      }, 3000);
+    });
+  });
+
+  // Calendly: als Popup-Widget einbetten (nur nach Einwilligung) und Lead
+  // erst bei echter Terminbuchung (calendly.event_scheduled) feuern.
+  var calendlyAssetsLoaded = false;
+  function loadCalendlyAssets(callback) {
+    if (calendlyAssetsLoaded) { callback(); return; }
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://assets.calendly.com/assets/external/widget.css';
+    document.head.appendChild(link);
+
+    var script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    script.onload = function () {
+      calendlyAssetsLoaded = true;
+      callback();
+    };
+    document.head.appendChild(script);
+  }
+
+  window.addEventListener('message', function (e) {
+    if (!e.data || typeof e.data.event !== 'string' || e.data.event.indexOf('calendly.') !== 0) return;
+    if (e.data.event === 'calendly.event_scheduled' && typeof fbq === 'function') {
+      fbq('track', 'Lead');
+    }
+  });
+
+  document.querySelectorAll('a[href^="https://calendly.com/"]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      if (localStorage.getItem('onyx_consent') !== 'granted') return;
+      e.preventDefault();
+      var url = el.getAttribute('href');
+      loadCalendlyAssets(function () {
+        if (window.Calendly) {
+          Calendly.initPopupWidget({ url: url });
+        } else {
+          window.open(url, '_blank', 'noopener');
+        }
+      });
     });
   });
 });
