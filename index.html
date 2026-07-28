@@ -477,14 +477,16 @@ function enableMetaPixel(){
   }
   .steps-bar-fill{
     position:absolute; top:0; left:0; height:100%;
-    width:25%;
+    width:0;
     background:var(--amber);
+    transition:width .5s ease-out;
   }
+  .steps-bar-fill.is-filled{width:25%;}
   @media (max-width:960px){
-    .steps-bar-fill{width:50%;}
+    .steps-bar-fill.is-filled{width:50%;}
   }
   @media (max-width:600px){
-    .steps-bar-fill{width:100%;}
+    .steps-bar-fill.is-filled{width:100%;}
   }
 
   /* So läuft's ab — process steps */
@@ -1639,6 +1641,20 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }, { threshold: 0.5 });
     observer.observe(savingsEl);
+  }
+
+  var stepsBarFill = document.querySelector('.steps-bar-fill');
+  if (stepsBarFill && 'IntersectionObserver' in window) {
+    var stepsBar = document.querySelector('.steps-bar');
+    var stepsBarObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          stepsBarFill.classList.add('is-filled');
+          stepsBarObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.5 });
+    stepsBarObserver.observe(stepsBar);
   }
 });
 </script>
