@@ -474,19 +474,20 @@ function enableMetaPixel(){
     height:2px;
     background:var(--hairline);
     margin-bottom:44px;
+    overflow:hidden;
   }
   .steps-bar-fill{
-    position:absolute; top:0; left:0; height:100%;
-    width:0;
+    position:absolute; top:0; left:-25%; height:100%;
+    width:25%;
     background:var(--amber);
-    transition:width .5s ease-out;
+    animation:steps-sweep 2.2s linear infinite;
   }
-  .steps-bar-fill.is-filled{width:25%;}
-  @media (max-width:960px){
-    .steps-bar-fill.is-filled{width:50%;}
+  @keyframes steps-sweep{
+    0%{left:-25%;}
+    100%{left:100%;}
   }
-  @media (max-width:600px){
-    .steps-bar-fill.is-filled{width:100%;}
+  @media (prefers-reduced-motion:reduce){
+    .steps-bar-fill{animation:none; left:0;}
   }
 
   /* So läuft's ab — process steps */
@@ -1641,20 +1642,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }, { threshold: 0.5 });
     observer.observe(savingsEl);
-  }
-
-  var stepsBarFill = document.querySelector('.steps-bar-fill');
-  if (stepsBarFill && 'IntersectionObserver' in window) {
-    var stepsBar = document.querySelector('.steps-bar');
-    var stepsBarObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          stepsBarFill.classList.add('is-filled');
-          stepsBarObserver.disconnect();
-        }
-      });
-    }, { threshold: 0.5 });
-    stepsBarObserver.observe(stepsBar);
   }
 });
 </script>
