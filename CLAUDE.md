@@ -3,17 +3,20 @@
 ## Kunde
 Onyx.AI (Marvin Weiß-Drumm, Einzelunternehmen, Landau in der Pfalz). Eigene
 Portfolio-/Marketing-Site. Ziel: White-Label-Leistung (maßgeschneiderte
-Systeme, gebaut & übergeben) als Kern-Angebot klar kommunizieren und direkten
-Kontakt (WhatsApp zum Gründer, E-Mail) erzeugen.
+Systeme, gebaut & übergeben) als Kern-Angebot klar kommunizieren und direkten,
+zuverlässig trackbaren Kontakt erzeugen (Kontaktformular als Haupt-CTA,
+WhatsApp/Calendly/E-Mail als sekundäre Kontaktwege).
 
 ## Phase
 Phase 1: Statisch, kein 3D, keine Scroll-Effekte. Live-Kriterium: Beim
 ersten Scroll ist eindeutig erkennbar, was Onyx anbietet (White-Label-Systeme,
-gebaut & übergeben) und wie man Kontakt aufnimmt (WhatsApp/E-Mail).
+gebaut & übergeben) und wie man Kontakt aufnimmt (Formular/WhatsApp/E-Mail).
 
 ## Stack
 Statisches Single-File-HTML (eingebettetes CSS/JS, kein Build-Schritt) ·
-Deploy: Vercel (keine personenbezogenen Kundendaten, kein Formular-Backend)
+Deploy: Netlify (Netlify Forms für das Kontaktformular, kein eigenes
+Backend/Server-Code; Formulardaten — Name, E-Mail, Nachricht — werden bei
+Netlify verarbeitet, siehe Datenschutzerklärung)
 
 ## Design-Tokens
 Farben: Near-Black `#111111` (Hintergrund) · Amber `#E8A33D` (Akzent/CTA) ·
@@ -35,15 +38,26 @@ hostet selbst, nicht dass Onyx einen gebrandeten Link hostet.
 HausManager Pro ist Referenz/Beweis eines gebauten Systems, kein Produkt zum
 Kaufen.
 
+## Kontakt & Tracking
+Kontaktformular (Netlify Forms) ist der primäre CTA seitenweit — einzige
+Möglichkeit, den Meta-Pixel-Lead-Event zuverlässig bei tatsächlichem
+Kontaktabschluss auszulösen (fetch-Submit, Lead feuert erst bei erfolgreicher
+Antwort von Netlify, nicht beim Klick). Grund: WhatsApp-Klicks lassen sich
+technisch nicht bis zum "Nachricht abgeschickt"-Zeitpunkt zurückverfolgen
+(kein Callback von WhatsApp an die Website) — das führte zu falsch hohen
+Lead-Zahlen im Werbeanzeigenmanager. WhatsApp und Calendly bleiben als
+sekundäre, schnelle Kontaktwege bestehen (Calendly hat mit
+`calendly.event_scheduled` ein eigenes zuverlässiges Completion-Event).
+
 ## Nicht-Ziele (Scope-Grenze)
 - Kein 3D, keine Scroll-Choreografie, keine WebGL-Effekte in Phase 1
-- Kein Kontaktformular / Backend — Kontakt ausschließlich über WhatsApp-Link
-  und mailto-Link
 - Keine weiteren Leistungs-Sections (Automatisierung, Voice-Agenten, Shop-UI)
   in Phase 1 — Fokus ausschließlich auf White-Label als Kern-Angebot
 - Kein CMS/Framework-Unterbau — einfache statische HTML-Datei bleibt Ziel
+- Kein eigenes Formular-Backend/Server-Code — Netlify Forms übernimmt das
+  Auffangen der Submits, keine zusätzliche Infrastruktur
 
 ## Status / Nächster Schritt
 White-Label-Section (Hero, Leistungsblock, Referenz-Card, Abgrenzung, CTAs)
-als index.html gebaut. Nächster Schritt: Review durch Marvin, dann Deploy auf
-Vercel unter onyx-ai.de.
+als index.html gebaut, live auf Netlify unter onyx-ai.de. Kontaktformular
+(Netlify Forms) als Haupt-CTA ergänzt für zuverlässiges Lead-Tracking.
