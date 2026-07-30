@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 const diffs = [
   "Kein CRM von der Stange — dein System wird nach deinem Prozess gebaut, nicht umgekehrt.",
   "Du besitzt Code und Daten — vollständig.",
@@ -29,23 +27,6 @@ export default function DifferentiationSection() {
           herum — mit genau den Funktionen, die dein Geschäft braucht, ohne
           den Ballast, den es nicht braucht.
         </p>
-
-        <div className="flex items-center gap-3.5 mb-12">
-          <Image
-            src="/assets/marvin-portrait.jpg"
-            alt="Marvin Weiß-Drumm, Gründer von Onyx.AI"
-            width={52}
-            height={52}
-            className="rounded-full object-cover"
-            style={{ border: "1px solid rgba(232,163,61,0.45)", boxShadow: "0 0 20px -6px rgba(232,163,61,0.4)" }}
-          />
-          <div>
-            <div style={{ fontSize: 14, fontWeight: 600 }}>Marvin Weiß-Drumm</div>
-            <div className="mono" style={{ fontSize: 11.5, color: "var(--warm-grey-faint)", marginTop: 2 }}>
-              Gründer, Onyx.AI
-            </div>
-          </div>
-        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {diffs.map((d, i) => (

@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import HeroScene, { ScrollProgressRef } from "./HeroScene";
+import type { ScrollProgressRef } from "./HeroScene";
+
+const HeroScene = dynamic(() => import("./HeroScene"), { ssr: false });
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,13 +14,20 @@ export default function Hero() {
   const pinRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<ScrollProgressRef>({ current: 0 });
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(mq.matches);
-    if (mq.matches) {
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mobileQuery = window.matchMedia("(max-width: 767px)");
+    setReducedMotion(motionQuery.matches);
+    setIsMobile(mobileQuery.matches);
+
+    // The scroll-scrubbed 3D scene is positioned for wide viewports — on
+    // narrow screens there's no space beside the text for it to live, so it
+    // skips straight to a lightweight static fallback instead of overlapping.
+    if (motionQuery.matches || mobileQuery.matches) {
       progressRef.current.current = 1;
       return;
     }
@@ -47,7 +57,25 @@ export default function Hero() {
       style={{ borderColor: "var(--hairline)" }}
     >
       <div className="absolute inset-0">
-        {mounted && <HeroScene progressRef={progressRef.current} />}
+        {mounted && !isMobile && !reducedMotion && (
+          <HeroScene progressRef={progressRef.current} />
+        )}
+        {mounted && (isMobile || reducedMotion) && (
+          <div
+            aria-hidden
+            className="absolute"
+            style={{
+              width: "70vw",
+              height: "70vw",
+              maxWidth: 420,
+              maxHeight: 420,
+              right: "-20%",
+              bottom: "-15%",
+              background:
+                "radial-gradient(circle, rgba(232,163,61,0.16) 0%, rgba(232,163,61,0) 70%)",
+            }}
+          />
+        )}
       </div>
 
       <div className="relative z-10 h-full flex items-center pointer-events-none">
@@ -74,7 +102,7 @@ export default function Hero() {
                   boxShadow: "0 0 8px 1px rgba(232,163,61,0.6)",
                 }}
               />
-              Kein Bot, kein Kundenservice-Team — der Gründer antwortet selbst
+              Kein Bot — der Gründer antwortet selbst
             </div>
 
             <span
