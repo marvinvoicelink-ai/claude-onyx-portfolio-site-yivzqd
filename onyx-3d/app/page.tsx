@@ -1,21 +1,27 @@
 import SmoothScroll from "@/components/SmoothScroll";
 import Hero from "@/components/Hero";
+import ProblemSection from "@/components/ProblemSection";
+import BlueprintSection from "@/components/BlueprintSection";
+import CaseStudySection from "@/components/CaseStudySection";
+import SolutionsSection from "@/components/SolutionsSection";
+import IndustriesSection from "@/components/IndustriesSection";
+import DifferentiationSection from "@/components/DifferentiationSection";
+import FAQSection from "@/components/FAQSection";
+import ContactSection from "@/components/ContactSection";
 
 export default function Home() {
   return (
     <SmoothScroll>
       <main>
         <Hero />
-        <section
-          className="py-24"
-          style={{ borderTop: "1px solid var(--hairline)" }}
-        >
-          <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
-            <p style={{ color: "var(--warm-grey-dim)" }}>
-              Weitere Sektionen folgen hier.
-            </p>
-          </div>
-        </section>
+        <ProblemSection />
+        <BlueprintSection />
+        <CaseStudySection />
+        <SolutionsSection />
+        <IndustriesSection />
+        <DifferentiationSection />
+        <FAQSection />
+        <ContactSection />
       </main>
     </SmoothScroll>
   );
