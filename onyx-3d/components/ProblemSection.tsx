@@ -39,6 +39,7 @@ const problems = [
       </svg>
     ),
     mock: "servers",
+    image: "/generated/problem-servers.webp",
   },
   {
     num: "04",
