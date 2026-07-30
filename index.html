@@ -165,23 +165,39 @@ function enableMetaPixel(){
 
   /* ---------- Hero (first scroll) ---------- */
   .hero{
-    padding:96px 0 84px;
+    padding:88px 0 84px;
     border-bottom:1px solid var(--hairline);
     position:relative;
     overflow:hidden;
   }
-  .hero::before{
-    content:"";
-    position:absolute; top:-120px; right:-160px;
-    width:520px; height:520px; border-radius:50%;
-    background:radial-gradient(circle, rgba(232,163,61,0.10) 0%, rgba(232,163,61,0) 70%);
-    pointer-events:none;
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:56px;
+    align-items:center;
+  }
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr; gap:40px;}
+  }
+  .hero-badge{
+    display:inline-flex; align-items:center; gap:9px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.02em;
+    color:var(--warm-grey-dim);
+    border:1px solid var(--hairline);
+    background:rgba(245,242,236,0.03);
+    padding:8px 15px; border-radius:999px;
+    margin-bottom:26px;
+  }
+  .hero-badge .dot{
+    width:6px; height:6px; border-radius:50%; background:var(--amber);
+    box-shadow:0 0 8px 1px rgba(232,163,61,0.6); flex-shrink:0;
   }
   .hero .kicker{margin-bottom:22px; display:block;}
   .hero h1{
-    font-size:clamp(2.4rem, 5.2vw, 4.1rem);
+    font-size:clamp(2.4rem, 4.4vw, 3.7rem);
     line-height:1.06;
-    max-width:14ch;
+    max-width:15ch;
   }
   .hero .subline{
     margin-top:26px;
@@ -191,12 +207,49 @@ function enableMetaPixel(){
     line-height:1.65;
   }
   .hero .cta-row{margin-top:38px;}
-  .hero .founder-note{
-    margin-top:16px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12.5px;
-    color:var(--warm-grey-faint);
-    letter-spacing:0.02em;
+
+  /* Hero visual — real workspace shot + glowing product mockup */
+  .hero-visual{
+    position:relative;
+    border-radius:20px;
+    overflow:hidden;
+    border:1px solid var(--hairline);
+    aspect-ratio:15/16;
+    background:#0c0c0c;
+  }
+  .hero-visual .hero-bg{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; filter:brightness(0.92) saturate(1.05);
+  }
+  .hero-visual::after{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      linear-gradient(200deg, rgba(17,17,17,0) 45%, rgba(17,17,17,0.92) 92%),
+      linear-gradient(0deg, rgba(17,17,17,0.35), rgba(17,17,17,0) 38%);
+    pointer-events:none;
+  }
+  .hero-mockup{
+    position:absolute; left:7%; right:7%; bottom:7%;
+    border-radius:12px; overflow:hidden;
+    border:1px solid rgba(232,163,61,0.55);
+    box-shadow:0 0 0 1px rgba(232,163,61,0.12), 0 24px 60px -20px rgba(0,0,0,0.65), 0 0 46px -10px rgba(232,163,61,0.4);
+    background:#000;
+  }
+  .hero-mockup-bar{
+    display:flex; gap:6px; padding:9px 11px;
+    background:#161616; border-bottom:1px solid rgba(232,163,61,0.2);
+  }
+  .hero-mockup-bar span{width:8px; height:8px; border-radius:50%; background:rgba(245,242,236,0.22);}
+  .hero-mockup img{width:100%; display:block;}
+  .hero-mockup-tag{
+    position:absolute; top:12px; right:12px; z-index:2;
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.04em;
+    color:var(--amber); background:rgba(17,17,17,0.75);
+    border:1px solid rgba(232,163,61,0.4); padding:5px 10px; border-radius:999px;
+  }
+  @media (max-width:900px){
+    .hero-visual{aspect-ratio:16/12;}
   }
 
   /* ---------- Section shell ---------- */
@@ -488,6 +541,16 @@ function enableMetaPixel(){
   }
   @media (prefers-reduced-motion:reduce){
     .steps-bar-fill{animation:none; left:0;}
+  }
+
+  /* Subtle scroll-reveal — sections fade/slide in once, no scroll-linked choreography */
+  .reveal{
+    opacity:0; transform:translateY(20px);
+    transition:opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1);
+  }
+  .reveal.is-visible{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
   }
 
   /* So läuft's ab — process steps */
@@ -833,31 +896,43 @@ function enableMetaPixel(){
   <section class="hero">
     <div class="wrap">
       <span class="section-num" aria-hidden="true">00</span>
-      <span class="kicker">White-Label-Systeme · Bauen &amp; übergeben</span>
-      <h1>Wir bauen dir dein eigenes System.<br><span class="accent">Du besitzt es.</span></h1>
-      <p class="subline">
-        Personalisierte Dashboards, Portale und Automatisierungen im
-        White-Label — fertig gebaut, an dich übergeben, auf deiner
-        Infrastruktur, unter deiner Marke.
-      </p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#kontakt">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 6h16v12H4z" fill="none"/>
-            <path d="m4 7 8 6 8-6"/>
-          </svg>
-          Jetzt Kontakt aufnehmen
-        </a>
-        <a class="btn btn-secondary" href="https://calendly.com/onyx-ai/30min" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3.5" y="5" width="17" height="16" rx="2.2"/>
-            <path d="M8 3v4M16 3v4M3.5 10h17"/>
-            <path d="m8.5 14 1.8 1.8L14.5 12"/>
-          </svg>
-          30 Min. Termin buchen
-        </a>
+      <div class="hero-grid">
+        <div>
+          <div class="hero-badge"><span class="dot"></span>Kein Bot, kein Kundenservice-Team — der Gründer antwortet selbst</div>
+          <span class="kicker">White-Label-Systeme · Bauen &amp; übergeben</span>
+          <h1>Wir bauen dir dein eigenes System.<br><span class="accent">Du besitzt es.</span></h1>
+          <p class="subline">
+            Personalisierte Dashboards, Portale und Automatisierungen im
+            White-Label — fertig gebaut, an dich übergeben, auf deiner
+            Infrastruktur, unter deiner Marke.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#kontakt">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6h16v12H4z" fill="none"/>
+                <path d="m4 7 8 6 8-6"/>
+              </svg>
+              Jetzt Kontakt aufnehmen
+            </a>
+            <a class="btn btn-secondary" href="https://calendly.com/onyx-ai/30min" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3.5" y="5" width="17" height="16" rx="2.2"/>
+                <path d="M8 3v4M16 3v4M3.5 10h17"/>
+                <path d="m8.5 14 1.8 1.8L14.5 12"/>
+              </svg>
+              30 Min. Termin buchen
+            </a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img class="hero-bg" src="https://d8j0ntlcm91z4.cloudfront.net/user_3HBoEs2QcqcOHjJctJSKe1petMX/hf_20260730_094808_b40f1886-fd26-4daf-a044-7a05839862d6.png" alt="" aria-hidden="true">
+          <span class="hero-mockup-tag">HausManager Pro — Live-Referenz</span>
+          <div class="hero-mockup">
+            <div class="hero-mockup-bar"><span></span><span></span><span></span></div>
+            <img src="assets/hausmanager-poster.jpg" alt="HausManager Pro Dashboard, gebaut von Onyx.AI">
+          </div>
+        </div>
       </div>
-      <p class="founder-note">Kein Bot, kein Kundenservice-Team — der Gründer antwortet selbst.</p>
     </div>
   </section>
 
@@ -1741,6 +1816,23 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }, { threshold: 0.5 });
     observer.observe(savingsEl);
+  }
+
+  // Sanftes Einblenden der Sektionen beim Scrollen — einmalig, kein Choreografie-Loop
+  if ('IntersectionObserver' in window) {
+    var revealTargets = document.querySelectorAll('section > .wrap, .hero-visual');
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    revealTargets.forEach(function (el) {
+      el.classList.add('reveal');
+      revealObserver.observe(el);
+    });
   }
 
   // Kontaktformular (Netlify Forms) — Lead feuert erst nach bestaetigter
