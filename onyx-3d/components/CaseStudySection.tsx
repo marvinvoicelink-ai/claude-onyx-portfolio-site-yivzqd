@@ -61,7 +61,7 @@ export default function CaseStudySection() {
               {/* Spotlight glow ring behind the case-study mockup */}
               <div
                 aria-hidden
-                className="absolute"
+                className="absolute ring-pulse"
                 style={{ width: 520, height: 520, maxWidth: "100%" }}
               >
                 <Image
