@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const stats = [
   { label: "Vollständig übergeben", sub: "Code, Zugänge & Dokumentation" },
   { label: "100 % Eigentum", sub: "Kein Onyx-Zugriff mehr danach" },
@@ -73,26 +75,17 @@ export default function CaseStudySection() {
             {/* Spotlight glow ring behind the case-study mockup */}
             <div
               aria-hidden
-              className="absolute rounded-full"
-              style={{
-                width: 440,
-                height: 440,
-                background:
-                  "radial-gradient(circle, rgba(232,163,61,0.22) 0%, rgba(232,163,61,0) 70%)",
-                filter: "blur(2px)",
-              }}
-            />
-            <div
-              aria-hidden
-              className="absolute rounded-full"
-              style={{
-                width: 380,
-                height: 380,
-                border: "2px solid rgba(232,163,61,0.5)",
-                boxShadow:
-                  "0 0 40px 6px rgba(232,163,61,0.35), 0 0 90px 20px rgba(232,163,61,0.15)",
-              }}
-            />
+              className="absolute"
+              style={{ width: 640, height: 640, maxWidth: "115%" }}
+            >
+              <Image
+                src="/generated/case-study-ring.webp"
+                alt=""
+                fill
+                sizes="460px"
+                style={{ objectFit: "contain" }}
+              />
+            </div>
             <div
               className="relative rounded-xl overflow-hidden"
               style={{
