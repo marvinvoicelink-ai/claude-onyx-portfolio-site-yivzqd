@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const problems = [
   {
     num: "01",
@@ -11,6 +13,7 @@ const problems = [
       </svg>
     ),
     mock: "tools",
+    image: "/generated/problem-tools.webp",
   },
   {
     num: "02",
@@ -49,6 +52,7 @@ const problems = [
       </svg>
     ),
     mock: "lock",
+    image: "/generated/problem-lock.webp",
   },
 ];
 
@@ -179,7 +183,13 @@ export default function ProblemSection() {
               <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.95rem", marginBottom: 18 }}>
                 {p.desc}
               </p>
-              <Mock type={p.mock} />
+              {p.image ? (
+                <div className="relative rounded-[10px] overflow-hidden" style={{ height: 150, border: "1px solid rgba(232,163,61,0.25)" }}>
+                  <Image src={p.image} alt="" fill sizes="440px" style={{ objectFit: "cover" }} />
+                </div>
+              ) : (
+                <Mock type={p.mock} />
+              )}
             </div>
           ))}
         </div>
