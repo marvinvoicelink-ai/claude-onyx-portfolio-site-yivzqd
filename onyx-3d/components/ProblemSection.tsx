@@ -26,6 +26,7 @@ const problems = [
       </svg>
     ),
     mock: "pricing",
+    image: "/generated/problem-pricing.webp",
   },
   {
     num: "03",
