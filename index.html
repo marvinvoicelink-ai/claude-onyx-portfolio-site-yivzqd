@@ -40,8 +40,12 @@ function enableMetaPixel(){
   html{background:var(--near-black); scroll-behavior:smooth; overflow-x:hidden; touch-action:pan-y;}
   body{
     background-color:var(--near-black);
-    background-image:radial-gradient(ellipse 1200px 700px at 50% 0%, rgba(245,242,236,0.035), transparent 70%);
-    background-repeat:no-repeat;
+    background-image:
+      linear-gradient(rgba(245,242,236,0.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,242,236,0.028) 1px, transparent 1px),
+      radial-gradient(ellipse 1200px 700px at 50% 0%, rgba(245,242,236,0.035), transparent 70%);
+    background-size:34px 34px, 34px 34px, 100% 100%;
+    background-repeat:repeat, repeat, no-repeat;
     color:var(--warm-grey);
     font-family:'Instrument Sans', sans-serif;
     font-size:17px;
@@ -68,6 +72,30 @@ function enableMetaPixel(){
   @media (max-width:700px){
     .section-num{font-size:2.6rem; top:32px; right:20px; -webkit-text-stroke:1.2px rgba(232,163,61,0.28);}
   }
+
+  /* Blueprint motifs — sheet tag, dimension-line divider, registration-mark plate */
+  .sheet-tag{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--amber);
+    display:inline-flex; align-items:center; gap:8px; margin-bottom:16px;
+  }
+  .sheet-tag::before{content:"§"; color:var(--amber); opacity:0.7;}
+  .dim-line{
+    display:flex; align-items:center; gap:10px;
+    color:var(--warm-grey-faint); font-family:'IBM Plex Mono', monospace; font-size:11px;
+    margin:14px 0 26px;
+  }
+  .dim-line::before, .dim-line::after{content:""; flex:1; height:1px; background:var(--hairline);}
+  .plate{
+    position:relative;
+  }
+  .plate .cm-tl, .plate .cm-tr, .plate .cm-bl, .plate .cm-br{
+    position:absolute; width:14px; height:14px; border-color:var(--amber); border-style:solid; pointer-events:none;
+  }
+  .plate .cm-tl{top:-1px; left:-1px; border-width:2px 0 0 2px;}
+  .plate .cm-tr{top:-1px; right:-1px; border-width:2px 2px 0 0;}
+  .plate .cm-bl{bottom:-1px; left:-1px; border-width:0 0 2px 2px;}
+  .plate .cm-br{bottom:-1px; right:-1px; border-width:0 2px 2px 0;}
 
   .wrap{max-width:var(--max);margin:0 auto;padding:0 28px;}
 
@@ -877,7 +905,8 @@ function enableMetaPixel(){
       <div class="hero-grid">
         <div>
           <div class="hero-badge"><span class="dot"></span>Kein Bot, kein Kundenservice-Team — der Gründer antwortet selbst</div>
-          <span class="kicker">White-Label-Systeme · Bauen &amp; übergeben</span>
+          <span class="sheet-tag">Blatt 00 / Entwurf</span>
+          <span class="kicker" style="display:block;">White-Label-Systeme · Bauen &amp; übergeben</span>
           <h1>Wir bauen dir dein eigenes System.<br><span class="accent">Du besitzt es.</span></h1>
           <p class="subline">
             Personalisierte Dashboards, Portale und Automatisierungen im
