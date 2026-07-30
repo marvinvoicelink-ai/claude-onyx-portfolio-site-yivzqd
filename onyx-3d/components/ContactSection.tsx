@@ -17,9 +17,16 @@ export default function ContactSection() {
     const data = new FormData(form);
     if (data.get("bot-field")) return;
 
+    const encoded = new URLSearchParams();
+    data.forEach((value, key) => encoded.append(key, String(value)));
+
     setStatus("sending");
     try {
-      const res = await fetch("/api/contact", { method: "POST", body: data });
+      const res = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encoded.toString(),
+      });
       if (res.ok) {
         setStatus("ok");
         form.reset();
@@ -53,7 +60,14 @@ export default function ContactSection() {
           antwortet selbst, kein Bot, keine Warteschlange.
         </p>
 
-        <form onSubmit={handleSubmit}>
+        <form
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+          onSubmit={handleSubmit}
+        >
+          <input type="hidden" name="form-name" value="contact" />
           <p style={{ position: "absolute", left: -9999 }}>
             <label>
               Nicht ausfüllen: <input name="bot-field" tabIndex={-1} autoComplete="off" />
