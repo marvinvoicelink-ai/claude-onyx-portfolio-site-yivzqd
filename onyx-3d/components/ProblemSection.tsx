@@ -201,18 +201,12 @@ export default function ProblemSection() {
           >
             <Image
               src="/generated/chaos-to-portal.webp"
-              alt="Viele einzelne Tools und Excel-Listen verschmelzen zu einem einzigen, aufgeräumten Portal"
+              alt="Aus Tool-Chaos wird ein System. Eins, das du besitzt."
               width={1600}
-              height={894}
+              height={903}
               className="w-full h-auto block"
             />
           </div>
-          <p
-            className="mono mt-4"
-            style={{ fontSize: 13, color: "var(--warm-grey-faint)", textAlign: "center" }}
-          >
-            Aus Tool-Chaos wird ein System — eins, das du besitzt.
-          </p>
         </div>
       </div>
     </section>
