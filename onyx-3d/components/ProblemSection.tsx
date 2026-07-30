@@ -184,8 +184,15 @@ export default function ProblemSection() {
                 {p.desc}
               </p>
               {p.image ? (
-                <div className="relative rounded-[10px] overflow-hidden" style={{ height: 150, border: "1px solid rgba(232,163,61,0.25)" }}>
-                  <Image src={p.image} alt="" fill sizes="440px" style={{ objectFit: "cover" }} />
+                <div className="rounded-[10px] overflow-hidden" style={{ border: "1px solid rgba(232,163,61,0.25)", background: "#0c0c0c" }}>
+                  <Image
+                    src={p.image}
+                    alt=""
+                    width={900}
+                    height={675}
+                    sizes="440px"
+                    className="w-full h-auto block"
+                  />
                 </div>
               ) : (
                 <Mock type={p.mock} />
