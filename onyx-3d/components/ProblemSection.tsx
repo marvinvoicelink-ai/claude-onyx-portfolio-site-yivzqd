@@ -193,6 +193,27 @@ export default function ProblemSection() {
             </div>
           ))}
         </div>
+
+        <div className="mt-14">
+          <div
+            className="relative rounded-2xl overflow-hidden"
+            style={{ border: "1px solid var(--hairline)" }}
+          >
+            <Image
+              src="/generated/chaos-to-portal.webp"
+              alt="Viele einzelne Tools und Excel-Listen verschmelzen zu einem einzigen, aufgeräumten Portal"
+              width={1600}
+              height={894}
+              className="w-full h-auto block"
+            />
+          </div>
+          <p
+            className="mono mt-4"
+            style={{ fontSize: 13, color: "var(--warm-grey-faint)", textAlign: "center" }}
+          >
+            Aus Tool-Chaos wird ein System — eins, das du besitzt.
+          </p>
+        </div>
       </div>
     </section>
   );
