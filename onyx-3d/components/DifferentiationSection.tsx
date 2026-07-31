@@ -1,8 +1,10 @@
+import Image from "next/image";
+
 const diffs = [
-  "Kein CRM von der Stange — dein System wird nach deinem Prozess gebaut, nicht umgekehrt.",
-  "Du besitzt Code und Daten — vollständig.",
-  "Du hostest auf deiner eigenen Infrastruktur.",
-  "Nach der Übergabe bist du unabhängig. Kein Lock-in.",
+  { image: "/generated/diff-01.webp", alt: "Kein CRM von der Stange. Dein System wird nach deinem Prozess gebaut." },
+  { image: "/generated/diff-02.webp", alt: "Volles Eigentum. Du besitzt Code und Daten - vollständig." },
+  { image: "/generated/diff-03.webp", alt: "Deine Infrastruktur. Du hostest auf deinem eigenen Server." },
+  { image: "/generated/diff-04.webp", alt: "Kein Lock-in. Nach der Übergabe bist du unabhängig." },
 ];
 
 export default function DifferentiationSection() {
@@ -20,7 +22,7 @@ export default function DifferentiationSection() {
           <br />
           Deine Regeln.
         </h2>
-        <p style={{ color: "var(--warm-grey-dim)", maxWidth: "56ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 18 }}>
+        <p style={{ color: "var(--warm-grey-dim)", maxWidth: "56ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 32 }}>
           Wir sind keine 08/15-CRM-Firma, die dir ein fertiges Produkt
           verkauft und erwartet, dass du deine Prozesse daran anpasst. Bei
           uns ist es umgekehrt: Wir bauen dein System um deinen Prozess
@@ -29,16 +31,19 @@ export default function DifferentiationSection() {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {diffs.map((d, i) => (
+          {diffs.map((d) => (
             <div
-              key={d}
-              className="flex gap-4 rounded-2xl p-7"
+              key={d.image}
+              className="rounded-2xl overflow-hidden"
               style={{ border: "1px solid rgba(232,163,61,0.3)", background: "var(--near-black-2)" }}
             >
-              <span className="mono" style={{ fontSize: 13, color: "var(--amber)", paddingTop: 2 }}>
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <p style={{ fontSize: "1rem", color: "var(--warm-grey)", fontWeight: 500, lineHeight: 1.55 }}>{d}</p>
+              <Image
+                src={d.image}
+                alt={d.alt}
+                width={1200}
+                height={900}
+                className="w-full h-auto block"
+              />
             </div>
           ))}
         </div>
