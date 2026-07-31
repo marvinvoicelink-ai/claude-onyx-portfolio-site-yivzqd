@@ -2,6 +2,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import Hero from "@/components/Hero";
 import ProblemSection from "@/components/ProblemSection";
 import BlueprintSection from "@/components/BlueprintSection";
+import ExplainerSection from "@/components/ExplainerSection";
 import CaseStudySection from "@/components/CaseStudySection";
 import MidFormSection from "@/components/MidFormSection";
 import SolutionsSection from "@/components/SolutionsSection";
@@ -23,10 +24,10 @@ export default function Home() {
           sub="Lass uns in einem kurzen Gespräch klären, was für dich der größte Hebel wäre."
         />
         <BlueprintSection />
+        <ExplainerSection />
         <CaseStudySection />
         <MidFormSection />
         <SolutionsSection />
-        <IndustriesSection />
         <CTABanner
           heading="Dein System, gebaut für genau dein Geschäft."
           sub="Kein Baukasten, kein Abo — ein System, das dir gehört."
