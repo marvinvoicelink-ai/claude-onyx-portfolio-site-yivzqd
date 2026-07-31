@@ -9,7 +9,7 @@ const faqs = [
   },
   {
     q: "Muss ich technisch versiert sein?",
-    a: "Nein. Du beschreibst deinen Prozess, ich übersetze ihn in ein System — mit verständlicher Dokumentation zur Übergabe.",
+    a: "Nein. Du beschreibst deinen Prozess und wir übersetzen ihn in ein System — mit verständlicher Dokumentation zur Übergabe.",
   },
   {
     q: "Ist mein System DSGVO-konform?",

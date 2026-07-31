@@ -3,7 +3,7 @@ import Image from "next/image";
 const kpis = [
   { value: "20+", label: "Std./Monat gespart", sub: "Weniger manueller Aufwand im Tagesgeschäft" },
   { value: "1 statt 5–6", label: "Tools im Einsatz", sub: "Ein System ersetzt mehrere Abos" },
-  { value: "500 €", label: "Ersparnis/Monat", sub: "≈ 6.000 € gesparte Tool-Kosten im Jahr" },
+  { value: "Mehrere hundert €", label: "Ersparnis/Monat", sub: "Deutlich weniger Tool-Kosten im Jahr" },
 ];
 
 export default function CaseStudySection() {
