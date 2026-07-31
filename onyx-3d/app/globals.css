@@ -71,3 +71,45 @@ a {
     animation: none;
   }
 }
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee-scroll 32s linear infinite;
+}
+
+@keyframes chip-glow {
+  0%,
+  100% {
+    border-color: var(--hairline);
+    color: var(--warm-grey-faint);
+    box-shadow: none;
+  }
+  50% {
+    border-color: rgba(232, 163, 61, 0.7);
+    color: var(--amber);
+    box-shadow: 0 0 22px -4px rgba(232, 163, 61, 0.55);
+  }
+}
+
+.chip-glow {
+  animation: chip-glow 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  .chip-glow {
+    animation: none;
+    border-color: rgba(232, 163, 61, 0.4) !important;
+    color: var(--warm-grey) !important;
+  }
+}
