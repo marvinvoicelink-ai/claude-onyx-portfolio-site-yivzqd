@@ -27,13 +27,13 @@ export default function ExplainerSection() {
         </p>
       </div>
 
-      <div className="mx-auto px-7" style={{ maxWidth: 480, marginTop: 80 }}>
+      <div className="mx-auto px-7" style={{ maxWidth: 480, marginTop: 200 }}>
         <div className="relative flex items-center justify-center" style={{ minHeight: 60 }}>
           {/* Higgsfield light-burst behind the explainer video — distinct from the case-study ring */}
           <div
             aria-hidden
             className="ring-pulse absolute"
-            style={{ width: 400, height: 400, maxWidth: "70vw", maxHeight: "70vw" }}
+            style={{ width: 640, height: 640, maxWidth: "92vw", maxHeight: "92vw" }}
           >
             <Image
               src="/generated/explainer-burst.webp"
