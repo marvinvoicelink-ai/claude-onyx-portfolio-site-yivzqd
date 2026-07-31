@@ -27,7 +27,7 @@ export default function ExplainerSection() {
         </p>
       </div>
 
-      <div className="mx-auto px-7" style={{ maxWidth: 680, marginTop: 24 }}>
+      <div className="mx-auto px-7" style={{ maxWidth: 480, marginTop: 80 }}>
         <div className="relative flex items-center justify-center" style={{ minHeight: 60 }}>
           {/* Higgsfield light-burst behind the explainer video — distinct from the case-study ring */}
           <div
