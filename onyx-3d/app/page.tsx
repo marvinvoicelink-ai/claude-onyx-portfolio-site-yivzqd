@@ -16,6 +16,7 @@ export default function Home() {
     <SmoothScroll>
       <main>
         <Hero />
+        <IndustriesSection />
         <ProblemSection />
         <CTABanner
           heading="Erkennst du dein Unternehmen in diesen Problemen wieder?"

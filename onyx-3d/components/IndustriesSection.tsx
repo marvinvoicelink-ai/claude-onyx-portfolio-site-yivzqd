@@ -14,10 +14,9 @@ function Chip({ label, delay }: { label: string; delay: number }) {
     <span
       className="chip-glow mono inline-flex items-center rounded-full px-5 py-2.5 mx-2.5"
       style={{
-        fontSize: 13.5,
+        fontSize: 14.5,
         whiteSpace: "nowrap",
-        border: "1px solid var(--hairline)",
-        color: "var(--warm-grey-faint)",
+        border: "1px solid transparent",
         animationDelay: `${delay}s`,
       }}
     >

@@ -88,18 +88,24 @@ a {
 @keyframes chip-glow {
   0%,
   100% {
-    border-color: var(--hairline);
-    color: var(--warm-grey-faint);
+    border-color: rgba(232, 163, 61, 0.35);
+    color: var(--warm-grey);
     box-shadow: none;
+    background: transparent;
   }
-  50% {
-    border-color: rgba(232, 163, 61, 0.7);
+  35%,
+  65% {
+    border-color: rgba(232, 163, 61, 0.95);
     color: var(--amber);
-    box-shadow: 0 0 22px -4px rgba(232, 163, 61, 0.55);
+    background: rgba(232, 163, 61, 0.1);
+    box-shadow:
+      0 0 12px 2px rgba(232, 163, 61, 0.8),
+      0 0 48px 10px rgba(232, 163, 61, 0.5);
   }
 }
 
 .chip-glow {
+  font-weight: 600;
   animation: chip-glow 6s ease-in-out infinite;
 }
 
