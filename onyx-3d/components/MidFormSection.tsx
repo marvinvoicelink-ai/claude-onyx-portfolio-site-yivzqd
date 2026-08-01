@@ -44,7 +44,7 @@ export default function MidFormSection() {
       <div className="mx-auto px-7" style={{ maxWidth: 720 }}>
         <div
           className="rounded-2xl p-8 md:p-10 text-center"
-          style={{ border: "1px solid rgba(232,163,61,0.3)", background: "var(--near-black-2)" }}
+          style={{ background: "var(--near-black-2)" }}
         >
           <h2 style={{ fontSize: "clamp(1.5rem, 3.2vw, 2rem)", marginBottom: 10 }}>
             Bereit für dein eigenes System?

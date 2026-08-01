@@ -16,7 +16,6 @@ export default function CTABanner({
         <div
           className="rounded-2xl px-8 py-10 md:px-12 md:py-12 flex flex-col md:flex-row items-center justify-between gap-6"
           style={{
-            border: "1px solid rgba(232,163,61,0.3)",
             background:
               "linear-gradient(135deg, var(--near-black-2) 0%, var(--near-black) 100%)",
           }}

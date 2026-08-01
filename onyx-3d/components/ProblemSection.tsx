@@ -62,7 +62,6 @@ function Mock({ type }: { type: string }) {
   const wrapStyle: React.CSSProperties = {
     borderRadius: 10,
     background: "#0c0c0c",
-    border: "1px solid rgba(232,163,61,0.25)",
     padding: 16,
     height: 150,
     display: "flex",
@@ -155,7 +154,6 @@ export default function ProblemSection() {
               className="rounded-2xl p-7"
               style={{
                 background: "var(--near-black-2)",
-                border: "1px solid rgba(232,163,61,0.28)",
                 boxShadow: "0 0 40px -20px rgba(232,163,61,0.25)",
               }}
             >
@@ -186,7 +184,7 @@ export default function ProblemSection() {
                 {p.desc}
               </p>
               {p.image ? (
-                <div className="rounded-[10px] overflow-hidden" style={{ border: "1px solid rgba(232,163,61,0.25)", background: "#0c0c0c" }}>
+                <div className="rounded-[10px] overflow-hidden" style={{ background: "#0c0c0c" }}>
                   <Image
                     src={p.image}
                     alt=""
@@ -204,10 +202,7 @@ export default function ProblemSection() {
         </div>
 
         <div className="mt-14">
-          <div
-            className="relative rounded-2xl overflow-hidden"
-            style={{ border: "1px solid var(--hairline)" }}
-          >
+          <div className="relative rounded-2xl overflow-hidden">
             <Image
               src="/generated/chaos-to-portal.webp"
               alt="Aus Tool-Chaos wird ein System. Eins, das du besitzt."

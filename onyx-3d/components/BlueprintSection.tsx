@@ -40,7 +40,7 @@ export default function BlueprintSection() {
 
         <div
           className="relative rounded-2xl overflow-hidden"
-          style={{ border: "1px solid var(--hairline)", maxWidth: 820 }}
+          style={{ maxWidth: 820 }}
         >
           <Image
             src="/generated/system-blueprint.png"

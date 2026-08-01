@@ -61,7 +61,6 @@ export default function ExplainerSection() {
             <div
               className="relative rounded-xl overflow-hidden w-full"
               style={{
-                border: "1px solid rgba(232,163,61,0.55)",
                 background: "#000",
               }}
             >

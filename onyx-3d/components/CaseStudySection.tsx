@@ -12,7 +12,7 @@ export default function CaseStudySection() {
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
           className="rounded-2xl p-6 md:p-10"
-          style={{ background: "var(--near-black-2)", border: "1px solid rgba(232,163,61,0.3)" }}
+          style={{ background: "var(--near-black-2)" }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-10">
             <div>
@@ -77,7 +77,6 @@ export default function CaseStudySection() {
                 style={{
                   width: "100%",
                   maxWidth: 440,
-                  border: "1px solid rgba(232,163,61,0.55)",
                   boxShadow: "0 24px 60px -20px rgba(0,0,0,0.65)",
                   background: "#000",
                 }}
