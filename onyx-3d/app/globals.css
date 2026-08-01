@@ -66,8 +66,23 @@ a {
   animation: ring-pulse 4.5s ease-in-out infinite;
 }
 
+@keyframes dot-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 10px 2px rgba(232, 163, 61, 0.55), 0 0 22px 6px rgba(232, 163, 61, 0.22);
+  }
+  50% {
+    box-shadow: 0 0 20px 6px rgba(232, 163, 61, 1), 0 0 54px 18px rgba(232, 163, 61, 0.65);
+  }
+}
+
+.dot-glow {
+  animation: dot-glow 2.2s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .ring-pulse {
+  .ring-pulse,
+  .dot-glow {
     animation: none;
   }
 }

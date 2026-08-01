@@ -6,11 +6,11 @@ const steps: { label: string; align: "top" | "bottom" }[] = [
   { label: "Go-Live", align: "top" },
 ];
 
-function Dot() {
+function Dot({ delay = 0 }: { delay?: number }) {
   return (
     <span
       aria-hidden
-      className="ring-pulse"
+      className="dot-glow"
       style={{
         position: "relative",
         display: "block",
@@ -19,7 +19,7 @@ function Dot() {
         borderRadius: "50%",
         border: "2px solid var(--amber)",
         background: "var(--near-black)",
-        boxShadow: "0 0 14px 3px rgba(232,163,61,0.8), 0 0 34px 10px rgba(232,163,61,0.35)",
+        animationDelay: `${delay}s`,
       }}
     >
       <span
@@ -80,7 +80,7 @@ export default function RoadmapSection() {
             }}
           />
           <div className="relative flex h-full">
-            {steps.map((s) => (
+            {steps.map((s, i) => (
               <div key={s.label} className="relative flex-1 flex items-center justify-center">
                 {s.align === "top" && (
                   <div
@@ -98,7 +98,7 @@ export default function RoadmapSection() {
                     <div style={{ width: 1, height: 26, background: "rgba(232,163,61,0.5)" }} />
                   </div>
                 )}
-                <Dot />
+                <Dot delay={i * 0.35} />
                 {s.align === "bottom" && (
                   <div
                     style={{
@@ -130,7 +130,7 @@ export default function RoadmapSection() {
                   style={{ position: "absolute", left: 9, top: 22, bottom: -10, width: 2, background: "rgba(232,163,61,0.4)" }}
                 />
               )}
-              <Dot />
+              <Dot delay={i * 0.35} />
               <StepLabel label={s.label} />
             </div>
           ))}
