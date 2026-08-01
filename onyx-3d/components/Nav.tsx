@@ -1,4 +1,5 @@
 import Link from "next/link";
+import MobileNav from "./MobileNav";
 
 export default function Nav() {
   return (
@@ -28,31 +29,35 @@ export default function Nav() {
           ONYX.<span style={{ color: "var(--amber)" }}>AI</span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-6 mono" style={{ fontSize: 13 }}>
-          <Link href="/angebot" style={{ color: "#ffffff" }}>
-            Angebot
-          </Link>
-          <Link href="/referenzen" style={{ color: "#ffffff" }}>
-            Referenzen
-          </Link>
-          <Link href="/faq" style={{ color: "#ffffff" }}>
-            FAQ
-          </Link>
-          <Link href="/ueber-mich" style={{ color: "#ffffff" }}>
-            Über mich
-          </Link>
-          <Link href="/kontakt" style={{ color: "#ffffff" }}>
-            Kontakt
-          </Link>
-        </nav>
+        <div className="flex items-center gap-4">
+          <nav className="hidden md:flex items-center gap-6 mono" style={{ fontSize: 13 }}>
+            <Link href="/angebot" style={{ color: "#ffffff" }}>
+              Angebot
+            </Link>
+            <Link href="/referenzen" style={{ color: "#ffffff" }}>
+              Referenzen
+            </Link>
+            <Link href="/faq" style={{ color: "#ffffff" }}>
+              FAQ
+            </Link>
+            <Link href="/ueber-mich" style={{ color: "#ffffff" }}>
+              Über mich
+            </Link>
+            <Link href="/kontakt" style={{ color: "#ffffff" }}>
+              Kontakt
+            </Link>
+          </nav>
 
-        <Link
-          href="/kontakt"
-          className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold"
-          style={{ background: "var(--amber)", color: "#161104", fontSize: 13.5 }}
-        >
-          Kontakt aufnehmen
-        </Link>
+          <Link
+            href="/kontakt"
+            className="hidden md:inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold whitespace-nowrap"
+            style={{ background: "var(--amber)", color: "#161104", fontSize: 13.5 }}
+          >
+            Kontakt aufnehmen
+          </Link>
+
+          <MobileNav />
+        </div>
       </div>
     </header>
   );

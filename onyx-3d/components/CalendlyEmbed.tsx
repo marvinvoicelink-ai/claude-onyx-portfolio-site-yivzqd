@@ -19,6 +19,12 @@ export default function CalendlyEmbed() {
 
   useEffect(() => {
     if (localStorage.getItem("onyx_consent") === "granted") setGranted(true);
+
+    function onConsentChanged() {
+      if (localStorage.getItem("onyx_consent") === "granted") setGranted(true);
+    }
+    window.addEventListener("onyx-consent-changed", onConsentChanged);
+    return () => window.removeEventListener("onyx-consent-changed", onConsentChanged);
   }, []);
 
   useEffect(() => {

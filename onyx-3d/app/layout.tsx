@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Archivo, Instrument_Sans, IBM_Plex_Mono } from "next/font/google";
 import Nav from "@/components/Nav";
+import CookieConsent from "@/components/CookieConsent";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -40,6 +41,7 @@ export default function RootLayout({
       <body>
         <Nav />
         {children}
+        <CookieConsent />
       </body>
     </html>
   );

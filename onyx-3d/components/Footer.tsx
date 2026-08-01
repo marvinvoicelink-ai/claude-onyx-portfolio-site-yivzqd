@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 export default function Footer() {
@@ -11,6 +13,13 @@ export default function Footer() {
         <div className="flex flex-wrap items-center gap-4">
           <Link href="/impressum">Impressum</Link>
           <Link href="/datenschutz">Datenschutz</Link>
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event("onyx-open-cookie-settings"))}
+            style={{ background: "none", border: "none", padding: 0, font: "inherit", color: "inherit", cursor: "pointer" }}
+          >
+            Cookie-Einstellungen
+          </button>
           <a href="https://calendly.com/onyx-ai/30min" target="_blank" rel="noopener">
             Termin buchen
           </a>
