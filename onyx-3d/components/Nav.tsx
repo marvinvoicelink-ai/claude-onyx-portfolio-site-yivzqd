@@ -31,6 +31,9 @@ export default function Nav() {
 
         <div className="flex items-center gap-4">
           <nav className="hidden md:flex items-center gap-6 mono" style={{ fontSize: 13 }}>
+            <Link href="/" style={{ color: "#ffffff" }}>
+              Startseite
+            </Link>
             <Link href="/angebot" style={{ color: "#ffffff" }}>
               Angebot
             </Link>
