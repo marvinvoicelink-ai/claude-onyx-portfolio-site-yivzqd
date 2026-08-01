@@ -32,16 +32,18 @@ export default function SolutionsSection() {
           {solutions.map((s) => (
             <div
               key={s.image}
-              className="rounded-2xl overflow-hidden"
-              style={{ background: "var(--near-black-2)" }}
+              className="rounded-2xl"
+              style={{ boxShadow: "0 0 40px -20px rgba(232,163,61,0.25)" }}
             >
-              <Image
-                src={s.image}
-                alt={s.alt}
-                width={1200}
-                height={900}
-                className="w-full h-auto block"
-              />
+              <div className="rounded-2xl overflow-hidden" style={{ background: "var(--near-black-2)" }}>
+                <Image
+                  src={s.image}
+                  alt={s.alt}
+                  width={1200}
+                  height={900}
+                  className="w-full h-auto block"
+                />
+              </div>
             </div>
           ))}
         </div>

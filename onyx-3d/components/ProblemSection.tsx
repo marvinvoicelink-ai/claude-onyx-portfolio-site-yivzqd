@@ -202,14 +202,16 @@ export default function ProblemSection() {
         </div>
 
         <div className="mt-14">
-          <div className="relative rounded-2xl overflow-hidden">
-            <Image
-              src="/generated/chaos-to-portal.webp"
-              alt="Aus Tool-Chaos wird ein System. Eins, das du besitzt."
-              width={1600}
-              height={903}
-              className="w-full h-auto block"
-            />
+          <div className="relative rounded-2xl" style={{ boxShadow: "0 0 40px -20px rgba(232,163,61,0.25)" }}>
+            <div className="relative rounded-2xl overflow-hidden">
+              <Image
+                src="/generated/chaos-to-portal.webp"
+                alt="Aus Tool-Chaos wird ein System. Eins, das du besitzt."
+                width={1600}
+                height={903}
+                className="w-full h-auto block"
+              />
+            </div>
           </div>
         </div>
       </div>

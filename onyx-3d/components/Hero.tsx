@@ -53,8 +53,7 @@ export default function Hero() {
   return (
     <section
       ref={pinRef}
-      className="relative h-screen overflow-hidden border-b"
-      style={{ borderColor: "var(--hairline)" }}
+      className="relative h-screen overflow-hidden"
     >
       <div className="absolute inset-0">
         {mounted && !isMobile && !reducedMotion && (

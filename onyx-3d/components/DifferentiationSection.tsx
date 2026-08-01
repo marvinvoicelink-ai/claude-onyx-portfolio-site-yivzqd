@@ -34,16 +34,18 @@ export default function DifferentiationSection() {
           {diffs.map((d) => (
             <div
               key={d.image}
-              className="rounded-2xl overflow-hidden"
-              style={{ background: "var(--near-black-2)" }}
+              className="rounded-2xl"
+              style={{ boxShadow: "0 0 40px -20px rgba(232,163,61,0.25)" }}
             >
-              <Image
-                src={d.image}
-                alt={d.alt}
-                width={1200}
-                height={900}
-                className="w-full h-auto block"
-              />
+              <div className="rounded-2xl overflow-hidden" style={{ background: "var(--near-black-2)" }}>
+                <Image
+                  src={d.image}
+                  alt={d.alt}
+                  width={1200}
+                  height={900}
+                  className="w-full h-auto block"
+                />
+              </div>
             </div>
           ))}
         </div>
