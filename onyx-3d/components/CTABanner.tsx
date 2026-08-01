@@ -11,7 +11,7 @@ export default function CTABanner({
   buttonText?: string;
 }) {
   return (
-    <section className="py-16" style={{ borderTop: "1px solid var(--hairline)" }}>
+    <section className="py-10">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
           className="rounded-2xl px-8 py-10 md:px-12 md:py-12 flex flex-col md:flex-row items-center justify-between gap-6"

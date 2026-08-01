@@ -40,7 +40,7 @@ export default function MidFormSection() {
   }
 
   return (
-    <section className="py-24" style={{ borderTop: "1px solid var(--hairline)" }}>
+    <section className="py-14">
       <div className="mx-auto px-7" style={{ maxWidth: 720 }}>
         <div
           className="rounded-2xl p-8 md:p-10 text-center"

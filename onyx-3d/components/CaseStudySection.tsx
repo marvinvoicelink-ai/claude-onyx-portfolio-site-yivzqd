@@ -8,7 +8,7 @@ const kpis = [
 
 export default function CaseStudySection() {
   return (
-    <section className="py-24" style={{ borderTop: "1px solid var(--hairline)" }}>
+    <section className="py-14">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
           className="rounded-2xl p-6 md:p-10"

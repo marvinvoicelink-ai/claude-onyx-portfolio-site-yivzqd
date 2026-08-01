@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function ExplainerSection() {
   return (
-    <section className="py-24" style={{ borderTop: "1px solid var(--hairline)" }}>
+    <section className="py-14">
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 760 }}>
         <span
           className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-5 mono"

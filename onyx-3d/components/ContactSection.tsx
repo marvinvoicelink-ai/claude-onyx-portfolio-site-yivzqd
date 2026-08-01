@@ -43,8 +43,8 @@ export default function ContactSection() {
   return (
     <section
       id="kontakt"
-      className="py-24"
-      style={{ borderTop: "1px solid var(--hairline)", background: "var(--near-black-2)" }}
+      className="py-14"
+      style={{ background: "var(--near-black-2)" }}
     >
       <div className="mx-auto px-7" style={{ maxWidth: 720 }}>
         <span

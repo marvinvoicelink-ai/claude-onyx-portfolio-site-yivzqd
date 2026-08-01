@@ -29,7 +29,7 @@ export default function IndustriesSection() {
   const track = [...industries, ...industries];
 
   return (
-    <section className="py-24" style={{ borderTop: "1px solid var(--hairline)" }}>
+    <section className="py-14">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <span
           className="mono inline-flex items-center gap-2 mb-4"
