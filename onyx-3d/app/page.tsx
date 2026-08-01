@@ -24,6 +24,7 @@ export default function Home() {
         <CTABanner
           heading="Erkennst du dein Unternehmen in diesen Problemen wieder?"
           sub="Lass uns in einem kurzen Gespräch klären, was für dich der größte Hebel wäre."
+          ctaHref="#kontakt"
         />
         <BlueprintSection />
         <ExplainerSection />
@@ -35,6 +36,7 @@ export default function Home() {
           heading="Dein System, gebaut für genau dein Geschäft."
           sub="Kein Baukasten, kein Abo — ein System, das dir gehört."
           buttonText="Kostenloses Erstgespräch sichern"
+          ctaHref="#kontakt"
         />
         <DifferentiationSection />
         <FAQSection />

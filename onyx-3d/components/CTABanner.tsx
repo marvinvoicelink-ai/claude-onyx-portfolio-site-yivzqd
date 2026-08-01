@@ -5,10 +5,12 @@ export default function CTABanner({
   heading,
   sub,
   buttonText = "Jetzt Kontakt aufnehmen",
+  ctaHref = "/kontakt",
 }: {
   heading: string;
   sub?: string;
   buttonText?: string;
+  ctaHref?: string;
 }) {
   return (
     <section className="py-10">
@@ -30,7 +32,7 @@ export default function CTABanner({
           </div>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <a
-              href="#kontakt"
+              href={ctaHref}
               className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap"
               style={{ background: "var(--amber)", color: "#161104", fontSize: 15.5 }}
             >

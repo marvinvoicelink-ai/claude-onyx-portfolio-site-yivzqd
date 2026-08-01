@@ -55,6 +55,19 @@ export default function CaseStudySection() {
                   </div>
                 ))}
               </div>
+
+              <blockquote
+                className="mt-7 pl-4"
+                style={{ borderLeft: "2px solid var(--amber)", color: "var(--warm-grey-dim)", fontSize: "0.98rem", lineHeight: 1.7, fontStyle: "italic" }}
+              >
+                &bdquo;Durch das neue CRM, das das Team von Onyx gebaut hat,
+                haben wir unsere Verwaltung jetzt viel leichter auf einen
+                Blick — alles geht spürbar schneller und ist
+                übersichtlicher.&ldquo;
+                <footer className="mt-2 mono not-italic" style={{ fontSize: 12.5, color: "var(--warm-grey-faint)" }}>
+                  — Kunde, HausManager Pro
+                </footer>
+              </blockquote>
             </div>
 
             <div className="relative flex items-center justify-center" style={{ minHeight: 380 }}>

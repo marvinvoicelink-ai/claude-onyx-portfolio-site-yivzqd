@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Archivo, Instrument_Sans, IBM_Plex_Mono } from "next/font/google";
+import Nav from "@/components/Nav";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -36,7 +37,10 @@ export default function RootLayout({
       lang="de"
       className={`${archivo.variable} ${instrumentSans.variable} ${plexMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <Nav />
+        {children}
+      </body>
     </html>
   );
 }
