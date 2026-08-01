@@ -180,18 +180,15 @@ export default function ReferenzenPage() {
                 </blockquote>
               </div>
 
-              <div className="relative">
-                <div className="rounded-2xl" style={{ boxShadow: "0 0 60px -10px rgba(232,163,61,0.45)" }}>
-                  <div className="rounded-2xl overflow-hidden">
-                    <Image
-                      src="/generated/wetblock-case.webp"
-                      alt="Automatisierter E-Mail-Outreach an Geschäftskunden"
-                      width={1200}
-                      height={900}
-                      className="w-full h-auto block"
-                    />
-                  </div>
-                </div>
+              <div className="relative flex items-center justify-center">
+                <Image
+                  src="/generated/wetblock-case.webp"
+                  alt="Automatisierter E-Mail-Outreach an Geschäftskunden"
+                  width={1125}
+                  height={776}
+                  className="w-full h-auto block"
+                  style={{ filter: "drop-shadow(0 0 40px rgba(232,163,61,0.35))" }}
+                />
               </div>
             </div>
           </div>

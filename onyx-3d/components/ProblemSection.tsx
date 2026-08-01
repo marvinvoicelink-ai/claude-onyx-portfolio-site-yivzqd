@@ -14,6 +14,8 @@ const problems = [
     ),
     mock: "tools",
     image: "/generated/problem-tools.webp",
+    w: 766,
+    h: 461,
   },
   {
     num: "02",
@@ -27,6 +29,8 @@ const problems = [
     ),
     mock: "pricing",
     image: "/generated/problem-pricing.webp",
+    w: 726,
+    h: 462,
   },
   {
     num: "03",
@@ -41,6 +45,8 @@ const problems = [
     ),
     mock: "servers",
     image: "/generated/problem-servers.webp",
+    w: 920,
+    h: 656,
   },
   {
     num: "04",
@@ -55,6 +61,8 @@ const problems = [
     ),
     mock: "lock",
     image: "/generated/problem-lock.webp",
+    w: 719,
+    h: 578,
   },
 ];
 
@@ -184,16 +192,15 @@ export default function ProblemSection() {
                 {p.desc}
               </p>
               {p.image ? (
-                <div className="rounded-[10px] overflow-hidden" style={{ background: "#0c0c0c" }}>
-                  <Image
-                    src={p.image}
-                    alt=""
-                    width={900}
-                    height={675}
-                    sizes="440px"
-                    className="w-full h-auto block"
-                  />
-                </div>
+                <Image
+                  src={p.image}
+                  alt=""
+                  width={p.w}
+                  height={p.h}
+                  sizes="440px"
+                  className="w-full h-auto block"
+                  style={{ filter: "drop-shadow(0 0 26px rgba(232,163,61,0.35))" }}
+                />
               ) : (
                 <Mock type={p.mock} />
               )}
@@ -202,17 +209,35 @@ export default function ProblemSection() {
         </div>
 
         <div className="mt-14">
-          <div className="relative rounded-2xl" style={{ boxShadow: "0 0 60px -10px rgba(232,163,61,0.45)" }}>
-            <div className="relative rounded-2xl overflow-hidden">
-              <Image
-                src="/generated/chaos-to-portal.webp"
-                alt="Aus Tool-Chaos wird ein System. Eins, das du besitzt."
-                width={1600}
-                height={903}
-                className="w-full h-auto block"
-              />
-            </div>
-          </div>
+          <h3
+            style={{
+              fontFamily: "var(--font-archivo), sans-serif",
+              fontWeight: 800,
+              fontSize: "clamp(1.7rem, 3.6vw, 2.4rem)",
+              lineHeight: 1.1,
+              color: "#ffffff",
+              marginBottom: 8,
+            }}
+          >
+            Aus Tool-Chaos wird ein System.
+          </h3>
+          <p
+            style={{
+              color: "var(--amber)",
+              fontSize: "1.05rem",
+              marginBottom: 24,
+            }}
+          >
+            Eins, das du besitzt.
+          </p>
+          <Image
+            src="/generated/chaos-to-portal.webp"
+            alt="Aus Tool-Chaos wird ein System. Eins, das du besitzt."
+            width={1600}
+            height={635}
+            className="w-full h-auto block"
+            style={{ filter: "drop-shadow(0 0 40px rgba(232,163,61,0.35))" }}
+          />
         </div>
       </div>
     </section>

@@ -38,19 +38,15 @@ export default function BlueprintSection() {
           einem System zusammen, das genau für dich gebaut ist.
         </p>
 
-        <div
-          className="relative rounded-2xl"
-          style={{ maxWidth: 820, boxShadow: "0 0 60px -10px rgba(232,163,61,0.45)" }}
-        >
-          <div className="relative rounded-2xl overflow-hidden">
-            <Image
-              src="/generated/system-blueprint.png"
-              alt="Schema: Kundenportal und Dashboard verbinden sich zu deinem System, das Automatisierung und Dokumentenverwaltung steuert"
-              width={1200}
-              height={896}
-              className="w-full h-auto block"
-            />
-          </div>
+        <div style={{ maxWidth: 820 }}>
+          <Image
+            src="/generated/system-blueprint.png"
+            alt="Schema: Kundenportal und Dashboard verbinden sich zu deinem System, das Automatisierung und Dokumentenverwaltung steuert"
+            width={1200}
+            height={896}
+            className="w-full h-auto block"
+            style={{ filter: "drop-shadow(0 0 40px rgba(232,163,61,0.3))" }}
+          />
         </div>
       </div>
     </section>
