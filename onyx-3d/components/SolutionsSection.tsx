@@ -28,37 +28,40 @@ export default function SolutionsSection() {
           maßgeschneiderte Systeme typischerweise ansetzen.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-14">
           {solutions.map((s) => (
-            <div key={s.image} className="flex flex-col">
-              <h3
-                style={{
-                  fontFamily: "var(--font-archivo), sans-serif",
-                  fontWeight: 800,
-                  fontSize: "clamp(1.35rem, 2.4vw, 1.7rem)",
-                  lineHeight: 1.1,
-                  color: "#ffffff",
-                  marginBottom: 6,
-                }}
-              >
-                {s.title}
-              </h3>
-              <p
-                style={{
-                  color: "var(--amber)",
-                  fontSize: "0.96rem",
-                  lineHeight: 1.4,
-                  marginBottom: 18,
-                }}
-              >
-                {s.subtitle}
-              </p>
+            <div key={s.image} className="relative">
+              <div className="absolute left-0 top-0 right-0 z-10">
+                <h3
+                  style={{
+                    fontFamily: "var(--font-archivo), sans-serif",
+                    fontWeight: 800,
+                    fontSize: "clamp(1.35rem, 2.4vw, 1.7rem)",
+                    lineHeight: 1.1,
+                    color: "#ffffff",
+                    marginBottom: 6,
+                    textShadow: "0 2px 18px rgba(0,0,0,0.9), 0 1px 4px rgba(0,0,0,0.95)",
+                  }}
+                >
+                  {s.title}
+                </h3>
+                <p
+                  style={{
+                    color: "var(--amber)",
+                    fontSize: "0.96rem",
+                    lineHeight: 1.4,
+                    textShadow: "0 2px 14px rgba(0,0,0,0.9), 0 1px 4px rgba(0,0,0,0.95)",
+                  }}
+                >
+                  {s.subtitle}
+                </p>
+              </div>
               <Image
                 src={s.image}
                 alt={`${s.title} ${s.subtitle}`}
                 width={s.w}
                 height={s.h}
-                className="w-full h-auto block mt-auto"
+                className="w-full h-auto block"
                 style={{ filter: "drop-shadow(0 0 34px rgba(232,163,61,0.4))" }}
               />
             </div>
