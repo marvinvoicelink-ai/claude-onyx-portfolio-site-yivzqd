@@ -36,8 +36,8 @@ export default function ExplainerSection() {
             style={{
               width: 640,
               height: 640,
-              maxWidth: "92vw",
-              maxHeight: "92vw",
+              maxWidth: "100vw",
+              maxHeight: "100vw",
               WebkitMaskImage: "radial-gradient(circle, rgba(0,0,0,1) 32%, rgba(0,0,0,0) 68%)",
               maskImage: "radial-gradient(circle, rgba(0,0,0,1) 32%, rgba(0,0,0,0) 68%)",
             }}
