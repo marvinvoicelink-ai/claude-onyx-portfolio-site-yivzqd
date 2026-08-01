@@ -33,7 +33,7 @@ export default function SolutionsSection() {
             <div
               key={s.image}
               className="rounded-2xl overflow-hidden"
-              style={{ border: "1px solid rgba(232,163,61,0.3)", background: "var(--near-black-2)" }}
+              style={{ background: "var(--near-black-2)" }}
             >
               <Image
                 src={s.image}
