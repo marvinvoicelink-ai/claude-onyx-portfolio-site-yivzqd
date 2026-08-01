@@ -29,17 +29,20 @@ export default function Nav() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-6 mono" style={{ fontSize: 13 }}>
-          <Link href="/angebot" style={{ color: "var(--warm-grey-dim)" }}>
+          <Link href="/angebot" style={{ color: "#ffffff" }}>
             Angebot
           </Link>
-          <Link href="/referenzen" style={{ color: "var(--warm-grey-dim)" }}>
+          <Link href="/referenzen" style={{ color: "#ffffff" }}>
             Referenzen
           </Link>
-          <Link href="/faq" style={{ color: "var(--warm-grey-dim)" }}>
+          <Link href="/faq" style={{ color: "#ffffff" }}>
             FAQ
           </Link>
-          <Link href="/ueber-mich" style={{ color: "var(--warm-grey-dim)" }}>
+          <Link href="/ueber-mich" style={{ color: "#ffffff" }}>
             Über mich
+          </Link>
+          <Link href="/kontakt" style={{ color: "#ffffff" }}>
+            Kontakt
           </Link>
         </nav>
 
