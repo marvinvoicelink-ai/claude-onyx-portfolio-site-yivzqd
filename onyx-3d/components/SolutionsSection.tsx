@@ -33,7 +33,7 @@ export default function SolutionsSection() {
             <div
               key={s.image}
               className="rounded-2xl"
-              style={{ boxShadow: "0 0 40px -20px rgba(232,163,61,0.25)" }}
+              style={{ boxShadow: "0 0 60px -10px rgba(232,163,61,0.45)" }}
             >
               <div className="rounded-2xl overflow-hidden" style={{ background: "var(--near-black-2)" }}>
                 <Image

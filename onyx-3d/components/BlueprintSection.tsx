@@ -40,7 +40,7 @@ export default function BlueprintSection() {
 
         <div
           className="relative rounded-2xl"
-          style={{ maxWidth: 820, boxShadow: "0 0 40px -20px rgba(232,163,61,0.25)" }}
+          style={{ maxWidth: 820, boxShadow: "0 0 60px -10px rgba(232,163,61,0.45)" }}
         >
           <div className="relative rounded-2xl overflow-hidden">
             <Image

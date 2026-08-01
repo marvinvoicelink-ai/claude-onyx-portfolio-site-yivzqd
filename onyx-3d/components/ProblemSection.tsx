@@ -154,7 +154,7 @@ export default function ProblemSection() {
               className="rounded-2xl p-7"
               style={{
                 background: "var(--near-black-2)",
-                boxShadow: "0 0 40px -20px rgba(232,163,61,0.25)",
+                boxShadow: "0 0 60px -10px rgba(232,163,61,0.45)",
               }}
             >
               <div className="flex items-center justify-between mb-5">
@@ -202,7 +202,7 @@ export default function ProblemSection() {
         </div>
 
         <div className="mt-14">
-          <div className="relative rounded-2xl" style={{ boxShadow: "0 0 40px -20px rgba(232,163,61,0.25)" }}>
+          <div className="relative rounded-2xl" style={{ boxShadow: "0 0 60px -10px rgba(232,163,61,0.45)" }}>
             <div className="relative rounded-2xl overflow-hidden">
               <Image
                 src="/generated/chaos-to-portal.webp"
