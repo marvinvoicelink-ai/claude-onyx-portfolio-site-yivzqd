@@ -22,10 +22,10 @@ export default function Nav() {
             fontWeight: 800,
             fontSize: 20,
             letterSpacing: "-0.01em",
-            color: "var(--warm-grey)",
+            color: "#ffffff",
           }}
         >
-          ONYX<span style={{ color: "var(--amber)" }}>.AI</span>
+          ONYX.<span style={{ color: "var(--amber)" }}>AI</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-6 mono" style={{ fontSize: 13 }}>
