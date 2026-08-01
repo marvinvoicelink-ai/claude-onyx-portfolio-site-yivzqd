@@ -166,6 +166,18 @@ export default function ReferenzenPage() {
                     </div>
                   ))}
                 </div>
+
+                <blockquote
+                  className="mt-7 pl-4"
+                  style={{ borderLeft: "2px solid var(--amber)", color: "var(--warm-grey-dim)", fontSize: "0.98rem", lineHeight: 1.7, fontStyle: "italic" }}
+                >
+                  &bdquo;Durch das Team von Marvin haben wir jetzt viel mehr
+                  Zeit für unser wesentliches Geschäft und müssen uns nicht
+                  mehr um E-Mails kümmern.&ldquo;
+                  <footer className="mt-2 mono not-italic" style={{ fontSize: 12.5, color: "var(--warm-grey-faint)" }}>
+                    — Kunde, WETBlock
+                  </footer>
+                </blockquote>
               </div>
 
               <div className="relative">
