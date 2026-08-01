@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import RoadmapSection from "@/components/RoadmapSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
@@ -24,6 +25,7 @@ export default function KontaktPage() {
         </div>
       </section>
 
+      <RoadmapSection />
       <ContactSection />
 
       <Footer />
