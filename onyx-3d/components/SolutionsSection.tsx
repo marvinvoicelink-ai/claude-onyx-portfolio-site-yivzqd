@@ -1,12 +1,12 @@
 import Image from "next/image";
 
 const solutions = [
-  { image: "/generated/solution-01.webp", alt: "Kundenportale. Status, Dokumente und Termine selbst einsehen." },
-  { image: "/generated/solution-02.webp", alt: "Interne Tools. Aus Excel und Zetteln wird ein eigenes System." },
-  { image: "/generated/solution-03.webp", alt: "Dashboards & Auswertungen. Alle Zahlen an einem Ort, live und verständlich." },
-  { image: "/generated/solution-04.webp", alt: "Automatisierung & KI-Agenten. Mails, Reports und Erinnerungen laufen automatisch." },
-  { image: "/generated/solution-05.webp", alt: "Termin- & Ressourcenplanung. Kalender und Kapazitäten in einem System." },
-  { image: "/generated/solution-06.webp", alt: "Dokumenten- & Datenverwaltung. Eine zentrale Ablage statt Ordner-Chaos." },
+  { image: "/generated/solution-01.webp", w: 880, h: 626, title: "Kundenportale.", subtitle: "Status, Dokumente und Termine selbst einsehen." },
+  { image: "/generated/solution-02.webp", w: 992, h: 630, title: "Interne Tools.", subtitle: "Aus Excel und Zetteln wird ein eigenes System." },
+  { image: "/generated/solution-03.webp", w: 944, h: 615, title: "Dashboards & Auswertungen.", subtitle: "Alle Zahlen an einem Ort, live und verständlich." },
+  { image: "/generated/solution-04.webp", w: 849, h: 651, title: "Automatisierung & KI-Agenten.", subtitle: "Mails, Reports und Erinnerungen laufen automatisch." },
+  { image: "/generated/solution-05.webp", w: 1048, h: 643, title: "Termin- & Ressourcenplanung.", subtitle: "Kalender und Kapazitäten in einem System." },
+  { image: "/generated/solution-06.webp", w: 1074, h: 636, title: "Dokumenten- & Datenverwaltung.", subtitle: "Eine zentrale Ablage statt Ordner-Chaos." },
 ];
 
 export default function SolutionsSection() {
@@ -28,22 +28,39 @@ export default function SolutionsSection() {
           maßgeschneiderte Systeme typischerweise ansetzen.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
           {solutions.map((s) => (
-            <div
-              key={s.image}
-              className="rounded-2xl"
-              style={{ boxShadow: "0 0 60px -10px rgba(232,163,61,0.45)" }}
-            >
-              <div className="rounded-2xl overflow-hidden" style={{ background: "var(--near-black-2)" }}>
-                <Image
-                  src={s.image}
-                  alt={s.alt}
-                  width={1200}
-                  height={900}
-                  className="w-full h-auto block"
-                />
-              </div>
+            <div key={s.image} className="flex flex-col">
+              <h3
+                style={{
+                  fontFamily: "var(--font-archivo), sans-serif",
+                  fontWeight: 800,
+                  fontSize: "clamp(1.35rem, 2.4vw, 1.7rem)",
+                  lineHeight: 1.1,
+                  color: "#ffffff",
+                  marginBottom: 6,
+                }}
+              >
+                {s.title}
+              </h3>
+              <p
+                style={{
+                  color: "var(--amber)",
+                  fontSize: "0.96rem",
+                  lineHeight: 1.4,
+                  marginBottom: 18,
+                }}
+              >
+                {s.subtitle}
+              </p>
+              <Image
+                src={s.image}
+                alt={`${s.title} ${s.subtitle}`}
+                width={s.w}
+                height={s.h}
+                className="w-full h-auto block mt-auto"
+                style={{ filter: "drop-shadow(0 0 34px rgba(232,163,61,0.4))" }}
+              />
             </div>
           ))}
         </div>

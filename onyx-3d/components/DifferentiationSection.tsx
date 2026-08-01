@@ -1,10 +1,10 @@
 import Image from "next/image";
 
 const diffs = [
-  { image: "/generated/diff-01.webp", alt: "Kein CRM von der Stange. Dein System wird nach deinem Prozess gebaut." },
-  { image: "/generated/diff-02.webp", alt: "Volles Eigentum. Du besitzt Code und Daten - vollständig." },
-  { image: "/generated/diff-03.webp", alt: "Deine Infrastruktur. Du hostest auf deinem eigenen Server." },
-  { image: "/generated/diff-04.webp", alt: "Kein Lock-in. Nach der Übergabe bist du unabhängig." },
+  { image: "/generated/diff-01.webp", w: 691, h: 510, title: "Kein CRM von der Stange.", subtitle: "Dein System wird nach deinem Prozess gebaut." },
+  { image: "/generated/diff-02.webp", w: 754, h: 520, title: "Volles Eigentum.", subtitle: "Du besitzt Code und Daten - vollständig." },
+  { image: "/generated/diff-03.webp", w: 822, h: 194, title: "Deine Infrastruktur.", subtitle: "Du hostest auf deinem eigenen Server." },
+  { image: "/generated/diff-04.webp", w: 1220, h: 248, title: "Kein Lock-in.", subtitle: "Nach der Übergabe bist du unabhängig." },
 ];
 
 export default function DifferentiationSection() {
@@ -30,22 +30,39 @@ export default function DifferentiationSection() {
           den Ballast, den es nicht braucht.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-10">
           {diffs.map((d) => (
-            <div
-              key={d.image}
-              className="rounded-2xl"
-              style={{ boxShadow: "0 0 60px -10px rgba(232,163,61,0.45)" }}
-            >
-              <div className="rounded-2xl overflow-hidden" style={{ background: "var(--near-black-2)" }}>
-                <Image
-                  src={d.image}
-                  alt={d.alt}
-                  width={1200}
-                  height={900}
-                  className="w-full h-auto block"
-                />
-              </div>
+            <div key={d.image} className="flex flex-col">
+              <h3
+                style={{
+                  fontFamily: "var(--font-archivo), sans-serif",
+                  fontWeight: 800,
+                  fontSize: "clamp(1.5rem, 2.6vw, 2rem)",
+                  lineHeight: 1.1,
+                  color: "#ffffff",
+                  marginBottom: 8,
+                }}
+              >
+                {d.title}
+              </h3>
+              <p
+                style={{
+                  color: "var(--amber)",
+                  fontSize: "1.02rem",
+                  lineHeight: 1.5,
+                  marginBottom: 22,
+                }}
+              >
+                {d.subtitle}
+              </p>
+              <Image
+                src={d.image}
+                alt={`${d.title} ${d.subtitle}`}
+                width={d.w}
+                height={d.h}
+                className="w-full h-auto block mt-auto"
+                style={{ filter: "drop-shadow(0 0 34px rgba(232,163,61,0.4))" }}
+              />
             </div>
           ))}
         </div>
