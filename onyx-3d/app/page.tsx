@@ -4,6 +4,7 @@ import ProblemSection from "@/components/ProblemSection";
 import BlueprintSection from "@/components/BlueprintSection";
 import ExplainerSection from "@/components/ExplainerSection";
 import CaseStudySection from "@/components/CaseStudySection";
+import RoadmapSection from "@/components/RoadmapSection";
 import MidFormSection from "@/components/MidFormSection";
 import SolutionsSection from "@/components/SolutionsSection";
 import IndustriesSection from "@/components/IndustriesSection";
@@ -27,6 +28,7 @@ export default function Home() {
         <BlueprintSection />
         <ExplainerSection />
         <CaseStudySection />
+        <RoadmapSection />
         <MidFormSection />
         <SolutionsSection />
         <CTABanner
