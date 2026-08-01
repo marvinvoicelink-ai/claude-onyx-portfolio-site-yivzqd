@@ -120,3 +120,46 @@ a {
   }
 }
 
+.legal-content h2 {
+  font-size: 1.25rem;
+  margin: 40px 0 14px;
+}
+
+.legal-content h2:first-child {
+  margin-top: 0;
+}
+
+.legal-content p {
+  color: var(--warm-grey-dim);
+  line-height: 1.75;
+  margin-bottom: 14px;
+  font-size: 1rem;
+}
+
+.legal-content ul {
+  padding-left: 22px;
+  margin: 0 0 14px;
+  list-style: disc;
+}
+
+.legal-content li {
+  color: var(--warm-grey-dim);
+  margin-bottom: 6px;
+  line-height: 1.7;
+}
+
+.legal-content strong {
+  color: var(--warm-grey);
+  font-weight: 600;
+}
+
+.legal-content a {
+  color: var(--amber);
+  border-bottom: 1px solid rgba(232, 163, 61, 0.3);
+  transition: border-color 0.2s ease;
+}
+
+.legal-content a:hover {
+  border-color: var(--amber);
+}
+
