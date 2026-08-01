@@ -33,7 +33,14 @@ export default function ExplainerSection() {
           <div
             aria-hidden
             className="ring-pulse absolute"
-            style={{ width: 640, height: 640, maxWidth: "92vw", maxHeight: "92vw" }}
+            style={{
+              width: 640,
+              height: 640,
+              maxWidth: "92vw",
+              maxHeight: "92vw",
+              WebkitMaskImage: "radial-gradient(circle, rgba(0,0,0,1) 32%, rgba(0,0,0,0) 68%)",
+              maskImage: "radial-gradient(circle, rgba(0,0,0,1) 32%, rgba(0,0,0,0) 68%)",
+            }}
           >
             <Image
               src="/generated/explainer-burst.webp"
@@ -44,22 +51,30 @@ export default function ExplainerSection() {
             />
           </div>
           <div
-            className="relative rounded-xl overflow-hidden w-full"
+            className="relative rounded-2xl w-full"
             style={{
-              border: "1px solid rgba(232,163,61,0.55)",
+              padding: 10,
+              background: "var(--near-black)",
               boxShadow: "0 24px 60px -20px rgba(0,0,0,0.65)",
-              background: "#000",
             }}
           >
-            <video
-              controls
-              preload="none"
-              playsInline
-              poster="/assets/explainer-poster.jpg"
-              style={{ width: "100%", display: "block", aspectRatio: "16/9" }}
+            <div
+              className="relative rounded-xl overflow-hidden w-full"
+              style={{
+                border: "1px solid rgba(232,163,61,0.55)",
+                background: "#000",
+              }}
             >
-              <source src="/assets/explainer.mp4" type="video/mp4" />
-            </video>
+              <video
+                controls
+                preload="none"
+                playsInline
+                poster="/assets/explainer-poster.jpg"
+                style={{ width: "100%", display: "block", aspectRatio: "16/9" }}
+              >
+                <source src="/assets/explainer.mp4" type="video/mp4" />
+              </video>
+            </div>
           </div>
         </div>
       </div>

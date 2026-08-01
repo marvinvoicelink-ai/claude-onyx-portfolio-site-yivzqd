@@ -11,8 +11,6 @@ import CTABanner from "@/components/CTABanner";
 import DifferentiationSection from "@/components/DifferentiationSection";
 import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
-import ImpressumSection from "@/components/ImpressumSection";
-import DatenschutzSection from "@/components/DatenschutzSection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -39,8 +37,6 @@ export default function Home() {
         <DifferentiationSection />
         <FAQSection />
         <ContactSection />
-        <ImpressumSection />
-        <DatenschutzSection />
         <Footer />
       </main>
     </SmoothScroll>

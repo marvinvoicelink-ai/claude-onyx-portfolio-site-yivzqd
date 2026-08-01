@@ -9,8 +9,8 @@ export default function Footer() {
       >
         <span>© 2026 Onyx.AI — Marvin Weiß-Drumm, Landau in der Pfalz</span>
         <div className="flex flex-wrap items-center gap-4">
-          <Link href="/#impressum">Impressum</Link>
-          <Link href="/#datenschutz">Datenschutz</Link>
+          <Link href="/impressum">Impressum</Link>
+          <Link href="/datenschutz">Datenschutz</Link>
           <a href="https://calendly.com/onyx-ai/30min" target="_blank" rel="noopener">
             Termin buchen
           </a>
