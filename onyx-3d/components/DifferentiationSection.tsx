@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useCardStackReveal } from "@/hooks/useCardStackReveal";
 
 const diffs = [
   { image: "/generated/diff-01.webp", w: 691, h: 510, title: "Kein CRM von der Stange.", subtitle: "Dein System wird nach deinem Prozess gebaut." },
@@ -11,7 +11,7 @@ const diffs = [
 ];
 
 export default function DifferentiationSection({ animate = false }: { animate?: boolean }) {
-  const cards = useScrollReveal<HTMLDivElement>(diffs.length, !animate);
+  const cards = useCardStackReveal<HTMLDivElement>(diffs.length, !animate);
 
   return (
     <section className="py-14">
@@ -39,14 +39,10 @@ export default function DifferentiationSection({ animate = false }: { animate?: 
           {diffs.map((d, i) => (
             <div
               key={d.image}
-              ref={cards.setRef(i)}
-              data-reveal-index={i}
-              className={
-                animate
-                  ? `flex flex-col ${cards.visible[i] ? "reveal-visible" : "reveal-hidden"}`
-                  : "flex flex-col"
-              }
-              style={animate ? { ["--reveal-delay" as string]: `${i * 90}ms` } : undefined}
+              ref={animate ? cards.setRef(i) : undefined}
+              onTransitionEnd={animate ? cards.onTransitionEnd(i) : undefined}
+              className="flex flex-col"
+              style={animate ? cards.getStackStyle(i) : undefined}
             >
               <h3
                 style={{
