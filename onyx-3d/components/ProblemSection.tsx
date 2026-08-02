@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useCardStackReveal } from "@/hooks/useCardStackReveal";
 
 const problems = [
   {
@@ -145,7 +146,7 @@ function Mock({ type }: { type: string }) {
 }
 
 export default function ProblemSection({ animate = false }: { animate?: boolean }) {
-  const cards = useScrollReveal<HTMLDivElement>(problems.length, !animate);
+  const cards = useCardStackReveal<HTMLDivElement>(problems.length, !animate);
   const chaosImage = useScrollReveal<HTMLImageElement>(1, !animate);
 
   return (
@@ -165,17 +166,13 @@ export default function ProblemSection({ animate = false }: { animate?: boolean 
           {problems.map((p, i) => (
             <div
               key={p.num}
-              ref={cards.setRef(i)}
-              data-reveal-index={i}
-              className={
-                animate
-                  ? `rounded-2xl p-7 ${cards.visible[i] ? "reveal-visible" : "reveal-hidden"}`
-                  : "rounded-2xl p-7"
-              }
+              ref={animate ? cards.setRef(i) : undefined}
+              onTransitionEnd={animate ? cards.onTransitionEnd(i) : undefined}
+              className="rounded-2xl p-7"
               style={{
                 background: "var(--near-black-2)",
                 boxShadow: "0 0 60px -10px rgba(232,163,61,0.45)",
-                ...(animate ? { ["--reveal-delay" as string]: `${i * 90}ms` } : {}),
+                ...(animate ? cards.getStackStyle(i) : {}),
               }}
             >
               <div className="flex items-center justify-between mb-5">
