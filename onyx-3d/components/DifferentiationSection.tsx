@@ -76,8 +76,8 @@ export default function DifferentiationSection({ animate = false }: { animate?: 
           </div>
         ) : (
           <div ref={stack.wrapperRef} className="relative" style={{ height: `${diffs.length * 62}vh` }}>
-            <div className="sticky flex items-center justify-center" style={{ top: "15vh", height: "min(440px, 62vh)" }}>
-              <div className="relative w-full" style={{ maxWidth: 400, height: "100%" }}>
+            <div className="sticky flex items-center justify-center" style={{ top: "15vh", height: "min(400px, 58vh)" }}>
+              <div className="relative w-full" style={{ maxWidth: 360, height: "100%" }}>
                 {diffs.map((d, i) => (
                   <div key={d.image} className="card-stack-slot flex flex-col" style={getStackSlotStyle(i - stack.index)}>
                     <DiffCard d={d} />
