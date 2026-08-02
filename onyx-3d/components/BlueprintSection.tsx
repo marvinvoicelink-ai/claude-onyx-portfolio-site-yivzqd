@@ -43,7 +43,7 @@ export default function BlueprintSection() {
           einem System zusammen, das genau für dich gebaut ist.
         </p>
 
-        <div style={{ maxWidth: 820 }}>
+        <div style={{ maxWidth: 560 }}>
           <Image
             ref={image.setRef(0)}
             data-reveal-index={0}
