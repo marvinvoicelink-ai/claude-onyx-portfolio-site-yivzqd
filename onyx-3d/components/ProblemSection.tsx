@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { useCardStackReveal } from "@/hooks/useCardStackReveal";
+import { useScrollStack } from "@/hooks/useScrollStack";
+import { CardStackDots, CardStackHint, getStackSlotStyle } from "./CardStackChrome";
 
 const problems = [
   {
@@ -145,8 +146,49 @@ function Mock({ type }: { type: string }) {
   );
 }
 
+function ProblemCard({ p }: { p: (typeof problems)[number] }) {
+  return (
+    <>
+      <div className="flex items-center justify-between mb-5">
+        <div
+          className="flex items-center justify-center rounded-xl"
+          style={{
+            width: 42,
+            height: 42,
+            background: "var(--amber-soft)",
+            color: "var(--amber)",
+            border: "1px solid rgba(232,163,61,0.3)",
+          }}
+        >
+          {p.icon}
+        </div>
+        <span className="mono" style={{ fontSize: 34, fontWeight: 800, color: "var(--hairline)" }}>
+          {p.num}
+        </span>
+      </div>
+      <h3 style={{ fontSize: "1.3rem", marginBottom: 4 }}>
+        {p.title} <span className="accent">{p.highlight}</span>
+      </h3>
+      <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.95rem", marginBottom: 18 }}>{p.desc}</p>
+      {p.image ? (
+        <Image
+          src={p.image}
+          alt=""
+          width={p.w}
+          height={p.h}
+          sizes="440px"
+          className="w-full h-auto block"
+          style={{ filter: "drop-shadow(0 0 26px rgba(232,163,61,0.35))" }}
+        />
+      ) : (
+        <Mock type={p.mock} />
+      )}
+    </>
+  );
+}
+
 export default function ProblemSection({ animate = false }: { animate?: boolean }) {
-  const cards = useCardStackReveal<HTMLDivElement>(problems.length, !animate);
+  const stack = useScrollStack(problems.length, !animate);
   const chaosImage = useScrollReveal<HTMLImageElement>(1, !animate);
 
   return (
@@ -162,61 +204,41 @@ export default function ProblemSection({ animate = false }: { animate?: boolean 
           Kommt dir das bekannt vor?
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {problems.map((p, i) => (
-            <div
-              key={p.num}
-              ref={animate ? cards.setRef(i) : undefined}
-              onTransitionEnd={animate ? cards.onTransitionEnd(i) : undefined}
-              className="rounded-2xl p-7"
-              style={{
-                background: "var(--near-black-2)",
-                boxShadow: "0 0 60px -10px rgba(232,163,61,0.45)",
-                ...(animate ? cards.getStackStyle(i) : {}),
-              }}
-            >
-              <div className="flex items-center justify-between mb-5">
-                <div
-                  className="flex items-center justify-center rounded-xl"
-                  style={{
-                    width: 42,
-                    height: 42,
-                    background: "var(--amber-soft)",
-                    color: "var(--amber)",
-                    border: "1px solid rgba(232,163,61,0.3)",
-                  }}
-                >
-                  {p.icon}
-                </div>
-                <span
-                  className="mono"
-                  style={{ fontSize: 34, fontWeight: 800, color: "var(--hairline)" }}
-                >
-                  {p.num}
-                </span>
+        {stack.staticFallback ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {problems.map((p) => (
+              <div
+                key={p.num}
+                className="rounded-2xl p-7"
+                style={{ background: "var(--near-black-2)", boxShadow: "0 0 60px -10px rgba(232,163,61,0.45)" }}
+              >
+                <ProblemCard p={p} />
               </div>
-              <h3 style={{ fontSize: "1.3rem", marginBottom: 4 }}>
-                {p.title} <span className="accent">{p.highlight}</span>
-              </h3>
-              <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.95rem", marginBottom: 18 }}>
-                {p.desc}
-              </p>
-              {p.image ? (
-                <Image
-                  src={p.image}
-                  alt=""
-                  width={p.w}
-                  height={p.h}
-                  sizes="440px"
-                  className="w-full h-auto block"
-                  style={{ filter: "drop-shadow(0 0 26px rgba(232,163,61,0.35))" }}
-                />
-              ) : (
-                <Mock type={p.mock} />
-              )}
+            ))}
+          </div>
+        ) : (
+          <div ref={stack.wrapperRef} className="relative" style={{ height: `${problems.length * 62}vh` }}>
+            <div className="sticky flex items-center justify-center" style={{ top: "15vh", height: "min(460px, 64vh)" }}>
+              <div className="relative w-full" style={{ maxWidth: 400, height: "100%" }}>
+                {problems.map((p, i) => (
+                  <div
+                    key={p.num}
+                    className="card-stack-slot rounded-2xl p-6"
+                    style={{
+                      background: "var(--near-black-2)",
+                      boxShadow: "0 0 60px -10px rgba(232,163,61,0.45)",
+                      ...getStackSlotStyle(i - stack.index),
+                    }}
+                  >
+                    <ProblemCard p={p} />
+                  </div>
+                ))}
+                <CardStackDots count={problems.length} index={stack.index} />
+                <CardStackHint done={stack.index === problems.length - 1} />
+              </div>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
 
         <div className="mt-14">
           <h3
