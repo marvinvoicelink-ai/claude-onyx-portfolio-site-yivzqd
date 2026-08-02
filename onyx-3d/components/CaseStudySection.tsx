@@ -79,7 +79,10 @@ export default function CaseStudySection() {
               </blockquote>
             </div>
 
-            <div className="relative flex items-center justify-center" style={{ minHeight: 380 }}>
+            <div
+              className={`relative flex items-center justify-center ${isVisible ? "reveal-zoom-visible" : "reveal-zoom-hidden"}`}
+              style={{ minHeight: 380 }}
+            >
               {/* Spotlight glow ring behind the case-study mockup */}
               <div
                 aria-hidden
