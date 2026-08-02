@@ -1,5 +1,6 @@
 import SmoothScroll from "@/components/SmoothScroll";
 import Hero from "@/components/Hero";
+import WhyNowSection from "@/components/WhyNowSection";
 import ProblemSection from "@/components/ProblemSection";
 import BlueprintSection from "@/components/BlueprintSection";
 import ExplainerSection from "@/components/ExplainerSection";
@@ -20,32 +21,7 @@ export default function Home() {
       <main>
         <Hero />
 
-        <section className="py-16">
-          <div className="mx-auto px-7 text-center" style={{ maxWidth: 780 }}>
-            <span
-              className="mono block mb-4"
-              style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
-            >
-              Warum Onyx
-            </span>
-            <h2 style={{ fontSize: "clamp(1.7rem, 3.4vw, 2.4rem)", lineHeight: 1.25 }}>
-              Warum du mit uns arbeiten solltest —{" "}
-              <span className="accent">und warum du dein eigenes System jetzt brauchst.</span>
-            </h2>
-            <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.05rem", lineHeight: 1.75, marginTop: 24 }}>
-              Ein eigenes System spart von Tag eins an Kosten — keine
-              Lizenzgebühren, keine Abo-Falle, kein Funktionsumfang, für den
-              du zahlst, aber nie brauchst. Aber ein System ohne KI ist in
-              ein paar Jahren nur noch die halbe Miete: Unternehmen, die
-              heute automatisieren, ziehen an allen anderen vorbei. Deshalb
-              bauen wir dir kein Tool von der Stange, sondern ein System,
-              das von Anfang an mitdenkt — mit KI und Automatisierung
-              eingebaut, zum Festpreis, komplett dir übergeben. Und du
-              sprichst dabei nicht mit einem Support-Ticket, sondern direkt
-              mit dem Gründer.
-            </p>
-          </div>
-        </section>
+        <WhyNowSection />
 
         <IndustriesSection />
         <ProblemSection animate />
