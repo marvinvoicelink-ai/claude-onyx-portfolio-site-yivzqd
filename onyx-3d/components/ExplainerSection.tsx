@@ -1,6 +1,11 @@
+"use client";
+
 import Image from "next/image";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export default function ExplainerSection() {
+  const media = useScrollReveal<HTMLDivElement>(1);
+
   return (
     <section className="py-14">
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 760 }}>
@@ -28,7 +33,12 @@ export default function ExplainerSection() {
       </div>
 
       <div className="mx-auto px-7" style={{ maxWidth: 480, marginTop: 200 }}>
-        <div className="relative flex items-center justify-center" style={{ minHeight: 60 }}>
+        <div
+          ref={media.setRef(0)}
+          data-reveal-index={0}
+          className={`relative flex items-center justify-center ${media.visible[0] ? "reveal-zoom-visible" : "reveal-zoom-hidden"}`}
+          style={{ minHeight: 60 }}
+        >
           {/* Higgsfield light-burst behind the explainer video — distinct from the case-study ring */}
           <div
             aria-hidden
