@@ -19,6 +19,28 @@ export default function Home() {
     <SmoothScroll>
       <main>
         <Hero />
+
+        <section className="py-16">
+          <div className="mx-auto px-7 text-center" style={{ maxWidth: 720 }}>
+            <span
+              className="mono block mb-4"
+              style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
+            >
+              Warum jetzt
+            </span>
+            <p style={{ fontSize: "clamp(1.4rem, 2.8vw, 1.9rem)", fontWeight: 700, lineHeight: 1.4 }}>
+              Ein eigenes System spart Kosten. Ein eigenes System ohne KI
+              spart nur ein paar Jahre lang —{" "}
+              <span className="accent">danach zieht der Wettbewerb vorbei, der längst automatisiert hat.</span>
+            </p>
+            <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7, marginTop: 20 }}>
+              Wir bauen dir kein Feature von der Stange, sondern ein System
+              mit KI und Automatisierung von Anfang an — maßgeschneidert,
+              zum Festpreis, komplett dir übergeben.
+            </p>
+          </div>
+        </section>
+
         <IndustriesSection />
         <ProblemSection animate />
         <CTABanner
