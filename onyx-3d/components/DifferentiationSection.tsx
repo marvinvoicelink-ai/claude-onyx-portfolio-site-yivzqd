@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useCardStackReveal } from "@/hooks/useCardStackReveal";
+import { useScrollStack } from "@/hooks/useScrollStack";
+import { CardStackDots, CardStackHint, getStackSlotStyle } from "./CardStackChrome";
 
 const diffs = [
   { image: "/generated/diff-01.webp", w: 691, h: 510, title: "Kein CRM von der Stange.", subtitle: "Dein System wird nach deinem Prozess gebaut." },
@@ -10,8 +11,38 @@ const diffs = [
   { image: "/generated/diff-04.webp", w: 1220, h: 248, title: "Kein Lock-in.", subtitle: "Nach der Übergabe bist du unabhängig." },
 ];
 
+function DiffCard({ d }: { d: (typeof diffs)[number] }) {
+  return (
+    <>
+      <h3
+        style={{
+          fontFamily: "var(--font-archivo), sans-serif",
+          fontWeight: 800,
+          fontSize: "clamp(1.5rem, 2.6vw, 2rem)",
+          lineHeight: 1.1,
+          color: "#ffffff",
+          marginBottom: 8,
+        }}
+      >
+        {d.title}
+      </h3>
+      <p style={{ color: "var(--amber)", fontSize: "1.02rem", lineHeight: 1.5, marginBottom: 24 }}>
+        {d.subtitle}
+      </p>
+      <Image
+        src={d.image}
+        alt={`${d.title} ${d.subtitle}`}
+        width={d.w}
+        height={d.h}
+        className="w-full h-auto block"
+        style={{ maxWidth: "70%", filter: "drop-shadow(0 0 30px rgba(232,163,61,0.4))" }}
+      />
+    </>
+  );
+}
+
 export default function DifferentiationSection({ animate = false }: { animate?: boolean }) {
-  const cards = useCardStackReveal<HTMLDivElement>(diffs.length, !animate);
+  const stack = useScrollStack(diffs.length, !animate);
 
   return (
     <section className="py-14">
@@ -35,48 +66,29 @@ export default function DifferentiationSection({ animate = false }: { animate?: 
           den Ballast, den es nicht braucht.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-12">
-          {diffs.map((d, i) => (
-            <div
-              key={d.image}
-              ref={animate ? cards.setRef(i) : undefined}
-              onTransitionEnd={animate ? cards.onTransitionEnd(i) : undefined}
-              className="flex flex-col"
-              style={animate ? cards.getStackStyle(i) : undefined}
-            >
-              <h3
-                style={{
-                  fontFamily: "var(--font-archivo), sans-serif",
-                  fontWeight: 800,
-                  fontSize: "clamp(1.5rem, 2.6vw, 2rem)",
-                  lineHeight: 1.1,
-                  color: "#ffffff",
-                  marginBottom: 8,
-                }}
-              >
-                {d.title}
-              </h3>
-              <p
-                style={{
-                  color: "var(--amber)",
-                  fontSize: "1.02rem",
-                  lineHeight: 1.5,
-                  marginBottom: 24,
-                }}
-              >
-                {d.subtitle}
-              </p>
-              <Image
-                src={d.image}
-                alt={`${d.title} ${d.subtitle}`}
-                width={d.w}
-                height={d.h}
-                className="w-full h-auto block"
-                style={{ maxWidth: "70%", filter: "drop-shadow(0 0 30px rgba(232,163,61,0.4))" }}
-              />
+        {stack.staticFallback ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-12">
+            {diffs.map((d) => (
+              <div key={d.image} className="flex flex-col">
+                <DiffCard d={d} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div ref={stack.wrapperRef} className="relative" style={{ height: `${diffs.length * 62}vh` }}>
+            <div className="sticky flex items-center justify-center" style={{ top: "16vh", height: "min(400px, 58vh)" }}>
+              <div className="relative w-full" style={{ maxWidth: 360, height: "100%" }}>
+                {diffs.map((d, i) => (
+                  <div key={d.image} className="card-stack-slot flex flex-col" style={getStackSlotStyle(i - stack.index)}>
+                    <DiffCard d={d} />
+                  </div>
+                ))}
+                <CardStackDots count={diffs.length} index={stack.index} />
+                <CardStackHint done={stack.index === diffs.length - 1} />
+              </div>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
       </div>
     </section>
   );
