@@ -17,14 +17,14 @@ function buildModules() {
     const col = i % cols;
     const row = Math.floor(i / cols);
     grid.push({
-      x: (col - 1) * spacing + 2.6,
+      x: (col - 1) * spacing,
       y: (1 - row) * spacing,
       z: 0,
     });
   }
 
   const scattered = grid.map(() => ({
-    x: 2.6 + (Math.random() - 0.5) * 7,
+    x: (Math.random() - 0.5) * 7,
     y: (Math.random() - 0.5) * 6,
     z: (Math.random() - 0.5) * 6 - 2,
     rx: Math.random() * Math.PI,
@@ -64,7 +64,7 @@ function Modules({ progressRef }: { progressRef: ScrollProgressRef }) {
   });
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} scale={0.58}>
       {grid.map((_, i) => (
         <mesh
           key={i}
@@ -76,13 +76,15 @@ function Modules({ progressRef }: { progressRef: ScrollProgressRef }) {
           <meshStandardMaterial
             color="#1c1a16"
             emissive="#e8a33d"
-            emissiveIntensity={0.55}
+            emissiveIntensity={0.5}
             roughness={0.3}
             metalness={0.5}
+            transparent
+            opacity={0.4}
           />
           <lineSegments>
             <edgesGeometry args={[new THREE.BoxGeometry(0.95, 0.95, 0.16)]} />
-            <lineBasicMaterial color="#e8a33d" transparent opacity={0.8} />
+            <lineBasicMaterial color="#e8a33d" transparent opacity={0.55} />
           </lineSegments>
         </mesh>
       ))}

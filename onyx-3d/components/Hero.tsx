@@ -92,7 +92,7 @@ export default function Hero() {
           className="mx-auto w-full px-7 pointer-events-none"
           style={{ maxWidth: 1180 }}
         >
-          <div className="max-w-[560px] pointer-events-auto">
+          <div className="max-w-[560px] mx-auto text-center pointer-events-auto">
             <div
               className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 mono"
               style={{
@@ -127,7 +127,7 @@ export default function Hero() {
             </span>
 
             <h1
-              className={entered ? "hero-blur-visible" : "hero-blur-hidden"}
+              className={`mx-auto ${entered ? "hero-blur-visible" : "hero-blur-hidden"}`}
               style={{
                 fontSize: "clamp(2.4rem, 4.4vw, 3.7rem)",
                 lineHeight: 1.06,
@@ -140,7 +140,7 @@ export default function Hero() {
             </h1>
 
             <p
-              className="mt-6 max-w-[52ch]"
+              className="mt-6 mx-auto max-w-[52ch]"
               style={{
                 fontSize: "clamp(1.02rem, 1.6vw, 1.18rem)",
                 color: "var(--warm-grey-dim)",
@@ -152,7 +152,7 @@ export default function Hero() {
               Infrastruktur, unter deiner Marke.
             </p>
 
-            <div className="flex flex-wrap gap-3.5 mt-9">
+            <div className="flex flex-wrap justify-center gap-3.5 mt-9">
               <a
                 href="#kontakt"
                 className={`inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold btn-amber ${entered ? "hero-cta-visible" : "hero-cta-hidden"}`}
