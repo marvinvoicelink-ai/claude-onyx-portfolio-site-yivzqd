@@ -16,6 +16,7 @@ export default function Hero() {
   const [reducedMotion, setReducedMotion] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [entered, setEntered] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -23,6 +24,15 @@ export default function Hero() {
     const mobileQuery = window.matchMedia("(max-width: 767px)");
     setReducedMotion(motionQuery.matches);
     setIsMobile(mobileQuery.matches);
+
+    // Entrance reveal for the headline + CTAs — reduced motion skips
+    // straight to the visible state, otherwise wait a frame so the
+    // hidden class has actually painted before transitioning.
+    if (motionQuery.matches) {
+      setEntered(true);
+    } else {
+      requestAnimationFrame(() => requestAnimationFrame(() => setEntered(true)));
+    }
 
     // The scroll-scrubbed 3D scene is positioned for wide viewports — on
     // narrow screens there's no space beside the text for it to live, so it
@@ -117,6 +127,7 @@ export default function Hero() {
             </span>
 
             <h1
+              className={entered ? "hero-blur-visible" : "hero-blur-hidden"}
               style={{
                 fontSize: "clamp(2.4rem, 4.4vw, 3.7rem)",
                 lineHeight: 1.06,
@@ -144,11 +155,12 @@ export default function Hero() {
             <div className="flex flex-wrap gap-3.5 mt-9">
               <a
                 href="#kontakt"
-                className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold"
+                className={`inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold ${entered ? "hero-cta-visible" : "hero-cta-hidden"}`}
                 style={{
                   background: "var(--amber)",
                   color: "#161104",
                   fontSize: "15.5px",
+                  ["--reveal-delay" as string]: "220ms",
                 }}
               >
                 <svg
@@ -170,12 +182,13 @@ export default function Hero() {
                 href="https://calendly.com/onyx-ai/30min"
                 target="_blank"
                 rel="noopener"
-                className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold"
+                className={`inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold ${entered ? "hero-cta-visible" : "hero-cta-hidden"}`}
                 style={{
                   background: "transparent",
                   color: "var(--warm-grey)",
                   border: "1px solid var(--hairline)",
                   fontSize: "15.5px",
+                  ["--reveal-delay" as string]: "320ms",
                 }}
               >
                 <svg
