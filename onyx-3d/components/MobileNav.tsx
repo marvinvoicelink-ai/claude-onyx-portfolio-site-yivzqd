@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const links = [
   { href: "/", label: "Startseite" },
@@ -18,6 +19,7 @@ const links = [
 export default function MobileNav() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
@@ -56,17 +58,21 @@ export default function MobileNav() {
             }}
           >
             <nav className="flex flex-col mono px-7 py-4" style={{ fontSize: 15.5 }}>
-              {links.map((l) => (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="py-3.5"
-                  style={{ color: "#ffffff" }}
-                >
-                  {l.label}
-                </Link>
-              ))}
+              {links.map((l) => {
+                const active = pathname === l.href;
+                return (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    onClick={() => setOpen(false)}
+                    aria-current={active ? "page" : undefined}
+                    className="py-3.5"
+                    style={{ color: active ? "var(--amber)" : "#ffffff" }}
+                  >
+                    {l.label}
+                  </Link>
+                );
+              })}
             </nav>
           </div>,
           document.body

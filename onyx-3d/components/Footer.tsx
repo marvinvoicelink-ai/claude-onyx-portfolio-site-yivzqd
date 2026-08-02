@@ -11,16 +11,21 @@ export default function Footer() {
       >
         <span>© 2026 Onyx.AI — Marvin Weiß-Drumm, Landau in der Pfalz</span>
         <div className="flex flex-wrap items-center gap-4">
-          <Link href="/impressum">Impressum</Link>
-          <Link href="/datenschutz">Datenschutz</Link>
+          <Link href="/impressum" className="footer-link">
+            Impressum
+          </Link>
+          <Link href="/datenschutz" className="footer-link">
+            Datenschutz
+          </Link>
           <button
             type="button"
             onClick={() => window.dispatchEvent(new Event("onyx-open-cookie-settings"))}
+            className="footer-link"
             style={{ background: "none", border: "none", padding: 0, font: "inherit", color: "inherit", cursor: "pointer" }}
           >
             Cookie-Einstellungen
           </button>
-          <a href="https://calendly.com/onyx-ai/30min" target="_blank" rel="noopener">
+          <a href="https://calendly.com/onyx-ai/30min" target="_blank" rel="noopener" className="footer-link">
             Termin buchen
           </a>
         </div>
