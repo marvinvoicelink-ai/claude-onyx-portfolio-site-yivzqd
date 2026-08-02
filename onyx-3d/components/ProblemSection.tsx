@@ -218,8 +218,8 @@ export default function ProblemSection({ animate = false }: { animate?: boolean 
           </div>
         ) : (
           <div ref={stack.wrapperRef} className="relative" style={{ height: `${problems.length * 62}vh` }}>
-            <div className="sticky flex items-center justify-center" style={{ top: "15vh", height: "min(460px, 64vh)" }}>
-              <div className="relative w-full" style={{ maxWidth: 400, height: "100%" }}>
+            <div className="sticky flex items-center justify-center" style={{ top: "14vh", height: "min(500px, 68vh)" }}>
+              <div className="relative w-full" style={{ maxWidth: 440, height: "100%" }}>
                 {problems.map((p, i) => (
                   <div
                     key={p.num}
