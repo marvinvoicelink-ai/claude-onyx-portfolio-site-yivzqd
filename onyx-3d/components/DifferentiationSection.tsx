@@ -11,7 +11,7 @@ const diffs = [
   { image: "/generated/diff-04.webp", w: 1220, h: 248, title: "Kein Lock-in.", subtitle: "Nach der Übergabe bist du unabhängig." },
 ];
 
-function DiffCard({ d }: { d: (typeof diffs)[number] }) {
+function DiffCard({ d, animate }: { d: (typeof diffs)[number]; animate?: boolean }) {
   return (
     <>
       <h3
@@ -35,7 +35,7 @@ function DiffCard({ d }: { d: (typeof diffs)[number] }) {
         width={d.w}
         height={d.h}
         className="w-full h-auto block"
-        style={{ maxWidth: "70%", filter: "drop-shadow(0 0 30px rgba(232,163,61,0.4))" }}
+        style={{ maxWidth: animate ? "94%" : "70%", filter: "drop-shadow(0 0 30px rgba(232,163,61,0.4))" }}
       />
     </>
   );
@@ -76,11 +76,11 @@ export default function DifferentiationSection({ animate = false }: { animate?: 
           </div>
         ) : (
           <div ref={stack.wrapperRef} className="relative" style={{ height: `${diffs.length * 62}vh` }}>
-            <div className="sticky flex items-center justify-center" style={{ top: "13vh", height: "min(560px, 74vh)" }}>
-              <div className="relative w-full" style={{ maxWidth: 460, height: "100%" }}>
+            <div className="sticky flex items-center justify-center" style={{ top: "12vh", height: "min(600px, 78vh)" }}>
+              <div className="relative w-full" style={{ maxWidth: 500, height: "100%" }}>
                 {diffs.map((d, i) => (
                   <div key={d.image} className="card-stack-slot flex flex-col" style={getStackSlotStyle(i - stack.index)}>
-                    <DiffCard d={d} />
+                    <DiffCard d={d} animate />
                   </div>
                 ))}
                 <CardStackDots count={diffs.length} index={stack.index} />

@@ -13,7 +13,7 @@ const solutions = [
   { image: "/generated/solution-06.webp", w: 1074, h: 636, title: "Dokumenten- & Datenverwaltung.", subtitle: "Eine zentrale Ablage statt Ordner-Chaos." },
 ];
 
-function SolutionCard({ s }: { s: (typeof solutions)[number] }) {
+function SolutionCard({ s, animate }: { s: (typeof solutions)[number]; animate?: boolean }) {
   return (
     <>
       <h3
@@ -37,7 +37,7 @@ function SolutionCard({ s }: { s: (typeof solutions)[number] }) {
         width={s.w}
         height={s.h}
         className="w-full h-auto block"
-        style={{ maxWidth: "78%", filter: "drop-shadow(0 0 30px rgba(232,163,61,0.4))" }}
+        style={{ maxWidth: animate ? "94%" : "78%", filter: "drop-shadow(0 0 30px rgba(232,163,61,0.4))" }}
       />
     </>
   );
@@ -74,15 +74,15 @@ export default function SolutionsSection({ animate = false }: { animate?: boolea
           </div>
         ) : (
           <div ref={stack.wrapperRef} className="relative" style={{ height: `${solutions.length * 62}vh` }}>
-            <div className="sticky flex items-center justify-center" style={{ top: "13vh", height: "min(560px, 74vh)" }}>
-              <div className="relative w-full" style={{ maxWidth: 460, height: "100%" }}>
+            <div className="sticky flex items-center justify-center" style={{ top: "12vh", height: "min(600px, 78vh)" }}>
+              <div className="relative w-full" style={{ maxWidth: 500, height: "100%" }}>
                 {solutions.map((s, i) => (
                   <div
                     key={s.image}
                     className={`card-stack-slot flex flex-col ${i === stack.index ? "hover-lift-home" : ""}`}
                     style={getStackSlotStyle(i - stack.index)}
                   >
-                    <SolutionCard s={s} />
+                    <SolutionCard s={s} animate />
                   </div>
                 ))}
                 <CardStackDots count={solutions.length} index={stack.index} />
