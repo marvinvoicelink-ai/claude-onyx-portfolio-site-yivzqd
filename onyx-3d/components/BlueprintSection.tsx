@@ -1,6 +1,11 @@
+"use client";
+
 import Image from "next/image";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export default function BlueprintSection() {
+  const image = useScrollReveal<HTMLImageElement>(1);
+
   return (
     <section className="py-14">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
@@ -40,11 +45,13 @@ export default function BlueprintSection() {
 
         <div style={{ maxWidth: 820 }}>
           <Image
+            ref={image.setRef(0)}
+            data-reveal-index={0}
             src="/generated/system-blueprint.png"
             alt="Schema: Kundenportal und Dashboard verbinden sich zu deinem System, das Automatisierung und Dokumentenverwaltung steuert"
             width={1200}
             height={896}
-            className="w-full h-auto block"
+            className={`w-full h-auto block ${image.visible[0] ? "reveal-img-visible" : "reveal-img-hidden"}`}
             style={{ filter: "drop-shadow(0 0 40px rgba(232,163,61,0.3))" }}
           />
         </div>
