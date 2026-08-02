@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+import CountUp from "./CountUp";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const kpis = [
   { value: "20+", label: "Std./Monat gespart", sub: "Weniger manueller Aufwand im Tagesgeschäft" },
@@ -7,11 +11,16 @@ const kpis = [
 ];
 
 export default function CaseStudySection() {
+  const block = useScrollReveal<HTMLDivElement>(1);
+  const isVisible = block.visible[0];
+
   return (
     <section className="py-14">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
-          className="rounded-2xl p-6 md:p-10"
+          ref={block.setRef(0)}
+          data-reveal-index={0}
+          className={`rounded-2xl p-6 md:p-10 ${isVisible ? "reveal-visible" : "reveal-hidden"}`}
           style={{ background: "var(--near-black-2)" }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-10">
@@ -111,10 +120,10 @@ export default function CaseStudySection() {
             className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-8"
             style={{ borderTop: "1px solid var(--hairline)" }}
           >
-            {kpis.map((k) => (
+            {kpis.map((k, i) => (
               <div key={k.label} className="text-center sm:text-left">
                 <div className="mono" style={{ fontSize: "1.8rem", fontWeight: 800, color: "var(--amber)", lineHeight: 1.1 }}>
-                  {k.value}
+                  {i === 0 ? <CountUp target={20} suffix="+" start={isVisible} /> : k.value}
                 </div>
                 <div style={{ fontWeight: 700, fontSize: "0.92rem", marginTop: 6 }}>{k.label}</div>
                 <div style={{ fontSize: "0.8rem", color: "var(--warm-grey-faint)", marginTop: 2 }}>
