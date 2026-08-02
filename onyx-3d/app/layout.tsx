@@ -22,10 +22,27 @@ const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
 });
 
+const title = "Onyx.AI — White-Label-Systeme. Gebaut. Übergeben. Deins.";
+const description =
+  "Onyx baut dir dein eigenes System — Dashboards, Portale, interne Tools. Im White-Label, vollständig übergeben, auf deiner Infrastruktur, unter deiner Marke.";
+
 export const metadata: Metadata = {
-  title: "Onyx.AI — White-Label-Systeme. Gebaut. Übergeben. Deins.",
-  description:
-    "Onyx baut dir dein eigenes System — Dashboards, Portale, interne Tools. Im White-Label, vollständig übergeben, auf deiner Infrastruktur, unter deiner Marke.",
+  metadataBase: new URL("https://onyx-ai.de"),
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    locale: "de_DE",
+    type: "website",
+    images: ["/generated/chaos-to-portal.webp"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: ["/generated/chaos-to-portal.webp"],
+  },
 };
 
 export default function RootLayout({
@@ -39,8 +56,11 @@ export default function RootLayout({
       className={`${archivo.variable} ${instrumentSans.variable} ${plexMono.variable}`}
     >
       <body>
+        <a href="#main-content" className="skip-link">
+          Zum Inhalt springen
+        </a>
         <Nav />
-        {children}
+        <div id="main-content">{children}</div>
         <CookieConsent />
       </body>
     </html>
