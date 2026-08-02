@@ -21,22 +21,28 @@ export default function Home() {
         <Hero />
 
         <section className="py-16">
-          <div className="mx-auto px-7 text-center" style={{ maxWidth: 720 }}>
+          <div className="mx-auto px-7 text-center" style={{ maxWidth: 780 }}>
             <span
               className="mono block mb-4"
               style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
             >
-              Warum jetzt
+              Warum Onyx
             </span>
-            <p style={{ fontSize: "clamp(1.4rem, 2.8vw, 1.9rem)", fontWeight: 700, lineHeight: 1.4 }}>
-              Ein eigenes System spart Kosten. Ein eigenes System ohne KI
-              spart nur ein paar Jahre lang —{" "}
-              <span className="accent">danach zieht der Wettbewerb vorbei, der längst automatisiert hat.</span>
-            </p>
-            <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7, marginTop: 20 }}>
-              Wir bauen dir kein Feature von der Stange, sondern ein System
-              mit KI und Automatisierung von Anfang an — maßgeschneidert,
-              zum Festpreis, komplett dir übergeben.
+            <h2 style={{ fontSize: "clamp(1.7rem, 3.4vw, 2.4rem)", lineHeight: 1.25 }}>
+              Warum du mit uns arbeiten solltest —{" "}
+              <span className="accent">und warum du dein eigenes System jetzt brauchst.</span>
+            </h2>
+            <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.05rem", lineHeight: 1.75, marginTop: 24 }}>
+              Ein eigenes System spart von Tag eins an Kosten — keine
+              Lizenzgebühren, keine Abo-Falle, kein Funktionsumfang, für den
+              du zahlst, aber nie brauchst. Aber ein System ohne KI ist in
+              ein paar Jahren nur noch die halbe Miete: Unternehmen, die
+              heute automatisieren, ziehen an allen anderen vorbei. Deshalb
+              bauen wir dir kein Tool von der Stange, sondern ein System,
+              das von Anfang an mitdenkt — mit KI und Automatisierung
+              eingebaut, zum Festpreis, komplett dir übergeben. Und du
+              sprichst dabei nicht mit einem Support-Ticket, sondern direkt
+              mit dem Gründer.
             </p>
           </div>
         </section>
