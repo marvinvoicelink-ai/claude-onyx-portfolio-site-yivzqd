@@ -225,7 +225,7 @@ a {
   transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.hover-lift-home.reveal-visible:hover {
+.hover-lift-home:hover {
   transform: translateY(-6px);
 }
 
@@ -274,7 +274,7 @@ a {
     transform: none !important;
     transition: none !important;
   }
-  .hover-lift-home.reveal-visible:hover {
+  .hover-lift-home:hover {
     transform: none !important;
   }
 }
