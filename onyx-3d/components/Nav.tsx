@@ -37,6 +37,12 @@ export default function Nav() {
             <Link href="/angebot" style={{ color: "#ffffff" }}>
               Angebot
             </Link>
+            <Link href="/fuer-dich" style={{ color: "#ffffff" }}>
+              Für dich
+            </Link>
+            <Link href="/problem" style={{ color: "#ffffff" }}>
+              Problem
+            </Link>
             <Link href="/referenzen" style={{ color: "#ffffff" }}>
               Referenzen
             </Link>
