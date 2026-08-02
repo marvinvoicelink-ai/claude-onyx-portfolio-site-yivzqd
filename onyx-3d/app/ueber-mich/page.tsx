@@ -52,6 +52,21 @@ export default function UeberMichPage() {
       </section>
 
       <section className="py-14">
+        <div className="mx-auto px-7 text-center" style={{ maxWidth: 700 }}>
+          <p style={{ fontSize: "clamp(1.3rem, 2.6vw, 1.7rem)", fontWeight: 700, lineHeight: 1.4 }}>
+            Ein eigenes System spart Kosten. Ein eigenes System ohne KI spart
+            nur ein paar Jahre lang —{" "}
+            <span className="accent">danach zieht der Wettbewerb vorbei, der längst automatisiert hat.</span>
+          </p>
+          <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7, marginTop: 20 }}>
+            Deshalb bauen wir KI und Automatisierung nicht als Extra ein,
+            sondern von Anfang an in jedes System, das wir für dich
+            entwickeln.
+          </p>
+        </div>
+      </section>
+
+      <section className="py-14">
         <div
           className="mx-auto px-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
           style={{ maxWidth: 1180 }}
