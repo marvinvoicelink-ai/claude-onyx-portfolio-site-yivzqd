@@ -262,34 +262,23 @@ export default function ProblemSection({ animate = false }: { animate?: boolean 
           >
             Eins, das du besitzt.
           </p>
-          {animate ? (
-            <div style={{ maxWidth: 460 }}>
-              <Image
-                ref={chaosImage.setRef(0)}
-                data-reveal-index={0}
-                src="/generated/chaos-to-portal.webp"
-                alt="Aus Tool-Chaos wird ein System. Eins, das du besitzt."
-                width={1600}
-                height={635}
-                className={`w-full h-auto block ${chaosImage.visible[0] ? "reveal-left-visible" : "reveal-left-hidden"}`}
-                style={{
-                  filter: "drop-shadow(0 0 40px rgba(232,163,61,0.35))",
-                  ["--reveal-delay" as string]: "60ms",
-                }}
-              />
-            </div>
-          ) : (
-            <Image
-              ref={chaosImage.setRef(0)}
-              data-reveal-index={0}
-              src="/generated/chaos-to-portal.webp"
-              alt="Aus Tool-Chaos wird ein System. Eins, das du besitzt."
-              width={1600}
-              height={635}
-              className="w-full h-auto block"
-              style={{ filter: "drop-shadow(0 0 40px rgba(232,163,61,0.35))" }}
-            />
-          )}
+          <Image
+            ref={chaosImage.setRef(0)}
+            data-reveal-index={0}
+            src="/generated/chaos-to-portal.webp"
+            alt="Aus Tool-Chaos wird ein System. Eins, das du besitzt."
+            width={1600}
+            height={635}
+            className={
+              animate
+                ? `w-full h-auto block ${chaosImage.visible[0] ? "reveal-left-visible" : "reveal-left-hidden"}`
+                : "w-full h-auto block"
+            }
+            style={{
+              filter: "drop-shadow(0 0 40px rgba(232,163,61,0.35))",
+              ...(animate ? { ["--reveal-delay" as string]: "60ms" } : {}),
+            }}
+          />
         </div>
       </div>
     </section>
