@@ -51,7 +51,7 @@ export default function BlueprintSection() {
             alt="Schema: Kundenportal und Dashboard verbinden sich zu deinem System, das Automatisierung und Dokumentenverwaltung steuert"
             width={1200}
             height={896}
-            className={`w-full h-auto block ${image.visible[0] ? "reveal-img-visible" : "reveal-img-hidden"}`}
+            className={`w-full h-auto block ${image.visible[0] ? "reveal-left-visible" : "reveal-left-hidden"}`}
             style={{ filter: "drop-shadow(0 0 40px rgba(232,163,61,0.3))" }}
           />
         </div>

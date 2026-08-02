@@ -252,7 +252,7 @@ export default function ProblemSection({ animate = false }: { animate?: boolean 
             height={635}
             className={
               animate
-                ? `w-full h-auto block ${chaosImage.visible[0] ? "reveal-img-visible" : "reveal-img-hidden"}`
+                ? `w-full h-auto block ${chaosImage.visible[0] ? "reveal-left-visible" : "reveal-left-hidden"}`
                 : "w-full h-auto block"
             }
             style={{
