@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const solutions = [
   { image: "/generated/solution-01.webp", w: 880, h: 626, title: "Kundenportale.", subtitle: "Status, Dokumente und Termine selbst einsehen." },
@@ -9,7 +12,9 @@ const solutions = [
   { image: "/generated/solution-06.webp", w: 1074, h: 636, title: "Dokumenten- & Datenverwaltung.", subtitle: "Eine zentrale Ablage statt Ordner-Chaos." },
 ];
 
-export default function SolutionsSection() {
+export default function SolutionsSection({ animate = false }: { animate?: boolean }) {
+  const cards = useScrollReveal<HTMLDivElement>(solutions.length, !animate);
+
   return (
     <section className="py-14">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
@@ -29,8 +34,18 @@ export default function SolutionsSection() {
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
-          {solutions.map((s) => (
-            <div key={s.image} className="flex flex-col">
+          {solutions.map((s, i) => (
+            <div
+              key={s.image}
+              ref={cards.setRef(i)}
+              data-reveal-index={i}
+              className={
+                animate
+                  ? `flex flex-col hover-lift-home ${cards.visible[i] ? "reveal-visible" : "reveal-hidden"}`
+                  : "flex flex-col"
+              }
+              style={animate ? { ["--reveal-delay" as string]: `${i * 70}ms` } : undefined}
+            >
               <h3
                 style={{
                   fontFamily: "var(--font-archivo), sans-serif",

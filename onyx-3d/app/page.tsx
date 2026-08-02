@@ -20,7 +20,7 @@ export default function Home() {
       <main>
         <Hero />
         <IndustriesSection />
-        <ProblemSection />
+        <ProblemSection animate />
         <CTABanner
           heading="Erkennst du dein Unternehmen in diesen Problemen wieder?"
           sub="Lass uns in einem kurzen Gespräch klären, was für dich der größte Hebel wäre."
@@ -31,14 +31,14 @@ export default function Home() {
         <CaseStudySection />
         <RoadmapSection />
         <MidFormSection />
-        <SolutionsSection />
+        <SolutionsSection animate />
         <CTABanner
           heading="Dein System, gebaut für genau dein Geschäft."
           sub="Kein Baukasten, kein Abo — ein System, das dir gehört."
           buttonText="Kostenloses Erstgespräch sichern"
           ctaHref="#kontakt"
         />
-        <DifferentiationSection />
+        <DifferentiationSection animate />
         <FAQSection />
         <ContactSection />
         <Footer />

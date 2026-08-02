@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const problems = [
   {
@@ -141,7 +144,10 @@ function Mock({ type }: { type: string }) {
   );
 }
 
-export default function ProblemSection() {
+export default function ProblemSection({ animate = false }: { animate?: boolean }) {
+  const cards = useScrollReveal<HTMLDivElement>(problems.length, !animate);
+  const chaosImage = useScrollReveal<HTMLImageElement>(1, !animate);
+
   return (
     <section className="py-14">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
@@ -156,13 +162,20 @@ export default function ProblemSection() {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {problems.map((p) => (
+          {problems.map((p, i) => (
             <div
               key={p.num}
-              className="rounded-2xl p-7"
+              ref={cards.setRef(i)}
+              data-reveal-index={i}
+              className={
+                animate
+                  ? `rounded-2xl p-7 ${cards.visible[i] ? "reveal-visible" : "reveal-hidden"}`
+                  : "rounded-2xl p-7"
+              }
               style={{
                 background: "var(--near-black-2)",
                 boxShadow: "0 0 60px -10px rgba(232,163,61,0.45)",
+                ...(animate ? { ["--reveal-delay" as string]: `${i * 90}ms` } : {}),
               }}
             >
               <div className="flex items-center justify-between mb-5">
@@ -231,12 +244,21 @@ export default function ProblemSection() {
             Eins, das du besitzt.
           </p>
           <Image
+            ref={chaosImage.setRef(0)}
+            data-reveal-index={0}
             src="/generated/chaos-to-portal.webp"
             alt="Aus Tool-Chaos wird ein System. Eins, das du besitzt."
             width={1600}
             height={635}
-            className="w-full h-auto block"
-            style={{ filter: "drop-shadow(0 0 40px rgba(232,163,61,0.35))" }}
+            className={
+              animate
+                ? `w-full h-auto block ${chaosImage.visible[0] ? "reveal-img-visible" : "reveal-img-hidden"}`
+                : "w-full h-auto block"
+            }
+            style={{
+              filter: "drop-shadow(0 0 40px rgba(232,163,61,0.35))",
+              ...(animate ? { ["--reveal-delay" as string]: "60ms" } : {}),
+            }}
           />
         </div>
       </div>

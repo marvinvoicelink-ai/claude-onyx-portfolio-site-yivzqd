@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const diffs = [
   { image: "/generated/diff-01.webp", w: 691, h: 510, title: "Kein CRM von der Stange.", subtitle: "Dein System wird nach deinem Prozess gebaut." },
@@ -7,7 +10,9 @@ const diffs = [
   { image: "/generated/diff-04.webp", w: 1220, h: 248, title: "Kein Lock-in.", subtitle: "Nach der Übergabe bist du unabhängig." },
 ];
 
-export default function DifferentiationSection() {
+export default function DifferentiationSection({ animate = false }: { animate?: boolean }) {
+  const cards = useScrollReveal<HTMLDivElement>(diffs.length, !animate);
+
   return (
     <section className="py-14">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
@@ -31,8 +36,18 @@ export default function DifferentiationSection() {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-12">
-          {diffs.map((d) => (
-            <div key={d.image} className="flex flex-col">
+          {diffs.map((d, i) => (
+            <div
+              key={d.image}
+              ref={cards.setRef(i)}
+              data-reveal-index={i}
+              className={
+                animate
+                  ? `flex flex-col ${cards.visible[i] ? "reveal-visible" : "reveal-hidden"}`
+                  : "flex flex-col"
+              }
+              style={animate ? { ["--reveal-delay" as string]: `${i * 90}ms` } : undefined}
+            >
               <h3
                 style={{
                   fontFamily: "var(--font-archivo), sans-serif",
