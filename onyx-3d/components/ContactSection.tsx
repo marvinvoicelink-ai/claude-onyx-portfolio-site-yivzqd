@@ -160,6 +160,9 @@ export default function ContactSection() {
             href="https://wa.me/4917632273522?text=Hallo%20Marvin%2C%20ich%20interessiere%20mich%20f%C3%BCr%20ein%20White-Label-System%20von%20Onyx."
             target="_blank"
             rel="noopener"
+            onClick={() => {
+              if (typeof window.fbq === "function") window.fbq("trackCustom", "WhatsAppClick");
+            }}
             className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold"
             style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}
           >
@@ -177,7 +180,13 @@ export default function ContactSection() {
         </div>
         <p className="mono mt-6" style={{ fontSize: 12.5, color: "var(--warm-grey-faint)" }}>
           WhatsApp{" "}
-          <a href="https://wa.me/4917632273522" style={{ color: "var(--amber)" }}>
+          <a
+            href="https://wa.me/4917632273522"
+            onClick={() => {
+              if (typeof window.fbq === "function") window.fbq("trackCustom", "WhatsAppClick");
+            }}
+            style={{ color: "var(--amber)" }}
+          >
             0176 322 273 522
           </a>{" "}
           · info@onyx-ai.de

@@ -1,3 +1,11 @@
+"use client";
+
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+  }
+}
+
 const WHATSAPP_HREF =
   "https://wa.me/4917632273522?text=Hallo%20Marvin%2C%20ich%20interessiere%20mich%20f%C3%BCr%20ein%20White-Label-System%20von%20Onyx.";
 
@@ -46,6 +54,9 @@ export default function CTABanner({
               href={WHATSAPP_HREF}
               target="_blank"
               rel="noopener"
+              onClick={() => {
+                if (typeof window.fbq === "function") window.fbq("trackCustom", "WhatsAppClick");
+              }}
               className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap btn-ghost"
               style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}
             >
