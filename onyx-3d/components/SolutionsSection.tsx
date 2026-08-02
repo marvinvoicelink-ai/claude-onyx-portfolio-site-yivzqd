@@ -75,7 +75,7 @@ export default function SolutionsSection({ animate = false }: { animate?: boolea
         ) : (
           <div ref={stack.wrapperRef} className="relative" style={{ height: `${solutions.length * 62}vh` }}>
             <div className="sticky flex items-center justify-center" style={{ top: "13vh", height: "min(560px, 74vh)" }}>
-              <div className="relative w-full" style={{ maxWidth: 420, height: "100%" }}>
+              <div className="relative w-full" style={{ maxWidth: 460, height: "100%" }}>
                 {solutions.map((s, i) => (
                   <div
                     key={s.image}
