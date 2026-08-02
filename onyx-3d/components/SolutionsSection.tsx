@@ -33,7 +33,13 @@ export default function SolutionsSection({ animate = false }: { animate?: boolea
           maßgeschneiderte Systeme typischerweise ansetzen.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
+        <div
+          className={
+            animate
+              ? "grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-12"
+              : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12"
+          }
+        >
           {solutions.map((s, i) => (
             <div
               key={s.image}
