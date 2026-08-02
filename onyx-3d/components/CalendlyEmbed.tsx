@@ -93,7 +93,7 @@ export default function CalendlyEmbed() {
           <button
             type="button"
             onClick={enable}
-            className="rounded-[10px] px-5 py-2.5 font-semibold"
+            className="rounded-[10px] px-5 py-2.5 font-semibold btn-ghost"
             style={{
               background: "transparent",
               color: "var(--warm-grey)",

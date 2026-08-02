@@ -103,7 +103,7 @@ export default function CookieConsent() {
           <button
             type="button"
             onClick={decline}
-            className="rounded-[10px] px-5 py-2.5 font-semibold"
+            className="rounded-[10px] px-5 py-2.5 font-semibold btn-ghost"
             style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 14 }}
           >
             Ablehnen
@@ -111,7 +111,7 @@ export default function CookieConsent() {
           <button
             type="button"
             onClick={accept}
-            className="rounded-[10px] px-5 py-2.5 font-semibold"
+            className="rounded-[10px] px-5 py-2.5 font-semibold btn-amber"
             style={{ background: "var(--amber)", color: "#161104", fontSize: 14 }}
           >
             Akzeptieren

@@ -33,7 +33,7 @@ export default function CTABanner({
           <div className="flex flex-wrap items-center justify-center gap-3">
             <a
               href={ctaHref}
-              className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap"
+              className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap btn-amber"
               style={{ background: "var(--amber)", color: "#161104", fontSize: 15.5 }}
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" width={18} height={18}>
@@ -46,7 +46,7 @@ export default function CTABanner({
               href={WHATSAPP_HREF}
               target="_blank"
               rel="noopener"
-              className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap"
+              className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap btn-ghost"
               style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}
             >
               <svg viewBox="0 0 24 24" fill="currentColor" width={18} height={18}>

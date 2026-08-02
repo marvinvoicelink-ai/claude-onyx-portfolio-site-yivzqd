@@ -120,7 +120,7 @@ export default function ContactSection() {
           <button
             type="submit"
             disabled={status === "sending"}
-            className="w-full rounded-[10px] py-4 font-semibold"
+            className="w-full rounded-[10px] py-4 font-semibold btn-amber"
             style={{
               background: "var(--amber)",
               color: "#161104",

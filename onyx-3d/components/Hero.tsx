@@ -155,7 +155,7 @@ export default function Hero() {
             <div className="flex flex-wrap gap-3.5 mt-9">
               <a
                 href="#kontakt"
-                className={`inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold ${entered ? "hero-cta-visible" : "hero-cta-hidden"}`}
+                className={`inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold btn-amber ${entered ? "hero-cta-visible" : "hero-cta-hidden"}`}
                 style={{
                   background: "var(--amber)",
                   color: "#161104",
@@ -182,7 +182,7 @@ export default function Hero() {
                 href="https://calendly.com/onyx-ai/30min"
                 target="_blank"
                 rel="noopener"
-                className={`inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold ${entered ? "hero-cta-visible" : "hero-cta-hidden"}`}
+                className={`inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold btn-ghost ${entered ? "hero-cta-visible" : "hero-cta-hidden"}`}
                 style={{
                   background: "transparent",
                   color: "var(--warm-grey)",
