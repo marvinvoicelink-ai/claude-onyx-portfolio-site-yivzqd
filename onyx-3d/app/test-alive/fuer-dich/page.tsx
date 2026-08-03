@@ -29,6 +29,7 @@ const diffs = [
     heading: "Du hostest auf deinem eigenen Server.",
     desc: "DSGVO-konform, in Deutschland bzw. der EU, mit AVV — nicht auf fremden Servern, die du nicht kontrollierst.",
     image: "/generated/diff-03.webp",
+    mediaBg: "light" as const,
   },
   {
     tag: "Vertragsende",
@@ -37,6 +38,7 @@ const diffs = [
     desc: "Kein laufendes Abo, kein Anbieter, der Preise erhöht oder den Vertrag kündigt. Onyx übergibt vollständig und zieht sich zurück.",
     image: "/generated/diff-04.webp",
     imageRight: true,
+    mediaBg: "light" as const,
   },
 ];
 
@@ -58,7 +60,16 @@ export default function TestAliveFuerDichPage() {
       </section>
 
       {diffs.map((d) => (
-        <AliveCase key={d.name} tag={d.tag} name={d.name} heading={d.heading} desc={d.desc} image={d.image} imageRight={d.imageRight} />
+        <AliveCase
+          key={d.name}
+          tag={d.tag}
+          name={d.name}
+          heading={d.heading}
+          desc={d.desc}
+          image={d.image}
+          imageRight={d.imageRight}
+          mediaBg={d.mediaBg}
+        />
       ))}
 
       <AliveComparisonTable

@@ -94,6 +94,47 @@ function StatValue({ value }: { value: string }) {
   );
 }
 
+/** Zero-padded index numbers ("01", "02"...) count up from 0 once in view, instead of just appearing. */
+function NumberCount({ value, className, style }: { value: string; className?: string; style?: React.CSSProperties }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const match = value.match(/^(\d+)$/);
+    if (!match || prefersReducedMotion()) {
+      el.textContent = value;
+      return;
+    }
+    const target = parseInt(match[1], 10);
+    const pad = value.length;
+    el.textContent = "0".padStart(pad, "0");
+    const counter = { n: 0 };
+    const st = ScrollTrigger.create({
+      trigger: el,
+      start: "top 92%",
+      once: true,
+      onEnter: () => {
+        gsap.to(counter, {
+          n: target,
+          duration: 0.9,
+          ease: "power1.out",
+          onUpdate: () => {
+            el.textContent = String(Math.round(counter.n)).padStart(pad, "0");
+          },
+        });
+      },
+    });
+    return () => st.kill();
+  }, [value]);
+
+  return (
+    <div ref={ref} className={className} style={style}>
+      {value}
+    </div>
+  );
+}
+
 export function AliveEyebrow({ children }: { children: React.ReactNode }) {
   return (
     <span
@@ -166,9 +207,7 @@ export function AliveHairlineGrid({
                   />
                 </div>
               )}
-              <div className="mono mb-4" style={{ fontSize: 13, color: "var(--amber)" }}>
-                {p.num}
-              </div>
+              <NumberCount value={p.num} className="mono mb-4" style={{ fontSize: 13, color: "var(--amber)" }} />
               <h3 style={{ fontSize: "1.2rem", marginBottom: 8 }}>
                 {p.title} {p.highlight && <span className="accent">{p.highlight}</span>}
               </h3>
@@ -495,6 +534,7 @@ export function AliveCase({
   image,
   imageRight = false,
   bullets,
+  mediaBg = "dark",
 }: {
   tag: string;
   name: string;
@@ -503,12 +543,19 @@ export function AliveCase({
   image: string;
   imageRight?: boolean;
   bullets?: string[];
+  mediaBg?: "dark" | "light";
 }) {
+  const light = mediaBg === "light";
   const media = (
     <ImageWipe>
-      <div className="relative" style={{ minHeight: 340, background: "var(--near-black-2)" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={image} alt={name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+      <div
+        className="relative"
+        style={{ aspectRatio: "3 / 2", background: light ? "var(--warm-grey)" : "var(--near-black-2)" }}
+      >
+        <div style={{ position: "absolute", inset: light ? 36 : 0 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={image} alt={name} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+        </div>
       </div>
     </ImageWipe>
   );
@@ -583,6 +630,7 @@ export function AliveTimeline({
   const pathRef = useRef<SVGPathElement>(null);
   const labelRefs = useRef<(HTMLDivElement | null)[]>([]);
   const dotRefs = useRef<(SVGCircleElement | null)[]>([]);
+  const numRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const margin = 40;
   const span = TIMELINE_VB_W - margin * 2;
@@ -597,6 +645,7 @@ export function AliveTimeline({
       path.style.strokeDashoffset = "0";
       dotRefs.current.forEach((d) => d && d.setAttribute("opacity", "1"));
       labelRefs.current.forEach((l) => l && (l.style.opacity = "1"));
+      numRefs.current.forEach((el, i) => el && (el.textContent = steps[i].num));
       return;
     }
 
@@ -610,6 +659,9 @@ export function AliveTimeline({
         l.style.transform = "translateY(8px)";
       }
     });
+    numRefs.current.forEach((el, i) => {
+      if (el) el.textContent = "0".padStart(steps[i].num.length, "0");
+    });
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -621,12 +673,29 @@ export function AliveTimeline({
         },
       });
       tl.to(path, { strokeDashoffset: 0, ease: "none" }, 0);
-      steps.forEach((_, i) => {
+      steps.forEach((s, i) => {
         const at = steps.length > 1 ? (i / (steps.length - 1)) * 0.9 : 0;
         const dot = dotRefs.current[i];
         const label = labelRefs.current[i];
+        const numEl = numRefs.current[i];
         if (dot) tl.to(dot, { attr: { opacity: 1 }, ease: "none" }, at);
         if (label) tl.to(label, { opacity: 1, y: 0, ease: "none" }, at);
+        const target = parseInt(s.num, 10);
+        if (numEl && !Number.isNaN(target)) {
+          const pad = s.num.length;
+          const counter = { n: 0 };
+          tl.to(
+            counter,
+            {
+              n: target,
+              ease: "none",
+              onUpdate: () => {
+                numEl.textContent = String(Math.round(counter.n)).padStart(pad, "0");
+              },
+            },
+            at
+          );
+        }
       });
     }, wrap);
 
@@ -690,7 +759,13 @@ export function AliveTimeline({
               transition: "opacity 0.2s linear, transform 0.2s linear",
             }}
           >
-            <div className="mono mb-1" style={{ fontSize: 12, color: "var(--amber)" }}>
+            <div
+              ref={(el) => {
+                numRefs.current[i] = el;
+              }}
+              className="mono mb-1"
+              style={{ fontSize: 12, color: "var(--amber)" }}
+            >
               {s.num}
             </div>
             <div style={{ fontWeight: 700, fontSize: "0.94rem", marginBottom: 4 }}>{s.title}</div>
