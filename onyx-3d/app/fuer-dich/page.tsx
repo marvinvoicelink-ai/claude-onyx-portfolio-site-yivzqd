@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import DifferentiationSection from "@/components/DifferentiationSection";
+import DifferentiatorsDetail from "@/components/DifferentiatorsDetail";
 import CTABanner from "@/components/CTABanner";
 import Footer from "@/components/Footer";
 
@@ -29,7 +29,7 @@ export default function FuerDichPage() {
         </div>
       </section>
 
-      <DifferentiationSection />
+      <DifferentiatorsDetail />
 
       <CTABanner
         heading="Dein System, gebaut für genau dein Geschäft."

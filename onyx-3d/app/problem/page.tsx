@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ProblemSection from "@/components/ProblemSection";
+import ProblemsDetail from "@/components/ProblemsDetail";
 import CTABanner from "@/components/CTABanner";
 import Footer from "@/components/Footer";
 
@@ -29,7 +29,7 @@ export default function ProblemPage() {
         </div>
       </section>
 
-      <ProblemSection />
+      <ProblemsDetail />
 
       <section className="py-14">
         <div className="mx-auto px-7 text-center" style={{ maxWidth: 700 }}>

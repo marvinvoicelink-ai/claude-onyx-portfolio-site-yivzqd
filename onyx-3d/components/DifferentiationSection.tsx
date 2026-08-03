@@ -1,18 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useScrollStack } from "@/hooks/useScrollStack";
 import { CardStackDots, CardStackScrollHint, CardStackCounter, getFlyStackSlotStyle } from "./CardStackChrome";
+import { differentiators as diffs, type Differentiator } from "@/lib/differentiators";
 
-const diffs = [
-  { image: "/generated/diff-01.webp", w: 691, h: 510, title: "Kein CRM von der Stange.", subtitle: "Dein System wird nach deinem Prozess gebaut." },
-  { image: "/generated/diff-02.webp", w: 754, h: 520, title: "Volles Eigentum.", subtitle: "Du besitzt Code und Daten - vollständig." },
-  { image: "/generated/diff-03.webp", w: 822, h: 194, title: "Deine Infrastruktur.", subtitle: "Du hostest auf deinem eigenen Server." },
-  { image: "/generated/diff-04.webp", w: 1220, h: 248, title: "Kein Lock-in.", subtitle: "Nach der Übergabe bist du unabhängig." },
-];
-
-function DiffCard({ d, animate }: { d: (typeof diffs)[number]; animate?: boolean }) {
-  return (
+function DiffCard({ d, animate, linked }: { d: Differentiator; animate?: boolean; linked?: boolean }) {
+  const card = (
     <div className="text-center">
       <h3
         style={{
@@ -26,9 +21,20 @@ function DiffCard({ d, animate }: { d: (typeof diffs)[number]; animate?: boolean
       >
         {d.title}
       </h3>
-      <p style={{ color: "var(--amber)", fontSize: "1.02rem", lineHeight: 1.5, marginBottom: 24 }}>
+      <p style={{ color: "var(--amber)", fontSize: "1.02rem", lineHeight: 1.5, marginBottom: linked ? 8 : 24 }}>
         {d.subtitle}
       </p>
+      {linked && (
+        <span
+          className="mono inline-flex items-center gap-1.5"
+          style={{ fontSize: 12, color: "var(--warm-grey-faint)", marginBottom: 16 }}
+        >
+          Mehr erfahren
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={12} height={12}>
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </span>
+      )}
       <Image
         src={d.image}
         alt={`${d.title} ${d.subtitle}`}
@@ -38,6 +44,14 @@ function DiffCard({ d, animate }: { d: (typeof diffs)[number]; animate?: boolean
         style={{ maxWidth: animate ? "94%" : "70%", filter: "drop-shadow(0 0 30px rgba(232,163,61,0.4))" }}
       />
     </div>
+  );
+
+  if (!linked) return card;
+
+  return (
+    <Link href={`/fuer-dich#${d.slug}`} className="block alive-hover-card rounded-2xl" style={{ border: "1px solid transparent" }}>
+      {card}
+    </Link>
   );
 }
 
@@ -70,7 +84,7 @@ export default function DifferentiationSection({ animate = false }: { animate?: 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-12">
             {diffs.map((d) => (
               <div key={d.image} className="flex flex-col">
-                <DiffCard d={d} />
+                <DiffCard d={d} linked />
               </div>
             ))}
           </div>
@@ -89,7 +103,7 @@ export default function DifferentiationSection({ animate = false }: { animate?: 
                       ...getFlyStackSlotStyle(i, stack.continuousIndex, diffs.length),
                     }}
                   >
-                    <DiffCard d={d} animate />
+                    <DiffCard d={d} animate linked />
                   </div>
                 ))}
                 <CardStackDots count={diffs.length} index={stack.index} />
