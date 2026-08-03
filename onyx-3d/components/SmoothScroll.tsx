@@ -31,8 +31,17 @@ export default function SmoothScroll({
     }
     requestAnimationFrame(raf);
 
+    // Images below the fold can still be loading when ScrollTrigger first
+    // computes trigger positions, shifting later sections down and leaving
+    // scroll-scrubbed effects misaligned — one refresh once everything has
+    // settled corrects it.
+    const onLoad = () => ScrollTrigger.refresh();
+    window.addEventListener("load", onLoad);
+    if (document.readyState === "complete") onLoad();
+
     return () => {
       lenis.destroy();
+      window.removeEventListener("load", onLoad);
     };
   }, []);
 

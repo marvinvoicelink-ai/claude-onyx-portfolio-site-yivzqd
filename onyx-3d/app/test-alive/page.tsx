@@ -11,6 +11,7 @@ import {
   AliveFaq,
   AliveTeamGrid,
   AliveCtaBand,
+  AliveTimeline,
 } from "@/components/alive/AliveChrome";
 
 export const metadata: Metadata = {
@@ -19,10 +20,18 @@ export const metadata: Metadata = {
 };
 
 const problems = [
-  { num: "01", title: "Mehrere Tools,", highlight: "die nicht zusammenpassen", desc: "Excel-Listen, SaaS-Tools, die nie ganz zu deinem Prozess passen." },
-  { num: "02", title: "Funktionen fehlen", highlight: "trotzdem", desc: "Das nächste Preispaket kostet doppelt, bringt aber nur einen Bruchteil mehr." },
-  { num: "03", title: "Daten liegen", highlight: "nicht bei dir", desc: "Kundendaten liegen auf fremden Servern, oft außerhalb der EU." },
-  { num: "04", title: "Abhängig", highlight: "vom Anbieter", desc: "Kündigt er den Vertrag oder erhöht die Preise, stehst du ohne Alternative da." },
+  { num: "01", title: "Mehrere Tools,", highlight: "die nicht zusammenpassen", desc: "Excel-Listen, SaaS-Tools, die nie ganz zu deinem Prozess passen.", image: "/generated/problem-tools.webp" },
+  { num: "02", title: "Funktionen fehlen", highlight: "trotzdem", desc: "Das nächste Preispaket kostet doppelt, bringt aber nur einen Bruchteil mehr.", image: "/generated/problem-pricing.webp" },
+  { num: "03", title: "Daten liegen", highlight: "nicht bei dir", desc: "Kundendaten liegen auf fremden Servern, oft außerhalb der EU.", image: "/generated/problem-servers.webp" },
+  { num: "04", title: "Abhängig", highlight: "vom Anbieter", desc: "Kündigt er den Vertrag oder erhöht die Preise, stehst du ohne Alternative da.", image: "/generated/problem-lock.webp" },
+];
+
+const roadmapSteps = [
+  { num: "01", title: "Erstgespräch & Analyse", desc: "Wir lernen deinen Prozess kennen — ohne Verkaufsdruck." },
+  { num: "02", title: "Konzept & Festpreis", desc: "Klares Konzept, transparenter Festpreis." },
+  { num: "03", title: "Entwicklung", desc: "Dein System entsteht — mit regelmäßigen Updates." },
+  { num: "04", title: "Testing & Übergabe", desc: "Gemeinsam geprüft, vollständig dokumentiert." },
+  { num: "05", title: "Go-Live", desc: "Läuft auf deiner Infrastruktur, unter deiner Marke." },
 ];
 
 const services = [
@@ -190,6 +199,13 @@ export default function TestAlivePage() {
           { label: "Hosting", a: "Fremde Server", b: "Deine Infrastruktur" },
           { label: "Vertragsende", a: "Du stehst ohne Alternative da", b: "Kein Lock-in" },
         ]}
+      />
+
+      <AliveTimeline
+        eyebrow="Unser Vorgehen"
+        heading="Von der Analyse bis zum Go-Live."
+        sub="Ein fokussiertes Tool kann in wenigen Wochen stehen, ein komplettes CRM dauert länger — im Erstgespräch bekommst du eine realistische Einschätzung."
+        steps={roadmapSteps}
       />
 
       <AliveTestimonialWall
