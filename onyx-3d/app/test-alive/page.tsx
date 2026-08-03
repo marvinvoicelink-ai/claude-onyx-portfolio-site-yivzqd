@@ -8,6 +8,7 @@ import {
   AliveCase,
   AliveComparisonTable,
   AliveTestimonialWall,
+  AliveFaq,
   AliveTeamGrid,
   AliveCtaBand,
 } from "@/components/alive/AliveChrome";
@@ -22,6 +23,42 @@ const problems = [
   { num: "02", title: "Funktionen fehlen", highlight: "trotzdem", desc: "Das nächste Preispaket kostet doppelt, bringt aber nur einen Bruchteil mehr." },
   { num: "03", title: "Daten liegen", highlight: "nicht bei dir", desc: "Kundendaten liegen auf fremden Servern, oft außerhalb der EU." },
   { num: "04", title: "Abhängig", highlight: "vom Anbieter", desc: "Kündigt er den Vertrag oder erhöht die Preise, stehst du ohne Alternative da." },
+];
+
+const services = [
+  { num: "01", title: "Kundenportale.", desc: "Status, Dokumente und Termine selbst einsehen." },
+  { num: "02", title: "Interne Tools.", desc: "Aus Excel und Zetteln wird ein eigenes System." },
+  { num: "03", title: "Dashboards & Auswertungen.", desc: "Alle Zahlen an einem Ort, live und verständlich." },
+  {
+    num: "04",
+    title: "Automatisierung & KI-Agenten.",
+    desc: "Mails, Reports und Erinnerungen laufen automatisch.",
+    bullets: [
+      "E-Mail-Automatisierung · automatischer Versand & Nachfassen",
+      "Automatisierte Reports & Erinnerungen · ohne manuelles Zutun",
+      "Interne KI-Agenten · verarbeiten und sortieren Daten automatisch",
+    ],
+  },
+  { num: "05", title: "Termin- & Ressourcenplanung.", desc: "Kalender und Kapazitäten in einem System." },
+];
+
+const faqs = [
+  {
+    q: "Was kostet ein System von Onyx?",
+    a: "Jedes System ist individuell — deshalb gibt es keinen Katalogpreis. Nach dem ersten Gespräch bekommst du ein klares Konzept mit Festpreis.",
+  },
+  {
+    q: "Wie lange dauert der Bau?",
+    a: "Ein fokussiertes Tool kann in wenigen Wochen stehen, ein komplettes CRM dauert länger. Im Erstgespräch bekommst du eine realistische Einschätzung.",
+  },
+  {
+    q: "Muss ich technisch versiert sein?",
+    a: "Nein. Du beschreibst deinen Prozess und wir übersetzen ihn in ein System — mit verständlicher Dokumentation zur Übergabe.",
+  },
+  {
+    q: "Ist mein System DSGVO-konform?",
+    a: "Ja. Du hostest selbst, in Deutschland bzw. der EU, mit AVV. Keine Daten über fremde Server, die du nicht kontrollierst.",
+  },
 ];
 
 const team = [
@@ -115,6 +152,13 @@ export default function TestAlivePage() {
         sub="Deshalb bauen wir KI und Automatisierung nicht als Extra ein, sondern von Anfang an in jedes System, das wir für dich entwickeln."
       />
 
+      <AliveHairlineGrid
+        eyebrow="Leistungen"
+        heading="Alles aus einer Hand. Fünf Bausteine, ein System."
+        items={services}
+        cols={3}
+      />
+
       <AliveCase
         tag="Kundencase · gebaut & übergeben"
         name="HausManager Pro"
@@ -129,6 +173,11 @@ export default function TestAlivePage() {
         desc="Für WETBlock haben wir den E-Mail-Outreach an ihre Geschäftskunden automatisiert. Vorher musste das Team jede Ansprache von Hand schreiben — heute läuft das automatisch."
         image="/generated/wetblock-case.webp"
         imageRight
+        bullets={[
+          "Automatischer Versand · individuelle Ansprache ohne manuelles Schreiben",
+          "Automatisches Nachfassen · reagiert auf Antworten oder Funkstille",
+          "Zentrale Auswertung · zeigt, welche Ansprache tatsächlich ankommt",
+        ]}
       />
 
       <AliveComparisonTable
@@ -160,9 +209,15 @@ export default function TestAlivePage() {
         ]}
       />
 
+      <AliveFaq eyebrow="Rückfragen" heading="Bevor du fragst." faqs={faqs} />
+
       <AliveTeamGrid eyebrow="Über uns" heading="Die Menschen hinter Onyx.AI." team={team} />
 
-      <AliveCtaBand heading="Dein System, gebaut für genau dein Geschäft." sub="Kein Baukasten, kein Abo — ein System, das dir gehört." />
+      <AliveCtaBand
+        heading="Dein System, gebaut für genau dein Geschäft."
+        sub="Kein Baukasten, kein Abo — ein System, das dir gehört."
+        image="/generated/section-break-macro.png"
+      />
 
       <Footer />
     </main>

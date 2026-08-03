@@ -1,19 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import dynamic from "next/dynamic";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import type { ScrollProgressRef } from "./HeroScene";
-
-const HeroScene = dynamic(() => import("./HeroScene"), { ssr: false });
+import HeroSquares from "./HeroSquares";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const pinRef = useRef<HTMLDivElement>(null);
   const textWrapRef = useRef<HTMLDivElement>(null);
-  const progressRef = useRef<ScrollProgressRef>({ current: 0 });
+  const squaresRef = useRef<HTMLDivElement>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -35,11 +32,10 @@ export default function Hero() {
       requestAnimationFrame(() => requestAnimationFrame(() => setEntered(true)));
     }
 
-    // The scroll-scrubbed 3D scene is positioned for wide viewports — on
+    // The decorative squares layer is positioned for wide viewports — on
     // narrow screens there's no space beside the text for it to live, so it
     // skips straight to a lightweight static fallback instead of overlapping.
     if (motionQuery.matches || mobileQuery.matches) {
-      progressRef.current.current = 1;
       return;
     }
 
@@ -52,16 +48,21 @@ export default function Hero() {
           scrub: 1,
           pin: true,
           onUpdate: (self) => {
-            progressRef.current.current = self.progress;
             // Recedes into the background only in the last stretch of the
-            // pin (modules have already assembled by then) — a "wheel"
-            // hand-off cue right before WhyNowSection takes over, without
-            // touching the module-assembly progress itself.
+            // pin — a "wheel" hand-off cue right before WhyNowSection takes
+            // over. The squares settle inward and fade slightly over the
+            // same stretch, echoing the old module-assembly idea.
             const el = textWrapRef.current;
+            const sq = squaresRef.current;
+            const recede = Math.max(0, (self.progress - 0.72) / 0.28);
             if (el) {
-              const recede = Math.max(0, (self.progress - 0.72) / 0.28);
               el.style.opacity = String(1 - recede * 0.85);
               el.style.transform = `scale(${1 - recede * 0.12})`;
+            }
+            if (sq) {
+              const settle = Math.min(1, self.progress / 0.6);
+              sq.style.opacity = String(0.4 + settle * 0.6 - recede * 0.5);
+              sq.style.transform = `scale(${1.06 - settle * 0.06})`;
             }
           },
         },
@@ -77,9 +78,7 @@ export default function Hero() {
       className="relative h-screen overflow-hidden"
     >
       <div className="absolute inset-0">
-        {mounted && !isMobile && !reducedMotion && (
-          <HeroScene progressRef={progressRef.current} />
-        )}
+        {mounted && !isMobile && !reducedMotion && <HeroSquares ref={squaresRef} />}
         {mounted && (isMobile || reducedMotion) && (
           <div
             aria-hidden

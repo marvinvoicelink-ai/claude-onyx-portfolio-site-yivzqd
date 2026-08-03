@@ -38,6 +38,11 @@ export default function TestAliveReferenzenPage() {
         desc="Für WETBlock haben wir den E-Mail-Outreach an ihre Geschäftskunden automatisiert. Vorher musste das Team jede Ansprache von Hand schreiben — heute läuft das automatisch."
         image="/generated/wetblock-case.webp"
         imageRight
+        bullets={[
+          "Automatischer Versand · individuelle Ansprache ohne manuelles Schreiben",
+          "Automatisches Nachfassen · reagiert auf Antworten oder Funkstille",
+          "Zentrale Auswertung · zeigt, welche Ansprache tatsächlich ankommt",
+        ]}
       />
 
       <AliveCtaBand

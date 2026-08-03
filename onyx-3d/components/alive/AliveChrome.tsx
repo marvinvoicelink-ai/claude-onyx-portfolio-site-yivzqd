@@ -45,7 +45,7 @@ export function AliveHairlineGrid({
 }: {
   eyebrow: string;
   heading: string;
-  items: { num: string; title: string; highlight?: string; desc: string }[];
+  items: { num: string; title: string; highlight?: string; desc: string; bullets?: string[] }[];
   cols?: 2 | 3;
 }) {
   return (
@@ -68,6 +68,20 @@ export function AliveHairlineGrid({
                 {p.title} {p.highlight && <span className="accent">{p.highlight}</span>}
               </h3>
               <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.95rem" }}>{p.desc}</p>
+              {p.bullets && (
+                <ul className="mt-4 flex flex-col gap-2">
+                  {p.bullets.map((b) => (
+                    <li
+                      key={b}
+                      className="flex gap-2.5"
+                      style={{ fontSize: "0.9rem", color: "var(--warm-grey-dim)", lineHeight: 1.5 }}
+                    >
+                      <span style={{ color: "var(--amber)" }}>—</span>
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
         </div>
@@ -120,31 +134,96 @@ export function AliveCtaBand({
   sub,
   buttonText = "Kostenloses Erstgespräch sichern",
   href = "/kontakt",
+  image,
 }: {
   heading: string;
   sub: string;
   buttonText?: string;
   href?: string;
+  image?: string;
 }) {
   return (
     <section className="py-20">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
-          className="rounded-2xl px-8 py-14 md:px-16 md:py-20 flex flex-col items-center text-center gap-7"
+          className="relative rounded-2xl px-8 py-14 md:px-16 md:py-20 flex flex-col items-center text-center gap-7 overflow-hidden"
           style={{
-            background: "radial-gradient(circle at 20% 20%, rgba(232,163,61,0.14), transparent 55%), var(--near-black-2)",
+            background: image
+              ? "var(--near-black-2)"
+              : "radial-gradient(circle at 20% 20%, rgba(232,163,61,0.14), transparent 55%), var(--near-black-2)",
             border: "1px solid var(--hairline)",
           }}
         >
-          <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)", maxWidth: "20ch" }}>{heading}</h2>
-          <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem" }}>{sub}</p>
-          <a
-            href={href}
-            className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber"
-            style={{ background: "var(--amber)", color: "#161104", fontSize: 15.5 }}
-          >
-            {buttonText}
-          </a>
+          {image && (
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={image}
+                alt=""
+                aria-hidden
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "20% 45%" }}
+              />
+              <div
+                aria-hidden
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(0deg, rgba(17,17,17,0.96) 0%, rgba(17,17,17,0.86) 40%, rgba(17,17,17,0.55) 100%)",
+                }}
+              />
+            </>
+          )}
+          <div className="relative flex flex-col items-center gap-7">
+            <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)", maxWidth: "20ch" }}>{heading}</h2>
+            <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem" }}>{sub}</p>
+            <a
+              href={href}
+              className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber"
+              style={{ background: "var(--amber)", color: "#161104", fontSize: 15.5 }}
+            >
+              {buttonText}
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function AliveFaq({
+  eyebrow,
+  heading,
+  faqs,
+}: {
+  eyebrow: string;
+  heading: string;
+  faqs: { q: string; a: string }[];
+}) {
+  return (
+    <section className="py-20">
+      <div className="mx-auto px-7" style={{ maxWidth: 820 }}>
+        <div className="text-center" style={{ marginBottom: 40 }}>
+          <AliveEyebrow>{eyebrow}</AliveEyebrow>
+          <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)" }}>{heading}</h2>
+        </div>
+        <div>
+          {faqs.map((f) => (
+            <details key={f.q} className="group" style={{ borderBottom: "1px solid var(--hairline)", padding: "22px 0" }}>
+              <summary
+                className="flex items-center justify-between gap-4 cursor-pointer list-none"
+                style={{ fontWeight: 700, fontSize: "1.05rem" }}
+              >
+                {f.q}
+                <span className="mono flex-shrink-0" style={{ color: "var(--amber)", fontSize: "1.3rem" }}>
+                  <span className="group-open:hidden">+</span>
+                  <span className="hidden group-open:inline">–</span>
+                </span>
+              </summary>
+              <p style={{ marginTop: 14, color: "var(--warm-grey-dim)", fontSize: "0.98rem", lineHeight: 1.7, maxWidth: "68ch" }}>
+                {f.a}
+              </p>
+            </details>
+          ))}
         </div>
       </div>
     </section>
@@ -266,6 +345,7 @@ export function AliveCase({
   desc,
   image,
   imageRight = false,
+  bullets,
 }: {
   tag: string;
   name: string;
@@ -273,6 +353,7 @@ export function AliveCase({
   desc: string;
   image: string;
   imageRight?: boolean;
+  bullets?: string[];
 }) {
   const media = (
     <div className="relative" style={{ minHeight: 340, background: "var(--near-black-2)" }}>
@@ -298,6 +379,16 @@ export function AliveCase({
       <h3 style={{ fontSize: "1.3rem", marginBottom: 6 }}>{name}</h3>
       <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 18 }}>{heading}</h2>
       <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.75 }}>{desc}</p>
+      {bullets && (
+        <ul className="mt-5 flex flex-col gap-2.5">
+          {bullets.map((b) => (
+            <li key={b} className="flex gap-2.5" style={{ fontSize: "0.94rem", color: "var(--warm-grey-dim)", lineHeight: 1.5 }}>
+              <span style={{ color: "var(--amber)" }}>—</span>
+              {b}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
   return (
