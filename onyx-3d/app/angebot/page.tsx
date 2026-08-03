@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import SolutionsSection from "@/components/SolutionsSection";
+import OfferingsDetail from "@/components/OfferingsDetail";
 import IndustriesSection from "@/components/IndustriesSection";
 import CTABanner from "@/components/CTABanner";
 import Footer from "@/components/Footer";
@@ -31,7 +31,7 @@ export default function AngebotPage() {
         </div>
       </section>
 
-      <SolutionsSection />
+      <OfferingsDetail />
       <IndustriesSection />
 
       <CTABanner

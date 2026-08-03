@@ -1,20 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useScrollStack } from "@/hooks/useScrollStack";
 import { CardStackDots, CardStackScrollHint, CardStackCounter, getFlyStackSlotStyle } from "./CardStackChrome";
+import { offerings as solutions, type Offering } from "@/lib/offerings";
 
-const solutions = [
-  { image: "/generated/solution-01.webp", w: 880, h: 626, title: "Kundenportale.", subtitle: "Status, Dokumente und Termine selbst einsehen." },
-  { image: "/generated/solution-02.webp", w: 992, h: 630, title: "Interne Tools.", subtitle: "Aus Excel und Zetteln wird ein eigenes System." },
-  { image: "/generated/solution-03.webp", w: 944, h: 615, title: "Dashboards & Auswertungen.", subtitle: "Alle Zahlen an einem Ort, live und verständlich." },
-  { image: "/generated/solution-04.webp", w: 849, h: 651, title: "Automatisierung & KI-Agenten.", subtitle: "Mails, Reports und Erinnerungen laufen automatisch." },
-  { image: "/generated/solution-05.webp", w: 1048, h: 643, title: "Termin- & Ressourcenplanung.", subtitle: "Kalender und Kapazitäten in einem System." },
-  { image: "/generated/solution-06.webp", w: 1074, h: 636, title: "Dokumenten- & Datenverwaltung.", subtitle: "Eine zentrale Ablage statt Ordner-Chaos." },
-];
-
-function SolutionCard({ s, animate }: { s: (typeof solutions)[number]; animate?: boolean }) {
-  return (
+function SolutionCard({ s, animate, linked }: { s: Offering; animate?: boolean; linked?: boolean }) {
+  const card = (
     <div className="text-center">
       <h3
         style={{
@@ -28,9 +21,20 @@ function SolutionCard({ s, animate }: { s: (typeof solutions)[number]; animate?:
       >
         {s.title}
       </h3>
-      <p style={{ color: "var(--amber)", fontSize: "0.96rem", lineHeight: 1.4, marginBottom: 20 }}>
+      <p style={{ color: "var(--amber)", fontSize: "0.96rem", lineHeight: 1.4, marginBottom: linked ? 8 : 20 }}>
         {s.subtitle}
       </p>
+      {linked && (
+        <span
+          className="mono inline-flex items-center gap-1.5"
+          style={{ fontSize: 12, color: "var(--warm-grey-faint)", marginBottom: 12 }}
+        >
+          Mehr erfahren
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={12} height={12}>
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </span>
+      )}
       <Image
         src={s.image}
         alt={`${s.title} ${s.subtitle}`}
@@ -40,6 +44,14 @@ function SolutionCard({ s, animate }: { s: (typeof solutions)[number]; animate?:
         style={{ maxWidth: animate ? "94%" : "78%", filter: "drop-shadow(0 0 30px rgba(232,163,61,0.4))" }}
       />
     </div>
+  );
+
+  if (!linked) return card;
+
+  return (
+    <Link href={`/angebot#${s.slug}`} className="block alive-hover-card rounded-2xl" style={{ border: "1px solid transparent" }}>
+      {card}
+    </Link>
   );
 }
 
@@ -68,7 +80,7 @@ export default function SolutionsSection({ animate = false }: { animate?: boolea
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
             {solutions.map((s) => (
               <div key={s.image} className="flex flex-col">
-                <SolutionCard s={s} />
+                <SolutionCard s={s} linked />
               </div>
             ))}
           </div>
@@ -87,7 +99,7 @@ export default function SolutionsSection({ animate = false }: { animate?: boolea
                       ...getFlyStackSlotStyle(i, stack.continuousIndex, solutions.length),
                     }}
                   >
-                    <SolutionCard s={s} animate />
+                    <SolutionCard s={s} animate linked />
                   </div>
                 ))}
                 <CardStackDots count={solutions.length} index={stack.index} />
