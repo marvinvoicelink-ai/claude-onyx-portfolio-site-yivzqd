@@ -46,6 +46,45 @@ export default function TestAliveReferenzenPage() {
         ]}
       />
 
+      <AliveCase
+        tag="Kundencase · Pension &amp; Weinstube"
+        name="Rebstöckel"
+        heading="Zimmerbelegung auf einen Blick statt Zettelwirtschaft."
+        desc="Für die Pension Rebstöckel haben wir ein Dashboard gebaut, das in Echtzeit zeigt, welche Zimmer frei und welche belegt sind — ohne Excel-Liste oder Buch an der Rezeption."
+        bullets={[
+          "Zimmerübersicht mit Status frei/belegt in Echtzeit",
+          "Belegungsquote auf einen Blick",
+          "Weniger Doppelbuchungen durch eine zentrale Übersicht",
+        ]}
+        image="/generated/rebstoeckel-case.png"
+      />
+      <AliveCase
+        tag="Kundencase · Online-Shop"
+        name="PawPlace (HWD Handelsagentur)"
+        heading="Support-Anfragen zentral im Blick statt verstreut in Postfächern."
+        desc="Für den Online-Shop PawPlace der HWD Handelsagentur haben wir ein Dashboard gebaut, das Kunden, Bestellstatus und offene Support-Tickets an einem Ort zeigt."
+        bullets={[
+          "Kundenliste mit Bestellstatus auf einen Blick",
+          "Offene Support-Tickets sofort sichtbar markiert",
+          "Kein Suchen mehr in mehreren Postfächern",
+        ]}
+        image="/generated/pawplace-case.png"
+        imageRight
+      />
+      <AliveCase
+        tag="Kundencase · Herstellung"
+        name="Haas Wasserkraft"
+        heading="Materialbestand und Umsatz in einem System statt zwei Baustellen."
+        desc="Haas Wasserkraft stellt Filter für sauberes Wasser her. Wir haben ein Tool gebaut, das zeigt, welche Metalle und Produkte gerade fehlen und nachbestellt werden müssen — mit einem kompletten CRM für Umsätze und Kunden dahinter."
+        bullets={[
+          "Bestandsübersicht mit Warnung bei niedrigem Lagerbestand",
+          "Direkte Nachbestellung aus dem Tool heraus",
+          "CRM mit Umsätzen und Kundenverwaltung im selben System",
+        ]}
+        image="/generated/haas-wasserkraft-case.png"
+        background="light"
+      />
+
       <AliveCtaBand
         heading="Dein Prozess könnte das nächste Projekt sein."
         sub="Lass uns in einem kurzen Gespräch klären, was sich bei dir automatisieren oder als eigenes System bauen lässt."
