@@ -1,8 +1,7 @@
 "use client";
 
 /**
- * Shared building blocks for the "alive" visual variant (sixeight-media
- * structural reference, Onyx's own colors/content/claims). Kept separate
+ * Shared building blocks for the "alive" visual variant. Kept separate
  * from the production components so the live site is untouched while this
  * direction is being previewed under /test-alive/*.
  */
@@ -171,25 +170,39 @@ export function AliveHairlineGrid({
   heading,
   items,
   cols = 2,
+  background = "dark",
 }: {
   eyebrow: string;
   heading: string;
   items: { num: string; title: string; highlight?: string; desc: string; bullets?: string[]; image?: string }[];
   cols?: 2 | 3;
+  background?: "dark" | "light";
 }) {
+  const light = background === "light";
+  const textMain = light ? "#161104" : undefined;
+  const textDim = light ? "rgba(22,17,4,0.62)" : "var(--warm-grey-dim)";
+  const accentColor = light ? "#8a6a1f" : "var(--amber)";
+  const cellBg = light ? "#faf8f3" : "var(--near-black)";
+  const gridLine = light ? "rgba(22,17,4,0.12)" : "var(--hairline)";
+
   return (
-    <section className="py-20">
+    <section className="py-20" style={{ background: light ? "var(--warm-grey)" : "transparent" }}>
       <Reveal className="mx-auto px-7 text-center" style={{ maxWidth: 700, marginBottom: 56 }}>
-        <AliveEyebrow>{eyebrow}</AliveEyebrow>
-        <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)" }}>{heading}</h2>
+        <span
+          className="mono block mb-4"
+          style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: accentColor }}
+        >
+          {eyebrow}
+        </span>
+        <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", color: textMain }}>{heading}</h2>
       </Reveal>
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
           className={`grid grid-cols-1 ${cols === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}
-          style={{ background: "var(--hairline)", gap: 1, border: "1px solid var(--hairline)" }}
+          style={{ background: gridLine, gap: 1, border: `1px solid ${gridLine}` }}
         >
           {items.map((p, i) => (
-            <Reveal key={p.num} delay={Math.min(i * 0.08, 0.4)} className="alive-hover-card p-8" style={{ background: "var(--near-black)" }}>
+            <Reveal key={p.num} delay={Math.min(i * 0.08, 0.4)} className="alive-hover-card p-8" style={{ background: cellBg }}>
               {p.image && (
                 <div style={{ width: "100%", maxWidth: 180, aspectRatio: "4 / 3", margin: "0 auto 20px", position: "relative" }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -202,25 +215,25 @@ export function AliveHairlineGrid({
                       width: "100%",
                       height: "100%",
                       objectFit: "contain",
-                      filter: "drop-shadow(0 0 20px rgba(232,163,61,0.25))",
+                      filter: light ? "drop-shadow(0 12px 20px rgba(22,17,4,0.18))" : "drop-shadow(0 0 20px rgba(232,163,61,0.25))",
                     }}
                   />
                 </div>
               )}
-              <NumberCount value={p.num} className="mono mb-4" style={{ fontSize: 13, color: "var(--amber)" }} />
-              <h3 style={{ fontSize: "1.2rem", marginBottom: 8 }}>
-                {p.title} {p.highlight && <span className="accent">{p.highlight}</span>}
+              <NumberCount value={p.num} className="mono mb-4" style={{ fontSize: 13, color: accentColor }} />
+              <h3 style={{ fontSize: "1.2rem", marginBottom: 8, color: textMain }}>
+                {p.title} {p.highlight && <span style={{ color: accentColor }}>{p.highlight}</span>}
               </h3>
-              <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.95rem" }}>{p.desc}</p>
+              <p style={{ color: textDim, fontSize: "0.95rem" }}>{p.desc}</p>
               {p.bullets && (
                 <ul className="mt-4 flex flex-col gap-2">
                   {p.bullets.map((b) => (
                     <li
                       key={b}
                       className="flex gap-2.5"
-                      style={{ fontSize: "0.9rem", color: "var(--warm-grey-dim)", lineHeight: 1.5 }}
+                      style={{ fontSize: "0.9rem", color: textDim, lineHeight: 1.5 }}
                     >
-                      <span style={{ color: "var(--amber)" }}>—</span>
+                      <span style={{ color: accentColor }}>—</span>
                       {b}
                     </li>
                   ))}

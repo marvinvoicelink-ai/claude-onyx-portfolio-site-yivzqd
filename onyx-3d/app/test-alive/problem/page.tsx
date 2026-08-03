@@ -31,7 +31,7 @@ export default function TestAliveProblemPage() {
         </div>
       </section>
 
-      <AliveHairlineGrid eyebrow="Ausgangslage" heading="Vier Muster, die sich wiederholen." items={problems} />
+      <AliveHairlineGrid eyebrow="Ausgangslage" heading="Vier Muster, die sich wiederholen." items={problems} background="light" />
 
       <AliveInvertedStatement
         eyebrow="Unsere Haltung"

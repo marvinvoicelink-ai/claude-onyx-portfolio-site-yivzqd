@@ -54,7 +54,7 @@ export default function TestAliveAngebotPage() {
         </div>
       </section>
 
-      <AliveHairlineGrid eyebrow="Leistungen" heading="Ein System, jeder Bereich, den du brauchst." items={services} cols={3} />
+      <AliveHairlineGrid eyebrow="Leistungen" heading="Ein System, jeder Bereich, den du brauchst." items={services} cols={3} background="light" />
 
       <AliveInvertedStatement
         eyebrow="Kein Branchen-Fokus"
