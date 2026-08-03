@@ -8,7 +8,7 @@ export default function BlueprintSection() {
 
   return (
     <section className="py-14">
-      <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
+      <div className="mx-auto px-7 text-center" style={{ maxWidth: 1180 }}>
         <span
           className="mono inline-flex items-center gap-2 mb-4"
           style={{
@@ -21,6 +21,7 @@ export default function BlueprintSection() {
           <span style={{ opacity: 0.7 }}>§</span> Blatt 01 / Aufbau
         </span>
         <h2
+          className="mx-auto"
           style={{
             fontSize: "clamp(1.6rem, 3vw, 2.3rem)",
             maxWidth: "22ch",
@@ -30,7 +31,7 @@ export default function BlueprintSection() {
           Kein Baukasten mit festen Modulen.
         </h2>
         <p
-          className="mb-12"
+          className="mb-12 mx-auto"
           style={{
             color: "var(--warm-grey-dim)",
             maxWidth: "62ch",

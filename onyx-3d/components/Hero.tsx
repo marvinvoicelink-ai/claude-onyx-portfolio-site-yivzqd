@@ -12,6 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const pinRef = useRef<HTMLDivElement>(null);
+  const textWrapRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<ScrollProgressRef>({ current: 0 });
   const [reducedMotion, setReducedMotion] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -52,6 +53,16 @@ export default function Hero() {
           pin: true,
           onUpdate: (self) => {
             progressRef.current.current = self.progress;
+            // Recedes into the background only in the last stretch of the
+            // pin (modules have already assembled by then) — a "wheel"
+            // hand-off cue right before WhyNowSection takes over, without
+            // touching the module-assembly progress itself.
+            const el = textWrapRef.current;
+            if (el) {
+              const recede = Math.max(0, (self.progress - 0.72) / 0.28);
+              el.style.opacity = String(1 - recede * 0.85);
+              el.style.transform = `scale(${1 - recede * 0.12})`;
+            }
           },
         },
       });
@@ -92,7 +103,11 @@ export default function Hero() {
           className="mx-auto w-full px-7 pointer-events-none"
           style={{ maxWidth: 1180 }}
         >
-          <div className="max-w-[560px] mx-auto text-center pointer-events-auto">
+          <div
+            ref={textWrapRef}
+            className="max-w-[560px] mx-auto text-center pointer-events-auto"
+            style={{ transformOrigin: "center center" }}
+          >
             <div
               className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 mono"
               style={{

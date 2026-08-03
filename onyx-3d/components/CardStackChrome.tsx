@@ -10,12 +10,16 @@
 export function CardStackScrollHint({ text }: { text: string }) {
   return (
     <p
-      className="mono text-center"
+      className="mx-auto text-center"
       style={{
-        fontSize: 12.5,
-        letterSpacing: "0.04em",
-        color: "var(--warm-grey-faint)",
-        marginBottom: 22,
+        fontFamily: "var(--font-archivo), sans-serif",
+        fontSize: "clamp(1.15rem, 2.4vw, 1.5rem)",
+        fontWeight: 800,
+        letterSpacing: "-0.01em",
+        lineHeight: 1.3,
+        color: "#ffffff",
+        maxWidth: "26ch",
+        marginBottom: 28,
       }}
     >
       {text}
@@ -32,6 +36,37 @@ export function CardStackDots({ count, index }: { count: number; index: number }
       {Array.from({ length: count }).map((_, i) => (
         <span key={i} className={`card-stack-dot ${i === index ? "is-active" : ""}`} />
       ))}
+    </div>
+  );
+}
+
+/**
+ * "Problem 1 von 4" / "Lösung 1 von 6" — makes the one-at-a-time order
+ * explicit (not just the abstract dots), so it's clear this is a counted
+ * sequence and more are coming.
+ */
+export function CardStackCounter({
+  label,
+  index,
+  count,
+}: {
+  label: string;
+  index: number;
+  count: number;
+}) {
+  return (
+    <div
+      className="absolute left-1/2 mono"
+      style={{
+        top: "calc(100% + 54px)",
+        transform: "translateX(-50%)",
+        fontSize: 12.5,
+        letterSpacing: "0.04em",
+        color: "var(--warm-grey-faint)",
+        whiteSpace: "nowrap",
+      }}
+    >
+      {label} <span style={{ color: "var(--amber)" }}>{index + 1}</span> von {count}
     </div>
   );
 }

@@ -30,7 +30,7 @@ export default function CTABanner({
               "linear-gradient(135deg, var(--near-black-2) 0%, var(--near-black) 100%)",
           }}
         >
-          <div className="text-center md:text-left">
+          <div className="text-center">
             <h3 style={{ fontSize: "clamp(1.3rem, 2.6vw, 1.7rem)", marginBottom: sub ? 6 : 0 }}>
               {heading}
             </h3>

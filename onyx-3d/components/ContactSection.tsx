@@ -47,19 +47,21 @@ export default function ContactSection() {
       style={{ background: "var(--near-black-2)" }}
     >
       <div className="mx-auto px-7" style={{ maxWidth: 720 }}>
-        <span
-          className="mono inline-flex items-center gap-2 mb-4"
-          style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
-        >
-          <span style={{ opacity: 0.7 }}>§</span> Blatt 07 / Kontakt
-        </span>
-        <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)", marginBottom: 14 }}>
-          Lass uns dein System besprechen.
-        </h2>
-        <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", marginBottom: 36, maxWidth: "50ch" }}>
-          Schreib direkt, was dein Unternehmen braucht — der Gründer
-          antwortet selbst, kein Bot, keine Warteschlange.
-        </p>
+        <div className="text-center">
+          <span
+            className="mono inline-flex items-center gap-2 mb-4"
+            style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
+          >
+            <span style={{ opacity: 0.7 }}>§</span> Blatt 07 / Kontakt
+          </span>
+          <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)", marginBottom: 14 }}>
+            Lass uns dein System besprechen.
+          </h2>
+          <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", marginBottom: 36, maxWidth: "50ch" }}>
+            Schreib direkt, was dein Unternehmen braucht — der Gründer
+            antwortet selbst, kein Bot, keine Warteschlange.
+          </p>
+        </div>
 
         <form
           name="contact"

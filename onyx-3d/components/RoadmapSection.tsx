@@ -48,17 +48,17 @@ function StepLabel({ label }: { label: string }) {
 export default function RoadmapSection() {
   return (
     <section className="py-14">
-      <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
+      <div className="mx-auto px-7 text-center" style={{ maxWidth: 1180 }}>
         <span
           className="mono inline-flex items-center gap-2 mb-4"
           style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
         >
           <span style={{ opacity: 0.7 }}>§</span> Blatt 08 / Ablauf
         </span>
-        <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", maxWidth: "22ch", marginBottom: 14 }}>
+        <h2 className="mx-auto" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", maxWidth: "22ch", marginBottom: 14 }}>
           Von der Analyse bis zum Go-Live.
         </h2>
-        <p style={{ color: "var(--warm-grey-dim)", maxWidth: "62ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 44 }}>
+        <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", maxWidth: "62ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 44 }}>
           Ein fokussiertes Tool kann in wenigen Wochen stehen, ein komplettes
           CRM dauert länger — im Erstgespräch bekommst du eine realistische
           Einschätzung für dein Projekt.

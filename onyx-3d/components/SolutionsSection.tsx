@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useScrollStack } from "@/hooks/useScrollStack";
-import { CardStackDots, CardStackScrollHint, getFlyStackSlotStyle } from "./CardStackChrome";
+import { CardStackDots, CardStackScrollHint, CardStackCounter, getFlyStackSlotStyle } from "./CardStackChrome";
 
 const solutions = [
   { image: "/generated/solution-01.webp", w: 880, h: 626, title: "Kundenportale.", subtitle: "Status, Dokumente und Termine selbst einsehen." },
@@ -15,7 +15,7 @@ const solutions = [
 
 function SolutionCard({ s, animate }: { s: (typeof solutions)[number]; animate?: boolean }) {
   return (
-    <>
+    <div className="text-center">
       <h3
         style={{
           fontFamily: "var(--font-archivo), sans-serif",
@@ -36,10 +36,10 @@ function SolutionCard({ s, animate }: { s: (typeof solutions)[number]; animate?:
         alt={`${s.title} ${s.subtitle}`}
         width={s.w}
         height={s.h}
-        className="w-full h-auto block"
+        className="w-full h-auto block mx-auto"
         style={{ maxWidth: animate ? "94%" : "78%", filter: "drop-shadow(0 0 30px rgba(232,163,61,0.4))" }}
       />
-    </>
+    </div>
   );
 }
 
@@ -48,17 +48,17 @@ export default function SolutionsSection({ animate = false }: { animate?: boolea
 
   return (
     <section className="py-14">
-      <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
+      <div className="mx-auto px-7 text-center" style={{ maxWidth: 1180 }}>
         <span
           className="mono inline-flex items-center gap-2 mb-4"
           style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
         >
           <span style={{ opacity: 0.7 }}>§</span> Blatt 03 / Bauteile
         </span>
-        <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", maxWidth: "22ch", marginBottom: 14 }}>
+        <h2 className="mx-auto" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", maxWidth: "22ch", marginBottom: 14 }}>
           Ein System, jeder Bereich, den du brauchst.
         </h2>
-        <p style={{ color: "var(--warm-grey-dim)", maxWidth: "62ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 44 }}>
+        <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", maxWidth: "62ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 44 }}>
           Kein Baukasten mit festen Modulen. Was dein System am Ende abdeckt,
           richtet sich nach deinem Prozess — hier ein Überblick, wo
           maßgeschneiderte Systeme typischerweise ansetzen.
@@ -91,6 +91,7 @@ export default function SolutionsSection({ animate = false }: { animate?: boolea
                   </div>
                 ))}
                 <CardStackDots count={solutions.length} index={stack.index} />
+                <CardStackCounter label="Lösung" index={stack.index} count={solutions.length} />
               </div>
             </div>
           </div>

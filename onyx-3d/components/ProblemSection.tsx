@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useScrollStack } from "@/hooks/useScrollStack";
-import { CardStackDots, CardStackScrollHint, getFlyStackSlotStyle } from "./CardStackChrome";
+import { CardStackDots, CardStackScrollHint, CardStackCounter, getFlyStackSlotStyle } from "./CardStackChrome";
 
 const problems = [
   {
@@ -193,14 +193,14 @@ export default function ProblemSection({ animate = false }: { animate?: boolean 
 
   return (
     <section className="py-14">
-      <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
+      <div className="mx-auto px-7 text-center" style={{ maxWidth: 1180 }}>
         <span
           className="mono inline-flex items-center gap-2 mb-4"
           style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
         >
           <span style={{ opacity: 0.7 }}>§</span> Blatt 02 / Ausgangslage
         </span>
-        <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "20ch", marginBottom: 44 }}>
+        <h2 className="mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "20ch", marginBottom: 44 }}>
           Kommt dir das bekannt vor?
         </h2>
 
@@ -235,12 +235,13 @@ export default function ProblemSection({ animate = false }: { animate?: boolean 
                   </div>
                 ))}
                 <CardStackDots count={problems.length} index={stack.index} />
+                <CardStackCounter label="Problem" index={stack.index} count={problems.length} />
               </div>
             </div>
           </div>
         )}
 
-        <div className="mt-14">
+        <div className="mt-14 text-center">
           <h3
             style={{
               fontFamily: "var(--font-archivo), sans-serif",
@@ -271,8 +272,8 @@ export default function ProblemSection({ animate = false }: { animate?: boolean 
             height={635}
             className={
               animate
-                ? `w-full h-auto block ${chaosImage.visible[0] ? "reveal-left-visible" : "reveal-left-hidden"}`
-                : "w-full h-auto block"
+                ? `w-full h-auto block mx-auto ${chaosImage.visible[0] ? "reveal-left-visible" : "reveal-left-hidden"}`
+                : "w-full h-auto block mx-auto"
             }
             style={{
               filter: "drop-shadow(0 0 40px rgba(232,163,61,0.35))",

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useScrollStack } from "@/hooks/useScrollStack";
-import { CardStackDots, CardStackScrollHint, getFlyStackSlotStyle } from "./CardStackChrome";
+import { CardStackDots, CardStackScrollHint, CardStackCounter, getFlyStackSlotStyle } from "./CardStackChrome";
 
 const diffs = [
   { image: "/generated/diff-01.webp", w: 691, h: 510, title: "Kein CRM von der Stange.", subtitle: "Dein System wird nach deinem Prozess gebaut." },
@@ -13,7 +13,7 @@ const diffs = [
 
 function DiffCard({ d, animate }: { d: (typeof diffs)[number]; animate?: boolean }) {
   return (
-    <>
+    <div className="text-center">
       <h3
         style={{
           fontFamily: "var(--font-archivo), sans-serif",
@@ -34,10 +34,10 @@ function DiffCard({ d, animate }: { d: (typeof diffs)[number]; animate?: boolean
         alt={`${d.title} ${d.subtitle}`}
         width={d.w}
         height={d.h}
-        className="w-full h-auto block"
+        className="w-full h-auto block mx-auto"
         style={{ maxWidth: animate ? "94%" : "70%", filter: "drop-shadow(0 0 30px rgba(232,163,61,0.4))" }}
       />
-    </>
+    </div>
   );
 }
 
@@ -46,7 +46,7 @@ export default function DifferentiationSection({ animate = false }: { animate?: 
 
   return (
     <section className="py-14">
-      <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
+      <div className="mx-auto px-7 text-center" style={{ maxWidth: 1180 }}>
         <span
           className="mono inline-flex items-center gap-2 mb-4"
           style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
@@ -58,7 +58,7 @@ export default function DifferentiationSection({ animate = false }: { animate?: 
           <br />
           Deine Regeln.
         </h2>
-        <p style={{ color: "var(--warm-grey-dim)", maxWidth: "56ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 32 }}>
+        <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", maxWidth: "56ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 32 }}>
           Wir sind keine 08/15-CRM-Firma, die dir ein fertiges Produkt
           verkauft und erwartet, dass du deine Prozesse daran anpasst. Bei
           uns ist es umgekehrt: Wir bauen dein System um deinen Prozess
@@ -93,6 +93,7 @@ export default function DifferentiationSection({ animate = false }: { animate?: 
                   </div>
                 ))}
                 <CardStackDots count={diffs.length} index={stack.index} />
+                <CardStackCounter label="Unterschied" index={stack.index} count={diffs.length} />
               </div>
             </div>
           </div>

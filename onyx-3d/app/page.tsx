@@ -22,7 +22,7 @@ export default function Home() {
       <main>
         <Hero />
 
-        <WheelTransition edge="exit">
+        <WheelTransition edge="both">
           <WhyNowSection />
         </WheelTransition>
 
@@ -41,8 +41,12 @@ export default function Home() {
         <WheelTransition edge="enter">
           <ExplainerSection />
         </WheelTransition>
-        <CaseStudySection />
-        <RoadmapSection />
+        <WheelTransition edge="exit">
+          <CaseStudySection />
+        </WheelTransition>
+        <WheelTransition edge="enter">
+          <RoadmapSection />
+        </WheelTransition>
         <MidFormSection />
         <SolutionsSection animate />
         <CTABanner
