@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
-import { AliveHairlineGrid, AliveMarquee, AliveInvertedStatement, AliveCtaBand } from "@/components/alive/AliveChrome";
+import { AliveHairlineGrid, AliveIndustryGrid, AliveInvertedStatement, AliveCtaBand } from "@/components/alive/AliveChrome";
 
 export const metadata: Metadata = {
   title: "Test Angebot — Onyx.AI",
@@ -63,7 +63,7 @@ export default function TestAliveAngebotPage() {
         sub="Ein paar Beispiele, wo das typischerweise gebraucht wird:"
       />
 
-      <AliveMarquee items={industries} />
+      <AliveIndustryGrid items={industries} />
 
       <AliveCtaBand
         heading="Dein System, gebaut für genau dein Geschäft."

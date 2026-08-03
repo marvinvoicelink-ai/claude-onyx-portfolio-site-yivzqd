@@ -30,6 +30,7 @@ export default function TestAliveReferenzenPage() {
         heading="Vom Excel-Chaos zum eigenen System."
         desc="Für eine Hausverwaltung haben wir ein komplettes CRM von Grund auf entwickelt und vollständig übergeben. Kein Produkt zum Kaufen, sondern ein Beispiel dafür, was für dein Unternehmen möglich ist."
         image="/generated/chaos-to-portal.webp"
+        logo="/logos/hwp.png"
       />
       <AliveCase
         tag="Kundencase · Automatisierung"
@@ -57,6 +58,7 @@ export default function TestAliveReferenzenPage() {
           "Weniger Doppelbuchungen durch eine zentrale Übersicht",
         ]}
         image="/generated/rebstoeckel-case.png"
+        logo="/logos/rebstoeckel.png"
       />
       <AliveCase
         tag="Kundencase · Online-Shop"
@@ -70,6 +72,7 @@ export default function TestAliveReferenzenPage() {
         ]}
         image="/generated/pawplace-case.png"
         imageRight
+        logo="/logos/pawplace.png"
       />
       <AliveCase
         tag="Kundencase · Herstellung"
@@ -83,6 +86,22 @@ export default function TestAliveReferenzenPage() {
         ]}
         image="/generated/haas-wasserkraft-case.png"
         background="light"
+        logo="/logos/haas-wasserkraft.png"
+      />
+      <AliveCase
+        tag="Kundencase · KI-Agentur"
+        name="VoiceLink AI"
+        heading="KI-Telefonagenten aufgebaut statt nur beraten."
+        desc="VoiceLink AI ist selbst eine KI-Agentur — für Solarunternehmen. Wir haben für sie die KI-Agenten komplett aufgebaut und bei der Einführung bei ihren Unternehmen unterstützt."
+        bullets={[
+          "KI-Voice-Agenten für Solarunternehmen komplett aufgebaut",
+          "Unterstützung bei Einrichtung & Einführung beim Endkunden",
+          "Skalierbare Basis statt Einzellösung pro Kunde",
+        ]}
+        image="/generated/voicelink-case.png"
+        imageRight
+        logo="/logos/voicelink.png"
+        logoBg="dark"
       />
 
       <AliveCtaBand

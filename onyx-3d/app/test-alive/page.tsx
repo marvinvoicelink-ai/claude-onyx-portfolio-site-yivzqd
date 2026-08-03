@@ -12,7 +12,8 @@ import {
   AliveTeamGrid,
   AliveCtaBand,
   AliveTimeline,
-  AliveMarquee,
+  AliveLogoMarquee,
+  type AliveLogoItem,
 } from "@/components/alive/AliveChrome";
 
 export const metadata: Metadata = {
@@ -20,15 +21,13 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const industries = [
-  "Handwerk & Bau",
-  "Hausverwaltung & Immobilien",
-  "Personaldienstleistung",
-  "Logistik & Spedition",
-  "Praxen & Gesundheitswesen",
-  "Handel & E-Commerce",
-  "Beratung & Agenturen",
-  "Versicherungen & Finanzdienstleister",
+const clientLogos: AliveLogoItem[] = [
+  { name: "HWP — Haushalt Wirtschaft Plan", src: "/logos/hwp.png", bg: "light" },
+  { name: "Rebstöckel", src: "/logos/rebstoeckel.png", bg: "light" },
+  { name: "PawPlace", src: "/logos/pawplace.png", bg: "light" },
+  { name: "Haas Wasserkraft", src: "/logos/haas-wasserkraft.png", bg: "light" },
+  { name: "SpeedFire Design", src: "/logos/speedfire.png", bg: "dark" },
+  { name: "VoiceLink AI", src: "/logos/voicelink.png", bg: "dark" },
 ];
 
 const problems = [
@@ -156,7 +155,7 @@ export default function TestAlivePage() {
         </div>
       </section>
 
-      <AliveMarquee items={industries} />
+      <AliveLogoMarquee items={clientLogos} />
 
       <AliveStatRow
         stats={[
@@ -188,6 +187,7 @@ export default function TestAlivePage() {
         heading="Vom Excel-Chaos zum eigenen System."
         desc="Für eine Hausverwaltung haben wir ein komplettes CRM von Grund auf entwickelt und vollständig übergeben. Kein Produkt zum Kaufen, sondern ein Beispiel dafür, was für dein Unternehmen möglich ist."
         image="/generated/chaos-to-portal.webp"
+        logo="/logos/hwp.png"
       />
       <AliveCase
         tag="Kundencase · Automatisierung"

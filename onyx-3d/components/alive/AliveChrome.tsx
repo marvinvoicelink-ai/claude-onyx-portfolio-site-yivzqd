@@ -554,6 +554,8 @@ export function AliveCase({
   imageRight = false,
   bullets,
   background = "dark",
+  logo,
+  logoBg = "light",
 }: {
   tag: string;
   name: string;
@@ -563,6 +565,8 @@ export function AliveCase({
   imageRight?: boolean;
   bullets?: string[];
   background?: "dark" | "light";
+  logo?: string;
+  logoBg?: "light" | "dark";
 }) {
   const light = background === "light";
   const textDim = light ? "rgba(22,17,4,0.62)" : "var(--warm-grey-dim)";
@@ -592,12 +596,28 @@ export function AliveCase({
   );
   const body = (
     <Reveal className="p-8 md:p-12 flex flex-col justify-center" delay={0.15}>
-      <span
-        className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-5 mono"
-        style={{ fontSize: 11.5, letterSpacing: "0.05em", textTransform: "uppercase", color: tagColor, background: tagBg, border: `1px solid ${tagBorder}` }}
-      >
-        {tag}
-      </span>
+      <div className="flex items-center gap-3 mb-5">
+        <span
+          className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mono"
+          style={{ fontSize: 11.5, letterSpacing: "0.05em", textTransform: "uppercase", color: tagColor, background: tagBg, border: `1px solid ${tagBorder}` }}
+        >
+          {tag}
+        </span>
+        {logo && (
+          <span
+            className="inline-flex items-center justify-center rounded-lg"
+            style={{
+              height: 34,
+              padding: "0 12px",
+              background: logoBg === "light" ? "#fff" : "var(--near-black)",
+              border: logoBg === "light" ? "1px solid rgba(22,17,4,0.1)" : "1px solid var(--hairline)",
+            }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={logo} alt={`${name} Logo`} style={{ height: 20, width: "auto", objectFit: "contain" }} />
+          </span>
+        )}
+      </div>
       <h3 style={{ fontSize: "1.3rem", marginBottom: 6, ...headingStyle }}>{name}</h3>
       <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 18, ...headingStyle }}>{heading}</h2>
       <p style={{ color: textDim, fontSize: "1.02rem", lineHeight: 1.75 }}>{desc}</p>
@@ -837,6 +857,75 @@ export function AliveMarquee({ items }: { items: string[] }) {
               {label}
             </span>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Static grid of industry examples — sits on the light "Kein Branchen-Fokus" statement instead of a scrolling marquee. */
+export function AliveIndustryGrid({ items }: { items: string[] }) {
+  return (
+    <section className="pb-24" style={{ background: "var(--warm-grey)" }}>
+      <Reveal className="mx-auto px-7" style={{ maxWidth: 1040 }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+          {items.map((label, i) => (
+            <div
+              key={label}
+              className="alive-hover-card flex items-center gap-3 rounded-xl px-5 py-4"
+              style={{ background: "#fff", border: "1px solid rgba(22,17,4,0.1)" }}
+            >
+              <span className="mono" style={{ fontSize: 11.5, color: "#8a6a1f", flexShrink: 0 }}>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span style={{ fontSize: "0.94rem", color: "#161104", lineHeight: 1.35 }}>{label}</span>
+            </div>
+          ))}
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
+export type AliveLogoItem = { name: string; src: string; bg?: "light" | "dark" };
+
+/** Client-logo strip directly under the hero: infinite scroll, each logo pops toward the viewer on hover. */
+export function AliveLogoMarquee({ items }: { items: AliveLogoItem[] }) {
+  const track = [...items, ...items];
+  return (
+    <section
+      style={{
+        background: "var(--near-black-2)",
+        borderTop: "1px solid var(--hairline)",
+        borderBottom: "1px solid var(--hairline)",
+        padding: "26px 0",
+      }}
+    >
+      <div className="overflow-hidden alive-logo-perspective">
+        <div className="marquee-track flex items-center" style={{ width: "max-content" }}>
+          {track.map((item, i) => {
+            const light = (item.bg ?? "light") === "light";
+            return (
+              <div
+                key={i}
+                className="alive-logo-card flex items-center justify-center mx-3.5 rounded-2xl"
+                style={{
+                  width: 168,
+                  height: 92,
+                  padding: "16px 22px",
+                  background: light ? "var(--warm-grey)" : "var(--near-black)",
+                  border: light ? "1px solid rgba(22,17,4,0.08)" : "1px solid var(--hairline)",
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={item.src}
+                  alt={item.name}
+                  style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
