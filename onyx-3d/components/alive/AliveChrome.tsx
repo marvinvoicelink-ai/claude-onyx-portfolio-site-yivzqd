@@ -473,19 +473,25 @@ export function AliveComparisonTable({
             className="grid grid-cols-3"
             style={{ borderBottom: "1px solid var(--hairline)", background: "var(--near-black-2)" }}
           >
-            <div className="mono py-4 px-5" style={{ fontSize: 12, color: "var(--warm-grey-faint)" }} />
-            <div className="mono py-4 px-5 text-center" style={{ fontSize: 12, color: "var(--warm-grey-faint)", textTransform: "uppercase" }}>
+            <div className="mono py-4 px-2 sm:px-5" style={{ fontSize: "clamp(9.5px, 2.6vw, 12px)", color: "var(--warm-grey-faint)" }} />
+            <div
+              className="mono py-4 px-2 sm:px-5 text-center"
+              style={{ fontSize: "clamp(9.5px, 2.6vw, 12px)", lineHeight: 1.4, color: "var(--warm-grey-faint)", textTransform: "uppercase" }}
+            >
               {columns[0]}
             </div>
-            <div className="mono py-4 px-5 text-center" style={{ fontSize: 12, color: "var(--amber)", textTransform: "uppercase", background: "var(--amber-soft)" }}>
+            <div
+              className="mono py-4 px-2 sm:px-5 text-center"
+              style={{ fontSize: "clamp(9.5px, 2.6vw, 12px)", lineHeight: 1.4, color: "var(--amber)", textTransform: "uppercase", background: "var(--amber-soft)" }}
+            >
               {columns[1]}
             </div>
           </div>
           {rows.map((r) => (
             <div key={r.label} className="grid grid-cols-3" style={{ borderBottom: "1px solid var(--hairline)" }}>
-              <div className="py-4 px-5" style={{ fontSize: 13.5, color: "var(--warm-grey-dim)" }}>{r.label}</div>
-              <div className="py-4 px-5 text-center" style={{ fontSize: 13.5, color: "var(--warm-grey-faint)" }}>{r.a}</div>
-              <div className="py-4 px-5 text-center font-semibold" style={{ fontSize: 13.5, background: "var(--amber-soft)" }}>{r.b}</div>
+              <div className="py-4 px-2 sm:px-5" style={{ fontSize: "clamp(11.5px, 3vw, 13.5px)", color: "var(--warm-grey-dim)" }}>{r.label}</div>
+              <div className="py-4 px-2 sm:px-5 text-center" style={{ fontSize: "clamp(11.5px, 3vw, 13.5px)", color: "var(--warm-grey-faint)" }}>{r.a}</div>
+              <div className="py-4 px-2 sm:px-5 text-center font-semibold" style={{ fontSize: "clamp(11.5px, 3vw, 13.5px)", background: "var(--amber-soft)" }}>{r.b}</div>
             </div>
           ))}
         </div>
