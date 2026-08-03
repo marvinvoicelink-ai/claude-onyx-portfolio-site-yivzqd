@@ -14,6 +14,7 @@ import DifferentiationSection from "@/components/DifferentiationSection";
 import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import WheelTransition from "@/components/WheelTransition";
 
 export default function Home() {
   return (
@@ -21,17 +22,25 @@ export default function Home() {
       <main>
         <Hero />
 
-        <WhyNowSection />
+        <WheelTransition edge="exit">
+          <WhyNowSection />
+        </WheelTransition>
 
-        <IndustriesSection />
+        <WheelTransition edge="enter">
+          <IndustriesSection />
+        </WheelTransition>
         <ProblemSection animate />
         <CTABanner
           heading="Erkennst du dein Unternehmen in diesen Problemen wieder?"
           sub="Lass uns in einem kurzen Gespräch klären, was für dich der größte Hebel wäre."
           ctaHref="#kontakt"
         />
-        <BlueprintSection />
-        <ExplainerSection />
+        <WheelTransition edge="exit">
+          <BlueprintSection />
+        </WheelTransition>
+        <WheelTransition edge="enter">
+          <ExplainerSection />
+        </WheelTransition>
         <CaseStudySection />
         <RoadmapSection />
         <MidFormSection />
@@ -43,8 +52,12 @@ export default function Home() {
           ctaHref="#kontakt"
         />
         <DifferentiationSection animate />
-        <FAQSection />
-        <ContactSection />
+        <WheelTransition edge="exit">
+          <FAQSection />
+        </WheelTransition>
+        <WheelTransition edge="enter">
+          <ContactSection />
+        </WheelTransition>
         <Footer />
       </main>
     </SmoothScroll>
