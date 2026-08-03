@@ -359,31 +359,9 @@ a {
   transform: scale(1.3);
 }
 
-@keyframes card-stack-hint-bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(6px);
-  }
-}
-
-.card-stack-hint {
-  opacity: 1;
-  transition: opacity 0.35s ease;
-}
-
-.card-stack-hint-arrow {
-  animation: card-stack-hint-bounce 1.6s ease-in-out infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .card-stack-slot {
     transition: none !important;
-  }
-  .card-stack-hint-arrow {
-    animation: none !important;
   }
 }
 

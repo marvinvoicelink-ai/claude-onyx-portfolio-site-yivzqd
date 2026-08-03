@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useScrollStack } from "@/hooks/useScrollStack";
-import { CardStackDots, CardStackHint, getStackSlotStyle } from "./CardStackChrome";
+import { CardStackDots, CardStackScrollHint, getFlyStackSlotStyle } from "./CardStackChrome";
 
 const problems = [
   {
@@ -218,7 +218,8 @@ export default function ProblemSection({ animate = false }: { animate?: boolean 
           </div>
         ) : (
           <div ref={stack.wrapperRef} className="relative" style={{ height: `${problems.length * 62}vh` }}>
-            <div className="sticky flex items-center justify-center" style={{ top: "13vh", height: "min(560px, 74vh)" }}>
+            <div className="sticky flex flex-col items-center justify-center" style={{ top: "13vh", height: "min(560px, 74vh)" }}>
+              <CardStackScrollHint text="Scrolle weiter — wir zeigen dir, welche Probleme es gerade gibt." />
               <div className="relative w-full" style={{ maxWidth: 460, height: "100%" }}>
                 {problems.map((p, i) => (
                   <div
@@ -227,14 +228,13 @@ export default function ProblemSection({ animate = false }: { animate?: boolean 
                     style={{
                       background: "var(--near-black-2)",
                       boxShadow: "0 0 60px -10px rgba(232,163,61,0.45)",
-                      ...getStackSlotStyle(i - stack.index),
+                      ...getFlyStackSlotStyle(i, stack.continuousIndex, problems.length),
                     }}
                   >
                     <ProblemCard p={p} />
                   </div>
                 ))}
                 <CardStackDots count={problems.length} index={stack.index} />
-                <CardStackHint done={stack.index === problems.length - 1} />
               </div>
             </div>
           </div>

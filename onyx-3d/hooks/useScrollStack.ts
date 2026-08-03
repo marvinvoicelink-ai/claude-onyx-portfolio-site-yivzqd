@@ -23,6 +23,11 @@ function usePrefersReducedMotion() {
 export function useScrollStack(count: number, disabled = false) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
+  // Continuous 0..count progress (e.g. 2.35 = card 2 is 35% through its own
+  // exit) — cards use this to animate smoothly instead of snapping between
+  // discrete slots. `index` (the floored, clamped version) stays around for
+  // consumers that only need "which card is currently active" (dots).
+  const [continuousIndex, setContinuousIndex] = useState(0);
   const reducedMotion = usePrefersReducedMotion();
   const staticFallback = disabled || reducedMotion;
 
@@ -37,6 +42,7 @@ export function useScrollStack(count: number, disabled = false) {
       const rect = el.getBoundingClientRect();
       const total = rect.height - window.innerHeight;
       const progress = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
+      setContinuousIndex(progress * count);
       setIndex(Math.min(count - 1, Math.floor(progress * count)));
     }
     function onScroll() {
@@ -54,5 +60,5 @@ export function useScrollStack(count: number, disabled = false) {
     };
   }, [count, staticFallback]);
 
-  return { wrapperRef, index, staticFallback };
+  return { wrapperRef, index, continuousIndex, staticFallback };
 }
