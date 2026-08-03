@@ -12,14 +12,24 @@ const diffs = [
     tag: "Eigentum",
     name: "Kein CRM von der Stange.",
     heading: "Dein System wird nach deinem Prozess gebaut.",
-    desc: "Kein Standardpaket mit festen Modulen — was dein System abdeckt, richtet sich nach deinem tatsächlichen Ablauf, nicht umgekehrt.",
+    desc: "Kein Standardpaket mit festen Modulen — was dein System abdeckt, richtet sich nach deinem tatsächlichen Ablauf, nicht umgekehrt. Du beschreibst, wie bei dir gearbeitet wird, wir übersetzen es in Software.",
+    bullets: [
+      "Kein Pflichtenkatalog aus Standard-Modulen, die nur halb passen",
+      "Jede Automatisierung folgt deinem echten Ablauf, nicht einem Template",
+      "Wächst mit, wenn sich dein Prozess später ändert",
+    ],
     image: "/generated/diff-01.webp",
   },
   {
     tag: "Volles Eigentum",
     name: "Code & Daten gehören dir.",
     heading: "Du besitzt Code und Daten — vollständig.",
-    desc: "Nach der Übergabe gehört dir jede Zeile Code und jeder Datensatz. Kein Anbieter, der Zugriff behält oder Lizenzen verlängert.",
+    desc: "Nach der Übergabe gehört dir jede Zeile Code und jeder Datensatz. Kein Anbieter, der Zugriff behält, Lizenzen verlängert oder Funktionen hinter einer Bezahlschranke versteckt.",
+    bullets: [
+      "Vollständiger Quellcode wird bei der Übergabe ausgehändigt",
+      "Keine Abo-Bindung an Onyx nach Projektabschluss",
+      "Du entscheidest, wer später daran weiterbaut",
+    ],
     image: "/generated/diff-02.webp",
     imageRight: true,
   },
@@ -27,18 +37,28 @@ const diffs = [
     tag: "Hosting",
     name: "Deine Infrastruktur.",
     heading: "Du hostest auf deinem eigenen Server.",
-    desc: "DSGVO-konform, in Deutschland bzw. der EU, mit AVV — nicht auf fremden Servern, die du nicht kontrollierst.",
+    desc: "DSGVO-konform, in Deutschland bzw. der EU, mit AVV — nicht auf fremden Servern, die du nicht kontrollierst und über die du im Streitfall keine Handhabe hast.",
+    bullets: [
+      "Hosting bei dir oder deinem Wunschanbieter, nicht bei Onyx",
+      "Auftragsverarbeitungsvertrag (AVV) von Anfang an inklusive",
+      "Keine Kundendaten auf Servern außerhalb der EU",
+    ],
     image: "/generated/diff-03.webp",
-    mediaBg: "light" as const,
+    background: "light" as const,
   },
   {
     tag: "Vertragsende",
     name: "Kein Lock-in.",
     heading: "Nach der Übergabe bist du unabhängig.",
-    desc: "Kein laufendes Abo, kein Anbieter, der Preise erhöht oder den Vertrag kündigt. Onyx übergibt vollständig und zieht sich zurück.",
+    desc: "Kein laufendes Abo, kein Anbieter, der Preise erhöht oder den Vertrag kündigt. Onyx übergibt vollständig und zieht sich zurück — dein System läuft unabhängig davon weiter.",
+    bullets: [
+      "Keine monatliche Abo-Pflicht nach der Übergabe",
+      "Onyx zieht sich nach Projektende bewusst zurück",
+      "Du entscheidest, ob und wann weiterentwickelt wird",
+    ],
     image: "/generated/diff-04.webp",
     imageRight: true,
-    mediaBg: "light" as const,
+    background: "light" as const,
   },
 ];
 
@@ -66,9 +86,10 @@ export default function TestAliveFuerDichPage() {
           name={d.name}
           heading={d.heading}
           desc={d.desc}
+          bullets={d.bullets}
           image={d.image}
           imageRight={d.imageRight}
-          mediaBg={d.mediaBg}
+          background={d.background}
         />
       ))}
 

@@ -534,7 +534,7 @@ export function AliveCase({
   image,
   imageRight = false,
   bullets,
-  mediaBg = "dark",
+  background = "dark",
 }: {
   tag: string;
   name: string;
@@ -543,45 +543,50 @@ export function AliveCase({
   image: string;
   imageRight?: boolean;
   bullets?: string[];
-  mediaBg?: "dark" | "light";
+  background?: "dark" | "light";
 }) {
-  const light = mediaBg === "light";
+  const light = background === "light";
+  const textDim = light ? "rgba(22,17,4,0.62)" : "var(--warm-grey-dim)";
+  const tagColor = light ? "#8a6a1f" : "var(--amber)";
+  const tagBg = light ? "rgba(138,106,31,0.12)" : "var(--amber-soft)";
+  const tagBorder = light ? "rgba(138,106,31,0.35)" : "rgba(232,163,61,0.3)";
+  const headingStyle: React.CSSProperties = light ? { color: "#161104" } : {};
+
   const media = (
     <ImageWipe>
-      <div
-        className="relative"
-        style={{ aspectRatio: "3 / 2", background: light ? "var(--warm-grey)" : "var(--near-black-2)" }}
-      >
-        <div style={{ position: "absolute", inset: light ? 36 : 0 }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={image} alt={name} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
-        </div>
+      <div className="relative" style={{ aspectRatio: "3 / 2" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={image}
+          alt={name}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+            filter: light ? "drop-shadow(0 24px 32px rgba(22,17,4,0.18))" : "drop-shadow(0 24px 40px rgba(0,0,0,0.4))",
+          }}
+        />
       </div>
     </ImageWipe>
   );
   const body = (
-    <Reveal className="p-8 md:p-12" style={{ background: "var(--near-black-2)" }} delay={0.15}>
+    <Reveal className="p-8 md:p-12 flex flex-col justify-center" delay={0.15}>
       <span
         className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-5 mono"
-        style={{
-          fontSize: 11.5,
-          letterSpacing: "0.05em",
-          textTransform: "uppercase",
-          color: "var(--amber)",
-          background: "var(--amber-soft)",
-          border: "1px solid rgba(232,163,61,0.3)",
-        }}
+        style={{ fontSize: 11.5, letterSpacing: "0.05em", textTransform: "uppercase", color: tagColor, background: tagBg, border: `1px solid ${tagBorder}` }}
       >
         {tag}
       </span>
-      <h3 style={{ fontSize: "1.3rem", marginBottom: 6 }}>{name}</h3>
-      <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 18 }}>{heading}</h2>
-      <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.75 }}>{desc}</p>
+      <h3 style={{ fontSize: "1.3rem", marginBottom: 6, ...headingStyle }}>{name}</h3>
+      <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 18, ...headingStyle }}>{heading}</h2>
+      <p style={{ color: textDim, fontSize: "1.02rem", lineHeight: 1.75 }}>{desc}</p>
       {bullets && (
         <ul className="mt-5 flex flex-col gap-2.5">
           {bullets.map((b) => (
-            <li key={b} className="flex gap-2.5" style={{ fontSize: "0.94rem", color: "var(--warm-grey-dim)", lineHeight: 1.5 }}>
-              <span style={{ color: "var(--amber)" }}>—</span>
+            <li key={b} className="flex gap-2.5" style={{ fontSize: "0.94rem", color: textDim, lineHeight: 1.5 }}>
+              <span style={{ color: tagColor }}>—</span>
               {b}
             </li>
           ))}
@@ -590,12 +595,9 @@ export function AliveCase({
     </Reveal>
   );
   return (
-    <section className="py-10">
+    <section className="py-14" style={{ background: light ? "var(--warm-grey)" : "transparent" }}>
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
-        <div
-          className="grid grid-cols-1 lg:grid-cols-2"
-          style={{ border: "1px solid var(--hairline)", borderRadius: 4, overflow: "hidden" }}
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {imageRight ? (
             <>
               {body}
