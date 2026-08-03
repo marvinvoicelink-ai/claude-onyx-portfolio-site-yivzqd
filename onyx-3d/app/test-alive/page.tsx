@@ -12,12 +12,24 @@ import {
   AliveTeamGrid,
   AliveCtaBand,
   AliveTimeline,
+  AliveMarquee,
 } from "@/components/alive/AliveChrome";
 
 export const metadata: Metadata = {
   title: "Test — Onyx.AI",
   robots: { index: false, follow: false },
 };
+
+const industries = [
+  "Handwerk & Bau",
+  "Hausverwaltung & Immobilien",
+  "Personaldienstleistung",
+  "Logistik & Spedition",
+  "Praxen & Gesundheitswesen",
+  "Handel & E-Commerce",
+  "Beratung & Agenturen",
+  "Versicherungen & Finanzdienstleister",
+];
 
 const problems = [
   { num: "01", title: "Mehrere Tools,", highlight: "die nicht zusammenpassen", desc: "Excel-Listen, SaaS-Tools, die nie ganz zu deinem Prozess passen.", image: "/generated/problem-tools.webp" },
@@ -143,6 +155,8 @@ export default function TestAlivePage() {
           </div>
         </div>
       </section>
+
+      <AliveMarquee items={industries} />
 
       <AliveStatRow
         stats={[

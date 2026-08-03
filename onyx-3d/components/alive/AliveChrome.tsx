@@ -13,6 +13,87 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+function prefersReducedMotion() {
+  return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+/** Generic viewport-triggered fade + slide-up, once. The load-bearing "life" behind every section. */
+function Reveal({
+  children,
+  delay = 0,
+  y = 26,
+  className,
+  style,
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  y?: number;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || prefersReducedMotion()) return;
+    gsap.set(el, { opacity: 0, y });
+    const st = ScrollTrigger.create({
+      trigger: el,
+      start: "top 90%",
+      once: true,
+      onEnter: () => gsap.to(el, { opacity: 1, y: 0, duration: 0.85, ease: "power2.out", delay }),
+    });
+    return () => st.kill();
+  }, [delay, y]);
+
+  return (
+    <div ref={ref} className={className} style={style}>
+      {children}
+    </div>
+  );
+}
+
+/** Numeric KPIs count up from 0 once in view; non-numeric values just get the Reveal fade. */
+function StatValue({ value }: { value: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const match = value.match(/^(\d+)(.*)$/);
+    if (!match || prefersReducedMotion()) {
+      el.textContent = value;
+      return;
+    }
+    const target = parseInt(match[1], 10);
+    const suffix = match[2];
+    el.textContent = `0${suffix}`;
+    const counter = { n: 0 };
+    const st = ScrollTrigger.create({
+      trigger: el,
+      start: "top 90%",
+      once: true,
+      onEnter: () => {
+        gsap.to(counter, {
+          n: target,
+          duration: 1.3,
+          ease: "power1.out",
+          onUpdate: () => {
+            el.textContent = `${Math.round(counter.n)}${suffix}`;
+          },
+        });
+      },
+    });
+    return () => st.kill();
+  }, [value]);
+
+  return (
+    <div ref={ref} className="mono" style={{ fontSize: "2rem", fontWeight: 800, color: "var(--amber)", lineHeight: 1.1 }}>
+      {value}
+    </div>
+  );
+}
+
 export function AliveEyebrow({ children }: { children: React.ReactNode }) {
   return (
     <span
@@ -29,16 +110,15 @@ export function AliveStatRow({ stats }: { stats: { value: string; label: string 
     <section style={{ background: "var(--near-black-2)", borderBottom: "1px solid var(--hairline)" }}>
       <div className="mx-auto grid grid-cols-1 sm:grid-cols-3" style={{ maxWidth: 1400 }}>
         {stats.map((k, i) => (
-          <div
-            key={k.label}
-            className="text-center py-10 px-6"
-            style={{ borderLeft: i > 0 ? "1px solid var(--hairline)" : "none" }}
-          >
-            <div className="mono" style={{ fontSize: "2rem", fontWeight: 800, color: "var(--amber)", lineHeight: 1.1 }}>
-              {k.value}
+          <Reveal key={k.label} delay={i * 0.1} y={18}>
+            <div
+              className="text-center py-10 px-6"
+              style={{ borderLeft: i > 0 ? "1px solid var(--hairline)" : "none" }}
+            >
+              <StatValue value={k.value} />
+              <div style={{ fontSize: "0.92rem", color: "var(--warm-grey-dim)", marginTop: 6 }}>{k.label}</div>
             </div>
-            <div style={{ fontSize: "0.92rem", color: "var(--warm-grey-dim)", marginTop: 6 }}>{k.label}</div>
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>
@@ -58,17 +138,17 @@ export function AliveHairlineGrid({
 }) {
   return (
     <section className="py-20">
-      <div className="mx-auto px-7 text-center" style={{ maxWidth: 700, marginBottom: 56 }}>
+      <Reveal className="mx-auto px-7 text-center" style={{ maxWidth: 700, marginBottom: 56 }}>
         <AliveEyebrow>{eyebrow}</AliveEyebrow>
         <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)" }}>{heading}</h2>
-      </div>
+      </Reveal>
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
           className={`grid grid-cols-1 ${cols === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}
           style={{ background: "var(--hairline)", gap: 1, border: "1px solid var(--hairline)" }}
         >
-          {items.map((p) => (
-            <div key={p.num} className="p-8" style={{ background: "var(--near-black)" }}>
+          {items.map((p, i) => (
+            <Reveal key={p.num} delay={Math.min(i * 0.08, 0.4)} className="alive-hover-card p-8" style={{ background: "var(--near-black)" }}>
               {p.image && (
                 <div style={{ width: "100%", maxWidth: 180, aspectRatio: "4 / 3", margin: "0 auto 20px", position: "relative" }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -107,7 +187,7 @@ export function AliveHairlineGrid({
                   ))}
                 </ul>
               )}
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -128,7 +208,7 @@ export function AliveInvertedStatement({
 }) {
   return (
     <section className="py-24" style={{ background: "var(--warm-grey)" }}>
-      <div className="mx-auto px-7 text-center" style={{ maxWidth: 780 }}>
+      <Reveal className="mx-auto px-7 text-center" style={{ maxWidth: 780 }}>
         <span
           className="mono block mb-5"
           style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8a6a1f" }}
@@ -149,7 +229,7 @@ export function AliveInvertedStatement({
         {sub && (
           <p style={{ color: "rgba(22,17,4,0.62)", fontSize: "1.05rem", lineHeight: 1.7, marginTop: 24 }}>{sub}</p>
         )}
-      </div>
+      </Reveal>
     </section>
   );
 }
@@ -169,7 +249,7 @@ export function AliveCtaBand({
 }) {
   return (
     <section className="py-20">
-      <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
+      <Reveal className="mx-auto px-7" style={{ maxWidth: 1180 }} y={36}>
         <div
           className="relative rounded-2xl px-8 py-14 md:px-16 md:py-20 flex flex-col items-center text-center gap-7 overflow-hidden"
           style={{
@@ -210,7 +290,7 @@ export function AliveCtaBand({
             </a>
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }
@@ -227,27 +307,29 @@ export function AliveFaq({
   return (
     <section className="py-20">
       <div className="mx-auto px-7" style={{ maxWidth: 820 }}>
-        <div className="text-center" style={{ marginBottom: 40 }}>
+        <Reveal className="text-center" style={{ marginBottom: 40 }}>
           <AliveEyebrow>{eyebrow}</AliveEyebrow>
           <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)" }}>{heading}</h2>
-        </div>
+        </Reveal>
         <div>
-          {faqs.map((f) => (
-            <details key={f.q} className="group" style={{ borderBottom: "1px solid var(--hairline)", padding: "22px 0" }}>
-              <summary
-                className="flex items-center justify-between gap-4 cursor-pointer list-none"
-                style={{ fontWeight: 700, fontSize: "1.05rem" }}
-              >
-                {f.q}
-                <span className="mono flex-shrink-0" style={{ color: "var(--amber)", fontSize: "1.3rem" }}>
-                  <span className="group-open:hidden">+</span>
-                  <span className="hidden group-open:inline">–</span>
-                </span>
-              </summary>
-              <p style={{ marginTop: 14, color: "var(--warm-grey-dim)", fontSize: "0.98rem", lineHeight: 1.7, maxWidth: "68ch" }}>
-                {f.a}
-              </p>
-            </details>
+          {faqs.map((f, i) => (
+            <Reveal key={f.q} delay={Math.min(i * 0.07, 0.3)} y={16}>
+              <details className="group" style={{ borderBottom: "1px solid var(--hairline)", padding: "22px 0" }}>
+                <summary
+                  className="flex items-center justify-between gap-4 cursor-pointer list-none"
+                  style={{ fontWeight: 700, fontSize: "1.05rem" }}
+                >
+                  {f.q}
+                  <span className="mono flex-shrink-0" style={{ color: "var(--amber)", fontSize: "1.3rem" }}>
+                    <span className="group-open:hidden">+</span>
+                    <span className="hidden group-open:inline">–</span>
+                  </span>
+                </summary>
+                <p style={{ marginTop: 14, color: "var(--warm-grey-dim)", fontSize: "0.98rem", lineHeight: 1.7, maxWidth: "68ch" }}>
+                  {f.a}
+                </p>
+              </details>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -266,13 +348,18 @@ export function AliveTeamGrid({
 }) {
   return (
     <section className="py-20">
-      <div className="mx-auto px-7 text-center" style={{ maxWidth: 700, marginBottom: 56 }}>
+      <Reveal className="mx-auto px-7 text-center" style={{ maxWidth: 700, marginBottom: 56 }}>
         <AliveEyebrow>{eyebrow}</AliveEyebrow>
         <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)" }}>{heading}</h2>
-      </div>
+      </Reveal>
       <div className="mx-auto px-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" style={{ maxWidth: 1180 }}>
-        {team.map((m) => (
-          <div key={m.name} className="rounded-2xl overflow-hidden" style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}>
+        {team.map((m, i) => (
+          <Reveal
+            key={m.name}
+            delay={Math.min(i * 0.09, 0.36)}
+            className="alive-hover-card rounded-2xl overflow-hidden"
+            style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
+          >
             <div className="relative w-full" style={{ aspectRatio: "4 / 5" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={m.image} alt={m.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
@@ -281,7 +368,7 @@ export function AliveTeamGrid({
               <div style={{ fontWeight: 700, fontSize: "1.02rem" }}>{m.name}</div>
               <div className="mono" style={{ fontSize: 12.5, color: "var(--amber)", marginTop: 4 }}>{m.role}</div>
             </div>
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>
@@ -299,20 +386,25 @@ export function AliveTestimonialWall({
 }) {
   return (
     <section className="py-20">
-      <div className="mx-auto px-7 text-center" style={{ maxWidth: 700, marginBottom: 56 }}>
+      <Reveal className="mx-auto px-7 text-center" style={{ maxWidth: 700, marginBottom: 56 }}>
         <AliveEyebrow>{eyebrow}</AliveEyebrow>
         <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)" }}>{heading}</h2>
-      </div>
+      </Reveal>
       <div className="mx-auto px-7 grid grid-cols-1 md:grid-cols-2 gap-6" style={{ maxWidth: 900 }}>
-        {quotes.map((q) => (
-          <div key={`${q.name}-${q.source}`} className="p-7 rounded-2xl" style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}>
+        {quotes.map((q, i) => (
+          <Reveal
+            key={`${q.name}-${q.source}`}
+            delay={i * 0.12}
+            className="alive-hover-card p-7 rounded-2xl"
+            style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
+          >
             <p style={{ fontSize: "0.98rem", lineHeight: 1.65, color: "var(--warm-grey-dim)", fontStyle: "italic" }}>
               &bdquo;{q.text}&ldquo;
             </p>
             <div className="mono mt-5" style={{ fontSize: 12.5, color: "var(--warm-grey-faint)" }}>
               — {q.name}, {q.source}
             </div>
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>
@@ -332,11 +424,11 @@ export function AliveComparisonTable({
 }) {
   return (
     <section className="py-20">
-      <div className="mx-auto px-7 text-center" style={{ maxWidth: 700, marginBottom: 48 }}>
+      <Reveal className="mx-auto px-7 text-center" style={{ maxWidth: 700, marginBottom: 48 }}>
         <AliveEyebrow>{eyebrow}</AliveEyebrow>
         <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)" }}>{heading}</h2>
-      </div>
-      <div className="mx-auto px-7" style={{ maxWidth: 900 }}>
+      </Reveal>
+      <Reveal className="mx-auto px-7" style={{ maxWidth: 900 }} delay={0.1}>
         <div style={{ border: "1px solid var(--hairline)", borderRadius: 8, overflow: "hidden" }}>
           <div
             className="grid grid-cols-3"
@@ -358,8 +450,40 @@ export function AliveComparisonTable({
             </div>
           ))}
         </div>
-      </div>
+      </Reveal>
     </section>
+  );
+}
+
+/** Image wipes in left-to-right via clip-path, with a subtle settling zoom — once, in view. */
+function ImageWipe({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    const inner = innerRef.current;
+    if (!el || !inner || prefersReducedMotion()) return;
+    gsap.set(el, { clipPath: "inset(0 100% 0 0)" });
+    gsap.set(inner, { scale: 1.08 });
+    const st = ScrollTrigger.create({
+      trigger: el,
+      start: "top 85%",
+      once: true,
+      onEnter: () => {
+        gsap.to(el, { clipPath: "inset(0 0% 0 0)", duration: 1.1, ease: "power3.out" });
+        gsap.to(inner, { scale: 1, duration: 1.3, ease: "power2.out" });
+      },
+    });
+    return () => st.kill();
+  }, []);
+
+  return (
+    <div ref={ref} style={{ overflow: "hidden" }}>
+      <div ref={innerRef} style={{ willChange: "transform" }}>
+        {children}
+      </div>
+    </div>
   );
 }
 
@@ -381,13 +505,15 @@ export function AliveCase({
   bullets?: string[];
 }) {
   const media = (
-    <div className="relative" style={{ minHeight: 340, background: "var(--near-black-2)" }}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={image} alt={name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
-    </div>
+    <ImageWipe>
+      <div className="relative" style={{ minHeight: 340, background: "var(--near-black-2)" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={image} alt={name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+      </div>
+    </ImageWipe>
   );
   const body = (
-    <div className="p-8 md:p-12" style={{ background: "var(--near-black-2)" }}>
+    <Reveal className="p-8 md:p-12" style={{ background: "var(--near-black-2)" }} delay={0.15}>
       <span
         className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-5 mono"
         style={{
@@ -414,7 +540,7 @@ export function AliveCase({
           ))}
         </ul>
       )}
-    </div>
+    </Reveal>
   );
   return (
     <section className="py-10">
