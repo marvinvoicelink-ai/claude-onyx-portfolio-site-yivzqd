@@ -11,25 +11,7 @@ const industries = [
   "Versicherungen & Finanzdienstleister",
 ];
 
-function Chip({ label, delay }: { label: string; delay: number }) {
-  return (
-    <span
-      className="chip-glow mono inline-flex items-center rounded-full px-5 py-2.5 mx-2.5"
-      style={{
-        fontSize: 14.5,
-        whiteSpace: "nowrap",
-        border: "1px solid transparent",
-        animationDelay: `${delay}s`,
-      }}
-    >
-      {label}
-    </span>
-  );
-}
-
 export default function IndustriesSection() {
-  const track = [...industries, ...industries];
-
   return (
     <section className="py-14 relative overflow-hidden">
       <SectionGlow position="top" />
@@ -43,30 +25,27 @@ export default function IndustriesSection() {
         <h2 className="mx-auto" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", maxWidth: "22ch", marginBottom: 14 }}>
           Kein Branchen-Fokus. Dein Prozess entscheidet.
         </h2>
-        <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", maxWidth: "62ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 44 }}>
+        <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", maxWidth: "62ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 40 }}>
           Onyx ist nicht auf eine Branche spezialisiert — jedes System wird
           um deinen konkreten Prozess herum gebaut. Ein paar Beispiele, wo
           das typischerweise gebraucht wird:
         </p>
-      </div>
 
-      <div
-        className="relative overflow-hidden py-2"
-        style={{
-          WebkitMaskImage:
-            "linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%)",
-          maskImage:
-            "linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%)",
-        }}
-      >
-        <div className="marquee-track flex items-center" style={{ width: "max-content" }}>
-          {track.map((label, i) => (
-            <Chip key={`${label}-${i}`} label={label} delay={(i % industries.length) * 0.75} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mx-auto" style={{ maxWidth: 1040 }}>
+          {industries.map((label, i) => (
+            <div
+              key={label}
+              className="alive-hover-card flex items-center gap-3 rounded-xl px-5 py-4 text-left"
+              style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
+            >
+              <span className="mono" style={{ fontSize: 11.5, color: "var(--amber)", flexShrink: 0 }}>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span style={{ fontSize: "0.94rem", color: "var(--warm-grey-dim)", lineHeight: 1.35 }}>{label}</span>
+            </div>
           ))}
         </div>
-      </div>
 
-      <div className="mx-auto px-7 text-center" style={{ maxWidth: 1180 }}>
         <p className="mono mt-8" style={{ fontSize: 12, color: "var(--warm-grey-faint)" }}>
           Beispiele, keine abschließende Liste — passt dein Prozess, passt Onyx.
         </p>

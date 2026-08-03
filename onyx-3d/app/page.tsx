@@ -1,5 +1,6 @@
 import SmoothScroll from "@/components/SmoothScroll";
 import Hero from "@/components/Hero";
+import LogoMarquee from "@/components/LogoMarquee";
 import WhyNowSection from "@/components/WhyNowSection";
 import ProblemSection from "@/components/ProblemSection";
 import BlueprintSection from "@/components/BlueprintSection";
@@ -21,6 +22,7 @@ export default function Home() {
     <SmoothScroll>
       <main>
         <Hero />
+        <LogoMarquee />
 
         <WheelTransition edge="both">
           <WhyNowSection />
