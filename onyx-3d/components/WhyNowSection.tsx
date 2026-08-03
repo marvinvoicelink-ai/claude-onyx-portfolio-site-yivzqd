@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useSkipHeavyMotion } from "@/hooks/useSkipHeavyMotion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,12 +17,10 @@ const sentences = [
 export default function WhyNowSection() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const sentenceRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const { skip } = useSkipHeavyMotion();
 
   useEffect(() => {
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    if (reducedMotion) return;
+    if (skip) return;
 
     const ctx = gsap.context(() => {
       sentenceRefs.current.forEach((el) => {
@@ -46,7 +45,7 @@ export default function WhyNowSection() {
     }, wrapRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [skip]);
 
   return (
     <section className="py-16" ref={wrapRef}>

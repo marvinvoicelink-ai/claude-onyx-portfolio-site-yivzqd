@@ -1,17 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-
-function usePrefersReducedMotion() {
-  const [reduced, setReduced] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(mq.matches);
-  }, []);
-
-  return reduced;
-}
+import { useSkipHeavyMotion } from "./useSkipHeavyMotion";
 
 /**
  * A pinned "card deck": the wrapper reserves `count` viewport-heights of
@@ -28,8 +18,8 @@ export function useScrollStack(count: number, disabled = false) {
   // discrete slots. `index` (the floored, clamped version) stays around for
   // consumers that only need "which card is currently active" (dots).
   const [continuousIndex, setContinuousIndex] = useState(0);
-  const reducedMotion = usePrefersReducedMotion();
-  const staticFallback = disabled || reducedMotion;
+  const { skip: skipHeavyMotion } = useSkipHeavyMotion();
+  const staticFallback = disabled || skipHeavyMotion;
 
   useEffect(() => {
     if (staticFallback) return;

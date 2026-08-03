@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useScrollStack } from "@/hooks/useScrollStack";
+import { useSkipHeavyMotion } from "@/hooks/useSkipHeavyMotion";
 import { CardStackDots, CardStackScrollHint, CardStackCounter, getFlyStackSlotStyle } from "./CardStackChrome";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -194,13 +195,10 @@ function ProblemCard({ p }: { p: (typeof problems)[number] }) {
 export default function ProblemSection({ animate = false }: { animate?: boolean }) {
   const stack = useScrollStack(problems.length, !animate);
   const chaosImageRef = useRef<HTMLDivElement>(null);
+  const { skip } = useSkipHeavyMotion();
 
   useEffect(() => {
-    if (!animate) return;
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    if (reducedMotion) return;
+    if (!animate || skip) return;
 
     const el = chaosImageRef.current;
     if (!el) return;
@@ -242,7 +240,7 @@ export default function ProblemSection({ animate = false }: { animate?: boolean 
     }, chaosImageRef);
 
     return () => ctx.revert();
-  }, [animate]);
+  }, [animate, skip]);
 
   return (
     <section className="py-14">

@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useSkipHeavyMotion } from "@/hooks/useSkipHeavyMotion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,12 +23,10 @@ export default function WheelTransition({
   edge: "enter" | "exit" | "both";
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const { skip } = useSkipHeavyMotion();
 
   useEffect(() => {
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    if (reducedMotion) return;
+    if (skip) return;
 
     const el = ref.current;
     if (!el) return;
@@ -72,7 +71,7 @@ export default function WheelTransition({
     }, ref);
 
     return () => ctx.revert();
-  }, [edge]);
+  }, [edge, skip]);
 
   return (
     <div ref={ref} style={{ transformOrigin: "center top" }}>
