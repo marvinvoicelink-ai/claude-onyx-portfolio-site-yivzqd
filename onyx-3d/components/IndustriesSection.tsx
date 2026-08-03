@@ -1,3 +1,5 @@
+import SectionGlow from "./SectionGlow";
+
 const industries = [
   "Handwerk & Bau",
   "Hausverwaltung & Immobilien",
@@ -29,7 +31,8 @@ export default function IndustriesSection() {
   const track = [...industries, ...industries];
 
   return (
-    <section className="py-14">
+    <section className="py-14 relative overflow-hidden">
+      <SectionGlow position="top" />
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 1180 }}>
         <span
           className="mono inline-flex items-center gap-2 mb-4"

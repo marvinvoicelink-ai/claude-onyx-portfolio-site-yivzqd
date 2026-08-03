@@ -15,6 +15,25 @@
   box-sizing: border-box;
 }
 
+/* Fixed, full-page film-grain texture — the thing that makes an otherwise
+   flat dark page feel tactile/"alive" instead of a solid color fill.
+   SVG feTurbulence noise as a data-URI, no image asset needed. */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain-overlay {
+    opacity: 0.035;
+  }
+}
+
 html {
   background: var(--near-black);
 }

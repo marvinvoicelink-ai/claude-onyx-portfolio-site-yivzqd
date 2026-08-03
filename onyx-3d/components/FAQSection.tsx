@@ -1,3 +1,5 @@
+import SectionGlow from "./SectionGlow";
+
 const faqs = [
   {
     q: "Was kostet ein System von Onyx?",
@@ -19,7 +21,8 @@ const faqs = [
 
 export default function FAQSection() {
   return (
-    <section className="py-14">
+    <section className="py-14 relative overflow-hidden">
+      <SectionGlow position="top" />
       <div className="mx-auto px-7" style={{ maxWidth: 820 }}>
         <div className="text-center">
           <span

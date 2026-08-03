@@ -1,3 +1,5 @@
+import SectionGlow from "./SectionGlow";
+
 const steps: { label: string; align: "top" | "bottom" }[] = [
   { label: "Erstgespräch & Analyse", align: "top" },
   { label: "Konzept & Festpreis", align: "bottom" },
@@ -47,7 +49,8 @@ function StepLabel({ label }: { label: string }) {
 
 export default function RoadmapSection() {
   return (
-    <section className="py-14">
+    <section className="py-14 relative overflow-hidden">
+      <SectionGlow position="center" />
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 1180 }}>
         <span
           className="mono inline-flex items-center gap-2 mb-4"

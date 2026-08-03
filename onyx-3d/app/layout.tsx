@@ -56,6 +56,7 @@ export default function RootLayout({
       className={`${archivo.variable} ${instrumentSans.variable} ${plexMono.variable}`}
     >
       <body>
+        <div className="grain-overlay" aria-hidden="true" />
         <a href="#main-content" className="skip-link">
           Zum Inhalt springen
         </a>
