@@ -1,9 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useScrollStack } from "@/hooks/useScrollStack";
 import { CardStackDots, CardStackScrollHint, CardStackCounter, getFlyStackSlotStyle } from "./CardStackChrome";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const problems = [
   {
@@ -189,7 +193,56 @@ function ProblemCard({ p }: { p: (typeof problems)[number] }) {
 
 export default function ProblemSection({ animate = false }: { animate?: boolean }) {
   const stack = useScrollStack(problems.length, !animate);
-  const chaosImage = useScrollReveal<HTMLImageElement>(1, !animate);
+  const chaosImageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!animate) return;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (reducedMotion) return;
+
+    const el = chaosImageRef.current;
+    if (!el) return;
+
+    const ctx = gsap.context(() => {
+      // Flies in from the left as it scrolls into view, then flies out to
+      // the right as it scrolls back out — same "enters, later exits the
+      // other side" idea as the wheel transitions, just horizontal here.
+      gsap.fromTo(
+        el,
+        { x: "-40%", opacity: 0 },
+        {
+          x: "0%",
+          opacity: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 90%",
+            end: "top 45%",
+            scrub: 0.4,
+          },
+        }
+      );
+      gsap.fromTo(
+        el,
+        { x: "0%", opacity: 1 },
+        {
+          x: "40%",
+          opacity: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: el,
+            start: "bottom 55%",
+            end: "bottom 5%",
+            scrub: 0.4,
+          },
+        }
+      );
+    }, chaosImageRef);
+
+    return () => ctx.revert();
+  }, [animate]);
 
   return (
     <section className="py-14">
@@ -263,23 +316,16 @@ export default function ProblemSection({ animate = false }: { animate?: boolean 
           >
             Eins, das du besitzt.
           </p>
-          <Image
-            ref={chaosImage.setRef(0)}
-            data-reveal-index={0}
-            src="/generated/chaos-to-portal.webp"
-            alt="Aus Tool-Chaos wird ein System. Eins, das du besitzt."
-            width={1600}
-            height={635}
-            className={
-              animate
-                ? `w-full h-auto block mx-auto ${chaosImage.visible[0] ? "reveal-left-visible" : "reveal-left-hidden"}`
-                : "w-full h-auto block mx-auto"
-            }
-            style={{
-              filter: "drop-shadow(0 0 40px rgba(232,163,61,0.35))",
-              ...(animate ? { ["--reveal-delay" as string]: "60ms" } : {}),
-            }}
-          />
+          <div ref={chaosImageRef}>
+            <Image
+              src="/generated/chaos-to-portal.webp"
+              alt="Aus Tool-Chaos wird ein System. Eins, das du besitzt."
+              width={1600}
+              height={635}
+              className="w-full h-auto block mx-auto"
+              style={{ filter: "drop-shadow(0 0 40px rgba(232,163,61,0.35))" }}
+            />
+          </div>
         </div>
       </div>
     </section>
