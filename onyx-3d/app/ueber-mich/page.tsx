@@ -87,7 +87,7 @@ export default function UeberMichPage() {
                     style={{ objectFit: "cover", objectPosition: "top" }}
                   />
                 </div>
-                <div className="p-5">
+                <div className="p-5 text-center">
                   <div style={{ fontWeight: 700, fontSize: "1.05rem" }}>{m.name}</div>
                   <div className="mono" style={{ fontSize: 12.5, color: "var(--amber)", marginTop: 4 }}>
                     {m.role}

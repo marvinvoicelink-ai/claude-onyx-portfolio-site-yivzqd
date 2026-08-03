@@ -20,13 +20,15 @@ export default function DatenschutzPage() {
           >
             ← Zur Startseite
           </Link>
-          <span
-            className="mono block mb-4"
-            style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
-          >
-            Rechtliches
-          </span>
-          <h1 style={{ fontSize: "clamp(1.9rem, 4vw, 2.6rem)" }}>Datenschutzerklärung</h1>
+          <div className="text-center">
+            <span
+              className="mono block mb-4"
+              style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
+            >
+              Rechtliches
+            </span>
+            <h1 style={{ fontSize: "clamp(1.9rem, 4vw, 2.6rem)" }}>Datenschutzerklärung</h1>
+          </div>
         </div>
       </section>
 

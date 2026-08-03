@@ -49,7 +49,7 @@ export default function ReferenzenPage() {
                   Kundencase · gebaut &amp; übergeben
                 </span>
                 <h3 style={{ fontSize: "1.4rem", marginBottom: 6 }}>HausManager Pro</h3>
-                <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 18 }}>
+                <h2 className="text-center" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 18 }}>
                   Vom Excel-Chaos zum eigenen System.
                 </h2>
                 <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.75, marginBottom: 28 }}>
@@ -142,7 +142,7 @@ export default function ReferenzenPage() {
                   Kundencase · Automatisierung
                 </span>
                 <h3 style={{ fontSize: "1.4rem", marginBottom: 6 }}>WETBlock</h3>
-                <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 18 }}>
+                <h2 className="text-center" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 18 }}>
                   Vom manuellen Versand zur automatisierten Kundenansprache.
                 </h2>
                 <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.75, marginBottom: 28 }}>
