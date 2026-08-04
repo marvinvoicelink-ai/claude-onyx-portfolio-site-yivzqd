@@ -28,7 +28,14 @@ export default function LogoMarquee() {
                 src={item.src}
                 alt={item.name}
                 className="logo-flat"
-                style={{ height: 26, width: "auto", maxWidth: 130, objectFit: "contain", margin: "0 26px" }}
+                style={{
+                  height: 26,
+                  width: "auto",
+                  maxWidth: 130,
+                  objectFit: "contain",
+                  margin: "0 26px",
+                  animationDelay: `${(i % logos.length) * 0.5}s`,
+                }}
               />
               <span className="mono" aria-hidden style={{ fontSize: 16, color: "var(--hairline)" }}>
                 /

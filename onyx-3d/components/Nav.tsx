@@ -64,7 +64,10 @@ export default function Nav() {
         </Link>
 
         <div className="flex items-center gap-4">
-          <nav className="hidden md:flex items-center gap-6 mono" style={{ fontSize: 13 }}>
+          <nav
+            className="hidden md:flex items-center gap-6"
+            style={{ fontFamily: "var(--font-archivo), sans-serif", fontWeight: 700, fontSize: 13.5, letterSpacing: "-0.01em" }}
+          >
             {links.map((l) => {
               const active = pathname === l.href;
 
