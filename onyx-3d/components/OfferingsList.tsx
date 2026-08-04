@@ -31,10 +31,10 @@ export default function OfferingsList() {
                 </span>
                 <div
                   className="rounded-xl overflow-hidden flex-shrink-0"
-                  style={{ width: 64, height: 64, background: "#fff", border: "1px solid rgba(22,17,4,0.08)" }}
+                  style={{ width: 168, height: 118, background: "#fff", border: "1px solid rgba(22,17,4,0.08)" }}
                 >
                   <div className="relative w-full h-full">
-                    <Image src={o.image} alt="" fill sizes="64px" style={{ objectFit: "cover" }} />
+                    <Image src={o.image} alt="" fill sizes="168px" style={{ objectFit: "cover" }} />
                   </div>
                 </div>
                 <div className="min-w-0">
