@@ -79,7 +79,7 @@ export default function Nav() {
             color: "#ffffff",
           }}
         >
-          <AikiMark size={30} />
+          <AikiMark size={46} />
           <span style={{ whiteSpace: "pre" }}>
           {logoChars.map((c, i) => (
             <span
