@@ -3,6 +3,40 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+type Glyph = { top: string; left: string; size: number; delay: number; kind: "hex" | "bracket" | "dot" };
+
+const glyphs: Glyph[] = [
+  { top: "18%", left: "8%", size: 22, delay: 280, kind: "hex" },
+  { top: "62%", left: "5%", size: 16, delay: 420, kind: "bracket" },
+  { top: "40%", left: "22%", size: 7, delay: 560, kind: "dot" },
+  { top: "78%", left: "18%", size: 18, delay: 700, kind: "hex" },
+  { top: "12%", left: "30%", size: 6, delay: 840, kind: "dot" },
+];
+
+function GlyphIcon({ kind, size }: { kind: Glyph["kind"]; size: number }) {
+  if (kind === "dot") {
+    return (
+      <span
+        className="inline-block rounded-full"
+        style={{ width: size, height: size, background: "var(--amber)", boxShadow: "0 0 10px 2px rgba(232,163,61,0.7)" }}
+      />
+    );
+  }
+  if (kind === "bracket") {
+    return (
+      <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="var(--amber)" strokeWidth={1.6} strokeLinecap="round" style={{ filter: "drop-shadow(0 0 6px rgba(232,163,61,0.6))" }}>
+        <path d="M9 4 4 4 4 9" />
+        <path d="M15 20 20 20 20 15" />
+      </svg>
+    );
+  }
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="var(--amber)" strokeWidth={1.4} style={{ filter: "drop-shadow(0 0 6px rgba(232,163,61,0.55))" }}>
+      <path d="M12 2 21 7 21 17 12 22 3 17 3 7 Z" />
+    </svg>
+  );
+}
+
 export default function Hero() {
   const [reducedMotion, setReducedMotion] = useState(false);
   const [entered, setEntered] = useState(false);
@@ -40,6 +74,28 @@ export default function Hero() {
               "linear-gradient(90deg, rgba(17,17,17,0.97) 0%, rgba(17,17,17,0.8) 42%, rgba(17,17,17,0.35) 72%, rgba(17,17,17,0.08) 100%), linear-gradient(0deg, rgba(17,17,17,0.85) 0%, rgba(17,17,17,0) 35%)",
           }}
         />
+
+        {/* Small accent glyphs drifting toward the light source baked into
+            the photo (the glowing module cluster upper-right) — the photo
+            itself never moves, only these overlaid marks do. */}
+        <div aria-hidden className="absolute inset-0" style={{ pointerEvents: "none" }}>
+          {glyphs.map((g, i) => (
+            <div
+              key={i}
+              className="absolute"
+              style={{
+                top: g.top,
+                left: g.left,
+                opacity: entered ? 0.85 : 0,
+                transform: entered ? "translate(0, 0) scale(1)" : "translate(-18px, 14px) scale(0.85)",
+                transition: "opacity 1s ease, transform 1.1s cubic-bezier(0.16, 1, 0.3, 1)",
+                transitionDelay: `${g.delay}ms`,
+              }}
+            >
+              <GlyphIcon kind={g.kind} size={g.size} />
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="relative z-10 w-full px-7" style={{ maxWidth: 1180, margin: "0 auto" }}>
