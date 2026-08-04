@@ -1,29 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import HeroSquares from "./HeroSquares";
-
-gsap.registerPlugin(ScrollTrigger);
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
-  const pinRef = useRef<HTMLDivElement>(null);
-  const textWrapRef = useRef<HTMLDivElement>(null);
-  const squaresRef = useRef<HTMLDivElement>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [entered, setEntered] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const mobileQuery = window.matchMedia("(max-width: 767px)");
     setReducedMotion(motionQuery.matches);
-    setIsMobile(mobileQuery.matches);
 
-    // Entrance reveal for the headline + CTAs — reduced motion skips
+    // Entrance reveal for the headline + CTA — reduced motion skips
     // straight to the visible state, otherwise wait a frame so the
     // hidden class has actually painted before transitioning.
     if (motionQuery.matches) {
@@ -31,197 +19,119 @@ export default function Hero() {
     } else {
       requestAnimationFrame(() => requestAnimationFrame(() => setEntered(true)));
     }
-
-    // The decorative squares layer is positioned for wide viewports — on
-    // narrow screens there's no space beside the text for it to live, so it
-    // skips straight to a lightweight static fallback instead of overlapping.
-    if (motionQuery.matches || mobileQuery.matches) {
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: pinRef.current,
-          start: "top top",
-          end: "+=120%",
-          scrub: 1,
-          pin: true,
-          onUpdate: (self) => {
-            // Recedes into the background only in the last stretch of the
-            // pin — a "wheel" hand-off cue right before WhyNowSection takes
-            // over. The squares settle inward and fade slightly over the
-            // same stretch, echoing the old module-assembly idea.
-            const el = textWrapRef.current;
-            const sq = squaresRef.current;
-            const recede = Math.max(0, (self.progress - 0.72) / 0.28);
-            if (el) {
-              el.style.opacity = String(1 - recede * 0.85);
-              el.style.transform = `scale(${1 - recede * 0.12})`;
-            }
-            if (sq) {
-              const settle = Math.min(1, self.progress / 0.6);
-              sq.style.opacity = String(0.4 + settle * 0.6 - recede * 0.5);
-              sq.style.transform = `scale(${1.06 - settle * 0.06})`;
-            }
-          },
-        },
-      });
-    });
-
-    return () => ctx.revert();
   }, []);
 
   return (
-    <section
-      ref={pinRef}
-      className="relative h-screen overflow-hidden"
-    >
+    <section className="relative flex items-center overflow-hidden" style={{ minHeight: "100vh" }}>
       <div className="absolute inset-0">
-        {mounted && !isMobile && !reducedMotion && <HeroSquares ref={squaresRef} />}
-        {mounted && (isMobile || reducedMotion) && (
-          <div
-            aria-hidden
-            className="absolute"
-            style={{
-              width: "70vw",
-              height: "70vw",
-              maxWidth: 420,
-              maxHeight: 420,
-              right: "-20%",
-              bottom: "-15%",
-              background:
-                "radial-gradient(circle, rgba(232,163,61,0.16) 0%, rgba(232,163,61,0) 70%)",
-            }}
-          />
-        )}
+        <Image
+          src="/generated/hero-alive-bg.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          style={{ objectFit: "cover", objectPosition: "70% 50%" }}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(17,17,17,0.97) 0%, rgba(17,17,17,0.8) 42%, rgba(17,17,17,0.35) 72%, rgba(17,17,17,0.08) 100%), linear-gradient(0deg, rgba(17,17,17,0.85) 0%, rgba(17,17,17,0) 35%)",
+          }}
+        />
       </div>
 
-      <div className="relative z-10 h-full flex items-center pointer-events-none">
-        <div
-          className="mx-auto w-full px-7 pointer-events-none"
-          style={{ maxWidth: 1180 }}
-        >
+      <div className="relative z-10 w-full px-7" style={{ maxWidth: 1180, margin: "0 auto" }}>
+        <div className="max-w-[560px]">
           <div
-            ref={textWrapRef}
-            className="max-w-[560px] mx-auto text-center pointer-events-auto"
-            style={{ transformOrigin: "center center" }}
+            className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 mono"
+            style={{
+              fontSize: 12,
+              color: "var(--warm-grey-dim)",
+              border: "1px solid var(--hairline)",
+              background: "rgba(245,242,236,0.03)",
+            }}
           >
-            <div
-              className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 mono"
-              style={{
-                fontSize: 12,
-                color: "var(--warm-grey-dim)",
-                border: "1px solid var(--hairline)",
-                background: "rgba(245,242,236,0.03)",
-              }}
-            >
-              <span
-                className="inline-block rounded-full"
-                style={{
-                  width: 6,
-                  height: 6,
-                  background: "var(--amber)",
-                  boxShadow: "0 0 8px 1px rgba(232,163,61,0.6)",
-                }}
-              />
-              Kein Bot — der Gründer antwortet selbst
-            </div>
-
             <span
-              className="mono block mb-4"
+              className="inline-block rounded-full"
               style={{
-                fontSize: "12.5px",
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                color: "var(--amber)",
+                width: 6,
+                height: 6,
+                background: "var(--amber)",
+                boxShadow: "0 0 8px 1px rgba(232,163,61,0.6)",
+              }}
+            />
+            Kein Bot — der Gründer antwortet selbst
+          </div>
+
+          <span
+            className="mono block mb-4"
+            style={{
+              fontSize: "12.5px",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              color: "var(--amber)",
+            }}
+          >
+            White-Label-Systeme · Bauen &amp; übergeben
+          </span>
+
+          <h1
+            className={entered ? "hero-blur-visible" : "hero-blur-hidden"}
+            style={{
+              fontSize: "clamp(2.6rem, 5vw, 4rem)",
+              lineHeight: 1.05,
+              maxWidth: "14ch",
+            }}
+          >
+            Wir bauen dir dein eigenes System.
+            <br />
+            <span className="accent">Du besitzt es.</span>
+          </h1>
+
+          <p
+            className="mt-6"
+            style={{
+              fontSize: "clamp(1.02rem, 1.6vw, 1.18rem)",
+              color: "var(--warm-grey-dim)",
+              lineHeight: 1.65,
+              maxWidth: "48ch",
+            }}
+          >
+            Personalisierte Dashboards, Portale und Automatisierungen im
+            White-Label — fertig gebaut, an dich übergeben, auf deiner
+            Infrastruktur, unter deiner Marke.
+          </p>
+
+          <div className="mt-9">
+            <a
+              href="#kontakt"
+              className={`inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber ${entered ? "hero-cta-visible" : "hero-cta-hidden"}`}
+              style={{
+                background: "var(--amber)",
+                color: "#161104",
+                fontSize: "15.5px",
+                ["--reveal-delay" as string]: "220ms",
               }}
             >
-              White-Label-Systeme · Bauen &amp; übergeben
-            </span>
+              Jetzt Kontakt aufnehmen
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={16} height={16}>
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+          </div>
 
-            <h1
-              className={`mx-auto ${entered ? "hero-blur-visible" : "hero-blur-hidden"}`}
-              style={{
-                fontSize: "clamp(2.4rem, 4.4vw, 3.7rem)",
-                lineHeight: 1.06,
-                maxWidth: "15ch",
-              }}
-            >
-              Wir bauen dir dein eigenes System.
-              <br />
-              <span className="accent">Du besitzt es.</span>
-            </h1>
-
-            <p
-              className="mt-6 mx-auto max-w-[52ch]"
-              style={{
-                fontSize: "clamp(1.02rem, 1.6vw, 1.18rem)",
-                color: "var(--warm-grey-dim)",
-                lineHeight: 1.65,
-              }}
-            >
-              Personalisierte Dashboards, Portale und Automatisierungen im
-              White-Label — fertig gebaut, an dich übergeben, auf deiner
-              Infrastruktur, unter deiner Marke.
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-3.5 mt-9">
-              <a
-                href="#kontakt"
-                className={`inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold btn-amber ${entered ? "hero-cta-visible" : "hero-cta-hidden"}`}
-                style={{
-                  background: "var(--amber)",
-                  color: "#161104",
-                  fontSize: "15.5px",
-                  ["--reveal-delay" as string]: "220ms",
-                }}
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={1.8}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  width={18}
-                  height={18}
-                >
-                  <path d="M4 6h16v12H4z" fill="none" />
-                  <path d="m4 7 8 6 8-6" />
-                </svg>
-                Jetzt Kontakt aufnehmen
-              </a>
-              <a
-                href="https://calendly.com/onyx-ai/30min"
-                target="_blank"
-                rel="noopener"
-                className={`inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold btn-ghost ${entered ? "hero-cta-visible" : "hero-cta-hidden"}`}
-                style={{
-                  background: "transparent",
-                  color: "var(--warm-grey)",
-                  border: "1px solid var(--hairline)",
-                  fontSize: "15.5px",
-                  ["--reveal-delay" as string]: "320ms",
-                }}
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={1.8}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  width={18}
-                  height={18}
-                >
-                  <rect x="3.5" y="5" width="17" height="16" rx="2.2" />
-                  <path d="M8 3v4M16 3v4M3.5 10h17" />
-                  <path d="m8.5 14 1.8 1.8L14.5 12" />
-                </svg>
-                30 Min. Termin buchen
-              </a>
-            </div>
+          <div
+            className="mono mt-7"
+            style={{
+              fontSize: 12.5,
+              color: "var(--warm-grey-faint)",
+              opacity: entered && !reducedMotion ? 1 : entered ? 1 : 0,
+              transition: "opacity 0.6s ease 0.4s",
+            }}
+          >
+            DSGVO-konform · Gebaut in Deutschland · Für jede Branche
           </div>
         </div>
       </div>

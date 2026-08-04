@@ -8,7 +8,7 @@ import ExplainerSection from "@/components/ExplainerSection";
 import CaseStudySection from "@/components/CaseStudySection";
 import RoadmapSection from "@/components/RoadmapSection";
 import MidFormSection from "@/components/MidFormSection";
-import SolutionsSection from "@/components/SolutionsSection";
+import OfferingsList from "@/components/OfferingsList";
 import IndustriesSection from "@/components/IndustriesSection";
 import CTABanner from "@/components/CTABanner";
 import DifferentiationSection from "@/components/DifferentiationSection";
@@ -50,7 +50,7 @@ export default function Home() {
           <RoadmapSection />
         </WheelTransition>
         <MidFormSection />
-        <SolutionsSection animate />
+        <OfferingsList />
         <CTABanner
           heading="Dein System, gebaut für genau dein Geschäft."
           sub="Kein Baukasten, kein Abo — ein System, das dir gehört."
