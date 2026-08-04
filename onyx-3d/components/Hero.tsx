@@ -1,9 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import HeroScene, { type ProgressRef } from "./HeroScene";
-import { useSkipHeavyMotion } from "@/hooks/useSkipHeavyMotion";
+import { useEffect, useMemo, useState } from "react";
 
 type Glyph = { top: string; left: string; size: number; delay: number; kind: "hex" | "bracket" | "dot" };
 
@@ -39,53 +36,108 @@ function GlyphIcon({ kind, size }: { kind: Glyph["kind"]; size: number }) {
   );
 }
 
+// The right-hand portion of the photo (where its own module cluster sits)
+// is cut into a grid of tiles. Each tile shows the exact matching slice of
+// the real photo (same background-image/size/position, just clipped) and
+// flies in from a scattered offset to its correct spot — the moving pieces
+// are the actual photo, not a synthetic overlay.
+const TILE_REGION = { xStart: 45, xEnd: 100, yStart: 0, yEnd: 100 };
+const TILE_COLS = 4;
+const TILE_ROWS = 3;
+
+function buildTiles() {
+  const tiles: {
+    clipPath: string;
+    fromX: number;
+    fromY: number;
+    fromRotate: number;
+    delay: number;
+  }[] = [];
+
+  for (let row = 0; row < TILE_ROWS; row++) {
+    for (let col = 0; col < TILE_COLS; col++) {
+      const left = TILE_REGION.xStart + (col / TILE_COLS) * (TILE_REGION.xEnd - TILE_REGION.xStart);
+      const right = 100 - (TILE_REGION.xStart + ((col + 1) / TILE_COLS) * (TILE_REGION.xEnd - TILE_REGION.xStart));
+      const top = TILE_REGION.yStart + (row / TILE_ROWS) * (TILE_REGION.yEnd - TILE_REGION.yStart);
+      const bottom = 100 - (TILE_REGION.yStart + ((row + 1) / TILE_ROWS) * (TILE_REGION.yEnd - TILE_REGION.yStart));
+
+      // Small entrance offset (not a big scatter) — the pieces are already
+      // roughly in place, they just settle in gently.
+      tiles.push({
+        clipPath: `inset(${top}% ${right}% ${bottom}% ${left}%)`,
+        fromX: -8 - Math.random() * 10,
+        fromY: 6 + Math.random() * 8,
+        fromRotate: (Math.random() - 0.5) * 6,
+        delay: (row * TILE_COLS + col) * 35 + Math.random() * 100,
+      });
+    }
+  }
+  return tiles;
+}
+
+const BG_STYLE = {
+  backgroundImage: "url(/generated/hero-alive-bg.png)",
+  backgroundSize: "cover",
+  backgroundPosition: "70% 50%",
+} as const;
+
 export default function Hero() {
   const [reducedMotion, setReducedMotion] = useState(false);
   const [entered, setEntered] = useState(false);
-  const { skip: skipScene } = useSkipHeavyMotion();
-  const sceneProgress = useRef<ProgressRef>({ current: 0 });
+  const [settled, setSettled] = useState(false);
+  const tiles = useMemo(() => buildTiles(), []);
 
   useEffect(() => {
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReducedMotion(motionQuery.matches);
 
-    // Entrance reveal for the headline + CTA — reduced motion skips
-    // straight to the visible state, otherwise wait a frame so the
-    // hidden class has actually painted before transitioning.
+    // Entrance reveal for the headline + CTA + photo tiles — reduced motion
+    // skips straight to the visible state, otherwise wait a frame so the
+    // hidden state has actually painted before transitioning.
     if (motionQuery.matches) {
       setEntered(true);
-    } else {
-      requestAnimationFrame(() => requestAnimationFrame(() => setEntered(true)));
+      setSettled(true);
+      return;
     }
+    requestAnimationFrame(() => requestAnimationFrame(() => setEntered(true)));
+    // Once the tiles have arrived, hand them off to the continuous,
+    // barely-there idle drift toward the light.
+    const settleTimer = setTimeout(() => setSettled(true), 1500);
+    return () => clearTimeout(settleTimer);
   }, []);
-
-  useEffect(() => {
-    // Drives the 3D module cluster from scattered to assembled once on
-    // load — eased cubic (via HeroScene's own lerp) over ~2s, not scroll-linked.
-    if (skipScene) return;
-    let raf = 0;
-    const duration = 2000;
-    const start = performance.now();
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / duration);
-      sceneProgress.current.current = t;
-      if (t < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [skipScene]);
 
   return (
     <section className="relative flex items-center overflow-hidden" style={{ minHeight: "100vh" }}>
       <div className="absolute inset-0">
-        <Image
-          src="/generated/hero-alive-bg.png"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          style={{ objectFit: "cover", objectPosition: "70% 50%" }}
+        {/* Left/static portion of the photo — never animates. */}
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{ ...BG_STYLE, clipPath: `inset(0% ${100 - TILE_REGION.xStart}% 0% 0%)` }}
         />
+
+        {/* Right portion — the same photo, cut into tiles that fly in from
+            scattered positions to reassemble the real picture on load. */}
+        {tiles.map((t, i) => (
+          <div
+            key={i}
+            aria-hidden
+            className={`absolute inset-0 ${settled && !reducedMotion ? "hero-tile-drift" : ""}`}
+            style={{
+              ...BG_STYLE,
+              clipPath: t.clipPath,
+              opacity: entered ? 1 : 0,
+              transform: settled
+                ? undefined
+                : entered
+                  ? "translate(0, 0) rotate(0deg)"
+                  : `translate(${t.fromX}px, ${t.fromY}px) rotate(${t.fromRotate}deg)`,
+              transition: settled ? undefined : "opacity 0.7s ease, transform 1.1s cubic-bezier(0.16, 1, 0.3, 1)",
+              transitionDelay: settled ? undefined : `${t.delay}ms`,
+            }}
+          />
+        ))}
+
         <div
           aria-hidden
           className="absolute inset-0"
@@ -96,8 +148,8 @@ export default function Hero() {
         />
 
         {/* Small accent glyphs drifting toward the light source baked into
-            the photo (the glowing module cluster upper-right) — the photo
-            itself never moves, only these overlaid marks do. */}
+            the photo (the glowing module cluster upper-right) — a couple of
+            extra marks fading in alongside the tiles reassembling. */}
         <div aria-hidden className="absolute inset-0" style={{ pointerEvents: "none" }}>
           {glyphs.map((g, i) => (
             <div
@@ -116,19 +168,6 @@ export default function Hero() {
             </div>
           ))}
         </div>
-
-        {/* Modular system assembling itself over the photo's own cluster —
-            skipped on mobile/reduced-motion, where the static photo already
-            shows the (permanently assembled) cluster on its own. */}
-        {!skipScene && (
-          <div
-            aria-hidden
-            className="absolute hidden md:block"
-            style={{ top: 0, bottom: 0, right: 0, width: "55%", pointerEvents: "none" }}
-          >
-            <HeroScene progressRef={sceneProgress.current} />
-          </div>
-        )}
       </div>
 
       <div className="relative z-10 w-full px-7" style={{ maxWidth: 1180, margin: "0 auto" }}>
