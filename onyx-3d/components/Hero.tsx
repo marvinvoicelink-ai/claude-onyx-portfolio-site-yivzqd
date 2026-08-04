@@ -1,78 +1,32 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useSkipHeavyMotion } from "@/hooks/useSkipHeavyMotion";
 
-type Glyph = { top: string; left: string; size: number; delay: number; kind: "hex" | "bracket" | "dot" };
+gsap.registerPlugin(ScrollTrigger);
 
-const glyphs: Glyph[] = [
-  { top: "18%", left: "8%", size: 22, delay: 280, kind: "hex" },
-  { top: "62%", left: "5%", size: 16, delay: 420, kind: "bracket" },
-  { top: "40%", left: "22%", size: 7, delay: 560, kind: "dot" },
-  { top: "78%", left: "18%", size: 18, delay: 700, kind: "hex" },
-  { top: "12%", left: "30%", size: 6, delay: 840, kind: "dot" },
-];
+// Individual pieces cut out of the real hero photo (segmented from
+// public/generated/hero-alive-bg.png via brightness/connected-component
+// analysis — see public/generated/hero-pieces/pieces.json for source
+// bounding boxes). Each mask is a full-canvas alpha map for its one piece;
+// masking the same photo + same background-position as the base guarantees
+// pixel-perfect alignment at rest, no matter the viewport size.
+const PIECE_COUNT = 12;
 
-function GlyphIcon({ kind, size }: { kind: Glyph["kind"]; size: number }) {
-  if (kind === "dot") {
-    return (
-      <span
-        className="inline-block rounded-full"
-        style={{ width: size, height: size, background: "var(--amber)", boxShadow: "0 0 10px 2px rgba(232,163,61,0.7)" }}
-      />
-    );
-  }
-  if (kind === "bracket") {
-    return (
-      <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="var(--amber)" strokeWidth={1.6} strokeLinecap="round" style={{ filter: "drop-shadow(0 0 6px rgba(232,163,61,0.6))" }}>
-        <path d="M9 4 4 4 4 9" />
-        <path d="M15 20 20 20 20 15" />
-      </svg>
-    );
-  }
-  return (
-    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="var(--amber)" strokeWidth={1.4} style={{ filter: "drop-shadow(0 0 6px rgba(232,163,61,0.55))" }}>
-      <path d="M12 2 21 7 21 17 12 22 3 17 3 7 Z" />
-    </svg>
-  );
-}
-
-// The right-hand portion of the photo (where its own module cluster sits)
-// is cut into a grid of tiles. Each tile shows the exact matching slice of
-// the real photo (same background-image/size/position, just clipped) and
-// flies in from a scattered offset to its correct spot — the moving pieces
-// are the actual photo, not a synthetic overlay.
-const TILE_REGION = { xStart: 45, xEnd: 100, yStart: 0, yEnd: 100 };
-const TILE_COLS = 4;
-const TILE_ROWS = 3;
-
-function buildTiles() {
-  const tiles: {
-    clipPath: string;
-    fromX: number;
-    fromY: number;
-    fromRotate: number;
-    delay: number;
-  }[] = [];
-
-  for (let row = 0; row < TILE_ROWS; row++) {
-    for (let col = 0; col < TILE_COLS; col++) {
-      const left = TILE_REGION.xStart + (col / TILE_COLS) * (TILE_REGION.xEnd - TILE_REGION.xStart);
-      const right = 100 - (TILE_REGION.xStart + ((col + 1) / TILE_COLS) * (TILE_REGION.xEnd - TILE_REGION.xStart));
-      const top = TILE_REGION.yStart + (row / TILE_ROWS) * (TILE_REGION.yEnd - TILE_REGION.yStart);
-      const bottom = 100 - (TILE_REGION.yStart + ((row + 1) / TILE_ROWS) * (TILE_REGION.yEnd - TILE_REGION.yStart));
-
-      // Small entrance offset (not a big scatter) — the pieces are already
-      // roughly in place, they just settle in gently.
-      tiles.push({
-        clipPath: `inset(${top}% ${right}% ${bottom}% ${left}%)`,
-        fromX: -8 - Math.random() * 10,
-        fromY: 6 + Math.random() * 8,
-        fromRotate: (Math.random() - 0.5) * 6,
-        delay: (row * TILE_COLS + col) * 35 + Math.random() * 100,
-      });
-    }
-  }
-  return tiles;
+function buildPieces() {
+  return Array.from({ length: PIECE_COUNT }, (_, i) => {
+    const angle = Math.random() * Math.PI * 2;
+    // Mostly-upward bias ("toward the light") with some spread.
+    const dist = 46 + Math.random() * 58;
+    return {
+      mask: `/generated/hero-pieces/piece-${i}-mask.png`,
+      toX: Math.cos(angle) * dist * 0.6,
+      toY: -Math.abs(Math.sin(angle) * dist) - 24,
+      toRotate: (Math.random() - 0.5) * 22,
+    };
+  });
 }
 
 const BG_STYLE = {
@@ -84,56 +38,84 @@ const BG_STYLE = {
 export default function Hero() {
   const [reducedMotion, setReducedMotion] = useState(false);
   const [entered, setEntered] = useState(false);
-  const [settled, setSettled] = useState(false);
-  const tiles = useMemo(() => buildTiles(), []);
+  const pieces = useMemo(() => buildPieces(), []);
+  const sectionRef = useRef<HTMLElement>(null);
+  const pieceRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const { skip: skipScroll } = useSkipHeavyMotion();
 
   useEffect(() => {
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReducedMotion(motionQuery.matches);
 
-    // Entrance reveal for the headline + CTA + photo tiles — reduced motion
-    // skips straight to the visible state, otherwise wait a frame so the
-    // hidden state has actually painted before transitioning.
+    // Entrance reveal for the headline + CTA — reduced motion skips
+    // straight to the visible state, otherwise wait a frame so the
+    // hidden class has actually painted before transitioning.
     if (motionQuery.matches) {
       setEntered(true);
-      setSettled(true);
-      return;
+    } else {
+      requestAnimationFrame(() => requestAnimationFrame(() => setEntered(true)));
     }
-    requestAnimationFrame(() => requestAnimationFrame(() => setEntered(true)));
-    // Once the tiles have arrived, hand them off to the continuous,
-    // barely-there idle drift toward the light.
-    const settleTimer = setTimeout(() => setSettled(true), 1500);
-    return () => clearTimeout(settleTimer);
   }, []);
 
-  return (
-    <section className="relative flex items-center overflow-hidden" style={{ minHeight: "100vh" }}>
-      <div className="absolute inset-0">
-        {/* Left/static portion of the photo — never animates. */}
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{ ...BG_STYLE, clipPath: `inset(0% ${100 - TILE_REGION.xStart}% 0% 0%)` }}
-        />
+  useEffect(() => {
+    // Scroll-linked assembly: pieces sit in their real, correct spot at the
+    // top of the page and drift apart as you scroll through the hero,
+    // reassembling automatically on the way back up (scrub follows the
+    // scrollbar in both directions). Skipped on mobile/reduced-motion —
+    // the pieces just stay in their correct, already-assembled position.
+    if (skipScroll) return;
+    const section = sectionRef.current;
+    if (!section) return;
 
-        {/* Right portion — the same photo, cut into tiles that fly in from
-            scattered positions to reassemble the real picture on load. */}
-        {tiles.map((t, i) => (
+    const ctx = gsap.context(() => {
+      pieceRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const p = pieces[i];
+        gsap.to(el, {
+          x: p.toX,
+          y: p.toY,
+          rotate: p.toRotate,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "bottom top",
+            scrub: 0.6,
+          },
+        });
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, [pieces, skipScroll]);
+
+  return (
+    <section ref={sectionRef} className="relative flex items-center overflow-hidden" style={{ minHeight: "100vh" }}>
+      <div className="absolute inset-0">
+        {/* Base photo — the extracted pieces below are inpainted out of this
+            version (softened to a glow), so nothing doubles up when they
+            drift away. */}
+        <div aria-hidden className="absolute inset-0" style={{ backgroundImage: "url(/generated/hero-alive-bg-base.png)", backgroundSize: "cover", backgroundPosition: "70% 50%" }} />
+
+        {/* The individual real pieces, masked out of the actual photo. */}
+        {pieces.map((p, i) => (
           <div
             key={i}
+            ref={(el) => {
+              pieceRefs.current[i] = el;
+            }}
             aria-hidden
-            className={`absolute inset-0 ${settled && !reducedMotion ? "hero-tile-drift" : ""}`}
+            className="absolute inset-0"
             style={{
               ...BG_STYLE,
-              clipPath: t.clipPath,
-              opacity: entered ? 1 : 0,
-              transform: settled
-                ? undefined
-                : entered
-                  ? "translate(0, 0) rotate(0deg)"
-                  : `translate(${t.fromX}px, ${t.fromY}px) rotate(${t.fromRotate}deg)`,
-              transition: settled ? undefined : "opacity 0.7s ease, transform 1.1s cubic-bezier(0.16, 1, 0.3, 1)",
-              transitionDelay: settled ? undefined : `${t.delay}ms`,
+              maskImage: `url(${p.mask})`,
+              WebkitMaskImage: `url(${p.mask})`,
+              maskSize: "cover",
+              WebkitMaskSize: "cover",
+              maskPosition: "70% 50%",
+              WebkitMaskPosition: "70% 50%",
+              maskRepeat: "no-repeat",
+              WebkitMaskRepeat: "no-repeat",
             }}
           />
         ))}
@@ -146,28 +128,6 @@ export default function Hero() {
               "linear-gradient(90deg, rgba(17,17,17,0.97) 0%, rgba(17,17,17,0.8) 42%, rgba(17,17,17,0.35) 72%, rgba(17,17,17,0.08) 100%), linear-gradient(0deg, rgba(17,17,17,0.85) 0%, rgba(17,17,17,0) 35%)",
           }}
         />
-
-        {/* Small accent glyphs drifting toward the light source baked into
-            the photo (the glowing module cluster upper-right) — a couple of
-            extra marks fading in alongside the tiles reassembling. */}
-        <div aria-hidden className="absolute inset-0" style={{ pointerEvents: "none" }}>
-          {glyphs.map((g, i) => (
-            <div
-              key={i}
-              className="absolute"
-              style={{
-                top: g.top,
-                left: g.left,
-                opacity: entered ? 0.85 : 0,
-                transform: entered ? "translate(0, 0) scale(1)" : "translate(-18px, 14px) scale(0.85)",
-                transition: "opacity 1s ease, transform 1.1s cubic-bezier(0.16, 1, 0.3, 1)",
-                transitionDelay: `${g.delay}ms`,
-              }}
-            >
-              <GlyphIcon kind={g.kind} size={g.size} />
-            </div>
-          ))}
-        </div>
       </div>
 
       <div className="relative z-10 w-full px-7" style={{ maxWidth: 1180, margin: "0 auto" }}>
