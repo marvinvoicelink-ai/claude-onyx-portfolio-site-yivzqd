@@ -14,7 +14,6 @@ const links = [
   { href: "/referenzen", label: "Referenzen" },
   { href: "/faq", label: "FAQ" },
   { href: "/ueber-mich", label: "Über mich" },
-  { href: "/kontakt", label: "Kontakt" },
 ];
 
 /** Per-offering deep links — automatisierung gets its own dedicated page instead of an /angebot anchor. */
