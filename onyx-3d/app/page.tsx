@@ -32,7 +32,7 @@ export default function Home() {
         <WheelTransition edge="enter">
           <IndustriesSection />
         </WheelTransition>
-        <ProblemSection animate />
+        <ProblemSection />
         <CTABanner
           heading="Erkennst du dein Unternehmen in diesen Problemen wieder?"
           sub="Lass uns in einem kurzen Gespräch klären, was für dich der größte Hebel wäre."
@@ -59,7 +59,7 @@ export default function Home() {
           buttonText="Kostenloses Erstgespräch sichern"
           ctaHref="#kontakt"
         />
-        <DifferentiationSection animate />
+        <DifferentiationSection />
         <WheelTransition edge="exit">
           <FAQSection />
         </WheelTransition>
