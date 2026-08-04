@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MobileNav from "./MobileNav";
@@ -22,10 +22,29 @@ const offeringLinks = offerings.map((o) => ({
   label: o.title.replace(/\.$/, ""),
 }));
 
+const LOGO_TEXT = "AIKI Performance";
+const logoChars = LOGO_TEXT.split("").map((char, i) => ({
+  char: char === " " ? " " : char,
+  amber: i < 2,
+}));
+
 export default function Nav() {
   const pathname = usePathname();
   const [offeringsOpen, setOfferingsOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [entered, setEntered] = useState(false);
+
+  useEffect(() => {
+    // Entrance reveal for the header on first load — reduced motion skips
+    // straight to visible, otherwise wait a frame so the hidden state has
+    // actually painted before transitioning (same pattern as the Hero).
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (motionQuery.matches) {
+      setEntered(true);
+    } else {
+      requestAnimationFrame(() => requestAnimationFrame(() => setEntered(true)));
+    }
+  }, []);
 
   const openMenu = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -57,13 +76,35 @@ export default function Nav() {
             fontSize: 18,
             letterSpacing: "-0.01em",
             color: "#ffffff",
-            whiteSpace: "nowrap",
+            whiteSpace: "pre",
           }}
         >
-          <span style={{ color: "var(--amber)" }}>AI</span>KI Performance
+          {logoChars.map((c, i) => (
+            <span
+              key={i}
+              style={{
+                display: "inline-block",
+                color: c.amber ? "var(--amber)" : "#ffffff",
+                opacity: entered ? 1 : 0,
+                transform: entered ? "translateY(0)" : "translateY(8px)",
+                transition: "opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                transitionDelay: `${i * 22}ms`,
+              }}
+            >
+              {c.char}
+            </span>
+          ))}
         </Link>
 
-        <div className="flex items-center gap-4">
+        <div
+          className="flex items-center gap-4"
+          style={{
+            opacity: entered ? 1 : 0,
+            transform: entered ? "translateY(0)" : "translateY(-6px)",
+            transition: "opacity 0.5s ease, transform 0.5s ease",
+            transitionDelay: "160ms",
+          }}
+        >
           <nav
             className="hidden md:flex items-center gap-6"
             style={{ fontFamily: "var(--font-archivo), sans-serif", fontWeight: 700, fontSize: 13.5, letterSpacing: "-0.01em" }}
