@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MobileNav from "./MobileNav";
+import AikiMark from "./AikiMark";
 import { offerings } from "@/lib/offerings";
 
 const links = [
@@ -69,16 +70,17 @@ export default function Nav() {
       >
         <Link
           href="/"
-          className="nav-logo-link"
+          className="nav-logo-link inline-flex items-center gap-2.5"
           style={{
             fontFamily: "var(--font-archivo), sans-serif",
             fontWeight: 800,
             fontSize: 18,
             letterSpacing: "-0.01em",
             color: "#ffffff",
-            whiteSpace: "pre",
           }}
         >
+          <AikiMark size={30} />
+          <span style={{ whiteSpace: "pre" }}>
           {logoChars.map((c, i) => (
             <span
               key={i}
@@ -94,6 +96,7 @@ export default function Nav() {
               {c.char}
             </span>
           ))}
+          </span>
         </Link>
 
         <div
