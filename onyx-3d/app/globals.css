@@ -131,6 +131,17 @@ a {
   transform: scaleX(1);
 }
 
+.nav-dropdown-row {
+  padding: 11px 16px;
+  font-size: 13px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.nav-dropdown-row:hover {
+  background: rgba(232, 163, 61, 0.1);
+  color: var(--amber) !important;
+}
+
 .footer-link {
   transition: color 0.2s ease;
 }
