@@ -266,25 +266,25 @@ a {
   }
 }
 
-.offering-row {
+.offering-row-light {
   transition: padding-left 0.25s ease;
 }
 
-.offering-row:hover {
+.offering-row-light:hover {
   padding-left: 8px;
 }
 
-.offering-row:hover .offering-row-cta {
-  color: var(--amber) !important;
+.offering-row-light:hover .offering-row-light-cta {
+  color: #8a6a1f !important;
 }
 
-.offering-row:hover .offering-row-arrow {
-  background: var(--amber);
-  border-color: var(--amber);
+.offering-row-light:hover .offering-row-light-arrow {
+  background: #8a6a1f;
+  border-color: #8a6a1f;
 }
 
-.offering-row:hover .offering-row-arrow svg {
-  stroke: #161104;
+.offering-row-light:hover .offering-row-light-arrow svg {
+  stroke: #fff;
 }
 
 .logo-flat {
