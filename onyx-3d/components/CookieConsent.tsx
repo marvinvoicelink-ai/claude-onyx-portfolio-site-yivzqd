@@ -89,11 +89,9 @@ export default function CookieConsent() {
     >
       <div className="mx-auto flex flex-wrap items-center justify-between gap-6" style={{ maxWidth: 1180 }}>
         <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.92rem", lineHeight: 1.6, maxWidth: "62ch", flex: "1 1 320px" }}>
-          Diese Seite nutzt <strong style={{ color: "var(--warm-grey)" }}>Cookies für Werbe-Tracking (Meta Pixel)</strong>{" "}
-          und lädt die <strong style={{ color: "var(--warm-grey)" }}>Calendly-Terminbuchung</strong> als eingebettetes
-          Widget, damit wir sehen, welche Anzeigen funktionieren. Ohne deine Zustimmung wird kein Pixel geladen und
-          Calendly öffnet stattdessen als normaler externer Link — die Seite funktioniert in jedem Fall. Details dazu
-          in der{" "}
+          Diese Seite nutzt <strong style={{ color: "var(--warm-grey)" }}>Cookies für Werbe-Tracking (Meta Pixel)</strong>,
+          damit wir sehen, welche Anzeigen funktionieren. Ohne deine Zustimmung wird kein Pixel geladen — die Seite
+          funktioniert in jedem Fall. Details dazu in der{" "}
           <a href="/datenschutz" style={{ color: "var(--amber)" }}>
             Datenschutzerklärung
           </a>

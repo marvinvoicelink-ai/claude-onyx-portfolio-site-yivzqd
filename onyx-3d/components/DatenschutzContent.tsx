@@ -23,8 +23,8 @@ export default function DatenschutzContent() {
         Server-Code</strong>, in der bzw. dem wir personenbezogene Daten von
         Besuchern speichern. Kontakt läuft über das Kontaktformular
         (verarbeitet von Netlify Forms, siehe Punkt 5), WhatsApp und
-        Calendly (Terminbuchung) — letztere beide Dienste Dritter, die
-        eigenständig Daten verarbeiten (siehe Punkt 6 und 7).
+        Calendly (Terminbuchung) — beides externe Links zu Diensten
+        Dritter, die eigenständig Daten verarbeiten (siehe Punkt 6 und 7).
       </p>
       <p>
         Beim Aufruf dieser Website verarbeitet unser Hosting-Anbieter
@@ -118,18 +118,14 @@ export default function DatenschutzContent() {
       <h2>7. Calendly (Terminbuchung)</h2>
       <p>
         Für die Terminbuchung nutzen wir den externen Dienst{" "}
-        <strong>Calendly</strong> (Calendly LLC, USA). Im Kontaktbereich
-        kannst du den Kalender direkt eingebettet sehen und einen Termin
-        auswählen, ohne die Seite zu verlassen — dafür lädt dein Browser
-        Skripte und Inhalte von Calendly nach, wodurch deine IP-Adresse an
-        Calendly übermittelt wird, und zwar erst, nachdem du den
-        eingebetteten Kalender aktiv über &bdquo;Kalender
-        aktivieren&ldquo; freigeschaltet hast. Ohne diese Zustimmung bleiben
-        nur die gewöhnlichen &bdquo;Termin buchen&ldquo;-Links, die Calendly
-        als externen Link in einem neuen Tab öffnen. Wählst du einen Termin
-        aus, verarbeitet Calendly die von dir eingegebenen Daten (z. B.
-        Name, E-Mail, Terminwunsch) eigenständig und nach eigener
-        Datenschutzerklärung, außerhalb unseres Einflussbereichs. Siehe die{" "}
+        <strong>Calendly</strong> (Calendly LLC, USA). Die
+        &bdquo;Termin buchen&ldquo;-Links auf dieser Seite öffnen Calendly
+        als gewöhnlichen externen Link in einem neuen Tab — es wird nichts
+        von Calendly in diese Seite eingebettet oder im Hintergrund
+        nachgeladen. Wählst du dort einen Termin aus, verarbeitet Calendly
+        die von dir eingegebenen Daten (z. B. Name, E-Mail, Terminwunsch)
+        eigenständig und nach eigener Datenschutzerklärung, außerhalb
+        unseres Einflussbereichs. Siehe die{" "}
         <a href="https://calendly.com/privacy" target="_blank" rel="noopener">
           Datenschutzerklärung von Calendly
         </a>

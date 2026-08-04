@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import CalendlyEmbed from "./CalendlyEmbed";
 
 declare global {
   interface Window {
@@ -193,8 +192,6 @@ export default function ContactSection() {
           </a>{" "}
           · info@onyx-ai.de
         </p>
-
-        <CalendlyEmbed />
       </div>
     </section>
   );
