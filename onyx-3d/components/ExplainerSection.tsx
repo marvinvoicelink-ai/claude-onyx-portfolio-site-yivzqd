@@ -32,7 +32,7 @@ export default function ExplainerSection() {
         </p>
       </div>
 
-      <div className="mx-auto px-7" style={{ maxWidth: 480, marginTop: 200 }}>
+      <div className="mx-auto px-7" style={{ maxWidth: 480, marginTop: "clamp(64px, 22vw, 200px)" }}>
         <div
           ref={media.setRef(0)}
           data-reveal-index={0}

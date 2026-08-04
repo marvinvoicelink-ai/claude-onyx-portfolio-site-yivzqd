@@ -6,7 +6,7 @@ export default function KiAgentenHint() {
     <div className="mx-auto px-7" style={{ maxWidth: 1180, marginTop: -8, marginBottom: 32 }}>
       <Link
         href="/ki-agenten"
-        className="flex items-center justify-between gap-4 rounded-xl px-5 py-4 kiagenten-hint"
+        className="flex flex-col sm:flex-row sm:items-center items-start justify-between gap-3 sm:gap-4 rounded-xl px-5 py-4 kiagenten-hint"
         style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
       >
         <span className="flex items-center gap-3 min-w-0">
