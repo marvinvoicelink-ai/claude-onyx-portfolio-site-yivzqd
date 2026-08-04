@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useSkipHeavyMotion } from "@/hooks/useSkipHeavyMotion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,7 +40,6 @@ export default function HeroFallback() {
   const pieces = useMemo(() => buildPieces(), []);
   const sectionRef = useRef<HTMLElement>(null);
   const pieceRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const { skip: skipScroll } = useSkipHeavyMotion();
 
   useEffect(() => {
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -61,9 +59,11 @@ export default function HeroFallback() {
     // Scroll-linked assembly: pieces sit in their real, correct spot at the
     // top of the page and drift apart as you scroll through the hero,
     // reassembling automatically on the way back up (scrub follows the
-    // scrollbar in both directions). Skipped on mobile/reduced-motion —
-    // the pieces just stay in their correct, already-assembled position.
-    if (skipScroll) return;
+    // scrollbar in both directions). Cheap CSS transforms, not a WebGL
+    // scene, so — unlike the 3D hero — this runs on mobile too. Only
+    // prefers-reduced-motion skips it, leaving pieces in their correct,
+    // already-assembled position.
+    if (reducedMotion) return;
     const section = sectionRef.current;
     if (!section) return;
 
@@ -87,7 +87,7 @@ export default function HeroFallback() {
     }, section);
 
     return () => ctx.revert();
-  }, [pieces, skipScroll]);
+  }, [pieces, reducedMotion]);
 
   return (
     <section ref={sectionRef} className="relative flex items-center overflow-hidden" style={{ minHeight: "100vh" }}>

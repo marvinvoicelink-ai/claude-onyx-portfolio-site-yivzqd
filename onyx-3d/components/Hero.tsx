@@ -29,6 +29,19 @@ export default function Hero() {
       className="relative flex items-center overflow-hidden"
       style={{ minHeight: "100vh", background: "var(--near-black)" }}
     >
+      {/* Same inpainted backdrop HeroFallback sits on (the extracted panel
+          regions softened out), at the same cover/position — the 3D panels
+          are reprojected with the identical math, so at rest they land
+          exactly on top of where the real photo shows them. */}
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          backgroundImage: "url(/generated/hero-alive-bg-base.png)",
+          backgroundSize: "cover",
+          backgroundPosition: "70% 50%",
+        }}
+      />
       <HeroScene3D sectionEl={sectionEl} />
       <div
         aria-hidden

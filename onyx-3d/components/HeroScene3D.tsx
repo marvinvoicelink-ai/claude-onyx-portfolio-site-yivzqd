@@ -1,6 +1,6 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
@@ -10,53 +10,78 @@ import pieceLayout from "@/public/generated/hero-pieces/piece-layout.json";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Formation reads from the real photo's own layout (piece-layout.json —
-// normalized image-space centers from the same segmentation that produced
-// the cutout textures), mapped into 3D space so the assembled look echoes
-// the original composition. cx≈0.7 is the photo's own crop focus
-// (objectPosition 70% 50% in the flat fallback), so it's used as the
-// world-space origin.
-const SCALE_X = 6;
-const SCALE_Y = 4.1;
+// Same source photo the flat fallback uses (background-size: cover,
+// background-position: 70% 50%). To make the assembled formation land
+// EXACTLY where each piece sits in that photo — not an eyeballed
+// approximation — we replicate the CSS cover/position math ourselves and
+// project each piece's real pixel position + size into world units at
+// z=0, where R3F's viewport (world units visible at the origin plane)
+// already matches the canvas's actual aspect ratio.
+const IMAGE_W = 1584;
+const IMAGE_H = 672;
+const IMAGE_AR = IMAGE_W / IMAGE_H;
 const FOCUS_X = 0.7;
 const FOCUS_Y = 0.5;
-const BASE_PANEL_HEIGHT = 1.25;
+
+function exactPlacement(cx: number, cy: number, wPx: number, hPx: number, viewportW: number, viewportH: number) {
+  const containerAR = viewportW / viewportH;
+  let dispW: number, dispH: number, offsetX: number, offsetY: number;
+  if (containerAR < IMAGE_AR) {
+    dispH = viewportH;
+    dispW = dispH * IMAGE_AR;
+    offsetX = (dispW - viewportW) * FOCUS_X;
+    offsetY = 0;
+  } else {
+    dispW = viewportW;
+    dispH = dispW / IMAGE_AR;
+    offsetX = 0;
+    offsetY = (dispH - viewportH) * FOCUS_Y;
+  }
+  const scale = dispW / IMAGE_W;
+  return {
+    x: cx * dispW - offsetX - viewportW / 2,
+    y: viewportH / 2 - (cy * dispH - offsetY),
+    width: wPx * scale,
+    height: hPx * scale,
+  };
+}
 
 type PanelSpec = {
   url: string;
-  aspect: number;
   formation: THREE.Vector3;
+  width: number;
+  height: number;
   dispersed: THREE.Vector3;
   dispersedRotation: THREE.Euler;
   floatPhase: number;
   floatSpeed: number;
-  depth: number;
 };
 
-function buildPanels(): PanelSpec[] {
+function buildPanels(viewportW: number, viewportH: number): PanelSpec[] {
   return pieceLayout.map((p) => {
-    const worldX = (p.cx - FOCUS_X) * SCALE_X;
-    const worldY = -(p.cy - FOCUS_Y) * SCALE_Y;
-    const depth = (Math.random() - 0.5) * 3.2; // z jitter for parallax
-    const formation = new THREE.Vector3(worldX, worldY, depth);
+    const { x, y, width, height } = exactPlacement(p.cx, p.cy, p.w, p.h, viewportW, viewportH);
+    // Formation stays essentially flat (tiny z jitter only) so the exact
+    // 2D placement above isn't thrown off by perspective at depth — the
+    // dispersed state is where real depth separation happens.
+    const z = (Math.random() - 0.5) * 0.25;
+    const formation = new THREE.Vector3(x, y, z);
 
-    // Disperse outward along the vector from the cluster's rough center,
-    // nearer panels (larger depth) travel further/faster — simple parallax.
-    const dir = new THREE.Vector2(worldX - (0.86 - FOCUS_X) * SCALE_X, worldY + (0.6 - FOCUS_Y) * SCALE_Y);
+    const dir = new THREE.Vector2(x, y);
     if (dir.lengthSq() < 0.0001) dir.set(Math.random() - 0.5, Math.random() - 0.5);
     dir.normalize();
-    const depthFactor = (depth + 1.6) / 3.2; // 0 (far) .. 1 (near)
-    const travel = 4.5 + depthFactor * 7.5;
+    const depthFactor = Math.random(); // 0 (far/slow) .. 1 (near/fast)
+    const travel = 3.5 + depthFactor * 6.5;
     const dispersed = new THREE.Vector3(
-      worldX + dir.x * travel,
-      worldY + dir.y * travel + 1.5 + depthFactor * 2,
-      depth + depthFactor * 3.5
+      x + dir.x * travel,
+      y + dir.y * travel + 1 + depthFactor * 1.8,
+      z + depthFactor * 4.5
     );
 
     return {
       url: `/generated/hero-pieces/piece-${p.i}.png`,
-      aspect: p.aspect,
       formation,
+      width,
+      height,
       dispersed,
       dispersedRotation: new THREE.Euler(
         (Math.random() - 0.5) * 1.1,
@@ -65,7 +90,6 @@ function buildPanels(): PanelSpec[] {
       ),
       floatPhase: Math.random() * Math.PI * 2,
       floatSpeed: 0.35 + Math.random() * 0.25,
-      depth,
     };
   });
 }
@@ -73,16 +97,16 @@ function buildPanels(): PanelSpec[] {
 function Panel({ spec, disperseRef }: { spec: PanelSpec; disperseRef: { current: number } }) {
   const texture = useTexture(spec.url);
   const meshRef = useRef<THREE.Mesh>(null);
-  const height = BASE_PANEL_HEIGHT;
-  const width = height * spec.aspect;
 
   useFrame((state) => {
     const mesh = meshRef.current;
     if (!mesh) return;
     const d = disperseRef.current;
     const t = state.clock.elapsedTime;
-    const floatX = Math.sin(t * spec.floatSpeed + spec.floatPhase) * 0.06;
-    const floatY = Math.cos(t * spec.floatSpeed * 0.8 + spec.floatPhase) * 0.05;
+    // Idle float fades out as pieces reassemble, so the assembled state
+    // holds exactly still (matching the flat photo) rather than jittering.
+    const floatX = Math.sin(t * spec.floatSpeed + spec.floatPhase) * 0.05 * d;
+    const floatY = Math.cos(t * spec.floatSpeed * 0.8 + spec.floatPhase) * 0.04 * d;
 
     mesh.position.set(
       THREE.MathUtils.lerp(spec.formation.x, spec.dispersed.x, d) + floatX,
@@ -90,22 +114,27 @@ function Panel({ spec, disperseRef }: { spec: PanelSpec; disperseRef: { current:
       THREE.MathUtils.lerp(spec.formation.z, spec.dispersed.z, d)
     );
     mesh.rotation.set(
-      THREE.MathUtils.lerp(0, spec.dispersedRotation.x, d) + Math.sin(t * 0.3 + spec.floatPhase) * 0.03,
+      THREE.MathUtils.lerp(0, spec.dispersedRotation.x, d),
       THREE.MathUtils.lerp(0, spec.dispersedRotation.y, d),
-      THREE.MathUtils.lerp(0, spec.dispersedRotation.z, d) + Math.cos(t * 0.25 + spec.floatPhase) * 0.02
+      THREE.MathUtils.lerp(0, spec.dispersedRotation.z, d)
     );
   });
 
   return (
     <mesh ref={meshRef}>
-      <planeGeometry args={[width, height]} />
+      <planeGeometry args={[spec.width, spec.height]} />
       <meshBasicMaterial map={texture} transparent toneMapped={false} />
     </mesh>
   );
 }
 
 function Scene({ sectionEl }: { sectionEl: HTMLElement }) {
-  const panels = useMemo(() => buildPanels(), []);
+  const { viewport } = useThree();
+  const panels = useMemo(
+    () => buildPanels(viewport.width, viewport.height),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [viewport.width, viewport.height]
+  );
   const disperseRef = useRef(0);
   const entranceRef = useRef(0);
   const scrollRef = useRef(0);
@@ -147,7 +176,7 @@ function Scene({ sectionEl }: { sectionEl: HTMLElement }) {
 
   return (
     <>
-      <ambientLight intensity={0.4} />
+      <ambientLight intensity={0.5} />
       <pointLight position={[4, 3, 5]} intensity={35} color="#e8a33d" />
       {panels.map((spec, i) => (
         <Panel key={i} spec={spec} disperseRef={disperseRef} />
