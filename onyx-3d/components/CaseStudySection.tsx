@@ -21,7 +21,7 @@ export default function CaseStudySection() {
           ref={block.setRef(0)}
           data-reveal-index={0}
           className={`rounded-2xl p-6 md:p-10 ${isVisible ? "reveal-visible" : "reveal-hidden"}`}
-          style={{ background: "var(--near-black-2)" }}
+          style={{ background: "var(--warm-grey)" }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-10">
             <div>
@@ -31,18 +31,18 @@ export default function CaseStudySection() {
                   fontSize: 11.5,
                   letterSpacing: "0.05em",
                   textTransform: "uppercase",
-                  color: "var(--amber)",
-                  background: "var(--amber-soft)",
-                  border: "1px solid rgba(232,163,61,0.3)",
+                  color: "#8a6a1f",
+                  background: "rgba(138,106,31,0.12)",
+                  border: "1px solid rgba(138,106,31,0.3)",
                 }}
               >
                 Kundencase · gebaut &amp; übergeben
               </span>
-              <h3 style={{ fontSize: "1.4rem", marginBottom: 6 }}>HausManager Pro</h3>
-              <h2 className="text-center" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 18 }}>
+              <h3 style={{ fontSize: "1.4rem", marginBottom: 6, color: "#161104" }}>HausManager Pro</h3>
+              <h2 className="text-center" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 18, color: "#161104" }}>
                 Vom Excel-Chaos zum eigenen System.
               </h2>
-              <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.75, marginBottom: 28 }}>
+              <p style={{ color: "rgba(22,17,4,0.62)", fontSize: "1.02rem", lineHeight: 1.75, marginBottom: 28 }}>
                 Für eine Hausverwaltung haben wir ein komplettes CRM von Grund
                 auf entwickelt und vollständig übergeben. Kein Produkt zum
                 Kaufen, sondern ein Beispiel dafür, was für dein Unternehmen
@@ -56,8 +56,8 @@ export default function CaseStudySection() {
                   "Übergabe von Code, Zugängen & Doku",
                   "Gehostet in Deutschland, DSGVO-konform — 100 % Eigentum beim Kunden",
                 ].map((t) => (
-                  <div key={t} className="flex items-center gap-2.5" style={{ fontSize: "0.95rem", color: "var(--warm-grey-dim)" }}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={16} height={16}>
+                  <div key={t} className="flex items-center gap-2.5" style={{ fontSize: "0.95rem", color: "rgba(22,17,4,0.62)" }}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#8a6a1f" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={16} height={16}>
                       <path d="M20 6 9 17l-5-5" />
                     </svg>
                     {t}
@@ -67,13 +67,13 @@ export default function CaseStudySection() {
 
               <blockquote
                 className="mt-7 pl-4"
-                style={{ borderLeft: "2px solid var(--amber)", color: "var(--warm-grey-dim)", fontSize: "0.98rem", lineHeight: 1.7, fontStyle: "italic" }}
+                style={{ borderLeft: "2px solid #8a6a1f", color: "rgba(22,17,4,0.62)", fontSize: "0.98rem", lineHeight: 1.7, fontStyle: "italic" }}
               >
                 &bdquo;Durch das neue CRM, das das Team von Onyx gebaut hat,
                 haben wir unsere Verwaltung jetzt viel leichter auf einen
                 Blick — alles geht spürbar schneller und ist
                 übersichtlicher.&ldquo;
-                <footer className="mt-2 mono not-italic" style={{ fontSize: 12.5, color: "var(--warm-grey-faint)" }}>
+                <footer className="mt-2 mono not-italic" style={{ fontSize: 12.5, color: "rgba(22,17,4,0.4)" }}>
                   — Kunde, HausManager Pro
                 </footer>
               </blockquote>
@@ -121,15 +121,15 @@ export default function CaseStudySection() {
 
           <div
             className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-8"
-            style={{ borderTop: "1px solid var(--hairline)" }}
+            style={{ borderTop: "1px solid rgba(22,17,4,0.12)" }}
           >
             {kpis.map((k, i) => (
               <div key={k.label} className="text-center sm:text-left">
-                <div className="mono" style={{ fontSize: "1.8rem", fontWeight: 800, color: "var(--amber)", lineHeight: 1.1 }}>
+                <div className="mono" style={{ fontSize: "1.8rem", fontWeight: 800, color: "#8a6a1f", lineHeight: 1.1 }}>
                   {i === 0 ? <CountUp target={20} suffix="+" start={isVisible} /> : k.value}
                 </div>
-                <div style={{ fontWeight: 700, fontSize: "0.92rem", marginTop: 6 }}>{k.label}</div>
-                <div style={{ fontSize: "0.8rem", color: "var(--warm-grey-faint)", marginTop: 2 }}>
+                <div style={{ fontWeight: 700, fontSize: "0.92rem", marginTop: 6, color: "#161104" }}>{k.label}</div>
+                <div style={{ fontSize: "0.8rem", color: "rgba(22,17,4,0.5)", marginTop: 2 }}>
                   {k.sub}
                 </div>
               </div>

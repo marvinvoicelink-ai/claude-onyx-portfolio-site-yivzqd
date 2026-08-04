@@ -266,6 +266,27 @@ a {
   }
 }
 
+.offering-row {
+  transition: padding-left 0.25s ease;
+}
+
+.offering-row:hover {
+  padding-left: 8px;
+}
+
+.offering-row:hover .offering-row-cta {
+  color: var(--amber) !important;
+}
+
+.offering-row:hover .offering-row-arrow {
+  background: var(--amber);
+  border-color: var(--amber);
+}
+
+.offering-row:hover .offering-row-arrow svg {
+  stroke: #161104;
+}
+
 .offering-row-light {
   transition: padding-left 0.25s ease;
 }
