@@ -1,15 +1,6 @@
+import Link from "next/link";
 import SectionGlow from "./SectionGlow";
-
-const industries = [
-  "Handwerk & Bau",
-  "Hausverwaltung & Immobilien",
-  "Personaldienstleistung",
-  "Logistik & Spedition",
-  "Praxen & Gesundheitswesen",
-  "Handel & E-Commerce",
-  "Beratung & Agenturen",
-  "Versicherungen & Finanzdienstleister",
-];
+import { industries } from "@/lib/industries";
 
 export default function IndustriesSection() {
   return (
@@ -32,17 +23,18 @@ export default function IndustriesSection() {
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mx-auto" style={{ maxWidth: 1040 }}>
-          {industries.map((label, i) => (
-            <div
-              key={label}
+          {industries.map((industry, i) => (
+            <Link
+              key={industry.slug}
+              href={`/branchen/${industry.slug}`}
               className="alive-hover-card flex items-center gap-3 rounded-xl px-5 py-4 text-left"
               style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
             >
               <span className="mono" style={{ fontSize: 11.5, color: "var(--amber)", flexShrink: 0 }}>
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <span style={{ fontSize: "0.94rem", color: "var(--warm-grey-dim)", lineHeight: 1.35 }}>{label}</span>
-            </div>
+              <span style={{ fontSize: "0.94rem", color: "var(--warm-grey-dim)", lineHeight: 1.35 }}>{industry.label}</span>
+            </Link>
           ))}
         </div>
 
