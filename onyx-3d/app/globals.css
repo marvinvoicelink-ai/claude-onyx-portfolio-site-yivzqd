@@ -362,6 +362,26 @@ a {
   }
 }
 
+@keyframes hero-glyph-drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(10px, -8px);
+  }
+}
+
+.hero-glyph-drift {
+  animation: hero-glyph-drift 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-glyph-drift {
+    animation: none;
+  }
+}
+
 @keyframes marquee-border-glow {
   0%,
   100% {

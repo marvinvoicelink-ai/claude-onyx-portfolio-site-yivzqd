@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import HeroScene, { type ProgressRef } from "./HeroScene";
+import { useSkipHeavyMotion } from "@/hooks/useSkipHeavyMotion";
 
 type Glyph = { top: string; left: string; size: number; delay: number; kind: "hex" | "bracket" | "dot" };
 
@@ -40,6 +42,8 @@ function GlyphIcon({ kind, size }: { kind: Glyph["kind"]; size: number }) {
 export default function Hero() {
   const [reducedMotion, setReducedMotion] = useState(false);
   const [entered, setEntered] = useState(false);
+  const { skip: skipScene } = useSkipHeavyMotion();
+  const sceneProgress = useRef<ProgressRef>({ current: 0 });
 
   useEffect(() => {
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -54,6 +58,22 @@ export default function Hero() {
       requestAnimationFrame(() => requestAnimationFrame(() => setEntered(true)));
     }
   }, []);
+
+  useEffect(() => {
+    // Drives the 3D module cluster from scattered to assembled once on
+    // load — eased cubic (via HeroScene's own lerp) over ~2s, not scroll-linked.
+    if (skipScene) return;
+    let raf = 0;
+    const duration = 2000;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      sceneProgress.current.current = t;
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [skipScene]);
 
   return (
     <section className="relative flex items-center overflow-hidden" style={{ minHeight: "100vh" }}>
@@ -96,6 +116,19 @@ export default function Hero() {
             </div>
           ))}
         </div>
+
+        {/* Modular system assembling itself over the photo's own cluster —
+            skipped on mobile/reduced-motion, where the static photo already
+            shows the (permanently assembled) cluster on its own. */}
+        {!skipScene && (
+          <div
+            aria-hidden
+            className="absolute hidden md:block"
+            style={{ top: 0, bottom: 0, right: 0, width: "55%", pointerEvents: "none" }}
+          >
+            <HeroScene progressRef={sceneProgress.current} />
+          </div>
+        )}
       </div>
 
       <div className="relative z-10 w-full px-7" style={{ maxWidth: 1180, margin: "0 auto" }}>
