@@ -9,6 +9,7 @@ import CaseStudySection from "@/components/CaseStudySection";
 import RoadmapSection from "@/components/RoadmapSection";
 import MidFormSection from "@/components/MidFormSection";
 import OfferingsList from "@/components/OfferingsList";
+import KiAgentenHint from "@/components/KiAgentenHint";
 import IndustriesSection from "@/components/IndustriesSection";
 import CTABanner from "@/components/CTABanner";
 import DifferentiationSection from "@/components/DifferentiationSection";
@@ -51,6 +52,7 @@ export default function Home() {
         </WheelTransition>
         <MidFormSection />
         <OfferingsList />
+        <KiAgentenHint />
         <CTABanner
           heading="Dein System, gebaut für genau dein Geschäft."
           sub="Kein Baukasten, kein Abo — ein System, das dir gehört."
