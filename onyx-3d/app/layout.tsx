@@ -22,9 +22,9 @@ const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
 });
 
-const title = "Onyx.AI — White-Label-Systeme. Gebaut. Übergeben. Deins.";
+const title = "AIKI Performance — White-Label-Systeme. Gebaut. Übergeben. Deins.";
 const description =
-  "Onyx baut dir dein eigenes System — Dashboards, Portale, interne Tools. Im White-Label, vollständig übergeben, auf deiner Infrastruktur, unter deiner Marke.";
+  "AIKI Performance baut dir dein eigenes System — Dashboards, Portale, interne Tools. Im White-Label, vollständig übergeben, auf deiner Infrastruktur, unter deiner Marke.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://onyx-ai.de"),

@@ -51,16 +51,17 @@ export default function Nav() {
       >
         <Link
           href="/"
-          className="mono nav-logo-link"
+          className="nav-logo-link"
           style={{
             fontFamily: "var(--font-archivo), sans-serif",
             fontWeight: 800,
-            fontSize: 20,
+            fontSize: 18,
             letterSpacing: "-0.01em",
             color: "#ffffff",
+            whiteSpace: "nowrap",
           }}
         >
-          ONYX.<span style={{ color: "var(--amber)" }}>AI</span>
+          <span style={{ color: "var(--amber)" }}>AI</span>KI Performance
         </Link>
 
         <div className="flex items-center gap-4">

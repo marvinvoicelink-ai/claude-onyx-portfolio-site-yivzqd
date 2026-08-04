@@ -13,7 +13,7 @@ const logos: LogoItem[] = [
 export default function LogoMarquee() {
   const track = [...logos, ...logos];
   return (
-    <section style={{ background: "var(--near-black)", borderTop: "1px solid var(--hairline)", borderBottom: "1px solid var(--hairline)", padding: "28px 0" }}>
+    <section className="marquee-border-glow" style={{ background: "var(--near-black)", padding: "28px 0" }}>
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 1180, marginBottom: 20 }}>
         <span className="mono" style={{ fontSize: 11.5, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--warm-grey-faint)" }}>
           Unternehmen, die uns vertrauen

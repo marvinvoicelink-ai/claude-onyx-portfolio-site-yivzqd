@@ -362,6 +362,35 @@ a {
   }
 }
 
+@keyframes marquee-border-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 -1px 10px 0 rgba(232, 163, 61, 0.25),
+      0 1px 10px 0 rgba(232, 163, 61, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 -1px 22px 2px rgba(232, 163, 61, 0.55),
+      0 1px 22px 2px rgba(232, 163, 61, 0.55);
+  }
+}
+
+.marquee-border-glow {
+  border-top: 1px solid rgba(232, 163, 61, 0.4);
+  border-bottom: 1px solid rgba(232, 163, 61, 0.4);
+  animation: marquee-border-glow 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-border-glow {
+    animation: none;
+    box-shadow:
+      0 -1px 14px 0 rgba(232, 163, 61, 0.35),
+      0 1px 14px 0 rgba(232, 163, 61, 0.35);
+  }
+}
+
 .alive-logo-perspective {
   perspective: 1000px;
 }
