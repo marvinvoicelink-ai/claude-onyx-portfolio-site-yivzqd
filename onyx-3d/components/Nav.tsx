@@ -23,10 +23,10 @@ const offeringLinks = offerings.map((o) => ({
   label: o.title.replace(/\.$/, ""),
 }));
 
-const LOGO_TEXT = "AIKI Performance";
+const LOGO_TEXT = "Onyx.AI";
 const logoChars = LOGO_TEXT.split("").map((char, i) => ({
-  char: char === " " ? " " : char,
-  amber: i < 2,
+  char: char === " " ? " " : char,
+  amber: i >= 5,
 }));
 
 export default function Nav() {
@@ -66,36 +66,51 @@ export default function Nav() {
     >
       <div
         className="mx-auto px-7 flex items-center justify-between"
-        style={{ maxWidth: 1180, height: 64 }}
+        style={{ maxWidth: 1180, height: 80 }}
       >
-        <Link
-          href="/"
-          className="nav-logo-link inline-flex items-center gap-2.5"
-          style={{
-            fontFamily: "var(--font-archivo), sans-serif",
-            fontWeight: 800,
-            fontSize: 18,
-            letterSpacing: "-0.01em",
-            color: "#ffffff",
-          }}
-        >
-          <AikiMark size={46} />
-          <span style={{ whiteSpace: "pre" }}>
-          {logoChars.map((c, i) => (
+        <Link href="/" className="nav-logo-link inline-flex items-center gap-2.5">
+          <AikiMark size={58} />
+          <span className="flex flex-col" style={{ lineHeight: 1.15 }}>
             <span
-              key={i}
               style={{
-                display: "inline-block",
-                color: c.amber ? "var(--amber)" : "#ffffff",
-                opacity: entered ? 1 : 0,
-                transform: entered ? "translateY(0)" : "translateY(8px)",
-                transition: "opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                transitionDelay: `${i * 22}ms`,
+                fontFamily: "var(--font-archivo), sans-serif",
+                fontWeight: 800,
+                fontSize: 18,
+                letterSpacing: "-0.01em",
+                color: "#ffffff",
+                whiteSpace: "pre",
               }}
             >
-              {c.char}
+              {logoChars.map((c, i) => (
+                <span
+                  key={i}
+                  style={{
+                    display: "inline-block",
+                    color: c.amber ? "var(--amber)" : "#ffffff",
+                    opacity: entered ? 1 : 0,
+                    transform: entered ? "translateY(0)" : "translateY(8px)",
+                    transition: "opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                    transitionDelay: `${i * 22}ms`,
+                  }}
+                >
+                  {c.char}
+                </span>
+              ))}
             </span>
-          ))}
+            <span
+              className="mono"
+              style={{
+                fontSize: 10,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                color: "var(--warm-grey-faint)",
+                opacity: entered ? 1 : 0,
+                transition: "opacity 0.5s ease",
+                transitionDelay: "180ms",
+              }}
+            >
+              by AIKI Performance
+            </span>
           </span>
         </Link>
 

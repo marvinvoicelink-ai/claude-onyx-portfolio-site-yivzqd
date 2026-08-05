@@ -56,7 +56,7 @@ export default function MobileNav() {
           <div
             className="fixed left-0 right-0 overflow-y-auto"
             style={{
-              top: 64,
+              top: 80,
               bottom: 0,
               background: "var(--near-black)",
               zIndex: 100,
