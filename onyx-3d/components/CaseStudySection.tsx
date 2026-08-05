@@ -98,23 +98,26 @@ export default function CaseStudySection() {
                 />
               </div>
               <div
-                className="relative rounded-xl overflow-hidden"
+                className="relative rounded-2xl"
                 style={{
                   width: "100%",
                   maxWidth: 440,
+                  padding: 10,
+                  background: "var(--near-black)",
                   boxShadow: "0 24px 60px -20px rgba(0,0,0,0.65)",
-                  background: "#000",
                 }}
               >
-                <video
-                  controls
-                  preload="none"
-                  playsInline
-                  poster="/assets/hausmanager-poster.jpg"
-                  style={{ width: "100%", display: "block", aspectRatio: "16/9" }}
-                >
-                  <source src="/assets/hausmanager-demo.mp4" type="video/mp4" />
-                </video>
+                <div className="relative rounded-xl overflow-hidden w-full" style={{ background: "#000" }}>
+                  <video
+                    controls
+                    preload="none"
+                    playsInline
+                    poster="/assets/hausmanager-poster.jpg"
+                    style={{ width: "100%", display: "block", aspectRatio: "16/9" }}
+                  >
+                    <source src="/assets/hausmanager-demo.mp4" type="video/mp4" />
+                  </video>
+                </div>
               </div>
             </div>
           </div>

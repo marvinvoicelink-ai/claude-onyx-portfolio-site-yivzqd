@@ -10,11 +10,13 @@ const WHATSAPP_HREF =
   "https://wa.me/4917632273522?text=Hallo%20Marvin%2C%20ich%20interessiere%20mich%20f%C3%BCr%20ein%20White-Label-System%20von%20Onyx.";
 
 export default function CTABanner({
+  kicker,
   heading,
   sub,
   buttonText = "Jetzt Kontakt aufnehmen",
   ctaHref = "/kontakt",
 }: {
+  kicker?: string;
   heading: string;
   sub?: string;
   buttonText?: string;
@@ -31,6 +33,14 @@ export default function CTABanner({
           }}
         >
           <div className="text-center">
+            {kicker && (
+              <span
+                className="mono inline-flex items-center gap-2 mb-3"
+                style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
+              >
+                <span style={{ opacity: 0.7 }}>§</span> {kicker}
+              </span>
+            )}
             <h3 style={{ fontSize: "clamp(1.3rem, 2.6vw, 1.7rem)", marginBottom: sub ? 6 : 0 }}>
               {heading}
             </h3>

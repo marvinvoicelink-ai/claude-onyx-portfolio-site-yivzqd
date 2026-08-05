@@ -33,7 +33,9 @@ export default function Home() {
           <IndustriesSection />
         </WheelTransition>
         <ProblemSection />
+        <KiAgentenSection />
         <CTABanner
+          kicker="Blatt 03"
           heading="Erkennst du dein Unternehmen in diesen Problemen wieder?"
           sub="Lass uns in einem kurzen Gespräch klären, was für dich der größte Hebel wäre."
           ctaHref="#kontakt"
@@ -52,7 +54,6 @@ export default function Home() {
         </WheelTransition>
         <MidFormSection />
         <OfferingsList />
-        <KiAgentenSection />
         <CTABanner
           heading="Dein System, gebaut für genau dein Geschäft."
           sub="Kein Baukasten, kein Abo — ein System, das dir gehört."
