@@ -54,7 +54,18 @@ export default async function BranchePage({
             Branche
           </span>
           <h1 style={{ fontSize: "clamp(1.9rem, 4vw, 2.6rem)", marginBottom: 16 }}>{industry.label}</h1>
-          <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7 }}>{industry.intro}</p>
+          <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 28 }}>{industry.intro}</p>
+          <a
+            href={`/downloads/branchen/${industry.slug}.pdf`}
+            download
+            className="inline-flex items-center gap-2.5 rounded-full px-5 py-2.5 mono"
+            style={{ fontSize: 13, color: "var(--amber)", border: "1px solid rgba(232,163,61,0.3)", background: "var(--amber-soft)" }}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={15} height={15}>
+              <path d="M12 3v13m0 0-4-4m4 4 4-4M4 21h16" />
+            </svg>
+            Infoblatt als PDF herunterladen
+          </a>
         </div>
       </section>
 
