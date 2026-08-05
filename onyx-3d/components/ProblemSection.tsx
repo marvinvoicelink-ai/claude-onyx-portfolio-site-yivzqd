@@ -18,9 +18,9 @@ function ProblemRow({ p, imageRight }: { p: Problem; imageRight: boolean }) {
         alt=""
         width={p.w}
         height={p.h}
-        sizes="(min-width: 1024px) 480px, 90vw"
+        sizes="(min-width: 1024px) 340px, 68vw"
         className="w-full h-auto block"
-        style={{ filter: "drop-shadow(0 0 30px rgba(232,163,61,0.35))" }}
+        style={{ maxWidth: 340, filter: "drop-shadow(0 0 30px rgba(232,163,61,0.35))" }}
       />
     </div>
   );

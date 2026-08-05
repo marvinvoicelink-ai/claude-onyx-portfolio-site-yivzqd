@@ -10,9 +10,9 @@ function DiffRow({ d, imageRight }: { d: Differentiator; imageRight: boolean }) 
         alt={`${d.title} ${d.subtitle}`}
         width={d.w}
         height={d.h}
-        sizes="(min-width: 1024px) 480px, 90vw"
+        sizes="(min-width: 1024px) 340px, 68vw"
         className="w-full h-auto block"
-        style={{ filter: "drop-shadow(0 0 30px rgba(232,163,61,0.4))" }}
+        style={{ maxWidth: 340, filter: "drop-shadow(0 0 30px rgba(232,163,61,0.4))" }}
       />
     </div>
   );
