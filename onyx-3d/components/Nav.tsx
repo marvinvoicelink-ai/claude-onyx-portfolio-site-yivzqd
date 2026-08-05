@@ -23,10 +23,10 @@ const offeringLinks = offerings.map((o) => ({
   label: o.title.replace(/\.$/, ""),
 }));
 
-const LOGO_TEXT = "Onyx.AI";
+const LOGO_TEXT = "OnyxAI";
 const logoChars = LOGO_TEXT.split("").map((char, i) => ({
   char: char === " " ? " " : char,
-  amber: i >= 5,
+  amber: i >= 4,
 }));
 
 export default function Nav() {
