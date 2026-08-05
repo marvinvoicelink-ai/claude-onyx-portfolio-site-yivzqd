@@ -5,6 +5,7 @@ import WhyNowSection from "@/components/WhyNowSection";
 import ProblemSection from "@/components/ProblemSection";
 import ExplainerSection from "@/components/ExplainerSection";
 import CaseStudySection from "@/components/CaseStudySection";
+import { AliveCase } from "@/components/alive/AliveChrome";
 import RoadmapSection from "@/components/RoadmapSection";
 import MidFormSection from "@/components/MidFormSection";
 import OfferingsList from "@/components/OfferingsList";
@@ -46,6 +47,18 @@ export default function Home() {
         <WheelTransition edge="exit">
           <CaseStudySection />
         </WheelTransition>
+        <AliveCase
+          tag="Kundencase · Markenaufbau &amp; Vermarktung"
+          name="Speedfire"
+          heading="Von der Sattlerei zur eigenen Marke mit planbarem Umsatz."
+          desc="Speedfire war vorher eine Sattlerei. Wir haben Speedfire dabei geholfen, ein komplett neues Produkt auf den Markt zu bringen, eine eigene Marke aufzubauen und dieses Produkt online zu vermarkten — mit nachweislich über 10.000 € Umsatz pro Monat."
+          image="/generated/speedfire-case.png"
+          bullets={[
+            "Instagram-Account von 0 auf 333+ Follower in 4 Wochen aufgebaut",
+            "Über 1.000 erreichte Konten pro Woche durch strategischen Content",
+            "Nachweislich über 10.000 € Umsatz pro Monat mit dem neuen Produkt",
+          ]}
+        />
         <WheelTransition edge="enter">
           <RoadmapSection />
         </WheelTransition>

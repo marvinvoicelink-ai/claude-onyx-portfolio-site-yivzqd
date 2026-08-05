@@ -38,6 +38,19 @@ export default function ReferenzenPage() {
         logo="/logos/hwp.png"
       />
       <AliveCase
+        tag="Kundencase · Markenaufbau &amp; Vermarktung"
+        name="Speedfire"
+        heading="Von der Sattlerei zur eigenen Marke mit planbarem Umsatz."
+        desc="Speedfire war vorher eine Sattlerei. Wir haben Speedfire dabei geholfen, ein komplett neues Produkt auf den Markt zu bringen, eine eigene Marke aufzubauen und dieses Produkt online zu vermarkten — mit nachweislich über 10.000 € Umsatz pro Monat."
+        image="/generated/speedfire-case.png"
+        imageRight
+        bullets={[
+          "Instagram-Account von 0 auf 333+ Follower in 4 Wochen aufgebaut",
+          "Über 1.000 erreichte Konten pro Woche durch strategischen Content",
+          "Nachweislich über 10.000 € Umsatz pro Monat mit dem neuen Produkt",
+        ]}
+      />
+      <AliveCase
         tag="Kundencase · Automatisierung"
         name="WETBlock"
         heading="Vom manuellen Versand zur automatisierten Kundenansprache."

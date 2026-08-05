@@ -11,6 +11,8 @@ import fs from "fs";
 import path from "path";
 
 const OUT_DIR = path.join(__dirname, "..", "public", "downloads", "branchen");
+const LOGO_PATH = path.join(__dirname, "..", "public", "logo", "onyx-ai-logo.png");
+const LOGO_DATA_URI = `data:image/png;base64,${fs.readFileSync(LOGO_PATH).toString("base64")}`;
 
 const AMBER = "#e8a33d";
 const NEAR_BLACK = "#111111";
@@ -19,29 +21,6 @@ const WARM_GREY = "#f5f2ec";
 const WARM_GREY_DIM = "rgba(245,242,236,0.68)";
 const WARM_GREY_FAINT = "rgba(245,242,236,0.4)";
 const HAIRLINE = "rgba(245,242,236,0.14)";
-
-const AIKI_MARK_SVG = `
-<svg viewBox="0 0 100 100" width="34" height="34" aria-hidden="true">
-  <defs>
-    <radialGradient id="glow" cx="50%" cy="45%" r="60%">
-      <stop offset="0%" stop-color="${AMBER}" stop-opacity="0.35" />
-      <stop offset="100%" stop-color="${AMBER}" stop-opacity="0" />
-    </radialGradient>
-  </defs>
-  <circle cx="50" cy="50" r="46" fill="url(#glow)" />
-  <polygon points="50,8 86,29 86,71 50,92 14,71 14,29" fill="none" stroke="${AMBER}" stroke-width="3.2" stroke-linejoin="round" />
-  <circle cx="50" cy="8" r="3" fill="${NEAR_BLACK}" stroke="${AMBER}" stroke-width="2.2" />
-  <circle cx="86" cy="29" r="3" fill="${NEAR_BLACK}" stroke="${AMBER}" stroke-width="2.2" />
-  <circle cx="86" cy="71" r="3" fill="${NEAR_BLACK}" stroke="${AMBER}" stroke-width="2.2" />
-  <circle cx="50" cy="92" r="3" fill="${NEAR_BLACK}" stroke="${AMBER}" stroke-width="2.2" />
-  <circle cx="14" cy="71" r="3" fill="${NEAR_BLACK}" stroke="${AMBER}" stroke-width="2.2" />
-  <circle cx="14" cy="29" r="3" fill="${NEAR_BLACK}" stroke="${AMBER}" stroke-width="2.2" />
-  <circle cx="64.4" cy="16.4" r="2.4" fill="${AMBER}" />
-  <line x1="64.4" y1="16.4" x2="72" y2="12" stroke="${AMBER}" stroke-width="2" stroke-linecap="round" />
-  <circle cx="35.6" cy="16.4" r="2.4" fill="${AMBER}" />
-  <line x1="35.6" y1="16.4" x2="28" y2="12" stroke="${AMBER}" stroke-width="2" stroke-linecap="round" />
-  <text x="50" y="66" text-anchor="middle" font-family="Arial, sans-serif" font-weight="800" font-size="34" fill="${AMBER}">AP</text>
-</svg>`;
 
 const CHECK_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="${AMBER}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M20 6 9 17l-5-5" /></svg>`;
 const WARN_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="${WARM_GREY_FAINT}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16h.01" /></svg>`;
@@ -68,8 +47,8 @@ function html(industryLabel: string, intro: string, painPoints: string[], capabi
   .kicker { font-family: 'Courier New', monospace; font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: ${AMBER}; }
   .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; break-inside: avoid; }
   .logo-row { display: flex; align-items: center; gap: 9px; }
-  .logo-text { font-weight: 800; font-size: 16px; }
-  .logo-text .ai { color: ${AMBER}; }
+  .logo-row img { height: 22px; width: auto; display: block; }
+  .logo-row .by { font-family: 'Courier New', monospace; font-size: 8px; letter-spacing: 0.08em; text-transform: uppercase; color: ${WARM_GREY_FAINT}; }
   h1 { font-size: 23px; margin: 4px 0 9px; line-height: 1.15; }
   .intro { color: ${WARM_GREY_DIM}; font-size: 11.5px; line-height: 1.5; max-width: 94%; margin-bottom: 16px; }
   .section { margin-bottom: 13px; }
@@ -91,8 +70,8 @@ function html(industryLabel: string, intro: string, painPoints: string[], capabi
 <body>
   <div class="header">
     <div class="logo-row">
-      ${AIKI_MARK_SVG}
-      <span class="logo-text"><span class="ai">AI</span>KI Performance</span>
+      <img src="${LOGO_DATA_URI}" alt="ONYX.AI" />
+      <span class="by">by AIKI<br />Performance</span>
     </div>
     <span class="kicker">Branchen-Infoblatt</span>
   </div>
