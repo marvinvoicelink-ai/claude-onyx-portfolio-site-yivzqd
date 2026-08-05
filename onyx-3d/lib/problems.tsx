@@ -113,11 +113,11 @@ export const problems: Problem[] = [
     highlight: "ans Telefon",
     desc: "Anrufe bleiben liegen, weil niemand Zeit hat, ranzugehen.",
     detail:
-      "Kunden rufen an, während dein Team im Tagesgeschäft steckt — niemand hat Zeit, ranzugehen oder zurückzurufen. Jeder verpasste Anruf ist eine verpasste Anfrage oder ein verärgerter Kunde. Genau hier integrieren wir KI-Agenten in dein System: Sie nehmen Anrufe entgegen, buchen Termine oder rufen selbst zurück, damit dein Team sich nicht mehr ans Telefon binden muss.",
+      "Kunden rufen an, während dein Team im Tagesgeschäft steckt — niemand hat Zeit, ranzugehen oder zurückzurufen. Jeder verpasste Anruf ist eine verpasste Anfrage oder ein verärgerter Kunde. Genau hier integrieren wir KI-Agenten in dein System, je nachdem, was dir am meisten Zeit spart: Ein Telefon-Agent nimmt eingehende Anrufe entgegen und schickt die Antwort automatisch per E-Mail. Ein Buchungs-Agent nimmt Terminanfragen an und trägt sie direkt in deinen Kalender ein, inklusive Verfügbarkeitsprüfung. Und ein Anruf-Agent wird selbst aktiv — er ruft eigenständig Kunden, Lieferanten oder Partner an, um Informationen einzuholen oder offene Vorgänge nachzufassen, statt dass dein Team hinterhertelefoniert.",
     bullets: [
-      "KI-Agent nimmt Anrufe entgegen, auch außerhalb der Geschäftszeiten",
-      "Ruft bei Bedarf selbst zurück oder holt fehlende Infos ein",
-      "Dein Team wird von Telefonarbeit entlastet statt zusätzlich belastet",
+      "Telefon-Agent nimmt eingehende Anrufe entgegen, auch außerhalb der Geschäftszeiten",
+      "Buchungs-Agent trägt Termine direkt in deinen Kalender ein, inklusive Verfügbarkeitsprüfung",
+      "Anruf-Agent ruft selbst aktiv an, um Informationen einzuholen oder nachzufassen",
     ],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" width={20} height={20}>
