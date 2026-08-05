@@ -556,6 +556,7 @@ export function AliveCase({
   background = "dark",
   logo,
   logoBg = "light",
+  framed = false,
 }: {
   tag: string;
   name: string;
@@ -567,6 +568,7 @@ export function AliveCase({
   background?: "dark" | "light";
   logo?: string;
   logoBg?: "light" | "dark";
+  framed?: boolean;
 }) {
   const light = background === "light";
   const textDim = light ? "rgba(22,17,4,0.62)" : "var(--warm-grey-dim)";
@@ -633,22 +635,35 @@ export function AliveCase({
       )}
     </Reveal>
   );
+  const grid = (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+      {imageRight ? (
+        <>
+          {body}
+          {media}
+        </>
+      ) : (
+        <>
+          {media}
+          {body}
+        </>
+      )}
+    </div>
+  );
+
   return (
     <section className="py-14" style={{ background: light ? "var(--warm-grey)" : "transparent" }}>
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {imageRight ? (
-            <>
-              {body}
-              {media}
-            </>
-          ) : (
-            <>
-              {media}
-              {body}
-            </>
-          )}
-        </div>
+        {framed ? (
+          <div
+            className="rounded-2xl p-6 md:p-10"
+            style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
+          >
+            {grid}
+          </div>
+        ) : (
+          grid
+        )}
       </div>
     </section>
   );
