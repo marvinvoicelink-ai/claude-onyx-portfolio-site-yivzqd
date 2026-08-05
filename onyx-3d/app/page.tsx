@@ -32,15 +32,9 @@ export default function Home() {
         <WheelTransition edge="enter">
           <IndustriesSection />
         </WheelTransition>
-        <CTABanner
-          kicker="Blatt 03"
-          heading="Erkennst du dein Unternehmen in diesen Problemen wieder?"
-          sub="Lass uns in einem kurzen Gespräch klären, was für dich der größte Hebel wäre."
-          ctaHref="#kontakt"
-        />
+        <OfferingsList />
         <KiAgentenSection />
         <ProblemSection />
-        <DifferentiationSection />
         <WheelTransition edge="enter">
           <ExplainerSection />
         </WheelTransition>
@@ -59,11 +53,11 @@ export default function Home() {
             "Nachweislich über 10.000 € Umsatz pro Monat mit dem neuen Produkt",
           ]}
         />
+        <DifferentiationSection />
         <WheelTransition edge="enter">
           <RoadmapSection />
         </WheelTransition>
         <MidFormSection />
-        <OfferingsList />
         <CTABanner
           heading="Dein System, gebaut für genau dein Geschäft."
           sub="Kein Baukasten, kein Abo — ein System, das dir gehört."

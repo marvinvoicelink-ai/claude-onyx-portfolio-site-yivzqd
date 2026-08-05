@@ -17,7 +17,7 @@ export default function KiAgentenSection() {
           <span style={{ opacity: 0.7 }}>§</span> Blatt 09 / KI-Agenten
         </span>
         <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "22ch", marginBottom: 20 }}>
-          Wir bauen auch KI-Agenten für dein Unternehmen.
+          Bleibt bei dir auch die Telefonarbeit liegen?
         </h2>
         <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7, maxWidth: "68ch", marginBottom: 44 }}>
           Neben Dashboards, Portalen und internen Tools entwickeln und
