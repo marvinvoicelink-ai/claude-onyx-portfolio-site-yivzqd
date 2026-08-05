@@ -3,7 +3,6 @@ import Hero from "@/components/Hero";
 import LogoMarquee from "@/components/LogoMarquee";
 import WhyNowSection from "@/components/WhyNowSection";
 import ProblemSection from "@/components/ProblemSection";
-import BlueprintSection from "@/components/BlueprintSection";
 import ExplainerSection from "@/components/ExplainerSection";
 import CaseStudySection from "@/components/CaseStudySection";
 import RoadmapSection from "@/components/RoadmapSection";
@@ -32,17 +31,15 @@ export default function Home() {
         <WheelTransition edge="enter">
           <IndustriesSection />
         </WheelTransition>
-        <ProblemSection />
-        <KiAgentenSection />
         <CTABanner
           kicker="Blatt 03"
           heading="Erkennst du dein Unternehmen in diesen Problemen wieder?"
           sub="Lass uns in einem kurzen Gespräch klären, was für dich der größte Hebel wäre."
           ctaHref="#kontakt"
         />
-        <WheelTransition edge="exit">
-          <BlueprintSection />
-        </WheelTransition>
+        <KiAgentenSection />
+        <ProblemSection />
+        <DifferentiationSection />
         <WheelTransition edge="enter">
           <ExplainerSection />
         </WheelTransition>
@@ -60,7 +57,6 @@ export default function Home() {
           buttonText="Kostenloses Erstgespräch sichern"
           ctaHref="#kontakt"
         />
-        <DifferentiationSection />
         <WheelTransition edge="exit">
           <FAQSection />
         </WheelTransition>
