@@ -106,4 +106,26 @@ export const problems: Problem[] = [
     w: 719,
     h: 578,
   },
+  {
+    slug: "niemand-am-telefon",
+    num: "05",
+    title: "Niemand geht",
+    highlight: "ans Telefon",
+    desc: "Anrufe bleiben liegen, weil niemand Zeit hat, ranzugehen.",
+    detail:
+      "Kunden rufen an, während dein Team im Tagesgeschäft steckt — niemand hat Zeit, ranzugehen oder zurückzurufen. Jeder verpasste Anruf ist eine verpasste Anfrage oder ein verärgerter Kunde. Genau hier integrieren wir KI-Agenten in dein System: Sie nehmen Anrufe entgegen, buchen Termine oder rufen selbst zurück, damit dein Team sich nicht mehr ans Telefon binden muss.",
+    bullets: [
+      "KI-Agent nimmt Anrufe entgegen, auch außerhalb der Geschäftszeiten",
+      "Ruft bei Bedarf selbst zurück oder holt fehlende Infos ein",
+      "Dein Team wird von Telefonarbeit entlastet statt zusätzlich belastet",
+    ],
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" width={20} height={20}>
+        <path d="M3 5a2 2 0 0 1 2-2h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 12l5 2v3a2 2 0 0 1-2 2h-1C9.7 19 3 12.3 3 5z" />
+      </svg>
+    ),
+    image: "/generated/problem-telefon.webp",
+    w: 749,
+    h: 594,
+  },
 ];
