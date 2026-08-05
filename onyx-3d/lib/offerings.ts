@@ -61,13 +61,13 @@ export const offerings: Offering[] = [
     w: 849,
     h: 651,
     title: "Automatisierung & KI-Agenten.",
-    subtitle: "Mails, Reports und Erinnerungen laufen automatisch.",
+    subtitle: "Telefon-Agenten, Mails und Reports laufen automatisch.",
     detail:
-      "Mails, Reports und Erinnerungen laufen automatisch — kein manuelles Zusammensuchen, kein Vergessen von Follow-ups. KI-Agenten übernehmen wiederkehrende Aufgaben, die bisher Zeit im Tagesgeschäft gekostet haben.",
+      "Mails, Reports und Erinnerungen laufen automatisch — kein manuelles Zusammensuchen, kein Vergessen von Follow-ups. Dazu kommen KI-Telefonagenten, die für dich ans Telefon gehen: Anrufe entgegennehmen, Termine direkt in deinen Kalender buchen oder selbst aktiv nachtelefonieren, wenn Informationen fehlen — genau wie jedes andere System vollständig im White-Label übergeben.",
     bullets: [
+      "Telefon-, Buchungs- und Anruf-Agenten übernehmen eingehende und ausgehende Anrufe",
       "E-Mail-Automatisierung · automatischer Versand & Nachfassen",
       "Automatisierte Reports & Erinnerungen · ohne manuelles Zutun",
-      "Interne KI-Agenten · verarbeiten und sortieren Daten automatisch",
     ],
   },
   {
