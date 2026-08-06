@@ -20,8 +20,7 @@ export default function CaseStudySection() {
         <div
           ref={block.setRef(0)}
           data-reveal-index={0}
-          className={`rounded-2xl p-6 md:p-10 ${isVisible ? "reveal-visible" : "reveal-hidden"}`}
-          style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
+          className={`p-6 md:p-10 ${isVisible ? "reveal-visible" : "reveal-hidden"}`}
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-10">
             <div>
