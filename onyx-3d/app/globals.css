@@ -272,6 +272,23 @@ a {
   animation: marquee-scroll 32s linear infinite;
 }
 
+@keyframes marquee-scroll-8x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-12.5%);
+  }
+}
+
+/* Same per-pixel speed as .marquee-track (one full logo-set width per
+   32s), but the track repeats the logo set 8x instead of 2x — needed
+   because a single set is narrower than the visible container on wide
+   viewports, which left a blank gap at the end of every loop. */
+.marquee-track-8x {
+  animation: marquee-scroll-8x 32s linear infinite;
+}
+
 .alive-hover-card {
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
@@ -460,7 +477,8 @@ a {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track {
+  .marquee-track,
+  .marquee-track-8x {
     animation: none;
   }
   .chip-glow {

@@ -21,11 +21,13 @@ export default function KiAgentenSection() {
         </h2>
         <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7, maxWidth: "68ch", marginBottom: 44 }}>
           Neben Dashboards, Portalen und internen Tools entwickeln und
-          verkaufen wir KI-Agenten, die Telefonarbeit für dich übernehmen —
-          genauso im White-Label, genauso vollständig übergeben wie jedes
-          andere System. Der Agent gehört danach dir, nicht uns. Ziel ist
-          immer dasselbe: Kosten sparen, Zeit sparen und deinem Team
-          Arbeit abnehmen, die bisher liegen geblieben ist.
+          verkaufen wir Telefonagenten, die Telefonarbeit für dich
+          übernehmen — genauso im White-Label, genauso vollständig
+          übergeben wie jedes andere System. Ob als Telefonbuchungsagent
+          für Terminvereinbarungen oder für eingehende Anrufe: Der Agent
+          gehört danach dir, nicht uns. Ziel ist immer dasselbe: Kosten
+          sparen, Zeit sparen und deinem Team Arbeit abnehmen, die bisher
+          liegen geblieben ist.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

@@ -61,6 +61,17 @@ export default function RootLayout({
           Zum Inhalt springen
         </a>
         <Nav />
+        {/* Static, always-rendered duplicate of the "contact" form so Netlify's
+            build-time bot reliably registers the form and every field name,
+            even though the real forms (ContactSection, MidFormSection) are
+            client-rendered React components. */}
+        <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+          <input type="text" name="name" />
+          <input type="email" name="email" />
+          <input type="tel" name="phone" />
+          <textarea name="message" />
+          <input type="text" name="bot-field" />
+        </form>
         <div id="main-content">{children}</div>
         <CookieConsent />
       </body>

@@ -11,6 +11,7 @@ const sentences = [
   "Ein eigenes System spart von Tag eins an Kosten — keine Lizenzgebühren, keine Abo-Falle, kein Funktionsumfang, für den du zahlst, aber nie brauchst.",
   "Aber ein System ohne KI ist in ein paar Jahren nur noch die halbe Miete: Unternehmen, die heute automatisieren, ziehen an allen anderen vorbei.",
   "Deshalb bauen wir dir kein Tool von der Stange, sondern ein System, das von Anfang an mitdenkt — mit KI und Automatisierung eingebaut, zum Festpreis, komplett dir übergeben.",
+  "Dazu gehören auch unsere KI-Telefonagenten: Sie nehmen Anrufe entgegen, buchen Termine direkt in deinen Kalender oder rufen selbst aktiv nach, wenn Informationen fehlen — genau wie jedes andere System vollständig dir übergeben.",
   "Und du sprichst dabei nicht mit einem Support-Ticket, sondern direkt mit dem Gründer.",
 ];
 

@@ -10,8 +10,10 @@ const logos: LogoItem[] = [
 ];
 
 /** Flat, monochrome client-logo strip — no card backgrounds, just logos and slash separators scrolling past. */
+const REPEAT = 8;
+
 export default function LogoMarquee() {
-  const track = [...logos, ...logos];
+  const track = Array.from({ length: REPEAT }, () => logos).flat();
   return (
     <section className="marquee-border-glow" style={{ background: "var(--near-black)", padding: "28px 0" }}>
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 1180, marginBottom: 20 }}>
@@ -20,7 +22,7 @@ export default function LogoMarquee() {
         </span>
       </div>
       <div className="overflow-hidden">
-        <div className="marquee-track flex items-center" style={{ width: "max-content" }}>
+        <div className="marquee-track-8x flex items-center" style={{ width: "max-content" }}>
           {track.map((item, i) => (
             <div key={i} className="flex items-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
