@@ -44,7 +44,17 @@ export default function KiAgentenSection() {
                 {agent.icon}
               </div>
               <div style={{ fontWeight: 700, fontSize: "1.05rem", marginBottom: 6 }}>{agent.title}</div>
-              <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.9rem", lineHeight: 1.5 }}>{agent.subtitle}</p>
+              <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.9rem", lineHeight: 1.5, marginBottom: 14 }}>{agent.subtitle}</p>
+              <ul className="flex flex-col gap-2">
+                {agent.bullets.map((b) => (
+                  <li key={b} className="flex gap-2" style={{ fontSize: "0.84rem", color: "var(--warm-grey-dim)", lineHeight: 1.5 }}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={13} height={13} style={{ flexShrink: 0, marginTop: 3 }}>
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                    {b}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
@@ -53,7 +63,7 @@ export default function KiAgentenSection() {
           <Link
             href="/ki-agenten"
             className="inline-flex items-center gap-2 mono"
-            style={{ fontSize: 13, color: "var(--amber)" }}
+            style={{ fontSize: 13, color: "#ffffff" }}
           >
             Mehr über KI-Agenten erfahren
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={14} height={14}>

@@ -23,6 +23,8 @@ export const kiAgenten: KiAgent[] = [
       "Nimmt Anrufe rund um die Uhr entgegen, auch außerhalb der Geschäftszeiten",
       "Erfasst die Anfrage strukturiert statt als handschriftliche Notiz",
       "Antwort geht automatisch per E-Mail an den Anrufer raus",
+      "Spricht in natürlicher Sprache, kein Warten in der Warteschleife",
+      "Übernimmt genau die Anrufe, die sonst unbeantwortet bleiben",
     ],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" width={20} height={20}>
@@ -43,6 +45,8 @@ export const kiAgenten: KiAgent[] = [
       "Bucht Termine direkt in deinen bestehenden Kalender",
       "Prüft Verfügbarkeit, bevor der Termin bestätigt wird",
       "Weniger Doppelbuchungen durch separat notierte Anrufe",
+      "Führt das Buchungsgespräch in natürlicher Sprache",
+      "Reduziert manuelle Kalenderpflege durch dein Team",
     ],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" width={20} height={20}>
@@ -65,6 +69,8 @@ export const kiAgenten: KiAgent[] = [
       "Ruft aktiv andere Stellen an, statt auf Rückmeldung zu warten",
       "Holt Informationen ein, die bisher nur telefonisch zu bekommen waren",
       "Trägt das Ergebnis strukturiert in dein System ein",
+      "Übernimmt Rückfragen bei Lieferanten, Partnern oder Kunden",
+      "Spart dir das eigene Hinterhertelefonieren",
     ],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" width={20} height={20}>
