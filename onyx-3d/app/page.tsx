@@ -34,7 +34,6 @@ export default function Home() {
           <IndustriesSection />
         </WheelTransition>
         <OfferingsList />
-        <KiAgentenSection />
         <ProblemSection />
         <WheelTransition edge="enter">
           <ExplainerSection />
@@ -86,6 +85,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <KiAgentenSection />
         <DifferentiationSection />
         <WheelTransition edge="enter">
           <RoadmapSection />
