@@ -79,21 +79,6 @@ export default function Nav() {
               style={{ height: 40, width: "auto", display: "block" }}
             />
           </span>
-          <span
-            className="mono"
-            style={{
-              fontSize: 10,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              color: "var(--warm-grey-faint)",
-              opacity: entered ? 1 : 0,
-              transition: "opacity 0.5s ease",
-              transitionDelay: "180ms",
-              whiteSpace: "nowrap",
-            }}
-          >
-            by AIKI<br />Performance
-          </span>
         </Link>
 
         <div

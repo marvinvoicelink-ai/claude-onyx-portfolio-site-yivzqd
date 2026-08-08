@@ -48,7 +48,6 @@ function html(industryLabel: string, intro: string, painPoints: string[], capabi
   .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; break-inside: avoid; }
   .logo-row { display: flex; align-items: center; gap: 9px; }
   .logo-row img { height: 22px; width: auto; display: block; }
-  .logo-row .by { font-family: 'Courier New', monospace; font-size: 8px; letter-spacing: 0.08em; text-transform: uppercase; color: ${WARM_GREY_FAINT}; }
   h1 { font-size: 23px; margin: 4px 0 9px; line-height: 1.15; }
   .intro { color: ${WARM_GREY_DIM}; font-size: 11.5px; line-height: 1.5; max-width: 94%; margin-bottom: 16px; }
   .section { margin-bottom: 13px; }
@@ -71,7 +70,6 @@ function html(industryLabel: string, intro: string, painPoints: string[], capabi
   <div class="header">
     <div class="logo-row">
       <img src="${LOGO_DATA_URI}" alt="ONYX.AI" />
-      <span class="by">by AIKI<br />Performance</span>
     </div>
     <span class="kicker">Branchen-Infoblatt</span>
   </div>
@@ -83,7 +81,7 @@ function html(industryLabel: string, intro: string, painPoints: string[], capabi
   <div class="section">
     <h2><span class="num">01</span> Wer wir sind</h2>
     <p style="color:${WARM_GREY_DIM}; font-size: 12.5px; line-height: 1.7; max-width: 92%;">
-      AIKI Performance ist das Einzelunternehmen von Marvin Weiß-Drumm aus Landau in der Pfalz.
+      Onyx.AI ist das Einzelunternehmen von Marvin Weiß-Drumm aus Landau in der Pfalz.
       Wir bauen maßgeschneiderte digitale Systeme im White-Label — kein Produkt von der Stange,
       sondern Software, die genau zu deinem Prozess passt. Ein Ansprechpartner plant, baut und
       übergibt dein System selbst.
@@ -119,7 +117,7 @@ function html(industryLabel: string, intro: string, painPoints: string[], capabi
       <span>E-MAIL <b>info@onyx-ai.de</b></span>
       <span>TERMIN <b>calendly.com/onyx-ai/30min</b></span>
     </div>
-    <p class="meta">AIKI Performance · Marvin Weiß-Drumm · Landau in der Pfalz</p>
+    <p class="meta">Onyx.AI · Marvin Weiß-Drumm · Landau in der Pfalz</p>
   </div>
 </body>
 </html>`;

@@ -9,7 +9,11 @@ export default function Footer() {
         className="mx-auto px-7 flex flex-wrap items-center justify-between gap-3.5 mono"
         style={{ maxWidth: 1180, fontSize: 12.5, color: "var(--warm-grey-faint)" }}
       >
-        <span>© 2026 AIKI Performance — Marvin Weiß-Drumm, Landau in der Pfalz</span>
+        <span className="inline-flex items-center gap-2.5">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo/onyx-ai-logo.png" alt="ONYX.AI" style={{ height: 15, width: "auto" }} />
+          © 2026 · Marvin Weiß-Drumm, Landau in der Pfalz
+        </span>
         <div className="flex flex-wrap items-center gap-4">
           <Link href="/impressum" className="footer-link">
             Impressum
