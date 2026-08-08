@@ -347,27 +347,34 @@ a {
   stroke: #fff;
 }
 
+/*
+ * brightness(0) invert(1) turns every logo into a solid white silhouette
+ * (alpha/shape preserved, source color ignored) before opacity blends it
+ * into the dark background — grayscale(1) alone left naturally dark
+ * logos (e.g. PawPlace) nearly invisible, since their luminance stayed
+ * low even after the brightness/contrast tweaks.
+ */
 @keyframes logo-glow-pulse {
   0%,
   100% {
-    filter: grayscale(1) brightness(1.8) contrast(0.85) drop-shadow(0 0 4px rgba(232, 163, 61, 0.35));
-    opacity: 0.72;
+    filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(232, 163, 61, 0.35));
+    opacity: 0.78;
   }
   50% {
-    filter: grayscale(0) brightness(1.05) contrast(1) drop-shadow(0 0 18px rgba(232, 163, 61, 0.85));
+    filter: drop-shadow(0 0 18px rgba(232, 163, 61, 0.85));
     opacity: 1;
   }
 }
 
 .logo-flat {
-  filter: grayscale(1) brightness(1.8) contrast(0.85) drop-shadow(0 0 4px rgba(232, 163, 61, 0.35));
-  opacity: 0.72;
+  filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(232, 163, 61, 0.35));
+  opacity: 0.78;
   transition: opacity 0.3s ease, filter 0.3s ease;
   animation: logo-glow-pulse 5s ease-in-out infinite;
 }
 
 .logo-flat:hover {
-  filter: grayscale(0) brightness(1) drop-shadow(0 0 16px rgba(232, 163, 61, 0.8));
+  filter: drop-shadow(0 0 16px rgba(232, 163, 61, 0.8));
   opacity: 1;
   animation-play-state: paused;
 }
@@ -375,8 +382,8 @@ a {
 @media (prefers-reduced-motion: reduce) {
   .logo-flat {
     animation: none;
-    filter: grayscale(1) brightness(1.8) contrast(0.85) drop-shadow(0 0 6px rgba(232, 163, 61, 0.4));
-    opacity: 0.78;
+    filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(232, 163, 61, 0.4));
+    opacity: 0.85;
   }
 }
 
