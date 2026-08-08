@@ -23,6 +23,8 @@ export const differentiators: Differentiator[] = [
       "Kein Pflichtenkatalog aus Standard-Modulen, die nur halb passen",
       "Jede Automatisierung folgt deinem echten Ablauf, nicht einem Template",
       "Wächst mit, wenn sich dein Prozess später ändert",
+      "Individuelle Prozessanalyse vor dem ersten Code",
+      "Kein Funktionsumfang, für den du zahlst, aber nie brauchst",
     ],
   },
   {
@@ -38,6 +40,8 @@ export const differentiators: Differentiator[] = [
       "Vollständiger Quellcode wird bei der Übergabe ausgehändigt",
       "Keine Abo-Bindung an Onyx nach Projektabschluss",
       "Du entscheidest, wer später daran weiterbaut",
+      "Volle Dokumentation für dein Team oder externe Entwickler",
+      "Keine versteckten Abhängigkeiten von Onyx-Infrastruktur",
     ],
   },
   {
@@ -53,6 +57,8 @@ export const differentiators: Differentiator[] = [
       "Hosting bei dir oder deinem Wunschanbieter, nicht bei Onyx",
       "Auftragsverarbeitungsvertrag (AVV) von Anfang an inklusive",
       "Keine Kundendaten auf Servern außerhalb der EU",
+      "Volle Kontrolle über Backups und Zugriffsrechte",
+      "Unabhängig von Onyx' eigener Infrastruktur",
     ],
   },
   {
@@ -68,6 +74,8 @@ export const differentiators: Differentiator[] = [
       "Keine monatliche Abo-Pflicht nach der Übergabe",
       "Onyx zieht sich nach Projektende bewusst zurück",
       "Du entscheidest, ob und wann weiterentwickelt wird",
+      "Übergabe von Code, Zugängen und Dokumentation komplett",
+      "Freie Wahl, mit wem du danach weiterarbeitest",
     ],
   },
 ];

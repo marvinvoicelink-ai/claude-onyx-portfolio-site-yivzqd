@@ -31,6 +31,16 @@ function DiffRow({ d, imageRight }: { d: Differentiator; imageRight: boolean }) 
         {d.title}
       </h3>
       <p style={{ color: "var(--amber)", fontSize: "1.02rem", lineHeight: 1.5, marginBottom: 14 }}>{d.subtitle}</p>
+      <ul className="flex flex-col gap-2 mb-5">
+        {d.bullets.map((b) => (
+          <li key={b} className="flex gap-2.5" style={{ fontSize: "0.94rem", color: "var(--warm-grey-dim)", lineHeight: 1.5 }}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={14} height={14} style={{ flexShrink: 0, marginTop: 3 }}>
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+            {b}
+          </li>
+        ))}
+      </ul>
       <span className="mono inline-flex items-center gap-1.5" style={{ fontSize: 12, color: "var(--warm-grey-faint)" }}>
         Mehr erfahren
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={12} height={12}>
