@@ -53,6 +53,14 @@ export default async function BranchePage({
           >
             Branche
           </span>
+          {industry.slug === "handwerk-bau" && (
+            <span
+              className="mono inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-4 mx-auto"
+              style={{ fontSize: 11.5, letterSpacing: "0.05em", textTransform: "uppercase", color: "var(--amber)", background: "var(--amber-soft)", border: "1px solid rgba(232,163,61,0.3)" }}
+            >
+              Unsere Kernbranche
+            </span>
+          )}
           <h1 style={{ fontSize: "clamp(1.9rem, 4vw, 2.6rem)", marginBottom: 16 }}>{industry.label}</h1>
           <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 28 }}>{industry.intro}</p>
           <a

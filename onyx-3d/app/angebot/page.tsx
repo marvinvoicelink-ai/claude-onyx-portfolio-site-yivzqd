@@ -25,8 +25,9 @@ export default function AngebotPage() {
           </h1>
           <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7 }}>
             Kein Baukasten mit festen Modulen — was dein System am Ende
-            abdeckt, richtet sich nach deinem Prozess. Kein Branchen-Fokus:
-            passt dein Prozess, passt Onyx.
+            abdeckt, richtet sich nach deinem Prozess. Spezialisiert auf
+            Handwerk &amp; Bau, wo wir selbst herkommen — aber offen für
+            jede Branche mit demselben Bedarf.
           </p>
         </div>
       </section>

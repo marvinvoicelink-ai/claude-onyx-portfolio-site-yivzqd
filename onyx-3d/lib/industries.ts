@@ -19,6 +19,7 @@ export const industries: Industry[] = [
       "Rechnungen und Angebote entstehen aus mehreren Vorlagen statt einem System",
     ],
     capabilities: [
+      "Aufmaß direkt vor Ort auf der Baustelle digital erfassen, statt es nachträglich im Büro einzutragen",
       "Digitale Auftrags- und Baustellenübersicht mit Status je Projekt",
       "Materialbestand und Nachbestellung zentral statt auf Zuruf",
       "Foto- und Baustellendokumentation direkt im System, nicht verteilt auf Handys",

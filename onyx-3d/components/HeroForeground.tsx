@@ -80,8 +80,10 @@ export default function HeroForeground() {
             maxWidth: "48ch",
           }}
         >
-          Personalisierte Dashboards, Portale und Automatisierungen im
-          White-Label — fertig gebaut, an dich übergeben, auf deiner
+          Komplettsysteme für Handwerk und Bau — Aufmaß direkt auf der
+          Baustelle digital erfassen statt im Büro nachzutragen, dazu
+          Auftrag, Material und Dokumentation in einem System. Im
+          White-Label, fertig gebaut, an dich übergeben, auf deiner
           Infrastruktur, unter deiner Marke.
         </p>
 
@@ -112,7 +114,7 @@ export default function HeroForeground() {
             transition: "opacity 0.6s ease 0.4s",
           }}
         >
-          DSGVO-konform · Gebaut in Deutschland · Für jede Branche
+          DSGVO-konform · Gebaut in Deutschland · Spezialisiert auf Handwerk &amp; Bau
         </div>
       </div>
     </div>
