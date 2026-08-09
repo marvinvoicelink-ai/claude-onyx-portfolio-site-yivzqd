@@ -7,6 +7,10 @@ const logos: LogoItem[] = [
   { name: "Haas Wasserkraft", src: "/logos/flat/haas-wasserkraft.png" },
   { name: "SpeedFire Design", src: "/logos/flat/speedfire.png" },
   { name: "VoiceLink AI", src: "/logos/flat/voicelink.png" },
+  { name: "MGA", src: "/logos/flat/mga.svg" },
+  { name: "Mordor Intelligence", src: "/logos/flat/mordor-intelligence.svg" },
+  { name: "Buena Vista Crew", src: "/logos/flat/buena-vista-crew.svg" },
+  { name: "raum in form", src: "/logos/flat/raum-in-form.svg" },
 ];
 
 /** Flat, monochrome client-logo strip — no card backgrounds, just logos and slash separators scrolling past. */

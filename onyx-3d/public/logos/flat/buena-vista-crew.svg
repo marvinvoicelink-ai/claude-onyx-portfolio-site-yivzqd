@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 140">
+  <path d="M20 130 V70 A60 60 0 0 1 140 70 V130 Z" fill="#c1704f"/>
+  <path d="M50 130 V95 A30 30 0 0 1 110 95 V130 Z" fill="#ffffff"/>
+  <path d="M80 22 C62 42 56 66 65 90 C70 66 76 46 80 22 Z" fill="#ffffff"/>
+  <path d="M80 22 C99 36 109 56 104 84 C94 65 87 46 80 22 Z" fill="#ffffff"/>
+  <path d="M80 22 C64 31 50 45 45 64 C60 55 72 40 80 22 Z" fill="#ffffff"/>
+  <text x="175" y="72" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="40" letter-spacing="4" fill="#c1704f">BUENA VISTA CREW</text>
+  <text x="177" y="100" font-family="Georgia, 'Times New Roman', serif" font-size="17" letter-spacing="5" fill="#c1704f">HONEST REAL ESTATE MALLORCA</text>
+</svg>

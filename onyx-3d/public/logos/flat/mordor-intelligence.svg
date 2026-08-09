@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 120">
+  <polygon points="10,100 50,20 90,100 68,100 50,64 32,100" fill="#7fd1c4"/>
+  <polygon points="66,100 106,20 146,100 124,100 106,64 88,100" fill="#4d8fc4"/>
+  <text x="170" y="80" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="52" fill="#3a6ea5">Mordor</text>
+  <text x="330" y="80" font-family="Arial, Helvetica, sans-serif" font-weight="400" font-size="52" fill="#3a6ea5">Intelligence</text>
+</svg>
