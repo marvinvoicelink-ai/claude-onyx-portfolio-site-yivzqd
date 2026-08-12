@@ -35,6 +35,7 @@ export default function Home() {
         </WheelTransition>
         <OfferingsList />
         <ProblemSection />
+        <MidFormSection />
         <WheelTransition edge="enter">
           <ExplainerSection />
         </WheelTransition>
