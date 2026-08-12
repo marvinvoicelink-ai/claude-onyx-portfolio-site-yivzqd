@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import SmoothScroll from "@/components/SmoothScroll";
 import Hero from "@/components/Hero";
 import LogoMarquee from "@/components/LogoMarquee";
@@ -34,6 +35,30 @@ export default function Home() {
           <IndustriesSection />
         </WheelTransition>
         <OfferingsList />
+
+        <section className="py-14">
+          <div className="mx-auto px-7 text-center" style={{ maxWidth: 700, marginBottom: 40 }}>
+            <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", marginBottom: 16 }}>
+              Ein System für alles, was du brauchst.
+            </h2>
+            <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7 }}>
+              Kundenportal, Dashboard, Automatisierung und Dokumente — nicht
+              fünf Tools, sondern eins, das dir gehört.
+            </p>
+          </div>
+          <div className="mx-auto px-7" style={{ maxWidth: 640 }}>
+            <Image
+              src="/generated/system-blueprint.png"
+              alt="Dein System: Kundenportal, Dashboard, Automation und Dokumente laufen zusammen."
+              width={1200}
+              height={896}
+              className="w-full h-auto block rounded-2xl"
+              style={{ border: "1px solid var(--hairline)" }}
+            />
+          </div>
+        </section>
+        <MidFormSection />
+
         <ProblemSection />
         <MidFormSection />
         <WheelTransition edge="enter">
