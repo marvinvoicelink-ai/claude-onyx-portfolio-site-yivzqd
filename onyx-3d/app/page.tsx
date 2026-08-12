@@ -10,6 +10,7 @@ import { AliveCase } from "@/components/alive/AliveChrome";
 import RoadmapSection from "@/components/RoadmapSection";
 import MidFormSection from "@/components/MidFormSection";
 import SystemFormSection from "@/components/SystemFormSection";
+import WhatsAppBanner from "@/components/WhatsAppBanner";
 import OfferingsList from "@/components/OfferingsList";
 import KiAgentenSection from "@/components/KiAgentenSection";
 import IndustriesSection from "@/components/IndustriesSection";
@@ -89,6 +90,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <WhatsAppBanner />
         <KiAgentenSection />
         <DifferentiationSection />
         <WheelTransition edge="enter">
