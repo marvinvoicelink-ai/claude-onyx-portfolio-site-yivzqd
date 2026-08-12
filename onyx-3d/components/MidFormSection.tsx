@@ -8,7 +8,11 @@ declare global {
   }
 }
 
-export default function MidFormSection() {
+export default function MidFormSection({
+  heading = "Bereit für dein eigenes System?",
+}: {
+  heading?: string;
+}) {
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -47,7 +51,7 @@ export default function MidFormSection() {
           style={{ background: "var(--near-black-2)" }}
         >
           <h2 style={{ fontSize: "clamp(1.5rem, 3.2vw, 2rem)", marginBottom: 10 }}>
-            Bereit für dein eigenes System?
+            {heading}
           </h2>
           <p style={{ color: "var(--warm-grey-dim)", fontSize: "1rem", marginBottom: 28, maxWidth: "48ch", marginLeft: "auto", marginRight: "auto" }}>
             Hinterlass kurz deine Kontaktdaten — der Gründer meldet sich

@@ -38,7 +38,7 @@ export default function Home() {
         <SystemFormSection />
 
         <ProblemSection />
-        <MidFormSection />
+        <MidFormSection heading="Trage dich jetzt hier ein." />
         <WheelTransition edge="enter">
           <ExplainerSection />
         </WheelTransition>
@@ -94,7 +94,7 @@ export default function Home() {
         <WheelTransition edge="enter">
           <RoadmapSection />
         </WheelTransition>
-        <MidFormSection />
+        <MidFormSection heading="Hier ist die letzte Chance, dich einzutragen." />
         <CTABanner
           heading="Dein System, gebaut für genau dein Geschäft."
           sub="Kein Baukasten, kein Abo — ein System, das dir gehört."
