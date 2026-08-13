@@ -11,6 +11,7 @@ import RoadmapSection from "@/components/RoadmapSection";
 import MidFormSection from "@/components/MidFormSection";
 import SystemFormSection from "@/components/SystemFormSection";
 import WhatsAppBanner from "@/components/WhatsAppBanner";
+import DemoShowcaseSection from "@/components/DemoShowcaseSection";
 import OfferingsList from "@/components/OfferingsList";
 import KiAgentenSection from "@/components/KiAgentenSection";
 import IndustriesSection from "@/components/IndustriesSection";
@@ -96,6 +97,7 @@ export default function Home() {
         <WheelTransition edge="enter">
           <RoadmapSection />
         </WheelTransition>
+        <DemoShowcaseSection />
         <MidFormSection heading="Hier ist die letzte Chance, dich einzutragen." />
         <CTABanner
           heading="Dein System, gebaut für genau dein Geschäft."
