@@ -36,6 +36,7 @@ export default function Home() {
         <WheelTransition edge="enter">
           <IndustriesSection />
         </WheelTransition>
+        <DemoShowcaseSection />
         <OfferingsList />
         <SystemFormSection />
 
@@ -97,7 +98,6 @@ export default function Home() {
         <WheelTransition edge="enter">
           <RoadmapSection />
         </WheelTransition>
-        <DemoShowcaseSection />
         <MidFormSection heading="Hier ist die letzte Chance, dich einzutragen." />
         <CTABanner
           heading="Dein System, gebaut für genau dein Geschäft."
