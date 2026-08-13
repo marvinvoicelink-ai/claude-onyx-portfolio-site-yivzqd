@@ -11,14 +11,14 @@ const examples = [
   {
     src: "/generated/tablet-handwerk.png",
     alt: "Tablet-Ansicht eines echten Onyx-Systems: HandwerkSystem-Dashboard für Sanitär, Heizung und Klima",
-    label: "Beispiel: Handwerk",
-    text: "Angebote, Rechnungen, Aufträge und Material an einem Ort — inklusive automatisch versendeter Zahlungserinnerungen.",
+    label: "Beispiel: HandwerkSystem",
+    text: "Ein Dashboard für einen Betrieb aus Sanitär, Heizung und Klima. Links die Navigation zu Angeboten, Rechnungen, Finanzen, Kunden, Aufträgen, Lager, Terminen und Mitarbeitern. Oben fünf Kennzahlen auf einen Blick — offene Rechnungen, automatisch versendete Dokumente, laufende Aufträge, Kundenumsatz und knappes Material. Darunter die Liste offener Angebote und Rechnungen mit Status wie „versendet“ oder „überfällig“, und rechts ein Live-Feed, der jede automatische Aktion protokolliert — ein verschicktes Angebot, eine Zahlungserinnerung, ein erkannter Zahlungseingang.",
   },
   {
     src: "/generated/tablet-garten.png",
     alt: "Tablet-Ansicht eines echten Onyx-Systems: GartenSystem-Dashboard für Garten- und Landschaftsbau",
-    label: "Beispiel: Garten- und Landschaftsbau",
-    text: "Dasselbe System, angepasst auf Projekte statt Baustellen — vom Angebot für die Poolanlage bis zur bezahlten Rechnung.",
+    label: "Beispiel: GartenSystem",
+    text: "Dasselbe Dashboard-Prinzip, für einen Garten- und Landschaftsbaubetrieb umgebaut: Aufträge heißen hier Projekte, von der Neugestaltung eines Hotelgartens bis zur Poolanlage mit Sauna und Terrasse. Gleiche Kennzahlen, gleiche automatisch versendeten Zahlungserinnerungen, gleicher Live-Feed — nur an den Alltag im Garten- und Landschaftsbau statt auf der Baustelle angepasst.",
   },
 ];
 
