@@ -24,7 +24,7 @@ const plexMono = IBM_Plex_Mono({
 
 const title = "Onyx.AI — White-Label-Systeme. Gebaut. Übergeben. Deins.";
 const description =
-  "Onyx.AI baut dir dein eigenes System — spezialisiert auf Handwerk & Bau, offen für jede Branche. Dashboards, Portale, interne Tools. Im White-Label, vollständig übergeben, auf deiner Infrastruktur, unter deiner Marke.";
+  "Onyx.AI baut dir dein eigenes System — spezialisiert auf mittelständische Unternehmen, egal aus welcher Branche. Dashboards, Portale, interne Tools, KI-Agenten. Im White-Label, vollständig übergeben, auf deiner Infrastruktur, unter deiner Marke.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://onyx-ai.de"),

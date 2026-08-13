@@ -80,11 +80,11 @@ export default function HeroForeground() {
             maxWidth: "48ch",
           }}
         >
-          Komplettsysteme für Handwerk und Bau — Aufmaß direkt auf der
-          Baustelle digital erfassen statt im Büro nachzutragen, dazu
-          Auftrag, Material und Dokumentation in einem System. Im
-          White-Label, fertig gebaut, an dich übergeben, auf deiner
-          Infrastruktur, unter deiner Marke.
+          Für mittelständische Unternehmen — egal aus welcher Branche, egal
+          was du brauchst. Vom KI-Agenten, der Anrufe entgegennimmt, bis zum
+          kompletten System wie Dashboard oder CRM: Wir bauen genau das, was
+          dein Unternehmen will. Im White-Label, fertig gebaut, an dich
+          übergeben, auf deiner Infrastruktur, unter deiner Marke.
         </p>
 
         <div className="mt-9">
@@ -114,7 +114,7 @@ export default function HeroForeground() {
             transition: "opacity 0.6s ease 0.4s",
           }}
         >
-          DSGVO-konform · Gebaut in Deutschland · Spezialisiert auf Handwerk &amp; Bau
+          DSGVO-konform · Gebaut in Deutschland · Für mittelständische Unternehmen
         </div>
       </div>
     </div>
