@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { trackLead } from "@/lib/trackLead";
 
 const bullets = [
   "Demo passend zu deiner Branche, nicht generisch",
@@ -83,6 +86,7 @@ export default function DemoShowcaseSection() {
 
         <Link
           href="#kontakt"
+          onClick={trackLead}
           className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold btn-amber"
           style={{ background: "var(--amber)", color: "#161104", fontSize: 15.5 }}
         >

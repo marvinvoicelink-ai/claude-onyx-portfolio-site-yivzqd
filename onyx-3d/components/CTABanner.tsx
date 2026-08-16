@@ -1,5 +1,7 @@
 "use client";
 
+import { trackLead } from "@/lib/trackLead";
+
 declare global {
   interface Window {
     fbq?: (...args: unknown[]) => void;
@@ -51,6 +53,7 @@ export default function CTABanner({
           <div className="flex flex-wrap items-center justify-center gap-3">
             <a
               href={ctaHref}
+              onClick={trackLead}
               className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap btn-amber"
               style={{ background: "var(--amber)", color: "#161104", fontSize: 15.5 }}
             >

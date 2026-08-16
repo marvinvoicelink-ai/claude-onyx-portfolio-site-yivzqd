@@ -9,6 +9,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { trackLead } from "@/lib/trackLead";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -335,6 +336,7 @@ export function AliveCtaBand({
             <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem" }}>{sub}</p>
             <a
               href={href}
+              onClick={trackLead}
               className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber"
               style={{ background: "var(--amber)", color: "#161104", fontSize: 15.5 }}
             >
