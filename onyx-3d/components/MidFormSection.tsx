@@ -21,6 +21,8 @@ export default function MidFormSection({
     const data = new FormData(form);
     if (data.get("bot-field")) return;
 
+    if (typeof window.fbq === "function") window.fbq("track", "Lead");
+
     const encoded = new URLSearchParams();
     data.forEach((value, key) => encoded.append(key, String(value)));
 
@@ -34,7 +36,6 @@ export default function MidFormSection({
       if (res.ok) {
         setStatus("ok");
         form.reset();
-        if (typeof window.fbq === "function") window.fbq("track", "Lead");
       } else {
         setStatus("error");
       }

@@ -39,14 +39,14 @@ HausManager Pro ist Referenz/Beweis eines gebauten Systems, kein Produkt zum
 Kaufen.
 
 ## Kontakt & Tracking
-Kontaktformular (Netlify Forms) ist der primäre CTA seitenweit — einzige
-Möglichkeit, den Meta-Pixel-Lead-Event zuverlässig bei tatsächlichem
-Kontaktabschluss auszulösen (fetch-Submit, Lead feuert erst bei erfolgreicher
-Antwort von Netlify, nicht beim Klick). Grund: WhatsApp-Klicks lassen sich
-technisch nicht bis zum "Nachricht abgeschickt"-Zeitpunkt zurückverfolgen
-(kein Callback von WhatsApp an die Website) — das führte zu falsch hohen
-Lead-Zahlen im Werbeanzeigenmanager. WhatsApp und Calendly bleiben als
-sekundäre, schnelle Kontaktwege bestehen (Calendly hat mit
+Kontaktformular (Netlify Forms) ist der primäre CTA seitenweit. Meta-Pixel
+`Lead`-Event feuert bei Klick auf den Absenden-Button des Kontaktformulars
+(bewusste Entscheidung von Marvin, Stand 2026 — jeder Formular-Absenden-Klick
+soll als Lead in Facebook erscheinen, unabhängig vom Erfolg der Netlify-
+Antwort). WhatsApp-Buttons feuern weiterhin ein separates `WhatsAppClick`
+Custom-Event, kein `Lead` — WhatsApp-Klicks lassen sich technisch nicht bis
+zum "Nachricht abgeschickt"-Zeitpunkt zurückverfolgen. WhatsApp und Calendly
+bleiben als sekundäre, schnelle Kontaktwege bestehen (Calendly hat mit
 `calendly.event_scheduled` ein eigenes zuverlässiges Completion-Event).
 
 ## Nicht-Ziele (Scope-Grenze)
