@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { trackLead } from "@/lib/trackLead";
 
 declare global {
   interface Window {
@@ -163,6 +164,7 @@ export default function ContactSection() {
             target="_blank"
             rel="noopener"
             onClick={() => {
+              trackLead();
               if (typeof window.fbq === "function") window.fbq("trackCustom", "WhatsAppClick");
             }}
             className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold"
@@ -185,6 +187,7 @@ export default function ContactSection() {
           <a
             href="https://wa.me/4917632273522"
             onClick={() => {
+              trackLead();
               if (typeof window.fbq === "function") window.fbq("trackCustom", "WhatsAppClick");
             }}
             style={{ color: "var(--amber)" }}

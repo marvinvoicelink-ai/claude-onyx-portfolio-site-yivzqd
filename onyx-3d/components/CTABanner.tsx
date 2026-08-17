@@ -68,6 +68,7 @@ export default function CTABanner({
               target="_blank"
               rel="noopener"
               onClick={() => {
+                trackLead();
                 if (typeof window.fbq === "function") window.fbq("trackCustom", "WhatsAppClick");
               }}
               className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap btn-ghost"

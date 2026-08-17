@@ -1,5 +1,7 @@
 "use client";
 
+import { trackLead } from "@/lib/trackLead";
+
 declare global {
   interface Window {
     fbq?: (...args: unknown[]) => void;
@@ -77,6 +79,7 @@ export default function WhatsAppBanner() {
             target="_blank"
             rel="noopener"
             onClick={() => {
+              trackLead();
               if (typeof window.fbq === "function") window.fbq("trackCustom", "WhatsAppClick");
             }}
             className="inline-flex items-center gap-3 rounded-[10px] px-7 py-4 font-semibold whitespace-nowrap btn-amber"
