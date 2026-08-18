@@ -26,14 +26,14 @@ export default function ImpressumContent() {
         Es wird keine Umsatzsteuer-Identifikationsnummer ausgewiesen.
       </p>
 
-      <h2>Vertragslaufzeit</h2>
+      <h2>Geschäftsbedingungen und Vertragslaufzeit</h2>
       <p>
-        Verträge mit Onyx.AI haben, sofern im jeweiligen Angebot oder Vertrag
-        nichts anderes vereinbart ist, eine Mindestlaufzeit von einem Jahr.
-        Wird der Vertrag nicht vor Ablauf dieser Laufzeit gekündigt,
-        verlängert er sich automatisch um jeweils ein weiteres Jahr.
-        Abweichende Vereinbarungen im Angebot oder Vertrag gehen dieser
-        Angabe vor.
+        Onyx.AI arbeitet ausschließlich mit Unternehmen (B2B). Es gelten die{" "}
+        <a href="/agb">Allgemeinen Geschäftsbedingungen</a>. Sofern vorab
+        nichts anderes in Textform vereinbart ist, beträgt die Mindestlaufzeit
+        zwölf Monate; der Vertrag verlängert sich um jeweils zwölf Monate, wenn
+        er nicht mit einer Frist von drei Monaten zum Laufzeitende gekündigt
+        wird.
       </p>
 
       <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>

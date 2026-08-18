@@ -21,6 +21,9 @@ export default function Footer() {
           <Link href="/datenschutz" className="footer-link">
             Datenschutz
           </Link>
+          <Link href="/agb" className="footer-link">
+            AGB
+          </Link>
           <button
             type="button"
             onClick={() => window.dispatchEvent(new Event("onyx-open-cookie-settings"))}
