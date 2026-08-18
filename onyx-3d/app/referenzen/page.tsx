@@ -121,6 +121,18 @@ export default function ReferenzenPage() {
         logo="/logos/voicelink.png"
         logoBg="dark"
       />
+      <AliveCase
+        tag="Kundencase · Websites"
+        name="Websites für mehrere Kunden"
+        heading="Websites, die dem Kunden gehören — nicht dem Baukasten."
+        desc="Neben Systemen und Automatisierungen bauen wir für unsere Kunden auch ihre Websites: jede einzeln auf das Unternehmen zugeschnitten, im jeweiligen Branding statt aus einer Vorlage. Wie bei allem anderen auch — gebaut, übergeben, danach gehören Code und Inhalte dem Kunden."
+        bullets={[
+          "Individuelles Design im Branding des Kunden statt Baukasten-Vorlage",
+          "Auf Ladezeit und mobile Darstellung gebaut, nicht nachträglich geflickt",
+          "Vollständig übergeben — der Kunde besitzt und hostet seine Seite selbst",
+        ]}
+        image="/generated/websites-case.webp"
+      />
 
       <CTABanner
         heading="Dein Prozess könnte das nächste Projekt sein."
