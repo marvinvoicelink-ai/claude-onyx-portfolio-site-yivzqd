@@ -31,6 +31,11 @@ export default function KiAgentenPage() {
             Telefonarbeit, die bisher bei dir oder deinem Team hängen
             geblieben ist, sobald niemand abnehmen konnte.
           </p>
+          <div className="mt-6">
+            <Link href="/automatisierungen" className="mono" style={{ fontSize: 13, color: "var(--amber)" }}>
+              Auch ohne Telefon: unsere Software-Automatisierungen →
+            </Link>
+          </div>
         </div>
       </section>
 

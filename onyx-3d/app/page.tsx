@@ -14,6 +14,7 @@ import WhatsAppBanner from "@/components/WhatsAppBanner";
 import DemoShowcaseSection from "@/components/DemoShowcaseSection";
 import OfferingsList from "@/components/OfferingsList";
 import KiAgentenSection from "@/components/KiAgentenSection";
+import AutomatisierungenSection from "@/components/AutomatisierungenSection";
 import IndustriesSection from "@/components/IndustriesSection";
 import CTABanner from "@/components/CTABanner";
 import DifferentiationSection from "@/components/DifferentiationSection";
@@ -94,6 +95,7 @@ export default function Home() {
         </div>
         <WhatsAppBanner />
         <KiAgentenSection />
+        <AutomatisierungenSection />
         <DifferentiationSection />
         <WheelTransition edge="enter">
           <RoadmapSection />

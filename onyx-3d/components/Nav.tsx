@@ -18,11 +18,15 @@ const links = [
   { href: "/ueber-mich", label: "Über mich" },
 ];
 
-/** Per-offering deep links — automatisierung gets its own dedicated page instead of an /angebot anchor. */
-const offeringLinks = offerings.map((o) => ({
-  href: o.slug === "automatisierung" ? "/ki-agenten" : `/angebot#${o.slug}`,
-  label: o.title.replace(/\.$/, ""),
-}));
+/** Per-offering deep links — automatisierung gets its own dedicated pages instead of an /angebot anchor. */
+const offeringLinks = offerings.flatMap((o) =>
+  o.slug === "automatisierung"
+    ? [
+        { href: "/ki-agenten", label: "KI-Agenten" },
+        { href: "/automatisierungen", label: "Automatisierungen" },
+      ]
+    : [{ href: `/angebot#${o.slug}`, label: o.title.replace(/\.$/, "") }],
+);
 
 export default function Nav() {
   const pathname = usePathname();
