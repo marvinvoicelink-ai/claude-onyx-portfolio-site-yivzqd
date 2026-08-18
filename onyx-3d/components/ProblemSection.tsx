@@ -79,7 +79,7 @@ function ProblemRow({ p, imageRight }: { p: Problem; imageRight: boolean }) {
   );
 }
 
-export default function ProblemSection() {
+export default function ProblemSection({ blatt }: { blatt?: string }) {
   const chaosImageRef = useRef<HTMLDivElement>(null);
   const { skip } = useSkipHeavyMotion();
 
@@ -135,11 +135,18 @@ export default function ProblemSection() {
           className="mono inline-flex items-center gap-2 mb-4"
           style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
         >
-          <span style={{ opacity: 0.7 }}>§</span> Blatt 02 / Ausgangslage
+          <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Ausgangslage` : "Ausgangslage"}
         </span>
-        <h2 className="mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "20ch", marginBottom: 44 }}>
+        <h2 className="mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "20ch", marginBottom: 16 }}>
           Kommt dir das bekannt vor?
         </h2>
+        <p
+          className="mx-auto"
+          style={{ color: "var(--warm-grey-dim)", maxWidth: "54ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 44 }}
+        >
+          Fast jeder Betrieb, mit dem wir sprechen, erkennt sich in mindestens
+          zwei dieser fünf Punkte wieder. Meistens sind es drei.
+        </p>
 
         <div className="flex flex-col gap-6">
           {problems.map((p, i) => (

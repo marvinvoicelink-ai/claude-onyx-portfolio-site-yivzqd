@@ -26,7 +26,7 @@ const examples = [
 ];
 
 /** Trust block: a working demo already exists per industry and gets shown live in the free Erstgespräch. */
-export default function DemoShowcaseSection() {
+export default function DemoShowcaseSection({ blatt }: { blatt?: string }) {
   return (
     <section className="py-14">
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 780 }}>
@@ -34,7 +34,7 @@ export default function DemoShowcaseSection() {
           className="mono inline-flex items-center gap-2 mb-4"
           style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
         >
-          <span style={{ opacity: 0.7 }}>§</span> Blatt 10 / Dein Erstgespräch
+          <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Dein Erstgespräch` : "Dein Erstgespräch"}
         </span>
         <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 14 }}>
           Du siehst dein System, bevor du unterschreibst.

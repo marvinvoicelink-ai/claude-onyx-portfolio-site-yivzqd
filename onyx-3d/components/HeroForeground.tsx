@@ -82,11 +82,12 @@ export default function HeroForeground() {
             maxWidth: "48ch",
           }}
         >
-          Wir sind keine All-in-One-Agentur. Wir schauen uns an, was in deinem
-          Betrieb wirklich Zeit und Geld kostet — und lösen genau das, mit dem,
-          was wir können: KI-Agenten, Automatisierungen und eigene Systeme wie
-          Dashboard, Portal oder CRM. Im White-Label gebaut, an dich übergeben,
-          auf deiner Infrastruktur, unter deiner Marke.
+          Der eine Betrieb braucht ein Dashboard. Der nächste jemanden, der
+          ans Telefon geht. Wieder ein anderer nur eine Automatisierung, die
+          im Hintergrund läuft und nie wieder auffällt. Wir schauen uns
+          zuerst an, wo bei dir die Zeit verloren geht, und bauen dann das,
+          was dort wirklich etwas ändert. Am Ende gehört es dir: Code, Daten,
+          Zugänge. Gehostet wird bei dir, nicht bei uns.
         </p>
 
         <div className="mt-9">

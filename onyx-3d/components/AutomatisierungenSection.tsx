@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import GlowCard from "./GlowCard";
 
 const highlights = [
   "Angebote und Rechnungen entstehen automatisch statt per Hand",
@@ -8,7 +9,7 @@ const highlights = [
 ];
 
 /** Short homepage teaser for the Automatisierungen subpage — deliberately compact, the depth lives on /automatisierungen. */
-export default function AutomatisierungenSection() {
+export default function AutomatisierungenSection({ blatt }: { blatt?: string }) {
   return (
     <section className="py-14">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
@@ -18,7 +19,7 @@ export default function AutomatisierungenSection() {
               className="mono inline-flex items-center gap-2 mb-4"
               style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
             >
-              <span style={{ opacity: 0.7 }}>§</span> Automatisierungen
+              <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Automatisierungen` : "Automatisierungen"}
             </span>
             <h2 style={{ fontSize: "clamp(1.7rem, 3.4vw, 2.4rem)", maxWidth: "20ch", marginBottom: 18 }}>
               Auch in dem System, das du schon hast.
@@ -54,16 +55,16 @@ export default function AutomatisierungenSection() {
             </Link>
           </div>
 
-          <div className="relative">
+          <GlowCard>
             <Image
               src="/generated/automatisierung.webp"
               alt="Automatisierung: Aus eingehenden Dokumenten entstehen automatisch Angebote, Bestätigungen und Rechnungen"
               width={1200}
               height={896}
-              className="w-full h-auto block rounded-2xl"
-              style={{ border: "1px solid var(--hairline)" }}
+              className="w-full h-auto block rounded-xl"
+              style={{ maxWidth: "88%" }}
             />
-          </div>
+          </GlowCard>
         </div>
       </div>
     </section>

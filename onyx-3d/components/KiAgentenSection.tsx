@@ -6,7 +6,7 @@ import { kiAgenten } from "@/lib/kiAgenten";
  * not just a slim teaser, since agents are a full offering alongside
  * dashboards/portale/tools, not an afterthought.
  */
-export default function KiAgentenSection() {
+export default function KiAgentenSection({ blatt }: { blatt?: string }) {
   return (
     <section className="py-14">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
@@ -14,7 +14,7 @@ export default function KiAgentenSection() {
           className="mono inline-flex items-center gap-2 mb-4"
           style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
         >
-          <span style={{ opacity: 0.7 }}>§</span> Blatt 09 / KI-Agenten
+          <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / KI-Agenten` : "KI-Agenten"}
         </span>
         <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "22ch", marginBottom: 20 }}>
           Bleibt bei dir auch die Telefonarbeit liegen?

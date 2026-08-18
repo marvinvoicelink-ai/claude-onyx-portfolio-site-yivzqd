@@ -2,7 +2,7 @@ import Link from "next/link";
 import SectionGlow from "./SectionGlow";
 import { industries } from "@/lib/industries";
 
-export default function IndustriesSection() {
+export default function IndustriesSection({ blatt }: { blatt?: string }) {
   return (
     <section className="py-14 relative overflow-hidden">
       <SectionGlow position="top" />
@@ -11,7 +11,7 @@ export default function IndustriesSection() {
           className="mono inline-flex items-center gap-2 mb-4"
           style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
         >
-          <span style={{ opacity: 0.7 }}>§</span> Blatt 04 / Für wen wir bauen
+          <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Für wen wir bauen` : "Für wen wir bauen"}
         </span>
         <h2 className="mx-auto" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", maxWidth: "26ch", marginBottom: 14 }}>
           Systeme für mittelständische Unternehmen.

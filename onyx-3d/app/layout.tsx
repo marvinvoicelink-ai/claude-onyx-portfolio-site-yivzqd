@@ -63,7 +63,7 @@ export default function RootLayout({
         <Nav />
         {/* Static, always-rendered duplicate of the "contact" form so Netlify's
             build-time bot reliably registers the form and every field name,
-            even though the real forms (ContactSection, MidFormSection) are
+            even though the real forms (ContactSection, SystemFormSection) are
             client-rendered React components. */}
         <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
           <input type="text" name="name" />

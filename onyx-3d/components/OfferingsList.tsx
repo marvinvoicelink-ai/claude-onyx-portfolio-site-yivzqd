@@ -3,7 +3,7 @@ import Link from "next/link";
 import { offerings } from "@/lib/offerings";
 
 /** Editorial row list of offerings — numbered, with a thumbnail per row, divided by hairlines, each linking to its detail on /angebot. */
-export default function OfferingsList() {
+export default function OfferingsList({ blatt }: { blatt?: string }) {
   return (
     <section className="py-14">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
@@ -11,17 +11,22 @@ export default function OfferingsList() {
           className="mono inline-flex items-center gap-2 mb-4"
           style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
         >
-          <span style={{ opacity: 0.7 }}>§</span> Blatt 03 / Bauteile
+          <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Bauteile` : "Bauteile"}
         </span>
-        <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "20ch", marginBottom: 44 }}>
-          Ein System, jeder Bereich, den du brauchst.
+        <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "20ch", marginBottom: 16 }}>
+          Und das bauen wir dagegen.
         </h2>
+        <p style={{ color: "var(--warm-grey-dim)", maxWidth: "56ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 44 }}>
+          Sechs Bausteine. Kein Betrieb braucht alle sechs, und wir verkaufen
+          dir auch keine, die du nicht brauchst. Klick auf einen, dann siehst
+          du, was dahintersteckt.
+        </p>
 
         <div style={{ borderTop: "1px solid var(--hairline)" }}>
           {offerings.map((o, i) => (
             <Link
               key={o.slug}
-              href={`/angebot#${o.slug}`}
+              href={`/angebot/${o.slug}`}
               className="offering-row flex items-center justify-between gap-3 sm:gap-6 py-6"
               style={{ borderBottom: "1px solid var(--hairline)" }}
             >

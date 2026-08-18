@@ -31,8 +31,10 @@ function DiffRow({ d, imageRight }: { d: Differentiator; imageRight: boolean }) 
         {d.title}
       </h3>
       <p style={{ color: "var(--amber)", fontSize: "1.02rem", lineHeight: 1.5, marginBottom: 14 }}>{d.subtitle}</p>
+      {/* Auf der Startseite bewusst nur zwei Punkte als Anriss — die vollständige
+          Liste steht auf /fuer-dich, sonst steht derselbe Text zweimal auf der Seite. */}
       <ul className="flex flex-col gap-2 mb-5">
-        {d.bullets.map((b) => (
+        {d.bullets.slice(0, 2).map((b) => (
           <li key={b} className="flex gap-2.5" style={{ fontSize: "0.94rem", color: "var(--warm-grey-dim)", lineHeight: 1.5 }}>
             <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={14} height={14} style={{ flexShrink: 0, marginTop: 3 }}>
               <path d="M20 6 9 17l-5-5" />
@@ -73,7 +75,7 @@ function DiffRow({ d, imageRight }: { d: Differentiator; imageRight: boolean }) 
   );
 }
 
-export default function DifferentiationSection() {
+export default function DifferentiationSection({ blatt }: { blatt?: string }) {
   return (
     <section className="py-14">
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 1180 }}>
@@ -81,7 +83,7 @@ export default function DifferentiationSection() {
           className="mono inline-flex items-center gap-2 mb-4"
           style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
         >
-          <span style={{ opacity: 0.7 }}>§</span> Blatt 05 / Abgrenzung
+          <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Abgrenzung` : "Abgrenzung"}
         </span>
         <h2 style={{ fontSize: "clamp(2rem, 5vw, 3.1rem)", lineHeight: 1.05, marginBottom: 20 }}>
           Dein Zugang.
@@ -89,11 +91,10 @@ export default function DifferentiationSection() {
           Deine Regeln.
         </h2>
         <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", maxWidth: "56ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 32 }}>
-          Wir sind keine 08/15-CRM-Firma, die dir ein fertiges Produkt
-          verkauft und erwartet, dass du deine Prozesse daran anpasst. Bei
-          uns ist es umgekehrt: Wir bauen dein System um deinen Prozess
-          herum — mit genau den Funktionen, die dein Geschäft braucht, ohne
-          den Ballast, den es nicht braucht.
+          Die meisten Anbieter verkaufen dir ein fertiges Produkt und
+          erwarten, dass dein Betrieb sich daran gewöhnt. Bei uns läuft es
+          andersherum. Wir bauen um deinen Ablauf herum, mit den Funktionen,
+          die du wirklich benutzt, und ohne den Rest.
         </p>
 
         <div className="flex flex-col gap-6">

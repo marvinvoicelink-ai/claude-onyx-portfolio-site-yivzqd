@@ -25,7 +25,7 @@ const offeringLinks = offerings.flatMap((o) =>
         { href: "/ki-agenten", label: "KI-Agenten" },
         { href: "/automatisierungen", label: "Automatisierungen" },
       ]
-    : [{ href: `/angebot#${o.slug}`, label: o.title.replace(/\.$/, "") }],
+    : [{ href: `/angebot/${o.slug}`, label: o.title.replace(/\.$/, "") }],
 );
 
 export default function Nav() {

@@ -2,27 +2,31 @@ import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import Hero from "@/components/Hero";
 import LogoMarquee from "@/components/LogoMarquee";
-import WhyNowSection from "@/components/WhyNowSection";
 import ProblemSection from "@/components/ProblemSection";
-import ExplainerSection from "@/components/ExplainerSection";
-import CaseStudySection from "@/components/CaseStudySection";
-import { AliveCase } from "@/components/alive/AliveChrome";
-import RoadmapSection from "@/components/RoadmapSection";
-import MidFormSection from "@/components/MidFormSection";
-import SystemFormSection from "@/components/SystemFormSection";
-import WhatsAppBanner from "@/components/WhatsAppBanner";
-import DemoShowcaseSection from "@/components/DemoShowcaseSection";
 import OfferingsList from "@/components/OfferingsList";
 import KiAgentenSection from "@/components/KiAgentenSection";
 import AutomatisierungenSection from "@/components/AutomatisierungenSection";
-import IndustriesSection from "@/components/IndustriesSection";
-import CTABanner from "@/components/CTABanner";
+import ExplainerSection from "@/components/ExplainerSection";
 import DifferentiationSection from "@/components/DifferentiationSection";
+import CaseStudySection from "@/components/CaseStudySection";
+import { AliveCase } from "@/components/alive/AliveChrome";
+import SystemFormSection from "@/components/SystemFormSection";
+import IndustriesSection from "@/components/IndustriesSection";
+import DemoShowcaseSection from "@/components/DemoShowcaseSection";
+import RoadmapSection from "@/components/RoadmapSection";
+import WhatsAppBanner from "@/components/WhatsAppBanner";
+import CTABanner from "@/components/CTABanner";
 import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import WheelTransition from "@/components/WheelTransition";
 
+/**
+ * Leseweg der Startseite: erst die Ausgangslage, in der sich der Besucher
+ * wiedererkennt, dann die Bausteine als Antwort darauf (jeder verlinkt auf
+ * seine eigene Detailseite), danach Beweis (Referenzen), Einordnung
+ * (Branchen, Ablauf) und zum Schluss der Kontakt.
+ */
 export default function Home() {
   return (
     <SmoothScroll>
@@ -31,21 +35,22 @@ export default function Home() {
         <LogoMarquee />
 
         <WheelTransition edge="both">
-          <WhyNowSection />
+          <ProblemSection blatt="01" />
         </WheelTransition>
+
+        <OfferingsList blatt="02" />
 
         <WheelTransition edge="enter">
-          <IndustriesSection />
+          <KiAgentenSection blatt="03" />
         </WheelTransition>
-        <DemoShowcaseSection />
-        <OfferingsList />
-        <SystemFormSection />
+        <AutomatisierungenSection blatt="04" />
 
-        <ProblemSection />
-        <MidFormSection heading="Trage dich jetzt hier ein." />
         <WheelTransition edge="enter">
           <ExplainerSection />
         </WheelTransition>
+
+        <DifferentiationSection blatt="05" />
+
         <div className="mx-auto px-7" style={{ maxWidth: 1220 }}>
           <div className="rounded-[28px]" style={{ border: "1px solid var(--hairline)", paddingBottom: 12 }}>
             <WheelTransition edge="exit">
@@ -93,26 +98,36 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <WhatsAppBanner />
-        <KiAgentenSection />
-        <AutomatisierungenSection />
-        <DifferentiationSection />
+
+        <SystemFormSection />
+
         <WheelTransition edge="enter">
-          <RoadmapSection />
+          <IndustriesSection blatt="06" />
         </WheelTransition>
-        <MidFormSection heading="Hier ist die letzte Chance, dich einzutragen." />
+
+        <DemoShowcaseSection blatt="07" />
+
+        <WheelTransition edge="enter">
+          <RoadmapSection blatt="08" />
+        </WheelTransition>
+
+        <WhatsAppBanner />
+
         <CTABanner
           heading="Dein System, gebaut für genau dein Geschäft."
           sub="Kein Baukasten, kein Abo — ein System, das dir gehört."
           buttonText="Kostenloses Erstgespräch sichern"
           ctaHref="#kontakt"
         />
+
         <WheelTransition edge="exit">
-          <FAQSection />
+          <FAQSection blatt="09" />
         </WheelTransition>
+
         <WheelTransition edge="enter">
-          <ContactSection />
+          <ContactSection blatt="10" />
         </WheelTransition>
+
         <Footer />
       </main>
     </SmoothScroll>

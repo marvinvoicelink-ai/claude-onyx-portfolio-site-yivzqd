@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import OfferingsDetail from "@/components/OfferingsDetail";
+import OfferingsList from "@/components/OfferingsList";
 import IndustriesSection from "@/components/IndustriesSection";
 import CTABanner from "@/components/CTABanner";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Angebot — Onyx.AI",
-  description: "Was Onyx.AI anbietet und für wen — White-Label-Systeme, gebaut nach deinem Prozess.",
+  description:
+    "Die sechs Bausteine, aus denen wir Systeme bauen: Kundenportale, interne Tools, Dashboards, Automatisierung, Terminplanung und Dokumentenverwaltung.",
 };
 
 export default function AngebotPage() {
@@ -24,20 +25,20 @@ export default function AngebotPage() {
             Was wir bauen. Und für wen.
           </h1>
           <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7 }}>
-            Kein Baukasten mit festen Modulen — was dein System am Ende
-            abdeckt, richtet sich nach deinem Prozess. Spezialisiert auf
-            mittelständische Unternehmen, egal aus welcher Branche und egal
-            was du brauchst.
+            Sechs Bausteine, aus denen wir Systeme zusammensetzen. Kein
+            Betrieb braucht alle. Welche es bei dir werden, entscheidet dein
+            Prozess. Klick auf einen Baustein, dann siehst du im Detail, was
+            dahintersteckt.
           </p>
         </div>
       </section>
 
-      <OfferingsDetail />
+      <OfferingsList />
       <IndustriesSection />
 
       <CTABanner
-        heading="Dein System, gebaut für genau dein Geschäft."
-        sub="Kein Baukasten, kein Abo — ein System, das dir gehört."
+        heading="Welcher Baustein passt zu deinem Betrieb?"
+        sub="Im Erstgespräch sortieren wir das gemeinsam, kostenlos und unverbindlich."
         buttonText="Kostenloses Erstgespräch sichern"
       />
 

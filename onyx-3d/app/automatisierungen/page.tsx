@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import AutomatisierungenDetail from "@/components/AutomatisierungenDetail";
+import GlowCard from "@/components/GlowCard";
 import CTABanner from "@/components/CTABanner";
 import Footer from "@/components/Footer";
 
@@ -37,17 +38,17 @@ export default function AutomatisierungenPage() {
               </p>
             </div>
 
-            <div className="relative">
+            <GlowCard>
               <Image
                 src="/generated/automatisierung.webp"
                 alt="Automatisierung: Aus eingehenden Dokumenten entstehen automatisch Angebote, Bestätigungen und Rechnungen"
                 width={1200}
                 height={896}
                 priority
-                className="w-full h-auto block rounded-2xl"
-                style={{ border: "1px solid var(--hairline)" }}
+                className="w-full h-auto block rounded-xl"
+                style={{ maxWidth: "88%" }}
               />
-            </div>
+            </GlowCard>
           </div>
         </div>
       </section>

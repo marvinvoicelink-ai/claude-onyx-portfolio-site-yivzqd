@@ -19,7 +19,7 @@ const faqs = [
   },
 ];
 
-export default function FAQSection() {
+export default function FAQSection({ blatt }: { blatt?: string }) {
   return (
     <section className="py-14 relative overflow-hidden">
       <SectionGlow position="top" />
@@ -29,7 +29,7 @@ export default function FAQSection() {
             className="mono inline-flex items-center gap-2 mb-4"
             style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
           >
-            <span style={{ opacity: 0.7 }}>§</span> Blatt 06 / Rückfragen
+            <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Rückfragen` : "Rückfragen"}
           </span>
           <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 30 }}>Bevor du fragst.</h2>
         </div>

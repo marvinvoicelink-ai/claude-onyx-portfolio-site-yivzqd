@@ -9,7 +9,7 @@ declare global {
   }
 }
 
-export default function ContactSection() {
+export default function ContactSection({ blatt }: { blatt?: string }) {
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -53,7 +53,7 @@ export default function ContactSection() {
             className="mono inline-flex items-center gap-2 mb-4"
             style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
           >
-            <span style={{ opacity: 0.7 }}>§</span> Blatt 07 / Kontakt
+            <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Kontakt` : "Kontakt"}
           </span>
           <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)", marginBottom: 14 }}>
             Lass uns dein System besprechen.
@@ -131,7 +131,7 @@ export default function ContactSection() {
               opacity: status === "sending" ? 0.6 : 1,
             }}
           >
-            {status === "sending" ? "Wird gesendet …" : "Bewerben"}
+            {status === "sending" ? "Wird gesendet …" : "Nachricht senden"}
           </button>
 
           <p

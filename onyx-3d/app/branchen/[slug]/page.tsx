@@ -125,7 +125,7 @@ export default async function BranchePage({
             {recommended.map((o, i) => (
               <Link
                 key={o.slug}
-                href={`/angebot#${o.slug}`}
+                href={`/angebot/${o.slug}`}
                 className="offering-row flex items-center justify-between gap-3 sm:gap-6 py-6"
                 style={{ borderBottom: "1px solid var(--hairline)" }}
               >

@@ -47,7 +47,7 @@ function StepLabel({ label }: { label: string }) {
   );
 }
 
-export default function RoadmapSection() {
+export default function RoadmapSection({ blatt }: { blatt?: string }) {
   return (
     <section className="py-14 relative overflow-hidden">
       <SectionGlow position="center" />
@@ -56,7 +56,7 @@ export default function RoadmapSection() {
           className="mono inline-flex items-center gap-2 mb-4"
           style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
         >
-          <span style={{ opacity: 0.7 }}>§</span> Blatt 08 / Ablauf
+          <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Ablauf` : "Ablauf"}
         </span>
         <h2 className="mx-auto" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", maxWidth: "22ch", marginBottom: 14 }}>
           Von der Analyse bis zum Go-Live.

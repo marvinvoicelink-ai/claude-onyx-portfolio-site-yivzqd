@@ -33,7 +33,7 @@ export const differentiators: Differentiator[] = [
     w: 754,
     h: 520,
     title: "Volles Eigentum.",
-    subtitle: "Du besitzt Code und Daten - vollständig.",
+    subtitle: "Du besitzt Code und Daten, vollständig.",
     detail:
       "Nach der Übergabe gehört dir jede Zeile Code und jeder Datensatz. Kein Anbieter, der Zugriff behält, Lizenzen verlängert oder Funktionen hinter einer Bezahlschranke versteckt.",
     bullets: [
