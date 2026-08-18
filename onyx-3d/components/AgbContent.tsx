@@ -15,7 +15,16 @@ export default function AgbContent() {
         KI-Agenten, Websites und damit verbundener Leistungen.
       </p>
       <p>
-        (2) Onyx.AI erbringt Leistungen <strong>ausschließlich gegenüber
+        (2) Diese AGB gelten in gleicher Weise für{" "}
+        <strong>Online-Marketing-Leistungen</strong>, insbesondere für Planung,
+        Erstellung, Schaltung und Betreuung von Werbekampagnen (z. B. auf
+        Meta-, Google- oder TikTok-Plattformen), Content-Erstellung,
+        Social-Media-Betreuung, E-Mail- und Outreach-Kampagnen, Markenaufbau
+        sowie Beratung und Auswertung in diesem Bereich. Ergänzend gilt für
+        diese Leistungen § 5.
+      </p>
+      <p>
+        (3) Onyx.AI erbringt Leistungen <strong>ausschließlich gegenüber
         Unternehmern</strong> im Sinne des § 14 BGB, juristischen Personen des
         öffentlichen Rechts und öffentlich-rechtlichen Sondervermögen. Verträge
         mit Verbrauchern im Sinne des § 13 BGB kommen nicht zustande. Der Kunde
@@ -23,14 +32,14 @@ export default function AgbContent() {
         selbständigen beruflichen Tätigkeit zu handeln.
       </p>
       <p>
-        (3) Diese AGB gelten ausschließlich. Abweichende, entgegenstehende oder
+        (4) Diese AGB gelten ausschließlich. Abweichende, entgegenstehende oder
         ergänzende Geschäftsbedingungen des Kunden werden nicht Vertragsinhalt,
         es sei denn, Onyx.AI stimmt ihrer Geltung ausdrücklich in Textform zu.
         Dies gilt auch dann, wenn Onyx.AI in Kenntnis solcher Bedingungen die
         Leistung vorbehaltlos erbringt.
       </p>
       <p>
-        (4) Individuelle Vereinbarungen im Angebot oder im Einzelvertrag haben
+        (5) Individuelle Vereinbarungen im Angebot oder im Einzelvertrag haben
         Vorrang vor diesen AGB.
       </p>
 
@@ -122,7 +131,70 @@ export default function AgbContent() {
         der auf ihn anwendbaren rechtlichen Vorgaben.
       </p>
 
-      <h2>§ 5 Mitwirkungspflichten des Kunden</h2>
+      <h2>§ 5 Besondere Bestimmungen für Online-Marketing-Leistungen</h2>
+      <p>
+        (1) Onyx.AI schuldet bei Online-Marketing-Leistungen die fachgerechte
+        Planung, Erstellung und Durchführung der vereinbarten Maßnahmen als
+        Dienstleistung. <strong>Ein bestimmter wirtschaftlicher Erfolg wird
+        nicht geschuldet.</strong> Insbesondere werden keine bestimmten
+        Reichweiten, Klick-, Anfrage- oder Abschlusszahlen, keine bestimmten
+        Platzierungen, Rankings oder Followerzahlen und keine bestimmten
+        Umsätze zugesagt. Angaben zu erwartbaren Ergebnissen sind
+        unverbindliche Prognosen und keine Garantie.
+      </p>
+      <p>
+        (2) Online-Marketing-Leistungen sind von Plattformen Dritter abhängig
+        (z. B. Meta, Google, TikTok, E-Mail- und Versanddienste). Deren
+        Verfügbarkeit, Richtlinien, Freigabeentscheidungen, Algorithmen und
+        Preise liegen außerhalb des Einflussbereichs von Onyx.AI. Onyx.AI
+        haftet nicht für Ablehnung, Einschränkung oder Sperrung von Anzeigen,
+        Konten oder Inhalten durch eine Plattform, sofern Onyx.AI dies nicht zu
+        vertreten hat.
+      </p>
+      <p>
+        (3) Das Mediabudget (Werbebudget der Plattformen) ist nicht in der
+        Vergütung von Onyx.AI enthalten, sofern nicht ausdrücklich etwas
+        anderes vereinbart ist. Es wird vom Kunden getragen und, soweit nicht
+        anders vereinbart, unmittelbar an die jeweilige Plattform gezahlt. Der
+        Kunde ist für die Deckung der hinterlegten Zahlungsmittel
+        verantwortlich; bei fehlender Deckung ruhen die betroffenen Maßnahmen.
+      </p>
+      <p>
+        (4) Der Kunde stellt Onyx.AI die erforderlichen Zugänge zu seinen
+        Werbe-, Analyse- und Social-Media-Konten zur Verfügung. Diese Konten
+        werden, soweit nicht anders vereinbart, auf den Kunden angelegt bzw.
+        bleiben in seinem Eigentum; Onyx.AI erhält lediglich Zugriffsrechte.
+        Nach Vertragsende werden die Zugriffsrechte von Onyx.AI beendet.
+      </p>
+      <p>
+        (5) Der Kunde ist für die inhaltliche und rechtliche Zulässigkeit der
+        beworbenen Produkte, Leistungen und Aussagen verantwortlich,
+        insbesondere für die Einhaltung des Wettbewerbs-, Marken-, Urheber-,
+        Kennzeichnungs- und ggf. berufs- oder produktspezifischen Werberechts.
+        Onyx.AI schuldet keine rechtliche Prüfung der Werbeaussagen. Erkennt
+        Onyx.AI offensichtliche Rechtsverstöße, wird Onyx.AI den Kunden
+        hierauf hinweisen und ist berechtigt, die Umsetzung bis zur Klärung
+        auszusetzen.
+      </p>
+      <p>
+        (6) Vom Kunden freigegebene Inhalte gelten als genehmigt. Der Kunde
+        stellt Onyx.AI von Ansprüchen Dritter frei, die auf von ihm
+        bereitgestellten oder freigegebenen Inhalten oder auf der Bewerbung
+        seiner Produkte und Leistungen beruhen, soweit Onyx.AI dies nicht zu
+        vertreten hat.
+      </p>
+      <p>
+        (7) Auswertungen und Reportings beruhen auf den Messdaten der
+        eingesetzten Plattformen. Für deren Richtigkeit und Vollständigkeit
+        übernimmt Onyx.AI keine Gewähr. Abweichungen zwischen verschiedenen
+        Messsystemen stellen keinen Mangel dar.
+      </p>
+      <p>
+        (8) Laufende Online-Marketing-Leistungen sind Dauerschuldverhältnisse;
+        für sie gilt § 7 entsprechend.
+      </p>
+
+      <h2>§ 6 Mitwirkungspflichten des Kunden</h2>
       <p>
         (1) Der Kunde stellt Onyx.AI rechtzeitig, vollständig und
         unentgeltlich alle Informationen, Inhalte, Daten, Zugänge und
@@ -146,7 +218,7 @@ export default function AgbContent() {
         verantwortlich, soweit nicht ausdrücklich etwas anderes vereinbart ist.
       </p>
 
-      <h2>§ 6 Vertragslaufzeit und Kündigung</h2>
+      <h2>§ 7 Vertragslaufzeit und Kündigung</h2>
       <p>
         (1) <strong>Haben die Parteien vor Vertragsschluss keine abweichende
         Laufzeit in Textform vereinbart, beträgt die Mindestlaufzeit des
@@ -180,7 +252,7 @@ export default function AgbContent() {
         Erbringung und Abnahme; § 648 BGB bleibt unberührt.
       </p>
 
-      <h2>§ 7 Vergütung, Zahlungsbedingungen, Verzug</h2>
+      <h2>§ 8 Vergütung, Zahlungsbedingungen, Verzug</h2>
       <p>
         (1) Es gelten die im Angebot genannten Preise. Alle Preise verstehen
         sich zuzüglich der jeweils geltenden gesetzlichen Umsatzsteuer.
@@ -213,7 +285,7 @@ export default function AgbContent() {
         ihm nur wegen Ansprüchen aus demselben Vertragsverhältnis zu.
       </p>
 
-      <h2>§ 8 Termine, Abnahme</h2>
+      <h2>§ 9 Termine, Abnahme</h2>
       <p>
         (1) Termine und Fristen sind nur verbindlich, wenn sie ausdrücklich in
         Textform als verbindlich vereinbart wurden.
@@ -234,7 +306,7 @@ export default function AgbContent() {
         Abnahme.
       </p>
 
-      <h2>§ 9 Nutzungsrechte, Übergabe</h2>
+      <h2>§ 10 Nutzungsrechte, Übergabe</h2>
       <p>
         (1) Onyx.AI entwickelt Systeme im White-Label und übergibt sie an den
         Kunden. <strong>Mit vollständiger Zahlung der vereinbarten Vergütung
@@ -266,7 +338,7 @@ export default function AgbContent() {
         allgemeine Know-how für andere Projekte zu nutzen.
       </p>
 
-      <h2>§ 10 Geheimhaltung</h2>
+      <h2>§ 11 Geheimhaltung</h2>
       <p>
         (1) Die Parteien verpflichten sich, alle im Rahmen der
         Zusammenarbeit erlangten vertraulichen Informationen der jeweils
@@ -285,7 +357,7 @@ export default function AgbContent() {
         fort.
       </p>
 
-      <h2>§ 11 Datenschutz</h2>
+      <h2>§ 12 Datenschutz</h2>
       <p>
         (1) Die Parteien beachten die jeweils geltenden datenschutzrechtlichen
         Bestimmungen.
@@ -297,7 +369,7 @@ export default function AgbContent() {
         Fragen vor.
       </p>
 
-      <h2>§ 12 Gewährleistung</h2>
+      <h2>§ 13 Gewährleistung</h2>
       <p>
         (1) Es gelten die gesetzlichen Mängelrechte, soweit nachfolgend nichts
         anderes bestimmt ist.
@@ -326,7 +398,7 @@ export default function AgbContent() {
         Funktionsfähigkeit nicht nur unerheblich beeinträchtigt ist.
       </p>
 
-      <h2>§ 13 Haftung</h2>
+      <h2>§ 14 Haftung</h2>
       <p>
         (1) Onyx.AI haftet unbeschränkt bei Vorsatz und grober Fahrlässigkeit,
         bei arglistigem Verschweigen eines Mangels, bei der Übernahme einer
@@ -362,7 +434,7 @@ export default function AgbContent() {
         Erfüllungsgehilfen und Subunternehmer von Onyx.AI.
       </p>
 
-      <h2>§ 14 Höhere Gewalt</h2>
+      <h2>§ 15 Höhere Gewalt</h2>
       <p>
         Ereignisse höherer Gewalt, die Onyx.AI die Leistung wesentlich
         erschweren oder unmöglich machen, befreien für die Dauer der Störung
@@ -373,7 +445,7 @@ export default function AgbContent() {
         unverzüglich informieren.
       </p>
 
-      <h2>§ 15 Referenznennung</h2>
+      <h2>§ 16 Referenznennung</h2>
       <p>
         Onyx.AI ist berechtigt, den Kunden mit Namen und Logo sowie eine
         allgemeine Beschreibung des Projekts als Referenz zu nennen. Der Kunde
@@ -382,7 +454,7 @@ export default function AgbContent() {
         Details werden nicht veröffentlicht.
       </p>
 
-      <h2>§ 16 Änderungen dieser AGB</h2>
+      <h2>§ 17 Änderungen dieser AGB</h2>
       <p>
         Onyx.AI kann diese AGB mit Wirkung für die Zukunft ändern, soweit dies
         zur Anpassung an geänderte Rechtslage, Rechtsprechung oder technische
@@ -395,7 +467,7 @@ export default function AgbContent() {
         Bedingungen fort.
       </p>
 
-      <h2>§ 17 Schlussbestimmungen</h2>
+      <h2>§ 18 Schlussbestimmungen</h2>
       <p>
         (1) Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss
         des UN-Kaufrechts.

@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "AGB — Onyx.AI",
   description:
-    "Allgemeine Geschäftsbedingungen von Onyx.AI, Marvin Weiß-Drumm — ausschließlich für Geschäftskunden.",
+    "Allgemeine Geschäftsbedingungen von Onyx.AI, Marvin Weiß-Drumm — für Systeme, Automatisierungen, KI-Agenten, Websites und Online-Marketing, ausschließlich für Geschäftskunden.",
 };
 
 export default function AgbPage() {
