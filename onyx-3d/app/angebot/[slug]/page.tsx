@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { offerings, getOffering } from "@/lib/offerings";
 import GlowCard from "@/components/GlowCard";
+import { AliveCase } from "@/components/alive/AliveChrome";
 import CTABanner from "@/components/CTABanner";
 import Footer from "@/components/Footer";
 
@@ -176,6 +177,41 @@ export default async function AngebotDetailPage({
           </div>
         </div>
       </section>
+
+      {offering.referenz && (
+        <>
+          <section className="pt-10 pb-2">
+            <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
+              <span
+                className="mono inline-flex items-center gap-2 mb-3"
+                style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
+              >
+                <span style={{ opacity: 0.7 }}>§</span> Referenz
+              </span>
+              <h2 style={{ fontSize: "clamp(1.5rem, 2.8vw, 2rem)", maxWidth: "26ch" }}>
+                Schon gebaut, nicht nur gedacht.
+              </h2>
+            </div>
+          </section>
+
+          <AliveCase
+            tag={offering.referenz.tag}
+            name={offering.referenz.name}
+            heading={offering.referenz.heading}
+            desc={offering.referenz.desc}
+            bullets={offering.referenz.bullets}
+            image={offering.referenz.image}
+            logo={offering.referenz.logo}
+            imageRight
+          />
+
+          <div className="text-center" style={{ marginTop: -20, marginBottom: 28 }}>
+            <Link href="/referenzen" className="mono" style={{ fontSize: 13, color: "var(--amber)" }}>
+              Alle Referenzen ansehen →
+            </Link>
+          </div>
+        </>
+      )}
 
       <section className="pb-6">
         <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>

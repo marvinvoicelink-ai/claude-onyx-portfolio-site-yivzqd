@@ -13,6 +13,17 @@ export type Offering = {
   painPoints: string[];
   /** Ein durchgespieltes Beispiel aus einem echten Betrieb. */
   beispiel: { title: string; text: string };
+  /** Echter Kundencase, der zu diesem Baustein passt. Bewusst optional —
+      lieber keine Referenz als eine, die nicht wirklich passt. */
+  referenz?: {
+    tag: string;
+    name: string;
+    heading: string;
+    desc: string;
+    bullets: string[];
+    image: string;
+    logo?: string;
+  };
 };
 
 export const offerings: Offering[] = [
@@ -42,6 +53,19 @@ export const offerings: Offering[] = [
       "Weniger Rückfragen per Telefon oder E-Mail",
       "Läuft unter deiner eigenen Marke, nicht als fremdes Tool",
     ],
+    referenz: {
+      tag: "Kundencase · Online-Shop",
+      name: "PawPlace (HWD Handelsagentur)",
+      heading: "Support-Anfragen zentral im Blick statt verstreut in Postfächern.",
+      desc: "Für den Online-Shop PawPlace der HWD Handelsagentur haben wir ein Dashboard gebaut, das Kunden, Bestellstatus und offene Support-Tickets an einem Ort zeigt.",
+      bullets: [
+        "Kundenliste mit Bestellstatus auf einen Blick",
+        "Offene Support-Tickets sofort sichtbar markiert",
+        "Kein Suchen mehr in mehreren Postfächern",
+      ],
+      image: "/generated/pawplace-case.png",
+      logo: "/logos/pawplace.png",
+    },
   },
   {
     slug: "interne-tools",
@@ -69,6 +93,19 @@ export const offerings: Offering[] = [
       "Ersetzt Excel-Listen und Zettelwirtschaft durch ein zentrales Tool",
       "Wächst mit, wenn sich dein Prozess später ändert",
     ],
+    referenz: {
+      tag: "Kundencase · gebaut & übergeben",
+      name: "HausManager Pro",
+      heading: "Vom Excel-Chaos zum eigenen System.",
+      desc: "Für eine Hausverwaltung haben wir ein komplettes CRM von Grund auf entwickelt und vollständig übergeben. Kein Produkt zum Kaufen, sondern ein Beispiel dafür, was für dein Unternehmen möglich ist.",
+      bullets: [
+        "Individuelle Prozessanalyse & Konzept",
+        "Vollständige Entwicklung im Onyx-Standard",
+        "Übergabe von Code, Zugängen & Doku",
+      ],
+      image: "/generated/chaos-to-portal.webp",
+      logo: "/logos/hwp.png",
+    },
   },
   {
     slug: "dashboards",
@@ -96,6 +133,19 @@ export const offerings: Offering[] = [
       "Verständlich aufbereitet, auch ohne Datenanalyse-Hintergrund",
       "Zeigt die Zahlen, die für deinen Betrieb wichtig sind, nicht die aus einer Vorlage",
     ],
+    referenz: {
+      tag: "Kundencase · Herstellung",
+      name: "Haas Wasserkraft",
+      heading: "Materialbestand und Umsatz in einem System statt zwei Baustellen.",
+      desc: "Haas Wasserkraft stellt Filter für sauberes Wasser her. Wir haben ein Tool gebaut, das zeigt, welche Metalle und Produkte gerade fehlen und nachbestellt werden müssen, mit einem kompletten CRM für Umsätze und Kunden dahinter.",
+      bullets: [
+        "Bestandsübersicht mit Warnung bei niedrigem Lagerbestand",
+        "Direkte Nachbestellung aus dem Tool heraus",
+        "CRM mit Umsätzen und Kundenverwaltung im selben System",
+      ],
+      image: "/generated/haas-wasserkraft-case.png",
+      logo: "/logos/haas-wasserkraft.png",
+    },
   },
   {
     slug: "automatisierung",
@@ -123,6 +173,18 @@ export const offerings: Offering[] = [
       "Per Sprache statt Tippen: Notizen und Berichte direkt vom Handy diktieren",
       "Läuft auch in dem ERP oder CRM, das du schon im Einsatz hast",
     ],
+    referenz: {
+      tag: "Kundencase · Automatisierung",
+      name: "WETBlock",
+      heading: "Vom manuellen Versand zur automatisierten Kundenansprache.",
+      desc: "Für WETBlock haben wir den E-Mail-Outreach an ihre Geschäftskunden automatisiert. Vorher musste das Team jede Ansprache von Hand schreiben und verschicken, heute läuft das automatisch.",
+      bullets: [
+        "Automatischer Versand ohne manuelles Schreiben",
+        "Automatisches Nachfassen bei Antworten oder Funkstille",
+        "Zentrale Auswertung, welche Ansprache ankommt",
+      ],
+      image: "/generated/wetblock-case.webp",
+    },
   },
   {
     slug: "terminplanung",
@@ -149,6 +211,19 @@ export const offerings: Offering[] = [
       "Weniger Doppelbuchungen durch eine gemeinsame Datenbasis",
       "Engpässe werden früh sichtbar statt erst im Tagesgeschäft",
     ],
+    referenz: {
+      tag: "Kundencase · Pension & Weinstube",
+      name: "Rebstöckel",
+      heading: "Zimmerbelegung auf einen Blick statt Zettelwirtschaft.",
+      desc: "Für die Pension Rebstöckel haben wir ein Dashboard gebaut, das in Echtzeit zeigt, welche Zimmer frei und welche belegt sind, ohne Excel-Liste oder Buch an der Rezeption.",
+      bullets: [
+        "Zimmerübersicht mit Status frei/belegt in Echtzeit",
+        "Belegungsquote auf einen Blick",
+        "Weniger Doppelbuchungen durch eine zentrale Übersicht",
+      ],
+      image: "/generated/rebstoeckel-case.png",
+      logo: "/logos/rebstoeckel.png",
+    },
   },
   {
     slug: "dokumentenverwaltung",

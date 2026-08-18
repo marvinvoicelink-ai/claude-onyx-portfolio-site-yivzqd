@@ -76,10 +76,10 @@ export default function HeroForeground() {
         <p
           className="mt-6"
           style={{
-            fontSize: "clamp(1.02rem, 1.6vw, 1.18rem)",
+            fontSize: "clamp(1.08rem, 1.7vw, 1.25rem)",
             color: "var(--warm-grey-dim)",
-            lineHeight: 1.65,
-            maxWidth: "48ch",
+            lineHeight: 1.7,
+            maxWidth: "50ch",
           }}
         >
           Der eine Betrieb braucht ein Dashboard. Der nächste jemanden, der

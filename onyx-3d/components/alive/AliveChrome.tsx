@@ -181,7 +181,7 @@ export function AliveHairlineGrid({
 }) {
   const light = background === "light";
   const textMain = light ? "#161104" : undefined;
-  const textDim = light ? "rgba(22,17,4,0.62)" : "var(--warm-grey-dim)";
+  const textDim = light ? "rgba(22,17,4,0.75)" : "var(--warm-grey-dim)";
   const accentColor = light ? "#8a6a1f" : "var(--amber)";
   const cellBg = light ? "#faf8f3" : "var(--near-black)";
   const gridLine = light ? "rgba(22,17,4,0.12)" : "var(--hairline)";
@@ -280,7 +280,7 @@ export function AliveInvertedStatement({
           {statement} <span style={{ color: "#8a6a1f" }}>{highlight}</span>
         </p>
         {sub && (
-          <p style={{ color: "rgba(22,17,4,0.62)", fontSize: "1.05rem", lineHeight: 1.7, marginTop: 24 }}>{sub}</p>
+          <p style={{ color: "rgba(22,17,4,0.75)", fontSize: "1.05rem", lineHeight: 1.7, marginTop: 24 }}>{sub}</p>
         )}
       </Reveal>
     </section>
@@ -573,7 +573,7 @@ export function AliveCase({
   framed?: boolean;
 }) {
   const light = background === "light";
-  const textDim = light ? "rgba(22,17,4,0.62)" : "var(--warm-grey-dim)";
+  const textDim = light ? "rgba(22,17,4,0.75)" : "var(--warm-grey-dim)";
   const tagColor = light ? "#8a6a1f" : "var(--amber)";
   const tagBg = light ? "rgba(138,106,31,0.12)" : "var(--amber-soft)";
   const tagBorder = light ? "rgba(138,106,31,0.35)" : "rgba(232,163,61,0.3)";
