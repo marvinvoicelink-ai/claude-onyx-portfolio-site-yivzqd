@@ -264,8 +264,14 @@ export default function AgbContent() {
         Abs. 3).
       </p>
       <p>
-        (3) Wiederkehrende Vergütungen für laufende Leistungen werden im Voraus
-        für die vereinbarte Abrechnungsperiode berechnet.
+        (3) <strong>Wiederkehrende Vergütungen für laufende Leistungen sind im
+        Voraus zu zahlen, und zwar jeweils im Monat vor dem Leistungsmonat.</strong>{" "}
+        Maßgeblich ist der Kalendertag, der dem Tag des Vertragsschlusses
+        entspricht. Die Vergütung für einen Leistungsmonat ist damit an diesem
+        Tag des vorangehenden Monats fällig — bei einem Vertragsschluss am 18.
+        ist die Vergütung für den Monat September beispielsweise am 18. August
+        fällig. Fehlt der entsprechende Kalendertag in einem Monat, tritt der
+        letzte Tag dieses Monats an seine Stelle.
       </p>
       <p>
         (4) Bei Zahlungsverzug ist Onyx.AI berechtigt, Verzugszinsen in Höhe
