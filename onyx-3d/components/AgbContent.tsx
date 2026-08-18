@@ -274,19 +274,28 @@ export default function AgbContent() {
         letzte Tag dieses Monats an seine Stelle.
       </p>
       <p>
-        (4) Bei Zahlungsverzug ist Onyx.AI berechtigt, Verzugszinsen in Höhe
+        (4) <strong>Zahlt der Kunde nicht innerhalb von zehn (10) Tagen nach
+        Zugang der Rechnung, kommt er ohne weitere Mahnung in Verzug</strong>{" "}
+        (§ 286 Abs. 2 Nr. 2 BGB). Bei wiederkehrenden Vergütungen nach Absatz 3
+        tritt der Verzug ohne Mahnung mit Ablauf des dort bestimmten
+        Fälligkeitstages ein (§ 286 Abs. 2 Nr. 1 BGB). Das Recht von Onyx.AI,
+        den Verzug bereits vorher durch Mahnung herbeizuführen, bleibt
+        unberührt.
+      </p>
+      <p>
+        (5) Bei Zahlungsverzug ist Onyx.AI berechtigt, Verzugszinsen in Höhe
         von neun (9) Prozentpunkten über dem jeweiligen Basiszinssatz sowie
         eine Pauschale von 40 Euro nach § 288 Abs. 5 BGB zu verlangen. Die
         Geltendmachung eines weitergehenden Schadens bleibt vorbehalten.
       </p>
       <p>
-        (5) Befindet sich der Kunde mit fälligen Zahlungen in Verzug, ist
+        (6) Befindet sich der Kunde mit fälligen Zahlungen in Verzug, ist
         Onyx.AI nach vorheriger Ankündigung und angemessener Fristsetzung
         berechtigt, laufende Leistungen bis zum vollständigen Zahlungsausgleich
         auszusetzen. Die Vergütungspflicht des Kunden bleibt hiervon unberührt.
       </p>
       <p>
-        (6) Der Kunde kann nur mit unbestrittenen oder rechtskräftig
+        (7) Der Kunde kann nur mit unbestrittenen oder rechtskräftig
         festgestellten Forderungen aufrechnen. Ein Zurückbehaltungsrecht steht
         ihm nur wegen Ansprüchen aus demselben Vertragsverhältnis zu.
       </p>
