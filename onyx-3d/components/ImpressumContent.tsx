@@ -20,7 +20,11 @@ export default function ImpressumContent() {
       </p>
 
       <h2>Umsatzsteuer</h2>
-      <p>Es wird keine Umsatzsteuer-Identifikationsnummer ausgewiesen.</p>
+      <p>
+        Steuernummer: 43/217/60483
+        <br />
+        Es wird keine Umsatzsteuer-Identifikationsnummer ausgewiesen.
+      </p>
 
       <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
       <p>Marvin Weiß-Drumm (Anschrift wie oben)</p>
