@@ -50,7 +50,7 @@ export default function WhyNowSection({ blatt }: { blatt?: string }) {
   }, [skip]);
 
   return (
-    <section className="py-16" ref={wrapRef}>
+    <section className="py-10" ref={wrapRef}>
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 780 }}>
         <span
           className="mono block mb-4"

@@ -11,7 +11,7 @@ const highlights = [
 /** Short homepage teaser for the Automatisierungen subpage — deliberately compact, the depth lives on /automatisierungen. */
 export default function AutomatisierungenSection({ blatt }: { blatt?: string }) {
   return (
-    <section className="py-14">
+    <section className="py-10">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
           <div>

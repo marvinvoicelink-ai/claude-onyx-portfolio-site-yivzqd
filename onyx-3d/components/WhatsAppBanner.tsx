@@ -14,7 +14,7 @@ const WHATSAPP_HREF =
 /** Standalone mid-page banner pointing people directly at WhatsApp for a personal, no-form contact path. */
 export default function WhatsAppBanner() {
   return (
-    <section className="py-10">
+    <section className="py-7">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
           className="rounded-2xl px-8 py-9 md:px-12 md:py-10 flex flex-col lg:flex-row items-center gap-7"

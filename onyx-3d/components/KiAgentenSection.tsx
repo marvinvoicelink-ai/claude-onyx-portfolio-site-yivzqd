@@ -8,7 +8,7 @@ import { kiAgenten } from "@/lib/kiAgenten";
  */
 export default function KiAgentenSection({ blatt }: { blatt?: string }) {
   return (
-    <section className="py-14">
+    <section className="py-10">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <span
           className="mono inline-flex items-center gap-2 mb-4"
@@ -19,7 +19,7 @@ export default function KiAgentenSection({ blatt }: { blatt?: string }) {
         <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "22ch", marginBottom: 20 }}>
           Bleibt bei dir auch die Telefonarbeit liegen?
         </h2>
-        <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7, maxWidth: "68ch", marginBottom: 44 }}>
+        <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7, maxWidth: "68ch", marginBottom: 28 }}>
           Neben Dashboards, Portalen und internen Tools entwickeln und
           verkaufen wir Telefonagenten, die Telefonarbeit für dich
           übernehmen — genauso im White-Label, genauso vollständig

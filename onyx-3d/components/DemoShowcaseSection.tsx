@@ -28,7 +28,7 @@ const examples = [
 /** Trust block: a working demo already exists per industry and gets shown live in the free Erstgespräch. */
 export default function DemoShowcaseSection({ blatt }: { blatt?: string }) {
   return (
-    <section className="py-14">
+    <section className="py-10">
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 780 }}>
         <span
           className="mono inline-flex items-center gap-2 mb-4"
@@ -47,7 +47,7 @@ export default function DemoShowcaseSection({ blatt }: { blatt?: string }) {
         </p>
       </div>
 
-      <div className="mx-auto px-7" style={{ maxWidth: 980, marginTop: 40 }}>
+      <div className="mx-auto px-7" style={{ maxWidth: 980, marginTop: 26 }}>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {examples.map((ex) => (
             <div key={ex.src} className="text-left">
@@ -71,8 +71,8 @@ export default function DemoShowcaseSection({ blatt }: { blatt?: string }) {
         </div>
       </div>
 
-      <div className="mx-auto px-7 text-center" style={{ maxWidth: 780, marginTop: 36 }}>
-        <ul className="flex flex-col sm:flex-row sm:justify-center gap-x-8 gap-y-2.5 mb-9">
+      <div className="mx-auto px-7 text-center" style={{ maxWidth: 780, marginTop: 24 }}>
+        <ul className="flex flex-col sm:flex-row sm:justify-center gap-x-8 gap-y-2.5 mb-6">
           {bullets.map((b) => (
             <li key={b} className="flex items-center justify-center gap-2.5" style={{ fontSize: "0.96rem", color: "var(--warm-grey-dim)", lineHeight: 1.5 }}>
               <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={15} height={15} style={{ flexShrink: 0 }}>

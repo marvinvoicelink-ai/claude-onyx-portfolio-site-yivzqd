@@ -5,7 +5,7 @@ import { offerings } from "@/lib/offerings";
 /** Editorial row list of offerings — numbered, with a thumbnail per row, divided by hairlines, each linking to its detail on /angebot. */
 export default function OfferingsList({ blatt }: { blatt?: string }) {
   return (
-    <section className="py-14">
+    <section className="py-10">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <span
           className="mono inline-flex items-center gap-2 mb-4"
@@ -16,7 +16,7 @@ export default function OfferingsList({ blatt }: { blatt?: string }) {
         <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "20ch", marginBottom: 16 }}>
           Und das bauen wir dagegen.
         </h2>
-        <p style={{ color: "var(--warm-grey-dim)", maxWidth: "56ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 44 }}>
+        <p style={{ color: "var(--warm-grey-dim)", maxWidth: "56ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 28 }}>
           Sechs Bausteine. Kein Betrieb braucht alle sechs, und wir verkaufen
           dir auch keine, die du nicht brauchst. Klick auf einen, dann siehst
           du, was dahintersteckt.
@@ -27,7 +27,7 @@ export default function OfferingsList({ blatt }: { blatt?: string }) {
             <Link
               key={o.slug}
               href={`/angebot/${o.slug}`}
-              className="offering-row flex items-center justify-between gap-3 sm:gap-6 py-6"
+              className="offering-row flex items-center justify-between gap-3 sm:gap-6 py-5"
               style={{ borderBottom: "1px solid var(--hairline)" }}
             >
               <div className="flex items-center gap-3 sm:gap-6 min-w-0">

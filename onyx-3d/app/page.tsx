@@ -70,21 +70,9 @@ export default function Home() {
                 "Nachweislich über 10.000 € Umsatz pro Monat mit dem neuen Produkt",
               ]}
             />
-            <div className="mx-auto px-7" style={{ maxWidth: 1180, borderTop: "1px solid var(--hairline)" }} />
-            <AliveCase
-              tag="Kundencase · Online-Shop"
-              name="PawPlace (HWD Handelsagentur)"
-              heading="Support-Anfragen zentral im Blick statt verstreut in Postfächern."
-              desc="Für den Online-Shop PawPlace der HWD Handelsagentur haben wir ein Dashboard gebaut, das Kunden, Bestellstatus und offene Support-Tickets an einem Ort zeigt."
-              bullets={[
-                "Kundenliste mit Bestellstatus auf einen Blick",
-                "Offene Support-Tickets sofort sichtbar markiert",
-                "Kein Suchen mehr in mehreren Postfächern",
-              ]}
-              image="/generated/pawplace-case.png"
-              imageRight
-              logo="/logos/pawplace.png"
-            />
+            {/* PawPlace lief hier bis zuletzt als dritter Case. Der Fall steht
+                jetzt als Referenz auf /angebot/kundenportale und stand damit
+                doppelt auf der Seite — auf /referenzen ist er weiterhin dabei. */}
             <div className="text-center">
               <Link
                 href="/referenzen"

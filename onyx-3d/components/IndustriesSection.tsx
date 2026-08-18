@@ -25,7 +25,7 @@ const sortedIndustries = [...industries].sort(
 
 export default function IndustriesSection({ blatt }: { blatt?: string }) {
   return (
-    <section className="py-14 relative overflow-hidden">
+    <section className="py-10 relative overflow-hidden">
       <SectionGlow position="top" />
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 1180 }}>
         <span
@@ -37,7 +37,7 @@ export default function IndustriesSection({ blatt }: { blatt?: string }) {
         <h2 className="mx-auto" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", maxWidth: "26ch", marginBottom: 14 }}>
           Systeme für mittelständische Unternehmen.
         </h2>
-        <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", maxWidth: "62ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 40 }}>
+        <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", maxWidth: "62ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 26 }}>
           Wir arbeiten mit mittelständischen Unternehmen, die aus gewachsenen
           Excel-Landschaften und verstreuten Tools herauswollen. Die Branche
           ist dabei zweitrangig. Entscheidend ist, dass es einen Ablauf gibt,

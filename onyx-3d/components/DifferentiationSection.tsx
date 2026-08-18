@@ -10,9 +10,9 @@ function DiffRow({ d, imageRight }: { d: Differentiator; imageRight: boolean }) 
         alt={`${d.title} ${d.subtitle}`}
         width={d.w}
         height={d.h}
-        sizes="(min-width: 1024px) 340px, 68vw"
+        sizes="(min-width: 1024px) 250px, 56vw"
         className="w-full h-auto block"
-        style={{ maxWidth: 340, filter: "drop-shadow(0 0 30px rgba(232,163,61,0.4))" }}
+        style={{ maxWidth: 250, filter: "drop-shadow(0 0 30px rgba(232,163,61,0.4))" }}
       />
     </div>
   );
@@ -30,12 +30,17 @@ function DiffRow({ d, imageRight }: { d: Differentiator; imageRight: boolean }) 
       >
         {d.title}
       </h3>
-      <p style={{ color: "var(--amber)", fontSize: "1.02rem", lineHeight: 1.5, marginBottom: 14 }}>{d.subtitle}</p>
+      <p style={{ color: "var(--amber)", fontSize: "1.02rem", lineHeight: 1.5, marginBottom: 12 }}>{d.subtitle}</p>
+      {/* Erklaerabsatz stand bisher nur auf /fuer-dich. Neben dem kleineren
+          Bild ist Platz dafuer, sonst tragen die Karten kaum Inhalt. */}
+      <p style={{ color: "var(--warm-grey-dim)", fontSize: "1rem", lineHeight: 1.75, marginBottom: 16, maxWidth: "48ch" }}>
+        {d.detail}
+      </p>
       {/* Auf der Startseite bewusst nur zwei Punkte als Anriss — die vollständige
           Liste steht auf /fuer-dich, sonst steht derselbe Text zweimal auf der Seite. */}
       <ul className="flex flex-col gap-2 mb-5">
         {d.bullets.slice(0, 2).map((b) => (
-          <li key={b} className="flex gap-2.5" style={{ fontSize: "0.94rem", color: "var(--warm-grey-dim)", lineHeight: 1.5 }}>
+          <li key={b} className="flex gap-2.5" style={{ fontSize: "0.98rem", color: "var(--warm-grey-dim)", lineHeight: 1.55 }}>
             <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={14} height={14} style={{ flexShrink: 0, marginTop: 3 }}>
               <path d="M20 6 9 17l-5-5" />
             </svg>
@@ -55,10 +60,10 @@ function DiffRow({ d, imageRight }: { d: Differentiator; imageRight: boolean }) 
   return (
     <Link
       href={`/fuer-dich#${d.slug}`}
-      className="block alive-hover-card rounded-2xl p-6 md:p-8"
+      className="block alive-hover-card rounded-2xl p-5 md:p-6"
       style={{ border: "1px solid transparent" }}
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center text-left">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center text-left">
         {imageRight ? (
           <>
             {body}
@@ -77,7 +82,7 @@ function DiffRow({ d, imageRight }: { d: Differentiator; imageRight: boolean }) 
 
 export default function DifferentiationSection({ blatt }: { blatt?: string }) {
   return (
-    <section className="py-14">
+    <section className="py-10">
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 1180 }}>
         <span
           className="mono inline-flex items-center gap-2 mb-4"
@@ -90,14 +95,14 @@ export default function DifferentiationSection({ blatt }: { blatt?: string }) {
           <br />
           Deine Regeln.
         </h2>
-        <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", maxWidth: "56ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 32 }}>
+        <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", maxWidth: "56ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 24 }}>
           Die meisten Anbieter verkaufen dir ein fertiges Produkt und
           erwarten, dass dein Betrieb sich daran gewöhnt. Bei uns läuft es
           andersherum. Wir bauen um deinen Ablauf herum, mit den Funktionen,
           die du wirklich benutzt, und ohne den Rest.
         </p>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-3">
           {diffs.map((d, i) => (
             <DiffRow key={d.slug} d={d} imageRight={i % 2 === 1} />
           ))}

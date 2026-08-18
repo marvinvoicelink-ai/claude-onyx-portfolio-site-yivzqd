@@ -25,7 +25,7 @@ export default function CTABanner({
   ctaHref?: string;
 }) {
   return (
-    <section className="py-10">
+    <section className="py-7">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
           className="rounded-2xl px-8 py-10 md:px-12 md:py-12 flex flex-col md:flex-row items-center justify-between gap-6"

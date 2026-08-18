@@ -19,7 +19,7 @@ export default function KiAgentenDetail() {
               width={a.w}
               height={a.h}
               className="w-full h-auto block rounded-2xl"
-              style={{ filter: "drop-shadow(0 0 40px rgba(232,163,61,0.35))" }}
+              style={{ maxWidth: 380, filter: "drop-shadow(0 0 40px rgba(232,163,61,0.35))" }}
             />
           </div>
         );

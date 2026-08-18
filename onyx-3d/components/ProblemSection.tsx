@@ -18,15 +18,15 @@ function ProblemRow({ p, imageRight }: { p: Problem; imageRight: boolean }) {
         alt=""
         width={p.w}
         height={p.h}
-        sizes="(min-width: 1024px) 340px, 68vw"
+        sizes="(min-width: 1024px) 250px, 56vw"
         className="w-full h-auto block"
-        style={{ maxWidth: 340, filter: "drop-shadow(0 0 30px rgba(232,163,61,0.35))" }}
+        style={{ maxWidth: 250, filter: "drop-shadow(0 0 30px rgba(232,163,61,0.35))" }}
       />
     </div>
   );
   const body = (
     <div>
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex items-center justify-between mb-3">
         <div
           className="flex items-center justify-center rounded-xl"
           style={{
@@ -46,7 +46,23 @@ function ProblemRow({ p, imageRight }: { p: Problem; imageRight: boolean }) {
       <h3 style={{ fontSize: "1.3rem", marginBottom: 8 }}>
         {p.title} <span className="accent">{p.highlight}</span>
       </h3>
-      <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.98rem", lineHeight: 1.7, marginBottom: 14 }}>{p.desc}</p>
+      <p style={{ color: "var(--warm-grey)", fontSize: "1.05rem", lineHeight: 1.6, marginBottom: 12 }}>{p.desc}</p>
+      {/* Der ausführliche Absatz und die Stichpunkte lagen bisher nur auf
+          /problem. Neben dem verkleinerten Bild ist hier Platz dafür, und der
+          Besucher versteht das Problem, ohne erst weiterklicken zu müssen. */}
+      <p style={{ color: "var(--warm-grey-dim)", fontSize: "1rem", lineHeight: 1.75, marginBottom: 16, maxWidth: "48ch" }}>
+        {p.detail}
+      </p>
+      <ul className="flex flex-col gap-2 mb-5">
+        {p.bullets.map((b) => (
+          <li key={b} className="flex gap-2.5" style={{ fontSize: "0.98rem", color: "var(--warm-grey-dim)", lineHeight: 1.55 }}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={15} height={15} style={{ flexShrink: 0, marginTop: 3 }}>
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+            {b}
+          </li>
+        ))}
+      </ul>
       <span className="mono inline-flex items-center gap-1.5" style={{ fontSize: 12, color: "var(--warm-grey-faint)" }}>
         Mehr erfahren
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={12} height={12}>
@@ -59,10 +75,10 @@ function ProblemRow({ p, imageRight }: { p: Problem; imageRight: boolean }) {
   return (
     <Link
       href={`/problem#${p.slug}`}
-      className="block alive-hover-card rounded-2xl p-6 md:p-8"
+      className="block alive-hover-card rounded-2xl p-5 md:p-6"
       style={{ border: "1px solid transparent" }}
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center text-left">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center text-left">
         {imageRight ? (
           <>
             {body}
@@ -129,7 +145,7 @@ export default function ProblemSection({ blatt }: { blatt?: string }) {
   }, [skip]);
 
   return (
-    <section className="py-14">
+    <section className="py-10">
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 1180 }}>
         <span
           className="mono inline-flex items-center gap-2 mb-4"
@@ -137,30 +153,30 @@ export default function ProblemSection({ blatt }: { blatt?: string }) {
         >
           <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Ausgangslage` : "Ausgangslage"}
         </span>
-        <h2 className="mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "20ch", marginBottom: 16 }}>
+        <h2 className="mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "26ch", marginBottom: 12 }}>
           Kommt dir das bekannt vor?
         </h2>
         <p
           className="mx-auto"
-          style={{ color: "var(--warm-grey-dim)", maxWidth: "54ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 44 }}
+          style={{ color: "var(--warm-grey-dim)", maxWidth: "54ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 28 }}
         >
           Fast jeder Betrieb, mit dem wir sprechen, erkennt sich in mindestens
           zwei dieser fünf Punkte wieder. Meistens sind es drei.
         </p>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-3">
           {problems.map((p, i) => (
             <ProblemRow key={p.slug} p={p} imageRight={i % 2 === 1} />
           ))}
         </div>
 
-        <div className="mt-14 text-center">
+        <div className="mt-6 text-center">
           <h3
             style={{
               fontFamily: "var(--font-archivo), sans-serif",
               fontWeight: 800,
-              fontSize: "clamp(1.7rem, 3.6vw, 2.4rem)",
-              lineHeight: 1.1,
+              fontSize: "clamp(1.4rem, 2.8vw, 1.9rem)",
+              lineHeight: 1.15,
               color: "#ffffff",
               marginBottom: 8,
             }}
@@ -171,7 +187,7 @@ export default function ProblemSection({ blatt }: { blatt?: string }) {
             style={{
               color: "var(--amber)",
               fontSize: "1.05rem",
-              marginBottom: 24,
+              marginBottom: 16,
             }}
           >
             Eins, das du besitzt.
@@ -183,7 +199,7 @@ export default function ProblemSection({ blatt }: { blatt?: string }) {
               width={1600}
               height={635}
               className="w-full h-auto block mx-auto"
-              style={{ filter: "drop-shadow(0 0 40px rgba(232,163,61,0.35))" }}
+              style={{ maxWidth: 620, filter: "drop-shadow(0 0 40px rgba(232,163,61,0.35))" }}
             />
           </div>
         </div>
