@@ -25,7 +25,7 @@ export default function HeroForeground() {
 
   return (
     <div className="relative z-10 w-full px-7" style={{ maxWidth: 1180, margin: "0 auto" }}>
-      <div className="max-w-[560px]">
+      <div className="max-w-[620px]">
         <div
           className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 mono"
           style={{
@@ -62,14 +62,15 @@ export default function HeroForeground() {
         <h1
           className={entered ? "hero-blur-visible" : "hero-blur-hidden"}
           style={{
-            fontSize: "clamp(2.6rem, 5vw, 4rem)",
-            lineHeight: 1.05,
-            maxWidth: "14ch",
+            fontSize: "clamp(2.1rem, 4vw, 3.2rem)",
+            lineHeight: 1.08,
+            maxWidth: "21ch",
           }}
         >
-          Wir bauen dir dein eigenes System.
+          Wir machen nicht alles.
           <br />
-          <span className="accent">Du besitzt es.</span>
+          Wir passen uns <span className="accent">deinen Anforderungen</span>{" "}
+          an.
         </h1>
 
         <p
@@ -81,11 +82,11 @@ export default function HeroForeground() {
             maxWidth: "48ch",
           }}
         >
-          Für mittelständische Unternehmen — egal aus welcher Branche, egal
-          was du brauchst. Vom KI-Agenten, der Anrufe entgegennimmt, bis zum
-          kompletten System wie Dashboard oder CRM: Wir bauen genau das, was
-          dein Unternehmen will. Im White-Label, fertig gebaut, an dich
-          übergeben, auf deiner Infrastruktur, unter deiner Marke.
+          Wir sind keine All-in-One-Agentur. Wir schauen uns an, was in deinem
+          Betrieb wirklich Zeit und Geld kostet — und lösen genau das, mit dem,
+          was wir können: KI-Agenten, Automatisierungen und eigene Systeme wie
+          Dashboard, Portal oder CRM. Im White-Label gebaut, an dich übergeben,
+          auf deiner Infrastruktur, unter deiner Marke.
         </p>
 
         <div className="mt-9">
