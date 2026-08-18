@@ -69,8 +69,8 @@ export default function HeroForeground() {
         >
           Wir machen nicht alles.
           <br />
-          Wir passen uns <span className="accent">deinen Anforderungen</span>{" "}
-          an.
+          Aber wir passen uns{" "}
+          <span className="accent">deinen Anforderungen</span> an.
         </h1>
 
         <p
