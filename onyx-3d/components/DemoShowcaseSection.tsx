@@ -13,15 +13,15 @@ const bullets = [
 const examples = [
   {
     src: "/generated/tablet-handwerk.png",
-    alt: "Tablet-Ansicht eines echten Onyx-Systems: HandwerkSystem-Dashboard für Sanitär, Heizung und Klima",
-    label: "Beispiel: HandwerkSystem",
-    text: "Ein Dashboard für einen Betrieb aus Sanitär, Heizung und Klima. Links die Navigation zu Angeboten, Rechnungen, Finanzen, Kunden, Aufträgen, Lager, Terminen und Mitarbeitern. Oben fünf Kennzahlen auf einen Blick — offene Rechnungen, automatisch versendete Dokumente, laufende Aufträge, Kundenumsatz und knappes Material. Darunter die Liste offener Angebote und Rechnungen mit Status wie „versendet“ oder „überfällig“, und rechts ein Live-Feed, der jede automatische Aktion protokolliert — ein verschicktes Angebot, eine Zahlungserinnerung, ein erkannter Zahlungseingang.",
+    alt: "Tablet-Ansicht eines echten Onyx-Systems: Dashboard mit Angeboten, Rechnungen, Aufträgen und Beständen",
+    label: "Beispiel: Dienstleistungsbetrieb",
+    text: "Links die Navigation zu Angeboten, Rechnungen, Finanzen, Kunden, Aufträgen, Beständen, Terminen und Mitarbeitern. Oben fünf Kennzahlen auf einen Blick: offene Rechnungen, automatisch versendete Dokumente, laufende Aufträge, Kundenumsatz und knappe Bestände. Darunter die Liste offener Angebote und Rechnungen mit Status wie „versendet“ oder „überfällig“. Rechts protokolliert ein Live-Feed jede automatische Aktion, vom verschickten Angebot über die Zahlungserinnerung bis zum erkannten Zahlungseingang.",
   },
   {
     src: "/generated/tablet-garten.png",
-    alt: "Tablet-Ansicht eines echten Onyx-Systems: GartenSystem-Dashboard für Garten- und Landschaftsbau",
-    label: "Beispiel: GartenSystem",
-    text: "Dasselbe Dashboard-Prinzip, für einen Garten- und Landschaftsbaubetrieb umgebaut: Aufträge heißen hier Projekte, von der Neugestaltung eines Hotelgartens bis zur Poolanlage mit Sauna und Terrasse. Gleiche Kennzahlen, gleiche automatisch versendeten Zahlungserinnerungen, gleicher Live-Feed — nur an den Alltag im Garten- und Landschaftsbau statt auf der Baustelle angepasst.",
+    alt: "Tablet-Ansicht eines echten Onyx-Systems: dasselbe Dashboard für ein Unternehmen mit Projektgeschäft",
+    label: "Beispiel: Projektgeschäft",
+    text: "Dasselbe Grundprinzip, für ein Unternehmen mit Projektgeschäft umgebaut. Aufträge heißen hier Projekte und laufen über Wochen statt über Tage. Gleiche Kennzahlen, gleiche automatischen Zahlungserinnerungen, gleicher Live-Feed. Angepasst ist der Wortschatz und was oben steht, weil in einem Projektgeschäft andere Zahlen zählen als im Tagesgeschäft.",
   },
 ];
 
@@ -40,10 +40,9 @@ export default function DemoShowcaseSection({ blatt }: { blatt?: string }) {
           Du siehst dein System, bevor du unterschreibst.
         </h2>
         <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 8, maxWidth: "58ch" }}>
-          Für Handwerksbetriebe, Garten- und Landschaftsbauer und so gut wie
-          jede andere Branche haben wir längst eine Demoversion gebaut. Im
-          kostenlosen Erstgespräch zeigen wir sie dir live — passend zu
-          deinem Bereich, damit du genau weißt, was du kaufst, bevor du dich
+          Für die meisten Branchen haben wir längst eine Demoversion gebaut.
+          Im kostenlosen Erstgespräch zeigen wir sie dir live, passend zu
+          deinem Bereich. Du siehst also, was du bekommst, bevor du dich
           entscheidest.
         </p>
       </div>

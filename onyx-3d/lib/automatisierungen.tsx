@@ -56,11 +56,11 @@ export const automatisierungen: Automatisierung[] = [
     title: "Dokumente & Datenerkennung.",
     subtitle: "Eingangsrechnungen, Lieferscheine und Formulare automatisch auslesen.",
     detail:
-      "Papier und PDFs sind in den meisten Betrieben immer noch Handarbeit: abtippen, zuordnen, ablegen. Wir lassen die KI die Dokumente lesen — Eingangsrechnungen, Lieferscheine, Aufmaße, ausgefüllte Formulare — und die Daten strukturiert dort landen, wo sie hingehören. Was nicht eindeutig ist, wird zur Prüfung vorgelegt statt still falsch verbucht.",
+      "Papier und PDFs sind in den meisten Betrieben immer noch Handarbeit: abtippen, zuordnen, ablegen. Wir lassen die KI die Dokumente lesen — Eingangsrechnungen, Lieferscheine, Verträge, ausgefüllte Formulare — und die Daten strukturiert dort landen, wo sie hingehören. Was nicht eindeutig ist, wird zur Prüfung vorgelegt statt still falsch verbucht.",
     bullets: [
       "Eingangsrechnungen und Lieferscheine werden ausgelesen statt abgetippt",
       "Beträge, Positionen und Lieferanten werden automatisch zugeordnet",
-      "Fotos vom Handy — etwa vom Lieferschein auf der Baustelle — reichen aus",
+      "Ein Foto vom Handy reicht, etwa vom Lieferschein bei der Warenannahme",
       "Unklare Fälle werden zur Prüfung vorgelegt, nicht stillschweigend verbucht",
       "Alles landet strukturiert in deinem System statt in einem Ordner",
     ],
