@@ -2,6 +2,7 @@ import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import Hero from "@/components/Hero";
 import LogoMarquee from "@/components/LogoMarquee";
+import WhyNowSection from "@/components/WhyNowSection";
 import ProblemSection from "@/components/ProblemSection";
 import OfferingsList from "@/components/OfferingsList";
 import KiAgentenSection from "@/components/KiAgentenSection";
@@ -113,6 +114,10 @@ export default function Home() {
 
         <WhatsAppBanner />
 
+        <WheelTransition edge="enter">
+          <WhyNowSection blatt="09" />
+        </WheelTransition>
+
         <CTABanner
           heading="Dein System, gebaut für genau dein Geschäft."
           sub="Kein Baukasten, kein Abo — ein System, das dir gehört."
@@ -121,11 +126,11 @@ export default function Home() {
         />
 
         <WheelTransition edge="exit">
-          <FAQSection blatt="09" />
+          <FAQSection blatt="10" />
         </WheelTransition>
 
         <WheelTransition edge="enter">
-          <ContactSection blatt="10" />
+          <ContactSection blatt="11" />
         </WheelTransition>
 
         <Footer />

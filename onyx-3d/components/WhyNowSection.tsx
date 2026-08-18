@@ -16,7 +16,7 @@ const sentences = [
   "Und du sprichst dabei nicht mit einem Support-Ticket, sondern direkt mit dem Gründer.",
 ];
 
-export default function WhyNowSection() {
+export default function WhyNowSection({ blatt }: { blatt?: string }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const sentenceRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const { skip } = useSkipHeavyMotion();
@@ -61,7 +61,7 @@ export default function WhyNowSection() {
             color: "var(--amber)",
           }}
         >
-          Warum Onyx
+          {blatt ? `Blatt ${blatt} / Warum Onyx` : "Warum Onyx"}
         </span>
         <h2 style={{ fontSize: "clamp(1.7rem, 3.4vw, 2.4rem)", lineHeight: 1.25 }}>
           Warum du mit uns arbeiten solltest —{" "}
