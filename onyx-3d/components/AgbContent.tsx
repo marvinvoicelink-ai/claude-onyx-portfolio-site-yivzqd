@@ -258,10 +258,10 @@ export default function AgbContent() {
         sich zuzüglich der jeweils geltenden gesetzlichen Umsatzsteuer.
       </p>
       <p>
-        (2) Rechnungen sind, sofern im Angebot nichts anderes vereinbart ist,
-        innerhalb von vierzehn (14) Tagen ab Rechnungsdatum ohne Abzug zur
-        Zahlung fällig. Der Vertragsschluss setzt die Zahlung der ersten
-        Rechnung voraus (§ 2 Abs. 3).
+        (2) <strong>Rechnungen sind sofort mit Zugang ohne Abzug zur Zahlung
+        fällig</strong>, sofern im Angebot nichts anderes vereinbart ist. Der
+        Vertragsschluss setzt die Zahlung der ersten Rechnung voraus (§ 2
+        Abs. 3).
       </p>
       <p>
         (3) Wiederkehrende Vergütungen für laufende Leistungen werden im Voraus
