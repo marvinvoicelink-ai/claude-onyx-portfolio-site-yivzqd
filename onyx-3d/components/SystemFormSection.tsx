@@ -47,7 +47,7 @@ export default function SystemFormSection() {
     <section className="py-14">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
-          className="rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 on-dark silver-spill"
+          className="rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 on-dark silver-glow"
           style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
         >
           <div className="relative" style={{ minHeight: 320, aspectRatio: "4 / 3" }}>

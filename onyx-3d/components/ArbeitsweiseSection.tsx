@@ -62,7 +62,7 @@ export default function ArbeitsweiseSection({ blatt }: { blatt?: string }) {
 
         {/* Teil 2: Automatisierungen */}
         <div
-          className="rounded-2xl px-6 py-7 md:px-9 md:py-8 mb-10 on-dark silver-spill"
+          className="rounded-2xl px-6 py-7 md:px-9 md:py-8 mb-10 on-dark silver-glow"
           style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
