@@ -20,7 +20,7 @@ function ProblemRow({ p, imageRight }: { p: Problem; imageRight: boolean }) {
         height={p.h}
         sizes="(min-width: 1024px) 250px, 56vw"
         className="w-full h-auto block"
-        style={{ maxWidth: 250, filter: "drop-shadow(0 0 30px rgba(232,163,61,0.35))" }}
+        style={{ maxWidth: 250, filter: "drop-shadow(0 0 30px rgba(212, 175, 106,0.35))" }}
       />
     </div>
   );
@@ -34,7 +34,7 @@ function ProblemRow({ p, imageRight }: { p: Problem; imageRight: boolean }) {
             height: 42,
             background: "var(--amber-soft)",
             color: "var(--amber)",
-            border: "1px solid rgba(232,163,61,0.3)",
+            border: "1px solid rgba(212, 175, 106,0.3)",
           }}
         >
           {p.icon}
@@ -200,7 +200,7 @@ export default function ProblemSection({ blatt }: { blatt?: string }) {
               width={1600}
               height={635}
               className="w-full h-auto block mx-auto"
-              style={{ maxWidth: 620, filter: "drop-shadow(0 0 40px rgba(232,163,61,0.35))" }}
+              style={{ maxWidth: 620, filter: "drop-shadow(0 0 40px rgba(212, 175, 106,0.35))" }}
             />
           </div>
         </div>

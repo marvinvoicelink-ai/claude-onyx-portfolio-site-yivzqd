@@ -41,7 +41,7 @@ export default function HeroForeground() {
               width: 6,
               height: 6,
               background: "var(--amber)",
-              boxShadow: "0 0 8px 1px rgba(232,163,61,0.6)",
+              boxShadow: "0 0 8px 1px rgba(212, 175, 106,0.6)",
             }}
           />
           Kein Bot — der Gründer antwortet selbst

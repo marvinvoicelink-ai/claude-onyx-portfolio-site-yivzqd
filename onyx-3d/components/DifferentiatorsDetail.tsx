@@ -20,7 +20,7 @@ export default function DifferentiatorsDetail() {
               width={d.w}
               height={d.h}
               className="w-full h-auto block"
-              style={{ filter: "drop-shadow(0 0 40px rgba(232,163,61,0.35))" }}
+              style={{ filter: "drop-shadow(0 0 40px rgba(212, 175, 106,0.35))" }}
             />
           </div>
         );
@@ -34,7 +34,7 @@ export default function DifferentiatorsDetail() {
                 textTransform: "uppercase",
                 color: "var(--amber)",
                 background: "var(--amber-soft)",
-                border: "1px solid rgba(232,163,61,0.3)",
+                border: "1px solid rgba(212, 175, 106,0.3)",
               }}
             >
               Unterschied {String(i + 1).padStart(2, "0")}

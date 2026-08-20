@@ -59,7 +59,7 @@ export default async function BranchePage({
             href={`/downloads/branchen/${industry.slug}.pdf`}
             download
             className="inline-flex items-center gap-2.5 rounded-full px-5 py-2.5 mono"
-            style={{ fontSize: 13, color: "var(--amber)", border: "1px solid rgba(232,163,61,0.3)", background: "var(--amber-soft)" }}
+            style={{ fontSize: 13, color: "var(--amber)", border: "1px solid rgba(212, 175, 106,0.3)", background: "var(--amber-soft)" }}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={15} height={15}>
               <path d="M12 3v13m0 0-4-4m4 4 4-4M4 21h16" />

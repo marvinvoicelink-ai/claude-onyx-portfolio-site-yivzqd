@@ -77,7 +77,7 @@ export default async function AngebotDetailPage({
                 height={offering.h}
                 priority
                 className="w-full h-auto block"
-                style={{ maxWidth: "68%", filter: "drop-shadow(0 0 28px rgba(232,163,61,0.3))" }}
+                style={{ maxWidth: "68%", filter: "drop-shadow(0 0 28px rgba(212, 175, 106,0.3))" }}
               />
             </GlowCard>
           </div>
@@ -140,7 +140,7 @@ export default async function AngebotDetailPage({
 
             <div
               className="rounded-2xl px-7 py-8 md:px-9 md:py-9"
-              style={{ background: "var(--amber-soft)", border: "1px solid rgba(232,163,61,0.3)" }}
+              style={{ background: "var(--amber-soft)", border: "1px solid rgba(212, 175, 106,0.3)" }}
             >
               <span
                 className="mono block mb-4"
