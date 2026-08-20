@@ -11,10 +11,10 @@ export default function GlowCard({ children }: { children: ReactNode }) {
       className="rounded-2xl p-5 sm:p-7 flex items-center justify-center on-dark"
       style={{
         background:
-          "linear-gradient(160deg, rgba(200,204,210,0.07) 0%, rgba(17,17,17,0) 55%), var(--near-black-2)",
+          "linear-gradient(160deg, rgba(203, 203, 201,0.07) 0%, rgba(17,17,17,0) 55%), var(--near-black-2)",
         border: "1px solid var(--silver-line)",
         boxShadow:
-          "0 0 0 1px rgba(200,204,210,0.07), 0 0 36px -6px rgba(200,204,210,0.34), 0 18px 50px -24px rgba(0,0,0,0.85)",
+          "0 0 0 1px rgba(203, 203, 201,0.07), 0 0 36px -6px rgba(203, 203, 201,0.34), 0 18px 50px -24px rgba(0,0,0,0.85)",
       }}
     >
       {children}

@@ -27,9 +27,9 @@
      (Buttons mit dunkler Schrift, Glows). */
   --amber-bright: #e8a33d;
 
-  --silver: #c8ccd2;
-  --silver-glow: rgba(200, 204, 210, 0.34);
-  --silver-line: rgba(200, 204, 210, 0.34);
+  --silver: #cbcbc9;
+  --silver-glow: rgba(203, 203, 201, 0.34);
+  --silver-line: rgba(203, 203, 201, 0.34);
 
   /* Text auf dem hellen Grund — neutral, nicht braeunlich. */
   --warm-grey: #12141a;
@@ -53,7 +53,7 @@
   --warm-grey-faint: rgba(255, 255, 255, 0.58);
   /* Silberne statt warmweisse Kante: gibt jeder dunklen Karte und jedem
      Trenner darin den Silberrand, passend zum Auslauf nach rechts. */
-  --hairline: rgba(200, 204, 210, 0.26);
+  --hairline: rgba(203, 203, 201, 0.26);
   color: var(--warm-grey);
 }
 
@@ -97,7 +97,7 @@ html {
 body {
   background:
     radial-gradient(120% 70% at 88% 0%, rgba(232, 163, 61, 0.07) 0%, rgba(232, 163, 61, 0) 55%),
-    radial-gradient(90% 60% at 8% 12%, rgba(196, 202, 212, 0.34) 0%, rgba(196, 202, 212, 0) 62%),
+    radial-gradient(90% 60% at 8% 12%, rgba(201, 201, 199, 0.34) 0%, rgba(201, 201, 199, 0) 62%),
     linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
   background-attachment: fixed;
   color: var(--warm-grey);
@@ -419,24 +419,24 @@ a {
 @keyframes logo-glow-pulse {
   0%,
   100% {
-    filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(200, 204, 210, 0.35));
+    filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(203, 203, 201, 0.35));
     opacity: 0.78;
   }
   50% {
-    filter: drop-shadow(0 0 18px rgba(200, 204, 210, 0.85));
+    filter: drop-shadow(0 0 18px rgba(203, 203, 201, 0.85));
     opacity: 1;
   }
 }
 
 .logo-flat {
-  filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(200, 204, 210, 0.35));
+  filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(203, 203, 201, 0.35));
   opacity: 0.78;
   transition: opacity 0.3s ease, filter 0.3s ease;
   animation: logo-glow-pulse 5s ease-in-out infinite;
 }
 
 .logo-flat:hover {
-  filter: drop-shadow(0 0 16px rgba(200, 204, 210, 0.8));
+  filter: drop-shadow(0 0 16px rgba(203, 203, 201, 0.8));
   opacity: 1;
   animation-play-state: paused;
 }
@@ -444,7 +444,7 @@ a {
 @media (prefers-reduced-motion: reduce) {
   .logo-flat {
     animation: none;
-    filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(200, 204, 210, 0.4));
+    filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(203, 203, 201, 0.4));
     opacity: 0.85;
   }
 }
@@ -473,19 +473,19 @@ a {
   0%,
   100% {
     box-shadow:
-      0 -1px 10px 0 rgba(200, 204, 210, 0.25),
-      0 1px 10px 0 rgba(200, 204, 210, 0.25);
+      0 -1px 10px 0 rgba(203, 203, 201, 0.25),
+      0 1px 10px 0 rgba(203, 203, 201, 0.25);
   }
   50% {
     box-shadow:
-      0 -1px 22px 2px rgba(200, 204, 210, 0.55),
-      0 1px 22px 2px rgba(200, 204, 210, 0.55);
+      0 -1px 22px 2px rgba(203, 203, 201, 0.55),
+      0 1px 22px 2px rgba(203, 203, 201, 0.55);
   }
 }
 
 .marquee-border-glow {
-  border-top: 1px solid rgba(200, 204, 210, 0.4);
-  border-bottom: 1px solid rgba(200, 204, 210, 0.4);
+  border-top: 1px solid rgba(203, 203, 201, 0.4);
+  border-bottom: 1px solid rgba(203, 203, 201, 0.4);
   animation: marquee-border-glow 5s ease-in-out infinite;
 }
 
@@ -493,8 +493,8 @@ a {
   .marquee-border-glow {
     animation: none;
     box-shadow:
-      0 -1px 14px 0 rgba(200, 204, 210, 0.35),
-      0 1px 14px 0 rgba(200, 204, 210, 0.35);
+      0 -1px 14px 0 rgba(203, 203, 201, 0.35),
+      0 1px 14px 0 rgba(203, 203, 201, 0.35);
   }
 }
 
@@ -758,67 +758,77 @@ main div:has(+ h2) {
 }
 
 /* ---------------------------------------------------------------------------
- * Pulsierender Silberschein um die dunklen Karten
+ * Pulsierender Silberschimmer um die dunklen Karten
  *
- * Derselbe Rhythmus wie der Punkt im Hero-Badge: der Schein atmet langsam
- * zwischen ruhig und hell. Zwei Dinge pulsieren gleichzeitig — der helle
- * Saum, der gegen die dunkle Karte leuchtet, und der kuehle Halo, der gegen
- * das weisse Papier dichter wird. Auf reinem Weiss kann ein Schein nicht
- * heller werden als der Grund; sichtbar wird er ueber den kuehlen Ton.
+ * Drei Lagen, von der Kante nach aussen:
+ *   1. ein heller Saum direkt auf der Kante
+ *   2. das Schwarz der Karte, das weich in den Grund auslaeuft
+ *   3. der silberne Schimmer, der hinter dem Schwarz hervorkommt
  *
- * Bewusst als box-shadow und nicht als Pseudo-Element: das Akkordeon in
- * Blatt 01 hat overflow:hidden, ein Pseudo-Element darin wuerde
- * abgeschnitten. Ein box-shadow liegt ausserhalb der Box und wird vom
- * eigenen overflow nicht beschnitten. Der lange Zyklus von 5s haelt die
- * Repaint-Last niedrig.
+ * Die dunkle Lage ist der Grund, warum der Schimmer ueberhaupt schimmert:
+ * auf reinem Weiss kann nichts heller werden als das Papier, gegen das
+ * ausgelaufene Schwarz dagegen schon. box-shadow malt die erste Angabe
+ * zuoberst, deshalb steht der Saum vorn, das Schwarz in der Mitte und das
+ * Silber zuletzt.
+ *
+ * Bewusst kein Pseudo-Element: das Akkordeon in Blatt 01 hat
+ * overflow:hidden und wuerde es abschneiden. Der lange Zyklus von 5s haelt
+ * die Repaint-Last niedrig.
  * ------------------------------------------------------------------------ */
 @keyframes card-silver-pulse {
   0%,
   100% {
     box-shadow:
-      0 0 0 1px rgba(226, 232, 240, 0.6),
-      0 0 12px 1px rgba(214, 222, 234, 0.55),
-      0 0 44px 6px rgba(186, 196, 212, 0.5),
-      0 0 130px 22px rgba(160, 172, 192, 0.4),
+      0 0 0 1px rgba(236, 236, 234, 0.7),
+      0 0 10px 1px rgba(226, 226, 224, 0.6),
+      0 0 24px 2px rgba(18, 20, 26, 0.42),
+      0 0 62px 10px rgba(18, 20, 26, 0.2),
+      0 0 96px 16px rgba(203, 203, 201, 0.6),
+      0 0 190px 44px rgba(171, 171, 169, 0.42),
       0 26px 60px -34px rgba(18, 20, 26, 0.45);
   }
   50% {
     box-shadow:
-      0 0 0 2px rgba(250, 252, 255, 0.98),
-      0 0 22px 4px rgba(238, 244, 252, 0.95),
-      0 0 74px 14px rgba(196, 207, 224, 0.9),
-      0 0 220px 52px rgba(150, 163, 186, 0.72),
+      0 0 0 2px rgba(252, 252, 250, 0.98),
+      0 0 18px 3px rgba(243, 243, 241, 0.95),
+      0 0 30px 3px rgba(18, 20, 26, 0.55),
+      0 0 76px 12px rgba(18, 20, 26, 0.3),
+      0 0 120px 22px rgba(216, 216, 214, 0.95),
+      0 0 250px 60px rgba(162, 162, 160, 0.72),
       0 26px 60px -34px rgba(18, 20, 26, 0.45);
   }
 }
 
 .silver-glow {
-  border: 1px solid rgba(238, 243, 249, 0.85);
+  border: 1px solid rgba(242, 242, 240, 0.85);
   animation: card-silver-pulse 5s ease-in-out infinite;
 }
 
 @media (max-width: 900px) {
-  /* Auf schmalen Viewports faellt der weite Halo weg, sonst frisst er den
-     ohnehin knappen Rand neben der Karte. Der helle Saum bleibt. */
+  /* Auf schmalen Viewports faellt der weite Schimmer weg, sonst frisst er
+     den ohnehin knappen Rand neben der Karte. Saum und Schwarz bleiben. */
   .silver-glow {
     animation: none;
     box-shadow:
-      0 0 0 1px rgba(244, 248, 252, 0.9),
-      0 0 16px 2px rgba(224, 232, 243, 0.7),
-      0 0 44px 6px rgba(186, 196, 212, 0.45),
+      0 0 0 1px rgba(247, 247, 245, 0.9),
+      0 0 14px 2px rgba(231, 231, 229, 0.7),
+      0 0 26px 2px rgba(18, 20, 26, 0.4),
+      0 0 54px 8px rgba(203, 203, 201, 0.5),
       0 18px 44px -28px rgba(18, 20, 26, 0.45);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* Kein Pulsieren, aber der Schein bleibt — auf mittlerer Staerke. */
+  /* Kein Pulsieren, aber der Schimmer bleibt — auf mittlerer Staerke. */
   .silver-glow {
     animation: none;
     box-shadow:
-      0 0 0 2px rgba(246, 249, 253, 0.92),
-      0 0 18px 3px rgba(232, 239, 248, 0.85),
-      0 0 62px 11px rgba(192, 203, 220, 0.7),
-      0 0 170px 38px rgba(155, 168, 190, 0.55),
+      0 0 0 2px rgba(249, 249, 247, 0.92),
+      0 0 14px 2px rgba(238, 238, 236, 0.85),
+      0 0 27px 3px rgba(18, 20, 26, 0.48),
+      0 0 68px 11px rgba(18, 20, 26, 0.25),
+      0 0 108px 19px rgba(210, 210, 208, 0.8),
+      0 0 220px 52px rgba(167, 167, 165, 0.58),
       0 26px 60px -34px rgba(18, 20, 26, 0.45);
   }
 }

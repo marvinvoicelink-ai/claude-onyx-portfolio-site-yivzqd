@@ -216,7 +216,7 @@ export function AliveHairlineGrid({
                       width: "100%",
                       height: "100%",
                       objectFit: "contain",
-                      filter: light ? "drop-shadow(0 12px 20px rgba(18, 20, 26, 0.18))" : "drop-shadow(0 0 20px rgba(200,204,210,0.26))",
+                      filter: light ? "drop-shadow(0 12px 20px rgba(18, 20, 26, 0.18))" : "drop-shadow(0 0 20px rgba(203, 203, 201,0.26))",
                     }}
                   />
                 </div>

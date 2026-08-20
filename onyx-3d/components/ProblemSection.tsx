@@ -20,7 +20,7 @@ function ProblemRow({ p, imageRight }: { p: Problem; imageRight: boolean }) {
         height={p.h}
         sizes="(min-width: 1024px) 250px, 56vw"
         className="w-full h-auto block"
-        style={{ maxWidth: 250, filter: "drop-shadow(0 0 30px rgba(200,204,210,0.32))" }}
+        style={{ maxWidth: 250, filter: "drop-shadow(0 0 30px rgba(203, 203, 201,0.32))" }}
       />
     </div>
   );
@@ -200,7 +200,7 @@ export default function ProblemSection({ blatt }: { blatt?: string }) {
               width={1600}
               height={635}
               className="w-full h-auto block mx-auto"
-              style={{ maxWidth: 620, filter: "drop-shadow(0 0 40px rgba(200,204,210,0.32))" }}
+              style={{ maxWidth: 620, filter: "drop-shadow(0 0 40px rgba(203, 203, 201,0.32))" }}
             />
           </div>
         </div>

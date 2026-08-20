@@ -27,7 +27,7 @@ export default function SectionGlow({
         maxWidth: "90vw",
         borderRadius: "50%",
         background:
-          "radial-gradient(circle, rgba(200,204,210,0.12) 0%, rgba(200,204,210,0) 70%)",
+          "radial-gradient(circle, rgba(203, 203, 201,0.12) 0%, rgba(203, 203, 201,0) 70%)",
         ...posStyle,
       }}
     />

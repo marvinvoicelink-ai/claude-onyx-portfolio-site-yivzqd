@@ -79,7 +79,7 @@ export default async function AngebotDetailPage({
                 height={offering.h}
                 priority
                 className="w-full h-auto block"
-                style={{ maxWidth: "68%", filter: "drop-shadow(0 0 28px rgba(200,204,210,0.32))" }}
+                style={{ maxWidth: "68%", filter: "drop-shadow(0 0 28px rgba(203, 203, 201,0.32))" }}
               />
             </GlowCard>
           </div>

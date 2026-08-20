@@ -91,7 +91,7 @@ export default function DemoBookingSection() {
           style={{
             background: "var(--near-black-2)",
             border: "1px solid var(--silver-line)",
-            boxShadow: "0 0 44px -10px rgba(200,204,210,0.28)",
+            boxShadow: "0 0 44px -10px rgba(203, 203, 201,0.28)",
           }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] gap-10 lg:gap-14 items-center">
