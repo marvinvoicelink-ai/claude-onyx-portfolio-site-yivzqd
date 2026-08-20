@@ -766,16 +766,18 @@ main div:has(+ h2) {
  * Box, kostet kein Layout und erzeugt kein horizontales Scrollen.
  * ------------------------------------------------------------------------ */
 .silver-spill {
-  border: 1px solid rgba(216, 222, 230, 0.55);
+  border: 1px solid rgba(238, 243, 249, 0.85);
   box-shadow:
-    /* enger, heller Ring direkt an der Kante — das eigentliche "Leuchten" */
-    0 0 0 1px rgba(240, 244, 249, 0.75),
-    0 0 10px 1px rgba(232, 237, 244, 0.95),
-    0 0 30px 4px rgba(206, 214, 226, 0.85),
+    /* Der eigentliche Schimmer: heller Kern von 2px plus weicher Bloom.
+       Eine 1px-Linie liest sich als Haarlinie, erst der Bloom daneben
+       laesst die Kante leuchten. */
+    0 0 0 2px rgba(247, 250, 253, 0.92),
+    0 0 9px 3px rgba(238, 243, 250, 0.95),
+    0 0 26px 6px rgba(208, 217, 230, 0.92),
     /* weiter Halo, der ringsum ins Papier auslaeuft */
-    0 0 80px 12px rgba(170, 180, 197, 0.8),
-    0 0 170px 34px rgba(146, 157, 176, 0.6),
-    0 0 280px 60px rgba(132, 143, 163, 0.35),
+    0 0 70px 14px rgba(166, 178, 198, 0.88),
+    0 0 150px 38px rgba(140, 152, 174, 0.72),
+    0 0 270px 72px rgba(126, 139, 162, 0.45),
     inset 0 1px 0 0 rgba(228, 233, 240, 0.3),
     0 26px 60px -34px rgba(22, 19, 12, 0.45);
 }

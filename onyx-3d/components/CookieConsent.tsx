@@ -78,6 +78,9 @@ export default function CookieConsent() {
 
   return (
     <div
+      /* Kein Lead-Tracking: die Banner-Buttons sind keine Kontaktaufnahme,
+         und ohne Zustimmung ist der Pixel ohnehin nicht geladen. */
+      data-no-lead
       className="fixed left-0 right-0 bottom-0 on-dark"
       style={{
         zIndex: 200,
