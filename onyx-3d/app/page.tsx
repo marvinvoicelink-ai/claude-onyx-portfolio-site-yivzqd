@@ -11,9 +11,7 @@ import SystemFormSection from "@/components/SystemFormSection";
 import ExplainerSection from "@/components/ExplainerSection";
 import IndustriesSection from "@/components/IndustriesSection";
 import DemoShowcaseSection from "@/components/DemoShowcaseSection";
-import RoadmapSection from "@/components/RoadmapSection";
 import WhatsAppBanner from "@/components/WhatsAppBanner";
-import WhyNowSection from "@/components/WhyNowSection";
 import CTABanner from "@/components/CTABanner";
 import FAQSection from "@/components/FAQSection";
 import DemoBookingSection from "@/components/DemoBookingSection";
@@ -111,15 +109,7 @@ export default function Home() {
 
         <DemoShowcaseSection blatt="06" />
 
-        <WheelTransition edge="enter">
-          <RoadmapSection blatt="07" />
-        </WheelTransition>
-
         <WhatsAppBanner />
-
-        <WheelTransition edge="enter">
-          <WhyNowSection blatt="08" />
-        </WheelTransition>
 
         <CTABanner
           heading="Dein System, gebaut für genau dein Geschäft."
@@ -129,13 +119,13 @@ export default function Home() {
         />
 
         <WheelTransition edge="exit">
-          <FAQSection blatt="09" />
+          <FAQSection blatt="07" />
         </WheelTransition>
 
         <DemoBookingSection />
 
         <WheelTransition edge="enter">
-          <ContactSection blatt="10" />
+          <ContactSection blatt="08" />
         </WheelTransition>
 
         <Footer />
