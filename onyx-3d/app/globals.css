@@ -51,7 +51,9 @@
   --warm-grey: #f5f2ec;
   --warm-grey-dim: rgba(245, 242, 236, 0.72);
   --warm-grey-faint: rgba(245, 242, 236, 0.55);
-  --hairline: rgba(245, 242, 236, 0.12);
+  /* Silberne statt warmweisse Kante: gibt jeder dunklen Karte und jedem
+     Trenner darin den Silberrand, passend zum Auslauf nach rechts. */
+  --hairline: rgba(200, 204, 210, 0.26);
   color: var(--warm-grey);
 }
 
@@ -756,27 +758,30 @@ main div:has(+ h2) {
 }
 
 /* ---------------------------------------------------------------------------
- * Silberner Auslauf der dunklen Karten
+ * Silberner Schein um die dunklen Karten
  *
- * Aus der Karte heraus laeuft nach rechts ein weicher Silberschimmer in den
- * hellen Grund. Bewusst als box-shadow: der Schein liegt ausserhalb der Box,
- * ohne Layout, ohne Overflow, ohne zusaetzliches Element. Der zweite Schatten
- * setzt die Karte gleichzeitig sauber vom Papier ab.
+ * Der Schein liegt rundum, nicht nur zu einer Seite: ein enger, heller Saum
+ * direkt an der Kante und darueber ein weiter, weicher Halo, der in den
+ * hellen Grund auslaeuft. Als box-shadow umgesetzt — liegt ausserhalb der
+ * Box, kostet kein Layout und erzeugt kein horizontales Scrollen.
  * ------------------------------------------------------------------------ */
 .silver-spill {
+  border: 1px solid var(--silver-line);
   box-shadow:
-    240px 20px 280px -90px rgba(146, 155, 170, 0.9),
-    120px 8px 170px -70px rgba(178, 186, 198, 0.75),
-    40px 0 80px -50px rgba(200, 204, 210, 0.55),
-    0 26px 60px -34px rgba(22, 19, 12, 0.5);
+    0 0 0 1px rgba(200, 204, 210, 0.16),
+    0 0 34px -4px rgba(200, 204, 210, 0.5),
+    0 0 120px -18px rgba(160, 168, 180, 0.85),
+    inset 0 1px 0 0 rgba(200, 204, 210, 0.18),
+    0 26px 60px -34px rgba(22, 19, 12, 0.45);
 }
 
 @media (max-width: 900px) {
-  /* Auf schmalen Viewports gibt es rechts keinen Platz mehr, in den der
-     Schein laufen koennte — dann bleibt nur der Absetz-Schatten. */
+  /* Auf schmalen Viewports faellt der weite Halo weg, sonst frisst er den
+     ohnehin knappen Rand neben der Karte. */
   .silver-spill {
     box-shadow:
-      0 30px 90px -50px rgba(160, 168, 180, 0.8),
+      0 0 0 1px rgba(200, 204, 210, 0.16),
+      0 0 26px -6px rgba(200, 204, 210, 0.45),
       0 18px 44px -28px rgba(22, 19, 12, 0.45);
   }
 }
