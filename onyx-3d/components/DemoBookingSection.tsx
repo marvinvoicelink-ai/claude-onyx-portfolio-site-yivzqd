@@ -87,7 +87,7 @@ export default function DemoBookingSection() {
     <section className="py-14" ref={ref}>
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
-          className="rounded-[28px] px-7 py-10 md:px-12 md:py-12 on-dark"
+          className="rounded-[28px] px-7 py-10 md:px-12 md:py-12 on-dark silver-spill"
           style={{
             background: "var(--near-black-2)",
             border: "1px solid var(--silver-line)",

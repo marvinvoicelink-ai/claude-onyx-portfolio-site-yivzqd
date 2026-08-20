@@ -11,7 +11,6 @@ import SystemFormSection from "@/components/SystemFormSection";
 import ExplainerSection from "@/components/ExplainerSection";
 import IndustriesSection from "@/components/IndustriesSection";
 import DemoShowcaseSection from "@/components/DemoShowcaseSection";
-import WhatsAppBanner from "@/components/WhatsAppBanner";
 import CTABanner from "@/components/CTABanner";
 import FAQSection from "@/components/FAQSection";
 import DemoBookingSection from "@/components/DemoBookingSection";
@@ -108,8 +107,6 @@ export default function Home() {
         </WheelTransition>
 
         <DemoShowcaseSection blatt="06" />
-
-        <WhatsAppBanner />
 
         <CTABanner
           heading="Dein System, gebaut für genau dein Geschäft."
