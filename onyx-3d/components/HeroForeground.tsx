@@ -59,39 +59,24 @@ export default function HeroForeground() {
           White-Label-Systeme · Bauen &amp; übergeben
         </span>
 
+        {/* Der Nutzen trägt die Headline allein — kein zweiter Claim
+            darunter, der ihr die Wirkung nimmt. */}
         <h1
           className={entered ? "hero-blur-visible" : "hero-blur-hidden"}
           style={{
-            fontSize: "clamp(2.1rem, 4vw, 3.2rem)",
-            lineHeight: 1.08,
+            fontSize: "clamp(2.05rem, 3.8vw, 3rem)",
+            lineHeight: 1.1,
             maxWidth: "21ch",
-          }}
-        >
-          Wir machen nicht alles.
-          <br />
-          Aber wir passen uns{" "}
-          <span className="accent">deinen Anforderungen</span> an.
-        </h1>
-
-        {/* Kurzer Claim zwischen Headline und Fliesstext: sagt in einer Zeile,
-            was der Kunde davon hat, bevor er den Absatz liest. */}
-        <p
-          className="mt-5"
-          style={{
-            fontSize: "clamp(1.15rem, 2vw, 1.45rem)",
-            fontWeight: 700,
-            lineHeight: 1.4,
-            maxWidth: "34ch",
           }}
         >
           Weniger Komplexität im Unternehmen.
           {/* Eigene Zeile, damit der zweite Satz nie mit einem Wort am
               Zeilenende anfaengt — unabhaengig von der Viewport-Breite. */}
           <span className="accent block">Mehr Zeit für das, womit du Geld verdienst.</span>
-        </p>
+        </h1>
 
         <p
-          className="mt-5"
+          className="mt-6"
           style={{
             fontSize: "clamp(1.02rem, 1.6vw, 1.15rem)",
             color: "var(--warm-grey-dim)",

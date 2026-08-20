@@ -19,7 +19,23 @@ const REPEAT = 8;
 export default function LogoMarquee() {
   const track = Array.from({ length: REPEAT }, () => logos).flat();
   return (
-    <section className="marquee-border-glow" style={{ background: "var(--near-black)", padding: "28px 0" }}>
+    <section className="marquee-border-glow" style={{ background: "var(--near-black)", padding: "38px 0 28px" }}>
+      {/* Einordnungssatz direkt ueber den Logos: sagt in einem Satz, was
+          Onyx baut, fuer wen und was am Ende damit passiert. Bewusst leicht
+          gesetzt, damit er die Headline im Hero nicht doppelt. */}
+      <div className="mx-auto px-7 text-center" style={{ maxWidth: 900, marginBottom: 26 }}>
+        <p style={{ fontSize: "clamp(1.02rem, 1.7vw, 1.22rem)", lineHeight: 1.6, color: "var(--warm-grey-dim)" }}>
+          <strong style={{ color: "var(--warm-grey)", fontWeight: 700 }}>Onyx.AI</strong>{" "}
+          baut maßgeschneiderte Systeme für mittelständische Unternehmen —
+          Kundenportale, interne Tools und Dashboards, mit KI und
+          Automatisierung von Anfang an.{" "}
+          <span className="accent">
+            Zugeschnitten auf deinen Ablauf, vollständig übergeben und danach
+            dein Eigentum.
+          </span>
+        </p>
+      </div>
+
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 1180, marginBottom: 20 }}>
         <span className="mono" style={{ fontSize: 11.5, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--warm-grey-faint)" }}>
           Unternehmen, die uns vertrauen
