@@ -1,58 +1,50 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------
- * Zwei Welten, gleiche Variablennamen
+ * Farbtokens — durchgehend dunkler Grund
  *
- * Der Seitengrund ist hell (Papier mit grau-goldenem Verlauf), die Karten
- * und Baender bleiben dunkel. Damit nicht in 50 Dateien Farben umgestellt
- * werden muessen, tragen beide Welten dieselben Variablennamen: :root
- * definiert die Werte fuer den hellen Grund, .on-dark ueberschreibt sie
- * innerhalb dunkler Flaechen wieder mit den hellen Toenen. Jede Komponente
- * benutzt weiter var(--warm-grey-dim) und bekommt automatisch den Ton, der
- * zu ihrem Untergrund passt.
+ * Die Klasse .on-dark aus dem hellen Zwischenstand bleibt bestehen: sie
+ * setzt dieselben Werte noch einmal und ist damit wirkungslos, aber sie
+ * markiert weiterhin die dunklen Flaechen. Wer spaeter wieder auf hell
+ * umstellen will, aendert nur die Werte hier in :root.
  * ------------------------------------------------------------------------ */
 :root {
   --near-black: #111111;
   --near-black-2: #161616;
 
-  /* Heller Grund: neutrales Weiss, kein warmer Stich. */
-  --paper: #ffffff;
-  --paper-2: #f2f3f5;
-
-  /* Gold auf Hell: das helle Amber hat auf Weiss nur 2:1, deshalb hier der
-     dunkle Goldton. Innerhalb von .on-dark wird wieder auf Amber gewechselt. */
-  --amber: #7d6220;
-  --amber-soft: rgba(125, 98, 32, 0.09);
-  /* Amber im Originalton — fuer Flaechen, die auch auf Hell leuchten sollen
-     (Buttons mit dunkler Schrift, Glows). */
+  /* Akzent- und CTA-Farbe auf dunklem Grund */
+  --amber: #e8a33d;
+  --amber-soft: rgba(232, 163, 61, 0.14);
+  /* Gleicher Ton; die Variable bleibt, weil Skip-Link und .btn-amber sie
+     benutzen. Auf dunklem Grund gibt es keinen Unterschied mehr. */
   --amber-bright: #e8a33d;
 
+  /* Silber aus dem Logo — neutralgrau, kein Blaustich. Nur fuer Leuchten:
+     Kartenraender, Bild-Halos, Section-Schein. Nie fuer Text. */
   --silver: #cbcbc9;
   --silver-glow: rgba(203, 203, 201, 0.34);
   --silver-line: rgba(203, 203, 201, 0.34);
 
-  /* Text auf dem hellen Grund — neutral, nicht braeunlich. */
-  --warm-grey: #12141a;
-  --warm-grey-dim: rgba(18, 20, 26, 0.74);
-  --warm-grey-faint: rgba(18, 20, 26, 0.62);
-  --hairline: rgba(18, 20, 26, 0.14);
+  /* Text auf dunklem Grund */
+  --warm-grey: #f5f2ec;
+  --warm-grey-dim: rgba(245, 242, 236, 0.72);
+  --warm-grey-faint: rgba(245, 242, 236, 0.55);
+  --hairline: rgba(203, 203, 201, 0.2);
 
-  /* Feste helle Karte, unabhaengig vom Theme: fuer Stellen, die auf einer
-     dunklen Section bewusst eine helle Flaeche brauchen (Referenz-Cases,
-     Logo-Kacheln). --warm-grey allein reicht dafuer nicht mehr, weil es
-     jetzt je nach Umgebung Text- statt Flaechenfarbe ist. */
-  --plate-light: #ffffff;
+  /* Feste helle Flaeche fuer die Stellen, die bewusst hell sind
+     (Referenz-Cases, Logo-Kacheln, die Karte im Abschlussblock). */
+  --plate-light: #f5f2ec;
 }
 
-/* Dunkle Flaeche: dieselben Namen, wieder die hellen Werte. */
+/* Dunkle Flaeche. Auf dem jetzt durchgehend dunklen Grund identisch mit
+   :root — bleibt als Markierung stehen. */
 .on-dark {
   --amber: #e8a33d;
   --amber-soft: rgba(232, 163, 61, 0.14);
   --warm-grey: #ffffff;
   --warm-grey-dim: rgba(255, 255, 255, 0.74);
   --warm-grey-faint: rgba(255, 255, 255, 0.58);
-  /* Silberne statt warmweisse Kante: gibt jeder dunklen Karte und jedem
-     Trenner darin den Silberrand, passend zum Auslauf nach rechts. */
+  /* Silberne statt warmweisse Kante an Karten und Trennern. */
   --hairline: rgba(203, 203, 201, 0.26);
   color: var(--warm-grey);
 }
@@ -87,19 +79,12 @@
 }
 
 html {
-  background: var(--paper);
+  background: var(--near-black);
   overflow-x: hidden;
 }
 
-/* Der Grund ist kein flaches Weiss: ein kalter Grauverlauf von oben und ein
-   warmer Goldschimmer, der von rechts hereinlaeuft. Beide sehr flach — sie
-   sollen die Flaeche beleben, nicht sichtbar "Verlauf" schreien. */
 body {
-  background:
-    radial-gradient(120% 70% at 88% 0%, rgba(232, 163, 61, 0.07) 0%, rgba(232, 163, 61, 0) 55%),
-    radial-gradient(90% 60% at 8% 12%, rgba(201, 201, 199, 0.34) 0%, rgba(201, 201, 199, 0) 62%),
-    linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
-  background-attachment: fixed;
+  background: var(--near-black);
   color: var(--warm-grey);
   font-family: var(--font-instrument-sans), sans-serif;
   font-size: 17px;
@@ -758,18 +743,11 @@ main div:has(+ h2) {
 }
 
 /* ---------------------------------------------------------------------------
- * Pulsierender Silberschimmer um die dunklen Karten
+ * Pulsierender Silberschimmer um die Karten
  *
- * Drei Lagen, von der Kante nach aussen:
- *   1. ein heller Saum direkt auf der Kante
- *   2. das Schwarz der Karte, das weich in den Grund auslaeuft
- *   3. der silberne Schimmer, der hinter dem Schwarz hervorkommt
- *
- * Die dunkle Lage ist der Grund, warum der Schimmer ueberhaupt schimmert:
- * auf reinem Weiss kann nichts heller werden als das Papier, gegen das
- * ausgelaufene Schwarz dagegen schon. box-shadow malt die erste Angabe
- * zuoberst, deshalb steht der Saum vorn, das Schwarz in der Mitte und das
- * Silber zuletzt.
+ * Auf dunklem Grund braucht es die dunkle Zwischenlage nicht mehr — die
+ * Karte steht ohnehin auf Schwarz. Bleibt der helle Saum an der Kante und
+ * der Halo, der ins Dunkel auslaeuft.
  *
  * Bewusst kein Pseudo-Element: das Akkordeon in Blatt 01 hat
  * overflow:hidden und wuerde es abschneiden. Der lange Zyklus von 5s haelt
@@ -779,56 +757,32 @@ main div:has(+ h2) {
   0%,
   100% {
     box-shadow:
-      0 0 0 1px rgba(236, 236, 234, 0.7),
-      0 0 10px 1px rgba(226, 226, 224, 0.6),
-      0 0 24px 2px rgba(18, 20, 26, 0.42),
-      0 0 62px 10px rgba(18, 20, 26, 0.2),
-      0 0 96px 16px rgba(203, 203, 201, 0.6),
-      0 0 190px 44px rgba(171, 171, 169, 0.42),
-      0 26px 60px -34px rgba(18, 20, 26, 0.45);
+      0 0 0 1px rgba(203, 203, 201, 0.28),
+      0 0 16px 1px rgba(203, 203, 201, 0.2),
+      0 0 60px 8px rgba(203, 203, 201, 0.12),
+      0 26px 60px -34px rgba(0, 0, 0, 0.85);
   }
   50% {
     box-shadow:
-      0 0 0 2px rgba(252, 252, 250, 0.98),
-      0 0 18px 3px rgba(243, 243, 241, 0.95),
-      0 0 30px 3px rgba(18, 20, 26, 0.55),
-      0 0 76px 12px rgba(18, 20, 26, 0.3),
-      0 0 120px 22px rgba(216, 216, 214, 0.95),
-      0 0 250px 60px rgba(162, 162, 160, 0.72),
-      0 26px 60px -34px rgba(18, 20, 26, 0.45);
+      0 0 0 1px rgba(231, 231, 229, 0.6),
+      0 0 26px 3px rgba(216, 216, 214, 0.45),
+      0 0 90px 16px rgba(203, 203, 201, 0.3),
+      0 26px 60px -34px rgba(0, 0, 0, 0.85);
   }
 }
 
 .silver-glow {
-  border: 1px solid rgba(242, 242, 240, 0.85);
+  border: 1px solid var(--silver-line);
   animation: card-silver-pulse 5s ease-in-out infinite;
 }
 
-@media (max-width: 900px) {
-  /* Auf schmalen Viewports faellt der weite Schimmer weg, sonst frisst er
-     den ohnehin knappen Rand neben der Karte. Saum und Schwarz bleiben. */
-  .silver-glow {
-    animation: none;
-    box-shadow:
-      0 0 0 1px rgba(247, 247, 245, 0.9),
-      0 0 14px 2px rgba(231, 231, 229, 0.7),
-      0 0 26px 2px rgba(18, 20, 26, 0.4),
-      0 0 54px 8px rgba(203, 203, 201, 0.5),
-      0 18px 44px -28px rgba(18, 20, 26, 0.45);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  /* Kein Pulsieren, aber der Schimmer bleibt — auf mittlerer Staerke. */
   .silver-glow {
     animation: none;
     box-shadow:
-      0 0 0 2px rgba(249, 249, 247, 0.92),
-      0 0 14px 2px rgba(238, 238, 236, 0.85),
-      0 0 27px 3px rgba(18, 20, 26, 0.48),
-      0 0 68px 11px rgba(18, 20, 26, 0.25),
-      0 0 108px 19px rgba(210, 210, 208, 0.8),
-      0 0 220px 52px rgba(167, 167, 165, 0.58),
-      0 26px 60px -34px rgba(18, 20, 26, 0.45);
+      0 0 0 1px rgba(216, 216, 214, 0.42),
+      0 0 22px 2px rgba(210, 210, 208, 0.3),
+      0 0 74px 12px rgba(203, 203, 201, 0.2),
+      0 26px 60px -34px rgba(0, 0, 0, 0.85);
   }
 }
