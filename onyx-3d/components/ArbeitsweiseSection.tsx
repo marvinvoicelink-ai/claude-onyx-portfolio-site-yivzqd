@@ -117,23 +117,43 @@ export default function ArbeitsweiseSection({ blatt }: { blatt?: string }) {
             Im Detail ansehen →
           </Link>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-          {differentiators.map((d) => (
-            <Link
-              key={d.slug}
-              href={`/fuer-dich#${d.slug}`}
-              className="alive-hover-card rounded-xl px-5 py-5 block"
-              style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
-            >
-              <div className="flex gap-3">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={17} height={17} style={{ flexShrink: 0, marginTop: 4 }}>
-                  <path d="M20 6 9 17l-5-5" />
-                </svg>
-                <div>
-                  <div style={{ fontWeight: 700, fontSize: "1.05rem", marginBottom: 4 }}>{d.title}</div>
-                  <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.96rem", lineHeight: 1.6 }}>{d.subtitle}</p>
-                </div>
+        {/* Bewusst ohne Kartenrahmen: nur Zeichen, Schlagwort, eine Zeile.
+            Die vier Punkte sollen im Vorbeiscrollen lesbar sein, die
+            Ausführung steht auf /fuer-dich. */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-9">
+          {differentiators.map((d, i) => (
+            <Link key={d.slug} href={`/fuer-dich#${d.slug}`} className="block diff-mark">
+              <svg viewBox="0 0 48 48" width={46} height={46} style={{ display: "block", marginBottom: 16 }} aria-hidden>
+                {i === 0 && (
+                  <>
+                    <rect x="2" y="10" width="26" height="26" rx="5" fill="var(--amber)" opacity="0.9" />
+                    <rect x="20" y="16" width="26" height="26" rx="5" fill="var(--amber)" opacity="0.35" />
+                  </>
+                )}
+                {i === 1 && (
+                  <>
+                    <rect x="3" y="3" width="34" height="34" rx="6" fill="var(--amber)" opacity="0.3" />
+                    <rect x="16" y="16" width="29" height="29" rx="6" fill="var(--amber)" opacity="0.9" />
+                  </>
+                )}
+                {i === 2 && (
+                  <>
+                    <rect x="3" y="4" width="42" height="12" rx="4" fill="var(--amber)" opacity="0.9" />
+                    <rect x="3" y="20" width="42" height="12" rx="4" fill="var(--amber)" opacity="0.55" />
+                    <rect x="3" y="36" width="26" height="10" rx="4" fill="var(--amber)" opacity="0.3" />
+                  </>
+                )}
+                {i === 3 && (
+                  <>
+                    <path d="M20 6H10a6 6 0 0 0-6 6v12a6 6 0 0 0 6 6h10" stroke="var(--amber)" strokeWidth="6" fill="none" strokeLinecap="round" opacity="0.9" />
+                    <path d="M30 18h10a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H30" stroke="var(--amber)" strokeWidth="6" fill="none" strokeLinecap="round" opacity="0.35" />
+                  </>
+                )}
+              </svg>
+              <div style={{ fontWeight: 700, fontSize: "clamp(1rem, 1.6vw, 1.12rem)", lineHeight: 1.3, marginBottom: 6 }}>
+                {d.title.replace(/\.$/, "")}
               </div>
+              <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.95rem", lineHeight: 1.55 }}>{d.subtitle}</p>
             </Link>
           ))}
         </div>

@@ -639,3 +639,16 @@ a {
   }
 }
 
+
+/* Viererreihe in der Arbeitsweise-Section: nur Zeichen + Schlagwort, kein
+   Kartenrahmen. Beim Hover hebt sich der Titel in die Akzentfarbe, damit
+   erkennbar bleibt, dass die Punkte anklickbar sind. */
+.diff-mark svg {
+  transition: transform 0.25s ease;
+}
+.diff-mark:hover svg {
+  transform: translateY(-3px);
+}
+.diff-mark:hover > div {
+  color: var(--amber);
+}
