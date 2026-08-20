@@ -118,7 +118,7 @@ export default function TestAlivePage() {
             style={{ fontSize: 12.5, letterSpacing: "0.04em", color: "var(--warm-grey-dim)", border: "1px solid var(--hairline)", borderRadius: 999, padding: "9px 20px" }}
           >
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--amber)" }} />
-            Kein Bot — der Gründer antwortet selbst
+            Kein Account-Manager, direkt zum Chef
           </div>
 
           <h1

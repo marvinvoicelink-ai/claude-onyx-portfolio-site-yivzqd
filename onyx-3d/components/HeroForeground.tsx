@@ -44,7 +44,7 @@ export default function HeroForeground() {
               boxShadow: "0 0 8px 1px rgba(232, 163, 61,0.6)",
             }}
           />
-          Kein Bot — der Gründer antwortet selbst
+          Kein Account-Manager, direkt zum Chef
         </div>
 
         <span
@@ -73,21 +73,37 @@ export default function HeroForeground() {
           <span className="accent">deinen Anforderungen</span> an.
         </h1>
 
+        {/* Kurzer Claim zwischen Headline und Fliesstext: sagt in einer Zeile,
+            was der Kunde davon hat, bevor er den Absatz liest. */}
         <p
-          className="mt-6"
+          className="mt-5"
           style={{
-            fontSize: "clamp(1.08rem, 1.7vw, 1.25rem)",
-            color: "var(--warm-grey-dim)",
-            lineHeight: 1.7,
-            maxWidth: "50ch",
+            fontSize: "clamp(1.15rem, 2vw, 1.45rem)",
+            fontWeight: 700,
+            lineHeight: 1.4,
+            maxWidth: "34ch",
           }}
         >
-          Der eine Betrieb braucht ein Dashboard. Der nächste jemanden, der
-          ans Telefon geht. Wieder ein anderer nur eine Automatisierung, die
-          im Hintergrund läuft und nie wieder auffällt. Wir schauen uns
-          zuerst an, wo bei dir die Zeit verloren geht, und bauen dann das,
-          was dort wirklich etwas ändert. Am Ende gehört es dir: Code, Daten,
-          Zugänge. Gehostet wird bei dir, nicht bei uns.
+          Weniger Komplexität im Unternehmen.
+          {/* Eigene Zeile, damit der zweite Satz nie mit einem Wort am
+              Zeilenende anfaengt — unabhaengig von der Viewport-Breite. */}
+          <span className="accent block">Mehr Zeit für das, womit du Geld verdienst.</span>
+        </p>
+
+        <p
+          className="mt-5"
+          style={{
+            fontSize: "clamp(1.02rem, 1.6vw, 1.15rem)",
+            color: "var(--warm-grey-dim)",
+            lineHeight: 1.7,
+            maxWidth: "52ch",
+          }}
+        >
+          Der eine braucht ein Dashboard. Der nächste jemanden, der ans
+          Telefon geht. Wieder ein anderer nur eine Automatisierung, die im
+          Hintergrund läuft und nie wieder auffällt. Wir schauen zuerst, wo
+          bei dir die Zeit verloren geht, und bauen dann genau das. Am Ende
+          gehört es dir — Code, Daten, Zugänge, gehostet bei dir.
         </p>
 
         <div className="mt-9">

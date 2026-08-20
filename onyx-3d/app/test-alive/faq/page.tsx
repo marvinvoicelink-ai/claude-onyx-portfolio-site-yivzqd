@@ -47,7 +47,7 @@ export default function TestAliveFaqPage() {
 
       <AliveCtaBand
         heading="Noch eine Frage offen?"
-        sub="Kein Bot, keine Warteschlange — der Gründer antwortet selbst."
+        sub="Kein Account-Manager, keine Warteschleife — direkt mit dem Chef."
       />
 
       <Footer />
