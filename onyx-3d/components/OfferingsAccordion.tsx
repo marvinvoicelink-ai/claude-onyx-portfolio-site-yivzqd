@@ -49,7 +49,7 @@ export default function OfferingsAccordion({ blatt }: { blatt?: string }) {
                   aria-expanded={isOpen}
                   className="w-full flex items-center gap-4 px-5 py-5 sm:px-7 text-left"
                   style={{
-                    background: isOpen ? "rgba(212, 175, 106,0.06)" : "transparent",
+                    background: isOpen ? "rgba(232, 163, 61,0.06)" : "transparent",
                     transition: "background 0.2s ease",
                   }}
                 >

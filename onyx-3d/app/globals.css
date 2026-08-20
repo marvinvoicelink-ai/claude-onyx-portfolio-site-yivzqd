@@ -3,12 +3,14 @@
 :root {
   --near-black: #111111;
   --near-black-2: #161616;
-  /* Champagner-Gold aus dem aktuellen Onyx-Logo. Die Variable heisst weiter
-     --amber, damit die rund 170 Verwendungen im Projekt unveraendert bleiben. */
-  --amber: #d4af6a;
-  --amber-soft: rgba(212, 175, 106, 0.14);
-  /* Zweiter Ton aus dem Logo, fuer silberne Akzente verfuegbar. */
+  /* Akzent- und CTA-Farbe: Amber. Traegt Buttons, Kicker, Haken und Links. */
+  --amber: #e8a33d;
+  --amber-soft: rgba(232, 163, 61, 0.14);
+  /* Silber aus dem Logo. Nur fuer Leuchten: Kartenraender, Bild-Halos,
+     Section-Schein. Nie fuer Text oder Buttons — dafuer bleibt Amber. */
   --silver: #c8ccd2;
+  --silver-glow: rgba(200, 204, 210, 0.34);
+  --silver-line: rgba(200, 204, 210, 0.34);
   --warm-grey: #f5f2ec;
   --warm-grey-dim: rgba(245, 242, 236, 0.72);
   --warm-grey-faint: rgba(245, 242, 236, 0.55);
@@ -143,7 +145,7 @@ a {
 }
 
 .nav-dropdown-row:hover {
-  background: rgba(212, 175, 106, 0.1);
+  background: rgba(232, 163, 61, 0.1);
   color: var(--amber) !important;
 }
 
@@ -184,7 +186,7 @@ a {
 }
 
 .btn-ghost:hover {
-  border-color: rgba(212, 175, 106, 0.5);
+  border-color: rgba(232, 163, 61, 0.5);
   background: rgba(245, 242, 236, 0.04);
   transform: translateY(-1px);
 }
@@ -220,10 +222,10 @@ a {
 @keyframes dot-glow {
   0%,
   100% {
-    box-shadow: 0 0 10px 2px rgba(212, 175, 106, 0.55), 0 0 22px 6px rgba(212, 175, 106, 0.22);
+    box-shadow: 0 0 10px 2px rgba(232, 163, 61, 0.55), 0 0 22px 6px rgba(232, 163, 61, 0.22);
   }
   50% {
-    box-shadow: 0 0 20px 6px rgba(212, 175, 106, 1), 0 0 54px 18px rgba(212, 175, 106, 0.65);
+    box-shadow: 0 0 20px 6px rgba(232, 163, 61, 1), 0 0 54px 18px rgba(232, 163, 61, 0.65);
   }
 }
 
@@ -299,7 +301,7 @@ a {
 
 .alive-hover-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(212, 175, 106, 0.4);
+  border-color: rgba(232, 163, 61, 0.4);
   box-shadow: 0 14px 32px -12px rgba(0, 0, 0, 0.5);
 }
 
@@ -361,24 +363,24 @@ a {
 @keyframes logo-glow-pulse {
   0%,
   100% {
-    filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(212, 175, 106, 0.35));
+    filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(200, 204, 210, 0.35));
     opacity: 0.78;
   }
   50% {
-    filter: drop-shadow(0 0 18px rgba(212, 175, 106, 0.85));
+    filter: drop-shadow(0 0 18px rgba(200, 204, 210, 0.85));
     opacity: 1;
   }
 }
 
 .logo-flat {
-  filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(212, 175, 106, 0.35));
+  filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(200, 204, 210, 0.35));
   opacity: 0.78;
   transition: opacity 0.3s ease, filter 0.3s ease;
   animation: logo-glow-pulse 5s ease-in-out infinite;
 }
 
 .logo-flat:hover {
-  filter: drop-shadow(0 0 16px rgba(212, 175, 106, 0.8));
+  filter: drop-shadow(0 0 16px rgba(200, 204, 210, 0.8));
   opacity: 1;
   animation-play-state: paused;
 }
@@ -386,7 +388,7 @@ a {
 @media (prefers-reduced-motion: reduce) {
   .logo-flat {
     animation: none;
-    filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(212, 175, 106, 0.4));
+    filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(200, 204, 210, 0.4));
     opacity: 0.85;
   }
 }
@@ -415,19 +417,19 @@ a {
   0%,
   100% {
     box-shadow:
-      0 -1px 10px 0 rgba(212, 175, 106, 0.25),
-      0 1px 10px 0 rgba(212, 175, 106, 0.25);
+      0 -1px 10px 0 rgba(200, 204, 210, 0.25),
+      0 1px 10px 0 rgba(200, 204, 210, 0.25);
   }
   50% {
     box-shadow:
-      0 -1px 22px 2px rgba(212, 175, 106, 0.55),
-      0 1px 22px 2px rgba(212, 175, 106, 0.55);
+      0 -1px 22px 2px rgba(200, 204, 210, 0.55),
+      0 1px 22px 2px rgba(200, 204, 210, 0.55);
   }
 }
 
 .marquee-border-glow {
-  border-top: 1px solid rgba(212, 175, 106, 0.4);
-  border-bottom: 1px solid rgba(212, 175, 106, 0.4);
+  border-top: 1px solid rgba(200, 204, 210, 0.4);
+  border-bottom: 1px solid rgba(200, 204, 210, 0.4);
   animation: marquee-border-glow 5s ease-in-out infinite;
 }
 
@@ -435,8 +437,8 @@ a {
   .marquee-border-glow {
     animation: none;
     box-shadow:
-      0 -1px 14px 0 rgba(212, 175, 106, 0.35),
-      0 1px 14px 0 rgba(212, 175, 106, 0.35);
+      0 -1px 14px 0 rgba(200, 204, 210, 0.35),
+      0 1px 14px 0 rgba(200, 204, 210, 0.35);
   }
 }
 
@@ -453,7 +455,7 @@ a {
 .alive-logo-card:hover {
   transform: translateZ(60px) scale(1.1);
   box-shadow: 0 30px 55px -18px rgba(0, 0, 0, 0.65);
-  border-color: rgba(212, 175, 106, 0.5) !important;
+  border-color: rgba(232, 163, 61, 0.5) !important;
   z-index: 5;
 }
 
@@ -466,19 +468,19 @@ a {
 @keyframes chip-glow {
   0%,
   100% {
-    border-color: rgba(212, 175, 106, 0.35);
+    border-color: rgba(232, 163, 61, 0.35);
     color: var(--warm-grey);
     box-shadow: none;
     background: transparent;
   }
   35%,
   65% {
-    border-color: rgba(212, 175, 106, 0.95);
+    border-color: rgba(232, 163, 61, 0.95);
     color: var(--amber);
-    background: rgba(212, 175, 106, 0.1);
+    background: rgba(232, 163, 61, 0.1);
     box-shadow:
-      0 0 12px 2px rgba(212, 175, 106, 0.8),
-      0 0 48px 10px rgba(212, 175, 106, 0.5);
+      0 0 12px 2px rgba(232, 163, 61, 0.8),
+      0 0 48px 10px rgba(232, 163, 61, 0.5);
   }
 }
 
@@ -494,7 +496,7 @@ a {
   }
   .chip-glow {
     animation: none;
-    border-color: rgba(212, 175, 106, 0.4) !important;
+    border-color: rgba(232, 163, 61, 0.4) !important;
     color: var(--warm-grey) !important;
   }
 }
@@ -534,7 +536,7 @@ a {
 
 .legal-content a {
   color: var(--amber);
-  border-bottom: 1px solid rgba(212, 175, 106, 0.3);
+  border-bottom: 1px solid rgba(232, 163, 61, 0.3);
   transition: border-color 0.2s ease;
 }
 

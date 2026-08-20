@@ -151,7 +151,7 @@ export default function UeberMichPage() {
             <div
               key={m.name}
               className="rounded-2xl"
-              style={{ boxShadow: "0 0 60px -10px rgba(212, 175, 106,0.45)" }}
+              style={{ boxShadow: "0 0 60px -10px rgba(200,204,210,0.4)" }}
             >
               <div className="rounded-2xl overflow-hidden" style={{ background: "var(--near-black-2)" }}>
                 <div className="relative w-full" style={{ aspectRatio: "3 / 4" }}>

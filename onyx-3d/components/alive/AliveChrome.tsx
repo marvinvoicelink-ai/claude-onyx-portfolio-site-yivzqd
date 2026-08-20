@@ -182,7 +182,7 @@ export function AliveHairlineGrid({
   const light = background === "light";
   const textMain = light ? "#161104" : undefined;
   const textDim = light ? "rgba(22,17,4,0.75)" : "var(--warm-grey-dim)";
-  const accentColor = light ? "#7d6220" : "var(--amber)";
+  const accentColor = light ? "#8a6a1f" : "var(--amber)";
   const cellBg = light ? "#faf8f3" : "var(--near-black)";
   const gridLine = light ? "rgba(22,17,4,0.12)" : "var(--hairline)";
 
@@ -216,7 +216,7 @@ export function AliveHairlineGrid({
                       width: "100%",
                       height: "100%",
                       objectFit: "contain",
-                      filter: light ? "drop-shadow(0 12px 20px rgba(22,17,4,0.18))" : "drop-shadow(0 0 20px rgba(212, 175, 106,0.25))",
+                      filter: light ? "drop-shadow(0 12px 20px rgba(22,17,4,0.18))" : "drop-shadow(0 0 20px rgba(200,204,210,0.26))",
                     }}
                   />
                 </div>
@@ -264,7 +264,7 @@ export function AliveInvertedStatement({
       <Reveal className="mx-auto px-7 text-center" style={{ maxWidth: 780 }}>
         <span
           className="mono block mb-5"
-          style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7d6220" }}
+          style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8a6a1f" }}
         >
           {eyebrow}
         </span>
@@ -277,7 +277,7 @@ export function AliveInvertedStatement({
             color: "#161104",
           }}
         >
-          {statement} <span style={{ color: "#7d6220" }}>{highlight}</span>
+          {statement} <span style={{ color: "#8a6a1f" }}>{highlight}</span>
         </p>
         {sub && (
           <p style={{ color: "rgba(22,17,4,0.75)", fontSize: "1.05rem", lineHeight: 1.7, marginTop: 24 }}>{sub}</p>
@@ -308,7 +308,7 @@ export function AliveCtaBand({
           style={{
             background: image
               ? "var(--near-black-2)"
-              : "radial-gradient(circle at 20% 20%, rgba(212, 175, 106,0.14), transparent 55%), var(--near-black-2)",
+              : "radial-gradient(circle at 20% 20%, rgba(232, 163, 61,0.14), transparent 55%), var(--near-black-2)",
             border: "1px solid var(--hairline)",
           }}
         >
@@ -574,9 +574,9 @@ export function AliveCase({
 }) {
   const light = background === "light";
   const textDim = light ? "rgba(22,17,4,0.75)" : "var(--warm-grey-dim)";
-  const tagColor = light ? "#7d6220" : "var(--amber)";
-  const tagBg = light ? "rgba(125,98,32,0.12)" : "var(--amber-soft)";
-  const tagBorder = light ? "rgba(125,98,32,0.35)" : "rgba(212, 175, 106,0.3)";
+  const tagColor = light ? "#8a6a1f" : "var(--amber)";
+  const tagBg = light ? "rgba(138,106,31,0.12)" : "var(--amber-soft)";
+  const tagBorder = light ? "rgba(138,106,31,0.35)" : "rgba(232, 163, 61,0.3)";
   const headingStyle: React.CSSProperties = light ? { color: "#161104" } : {};
 
   const media = (
@@ -778,7 +778,7 @@ export function AliveTimeline({
           preserveAspectRatio="none"
           style={{ position: "absolute", top: 62, left: 0 }}
         >
-          <line x1={margin} y1={35} x2={TIMELINE_VB_W - margin} y2={35} stroke="rgba(212, 175, 106,0.15)" strokeWidth={2} />
+          <line x1={margin} y1={35} x2={TIMELINE_VB_W - margin} y2={35} stroke="rgba(232, 163, 61,0.15)" strokeWidth={2} />
           <path
             ref={pathRef}
             d={`M ${margin} 35 L ${TIMELINE_VB_W - margin} 35`}
@@ -836,7 +836,7 @@ export function AliveTimeline({
         {steps.map((s, i) => (
           <div key={s.num} className="relative flex gap-4" style={{ paddingBottom: i < steps.length - 1 ? 28 : 0 }}>
             {i < steps.length - 1 && (
-              <div aria-hidden style={{ position: "absolute", left: 9, top: 22, bottom: -6, width: 2, background: "rgba(212, 175, 106,0.3)" }} />
+              <div aria-hidden style={{ position: "absolute", left: 9, top: 22, bottom: -6, width: 2, background: "rgba(232, 163, 61,0.3)" }} />
             )}
             <span
               style={{
@@ -892,7 +892,7 @@ export function AliveIndustryGrid({ items }: { items: string[] }) {
               className="alive-hover-card flex items-center gap-3 rounded-xl px-5 py-4"
               style={{ background: "#fff", border: "1px solid rgba(22,17,4,0.1)" }}
             >
-              <span className="mono" style={{ fontSize: 11.5, color: "#7d6220", flexShrink: 0 }}>
+              <span className="mono" style={{ fontSize: 11.5, color: "#8a6a1f", flexShrink: 0 }}>
                 {String(i + 1).padStart(2, "0")}
               </span>
               <span style={{ fontSize: "0.94rem", color: "#161104", lineHeight: 1.35 }}>{label}</span>

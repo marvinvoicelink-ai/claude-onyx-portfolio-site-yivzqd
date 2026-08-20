@@ -23,9 +23,10 @@ import WheelTransition from "@/components/WheelTransition";
 /**
  * Leseweg der Startseite: zuerst das Angebot ("Das können wir für dich tun"),
  * jeder Baustein direkt anklickbar zu seiner Detailseite. Danach die
- * Ausgangslage als Begründung, dann in einem Block die Arbeitsweise
- * (KI-Agenten, Automatisierungen, Abgrenzung) und im Anschluss der Beweis
- * über die Referenzen. Zum Schluss Einordnung, Ablauf und Kontakt.
+ * Ausgangslage als Begründung und direkt im Anschluss, für wen wir bauen —
+ * damit der Leser sich einordnen kann, bevor die Lösung kommt. Dann in einem
+ * Block die Arbeitsweise (KI-Agenten, Automatisierungen, Abgrenzung) und der
+ * Beweis über die Referenzen. Zum Schluss Ablauf und Kontakt.
  */
 export default function Home() {
   return (
@@ -40,8 +41,13 @@ export default function Home() {
 
         <ProblemSection blatt="02" />
 
+        {/* Direkt hinter der Ausgangslage: erst das Problem, dann die
+            Einordnung, ob der Leser damit gemeint ist. Erst danach die
+            Lösung — vorher weiss er noch nicht, ob sie ihn betrifft. */}
+        <IndustriesSection blatt="03" />
+
         <WheelTransition edge="enter">
-          <ArbeitsweiseSection blatt="03" />
+          <ArbeitsweiseSection blatt="04" />
         </WheelTransition>
 
         <section className="pt-10 pb-2">
@@ -50,7 +56,7 @@ export default function Home() {
               className="mono inline-flex items-center gap-2 mb-4"
               style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
             >
-              <span style={{ opacity: 0.7 }}>§</span> Blatt 04 / Referenzen
+              <span style={{ opacity: 0.7 }}>§</span> Blatt 05 / Referenzen
             </span>
             <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "22ch", marginBottom: 14 }}>
               Schon gebaut. Und übergeben.
@@ -101,8 +107,6 @@ export default function Home() {
         <WheelTransition edge="enter">
           <ExplainerSection />
         </WheelTransition>
-
-        <IndustriesSection blatt="05" />
 
         <DemoShowcaseSection blatt="06" />
 
