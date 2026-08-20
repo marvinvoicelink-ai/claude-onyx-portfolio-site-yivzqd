@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { trackLead } from "@/lib/trackLead";
 
@@ -146,17 +147,33 @@ export default function DemoBookingSection() {
               <div className="flex items-start justify-between gap-4" style={rise(0)}>
                 <div>
                   <div style={{ fontFamily: "var(--font-archivo), sans-serif", fontWeight: 700, fontSize: "clamp(1.15rem, 2.2vw, 1.5rem)", color: "#161104", lineHeight: 1.2 }}>
-                    Guten Tag, Max Mustermann!
+                    Guten Tag, Marvin!
                   </div>
                   <div className="mono" style={{ fontSize: 12.5, color: "rgba(22,17,4,0.55)", marginTop: 4 }}>
-                    ONX-000173
+                    ONX-000001 · Gründer
                   </div>
                 </div>
+                {/* Echtes Portrait statt Stockfoto: das Kuerzel wirkte wie ein
+                    Platzhalter. objectPosition oben, weil das Bild ganzkoerper
+                    ist und im Kreis sonst nur der Oberkoerper zu sehen waere. */}
                 <span
-                  className="mono flex items-center justify-center rounded-full flex-shrink-0"
-                  style={{ width: 46, height: 46, background: "rgba(138,106,31,0.16)", color: "#7d6220", fontSize: 15, fontWeight: 700 }}
+                  className="relative rounded-full overflow-hidden flex-shrink-0 block"
+                  style={{ width: 56, height: 56, background: "rgba(22,17,4,0.08)" }}
                 >
-                  MM
+                  <Image
+                    src="/assets/marvin-portrait.jpg"
+                    alt="Marvin Weiß-Drumm, Gründer von Onyx.AI"
+                    fill
+                    sizes="56px"
+                    style={{
+                      objectFit: "cover",
+                      objectPosition: "50% 2%",
+                      // Ganzkoerperbild: ohne Zoom auf den Kopf bleibt im
+                      // 56px-Kreis nur eine winzige Person uebrig.
+                      transform: "scale(1.9)",
+                      transformOrigin: "50% 36%",
+                    }}
+                  />
                 </span>
               </div>
 
