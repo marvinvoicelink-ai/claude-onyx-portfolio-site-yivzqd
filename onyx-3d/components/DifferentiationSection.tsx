@@ -61,7 +61,7 @@ function DiffRow({ d, imageRight }: { d: Differentiator; imageRight: boolean }) 
     <Link
       href={`/fuer-dich#${d.slug}`}
       className="block alive-hover-card rounded-2xl p-5 md:p-6"
-      style={{ border: "1px solid transparent" }}
+      style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center text-left">
         {imageRight ? (
