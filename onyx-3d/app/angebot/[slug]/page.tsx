@@ -105,10 +105,12 @@ export default async function AngebotDetailPage({
                 className="rounded-xl px-6 py-6 on-dark"
                 style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
               >
-                <span className="mono block mb-3" style={{ fontSize: 13, color: "var(--warm-grey-faint)" }}>
+                <span className="mono block mb-3" style={{ fontSize: 13, color: "var(--amber)" }}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.98rem", lineHeight: 1.6 }}>{p}</p>
+                {/* Volle Helligkeit statt gedimmt: die Ausgangslage ist der
+                    Einstieg der Seite und soll ohne Anstrengung lesbar sein. */}
+                <p style={{ color: "var(--warm-grey)", fontSize: "0.98rem", lineHeight: 1.6 }}>{p}</p>
               </div>
             ))}
           </div>
