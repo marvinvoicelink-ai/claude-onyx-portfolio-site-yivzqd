@@ -46,7 +46,7 @@ export default function SystemFormSection() {
     <section className="py-14">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
-          className="rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2"
+          className="rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 on-dark"
           style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
         >
           <div className="relative" style={{ minHeight: 320, aspectRatio: "4 / 3" }}>
@@ -94,7 +94,7 @@ export default function SystemFormSection() {
                       name={field}
                       required
                       autoComplete={field}
-                      className="w-full rounded-[10px] px-4 py-3"
+                      className="w-full rounded-[10px] px-4 py-3 on-dark"
                       style={{
                         background: "var(--near-black)",
                         border: "1px solid var(--hairline)",

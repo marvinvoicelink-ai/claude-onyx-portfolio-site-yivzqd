@@ -44,7 +44,7 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
   return (
     <section
       id="kontakt"
-      className="py-14"
+      className="py-14 on-dark"
       style={{ background: "var(--near-black-2)" }}
     >
       <div className="mx-auto px-7" style={{ maxWidth: 720 }}>
@@ -89,7 +89,7 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
                   name={field}
                   required
                   autoComplete={field}
-                  className="w-full rounded-[10px] px-4 py-3"
+                  className="w-full rounded-[10px] px-4 py-3 on-dark"
                   style={{
                     background: "var(--near-black)",
                     border: "1px solid var(--hairline)",
@@ -109,7 +109,7 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
               name="message"
               rows={4}
               required
-              className="w-full rounded-[10px] px-4 py-3"
+              className="w-full rounded-[10px] px-4 py-3 on-dark"
               style={{
                 background: "var(--near-black)",
                 border: "1px solid var(--hairline)",

@@ -12,7 +12,7 @@ function Dot({ delay = 0 }: { delay?: number }) {
   return (
     <span
       aria-hidden
-      className="dot-glow"
+      className="dot-glow on-dark"
       style={{
         position: "relative",
         display: "block",
@@ -39,7 +39,7 @@ function Dot({ delay = 0 }: { delay?: number }) {
 function StepLabel({ label }: { label: string }) {
   return (
     <div
-      className="rounded-lg px-4 py-2.5"
+      className="rounded-lg px-4 py-2.5 on-dark"
       style={{ border: "1px solid rgba(232, 163, 61,0.4)", background: "var(--near-black-2)", whiteSpace: "nowrap" }}
     >
       <span style={{ fontWeight: 700, fontSize: "0.92rem" }}>{label}</span>

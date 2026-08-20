@@ -78,7 +78,7 @@ export default async function BranchePage({
             {industry.capabilities.map((c) => (
               <div
                 key={c}
-                className="flex items-start gap-3 rounded-xl px-5 py-4"
+                className="flex items-start gap-3 rounded-xl px-5 py-4 on-dark"
                 style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
               >
                 <svg
@@ -126,7 +126,7 @@ export default async function BranchePage({
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div
-                    className="rounded-xl overflow-hidden flex-shrink-0 w-[72px] h-[52px] sm:w-[168px] sm:h-[118px]"
+                    className="rounded-xl overflow-hidden flex-shrink-0 w-[72px] h-[52px] sm:w-[168px] sm:h-[118px] on-dark"
                     style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
                   >
                     <div className="relative w-full h-full">

@@ -1,20 +1,64 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+ * Zwei Welten, gleiche Variablennamen
+ *
+ * Der Seitengrund ist hell (Papier mit grau-goldenem Verlauf), die Karten
+ * und Baender bleiben dunkel. Damit nicht in 50 Dateien Farben umgestellt
+ * werden muessen, tragen beide Welten dieselben Variablennamen: :root
+ * definiert die Werte fuer den hellen Grund, .on-dark ueberschreibt sie
+ * innerhalb dunkler Flaechen wieder mit den hellen Toenen. Jede Komponente
+ * benutzt weiter var(--warm-grey-dim) und bekommt automatisch den Ton, der
+ * zu ihrem Untergrund passt.
+ * ------------------------------------------------------------------------ */
 :root {
   --near-black: #111111;
   --near-black-2: #161616;
-  /* Akzent- und CTA-Farbe: Amber. Traegt Buttons, Kicker, Haken und Links. */
-  --amber: #e8a33d;
-  --amber-soft: rgba(232, 163, 61, 0.14);
-  /* Silber aus dem Logo. Nur fuer Leuchten: Kartenraender, Bild-Halos,
-     Section-Schein. Nie fuer Text oder Buttons — dafuer bleibt Amber. */
+
+  /* Heller Grund */
+  --paper: #faf8f4;
+  --paper-2: #f1ece2;
+
+  /* Gold auf Hell: das helle Amber hat auf Weiss nur 2:1, deshalb hier der
+     dunkle Goldton. Innerhalb von .on-dark wird wieder auf Amber gewechselt. */
+  --amber: #7d6220;
+  --amber-soft: rgba(125, 98, 32, 0.09);
+  /* Amber im Originalton — fuer Flaechen, die auch auf Hell leuchten sollen
+     (Buttons mit dunkler Schrift, Glows). */
+  --amber-bright: #e8a33d;
+
   --silver: #c8ccd2;
   --silver-glow: rgba(200, 204, 210, 0.34);
   --silver-line: rgba(200, 204, 210, 0.34);
+
+  /* Text auf dem hellen Grund */
+  --warm-grey: #16130c;
+  --warm-grey-dim: rgba(22, 19, 12, 0.74);
+  --warm-grey-faint: rgba(22, 19, 12, 0.62);
+  --hairline: rgba(22, 19, 12, 0.14);
+
+  /* Feste helle Karte, unabhaengig vom Theme: fuer Stellen, die auf einer
+     dunklen Section bewusst eine helle Flaeche brauchen (Referenz-Cases,
+     Logo-Kacheln). --warm-grey allein reicht dafuer nicht mehr, weil es
+     jetzt je nach Umgebung Text- statt Flaechenfarbe ist. */
+  --plate-light: #f5f2ec;
+}
+
+/* Dunkle Flaeche: dieselben Namen, wieder die hellen Werte. */
+.on-dark {
+  --amber: #e8a33d;
+  --amber-soft: rgba(232, 163, 61, 0.14);
   --warm-grey: #f5f2ec;
   --warm-grey-dim: rgba(245, 242, 236, 0.72);
   --warm-grey-faint: rgba(245, 242, 236, 0.55);
   --hairline: rgba(245, 242, 236, 0.12);
+  color: var(--warm-grey);
+}
+
+.on-dark h1,
+.on-dark h2,
+.on-dark h3 {
+  color: var(--warm-grey);
 }
 
 * {
@@ -41,12 +85,19 @@
 }
 
 html {
-  background: var(--near-black);
+  background: var(--paper);
   overflow-x: hidden;
 }
 
+/* Der Grund ist kein flaches Weiss: ein kalter Grauverlauf von oben und ein
+   warmer Goldschimmer, der von rechts hereinlaeuft. Beide sehr flach — sie
+   sollen die Flaeche beleben, nicht sichtbar "Verlauf" schreien. */
 body {
-  background: var(--near-black);
+  background:
+    radial-gradient(120% 70% at 88% 0%, rgba(232, 163, 61, 0.16) 0%, rgba(232, 163, 61, 0) 58%),
+    radial-gradient(90% 60% at 8% 12%, rgba(200, 204, 210, 0.3) 0%, rgba(200, 204, 210, 0) 62%),
+    linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+  background-attachment: fixed;
   color: var(--warm-grey);
   font-family: var(--font-instrument-sans), sans-serif;
   font-size: 17px;
@@ -101,7 +152,7 @@ a {
   left: 12px;
   top: -60px;
   z-index: 100;
-  background: var(--amber);
+  background: var(--amber-bright);
   color: #161104;
   font-weight: 600;
   padding: 10px 18px;
@@ -693,4 +744,13 @@ main div:has(+ h1),
 main div:has(+ h2) {
   display: flex;
   justify-content: center;
+}
+
+
+/* Gefuellte Amber-Buttons tragen immer den hellen Goldton: auf dem hellen
+   Grund waere var(--amber) das dunkle Gold, und dunkle Schrift darauf faellt
+   unter den Mindestkontrast. Als Flaeche funktioniert Amber auf beiden
+   Untergruenden. Inline-Styles setzen background, deshalb !important. */
+.btn-amber {
+  background: var(--amber-bright) !important;
 }

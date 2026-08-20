@@ -21,7 +21,7 @@ const REPEAT = 8;
 export default function LogoMarquee() {
   const track = Array.from({ length: REPEAT }, () => logos).flat();
   return (
-    <section className="marquee-border-glow" style={{ background: "var(--near-black)", padding: "38px 0 28px" }}>
+    <section className="marquee-border-glow on-dark" style={{ background: "var(--near-black)", padding: "38px 0 28px" }}>
       {/* Einordnungssatz direkt ueber den Logos: sagt in einem Satz, was
           Onyx baut, fuer wen und was am Ende damit passiert. Bewusst leicht
           gesetzt, damit er die Headline im Hero nicht doppelt. */}

@@ -61,7 +61,7 @@ export default function ExplainerSection() {
             />
           </div>
           <div
-            className="relative rounded-2xl w-full"
+            className="relative rounded-2xl w-full on-dark"
             style={{
               padding: 10,
               background: "var(--near-black)",

@@ -43,7 +43,7 @@ export default function MobileNav() {
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
         className="inline-flex items-center justify-center"
-        style={{ width: 36, height: 36, color: "#ffffff" }}
+        style={{ width: 36, height: 36, color: "var(--warm-grey)" }}
       >
         {open ? (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={22} height={22}>
@@ -59,7 +59,7 @@ export default function MobileNav() {
       {mounted && open &&
         createPortal(
           <div
-            className="fixed left-0 right-0 overflow-y-auto"
+            className="fixed left-0 right-0 overflow-y-auto on-dark"
             style={{
               top: 80,
               bottom: 0,
@@ -75,7 +75,7 @@ export default function MobileNav() {
                   onClick={() => setOpen(false)}
                   aria-current={pathname === l.href ? "page" : undefined}
                   className="mobile-nav-row"
-                  style={{ color: pathname === l.href ? "var(--amber)" : "#ffffff" }}
+                  style={{ color: pathname === l.href ? "var(--amber)" : "var(--warm-grey)" }}
                 >
                   {l.label}
                 </Link>
@@ -93,7 +93,7 @@ export default function MobileNav() {
                   href={l.href}
                   onClick={() => setOpen(false)}
                   className="mobile-nav-row"
-                  style={{ color: "#ffffff" }}
+                  style={{ color: "var(--warm-grey)" }}
                 >
                   {l.label}
                 </Link>
@@ -108,7 +108,7 @@ export default function MobileNav() {
                     onClick={() => setOpen(false)}
                     aria-current={active ? "page" : undefined}
                     className="mobile-nav-row"
-                    style={{ color: active ? "var(--amber)" : "#ffffff" }}
+                    style={{ color: active ? "var(--amber)" : "var(--warm-grey)" }}
                   >
                     {l.label}
                   </Link>

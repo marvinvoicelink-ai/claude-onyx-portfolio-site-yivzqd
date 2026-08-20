@@ -54,7 +54,7 @@ export default function IndustriesSection({ blatt }: { blatt?: string }) {
             <Link
               key={industry.slug}
               href={`/branchen/${industry.slug}`}
-              className="alive-hover-card flex items-center gap-3 rounded-xl px-5 py-4 text-left"
+              className="alive-hover-card flex items-center gap-3 rounded-xl px-5 py-4 text-left on-dark"
               style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
             >
               <span className="mono" style={{ fontSize: 11.5, color: "var(--amber)", flexShrink: 0 }}>

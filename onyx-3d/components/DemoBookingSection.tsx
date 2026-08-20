@@ -87,7 +87,7 @@ export default function DemoBookingSection() {
     <section className="py-14" ref={ref}>
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
-          className="rounded-[28px] px-7 py-10 md:px-12 md:py-12"
+          className="rounded-[28px] px-7 py-10 md:px-12 md:py-12 on-dark"
           style={{
             background: "var(--near-black-2)",
             border: "1px solid var(--silver-line)",
@@ -140,7 +140,7 @@ export default function DemoBookingSection() {
             <div
               className="rounded-2xl p-5 sm:p-7 text-left"
               style={{
-                background: "var(--warm-grey)",
+                background: "var(--plate-light)",
                 boxShadow: "0 24px 60px -28px rgba(0,0,0,0.9)",
               }}
             >
@@ -149,7 +149,7 @@ export default function DemoBookingSection() {
                   <div style={{ fontFamily: "var(--font-archivo), sans-serif", fontWeight: 700, fontSize: "clamp(1.15rem, 2.2vw, 1.5rem)", color: "#161104", lineHeight: 1.2 }}>
                     Guten Tag, Marvin!
                   </div>
-                  <div className="mono" style={{ fontSize: 12.5, color: "rgba(22,17,4,0.55)", marginTop: 4 }}>
+                  <div className="mono" style={{ fontSize: 12.5, color: "rgba(22,17,4,0.64)", marginTop: 4 }}>
                     ONX-000001 · Gründer
                   </div>
                 </div>
@@ -183,7 +183,7 @@ export default function DemoBookingSection() {
                     <div style={{ fontFamily: "var(--font-archivo), sans-serif", fontWeight: 700, fontSize: "1.9rem", color: "#161104", lineHeight: 1 }}>
                       <Counter to={k.value} run={step >= 1} />
                     </div>
-                    <div style={{ fontSize: "0.9rem", color: "rgba(22,17,4,0.62)", marginTop: 5 }}>{k.label}</div>
+                    <div style={{ fontSize: "0.9rem", color: "rgba(22,17,4,0.68)", marginTop: 5 }}>{k.label}</div>
                   </div>
                 ))}
               </div>
@@ -200,7 +200,7 @@ export default function DemoBookingSection() {
                     </svg>
                     <div>
                       <div style={{ fontSize: "0.95rem", fontWeight: 600, color: "#161104", lineHeight: 1.35 }}>{r.t}</div>
-                      <div className="mono" style={{ fontSize: 11.5, color: "rgba(22,17,4,0.55)", marginTop: 2 }}>{r.s}</div>
+                      <div className="mono" style={{ fontSize: 11.5, color: "rgba(22,17,4,0.64)", marginTop: 2 }}>{r.s}</div>
                     </div>
                   </div>
                 ))}
