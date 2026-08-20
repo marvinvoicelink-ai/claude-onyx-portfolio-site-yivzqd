@@ -2,20 +2,18 @@ import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import Hero from "@/components/Hero";
 import LogoMarquee from "@/components/LogoMarquee";
-import WhyNowSection from "@/components/WhyNowSection";
-import ProblemSection from "@/components/ProblemSection";
 import OfferingsList from "@/components/OfferingsList";
-import KiAgentenSection from "@/components/KiAgentenSection";
-import AutomatisierungenSection from "@/components/AutomatisierungenSection";
-import ExplainerSection from "@/components/ExplainerSection";
-import DifferentiationSection from "@/components/DifferentiationSection";
+import ProblemSection from "@/components/ProblemSection";
+import ArbeitsweiseSection from "@/components/ArbeitsweiseSection";
 import CaseStudySection from "@/components/CaseStudySection";
 import { AliveCase } from "@/components/alive/AliveChrome";
 import SystemFormSection from "@/components/SystemFormSection";
+import ExplainerSection from "@/components/ExplainerSection";
 import IndustriesSection from "@/components/IndustriesSection";
 import DemoShowcaseSection from "@/components/DemoShowcaseSection";
 import RoadmapSection from "@/components/RoadmapSection";
 import WhatsAppBanner from "@/components/WhatsAppBanner";
+import WhyNowSection from "@/components/WhyNowSection";
 import CTABanner from "@/components/CTABanner";
 import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
@@ -23,10 +21,11 @@ import Footer from "@/components/Footer";
 import WheelTransition from "@/components/WheelTransition";
 
 /**
- * Leseweg der Startseite: erst die Ausgangslage, in der sich der Besucher
- * wiedererkennt, dann die Bausteine als Antwort darauf (jeder verlinkt auf
- * seine eigene Detailseite), danach Beweis (Referenzen), Einordnung
- * (Branchen, Ablauf) und zum Schluss der Kontakt.
+ * Leseweg der Startseite: zuerst das Angebot ("Das können wir für dich tun"),
+ * jeder Baustein direkt anklickbar zu seiner Detailseite. Danach die
+ * Ausgangslage als Begründung, dann in einem Block die Arbeitsweise
+ * (KI-Agenten, Automatisierungen, Abgrenzung) und im Anschluss der Beweis
+ * über die Referenzen. Zum Schluss Einordnung, Ablauf und Kontakt.
  */
 export default function Home() {
   return (
@@ -36,21 +35,14 @@ export default function Home() {
         <LogoMarquee />
 
         <WheelTransition edge="both">
-          <ProblemSection blatt="01" />
+          <OfferingsList blatt="01" />
         </WheelTransition>
 
-        <OfferingsList blatt="02" />
+        <ProblemSection blatt="02" />
 
         <WheelTransition edge="enter">
-          <KiAgentenSection blatt="03" />
+          <ArbeitsweiseSection blatt="03" />
         </WheelTransition>
-        <AutomatisierungenSection blatt="04" />
-
-        <WheelTransition edge="enter">
-          <ExplainerSection />
-        </WheelTransition>
-
-        <DifferentiationSection blatt="05" />
 
         <div className="mx-auto px-7" style={{ maxWidth: 1220 }}>
           <div className="rounded-[28px]" style={{ border: "1px solid var(--hairline)", paddingBottom: 12 }}>
@@ -64,15 +56,13 @@ export default function Home() {
               heading="Von der Sattlerei zur eigenen Marke mit planbarem Umsatz."
               desc="Speedfire war vorher eine Sattlerei. Wir haben Speedfire dabei geholfen, ein komplett neues Produkt auf den Markt zu bringen, eine eigene Marke aufzubauen und dieses Produkt online zu vermarkten — mit nachweislich über 10.000 € Umsatz pro Monat."
               image="/generated/speedfire-case.png"
+              imageRight
               bullets={[
                 "Instagram-Account von 0 auf 333+ Follower in 4 Wochen aufgebaut",
                 "Über 1.000 erreichte Konten pro Woche durch strategischen Content",
                 "Nachweislich über 10.000 € Umsatz pro Monat mit dem neuen Produkt",
               ]}
             />
-            {/* PawPlace lief hier bis zuletzt als dritter Case. Der Fall steht
-                jetzt als Referenz auf /angebot/kundenportale und stand damit
-                doppelt auf der Seite — auf /referenzen ist er weiterhin dabei. */}
             <div className="text-center">
               <Link
                 href="/referenzen"
@@ -91,19 +81,21 @@ export default function Home() {
         <SystemFormSection />
 
         <WheelTransition edge="enter">
-          <IndustriesSection blatt="06" />
+          <ExplainerSection />
         </WheelTransition>
 
-        <DemoShowcaseSection blatt="07" />
+        <IndustriesSection blatt="04" />
+
+        <DemoShowcaseSection blatt="05" />
 
         <WheelTransition edge="enter">
-          <RoadmapSection blatt="08" />
+          <RoadmapSection blatt="06" />
         </WheelTransition>
 
         <WhatsAppBanner />
 
         <WheelTransition edge="enter">
-          <WhyNowSection blatt="09" />
+          <WhyNowSection blatt="07" />
         </WheelTransition>
 
         <CTABanner
@@ -114,11 +106,11 @@ export default function Home() {
         />
 
         <WheelTransition edge="exit">
-          <FAQSection blatt="10" />
+          <FAQSection blatt="08" />
         </WheelTransition>
 
         <WheelTransition edge="enter">
-          <ContactSection blatt="11" />
+          <ContactSection blatt="09" />
         </WheelTransition>
 
         <Footer />

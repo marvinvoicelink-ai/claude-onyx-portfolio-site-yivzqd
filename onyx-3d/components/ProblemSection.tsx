@@ -154,14 +154,15 @@ export default function ProblemSection({ blatt }: { blatt?: string }) {
           <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Ausgangslage` : "Ausgangslage"}
         </span>
         <h2 className="mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "26ch", marginBottom: 12 }}>
-          Kommt dir das bekannt vor?
+          Warum Unternehmen bei uns landen.
         </h2>
         <p
           className="mx-auto"
-          style={{ color: "var(--warm-grey-dim)", maxWidth: "54ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 28 }}
+          style={{ color: "var(--warm-grey-dim)", maxWidth: "56ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 28 }}
         >
           Fast jeder Betrieb, mit dem wir sprechen, erkennt sich in mindestens
-          zwei dieser fünf Punkte wieder. Meistens sind es drei.
+          zwei dieser fünf Punkte wieder. Meistens sind es drei. Kommt dir
+          etwas davon bekannt vor, weißt du, warum sich ein Gespräch lohnt.
         </p>
 
         <div className="flex flex-col gap-3">
