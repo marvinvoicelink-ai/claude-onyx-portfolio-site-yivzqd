@@ -127,7 +127,7 @@ export default function DemoBookingSection() {
                 href="#kontakt"
                 onClick={trackLead}
                 className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber"
-                style={{ background: "var(--amber)", color: "#161104", fontSize: "15.5px" }}
+                style={{ background: "var(--amber)", color: "#12141a", fontSize: "15.5px" }}
               >
                 Demo buchen
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={16} height={16}>
@@ -146,10 +146,10 @@ export default function DemoBookingSection() {
             >
               <div className="flex items-start justify-between gap-4" style={rise(0)}>
                 <div>
-                  <div style={{ fontFamily: "var(--font-archivo), sans-serif", fontWeight: 700, fontSize: "clamp(1.15rem, 2.2vw, 1.5rem)", color: "#161104", lineHeight: 1.2 }}>
+                  <div style={{ fontFamily: "var(--font-archivo), sans-serif", fontWeight: 700, fontSize: "clamp(1.15rem, 2.2vw, 1.5rem)", color: "#12141a", lineHeight: 1.2 }}>
                     Guten Tag, Marvin!
                   </div>
-                  <div className="mono" style={{ fontSize: 12.5, color: "rgba(22,17,4,0.64)", marginTop: 4 }}>
+                  <div className="mono" style={{ fontSize: 12.5, color: "rgba(18, 20, 26, 0.64)", marginTop: 4 }}>
                     ONX-000001 · Gründer
                   </div>
                 </div>
@@ -158,7 +158,7 @@ export default function DemoBookingSection() {
                     ist und im Kreis sonst nur der Oberkoerper zu sehen waere. */}
                 <span
                   className="relative rounded-full overflow-hidden flex-shrink-0 block"
-                  style={{ width: 56, height: 56, background: "rgba(22,17,4,0.08)" }}
+                  style={{ width: 56, height: 56, background: "rgba(18, 20, 26, 0.08)" }}
                 >
                   <Image
                     src="/assets/marvin-portrait.jpg"
@@ -179,11 +179,11 @@ export default function DemoBookingSection() {
 
               <div className="grid grid-cols-2 gap-3 mt-6" style={rise(1)}>
                 {KPIS.map((k) => (
-                  <div key={k.label} className="rounded-xl px-4 py-4" style={{ background: "rgba(22,17,4,0.05)" }}>
-                    <div style={{ fontFamily: "var(--font-archivo), sans-serif", fontWeight: 700, fontSize: "1.9rem", color: "#161104", lineHeight: 1 }}>
+                  <div key={k.label} className="rounded-xl px-4 py-4" style={{ background: "rgba(18, 20, 26, 0.05)" }}>
+                    <div style={{ fontFamily: "var(--font-archivo), sans-serif", fontWeight: 700, fontSize: "1.9rem", color: "#12141a", lineHeight: 1 }}>
                       <Counter to={k.value} run={step >= 1} />
                     </div>
-                    <div style={{ fontSize: "0.9rem", color: "rgba(22,17,4,0.68)", marginTop: 5 }}>{k.label}</div>
+                    <div style={{ fontSize: "0.9rem", color: "rgba(18, 20, 26, 0.68)", marginTop: 5 }}>{k.label}</div>
                   </div>
                 ))}
               </div>
@@ -193,14 +193,14 @@ export default function DemoBookingSection() {
                   <div
                     key={r.t}
                     className="flex items-start gap-3 py-3"
-                    style={{ borderTop: i === 0 ? "none" : "1px solid rgba(22,17,4,0.09)" }}
+                    style={{ borderTop: i === 0 ? "none" : "1px solid rgba(18, 20, 26, 0.09)" }}
                   >
                     <svg viewBox="0 0 24 24" fill="none" stroke="#7d6220" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={16} height={16} style={{ flexShrink: 0, marginTop: 3 }}>
                       <path d="M20 6 9 17l-5-5" />
                     </svg>
                     <div>
-                      <div style={{ fontSize: "0.95rem", fontWeight: 600, color: "#161104", lineHeight: 1.35 }}>{r.t}</div>
-                      <div className="mono" style={{ fontSize: 11.5, color: "rgba(22,17,4,0.64)", marginTop: 2 }}>{r.s}</div>
+                      <div style={{ fontSize: "0.95rem", fontWeight: 600, color: "#12141a", lineHeight: 1.35 }}>{r.t}</div>
+                      <div className="mono" style={{ fontSize: 11.5, color: "rgba(18, 20, 26, 0.64)", marginTop: 2 }}>{r.s}</div>
                     </div>
                   </div>
                 ))}

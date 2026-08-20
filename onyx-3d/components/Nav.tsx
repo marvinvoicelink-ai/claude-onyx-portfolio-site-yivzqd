@@ -181,7 +181,7 @@ export default function Nav() {
             href="/kontakt"
             onClick={trackLead}
             className="hidden md:inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold whitespace-nowrap btn-amber"
-            style={{ background: "var(--amber)", color: "#161104", fontSize: 13.5 }}
+            style={{ background: "var(--amber)", color: "#12141a", fontSize: 13.5 }}
           >
             Kontakt aufnehmen
           </Link>

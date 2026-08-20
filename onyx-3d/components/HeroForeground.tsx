@@ -98,7 +98,7 @@ export default function HeroForeground() {
             className={`inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber ${entered ? "hero-cta-visible" : "hero-cta-hidden"}`}
             style={{
               background: "var(--amber)",
-              color: "#161104",
+              color: "#12141a",
               fontSize: "15.5px",
               ["--reveal-delay" as string]: "220ms",
             }}

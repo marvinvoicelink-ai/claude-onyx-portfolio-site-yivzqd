@@ -122,7 +122,7 @@ export default function MobileNav() {
                   trackLead();
                 }}
                 className="inline-flex items-center justify-center rounded-full font-semibold btn-amber"
-                style={{ background: "var(--amber)", color: "#161104", fontSize: 16, padding: "16px 0", margin: "24px 0 32px" }}
+                style={{ background: "var(--amber)", color: "#12141a", fontSize: 16, padding: "16px 0", margin: "24px 0 32px" }}
               >
                 Kontakt aufnehmen
               </Link>

@@ -40,22 +40,21 @@ Kaufen.
 
 ## Kontakt & Tracking
 Kontaktformular (Netlify Forms) ist der primäre CTA seitenweit. Meta-Pixel
-`Lead`-Event feuert bei **jedem Klick auf einen Button oder Link** auf der
-Seite — nicht nur bei Kontakt-CTAs, und unabhängig vom Erfolg der jeweiligen
-Aktion (bewusste Entscheidung von Marvin, Stand 2026: der Klick allein zählt
-als Lead). Umgesetzt als ein einziger Listener auf dem Dokument in
-`components/GlobalClickLead.tsx`, damit keine Stelle vergessen werden kann.
-Ausgenommen ist nur das Cookie-Banner (`data-no-lead`) — dessen Buttons sind
-keine Kontaktaufnahme, und ohne Zustimmung ist der Pixel ohnehin nicht
-geladen. `lib/trackLead.ts` sperrt Doppelfeuern innerhalb von 50 ms, weil
-Elemente mit eigenem onClick sonst zusätzlich zum globalen Listener zählen.
+`Lead`-Event feuert **nur bei Klick auf einen Kontakt-Button** — also auf
+jeden Button/Link, der das Kontaktformular ist oder dorthin führt:
+Formular-Absenden-Button, Nav-CTAs, Hero-CTA, CTABanner, DemoShowcase-CTA,
+DemoBooking-CTA. Unabhängig vom Erfolg der jeweiligen Aktion (bewusste
+Entscheidung von Marvin, Stand 2026: jeder dieser Klicks soll als Lead in
+Facebook erscheinen). Reine UI-Klicks — Akkordeon, Navigation ohne
+Kontaktbezug, FAQ, Cookie-Banner — feuern **kein** Lead.
 
-WhatsApp-Buttons feuern zusätzlich das `WhatsAppClick`-Custom-Event —
-WhatsApp-Klicks lassen sich technisch nicht bis zum "Nachricht
-abgeschickt"-Zeitpunkt zurückverfolgen, zählen aber genauso als Lead.
-WhatsApp und Calendly bleiben als sekundäre, schnelle Kontaktwege bestehen
-(Calendly hat mit `calendly.event_scheduled` ein eigenes zuverlässiges
-Completion-Event, unabhängig vom Lead-Tracking).
+WhatsApp-Buttons feuern zusätzlich zum weiterhin bestehenden
+`WhatsAppClick`-Custom-Event ebenfalls `Lead` (gleiche Entscheidung, auf
+WhatsApp ausgeweitet) — WhatsApp-Klicks lassen sich technisch nicht bis zum
+"Nachricht abgeschickt"-Zeitpunkt zurückverfolgen, zählen aber genauso als
+Lead. WhatsApp und Calendly bleiben als sekundäre, schnelle Kontaktwege
+bestehen (Calendly hat mit `calendly.event_scheduled` ein eigenes
+zuverlässiges Completion-Event, unabhängig vom Lead-Tracking).
 
 ## Nicht-Ziele (Scope-Grenze)
 - Kein 3D, keine Scroll-Choreografie, keine WebGL-Effekte in Phase 1

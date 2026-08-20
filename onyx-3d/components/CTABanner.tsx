@@ -55,7 +55,7 @@ export default function CTABanner({
               href={ctaHref}
               onClick={trackLead}
               className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap btn-amber"
-              style={{ background: "var(--amber)", color: "#161104", fontSize: 15.5 }}
+              style={{ background: "var(--amber)", color: "#12141a", fontSize: 15.5 }}
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" width={18} height={18}>
                 <path d="M4 6h16v12H4z" fill="none" />

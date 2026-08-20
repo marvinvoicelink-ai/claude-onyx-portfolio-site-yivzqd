@@ -24,7 +24,7 @@ export default function NotFound() {
         <Link
           href="/"
           className="inline-flex items-center gap-2 rounded-[10px] px-6 py-4 font-semibold btn-amber"
-          style={{ background: "var(--amber)", color: "#161104", fontSize: "15.5px" }}
+          style={{ background: "var(--amber)", color: "#12141a", fontSize: "15.5px" }}
         >
           Zur Startseite
         </Link>

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Archivo, Instrument_Sans, IBM_Plex_Mono } from "next/font/google";
-import GlobalClickLead from "@/components/GlobalClickLead";
 import Nav from "@/components/Nav";
 import CookieConsent from "@/components/CookieConsent";
 import "./globals.css";
@@ -61,7 +60,6 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Zum Inhalt springen
         </a>
-        <GlobalClickLead />
         <Nav />
         {/* Static, always-rendered duplicate of the "contact" form so Netlify's
             build-time bot reliably registers the form and every field name,

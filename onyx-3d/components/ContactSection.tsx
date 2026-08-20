@@ -18,7 +18,7 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
     const data = new FormData(form);
     if (data.get("bot-field")) return;
 
-    if (typeof window.fbq === "function") window.fbq("track", "Lead");
+    trackLead();
 
     const encoded = new URLSearchParams();
     data.forEach((value, key) => encoded.append(key, String(value)));
@@ -122,11 +122,14 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
 
           <button
             type="submit"
+            /* Beim Klick, nicht erst beim erfolgreichen Absenden: sonst
+               verschluckt die Pflichtfeldpruefung des Browsers das Event. */
+            onClick={trackLead}
             disabled={status === "sending"}
             className="w-full rounded-[10px] py-4 font-semibold btn-amber"
             style={{
               background: "var(--amber)",
-              color: "#161104",
+              color: "#12141a",
               fontSize: 15.5,
               opacity: status === "sending" ? 0.6 : 1,
             }}

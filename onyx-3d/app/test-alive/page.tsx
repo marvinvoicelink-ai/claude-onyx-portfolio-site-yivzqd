@@ -144,7 +144,7 @@ export default function TestAlivePage() {
               Infrastruktur, unter deiner Marke.
             </p>
             <div className="flex flex-wrap gap-3.5">
-              <a href="/kontakt" className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber" style={{ background: "var(--amber)", color: "#161104", fontSize: 15.5 }}>
+              <a href="/kontakt" className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber" style={{ background: "var(--amber)", color: "#12141a", fontSize: 15.5 }}>
                 Jetzt Kontakt aufnehmen
               </a>
               <a href="https://calendly.com/onyx-ai/30min" target="_blank" rel="noopener" className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-ghost" style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}>

@@ -119,7 +119,7 @@ export default function OfferingsAccordion({ blatt }: { blatt?: string }) {
                       <Link
                         href={`/angebot/${o.slug}`}
                         className="inline-flex items-center gap-2 rounded-[10px] px-5 py-3 font-semibold btn-amber"
-                        style={{ background: "var(--amber)", color: "#161104", fontSize: 14.5 }}
+                        style={{ background: "var(--amber)", color: "#12141a", fontSize: 14.5 }}
                       >
                         {titlePlain} im Detail
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={14} height={14}>
