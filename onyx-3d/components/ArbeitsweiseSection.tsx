@@ -19,10 +19,10 @@ export default function ArbeitsweiseSection({ blatt }: { blatt?: string }) {
           className="mono inline-flex items-center gap-2 mb-4"
           style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
         >
-          <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Arbeitsweise` : "Arbeitsweise"}
+          <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Lösung` : "Lösung"}
         </span>
         <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "22ch", marginBottom: 16 }}>
-          Wie wir bauen — und was danach passiert.
+          So lösen wir das.
         </h2>
         <p style={{ color: "var(--warm-grey-dim)", maxWidth: "62ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 36 }}>
           In jedem System, das wir bauen, steckt von Anfang an KI und

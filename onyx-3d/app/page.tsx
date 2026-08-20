@@ -2,7 +2,7 @@ import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import Hero from "@/components/Hero";
 import LogoMarquee from "@/components/LogoMarquee";
-import OfferingsList from "@/components/OfferingsList";
+import OfferingsAccordion from "@/components/OfferingsAccordion";
 import ProblemSection from "@/components/ProblemSection";
 import ArbeitsweiseSection from "@/components/ArbeitsweiseSection";
 import CaseStudySection from "@/components/CaseStudySection";
@@ -35,7 +35,7 @@ export default function Home() {
         <LogoMarquee />
 
         <WheelTransition edge="both">
-          <OfferingsList blatt="01" />
+          <OfferingsAccordion blatt="01" />
         </WheelTransition>
 
         <ProblemSection blatt="02" />
@@ -43,6 +43,24 @@ export default function Home() {
         <WheelTransition edge="enter">
           <ArbeitsweiseSection blatt="03" />
         </WheelTransition>
+
+        <section className="pt-10 pb-2">
+          <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
+            <span
+              className="mono inline-flex items-center gap-2 mb-4"
+              style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
+            >
+              <span style={{ opacity: 0.7 }}>§</span> Blatt 04 / Referenzen
+            </span>
+            <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "22ch", marginBottom: 14 }}>
+              Schon gebaut. Und übergeben.
+            </h2>
+            <p style={{ color: "var(--warm-grey-dim)", maxWidth: "58ch", fontSize: "1.02rem", lineHeight: 1.7 }}>
+              Zwei Projekte im Detail, der Rest auf der Referenzseite. Alles
+              echte Kunden, alles vollständig übergeben.
+            </p>
+          </div>
+        </section>
 
         <div className="mx-auto px-7" style={{ maxWidth: 1220 }}>
           <div className="rounded-[28px]" style={{ border: "1px solid var(--hairline)", paddingBottom: 12 }}>
@@ -84,18 +102,18 @@ export default function Home() {
           <ExplainerSection />
         </WheelTransition>
 
-        <IndustriesSection blatt="04" />
+        <IndustriesSection blatt="05" />
 
-        <DemoShowcaseSection blatt="05" />
+        <DemoShowcaseSection blatt="06" />
 
         <WheelTransition edge="enter">
-          <RoadmapSection blatt="06" />
+          <RoadmapSection blatt="07" />
         </WheelTransition>
 
         <WhatsAppBanner />
 
         <WheelTransition edge="enter">
-          <WhyNowSection blatt="07" />
+          <WhyNowSection blatt="08" />
         </WheelTransition>
 
         <CTABanner
@@ -106,11 +124,11 @@ export default function Home() {
         />
 
         <WheelTransition edge="exit">
-          <FAQSection blatt="08" />
+          <FAQSection blatt="09" />
         </WheelTransition>
 
         <WheelTransition edge="enter">
-          <ContactSection blatt="09" />
+          <ContactSection blatt="10" />
         </WheelTransition>
 
         <Footer />
