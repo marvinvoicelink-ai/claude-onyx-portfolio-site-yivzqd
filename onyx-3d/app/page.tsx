@@ -16,6 +16,7 @@ import WhatsAppBanner from "@/components/WhatsAppBanner";
 import WhyNowSection from "@/components/WhyNowSection";
 import CTABanner from "@/components/CTABanner";
 import FAQSection from "@/components/FAQSection";
+import DemoBookingSection from "@/components/DemoBookingSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import WheelTransition from "@/components/WheelTransition";
@@ -130,6 +131,8 @@ export default function Home() {
         <WheelTransition edge="exit">
           <FAQSection blatt="09" />
         </WheelTransition>
+
+        <DemoBookingSection />
 
         <WheelTransition edge="enter">
           <ContactSection blatt="10" />

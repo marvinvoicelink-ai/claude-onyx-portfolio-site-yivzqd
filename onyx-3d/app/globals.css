@@ -61,6 +61,9 @@ h3 {
   font-family: var(--font-archivo), sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
+  /* Ohne eigenen Wert erben Ueberschriften die 1.6 vom Body — bei 2.6rem
+     reisst das zweizeilige Headlines sichtbar auseinander. */
+  line-height: 1.18;
   color: var(--warm-grey);
 }
 
@@ -657,4 +660,37 @@ a {
 }
 .diff-mark:hover > div {
   color: var(--amber);
+}
+
+/* ---------------------------------------------------------------------------
+ * Zentrierte Section-Koepfe
+ *
+ * Statt in ~40 Dateien einzeln text-center zu setzen, greifen drei Regeln
+ * genau den Kopf einer Section: den Kicker direkt vor der Ueberschrift, die
+ * Ueberschrift selbst und den Einleitungsabsatz direkt danach. Fliesstext,
+ * Listen und Karteninhalte bleiben bewusst linksbuendig — zentrierte
+ * Mehrzeiler mit wechselnder Zeilenlaenge liest niemand gern.
+ * ------------------------------------------------------------------------ */
+main h1,
+main h2 {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Einleitungsabsatz direkt unter der Ueberschrift */
+main h1 + p,
+main h2 + p {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Kicker, dessen naechstes Geschwister die Ueberschrift ist */
+main span:has(+ h1),
+main span:has(+ h2),
+main div:has(+ h1),
+main div:has(+ h2) {
+  display: flex;
+  justify-content: center;
 }

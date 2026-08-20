@@ -53,7 +53,9 @@ export default async function AngebotDetailPage({
           </Link>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-            <div>
+            {/* Ganze Spalte zentriert, sonst steht der Fliesstext linksbuendig
+                unter einer zentrierten Ueberschrift. */}
+            <div className="text-center">
               <span
                 className="mono block mb-4"
                 style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
@@ -64,7 +66,7 @@ export default async function AngebotDetailPage({
               <p style={{ color: "var(--warm-grey)", fontSize: "1.1rem", lineHeight: 1.6, marginBottom: 14 }}>
                 {offering.subtitle}
               </p>
-              <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.75, maxWidth: "56ch" }}>
+              <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.75, maxWidth: "56ch" }}>
                 {offering.detail}
               </p>
             </div>

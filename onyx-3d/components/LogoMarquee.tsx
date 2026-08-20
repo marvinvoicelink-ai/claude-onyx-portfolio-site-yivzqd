@@ -24,10 +24,12 @@ export default function LogoMarquee() {
           Onyx baut, fuer wen und was am Ende damit passiert. Bewusst leicht
           gesetzt, damit er die Headline im Hero nicht doppelt. */}
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 900, marginBottom: 26 }}>
+        <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", letterSpacing: "0.01em", marginBottom: 12 }}>
+          ONYX.AI
+        </h2>
         <p style={{ fontSize: "clamp(1.02rem, 1.7vw, 1.22rem)", lineHeight: 1.6, color: "var(--warm-grey-dim)" }}>
-          <strong style={{ color: "var(--warm-grey)", fontWeight: 700 }}>Onyx.AI</strong>{" "}
-          baut maßgeschneiderte Systeme für mittelständische Unternehmen —
-          Kundenportale, interne Tools und Dashboards, mit KI und
+          Wir bauen maßgeschneiderte Systeme für mittelständische Unternehmen
+          — Kundenportale, interne Tools und Dashboards, mit KI und
           Automatisierung von Anfang an.{" "}
           <span className="accent">
             Zugeschnitten auf deinen Ablauf, vollständig übergeben und danach
