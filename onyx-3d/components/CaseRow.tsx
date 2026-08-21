@@ -23,6 +23,8 @@ export type CaseRowProps = {
   imageAlt: string;
   imageRight?: boolean;
   href?: string;
+  /** Aus, wenn das Bild die Zahlen schon selbst zeigt — sonst stehen sie doppelt. */
+  factsOverlay?: boolean;
 };
 
 export default function CaseRow({
@@ -36,6 +38,7 @@ export default function CaseRow({
   imageAlt,
   imageRight = true,
   href = "/referenzen",
+  factsOverlay = true,
 }: CaseRowProps) {
   const media = (
     <div
@@ -53,6 +56,36 @@ export default function CaseRow({
           sizes="(min-width: 1024px) 520px, 92vw"
           style={{ objectFit: "cover" }}
         />
+
+        {/* Die Kennzahlen liegen im Bild, sind aber echter Text und kein
+            eingebrannter Pixelinhalt: so bleiben sie scharf, vorlesbar,
+            durchsuchbar und aenderbar, ohne das Bild neu zu erzeugen.
+            Der Verlauf darunter haelt sie auf jedem Motiv lesbar. */}
+        {factsOverlay && (
+        <div
+          className="absolute inset-x-0 bottom-0 px-4 pt-12 pb-4 sm:px-5 sm:pb-5"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(8,8,8,0.94) 0%, rgba(8,8,8,0.8) 42%, rgba(8,8,8,0) 100%)",
+          }}
+        >
+          <div className="flex flex-wrap gap-x-6 gap-y-2">
+            {facts.map((f) => (
+              <div key={f.label}>
+                <div
+                  className="mono"
+                  style={{ fontSize: "clamp(1rem, 1.6vw, 1.25rem)", color: "var(--amber)", lineHeight: 1.15 }}
+                >
+                  {f.value}
+                </div>
+                <div style={{ fontSize: "0.78rem", color: "rgba(245,242,236,0.8)", lineHeight: 1.3 }}>
+                  {f.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        )}
       </div>
     </div>
   );
@@ -90,20 +123,9 @@ export default function CaseRow({
         {heading}
       </h3>
 
-      <p style={{ color: "var(--warm-grey-dim)", fontSize: "1rem", lineHeight: 1.65, maxWidth: "48ch", marginBottom: 20 }}>
+      <p style={{ color: "var(--warm-grey-dim)", fontSize: "1rem", lineHeight: 1.65, maxWidth: "48ch", marginBottom: 22 }}>
         {text}
       </p>
-
-      <div className="flex flex-wrap gap-x-8 gap-y-3 mb-6">
-        {facts.map((f) => (
-          <div key={f.label}>
-            <div className="mono" style={{ fontSize: "1.15rem", color: "var(--amber)", lineHeight: 1.2 }}>
-              {f.value}
-            </div>
-            <div style={{ fontSize: "0.85rem", color: "var(--warm-grey-faint)" }}>{f.label}</div>
-          </div>
-        ))}
-      </div>
 
       <Link href={href} className="mono" style={{ fontSize: 13, color: "var(--amber)" }}>
         Fall im Detail ansehen →

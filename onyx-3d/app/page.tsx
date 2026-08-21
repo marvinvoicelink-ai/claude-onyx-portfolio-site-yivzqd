@@ -76,7 +76,7 @@ export default function Home() {
             { value: "1 statt 5–6", label: "Tools im Einsatz" },
             { value: "mehrere 100 €", label: "Ersparnis/Monat" },
           ]}
-          image="/assets/hausmanager-poster.jpg"
+          image="/generated/hausmanager-case.jpg"
           imageAlt="HausManager Pro: Objektübersicht im fertigen System"
           imageRight
         />
@@ -93,8 +93,11 @@ export default function Home() {
             { value: "10.000 €+", label: "Umsatz/Monat" },
           ]}
           image="/generated/speedfire-case.png"
-          imageAlt="Speedfire: Instagram-Aufbau und Produktvermarktung"
+          imageAlt="Speedfire: Instagram-Aufbau und Produktvermarktung mit 333+ Followern in 4 Wochen, über 1.000 erreichten Konten pro Woche und über 10.000 € Umsatz pro Monat"
           imageRight={false}
+          /* Die Zahlen stehen schon in der Grafik selbst — ein zweites Mal
+             daruebergelegt waeren sie doppelt. */
+          factsOverlay={false}
         />
 
         <div className="text-center pb-4">
