@@ -17,7 +17,7 @@ export default function WhatsAppBanner() {
     <section className="py-7">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
-          className="rounded-2xl px-8 py-9 md:px-12 md:py-10 flex flex-col lg:flex-row items-center gap-7 on-dark"
+          className="rounded-2xl px-8 py-9 md:px-12 md:py-10 flex flex-col lg:flex-row items-center gap-7 on-dark silver-rim"
           style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
         >
           <div className="text-center lg:text-left" style={{ flex: 1 }}>

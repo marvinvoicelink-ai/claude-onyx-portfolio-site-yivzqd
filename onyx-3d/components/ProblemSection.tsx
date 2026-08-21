@@ -75,7 +75,7 @@ function ProblemRow({ p, imageRight }: { p: Problem; imageRight: boolean }) {
   return (
     <Link
       href={`/problem#${p.slug}`}
-      className="block alive-hover-card rounded-2xl p-5 md:p-6 on-dark"
+      className="block alive-hover-card rounded-2xl p-5 md:p-6 on-dark silver-rim"
       style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center text-left">

@@ -29,7 +29,7 @@
   --warm-grey: #f5f2ec;
   --warm-grey-dim: rgba(245, 242, 236, 0.72);
   --warm-grey-faint: rgba(245, 242, 236, 0.55);
-  --hairline: rgba(203, 203, 201, 0.2);
+  --hairline: rgba(203, 203, 201, 0.26);
 
   /* Feste helle Flaeche fuer die Stellen, die bewusst hell sind
      (Referenz-Cases, Logo-Kacheln, die Karte im Abschlussblock). */
@@ -45,7 +45,7 @@
   --warm-grey-dim: rgba(255, 255, 255, 0.74);
   --warm-grey-faint: rgba(255, 255, 255, 0.58);
   /* Silberne statt warmweisse Kante an Karten und Trennern. */
-  --hairline: rgba(203, 203, 201, 0.26);
+  --hairline: rgba(203, 203, 201, 0.4);
   color: var(--warm-grey);
 }
 
@@ -785,4 +785,42 @@ main div:has(+ h2) {
       0 0 74px 12px rgba(203, 203, 201, 0.2),
       0 26px 60px -34px rgba(0, 0, 0, 0.85);
   }
+}
+
+
+/* ---------------------------------------------------------------------------
+ * Silberkante an den einzelnen Karten
+ *
+ * Nicht nur die grossen Bloecke (.silver-glow), sondern jede Karte bekommt
+ * einen leisen Silbersaum: ein Innenring auf der Kante und ein kurzer
+ * Schein nach aussen. Bewusst schwach — bei ueber dreissig Karten auf der
+ * Startseite wird aus "leuchtet" sonst schnell "flimmert".
+ * ------------------------------------------------------------------------ */
+.silver-rim {
+  box-shadow:
+    inset 0 0 0 1px rgba(224, 224, 222, 0.26),
+    0 0 0 1px rgba(203, 203, 201, 0.16),
+    0 0 24px -2px rgba(210, 210, 208, 0.5),
+    0 0 60px 2px rgba(203, 203, 201, 0.26);
+}
+
+/* ---------------------------------------------------------------------------
+ * Silber in der Kopfzeile
+ *
+ * Die Leiste steht auf dem dunklen Grund ohne eigene Kante. Eine silberne
+ * Unterkante plus ein feiner Schein darunter trennt sie sichtbar vom
+ * Inhalt, und das Logo bekommt denselben Ton als Halo.
+ * ------------------------------------------------------------------------ */
+.nav-silver {
+  border-bottom: 1px solid rgba(203, 203, 201, 0.22);
+  box-shadow: 0 1px 24px -6px rgba(203, 203, 201, 0.3);
+}
+
+.nav-silver .nav-logo-link img {
+  filter: drop-shadow(0 0 14px rgba(203, 203, 201, 0.4));
+  transition: filter 0.3s ease;
+}
+
+.nav-silver .nav-logo-link:hover img {
+  filter: drop-shadow(0 0 22px rgba(216, 216, 214, 0.65));
 }

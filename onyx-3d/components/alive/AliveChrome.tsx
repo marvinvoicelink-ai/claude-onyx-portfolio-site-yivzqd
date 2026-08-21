@@ -3,7 +3,6 @@
 /**
  * Shared building blocks for the "alive" visual variant. Kept separate
  * from the production components so the live site is untouched while this
- * direction is being previewed under /test-alive/*.
  */
 
 import { useEffect, useRef } from "react";
@@ -148,7 +147,7 @@ export function AliveEyebrow({ children }: { children: React.ReactNode }) {
 
 export function AliveStatRow({ stats }: { stats: { value: string; label: string }[] }) {
   return (
-    <section className="on-dark" style={{ background: "var(--near-black-2)", borderBottom: "1px solid var(--hairline)" }}>
+    <section className="on-dark silver-rim" style={{ background: "var(--near-black-2)", borderBottom: "1px solid var(--hairline)" }}>
       <div className="mx-auto grid grid-cols-1 sm:grid-cols-3" style={{ maxWidth: 1400 }}>
         {stats.map((k, i) => (
           <Reveal key={k.label} delay={i * 0.1} y={18}>
@@ -411,7 +410,7 @@ export function AliveTeamGrid({
           <Reveal
             key={m.name}
             delay={Math.min(i * 0.09, 0.36)}
-            className="alive-hover-card rounded-2xl overflow-hidden on-dark"
+            className="alive-hover-card rounded-2xl overflow-hidden on-dark silver-rim"
             style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
           >
             <div className="relative w-full" style={{ aspectRatio: "4 / 5" }}>
@@ -449,7 +448,7 @@ export function AliveTestimonialWall({
           <Reveal
             key={`${q.name}-${q.source}`}
             delay={i * 0.12}
-            className="alive-hover-card p-7 rounded-2xl on-dark"
+            className="alive-hover-card p-7 rounded-2xl on-dark silver-rim"
             style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
           >
             <p style={{ fontSize: "0.98rem", lineHeight: 1.65, color: "var(--warm-grey-dim)", fontStyle: "italic" }}>
@@ -485,7 +484,7 @@ export function AliveComparisonTable({
       <Reveal className="mx-auto px-7" style={{ maxWidth: 900 }} delay={0.1}>
         <div style={{ border: "1px solid var(--hairline)", borderRadius: 8, overflow: "hidden" }}>
           <div
-            className="grid grid-cols-3 on-dark"
+            className="grid grid-cols-3 on-dark silver-rim"
             style={{ borderBottom: "1px solid var(--hairline)", background: "var(--near-black-2)" }}
           >
             <div className="mono py-4 px-2 sm:px-5" style={{ fontSize: "clamp(9.5px, 2.6vw, 12px)", color: "var(--warm-grey-faint)" }} />
@@ -658,7 +657,7 @@ export function AliveCase({
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         {framed ? (
           <div
-            className="rounded-2xl p-6 md:p-10 on-dark"
+            className="rounded-2xl p-6 md:p-10 on-dark silver-rim"
             style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
           >
             {grid}
@@ -862,7 +861,7 @@ export function AliveTimeline({
 export function AliveMarquee({ items }: { items: string[] }) {
   const track = [...items, ...items];
   return (
-    <section className="on-dark" style={{ background: "var(--near-black-2)", borderTop: "1px solid var(--hairline)", borderBottom: "1px solid var(--hairline)", padding: "22px 0" }}>
+    <section className="on-dark silver-rim" style={{ background: "var(--near-black-2)", borderTop: "1px solid var(--hairline)", borderBottom: "1px solid var(--hairline)", padding: "22px 0" }}>
       <div className="overflow-hidden">
         <div className="marquee-track flex" style={{ width: "max-content" }}>
           {track.map((label, i) => (
@@ -910,7 +909,7 @@ export type AliveLogoItem = { name: string; src: string; bg?: "light" | "dark" }
 export function AliveLogoMarquee({ items }: { items: AliveLogoItem[] }) {
   const track = [...items, ...items];
   return (
-    <section className="on-dark"
+    <section className="on-dark silver-rim"
       style={{
         background: "var(--near-black-2)",
         borderTop: "1px solid var(--hairline)",

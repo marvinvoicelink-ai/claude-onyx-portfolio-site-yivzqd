@@ -102,7 +102,7 @@ export default async function AngebotDetailPage({
             {offering.painPoints.map((p, i) => (
               <div
                 key={p}
-                className="rounded-xl px-6 py-6 on-dark"
+                className="rounded-xl px-6 py-6 on-dark silver-rim"
                 style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
               >
                 <span className="mono block mb-3" style={{ fontSize: 13, color: "var(--amber)" }}>
@@ -166,7 +166,7 @@ export default async function AngebotDetailPage({
       <section className="py-10">
         <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
           <div
-            className="rounded-2xl px-7 py-7 md:px-10 md:py-8 on-dark"
+            className="rounded-2xl px-7 py-7 md:px-10 md:py-8 on-dark silver-rim"
             style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
           >
             <h2 style={{ fontSize: "clamp(1.15rem, 2.2vw, 1.45rem)", marginBottom: 10 }}>

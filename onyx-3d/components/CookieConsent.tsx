@@ -78,7 +78,7 @@ export default function CookieConsent() {
 
   return (
     <div
-      className="fixed left-0 right-0 bottom-0 on-dark"
+      className="fixed left-0 right-0 bottom-0 on-dark silver-rim"
       style={{
         zIndex: 200,
         background: "var(--near-black-2)",

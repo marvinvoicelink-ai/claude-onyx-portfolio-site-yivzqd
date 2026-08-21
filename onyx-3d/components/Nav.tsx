@@ -56,7 +56,7 @@ export default function Nav() {
 
   return (
     <header
-      className="sticky top-0 z-50 on-dark"
+      className="sticky top-0 z-50 on-dark nav-silver"
       style={{
         background: "rgba(17,17,17,0.72)",
         backdropFilter: "blur(10px)",
@@ -135,7 +135,7 @@ export default function Nav() {
 
                     {offeringsOpen && (
                       <div
-                        className="absolute rounded-xl overflow-hidden on-dark"
+                        className="absolute rounded-xl overflow-hidden on-dark silver-rim"
                         style={{
                           top: "calc(100% + 12px)",
                           left: "50%",

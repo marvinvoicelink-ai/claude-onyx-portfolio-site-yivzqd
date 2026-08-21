@@ -44,7 +44,7 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
   return (
     <section
       id="kontakt"
-      className="py-14 on-dark"
+      className="py-14 on-dark silver-rim"
       style={{ background: "var(--near-black-2)" }}
     >
       <div className="mx-auto px-7" style={{ maxWidth: 720 }}>

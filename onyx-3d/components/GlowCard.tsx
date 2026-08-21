@@ -8,7 +8,7 @@ import type { ReactNode } from "react";
 export default function GlowCard({ children }: { children: ReactNode }) {
   return (
     <div
-      className="rounded-2xl p-5 sm:p-7 flex items-center justify-center on-dark"
+      className="rounded-2xl p-5 sm:p-7 flex items-center justify-center on-dark silver-rim"
       style={{
         background:
           "linear-gradient(160deg, rgba(203, 203, 201,0.07) 0%, rgba(17,17,17,0) 55%), var(--near-black-2)",

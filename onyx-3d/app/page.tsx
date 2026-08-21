@@ -11,8 +11,8 @@ import SystemFormSection from "@/components/SystemFormSection";
 import ExplainerSection from "@/components/ExplainerSection";
 import IndustriesSection from "@/components/IndustriesSection";
 import DemoShowcaseSection from "@/components/DemoShowcaseSection";
-import CTABanner from "@/components/CTABanner";
 import FAQSection from "@/components/FAQSection";
+import CTABanner from "@/components/CTABanner";
 import DemoBookingSection from "@/components/DemoBookingSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
@@ -108,16 +108,16 @@ export default function Home() {
 
         <DemoShowcaseSection blatt="06" />
 
+        <WheelTransition edge="exit">
+          <FAQSection blatt="07" />
+        </WheelTransition>
+
         <CTABanner
           heading="Dein System, gebaut für genau dein Geschäft."
           sub="Kein Baukasten, kein Abo — ein System, das dir gehört."
           buttonText="Kostenloses Erstgespräch sichern"
           ctaHref="#kontakt"
         />
-
-        <WheelTransition edge="exit">
-          <FAQSection blatt="07" />
-        </WheelTransition>
 
         <DemoBookingSection />
 

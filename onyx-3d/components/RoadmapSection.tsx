@@ -39,7 +39,7 @@ function Dot({ delay = 0 }: { delay?: number }) {
 function StepLabel({ label }: { label: string }) {
   return (
     <div
-      className="rounded-lg px-4 py-2.5 on-dark"
+      className="rounded-lg px-4 py-2.5 on-dark silver-rim"
       style={{ border: "1px solid rgba(232, 163, 61,0.4)", background: "var(--near-black-2)", whiteSpace: "nowrap" }}
     >
       <span style={{ fontWeight: 700, fontSize: "0.92rem" }}>{label}</span>
