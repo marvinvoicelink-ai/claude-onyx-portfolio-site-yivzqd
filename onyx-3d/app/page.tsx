@@ -59,8 +59,8 @@ export default function Home() {
               Schon gebaut. Und übergeben.
             </h2>
             <p style={{ color: "var(--warm-grey-dim)", maxWidth: "58ch", fontSize: "1.02rem", lineHeight: 1.7 }}>
-              Zwei Projekte im Detail, der Rest auf der Referenzseite. Alles
-              echte Kunden, alles vollständig übergeben.
+              Vier Projekte im Überblick, der Rest auf der Referenzseite.
+              Alles echte Kunden, alles vollständig übergeben.
             </p>
           </div>
         </section>
@@ -98,6 +98,38 @@ export default function Home() {
           /* Die Zahlen stehen schon in der Grafik selbst — ein zweites Mal
              daruebergelegt waeren sie doppelt. */
           factsOverlay={false}
+        />
+
+        <CaseRow
+          logo="/logos/flat/haas-wasserkraft.png"
+          name="Haas Wasserkraft"
+          tag="Kundencase · Herstellung"
+          heading="Bestand und Umsatz in einem System."
+          text="Haas Wasserkraft stellt Filter für sauberes Wasser her. Das Tool zeigt, welche Metalle und Produkte fehlen und nachbestellt werden müssen — mit CRM für Umsätze und Kunden dahinter."
+          points={[
+            "Warnung bei niedrigem Bestand",
+            "Nachbestellen direkt aus dem Tool",
+            "CRM im selben System",
+          ]}
+          image="/generated/haas-wasserkraft-case.png"
+          imageAlt="Haas Wasserkraft: Bestandsübersicht mit Nachbestellung und CRM"
+          imageRight
+        />
+
+        <CaseRow
+          logo="/logos/flat/pawplace.png"
+          name="PawPlace"
+          tag="Kundencase · Online-Shop"
+          heading="Support-Anfragen zentral statt in drei Postfächern."
+          text="Für den Online-Shop PawPlace der HWD Handelsagentur haben wir ein Dashboard gebaut, das Kunden, Bestellstatus und offene Support-Tickets an einem Ort zeigt."
+          points={[
+            "Bestellstatus auf einen Blick",
+            "Offene Tickets sofort markiert",
+            "Kein Suchen in Postfächern",
+          ]}
+          image="/generated/pawplace-case.png"
+          imageAlt="PawPlace: Dashboard mit Kunden, Bestellstatus und offenen Support-Tickets"
+          imageRight={false}
         />
 
         <div className="text-center pb-4">

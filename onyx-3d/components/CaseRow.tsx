@@ -18,7 +18,11 @@ export type CaseRowProps = {
   tag: string;
   heading: string;
   text: string;
-  facts: { value: string; label: string }[];
+  /** Zahlen, wenn es welche gibt. */
+  facts?: { value: string; label: string }[];
+  /** Kurze Stichpunkte fuer Faelle ohne belastbare Zahlen — bewusst keine
+      erfundenen Kennzahlen nur der Optik wegen. */
+  points?: string[];
   image: string;
   imageAlt: string;
   imageRight?: boolean;
@@ -34,6 +38,7 @@ export default function CaseRow({
   heading,
   text,
   facts,
+  points,
   image,
   imageAlt,
   imageRight = true,
@@ -61,7 +66,7 @@ export default function CaseRow({
             eingebrannter Pixelinhalt: so bleiben sie scharf, vorlesbar,
             durchsuchbar und aenderbar, ohne das Bild neu zu erzeugen.
             Der Verlauf darunter haelt sie auf jedem Motiv lesbar. */}
-        {factsOverlay && (
+        {factsOverlay && (facts || points) && (
         <div
           className="absolute inset-x-0 bottom-0 px-4 pt-12 pb-4 sm:px-5 sm:pb-5"
           style={{
@@ -69,21 +74,38 @@ export default function CaseRow({
               "linear-gradient(to top, rgba(8,8,8,0.94) 0%, rgba(8,8,8,0.8) 42%, rgba(8,8,8,0) 100%)",
           }}
         >
-          <div className="flex flex-wrap gap-x-6 gap-y-2">
-            {facts.map((f) => (
-              <div key={f.label}>
-                <div
-                  className="mono"
-                  style={{ fontSize: "clamp(1rem, 1.6vw, 1.25rem)", color: "var(--amber)", lineHeight: 1.15 }}
+          {facts ? (
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
+              {facts.map((f) => (
+                <div key={f.label}>
+                  <div
+                    className="mono"
+                    style={{ fontSize: "clamp(1rem, 1.6vw, 1.25rem)", color: "var(--amber)", lineHeight: 1.15 }}
+                  >
+                    {f.value}
+                  </div>
+                  <div style={{ fontSize: "0.78rem", color: "rgba(245,242,236,0.8)", lineHeight: 1.3 }}>
+                    {f.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-wrap gap-x-5 gap-y-1.5">
+              {(points ?? []).map((pt) => (
+                <span
+                  key={pt}
+                  className="inline-flex items-center gap-1.5"
+                  style={{ fontSize: "0.82rem", color: "rgba(245,242,236,0.88)", lineHeight: 1.35 }}
                 >
-                  {f.value}
-                </div>
-                <div style={{ fontSize: "0.78rem", color: "rgba(245,242,236,0.8)", lineHeight: 1.3 }}>
-                  {f.label}
-                </div>
-              </div>
-            ))}
-          </div>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" width={13} height={13} style={{ flexShrink: 0 }}>
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                  {pt}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
         )}
       </div>
