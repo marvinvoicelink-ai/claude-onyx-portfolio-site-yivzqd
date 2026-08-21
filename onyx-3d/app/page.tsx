@@ -4,9 +4,8 @@ import Hero from "@/components/Hero";
 import LogoMarquee from "@/components/LogoMarquee";
 import OfferingsAccordion from "@/components/OfferingsAccordion";
 import ProblemSection from "@/components/ProblemSection";
+import CaseRow from "@/components/CaseRow";
 import ArbeitsweiseSection from "@/components/ArbeitsweiseSection";
-import CaseStudySection from "@/components/CaseStudySection";
-import { AliveCase } from "@/components/alive/AliveChrome";
 import SystemFormSection from "@/components/SystemFormSection";
 import ExplainerSection from "@/components/ExplainerSection";
 import IndustriesSection from "@/components/IndustriesSection";
@@ -66,38 +65,49 @@ export default function Home() {
           </div>
         </section>
 
-        <div className="mx-auto px-7" style={{ maxWidth: 1220 }}>
-          <div className="rounded-[28px]" style={{ border: "1px solid var(--hairline)", paddingBottom: 12 }}>
-            <WheelTransition edge="exit">
-              <CaseStudySection />
-            </WheelTransition>
-            <div className="mx-auto px-7" style={{ maxWidth: 1180, borderTop: "1px solid var(--hairline)" }} />
-            <AliveCase
-              tag="Kundencase · Markenaufbau &amp; Vermarktung"
-              name="Speedfire"
-              heading="Von der Sattlerei zur eigenen Marke mit planbarem Umsatz."
-              desc="Speedfire war vorher eine Sattlerei. Wir haben Speedfire dabei geholfen, ein komplett neues Produkt auf den Markt zu bringen, eine eigene Marke aufzubauen und dieses Produkt online zu vermarkten — mit nachweislich über 10.000 € Umsatz pro Monat."
-              image="/generated/speedfire-case.png"
-              imageRight
-              bullets={[
-                "Instagram-Account von 0 auf 333+ Follower in 4 Wochen aufgebaut",
-                "Über 1.000 erreichte Konten pro Woche durch strategischen Content",
-                "Nachweislich über 10.000 € Umsatz pro Monat mit dem neuen Produkt",
-              ]}
-            />
-            <div className="text-center">
-              <Link
-                href="/referenzen"
-                className="inline-flex items-center gap-2.5 rounded-full px-6 py-3 font-semibold btn-ghost"
-                style={{ border: "1px solid var(--hairline)", color: "var(--warm-grey)", fontSize: 14.5 }}
-              >
-                Alle Referenzen ansehen
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={14} height={14}>
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
-              </Link>
-            </div>
-          </div>
+        <CaseRow
+          logo="/logos/flat/hwp.png"
+          name="HausManager Pro"
+          tag="Kundencase · Gebaut &amp; übergeben"
+          heading="Vom Excel-Chaos zum eigenen System."
+          text="Für eine Hausverwaltung haben wir ein komplettes CRM von Grund auf entwickelt und vollständig übergeben. Gehostet in Deutschland, DSGVO-konform, 100 % Eigentum beim Kunden."
+          facts={[
+            { value: "20+", label: "Std./Monat gespart" },
+            { value: "1 statt 5–6", label: "Tools im Einsatz" },
+            { value: "mehrere 100 €", label: "Ersparnis/Monat" },
+          ]}
+          image="/assets/hausmanager-poster.jpg"
+          imageAlt="HausManager Pro: Objektübersicht im fertigen System"
+          imageRight
+        />
+
+        <CaseRow
+          logo="/logos/flat/speedfire.png"
+          name="Speedfire"
+          tag="Kundencase · Markenaufbau &amp; Vermarktung"
+          heading="Von der Sattlerei zur eigenen Marke."
+          text="Speedfire war vorher eine Sattlerei. Wir haben ein komplett neues Produkt auf den Markt gebracht, die Marke aufgebaut und online vermarktet."
+          facts={[
+            { value: "0 → 333+", label: "Follower in 4 Wochen" },
+            { value: "1.000+", label: "erreichte Konten/Woche" },
+            { value: "10.000 €+", label: "Umsatz/Monat" },
+          ]}
+          image="/generated/speedfire-case.png"
+          imageAlt="Speedfire: Instagram-Aufbau und Produktvermarktung"
+          imageRight={false}
+        />
+
+        <div className="text-center pb-4">
+          <Link
+            href="/referenzen"
+            className="inline-flex items-center gap-2.5 rounded-full px-6 py-3 font-semibold btn-ghost"
+            style={{ border: "1px solid var(--hairline)", color: "var(--warm-grey)", fontSize: 14.5 }}
+          >
+            Alle Referenzen ansehen
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={14} height={14}>
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </Link>
         </div>
 
         <SystemFormSection />
