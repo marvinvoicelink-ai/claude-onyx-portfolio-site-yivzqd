@@ -50,7 +50,11 @@ export default function CTABanner({
               <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.98rem" }}>{sub}</p>
             )}
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          {/* Untereinander statt nebeneinander: der Hauptweg steht oben allein,
+              darunter fuehrt eine Zeile mit Pfeil auf den WhatsApp-Button als
+              zweiten, schnelleren Weg. Nebeneinander sahen beide gleich
+              wichtig aus. */}
+          <div className="flex flex-col items-center gap-3.5">
             <a
               href={ctaHref}
               onClick={trackLead}
@@ -63,6 +67,17 @@ export default function CTABanner({
               </svg>
               {buttonText}
             </a>
+
+            <span
+              className="mono inline-flex items-center gap-2"
+              style={{ fontSize: 12.5, color: "var(--warm-grey-faint)" }}
+            >
+              oder schreib direkt mit mir
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" width={14} height={14} aria-hidden="true">
+                <path d="M12 5v14M6 13l6 6 6-6" />
+              </svg>
+            </span>
+
             <a
               href={WHATSAPP_HREF}
               target="_blank"
