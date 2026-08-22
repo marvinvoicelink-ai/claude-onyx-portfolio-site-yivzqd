@@ -43,3 +43,19 @@ export function flaeche(wert: string): string {
 export function oderStrich(wert: string | null | undefined): string {
   return wert && wert.trim() ? wert : '–';
 }
+
+/** Montag der Woche, in der das Datum liegt. */
+export function wochenStart(d: Date): Date {
+  const m = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  const versatz = (m.getDay() + 6) % 7; // Montag = 0
+  m.setDate(m.getDate() - versatz);
+  return m;
+}
+
+/** Kalenderwoche nach ISO 8601. */
+export function isoKw(d: Date): number {
+  const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  t.setUTCDate(t.getUTCDate() + 4 - (t.getUTCDay() || 7));
+  const jahresStart = new Date(Date.UTC(t.getUTCFullYear(), 0, 1));
+  return Math.ceil(((t.getTime() - jahresStart.getTime()) / 86_400_000 + 1) / 7);
+}

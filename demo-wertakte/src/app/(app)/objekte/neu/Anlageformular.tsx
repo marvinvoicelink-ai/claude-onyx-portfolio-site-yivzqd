@@ -11,7 +11,7 @@ import { BEWERTUNGSANLAESSE, OBJEKTTYPEN, STATUS_LISTE, STATUS_TEXT } from '@/li
 function Absenden() {
   const { pending } = useFormStatus();
   return (
-    <button type="submit" className="knopf knopf-primaer" disabled={pending}>
+    <button type="submit" className="onyx-knopf onyx-knopf-primaer" disabled={pending}>
       {pending ? 'Wird angelegt …' : 'Akte anlegen'}
     </button>
   );
@@ -29,10 +29,10 @@ function Feld({
 } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div className="grid gap-2">
-      <label htmlFor={name} className="etikett">
+      <label htmlFor={name} className="onyx-etikett">
         {etikett}
       </label>
-      <input id={name} name={name} className="feld" {...rest} />
+      <input id={name} name={name} className="onyx-feld" {...rest} />
       {hinweis ? <p className="text-[12.5px] text-text-leise">{hinweis}</p> : null}
     </div>
   );
@@ -51,10 +51,10 @@ function Auswahl({
 }) {
   return (
     <div className="grid gap-2">
-      <label htmlFor={name} className="etikett">
+      <label htmlFor={name} className="onyx-etikett">
         {etikett}
       </label>
-      <select id={name} name={name} defaultValue={standard} className="feld">
+      <select id={name} name={name} defaultValue={standard} className="onyx-feld">
         {optionen.map((o) => (
           <option key={o.wert} value={o.wert}>
             {o.text}
@@ -78,8 +78,8 @@ export function Anlageformular({
     <form action={aktion} className="grid gap-9 py-8 max-w-3xl">
       <section className="grid gap-5">
         <div className="flex items-baseline justify-between gap-4 border-b border-linie pb-2">
-          <h2 className="text-lg tracking-tight">Objekt</h2>
-          <p className="font-mono text-[12.5px] text-text-leise">
+          <h2 className="text-lg">Objekt</h2>
+          <p className="font-mono text-[12.5px] text-akzent">
             Aktenzeichen {naechstesAktenzeichen}
           </p>
         </div>
@@ -112,7 +112,7 @@ export function Anlageformular({
       </section>
 
       <section className="grid gap-5">
-        <h2 className="text-lg tracking-tight border-b border-linie pb-2">Auftrag</h2>
+        <h2 className="text-lg border-b border-linie pb-2">Auftrag</h2>
 
         <Auswahl
           name="auftraggeberId"
@@ -139,7 +139,7 @@ export function Anlageformular({
       </section>
 
       <section className="grid gap-5">
-        <h2 className="text-lg tracking-tight border-b border-linie pb-2">Termine</h2>
+        <h2 className="text-lg border-b border-linie pb-2">Termine</h2>
 
         <div className="grid sm:grid-cols-2 gap-5">
           <Feld
@@ -157,14 +157,14 @@ export function Anlageformular({
       </section>
 
       <section className="grid gap-3">
-        <label htmlFor="notizen" className="etikett">
+        <label htmlFor="notizen" className="onyx-etikett">
           Notizen
         </label>
         <textarea
           id="notizen"
           name="notizen"
           rows={4}
-          className="feld resize-y leading-relaxed"
+          className="onyx-feld resize-y leading-relaxed"
           placeholder="Gerichtliches Aktenzeichen, Ansprechpartner vor Ort, angekündigte Unterlagen."
         />
       </section>
@@ -172,7 +172,7 @@ export function Anlageformular({
       {zustand.fehler ? (
         <p
           role="alert"
-          className="flex items-start gap-2 text-sm text-warn bg-warn-flaeche border border-warn/30 rounded-kante px-3 py-2"
+          className="flex items-start gap-2 text-sm text-warn bg-warn-flaeche border border-warn/35 rounded-kante px-3 py-2"
         >
           <WarningCircleIcon size={17} weight="bold" className="mt-0.5 shrink-0" />
           {zustand.fehler}
@@ -181,7 +181,7 @@ export function Anlageformular({
 
       <div className="flex items-center gap-3 border-t border-linie pt-6">
         <Absenden />
-        <Link href="/objekte" className="knopf knopf-klar">
+        <Link href="/objekte" className="onyx-knopf onyx-knopf-klar">
           Abbrechen
         </Link>
       </div>

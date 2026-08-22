@@ -57,18 +57,18 @@ export default async function EntwurfSeite({ params }: { params: Promise<{ id: s
   ];
 
   return (
-    <div className="mx-auto max-w-[1400px] px-4 sm:px-6">
+    <div className="px-4 sm:px-6 lg:px-8">
       {/* Bedienleiste. Im Ausdruck ausgeblendet. */}
       <div className="kein-druck flex flex-wrap items-center justify-between gap-4 py-6 border-b border-linie">
         <div>
           <Link
             href={`/objekte/${objekt.id}`}
-            className="inline-flex items-center gap-1.5 text-[13px] text-text-leise hover:text-text"
+            className="inline-flex items-center gap-1.5 text-[13px] text-text-leise hover:text-akzent"
           >
             <ArrowLeftIcon size={14} />
             Zurück zur Akte {objekt.aktenzeichen}
           </Link>
-          <h1 className="mt-2 text-xl sm:text-2xl tracking-tight">Gutachten-Entwurf</h1>
+          <h1 className="mt-2 text-xl sm:text-2xl">Gutachten-Entwurf</h1>
           <p className="mt-1 text-[13px] text-text-leise max-w-[70ch] leading-relaxed">
             Aus den Angaben der Akte und {fotos.length}{' '}
             {fotos.length === 1 ? 'Lichtbild' : 'Lichtbildern'} zusammengestellt. Die
@@ -81,9 +81,11 @@ export default async function EntwurfSeite({ params }: { params: Promise<{ id: s
 
       {/* Das Blatt bleibt bewusst hell, auch im Dunkelmodus: es zeigt das
           spaetere Dokument, wie ein PDF-Betrachter es zeigen wuerde. */}
+      {/* Das Blatt bleibt Papier, auch in der dunklen Oberflaeche: es zeigt
+          das spaetere Dokument, wie ein PDF-Betrachter es zeigen wuerde. */}
       <div className="py-8 flex justify-center">
         <article
-          className="blatt w-full max-w-[210mm] bg-[#FBF9F4] text-[#1E211F] border border-linie shadow-sm px-5 sm:px-14 py-10 sm:py-12 font-akte"
+          className="blatt w-full max-w-[210mm] bg-[#FBF9F4] text-[#1E211F] rounded-karte shadow-[0_0_0_1px_rgba(232,163,61,.25),0_18px_60px_rgba(0,0,0,.55)] px-5 sm:px-14 py-10 sm:py-12 font-akte"
           style={{ colorScheme: 'light' }}
         >
           {/* Briefkopf */}

@@ -17,7 +17,7 @@ export function Datenzeile({
 }) {
   return (
     <div className={spalten === 2 ? 'sm:col-span-2' : ''}>
-      <dt className="etikett">{etikett}</dt>
+      <dt className="onyx-etikett">{etikett}</dt>
       <dd className={`mt-1 text-[15px] leading-snug ${mono ? 'font-mono tabular-nums' : ''}`}>
         {children}
       </dd>

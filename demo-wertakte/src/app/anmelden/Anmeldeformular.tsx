@@ -9,7 +9,7 @@ import { DEMO_KONTO } from '@/lib/demo-konto';
 function Absenden() {
   const { pending } = useFormStatus();
   return (
-    <button type="submit" className="knopf knopf-primaer w-full mt-2" disabled={pending}>
+    <button type="submit" className="onyx-knopf onyx-knopf-primaer w-full mt-2" disabled={pending}>
       {pending ? 'Wird geprüft …' : 'Anmelden'}
     </button>
   );
@@ -21,7 +21,7 @@ export function Anmeldeformular() {
   return (
     <form action={aktion} className="mt-8 grid gap-4">
       <div className="grid gap-2">
-        <label htmlFor="email" className="etikett">
+        <label htmlFor="email" className="onyx-etikett">
           E-Mail
         </label>
         <input
@@ -31,12 +31,12 @@ export function Anmeldeformular() {
           autoComplete="username"
           required
           defaultValue={DEMO_KONTO.email}
-          className="feld"
+          className="onyx-feld"
         />
       </div>
 
       <div className="grid gap-2">
-        <label htmlFor="passwort" className="etikett">
+        <label htmlFor="passwort" className="onyx-etikett">
           Passwort
         </label>
         <input
@@ -46,14 +46,14 @@ export function Anmeldeformular() {
           autoComplete="current-password"
           required
           defaultValue={DEMO_KONTO.passwort}
-          className="feld"
+          className="onyx-feld"
         />
       </div>
 
       {zustand.fehler ? (
         <p
           role="alert"
-          className="flex items-start gap-2 text-sm text-warn bg-warn-flaeche border border-warn/30 rounded-kante px-3 py-2"
+          className="flex items-start gap-2 text-sm text-warn bg-warn-flaeche border border-warn/35 rounded-kante px-3 py-2"
         >
           <WarningCircleIcon size={17} weight="bold" className="mt-0.5 shrink-0" />
           {zustand.fehler}

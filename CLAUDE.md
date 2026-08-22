@@ -56,6 +56,20 @@ Lead. WhatsApp und Calendly bleiben als sekundäre, schnelle Kontaktwege
 bestehen (Calendly hat mit `calendly.event_scheduled` ein eigenes
 zuverlässiges Completion-Event, unabhängig vom Lead-Tracking).
 
+## Design-Sprache für Frontends
+Für Onyx-eigene Software (Demos, Vorführsysteme, Eigenprodukte) gilt das
+Designsystem in `onyx-designsystem/`: Near-Black-Grund, Amber `#E8A33D` als
+EINZIGER Akzent, warmes Hellgrau als Text, Glow-Rahmen ums Fenster, Icon-Leiste
+links, Karten mit warmer Haarlinie, Mono für Zahlen und Etiketten. Schriften
+wie auf der Website: Archivo, Instrument Sans, IBM Plex Mono.
+Regeln und Bausteine: `onyx-designsystem/README.md`, Musterseite:
+`onyx-designsystem/referenz.html`. Farbwerte NUR im Block „Themenebene“ von
+`onyx-dunkel.css` ändern.
+
+Amber bleibt bei Onyx. Systeme, die an Kunden übergeben werden, erben Struktur
+und Komponenten, bekommen aber das CI des Kunden — dann wird allein die
+Themenebene ersetzt.
+
 ## Kunden-Demos im Repo
 `demo-wertakte/` ist eine eigenständige Vorführ-Software für einen Interessenten
 (Immobiliengutachter, Oldenburg) — Next.js + TypeScript, lokal per `npm run dev`.
@@ -75,4 +89,5 @@ White-Label-Section (Hero, Leistungsblock, Referenz-Card, Abgrenzung, CTAs)
 als index.html gebaut, live auf Netlify unter onyx-ai.de. Kontaktformular
 (Netlify Forms) als Haupt-CTA ergänzt für zuverlässiges Lead-Tracking.
 Separat davon liegt unter `demo-wertakte/` die Vorführ-Software „Wertakte“
-für das Verkaufsgespräch mit dem Immobiliengutachter in Oldenburg.
+für das Verkaufsgespräch mit dem Immobiliengutachter in Oldenburg, gebaut im
+Onyx-Designsystem aus `onyx-designsystem/`.

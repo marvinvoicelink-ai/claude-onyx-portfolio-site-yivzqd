@@ -52,17 +52,17 @@ export default async function ObjekteSeite({ searchParams }: { searchParams: Pro
   andereAnsicht.set('ansicht', kacheln ? 'liste' : 'kacheln');
 
   return (
-    <div className="mx-auto max-w-[1400px] px-4 sm:px-6">
-      <div className="py-7 sm:py-9 flex flex-wrap items-end justify-between gap-4">
+    <div className="px-4 sm:px-6 lg:px-8">
+      <div className="py-6 sm:py-8 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl tracking-tight">Objekte und Gutachtenaufträge</h1>
+          <h1 className="text-2xl sm:text-[28px]">Objekte und Gutachtenaufträge</h1>
           <p className="mt-1.5 text-sm text-text-leise">
             {gefiltert.length === alle.length
               ? `${alle.length} Akten im Bestand`
               : `${gefiltert.length} von ${alle.length} Akten`}
           </p>
         </div>
-        <Link href="/objekte/neu" className="knopf knopf-primaer">
+        <Link href="/objekte/neu" className="onyx-knopf onyx-knopf-primaer">
           <PlusIcon size={16} weight="bold" />
           Objekt anlegen
         </Link>
@@ -70,7 +70,7 @@ export default async function ObjekteSeite({ searchParams }: { searchParams: Pro
 
       <div className="flex flex-col lg:flex-row lg:items-center gap-3 pb-5 border-b border-linie">
         <div className="flex-1 min-w-0">
-          <Suspense fallback={<div className="h-[42px]" />}>
+          <Suspense fallback={<div className="h-[34px]" />}>
             <Filterleiste auftraggeber={db.auftraggeber} />
           </Suspense>
         </div>
@@ -84,7 +84,7 @@ export default async function ObjekteSeite({ searchParams }: { searchParams: Pro
             })()}`}
             aria-current={!kacheln ? 'true' : undefined}
             className={`flex items-center gap-1.5 px-2.5 py-1.5 text-[13px] rounded-[2px] ${
-              !kacheln ? 'bg-kopf text-kopf-text' : 'text-text-leise hover:text-text'
+              !kacheln ? 'bg-akzent text-auf-akzent' : 'text-text-leise hover:text-text'
             }`}
           >
             <ListDashesIcon size={15} />
@@ -98,7 +98,7 @@ export default async function ObjekteSeite({ searchParams }: { searchParams: Pro
             })()}`}
             aria-current={kacheln ? 'true' : undefined}
             className={`flex items-center gap-1.5 px-2.5 py-1.5 text-[13px] rounded-[2px] ${
-              kacheln ? 'bg-kopf text-kopf-text' : 'text-text-leise hover:text-text'
+              kacheln ? 'bg-akzent text-auf-akzent' : 'text-text-leise hover:text-text'
             }`}
           >
             <SquaresFourIcon size={15} />
@@ -108,16 +108,16 @@ export default async function ObjekteSeite({ searchParams }: { searchParams: Pro
       </div>
 
       {gefiltert.length === 0 ? (
-        <div className="my-12 border border-dashed border-linie-stark rounded-kante px-6 py-14 text-center">
+        <div className="onyx-leer my-12 px-6 py-14 text-center">
           <p className="text-[15px]">Keine Akte passt zu dieser Suche.</p>
           <p className="mt-1.5 text-sm text-text-leise">
             Setze die Filter zurück oder lege den Auftrag neu an.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Link href="/objekte" className="knopf knopf-leise">
+            <Link href="/objekte" className="onyx-knopf onyx-knopf-leise">
               Filter zurücksetzen
             </Link>
-            <Link href="/objekte/neu" className="knopf knopf-primaer">
+            <Link href="/objekte/neu" className="onyx-knopf onyx-knopf-primaer">
               <PlusIcon size={16} weight="bold" />
               Objekt anlegen
             </Link>
@@ -139,25 +139,25 @@ type Objekte = ReturnType<typeof alleObjekte>;
 function Listenansicht({ objekte, db }: { objekte: Objekte; db: DB }) {
   return (
     <div className="py-4">
-      <div className="hidden lg:grid grid-cols-[7.5rem_minmax(0,1fr)_13rem_4.5rem_9rem_9.5rem] gap-4 px-2 pb-2 border-b border-linie-stark">
+      <div className="hidden lg:grid grid-cols-[7.5rem_minmax(0,1fr)_13rem_4.5rem_9rem_9.5rem] gap-4 px-2 pb-2.5 border-b border-linie-stark">
         {['Aktenzeichen', 'Objekt', 'Auftraggeber', 'Fotos', 'Frist', 'Status'].map((s) => (
-          <span key={s} className="etikett">
+          <span key={s} className="onyx-etikett">
             {s}
           </span>
         ))}
       </div>
 
-      <ul>
+      <ul className="onyx-register">
         {objekte.map((o) => {
           const ag = findeAuftraggeber(db, o.auftraggeberId);
           const anzahl = fotosZu(db, o.id).length;
           return (
-            <li key={o.id} className="border-b border-linie">
+            <li key={o.id} className="onyx-zeile border-b border-linie">
               <Link
                 href={`/objekte/${o.id}`}
-                className="grid lg:grid-cols-[7.5rem_minmax(0,1fr)_13rem_4.5rem_9rem_9.5rem] gap-x-4 gap-y-1.5 items-center px-2 py-3.5 hover:bg-flaeche-tief rounded-kante"
+                className="grid lg:grid-cols-[7.5rem_minmax(0,1fr)_13rem_4.5rem_9rem_9.5rem] gap-x-4 gap-y-1.5 items-center px-2 py-3.5 rounded-kante"
               >
-                <span className="font-mono text-[12.5px] text-text-leise lg:text-text">
+                <span className="font-mono text-[12.5px] text-text-still lg:text-text-leise">
                   {o.aktenzeichen}
                 </span>
 
@@ -206,9 +206,9 @@ function Kachelansicht({ objekte, db }: { objekte: Objekte; db: DB }) {
           <li key={o.id}>
             <Link
               href={`/objekte/${o.id}`}
-              className="group block h-full bg-flaeche border border-linie rounded-kante overflow-hidden hover:border-akzent transition-colors"
+              className="onyx-karte onyx-karte-klick group block h-full overflow-hidden"
             >
-              <div className="relative aspect-[4/3] bg-flaeche-tief overflow-hidden">
+              <div className="relative aspect-[4/3] bg-flaeche-hoch overflow-hidden">
                 {titel ? (
                   /* eslint-disable-next-line @next/next/no-img-element */
                   <img
@@ -227,10 +227,10 @@ function Kachelansicht({ objekte, db }: { objekte: Objekte; db: DB }) {
                     </span>
                   </span>
                 )}
-                <span className="absolute left-0 top-0 bg-kopf/90 text-kopf-text font-mono text-[11px] px-2 py-1">
+                <span className="absolute left-0 top-0 bg-grund/85 text-akzent font-mono text-[11px] px-2 py-1">
                   {o.aktenzeichen}
                 </span>
-                <span className="absolute right-0 bottom-0 bg-kopf/90 text-kopf-text font-mono text-[11px] px-2 py-1 tabular-nums">
+                <span className="absolute right-0 bottom-0 bg-grund/85 text-text font-mono text-[11px] px-2 py-1 tabular-nums">
                   {fotos.length} {fotos.length === 1 ? 'Foto' : 'Fotos'}
                 </span>
               </div>

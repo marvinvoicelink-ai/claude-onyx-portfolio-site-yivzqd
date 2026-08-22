@@ -6,9 +6,9 @@ export default function AuftraggeberSeite() {
   const db = lesen();
 
   return (
-    <div className="mx-auto max-w-[1400px] px-4 sm:px-6">
+    <div className="px-4 sm:px-6 lg:px-8">
       <div className="py-7 sm:py-9 border-b border-linie">
-        <h1 className="text-2xl sm:text-3xl tracking-tight">Auftraggeber</h1>
+        <h1 className="text-2xl sm:text-[28px]">Auftraggeber</h1>
         <p className="mt-1.5 text-sm text-text-leise max-w-[62ch] leading-relaxed">
           Wenige, dafür wiederkehrende Auftraggeber. Hinter jedem Eintrag liegt die vollständige
           Historie der Aufträge dieses Hauses.
@@ -23,11 +23,11 @@ export default function AuftraggeberSeite() {
             <li key={a.id}>
               <Link
                 href={`/auftraggeber/${a.id}`}
-                className="group flex flex-col h-full bg-flaeche border border-linie rounded-kante p-5 hover:border-akzent transition-colors"
+                className="onyx-karte onyx-karte-klick group flex flex-col h-full p-5"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-text-leise">
+                    <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-akzent">
                       {a.typ}
                     </p>
                     <p className="mt-1 text-[17px] leading-snug">{a.name}</p>
@@ -47,11 +47,11 @@ export default function AuftraggeberSeite() {
 
                 <div className="mt-auto pt-4 flex items-baseline gap-6 border-t border-linie mt-5">
                   <span>
-                    <span className="block etikett">Aufträge gesamt</span>
+                    <span className="block onyx-etikett">Aufträge gesamt</span>
                     <span className="font-mono text-lg tabular-nums">{auftraege.length}</span>
                   </span>
                   <span>
-                    <span className="block etikett">davon laufend</span>
+                    <span className="block onyx-etikett">davon laufend</span>
                     <span className="font-mono text-lg tabular-nums">{laufend.length}</span>
                   </span>
                 </div>

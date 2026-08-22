@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Onyx Designsystem – Referenz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="onyx-dunkel.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; padding: 2rem 1.25rem 6rem; }
+  .huelle { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 1.9rem; margin: 0 0 .4rem; }
+  h2 { font-size: 1.1rem; margin: 0 0 1rem; }
+  .kapitel { margin-top: 3.5rem; }
+  .kapitel > h2 { padding-bottom: .6rem; border-bottom: 1px solid var(--onyx-kontur-leise); }
+  .reihe { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+  .gitter { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+  .notiz { color: var(--onyx-text-leise); font-size: .875rem; line-height: 1.65; max-width: 68ch; }
+  code { font-family: var(--onyx-schrift-mono); font-size: .8125rem; color: var(--onyx-amber); }
+  .probe { display: flex; align-items: center; gap: .75rem; }
+  .klecks { width: 2.5rem; height: 2.5rem; border-radius: 8px; border: 1px solid var(--onyx-kontur-leise); flex: none; }
+  table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+  td { padding: .55rem .5rem; border-top: 1px solid var(--onyx-kontur-leise); vertical-align: middle; }
+  svg { display: block; }
+</style>
+</head>
+<body class="onyx">
+<div class="huelle">
+
+  <p class="onyx-etikett">Onyx.AI</p>
+  <h1>Designsystem „Dunkel/Amber“</h1>
+  <p class="notiz">
+    Verbindliche Oberflächen-Sprache für Onyx-eigene Frontends: Demos, Vorführsoftware,
+    Eigenprodukte. Near-Black als Grund, Amber als einziger Akzent, warmes Hellgrau als Text.
+    Alles auf dieser Seite kommt aus <code>onyx-dunkel.css</code>.
+  </p>
+
+  <!-- Farben -->
+  <section class="kapitel">
+    <h2>Farbrollen</h2>
+    <p class="notiz" style="margin-bottom:1.25rem">
+      Farbwerte stehen ausschließlich im Block „Themenebene“ der CSS-Datei. Wer eine Farbe
+      woanders hart einträgt, bricht das System.
+    </p>
+    <div class="gitter">
+      <div class="probe"><span class="klecks" style="background:var(--onyx-grund-tief)"></span><span><code>--onyx-grund-tief</code><br><span class="notiz">Seitengrund</span></span></div>
+      <div class="probe"><span class="klecks" style="background:var(--onyx-grund)"></span><span><code>--onyx-grund</code><br><span class="notiz">Fensterfläche</span></span></div>
+      <div class="probe"><span class="klecks" style="background:var(--onyx-flaeche)"></span><span><code>--onyx-flaeche</code><br><span class="notiz">Karte</span></span></div>
+      <div class="probe"><span class="klecks" style="background:var(--onyx-amber)"></span><span><code>--onyx-amber</code><br><span class="notiz">Akzent, #E8A33D</span></span></div>
+      <div class="probe"><span class="klecks" style="background:var(--onyx-text)"></span><span><code>--onyx-text</code><br><span class="notiz">Text, #F5F2EC</span></span></div>
+      <div class="probe"><span class="klecks" style="background:var(--onyx-warn)"></span><span><code>--onyx-warn</code><br><span class="notiz">Signal Problem</span></span></div>
+      <div class="probe"><span class="klecks" style="background:var(--onyx-gut)"></span><span><code>--onyx-gut</code><br><span class="notiz">Signal erledigt</span></span></div>
+      <div class="probe"><span class="klecks" style="background:var(--onyx-ruht)"></span><span><code>--onyx-ruht</code><br><span class="notiz">Signal ruht</span></span></div>
+    </div>
+  </section>
+
+  <!-- Schrift -->
+  <section class="kapitel">
+    <h2>Schrift</h2>
+    <p style="font-family:var(--onyx-schrift-titel); font-size:2rem; letter-spacing:-.015em; margin:.2rem 0">
+      Archivo für Überschriften
+    </p>
+    <p style="font-family:var(--onyx-schrift-text); font-size:1rem; line-height:1.7; max-width:60ch; margin:.6rem 0">
+      Instrument Sans für Fließtext. Ruhig, gut lesbar auf dunklem Grund, keine Effekte.
+    </p>
+    <p style="font-family:var(--onyx-schrift-mono); font-size:1rem; margin:.6rem 0">
+      IBM Plex Mono 0123456789 · GA-2026-041
+    </p>
+    <p class="onyx-etikett" style="margin-top:1rem">So sieht ein Etikett aus</p>
+  </section>
+
+  <!-- Rahmen -->
+  <section class="kapitel">
+    <h2>Rahmen und Karten</h2>
+    <div class="onyx-rahmen" style="padding:1.25rem; margin-bottom:1.25rem">
+      <p class="onyx-etikett">onyx-rahmen</p>
+      <p class="notiz" style="margin:.4rem 0 0">
+        Das leuchtende Fenster. Umschließt die ganze Anwendung, genau einmal je Seite.
+        Auf Schirmen unter 768 px randlos.
+      </p>
+    </div>
+    <div class="gitter" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+      <div class="onyx-karte" style="padding:1.1rem">
+        <p class="onyx-etikett">onyx-karte</p>
+        <p class="notiz" style="margin:.4rem 0 0">Ruhige Fläche mit warmer Haarlinie.</p>
+      </div>
+      <a class="onyx-karte onyx-karte-klick" href="#" style="padding:1.1rem; display:block; text-decoration:none; color:inherit">
+        <p class="onyx-etikett">onyx-karte-klick</p>
+        <p class="notiz" style="margin:.4rem 0 0">Beim Überfahren zieht die Kontur an. Kein Anheben.</p>
+      </a>
+      <div class="onyx-leer" style="padding:1.6rem; text-align:center">
+        <p class="onyx-etikett">onyx-leer</p>
+        <p class="notiz" style="margin:.4rem 0 0">Leerer Zustand, sagt was zu tun ist.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kennzahlen -->
+  <section class="kapitel">
+    <h2>Kennzahl-Kacheln</h2>
+    <div class="gitter">
+      <div class="onyx-kachel"><p class="onyx-etikett">Projekte</p><p class="onyx-kachel-zahl" style="margin:.5rem 0 0">24</p></div>
+      <div class="onyx-kachel"><p class="onyx-etikett">Aufgaben</p><p class="onyx-kachel-zahl" style="margin:.5rem 0 0">128</p></div>
+      <div class="onyx-kachel"><p class="onyx-etikett">Erledigt</p><p class="onyx-kachel-zahl onyx-kachel-zahl-amber" style="margin:.5rem 0 0">82&#8202;%</p></div>
+      <div class="onyx-kachel"><p class="onyx-etikett">Team</p><p class="onyx-kachel-zahl" style="margin:.5rem 0 0">06</p></div>
+    </div>
+    <p class="notiz" style="margin-top:1rem">
+      Zahlen immer in Mono mit <code>tabular-nums</code>, damit Ziffern untereinander stehen.
+      Amber bekommt höchstens eine Kachel je Reihe, sonst verliert der Akzent seine Wirkung.
+    </p>
+  </section>
+
+  <!-- Bedienelemente -->
+  <section class="kapitel">
+    <h2>Knöpfe</h2>
+    <div class="reihe">
+      <button class="onyx-knopf onyx-knopf-primaer">Objekt anlegen</button>
+      <button class="onyx-knopf onyx-knopf-leise">Bilder hochladen</button>
+      <button class="onyx-knopf onyx-knopf-klar">Abbrechen</button>
+      <button class="onyx-knopf onyx-knopf-gefahr">Entfernen</button>
+      <button class="onyx-knopf onyx-knopf-primaer" disabled>Gesperrt</button>
+    </div>
+    <p class="notiz" style="margin-top:1rem">
+      Genau ein Amber-Knopf je Bildschirmbereich. Er markiert den Weg nach vorn, alles
+      andere ist leise.
+    </p>
+  </section>
+
+  <section class="kapitel">
+    <h2>Eingabefelder</h2>
+    <div class="gitter" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+      <div>
+        <label class="onyx-etikett" for="f1">Textfeld</label>
+        <input id="f1" class="onyx-feld" style="margin-top:.4rem" placeholder="Eichenstraße 14">
+      </div>
+      <div>
+        <label class="onyx-etikett" for="f2">Auswahl</label>
+        <select id="f2" class="onyx-feld" style="margin-top:.4rem">
+          <option>Verkehrswertgutachten</option>
+          <option>Beleihungswertgutachten</option>
+        </select>
+      </div>
+      <div>
+        <label class="onyx-etikett" for="f3">Suche in der Kopfzeile</label>
+        <div style="position:relative; margin-top:.4rem">
+          <svg style="position:absolute;left:.8rem;top:50%;transform:translateY(-50%)" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="var(--onyx-text-still)" stroke-width="1.6"><circle cx="7" cy="7" r="4.6"/><path d="M10.5 10.5 14 14"/></svg>
+          <input id="f3" class="onyx-feld onyx-suche" placeholder="Suchen …">
+        </div>
+      </div>
+    </div>
+    <p class="notiz" style="margin-top:1rem">
+      Etikett steht über dem Feld, nie im Feld. Ein Platzhalter ist ein Beispiel, keine
+      Beschriftung.
+    </p>
+  </section>
+
+  <!-- Marken -->
+  <section class="kapitel">
+    <h2>Marken und Signale</h2>
+    <div class="reihe">
+      <span class="onyx-marke onyx-marke-laeuft">In Bearbeitung</span>
+      <span class="onyx-marke onyx-marke-ruht">Offen</span>
+      <span class="onyx-marke onyx-marke-fertig">Abgeschlossen</span>
+      <span class="onyx-marke onyx-marke-warn">3 Tage überfällig</span>
+    </div>
+    <p class="notiz" style="margin-top:1rem">
+      Amber heißt „läuft gerade“, Rot heißt „Problem“, Grün heißt „erledigt“, Grau heißt
+      „ruht“. Das ist kein zweiter Akzent, sondern Bedeutung. Farbige Punkte nur dort, wo
+      sie einen Zustand tragen, nie als Schmuck.
+    </p>
+  </section>
+
+  <!-- Fortschritt -->
+  <section class="kapitel">
+    <h2>Fortschritt</h2>
+    <table>
+      <tbody>
+        <tr>
+          <td style="width:40%">Website-Launch</td>
+          <td><span class="onyx-balken" style="display:block"><span style="width:75%"></span></span></td>
+          <td style="width:4rem;text-align:right;font-family:var(--onyx-schrift-mono);font-variant-numeric:tabular-nums">75&#8202;%</td>
+        </tr>
+        <tr>
+          <td>Kunden-Onboarding</td>
+          <td><span class="onyx-balken" style="display:block"><span style="width:60%"></span></span></td>
+          <td style="text-align:right;font-family:var(--onyx-schrift-mono);font-variant-numeric:tabular-nums">60&#8202;%</td>
+        </tr>
+        <tr>
+          <td>Content-Plan</td>
+          <td><span class="onyx-balken" style="display:block"><span style="width:90%"></span></span></td>
+          <td style="text-align:right;font-family:var(--onyx-schrift-mono);font-variant-numeric:tabular-nums">90&#8202;%</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Zeitschiene -->
+  <section class="kapitel">
+    <h2>Zeitschiene</h2>
+    <div class="onyx-karte" style="padding:1.1rem">
+      <div class="onyx-schiene">
+        <div class="onyx-schiene-raster" style="grid-template-columns:repeat(4,1fr)">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); position:relative; z-index:1">
+          <p class="onyx-etikett" style="margin:0 0 .9rem .5rem">KW 20</p>
+          <p class="onyx-etikett" style="margin:0 0 .9rem .5rem">KW 21</p>
+          <p class="onyx-etikett" style="margin:0 0 .9rem .5rem">KW 22</p>
+          <p class="onyx-etikett" style="margin:0 0 .9rem .5rem">KW 23</p>
+        </div>
+        <div style="display:grid; gap:.5rem; position:relative; z-index:1">
+          <div class="onyx-schiene-balken" style="width:26%; margin-left:0"></div>
+          <div class="onyx-schiene-balken" style="width:26%; margin-left:22%"></div>
+          <div class="onyx-schiene-balken" style="width:30%; margin-left:44%"></div>
+          <div class="onyx-schiene-balken onyx-schiene-balken-leise" style="width:26%; margin-left:70%"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Register -->
+  <section class="kapitel">
+    <h2>Register</h2>
+    <div class="onyx-karte" style="padding:.35rem 1rem 1rem">
+      <div style="display:grid;grid-template-columns:7.5rem 1fr 9rem 8rem;gap:1rem;padding:.75rem .5rem">
+        <span class="onyx-etikett">Aktenzeichen</span>
+        <span class="onyx-etikett">Objekt</span>
+        <span class="onyx-etikett">Frist</span>
+        <span class="onyx-etikett">Status</span>
+      </div>
+      <div class="onyx-register">
+        <div class="onyx-zeile" style="display:grid;grid-template-columns:7.5rem 1fr 9rem 8rem;gap:1rem;padding:.75rem .5rem;align-items:center">
+          <span style="font-family:var(--onyx-schrift-mono);font-size:.8125rem;color:var(--onyx-text-leise)">GA-2026-038</span>
+          <span>Bremer Straße 88, Oldenburg</span>
+          <span style="font-family:var(--onyx-schrift-mono);font-size:.8125rem;color:var(--onyx-warn)">2 Tage überfällig</span>
+          <span><span class="onyx-marke onyx-marke-laeuft">In Bearbeitung</span></span>
+        </div>
+        <div class="onyx-zeile" style="display:grid;grid-template-columns:7.5rem 1fr 9rem 8rem;gap:1rem;padding:.75rem .5rem;align-items:center">
+          <span style="font-family:var(--onyx-schrift-mono);font-size:.8125rem;color:var(--onyx-text-leise)">GA-2026-044</span>
+          <span>Am Rosenkamp 7, Bad Zwischenahn</span>
+          <span style="font-family:var(--onyx-schrift-mono);font-size:.8125rem;color:var(--onyx-text-leise)">in 27 Tagen</span>
+          <span><span class="onyx-marke onyx-marke-ruht">Offen</span></span>
+        </div>
+        <div class="onyx-zeile" style="display:grid;grid-template-columns:7.5rem 1fr 9rem 8rem;gap:1rem;padding:.75rem .5rem;align-items:center">
+          <span style="font-family:var(--onyx-schrift-mono);font-size:.8125rem;color:var(--onyx-text-leise)">GA-2026-029</span>
+          <span>Industriestraße 3, Wardenburg</span>
+          <span style="font-family:var(--onyx-schrift-mono);font-size:.8125rem;color:var(--onyx-text-still)">abgegeben</span>
+          <span><span class="onyx-marke onyx-marke-fertig">Abgeschlossen</span></span>
+        </div>
+      </div>
+    </div>
+    <p class="notiz" style="margin-top:1rem">
+      Bei mehr als fünf gleichartigen Einträgen ein Register mit Haarlinien, keine
+      Kartenwand. Karten kosten Platz und sagen bei einer Liste nichts aus.
+    </p>
+  </section>
+
+  <!-- Regeln -->
+  <section class="kapitel">
+    <h2>Regeln</h2>
+    <ol class="notiz" style="line-height:1.9; padding-left:1.2rem">
+      <li>Ein Akzent. Amber, sonst nichts. Rot, Grün und Grau sind Signale, keine Akzente.</li>
+      <li>Ein Amber-Knopf je Bildschirmbereich.</li>
+      <li>Farbwerte nur in der Themenebene der CSS-Datei, nie in Komponenten.</li>
+      <li>Zahlen, Aktenzeichen, Datum und Etiketten in Mono mit <code>tabular-nums</code>.</li>
+      <li>Ein Eckenmaß: 12 px Karten, 8 px Knöpfe und Felder. Nichts dazwischen.</li>
+      <li>Glow genau einmal je Seite, am äußeren Rahmen. Nicht auf Karten, nicht auf Knöpfen.</li>
+      <li>Trennen durch Haarlinie und Weißraum, nicht durch Kartenrahmen um alles.</li>
+      <li>Bewegung nur, wenn sie etwas erklärt, und immer über <code>prefers-reduced-motion</code> abschaltbar.</li>
+      <li>Dokumente, die gedruckt werden, bleiben Papier: heller Grund, Serifenschrift.</li>
+      <li>Kundensysteme erben Struktur und Komponenten, aber nicht Amber.</li>
+    </ol>
+  </section>
+
+</div>
+</body>
+</html>

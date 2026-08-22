@@ -41,12 +41,12 @@ export function FotoAufnahme({ aktion }: { aktion: (fd: FormData) => Promise<voi
       <Knoepfe beimAufnehmen={() => kamera.current?.click()} beimHochladen={() => galerie.current?.click()} />
 
       <div className="flex flex-wrap items-center gap-2">
-        <label htmlFor="kategorie-neu" className="etikett">
+        <label htmlFor="kategorie-neu" className="onyx-etikett">
           Neue Fotos ablegen als
         </label>
         <select
           id="kategorie-neu"
-          className="feld w-auto py-1.5 text-[13px]"
+          className="onyx-feld w-auto py-1.5 text-[13px]"
           value={kategorie}
           onChange={(e) => setKategorie(e.target.value)}
         >
@@ -72,7 +72,7 @@ function Knoepfe({
 
   if (pending) {
     return (
-      <p className="flex items-center justify-center gap-2.5 bg-akzent-flaeche border border-akzent/25 rounded-kante py-4 text-sm text-akzent">
+      <p className="flex items-center justify-center gap-2.5 bg-akzent-flaeche border border-linie-stark rounded-kante py-4 text-sm text-akzent">
         <SpinnerGapIcon size={18} className="animate-spin" />
         Fotos werden in die Akte übernommen …
       </p>
@@ -81,11 +81,11 @@ function Knoepfe({
 
   return (
     <div className="grid sm:grid-cols-[1fr_auto] gap-2.5">
-      <button type="button" onClick={beimAufnehmen} className="knopf knopf-primaer py-3.5 text-[15px]">
+      <button type="button" onClick={beimAufnehmen} className="onyx-knopf onyx-knopf-primaer py-3.5 text-[15px]">
         <CameraIcon size={20} weight="fill" />
         Foto aufnehmen
       </button>
-      <button type="button" onClick={beimHochladen} className="knopf knopf-leise py-3.5">
+      <button type="button" onClick={beimHochladen} className="onyx-knopf onyx-knopf-leise py-3.5">
         <UploadSimpleIcon size={18} />
         Bilder hochladen
       </button>

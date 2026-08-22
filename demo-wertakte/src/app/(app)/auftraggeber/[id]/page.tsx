@@ -17,17 +17,17 @@ export default async function AuftraggeberDetail({ params }: { params: Promise<{
   const laufend = auftraege.filter((o) => o.status !== 'abgeschlossen');
 
   return (
-    <div className="mx-auto max-w-[1400px] px-4 sm:px-6">
+    <div className="px-4 sm:px-6 lg:px-8">
       <Link
         href="/auftraggeber"
-        className="inline-flex items-center gap-1.5 mt-6 text-[13px] text-text-leise hover:text-text"
+        className="inline-flex items-center gap-1.5 mt-6 text-[13px] text-text-leise hover:text-akzent"
       >
         <ArrowLeftIcon size={14} />
         Alle Auftraggeber
       </Link>
 
       <header className="mt-4 pb-6 border-b border-linie">
-        <p className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-text-leise">
+        <p className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-akzent">
           {ag.typ}
         </p>
         <h1 className="mt-1.5 text-2xl sm:text-3xl tracking-tight">{ag.name}</h1>
@@ -56,23 +56,23 @@ export default async function AuftraggeberDetail({ params }: { params: Promise<{
       <div className="grid lg:grid-cols-12 gap-x-10 gap-y-9 py-8">
         <section className="lg:col-span-7">
           <div className="flex items-baseline justify-between gap-4">
-            <h2 className="text-lg tracking-tight">Auftragshistorie</h2>
+            <h2 className="text-lg">Auftragshistorie</h2>
             <p className="text-[13px] text-text-leise tabular-nums">
               {auftraege.length} gesamt, {laufend.length} laufend
             </p>
           </div>
 
           {auftraege.length === 0 ? (
-            <p className="mt-5 text-sm text-text-leise border border-dashed border-linie-stark rounded-kante p-6">
+            <p className="onyx-leer mt-5 text-sm text-text-leise p-6">
               Für diesen Auftraggeber ist noch keine Akte angelegt.
             </p>
           ) : (
-            <ul className="mt-4 border-t border-linie">
+            <ul className="onyx-register mt-4 border-t border-linie">
               {auftraege.map((o) => (
-                <li key={o.id} className="border-b border-linie">
+                <li key={o.id} className="onyx-zeile border-b border-linie">
                   <Link
                     href={`/objekte/${o.id}`}
-                    className="flex flex-wrap items-center gap-x-5 gap-y-2 py-3.5 -mx-2 px-2 rounded-kante hover:bg-flaeche-tief"
+                    className="flex flex-wrap items-center gap-x-5 gap-y-2 py-3.5 -mx-2 px-2 rounded-kante"
                   >
                     <span className="font-mono text-[12.5px] text-text-leise w-[7rem] shrink-0">
                       {o.aktenzeichen}
@@ -96,7 +96,7 @@ export default async function AuftraggeberDetail({ params }: { params: Promise<{
         </section>
 
         <section className="lg:col-span-5">
-          <h2 className="text-lg tracking-tight">Notizen zum Auftraggeber</h2>
+          <h2 className="text-lg">Notizen zum Auftraggeber</h2>
           <form action={auftraggeberNotizSpeichern.bind(null, ag.id)} className="mt-4 grid gap-3">
             <label htmlFor="notizen" className="sr-only">
               Notizen zum Auftraggeber
@@ -107,9 +107,9 @@ export default async function AuftraggeberDetail({ params }: { params: Promise<{
               rows={9}
               defaultValue={ag.notizen}
               placeholder="Formvorgaben, Ansprechwege, Besonderheiten bei der Abrechnung."
-              className="feld resize-y leading-relaxed"
+              className="onyx-feld resize-y leading-relaxed"
             />
-            <button type="submit" className="knopf knopf-leise justify-self-start">
+            <button type="submit" className="onyx-knopf onyx-knopf-leise justify-self-start">
               Notizen speichern
             </button>
           </form>

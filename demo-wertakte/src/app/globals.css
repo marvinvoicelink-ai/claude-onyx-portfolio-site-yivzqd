@@ -1,140 +1,86 @@
 @import "tailwindcss";
 
+/* Onyx-Designsystem. Quelle liegt in /onyx-designsystem, hier nur die Kopie.
+   Aktualisieren mit: npm run stil:sync */
+@import "./onyx-dunkel.css";
+
 /* ------------------------------------------------------------------
-   Wertakte - Designsystem
-   Anthrazit als Struktur, warmes Papier als Arbeitsflaeche, ein einziger
-   gedeckter Blauton als Akzent. Kanten fast scharf (3px), Mono fuer
-   Aktenzeichen, Datum und Zahlen. Bewusst kein SaaS-Blau-Weiss.
+   Bruecke: legt die Rollen-Tokens des Designsystems auf Tailwind-Utilities.
+   Farbwerte stehen ausschliesslich in onyx-dunkel.css, hier steht nur die
+   Zuordnung. "inline", damit die Utilities die Variablen referenzieren.
    ------------------------------------------------------------------ */
 
-/* Rollen-Tokens. Nur hier stehen Farbwerte, sonst nirgends im Projekt. */
-:root {
-  --schrift-sans: var(--font-geist-sans);
-  --schrift-mono: var(--font-geist-mono);
-
-  --w-kopf: #191D21;
-  --w-kopf-linie: #333B42;
-  --w-kopf-text: #E7E4DD;
-  --w-kopf-text-leise: #9AA1A8;
-
-  --w-papier: #F2F0EA;
-  --w-flaeche: #FBFAF6;
-  --w-flaeche-tief: #E9E6DE;
-  --w-linie: #D8D3C8;
-  --w-linie-stark: #BDB6A8;
-
-  --w-text: #21262A;
-  --w-text-leise: #6A7076;
-
-  --w-akzent: #2E5266;
-  --w-akzent-tief: #22404F;
-  --w-akzent-flaeche: #E2EAEF;
-  --w-auf-akzent: #FFFFFF;
-
-  --w-offen: #7C5F2A;
-  --w-offen-flaeche: #F2E8D3;
-  --w-lauf: #2E5266;
-  --w-lauf-flaeche: #E2EAEF;
-  --w-fertig: #3E5C46;
-  --w-fertig-flaeche: #E0E9E1;
-  --w-warn: #8C4030;
-  --w-warn-flaeche: #F6E3DE;
-}
-
-/* Dunkelmodus: gleiche Rollen, andere Werte. Keine Sektion kippt einzeln. */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --w-kopf: #0E1113;
-    --w-kopf-linie: #2A3138;
-    --w-kopf-text: #E7E4DD;
-    --w-kopf-text-leise: #949BA2;
-
-    --w-papier: #16191C;
-    --w-flaeche: #1E2226;
-    --w-flaeche-tief: #262B30;
-    --w-linie: #333940;
-    --w-linie-stark: #4A525A;
-
-    --w-text: #E6E3DC;
-    --w-text-leise: #9BA3AA;
-
-    --w-akzent: #8FB6CC;
-    --w-akzent-tief: #AFCDDC;
-    --w-akzent-flaeche: #22323C;
-    --w-auf-akzent: #10161A;
-
-    --w-offen: #D8AE64;
-    --w-offen-flaeche: #2E2617;
-    --w-lauf: #8FB6CC;
-    --w-lauf-flaeche: #1D2C35;
-    --w-fertig: #93B89B;
-    --w-fertig-flaeche: #1D2A21;
-    --w-warn: #DD9583;
-    --w-warn-flaeche: #33201B;
-  }
-}
-
-/* inline, damit die Utilities die Variablen referenzieren und im
-   Dunkelmodus automatisch mitziehen. */
 @theme inline {
-  --font-sans: var(--schrift-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--schrift-mono), ui-monospace, "SFMono-Regular", monospace;
-  --font-akte: ui-serif, "Iowan Old Style", "Source Serif 4", "Times New Roman", Georgia, serif;
+  --font-sans: var(--onyx-schrift-text);
+  --font-titel: var(--onyx-schrift-titel);
+  --font-mono: var(--onyx-schrift-mono);
+  --font-akte: var(--onyx-schrift-akte);
 
-  --radius-kante: 3px;
+  --radius-kante: var(--onyx-radius-klein);
+  --radius-karte: var(--onyx-radius);
 
-  --color-kopf: var(--w-kopf);
-  --color-kopf-linie: var(--w-kopf-linie);
-  --color-kopf-text: var(--w-kopf-text);
-  --color-kopf-text-leise: var(--w-kopf-text-leise);
+  /* Flaechen */
+  --color-grund: var(--onyx-grund-tief);
+  --color-rahmen: var(--onyx-grund);
+  --color-flaeche: var(--onyx-flaeche);
+  --color-flaeche-hoch: var(--onyx-flaeche-hoch);
 
-  --color-papier: var(--w-papier);
-  --color-flaeche: var(--w-flaeche);
-  --color-flaeche-tief: var(--w-flaeche-tief);
-  --color-linie: var(--w-linie);
-  --color-linie-stark: var(--w-linie-stark);
+  /* Konturen */
+  --color-linie: var(--onyx-kontur-leise);
+  --color-linie-warm: var(--onyx-kontur);
+  --color-linie-stark: var(--onyx-kontur-stark);
 
-  --color-text: var(--w-text);
-  --color-text-leise: var(--w-text-leise);
+  /* Text */
+  --color-text: var(--onyx-text);
+  --color-text-leise: var(--onyx-text-leise);
+  --color-text-still: var(--onyx-text-still);
 
-  --color-akzent: var(--w-akzent);
-  --color-akzent-tief: var(--w-akzent-tief);
-  --color-akzent-flaeche: var(--w-akzent-flaeche);
-  --color-auf-akzent: var(--w-auf-akzent);
+  /* Akzent */
+  --color-akzent: var(--onyx-amber);
+  --color-akzent-hell: var(--onyx-amber-hell);
+  --color-akzent-flaeche: var(--onyx-amber-flaeche);
+  --color-auf-akzent: var(--onyx-auf-amber);
 
-  --color-offen: var(--w-offen);
-  --color-offen-flaeche: var(--w-offen-flaeche);
-  --color-lauf: var(--w-lauf);
-  --color-lauf-flaeche: var(--w-lauf-flaeche);
-  --color-fertig: var(--w-fertig);
-  --color-fertig-flaeche: var(--w-fertig-flaeche);
-  --color-warn: var(--w-warn);
-  --color-warn-flaeche: var(--w-warn-flaeche);
+  /* Signale */
+  --color-warn: var(--onyx-warn);
+  --color-warn-flaeche: var(--onyx-warn-flaeche);
+  --color-gut: var(--onyx-gut);
+  --color-gut-flaeche: var(--onyx-gut-flaeche);
+  --color-ruht: var(--onyx-ruht);
+  --color-ruht-flaeche: var(--onyx-ruht-flaeche);
 }
 
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
+    background-color: var(--onyx-grund-tief);
   }
 
   body {
-    background-color: var(--color-papier);
-    color: var(--color-text);
-    font-family: var(--font-sans);
+    background-color: var(--onyx-grund-tief);
+    color: var(--onyx-text);
+    font-family: var(--onyx-schrift-text);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
-  /* Sichtbarer, ruhiger Fokus - Tastaturbedienung im Buero ist Alltag. */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--onyx-schrift-titel);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+
   :focus-visible {
-    outline: 2px solid var(--color-akzent);
+    outline: 2px solid var(--onyx-amber);
     outline-offset: 2px;
-    border-radius: 2px;
+    border-radius: 3px;
   }
 
   ::selection {
-    background: var(--color-akzent);
-    color: var(--color-auf-akzent);
+    background: var(--onyx-amber);
+    color: var(--onyx-auf-amber);
   }
 
   input,
@@ -144,86 +90,13 @@
     font: inherit;
     color: inherit;
   }
-}
 
-@layer components {
-  /* Kleines Mono-Label ueber Werten und Spalten. Bewusst sparsam einsetzen. */
-  .etikett {
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-text-leise);
-  }
-
-  .feld {
-    width: 100%;
-    background: var(--color-flaeche);
-    border: 1px solid var(--color-linie-stark);
-    border-radius: var(--radius-kante);
-    padding: 0.55rem 0.7rem;
-    font-size: 0.9375rem;
-    color: var(--color-text);
-  }
-  .feld::placeholder {
-    color: var(--color-text-leise);
-  }
-  .feld:hover {
-    border-color: var(--color-akzent);
-  }
-
-  select.feld {
-    appearance: none;
-    background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
-      linear-gradient(135deg, currentColor 50%, transparent 50%);
-    background-position: right 0.95rem center, right 0.65rem center;
-    background-size: 5px 5px, 5px 5px;
-    background-repeat: no-repeat;
-    padding-right: 2rem;
-  }
-
-  .knopf {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    border-radius: var(--radius-kante);
-    padding: 0.55rem 1rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    line-height: 1.2;
-    white-space: nowrap;
-    border: 1px solid transparent;
-    transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.08s ease;
-  }
-  .knopf:active {
-    transform: translateY(1px);
-  }
-
-  .knopf-primaer {
-    background: var(--color-akzent);
-    color: var(--color-auf-akzent);
-  }
-  .knopf-primaer:hover {
-    background: var(--color-akzent-tief);
-  }
-
-  .knopf-leise {
-    background: var(--color-flaeche);
-    border-color: var(--color-linie-stark);
-    color: var(--color-text);
-  }
-  .knopf-leise:hover {
-    border-color: var(--color-akzent);
-    background: var(--color-flaeche-tief);
-  }
-
-  .knopf-klar {
-    color: var(--color-text-leise);
-  }
-  .knopf-klar:hover {
-    color: var(--color-text);
-    background: var(--color-flaeche-tief);
+  /* Kalender- und Uhrzeit-Symbole der Browser sind schwarz und
+     verschwinden auf dunklem Grund. */
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(78%) sepia(35%) saturate(900%) hue-rotate(340deg);
+    cursor: pointer;
   }
 }
 
@@ -236,14 +109,17 @@
   }
 }
 
-/* Gutachten-Entwurf: am Bildschirm Papierblatt, im Druck echtes A4. */
+/* Gutachten-Entwurf: am Bildschirm Papierblatt, im Druck echtes A4.
+   Das Blatt bleibt hell, weil es das spaetere Dokument zeigt. */
 @media print {
-  .kein-druck {
+  .kein-druck,
+  .onyx-kein-druck {
     display: none !important;
   }
+  html,
   body {
-    background: #fff;
-    color: #000;
+    background: #fff !important;
+    color: #000 !important;
   }
   .blatt {
     box-shadow: none !important;

@@ -1,6 +1,10 @@
 import type { Metadata, Viewport } from 'next';
-import { GeistMono } from 'geist/font/mono';
-import { GeistSans } from 'geist/font/sans';
+// Onyx-Hausschriften, selbst gehostet: kein Nachladen von fremden Servern,
+// die Anwendung startet auch ohne Internet.
+import '@fontsource-variable/archivo';
+import '@fontsource-variable/instrument-sans';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -10,7 +14,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#191D21',
+  themeColor: '#101010',
+  colorScheme: 'dark',
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
@@ -18,7 +23,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="de" className="onyx">
       <body>{children}</body>
     </html>
   );

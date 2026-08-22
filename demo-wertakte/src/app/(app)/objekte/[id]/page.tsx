@@ -33,10 +33,10 @@ export default async function ObjektSeite({ params }: { params: Promise<{ id: st
   const ohneBeschriftung = fotos.filter((f) => !f.beschriftung).length;
 
   return (
-    <div className="mx-auto max-w-[1400px] px-4 sm:px-6">
+    <div className="px-4 sm:px-6 lg:px-8">
       <Link
         href="/objekte"
-        className="inline-flex items-center gap-1.5 mt-6 text-[13px] text-text-leise hover:text-text"
+        className="inline-flex items-center gap-1.5 mt-6 text-[13px] text-text-leise hover:text-akzent"
       >
         <ArrowLeftIcon size={14} />
         Alle Objekte
@@ -44,12 +44,12 @@ export default async function ObjektSeite({ params }: { params: Promise<{ id: st
 
       {/* Aktenkopf */}
       <header className="mt-4 pb-6 border-b border-linie">
-        <p className="font-mono text-[13px] tracking-[0.14em] text-text-leise">
+        <p className="font-mono text-[13px] tracking-[0.14em] text-akzent">
           {objekt.aktenzeichen}
         </p>
         <div className="mt-1.5 flex flex-wrap items-start justify-between gap-x-8 gap-y-4">
           <div>
-            <h1 className="text-2xl sm:text-3xl tracking-tight">{objekt.strasse}</h1>
+            <h1 className="text-2xl sm:text-[28px]">{objekt.strasse}</h1>
             <p className="mt-1.5 flex items-center gap-1.5 text-[15px] text-text-leise">
               <MapPinIcon size={15} />
               {objekt.plz} {objekt.ort} · {objekt.objekttyp}
@@ -58,14 +58,14 @@ export default async function ObjektSeite({ params }: { params: Promise<{ id: st
 
           <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
             <div>
-              <p className="etikett">Abgabefrist</p>
+              <p className="onyx-etikett">Abgabefrist</p>
               <p className="mt-1 font-mono text-[15px] tabular-nums">{datum(objekt.frist)}</p>
               <p className="text-[13px]">
                 <Fristmarke frist={objekt.frist} erledigt={objekt.status === 'abgeschlossen'} />
               </p>
             </div>
             <div>
-              <p className="etikett">Status</p>
+              <p className="onyx-etikett">Status</p>
               <p className="mt-1.5">
                 <Statusmarke status={objekt.status} />
               </p>
@@ -77,16 +77,16 @@ export default async function ObjektSeite({ params }: { params: Promise<{ id: st
             gebraucht werden, direkt unter dem Aktenkopf. */}
         <div className="mt-6 flex flex-col sm:flex-row sm:items-center gap-4 sm:justify-between">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="etikett mr-1">Status setzen</span>
+            <span className="onyx-etikett mr-1">Status setzen</span>
             {STATUS_LISTE.map((s) => (
               <form key={s} action={statusSetzen.bind(null, objekt.id, s)}>
                 <button
                   type="submit"
                   disabled={objekt.status === s}
-                  className={`knopf text-[13px] px-3 py-1.5 ${
+                  className={`onyx-knopf text-[13px] px-3 py-1.5 ${
                     objekt.status === s
-                      ? 'bg-kopf text-kopf-text cursor-default'
-                      : 'knopf-leise'
+                      ? 'bg-akzent text-auf-akzent cursor-default'
+                      : 'onyx-knopf-leise'
                   }`}
                 >
                   {STATUS_TEXT[s]}
@@ -95,7 +95,7 @@ export default async function ObjektSeite({ params }: { params: Promise<{ id: st
             ))}
           </div>
 
-          <Link href={`/objekte/${objekt.id}/entwurf`} className="knopf knopf-primaer">
+          <Link href={`/objekte/${objekt.id}/entwurf`} className="onyx-knopf onyx-knopf-primaer">
             <FileTextIcon size={17} weight="fill" />
             Gutachten-Entwurf erstellen
           </Link>
@@ -107,16 +107,16 @@ export default async function ObjektSeite({ params }: { params: Promise<{ id: st
             beim Ortstermin das Erste, was gebraucht wird. */}
         <section className="lg:col-start-6 lg:col-span-7 lg:row-start-1">
           <div className="flex flex-wrap items-baseline justify-between gap-3">
-            <h2 className="text-lg tracking-tight">Fotodokumentation</h2>
+            <h2 className="text-lg">Fotodokumentation</h2>
             <p className="text-[13px] text-text-leise tabular-nums">
               {fotos.length} {fotos.length === 1 ? 'Foto' : 'Fotos'}
               {ohneBeschriftung > 0 ? (
-                <span className="text-offen"> · {ohneBeschriftung} ohne Beschriftung</span>
+                <span className="text-akzent"> · {ohneBeschriftung} ohne Beschriftung</span>
               ) : null}
             </p>
           </div>
 
-          <div className="mt-4 bg-flaeche border border-linie rounded-kante p-4">
+          <div className="onyx-karte mt-4 p-4">
             <FotoAufnahme aktion={fotosHochladen.bind(null, objekt.id)} />
           </div>
 
@@ -132,7 +132,7 @@ export default async function ObjektSeite({ params }: { params: Promise<{ id: st
         {/* Objektangaben */}
         <div className="lg:col-start-1 lg:col-span-5 lg:row-start-1 grid gap-9">
           <section>
-            <h2 className="text-lg tracking-tight">Objektangaben</h2>
+            <h2 className="text-lg">Objektangaben</h2>
             <dl className="mt-4 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-linie pt-5">
               <Datenzeile etikett="Bewertungsanlass" spalten={2}>
                 {objekt.bewertungsanlass}
@@ -163,11 +163,11 @@ export default async function ObjektSeite({ params }: { params: Promise<{ id: st
           </section>
 
           <section>
-            <h2 className="text-lg tracking-tight">Auftraggeber</h2>
+            <h2 className="text-lg">Auftraggeber</h2>
             {ag ? (
               <Link
                 href={`/auftraggeber/${ag.id}`}
-                className="mt-4 block bg-flaeche border border-linie rounded-kante p-4 hover:border-akzent transition-colors"
+                className="onyx-karte onyx-karte-klick mt-4 block p-4"
               >
                 <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-text-leise">
                   {ag.typ}
@@ -184,7 +184,7 @@ export default async function ObjektSeite({ params }: { params: Promise<{ id: st
           </section>
 
           <section>
-            <h2 className="text-lg tracking-tight">Notizen zur Akte</h2>
+            <h2 className="text-lg">Notizen zur Akte</h2>
             <form action={notizSpeichern.bind(null, objekt.id)} className="mt-4 grid gap-3">
               <label htmlFor="notizen" className="sr-only">
                 Notizen zur Akte
@@ -195,9 +195,9 @@ export default async function ObjektSeite({ params }: { params: Promise<{ id: st
                 rows={7}
                 defaultValue={objekt.notizen}
                 placeholder="Beobachtungen vom Ortstermin, offene Unterlagen, Absprachen mit dem Auftraggeber."
-                className="feld resize-y leading-relaxed"
+                className="onyx-feld resize-y leading-relaxed"
               />
-              <button type="submit" className="knopf knopf-leise justify-self-start">
+              <button type="submit" className="onyx-knopf onyx-knopf-leise justify-self-start">
                 Notizen speichern
               </button>
             </form>

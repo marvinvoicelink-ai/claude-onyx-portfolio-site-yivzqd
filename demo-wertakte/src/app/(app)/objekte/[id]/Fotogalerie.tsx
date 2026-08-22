@@ -37,7 +37,7 @@ export function Fotogalerie({ fotos, beschriften, loeschen }: Props) {
 
   if (fotos.length === 0) {
     return (
-      <div className="border border-dashed border-linie-stark rounded-kante px-6 py-12 text-center">
+      <div className="onyx-leer px-6 py-12 text-center">
         <ImageIcon size={26} className="mx-auto text-text-leise" />
         <p className="mt-3 text-[15px]">Für diese Akte ist noch kein Foto erfasst.</p>
         <p className="mt-1.5 text-sm text-text-leise max-w-[42ch] mx-auto leading-relaxed">
@@ -56,9 +56,9 @@ export function Fotogalerie({ fotos, beschriften, loeschen }: Props) {
             <button
               type="button"
               onClick={() => setOffen(foto.id)}
-              className="group block w-full text-left bg-flaeche border border-linie rounded-kante overflow-hidden hover:border-akzent transition-colors"
+              className="onyx-karte onyx-karte-klick group block w-full text-left overflow-hidden"
             >
-              <span className="relative block aspect-[4/3] bg-flaeche-tief">
+              <span className="relative block aspect-[4/3] bg-flaeche-hoch">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={foto.quelle}
@@ -66,7 +66,7 @@ export function Fotogalerie({ fotos, beschriften, loeschen }: Props) {
                   className="h-full w-full object-cover"
                   loading="lazy"
                 />
-                <span className="absolute left-0 bottom-0 bg-kopf/90 text-kopf-text text-[10.5px] font-mono uppercase tracking-wider px-1.5 py-1">
+                <span className="absolute left-0 bottom-0 bg-grund/85 text-akzent text-[10.5px] font-mono uppercase tracking-wider px-1.5 py-1">
                   {foto.kategorie}
                 </span>
               </span>
@@ -76,7 +76,7 @@ export function Fotogalerie({ fotos, beschriften, loeschen }: Props) {
                     {foto.beschriftung}
                   </span>
                 ) : (
-                  <span className="flex items-center gap-1.5 text-[13px] text-offen">
+                  <span className="flex items-center gap-1.5 text-[13px] text-akzent">
                     <PencilSimpleIcon size={13} weight="bold" />
                     Beschriftung fehlt
                   </span>
@@ -92,25 +92,25 @@ export function Fotogalerie({ fotos, beschriften, loeschen }: Props) {
           role="dialog"
           aria-modal="true"
           aria-label="Foto beschriften"
-          className="fixed inset-0 z-50 bg-kopf/85 p-3 sm:p-6 overflow-y-auto"
+          className="fixed inset-0 z-50 bg-grund/90 backdrop-blur-sm p-3 sm:p-6 overflow-y-auto"
           onClick={(e) => {
             if (e.target === e.currentTarget) setOffen(null);
           }}
         >
-          <div className="mx-auto max-w-4xl bg-papier border border-linie rounded-kante overflow-hidden">
-            <div className="flex items-center justify-between gap-4 px-4 py-2.5 bg-kopf text-kopf-text">
-              <p className="font-mono text-[11px] uppercase tracking-[0.14em]">Foto in der Akte</p>
+          <div className="onyx-rahmen mx-auto max-w-4xl overflow-hidden">
+            <div className="flex items-center justify-between gap-4 px-4 py-2.5 border-b border-linie-warm">
+              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-akzent">Foto in der Akte</p>
               <button
                 type="button"
                 onClick={() => setOffen(null)}
-                className="flex items-center gap-1.5 text-[13px] text-kopf-text-leise hover:text-kopf-text px-1.5 py-1"
+                className="flex items-center gap-1.5 text-[13px] text-text-leise hover:text-text px-1.5 py-1"
               >
                 Schließen
                 <XIcon size={15} weight="bold" />
               </button>
             </div>
 
-            <div className="bg-flaeche-tief">
+            <div className="bg-grund">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={aktiv.quelle}
@@ -120,11 +120,11 @@ export function Fotogalerie({ fotos, beschriften, loeschen }: Props) {
             </div>
 
             <div className="p-4 sm:p-5 grid gap-4">
-              <p className="etikett">Aufgenommen {datumZeit(aktiv.aufgenommenAm)}</p>
+              <p className="onyx-etikett">Aufgenommen {datumZeit(aktiv.aufgenommenAm)}</p>
 
               <form action={beschriften.bind(null, aktiv.id)} className="grid gap-3">
                 <div className="grid gap-2">
-                  <label htmlFor="beschriftung" className="etikett">
+                  <label htmlFor="beschriftung" className="onyx-etikett">
                     Beschriftung für die Fotodokumentation
                   </label>
                   <textarea
@@ -134,7 +134,7 @@ export function Fotogalerie({ fotos, beschriften, loeschen }: Props) {
                     key={aktiv.id}
                     defaultValue={aktiv.beschriftung}
                     placeholder="z. B. Feuchtigkeitsschaden Sockelbereich Südwand"
-                    className="feld resize-y"
+                    className="onyx-feld resize-y"
                   />
                   <p className="text-[12.5px] text-text-leise">
                     Die Beschriftung erscheint im Gutachten-Entwurf unter dem Bild.
@@ -142,7 +142,7 @@ export function Fotogalerie({ fotos, beschriften, loeschen }: Props) {
                 </div>
 
                 <div className="grid gap-2 sm:max-w-xs">
-                  <label htmlFor="foto-kategorie" className="etikett">
+                  <label htmlFor="foto-kategorie" className="onyx-etikett">
                     Kategorie
                   </label>
                   <select
@@ -150,7 +150,7 @@ export function Fotogalerie({ fotos, beschriften, loeschen }: Props) {
                     name="kategorie"
                     key={`k-${aktiv.id}`}
                     defaultValue={aktiv.kategorie}
-                    className="feld"
+                    className="onyx-feld"
                   >
                     {FOTOKATEGORIEN.map((k) => (
                       <option key={k} value={k}>
@@ -177,7 +177,7 @@ export function Fotogalerie({ fotos, beschriften, loeschen }: Props) {
 function Speichern() {
   const { pending } = useFormStatus();
   return (
-    <button type="submit" className="knopf knopf-primaer" disabled={pending}>
+    <button type="submit" className="onyx-knopf onyx-knopf-primaer" disabled={pending}>
       {pending ? 'Wird gespeichert …' : 'Beschriftung speichern'}
     </button>
   );
@@ -191,7 +191,7 @@ function FotoLoeschen({ aktion }: { aktion: () => Promise<void> }) {
       <button
         type="button"
         onClick={() => setSicher(true)}
-        className="knopf knopf-klar text-[13px]"
+        className="onyx-knopf onyx-knopf-klar text-[13px]"
       >
         <TrashIcon size={15} />
         Foto entfernen
@@ -202,14 +202,14 @@ function FotoLoeschen({ aktion }: { aktion: () => Promise<void> }) {
   return (
     <span className="flex items-center gap-2">
       <span className="text-[13px] text-text-leise">Wirklich entfernen?</span>
-      <button type="button" onClick={() => setSicher(false)} className="knopf knopf-leise text-[13px]">
+      <button type="button" onClick={() => setSicher(false)} className="onyx-knopf onyx-knopf-leise text-[13px]">
         Abbrechen
       </button>
       <button
         type="submit"
         formAction={aktion}
         formNoValidate
-        className="knopf text-[13px] bg-warn-flaeche text-warn border-warn/35"
+        className="onyx-knopf onyx-knopf-gefahr text-[13px]"
       >
         Entfernen
       </button>
