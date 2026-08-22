@@ -56,7 +56,7 @@ export default function Nav() {
 
   return (
     <header
-      className="sticky top-0 z-50"
+      className="sticky top-0 z-50 on-dark nav-silver"
       style={{
         background: "rgba(17,17,17,0.72)",
         backdropFilter: "blur(10px)",
@@ -115,7 +115,7 @@ export default function Nav() {
                       className="nav-link inline-flex items-center gap-1.5"
                       aria-current={active ? "page" : undefined}
                       aria-expanded={offeringsOpen}
-                      style={{ color: active ? "var(--amber)" : "#ffffff" }}
+                      style={{ color: active ? "var(--amber)" : "var(--warm-grey)" }}
                     >
                       {l.label}
                       <svg
@@ -135,7 +135,7 @@ export default function Nav() {
 
                     {offeringsOpen && (
                       <div
-                        className="absolute rounded-xl overflow-hidden"
+                        className="absolute rounded-xl overflow-hidden on-dark silver-rim"
                         style={{
                           top: "calc(100% + 12px)",
                           left: "50%",
@@ -152,7 +152,7 @@ export default function Nav() {
                             href={ol.href}
                             onClick={() => setOfferingsOpen(false)}
                             className="block nav-dropdown-row"
-                            style={{ color: "#ffffff" }}
+                            style={{ color: "var(--warm-grey)" }}
                           >
                             {ol.label}
                           </Link>
@@ -169,7 +169,7 @@ export default function Nav() {
                   href={l.href}
                   className="nav-link"
                   aria-current={active ? "page" : undefined}
-                  style={{ color: active ? "var(--amber)" : "#ffffff" }}
+                  style={{ color: active ? "var(--amber)" : "var(--warm-grey)" }}
                 >
                   {l.label}
                 </Link>
@@ -181,7 +181,7 @@ export default function Nav() {
             href="/kontakt"
             onClick={trackLead}
             className="hidden md:inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold whitespace-nowrap btn-amber"
-            style={{ background: "var(--amber)", color: "#161104", fontSize: 13.5 }}
+            style={{ background: "var(--amber)", color: "#12141a", fontSize: 13.5 }}
           >
             Kontakt aufnehmen
           </Link>

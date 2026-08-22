@@ -20,7 +20,7 @@ function ProblemRow({ p, imageRight }: { p: Problem; imageRight: boolean }) {
         height={p.h}
         sizes="(min-width: 1024px) 250px, 56vw"
         className="w-full h-auto block"
-        style={{ maxWidth: 250, filter: "drop-shadow(0 0 30px rgba(212, 175, 106,0.35))" }}
+        style={{ maxWidth: 250, filter: "drop-shadow(0 0 30px rgba(203, 203, 201,0.32))" }}
       />
     </div>
   );
@@ -34,12 +34,12 @@ function ProblemRow({ p, imageRight }: { p: Problem; imageRight: boolean }) {
             height: 42,
             background: "var(--amber-soft)",
             color: "var(--amber)",
-            border: "1px solid rgba(212, 175, 106,0.3)",
+            border: "1px solid rgba(232, 163, 61,0.3)",
           }}
         >
           {p.icon}
         </div>
-        <span className="mono" style={{ fontSize: 34, fontWeight: 800, color: "var(--hairline)" }}>
+        <span className="mono" style={{ fontSize: 34, fontWeight: 800, color: "var(--warm-grey-faint)" }}>
           {p.num}
         </span>
       </div>
@@ -75,7 +75,7 @@ function ProblemRow({ p, imageRight }: { p: Problem; imageRight: boolean }) {
   return (
     <Link
       href={`/problem#${p.slug}`}
-      className="block alive-hover-card rounded-2xl p-5 md:p-6"
+      className="block alive-hover-card rounded-2xl p-5 md:p-6 on-dark silver-rim"
       style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center text-left">
@@ -178,7 +178,7 @@ export default function ProblemSection({ blatt }: { blatt?: string }) {
               fontWeight: 800,
               fontSize: "clamp(1.4rem, 2.8vw, 1.9rem)",
               lineHeight: 1.15,
-              color: "#ffffff",
+              color: "var(--warm-grey)",
               marginBottom: 8,
             }}
           >
@@ -200,7 +200,7 @@ export default function ProblemSection({ blatt }: { blatt?: string }) {
               width={1600}
               height={635}
               className="w-full h-auto block mx-auto"
-              style={{ maxWidth: 620, filter: "drop-shadow(0 0 40px rgba(212, 175, 106,0.35))" }}
+              style={{ maxWidth: 620, filter: "drop-shadow(0 0 40px rgba(203, 203, 201,0.32))" }}
             />
           </div>
         </div>

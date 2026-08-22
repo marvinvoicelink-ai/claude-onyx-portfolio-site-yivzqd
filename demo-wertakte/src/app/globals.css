@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+/* Onyx-Designsystem. Quelle liegt in /onyx-designsystem, hier nur die Kopie.
+   Aktualisieren mit: npm run stil:sync */
+@import "./onyx-dunkel.css";
+
+/* ------------------------------------------------------------------
+   Bruecke: legt die Rollen-Tokens des Designsystems auf Tailwind-Utilities.
+   Farbwerte stehen ausschliesslich in onyx-dunkel.css, hier steht nur die
+   Zuordnung. "inline", damit die Utilities die Variablen referenzieren.
+   ------------------------------------------------------------------ */
+
+@theme inline {
+  --font-sans: var(--onyx-schrift-text);
+  --font-titel: var(--onyx-schrift-titel);
+  --font-mono: var(--onyx-schrift-mono);
+  --font-akte: var(--onyx-schrift-akte);
+
+  --radius-kante: var(--onyx-radius-klein);
+  --radius-karte: var(--onyx-radius);
+
+  /* Flaechen */
+  --color-grund: var(--onyx-grund-tief);
+  --color-rahmen: var(--onyx-grund);
+  --color-flaeche: var(--onyx-flaeche);
+  --color-flaeche-hoch: var(--onyx-flaeche-hoch);
+
+  /* Konturen */
+  --color-linie: var(--onyx-kontur-leise);
+  --color-linie-warm: var(--onyx-kontur);
+  --color-linie-stark: var(--onyx-kontur-stark);
+
+  /* Text */
+  --color-text: var(--onyx-text);
+  --color-text-leise: var(--onyx-text-leise);
+  --color-text-still: var(--onyx-text-still);
+
+  /* Akzent */
+  --color-akzent: var(--onyx-amber);
+  --color-akzent-hell: var(--onyx-amber-hell);
+  --color-akzent-flaeche: var(--onyx-amber-flaeche);
+  --color-auf-akzent: var(--onyx-auf-amber);
+
+  /* Signale */
+  --color-warn: var(--onyx-warn);
+  --color-warn-flaeche: var(--onyx-warn-flaeche);
+  --color-gut: var(--onyx-gut);
+  --color-gut-flaeche: var(--onyx-gut-flaeche);
+  --color-ruht: var(--onyx-ruht);
+  --color-ruht-flaeche: var(--onyx-ruht-flaeche);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    background-color: var(--onyx-grund-tief);
+  }
+
+  body {
+    background-color: var(--onyx-grund-tief);
+    color: var(--onyx-text);
+    font-family: var(--onyx-schrift-text);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--onyx-schrift-titel);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--onyx-amber);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+
+  ::selection {
+    background: var(--onyx-amber);
+    color: var(--onyx-auf-amber);
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  /* Kalender- und Uhrzeit-Symbole der Browser sind schwarz und
+     verschwinden auf dunklem Grund. */
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(78%) sepia(35%) saturate(900%) hue-rotate(340deg);
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Gutachten-Entwurf: am Bildschirm Papierblatt, im Druck echtes A4.
+   Das Blatt bleibt hell, weil es das spaetere Dokument zeigt. */
+@media print {
+  .kein-druck,
+  .onyx-kein-druck {
+    display: none !important;
+  }
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .blatt {
+    box-shadow: none !important;
+    border: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+  }
+  .umbruch-vor {
+    break-before: page;
+  }
+  .zusammenhalten {
+    break-inside: avoid;
+  }
+  @page {
+    size: A4;
+    margin: 18mm 16mm;
+  }
+}

@@ -1,0 +1,8 @@
+node_modules/
+.next/
+next-env.d.ts
+*.tsbuildinfo
+
+# Laufzeitdaten der Demo: werden beim ersten Start aus seed/db.seed.json erzeugt.
+# Loeschen setzt die Demo auf den Ausgangsstand zurueck.
+data/

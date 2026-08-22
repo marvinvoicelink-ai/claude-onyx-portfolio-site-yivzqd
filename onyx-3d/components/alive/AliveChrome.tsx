@@ -3,7 +3,6 @@
 /**
  * Shared building blocks for the "alive" visual variant. Kept separate
  * from the production components so the live site is untouched while this
- * direction is being previewed under /test-alive/*.
  */
 
 import { useEffect, useRef } from "react";
@@ -148,7 +147,7 @@ export function AliveEyebrow({ children }: { children: React.ReactNode }) {
 
 export function AliveStatRow({ stats }: { stats: { value: string; label: string }[] }) {
   return (
-    <section style={{ background: "var(--near-black-2)", borderBottom: "1px solid var(--hairline)" }}>
+    <section className="on-dark silver-rim" style={{ background: "var(--near-black-2)", borderBottom: "1px solid var(--hairline)" }}>
       <div className="mx-auto grid grid-cols-1 sm:grid-cols-3" style={{ maxWidth: 1400 }}>
         {stats.map((k, i) => (
           <Reveal key={k.label} delay={i * 0.1} y={18}>
@@ -180,14 +179,14 @@ export function AliveHairlineGrid({
   background?: "dark" | "light";
 }) {
   const light = background === "light";
-  const textMain = light ? "#161104" : undefined;
-  const textDim = light ? "rgba(22,17,4,0.75)" : "var(--warm-grey-dim)";
-  const accentColor = light ? "#7d6220" : "var(--amber)";
-  const cellBg = light ? "#faf8f3" : "var(--near-black)";
-  const gridLine = light ? "rgba(22,17,4,0.12)" : "var(--hairline)";
+  const textMain = light ? "#12141a" : undefined;
+  const textDim = light ? "rgba(18, 20, 26, 0.75)" : "var(--warm-grey-dim)";
+  const accentColor = light ? "#6f5619" : "var(--amber)";
+  const cellBg = light ? "#fafbfc" : "var(--near-black)";
+  const gridLine = light ? "rgba(18, 20, 26, 0.12)" : "var(--hairline)";
 
   return (
-    <section className="py-20" style={{ background: light ? "var(--warm-grey)" : "transparent" }}>
+    <section className="py-20" style={{ background: light ? "var(--plate-light)" : "transparent" }}>
       <Reveal className="mx-auto px-7 text-center" style={{ maxWidth: 700, marginBottom: 56 }}>
         <span
           className="mono block mb-4"
@@ -216,7 +215,7 @@ export function AliveHairlineGrid({
                       width: "100%",
                       height: "100%",
                       objectFit: "contain",
-                      filter: light ? "drop-shadow(0 12px 20px rgba(22,17,4,0.18))" : "drop-shadow(0 0 20px rgba(212, 175, 106,0.25))",
+                      filter: light ? "drop-shadow(0 12px 20px rgba(18, 20, 26, 0.18))" : "drop-shadow(0 0 20px rgba(203, 203, 201,0.26))",
                     }}
                   />
                 </div>
@@ -260,11 +259,11 @@ export function AliveInvertedStatement({
   sub?: string;
 }) {
   return (
-    <section className="py-24" style={{ background: "var(--warm-grey)" }}>
+    <section className="py-24" style={{ background: "var(--plate-light)" }}>
       <Reveal className="mx-auto px-7 text-center" style={{ maxWidth: 780 }}>
         <span
           className="mono block mb-5"
-          style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7d6220" }}
+          style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "#6f5619" }}
         >
           {eyebrow}
         </span>
@@ -274,13 +273,13 @@ export function AliveInvertedStatement({
             fontWeight: 800,
             fontSize: "clamp(1.8rem, 3.8vw, 2.7rem)",
             lineHeight: 1.2,
-            color: "#161104",
+            color: "#12141a",
           }}
         >
-          {statement} <span style={{ color: "#7d6220" }}>{highlight}</span>
+          {statement} <span style={{ color: "#6f5619" }}>{highlight}</span>
         </p>
         {sub && (
-          <p style={{ color: "rgba(22,17,4,0.75)", fontSize: "1.05rem", lineHeight: 1.7, marginTop: 24 }}>{sub}</p>
+          <p style={{ color: "rgba(18, 20, 26, 0.75)", fontSize: "1.05rem", lineHeight: 1.7, marginTop: 24 }}>{sub}</p>
         )}
       </Reveal>
     </section>
@@ -308,7 +307,7 @@ export function AliveCtaBand({
           style={{
             background: image
               ? "var(--near-black-2)"
-              : "radial-gradient(circle at 20% 20%, rgba(212, 175, 106,0.14), transparent 55%), var(--near-black-2)",
+              : "radial-gradient(circle at 20% 20%, rgba(232, 163, 61,0.14), transparent 55%), var(--near-black-2)",
             border: "1px solid var(--hairline)",
           }}
         >
@@ -338,7 +337,7 @@ export function AliveCtaBand({
               href={href}
               onClick={trackLead}
               className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber"
-              style={{ background: "var(--amber)", color: "#161104", fontSize: 15.5 }}
+              style={{ background: "var(--amber)", color: "#12141a", fontSize: 15.5 }}
             >
               {buttonText}
             </a>
@@ -411,7 +410,7 @@ export function AliveTeamGrid({
           <Reveal
             key={m.name}
             delay={Math.min(i * 0.09, 0.36)}
-            className="alive-hover-card rounded-2xl overflow-hidden"
+            className="alive-hover-card rounded-2xl overflow-hidden on-dark silver-rim"
             style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
           >
             <div className="relative w-full" style={{ aspectRatio: "4 / 5" }}>
@@ -449,7 +448,7 @@ export function AliveTestimonialWall({
           <Reveal
             key={`${q.name}-${q.source}`}
             delay={i * 0.12}
-            className="alive-hover-card p-7 rounded-2xl"
+            className="alive-hover-card p-7 rounded-2xl on-dark silver-rim"
             style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
           >
             <p style={{ fontSize: "0.98rem", lineHeight: 1.65, color: "var(--warm-grey-dim)", fontStyle: "italic" }}>
@@ -485,7 +484,7 @@ export function AliveComparisonTable({
       <Reveal className="mx-auto px-7" style={{ maxWidth: 900 }} delay={0.1}>
         <div style={{ border: "1px solid var(--hairline)", borderRadius: 8, overflow: "hidden" }}>
           <div
-            className="grid grid-cols-3"
+            className="grid grid-cols-3 on-dark silver-rim"
             style={{ borderBottom: "1px solid var(--hairline)", background: "var(--near-black-2)" }}
           >
             <div className="mono py-4 px-2 sm:px-5" style={{ fontSize: "clamp(9.5px, 2.6vw, 12px)", color: "var(--warm-grey-faint)" }} />
@@ -573,11 +572,11 @@ export function AliveCase({
   framed?: boolean;
 }) {
   const light = background === "light";
-  const textDim = light ? "rgba(22,17,4,0.75)" : "var(--warm-grey-dim)";
-  const tagColor = light ? "#7d6220" : "var(--amber)";
-  const tagBg = light ? "rgba(125,98,32,0.12)" : "var(--amber-soft)";
-  const tagBorder = light ? "rgba(125,98,32,0.35)" : "rgba(212, 175, 106,0.3)";
-  const headingStyle: React.CSSProperties = light ? { color: "#161104" } : {};
+  const textDim = light ? "rgba(18, 20, 26, 0.75)" : "var(--warm-grey-dim)";
+  const tagColor = light ? "#6f5619" : "var(--amber)";
+  const tagBg = light ? "rgba(138,106,31,0.12)" : "var(--amber-soft)";
+  const tagBorder = light ? "rgba(111,86,25,0.4)" : "rgba(232, 163, 61,0.3)";
+  const headingStyle: React.CSSProperties = light ? { color: "#12141a" } : {};
 
   const media = (
     <ImageWipe>
@@ -592,7 +591,7 @@ export function AliveCase({
             width: "100%",
             height: "100%",
             objectFit: "contain",
-            filter: light ? "drop-shadow(0 24px 32px rgba(22,17,4,0.18))" : "drop-shadow(0 24px 40px rgba(0,0,0,0.4))",
+            filter: light ? "drop-shadow(0 24px 32px rgba(18, 20, 26, 0.18))" : "drop-shadow(0 24px 40px rgba(0,0,0,0.4))",
           }}
         />
       </div>
@@ -614,7 +613,7 @@ export function AliveCase({
               height: 34,
               padding: "0 12px",
               background: logoBg === "light" ? "#fff" : "var(--near-black)",
-              border: logoBg === "light" ? "1px solid rgba(22,17,4,0.1)" : "1px solid var(--hairline)",
+              border: logoBg === "light" ? "1px solid rgba(18, 20, 26, 0.1)" : "1px solid var(--hairline)",
             }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -654,11 +653,11 @@ export function AliveCase({
   );
 
   return (
-    <section className="py-14" style={{ background: light ? "var(--warm-grey)" : "transparent" }}>
+    <section className="py-14" style={{ background: light ? "var(--plate-light)" : "transparent" }}>
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         {framed ? (
           <div
-            className="rounded-2xl p-6 md:p-10"
+            className="rounded-2xl p-6 md:p-10 on-dark silver-rim"
             style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
           >
             {grid}
@@ -778,7 +777,7 @@ export function AliveTimeline({
           preserveAspectRatio="none"
           style={{ position: "absolute", top: 62, left: 0 }}
         >
-          <line x1={margin} y1={35} x2={TIMELINE_VB_W - margin} y2={35} stroke="rgba(212, 175, 106,0.15)" strokeWidth={2} />
+          <line x1={margin} y1={35} x2={TIMELINE_VB_W - margin} y2={35} stroke="rgba(232, 163, 61,0.15)" strokeWidth={2} />
           <path
             ref={pathRef}
             d={`M ${margin} 35 L ${TIMELINE_VB_W - margin} 35`}
@@ -836,9 +835,9 @@ export function AliveTimeline({
         {steps.map((s, i) => (
           <div key={s.num} className="relative flex gap-4" style={{ paddingBottom: i < steps.length - 1 ? 28 : 0 }}>
             {i < steps.length - 1 && (
-              <div aria-hidden style={{ position: "absolute", left: 9, top: 22, bottom: -6, width: 2, background: "rgba(212, 175, 106,0.3)" }} />
+              <div aria-hidden style={{ position: "absolute", left: 9, top: 22, bottom: -6, width: 2, background: "rgba(232, 163, 61,0.3)" }} />
             )}
-            <span
+            <span className="on-dark"
               style={{
                 flexShrink: 0,
                 width: 20,
@@ -862,7 +861,7 @@ export function AliveTimeline({
 export function AliveMarquee({ items }: { items: string[] }) {
   const track = [...items, ...items];
   return (
-    <section style={{ background: "var(--near-black-2)", borderTop: "1px solid var(--hairline)", borderBottom: "1px solid var(--hairline)", padding: "22px 0" }}>
+    <section className="on-dark silver-rim" style={{ background: "var(--near-black-2)", borderTop: "1px solid var(--hairline)", borderBottom: "1px solid var(--hairline)", padding: "22px 0" }}>
       <div className="overflow-hidden">
         <div className="marquee-track flex" style={{ width: "max-content" }}>
           {track.map((label, i) => (
@@ -883,19 +882,19 @@ export function AliveMarquee({ items }: { items: string[] }) {
 /** Static grid of industry examples — sits on the light "Kein Branchen-Fokus" statement instead of a scrolling marquee. */
 export function AliveIndustryGrid({ items }: { items: string[] }) {
   return (
-    <section className="pb-24" style={{ background: "var(--warm-grey)" }}>
+    <section className="pb-24" style={{ background: "var(--plate-light)" }}>
       <Reveal className="mx-auto px-7" style={{ maxWidth: 1040 }}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
           {items.map((label, i) => (
             <div
               key={label}
               className="alive-hover-card flex items-center gap-3 rounded-xl px-5 py-4"
-              style={{ background: "#fff", border: "1px solid rgba(22,17,4,0.1)" }}
+              style={{ background: "#fff", border: "1px solid rgba(18, 20, 26, 0.1)" }}
             >
-              <span className="mono" style={{ fontSize: 11.5, color: "#7d6220", flexShrink: 0 }}>
+              <span className="mono" style={{ fontSize: 11.5, color: "#6f5619", flexShrink: 0 }}>
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <span style={{ fontSize: "0.94rem", color: "#161104", lineHeight: 1.35 }}>{label}</span>
+              <span style={{ fontSize: "0.94rem", color: "#12141a", lineHeight: 1.35 }}>{label}</span>
             </div>
           ))}
         </div>
@@ -910,7 +909,7 @@ export type AliveLogoItem = { name: string; src: string; bg?: "light" | "dark" }
 export function AliveLogoMarquee({ items }: { items: AliveLogoItem[] }) {
   const track = [...items, ...items];
   return (
-    <section
+    <section className="on-dark silver-rim"
       style={{
         background: "var(--near-black-2)",
         borderTop: "1px solid var(--hairline)",
@@ -930,8 +929,8 @@ export function AliveLogoMarquee({ items }: { items: AliveLogoItem[] }) {
                   width: 168,
                   height: 92,
                   padding: "16px 22px",
-                  background: light ? "var(--warm-grey)" : "var(--near-black)",
-                  border: light ? "1px solid rgba(22,17,4,0.08)" : "1px solid var(--hairline)",
+                  background: light ? "var(--plate-light)" : "var(--near-black)",
+                  border: light ? "1px solid rgba(18, 20, 26, 0.08)" : "1px solid var(--hairline)",
                 }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}

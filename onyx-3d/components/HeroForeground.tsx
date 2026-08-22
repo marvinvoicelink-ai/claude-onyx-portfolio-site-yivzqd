@@ -25,7 +25,7 @@ export default function HeroForeground() {
 
   return (
     <div className="relative z-10 w-full px-7" style={{ maxWidth: 1180, margin: "0 auto" }}>
-      <div className="max-w-[620px]">
+      <div className="max-w-[680px] mx-auto text-center flex flex-col items-center">
         <div
           className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 mono"
           style={{
@@ -41,10 +41,10 @@ export default function HeroForeground() {
               width: 6,
               height: 6,
               background: "var(--amber)",
-              boxShadow: "0 0 8px 1px rgba(212, 175, 106,0.6)",
+              boxShadow: "0 0 8px 1px rgba(232, 163, 61,0.6)",
             }}
           />
-          Kein Bot — der Gründer antwortet selbst
+          Kein Account-Manager, direkt zum Chef
         </div>
 
         <span
@@ -59,35 +59,36 @@ export default function HeroForeground() {
           White-Label-Systeme · Bauen &amp; übergeben
         </span>
 
+        {/* Der Nutzen trägt die Headline allein — kein zweiter Claim
+            darunter, der ihr die Wirkung nimmt. */}
         <h1
           className={entered ? "hero-blur-visible" : "hero-blur-hidden"}
           style={{
-            fontSize: "clamp(2.1rem, 4vw, 3.2rem)",
-            lineHeight: 1.08,
+            fontSize: "clamp(2.05rem, 3.8vw, 3rem)",
+            lineHeight: 1.1,
             maxWidth: "21ch",
           }}
         >
-          Wir machen nicht alles.
-          <br />
-          Aber wir passen uns{" "}
-          <span className="accent">deinen Anforderungen</span> an.
+          Weniger Komplexität im Unternehmen.
+          {/* Eigene Zeile, damit der zweite Satz nie mit einem Wort am
+              Zeilenende anfaengt — unabhaengig von der Viewport-Breite. */}
+          <span className="accent block">Mehr Zeit für das, womit du Geld verdienst.</span>
         </h1>
 
         <p
           className="mt-6"
           style={{
-            fontSize: "clamp(1.08rem, 1.7vw, 1.25rem)",
+            fontSize: "clamp(1.02rem, 1.6vw, 1.15rem)",
             color: "var(--warm-grey-dim)",
             lineHeight: 1.7,
-            maxWidth: "50ch",
+            maxWidth: "52ch",
           }}
         >
-          Der eine Betrieb braucht ein Dashboard. Der nächste jemanden, der
-          ans Telefon geht. Wieder ein anderer nur eine Automatisierung, die
-          im Hintergrund läuft und nie wieder auffällt. Wir schauen uns
-          zuerst an, wo bei dir die Zeit verloren geht, und bauen dann das,
-          was dort wirklich etwas ändert. Am Ende gehört es dir: Code, Daten,
-          Zugänge. Gehostet wird bei dir, nicht bei uns.
+          Der eine braucht ein Dashboard. Der nächste jemanden, der ans
+          Telefon geht. Wieder ein anderer nur eine Automatisierung, die im
+          Hintergrund läuft und nie wieder auffällt. Wir schauen zuerst, wo
+          bei dir die Zeit verloren geht, und bauen dann genau das. Am Ende
+          gehört es dir — Code, Daten, Zugänge, gehostet bei dir.
         </p>
 
         <div className="mt-9">
@@ -97,7 +98,7 @@ export default function HeroForeground() {
             className={`inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber ${entered ? "hero-cta-visible" : "hero-cta-hidden"}`}
             style={{
               background: "var(--amber)",
-              color: "#161104",
+              color: "#12141a",
               fontSize: "15.5px",
               ["--reveal-delay" as string]: "220ms",
             }}
