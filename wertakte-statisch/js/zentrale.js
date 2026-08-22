@@ -92,7 +92,7 @@ window.W = window.W || {};
     return '<div class="schleier" id="verfassen-schleier" role="dialog" aria-modal="true" aria-label="Nachricht verfassen">' +
       '<div class="onyx-rahmen dialog dialog-breit">' +
         '<div class="dialog-kopf">' +
-          '<p class="mono amber" style="font-size:11px;text-transform:uppercase;letter-spacing:.14em">Neuer Vorgang</p>' +
+          '<p class="mono amber" style="font-size:.69rem;text-transform:uppercase;letter-spacing:.14em">Neuer Vorgang</p>' +
           '<button id="dialog-zu" class="klein" style="display:flex;align-items:center;gap:.4rem;padding:.25rem">Schließen' + sym.schliessen(15) + '</button>' +
         '</div>' +
         '<div class="dialog-koerper">' +
@@ -212,6 +212,46 @@ window.W = window.W || {};
     return [0, zahlen[0] || W.STUFENABSTAND[1], zahlen[1] || W.STUFENABSTAND[2]];
   }
 
+  /* Aus der Regel wird ein Plan mit drei Stufen: was zu tun ist, ab wann,
+     und welche Stufe gerade dran ist. */
+  var STUFEN_VORGABE = ['E-Mail schreiben', 'Anrufen', 'Eigentümer informieren'];
+
+  function stufenTexte(regel) {
+    var teile = String(regel || '').split('·');
+    var texte = [];
+    teile.forEach(function (teil) {
+      var t = teil.replace(/Stufe\s*\d+/i, '').replace(/nach\s+\d+\s+Tag(en)?/i, '').trim();
+      if (t) texte.push(t.charAt(0).toUpperCase() + t.slice(1));
+    });
+    return [texte[0] || STUFEN_VORGABE[0], texte[1] || STUFEN_VORGABE[1], texte[2] || STUFEN_VORGABE[2]];
+  }
+
+  /** Welcher Weg gehört zu dieser Stufe? Steuert den Knopf „Jetzt …“. */
+  W.stufenWeg = function (text) {
+    var t = String(text || '').toLowerCase();
+    if (/anruf|anrufen|telefon/.test(t)) return 'Telefon';
+    if (/whatsapp/.test(t)) return 'WhatsApp';
+    if (/sms/.test(t)) return 'SMS';
+    if (/brief|mahnung|schriftlich|einschreiben/.test(t)) return 'Brief';
+    return 'E-Mail';
+  };
+
+  W.stufenPlan = function (t) {
+    var texte = stufenTexte(t.regel);
+    var ab = abstaende(t.regel);
+    return [1, 2, 3].map(function (nr) {
+      var d2 = new Date(t.faellig + 'T00:00');
+      d2.setDate(d2.getDate() + ab[nr - 1]);
+      var iso = d2.toISOString().slice(0, 10);
+      return {
+        nr: nr, text: texte[nr - 1], datum: iso,
+        dran: nr === t.stufe,
+        erledigt: nr < t.stufe,
+        faellig: W.f.tageBis(iso) !== null && W.f.tageBis(iso) <= 0
+      };
+    });
+  };
+
   W.naechsteStufe = function (t) {
     if (t.stufe >= 3) {
       return 'Letzte Stufe erreicht, Eigentümer informieren';
@@ -313,7 +353,7 @@ window.W = window.W || {};
             '<p>' + h(K.strasse) + '</p><p>' + h(K.ort) + '</p><p>' + h(K.telefon) + '</p><p>' + h(K.emailBuero) + '</p></div>' +
         '</header>' +
         '<div style="padding:2rem 0 1.25rem">' +
-          '<p class="sans mono" style="font-size:11px;text-transform:uppercase;letter-spacing:.24em;color:#6C6459">' +
+          '<p class="sans mono" style="font-size:.69rem;text-transform:uppercase;letter-spacing:.24em;color:#6C6459">' +
             h(v.art) + ' ' + h(b.richtungText(v.richtung)) + ' · Beleg ' + h(v.belegNr) + '</p>' +
           '<h2 style="margin-top:.9rem;font-size:1.25rem;line-height:1.3">' + h(v.betreff) + '</h2>' +
         '</div>' +
@@ -339,7 +379,7 @@ window.W = window.W || {};
             zeile('Zustand', v.festgeschrieben ? 'festgeschrieben, nicht mehr änderbar' : 'Entwurf') +
             zeile('Spiegelung', v.outlook ? 'in Outlook abgelegt, über MailStore auffindbar' : 'keine') +
           '</dl></section>' +
-        '<footer class="sans" style="margin-top:3rem;padding-top:1rem;border-top:1px solid #D5CFC2;font-size:10.5px;line-height:1.7;color:#6C6459">' +
+        '<footer class="sans" style="margin-top:3rem;padding-top:1rem;border-top:1px solid #D5CFC2;font-size:.66rem;line-height:1.7;color:#6C6459">' +
           'Beleg ' + h(v.belegNr) + ' aus der Akte ' + h(o ? o.aktenzeichen : '–') + ', gedruckt am ' +
           h(W.f.datumLang(heute)) + ' von ' + h(K.name) + '. Alle Daten dieser Vorführversion sind Beispieldaten.</footer>' +
       '</article></div>';
@@ -430,7 +470,7 @@ window.W = window.W || {};
     var o = p.objektId ? H.obj(d, p.objektId) : null;
     return '<li class="onyx-zeile protokoll-zeile" style="border-bottom:1px solid var(--onyx-kontur-leise)">' +
       '<span class="mono mini still" style="flex:none;width:8.5rem">' + h(W.f.datumZeit(p.zeitpunkt)) + '</span>' +
-      '<span class="onyx-marke onyx-marke-ruht" style="flex:none;font-size:10.5px;padding:.1rem .5rem">' + h(p.art) + '</span>' +
+      '<span class="onyx-marke onyx-marke-ruht" style="flex:none;font-size:.66rem;padding:.1rem .5rem">' + h(p.art) + '</span>' +
       '<span class="wachsen" style="min-width:12rem">' +
         '<span style="display:block;font-size:.875rem">' + h(p.text) + '</span>' +
         (mitObjekt && o ? '<a class="mini leise" style="display:block" href="#/objekt/' + h(o.id) + '">' + h(o.aktenzeichen + ' · ' + o.bezeichnung) + '</a>' : '') +
@@ -457,10 +497,10 @@ window.W = window.W || {};
         '<label class="nur-sr" for="p-objekt">Nach Objekt filtern</label>' +
         '<select class="onyx-feld" id="p-objekt" data-pfilter="objekt" style="width:auto;max-width:18rem;padding:.35rem .7rem;font-size:.8125rem">' +
           opt(H.alle(d).map(function (o) { return { wert: o.id, text: o.aktenzeichen + ' · ' + o.bezeichnung }; }), q.objekt || '', 'Alle Objekte') + '</select>' +
-        ((q.objekt || q.art) ? '<a class="onyx-knopf onyx-knopf-klar" style="font-size:.8125rem;padding:.35rem .6rem" href="#/protokoll">' +
+        ((q.objekt || q.art) ? '<a class="onyx-knopf onyx-knopf-klar" style="font-size:.8125rem;padding:.42rem .75rem" href="#/protokoll">' +
           sym.schliessen(13) + 'Zurücksetzen</a>' : '') +
         '<span style="flex:1"></span>' +
-        '<button class="onyx-knopf onyx-knopf-leise" id="knopf-drucken" style="font-size:.8125rem;padding:.35rem .6rem">' + sym.drucken(14) + 'Drucken</button>' +
+        '<button class="onyx-knopf onyx-knopf-leise" id="knopf-drucken" style="font-size:.8125rem;padding:.42rem .75rem">' + sym.drucken(14) + 'Drucken</button>' +
       '</div></div>' +
       W.ordnerreihe(W.ordnerZaehlen(nachObjekt, W.PROTOKOLL_ARTEN, function (p) { return p.art; }), q.art || '',
         function (wert) {
@@ -536,7 +576,7 @@ window.W = window.W || {};
 
     var bildteil = fotos.length ? '<ol class="lichtbilder">' + fotos.map(function (f, i) {
       return '<li><img src="' + h(H.src(f, bilder)) + '" alt="' + h(f.beschriftung || ('Bild ' + (i + 1))) + '">' +
-        '<p style="margin-top:.35rem;font-size:.75rem;line-height:1.4"><span class="sans mono" style="font-size:11px;color:#5F584E">Bild ' + (i + 1) + '</span> ' +
+        '<p style="margin-top:.35rem;font-size:.75rem;line-height:1.4"><span class="sans mono" style="font-size:.69rem;color:#5F584E">Bild ' + (i + 1) + '</span> ' +
         h(f.beschriftung || f.kategorie) + '</p></li>';
     }).join('') + '</ol>' : '<p class="platzhalter">Noch kein Foto in der Akte.</p>';
 
@@ -562,10 +602,10 @@ window.W = window.W || {};
             '<p>' + h(K.strasse) + '</p><p>' + h(K.ort) + '</p><p>' + h(K.telefon) + '</p><p>' + h(K.emailBuero) + '</p></div>' +
         '</header>' +
         '<div class="blatt-deckel">' +
-          '<p class="sans mono" style="font-size:11px;text-transform:uppercase;letter-spacing:.24em;color:#6C6459">Gesamtakte</p>' +
+          '<p class="sans mono" style="font-size:.69rem;text-transform:uppercase;letter-spacing:.24em;color:#6C6459">Gesamtakte</p>' +
           '<h2 style="margin-top:1.25rem;font-size:clamp(1.5rem,1.2rem+1.4vw,1.875rem);line-height:1.2">' + h(o.bezeichnung) + '</h2>' +
           '<p style="margin-top:1.25rem;font-size:1.0625rem;line-height:1.35">' + h(o.strasse) + '<br>' + h(o.plz + ' ' + o.ort) + '</p>' +
-          '<p class="sans mono" style="margin-top:1.5rem;font-size:12.5px;letter-spacing:.1em;color:#5F584E">' + h(o.aktenzeichen) + ' · Stand ' + h(W.f.datumLang(heute)) + '</p>' +
+          '<p class="sans mono" style="margin-top:1.5rem;font-size:.78rem;letter-spacing:.1em;color:#5F584E">' + h(o.aktenzeichen) + ' · Stand ' + h(W.f.datumLang(heute)) + '</p>' +
         '</div>' +
         '<section class="blatt-abschnitt"><h3><span class="nr">1</span>Exposé und Eckdaten</h3>' +
           tabelle([
@@ -585,7 +625,7 @@ window.W = window.W || {};
         '<section class="blatt-abschnitt"><h3><span class="nr">5</span>Terminplan</h3>' + termineListe + '</section>' +
         '<section class="blatt-abschnitt"><h3><span class="nr">6</span>Bilder</h3>' + bildteil + '</section>' +
         '<section class="blatt-abschnitt"><h3><span class="nr">7</span>Protokoll</h3>' + protokollListe + '</section>' +
-        '<footer class="sans" style="margin-top:3rem;padding-top:1rem;border-top:1px solid #D5CFC2;font-size:10.5px;line-height:1.7;color:#6C6459">' +
+        '<footer class="sans" style="margin-top:3rem;padding-top:1rem;border-top:1px solid #D5CFC2;font-size:.66rem;line-height:1.7;color:#6C6459">' +
           'Gesamtakte ' + h(o.aktenzeichen) + ', gedruckt am ' + h(W.f.datumLang(heute)) + ' von ' + h(K.name) +
           '. Alle Daten dieser Vorführversion sind Beispieldaten.</footer>' +
       '</article></div>';

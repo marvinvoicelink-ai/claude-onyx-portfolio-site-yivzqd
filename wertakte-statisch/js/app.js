@@ -7,6 +7,7 @@
   var offenesFoto = null;
   var offenerVorgang = null;
   var entwurf = null;
+  var grosseSchrift = false;
   var zielUnterlage = null;
 
   /* Die Bereiche der linken Leiste. Die fuenf Teile aus der Vorgabe des
@@ -97,6 +98,8 @@
           '</div></div>' +
           '<div class="kopf-werkzeuge">' +
             '<button class="onyx-knopf onyx-knopf-primaer knopf-neu" id="knopf-neu">' + sym.plus(16) + '<span>Neuer Vorgang</span></button>' +
+            '<button class="schrift-knopf" id="knopf-schrift" aria-pressed="' + (grosseSchrift ? 'true' : 'false') + '" ' +
+              'title="Schrift größer oder kleiner"><b>A</b><span>Große Schrift</span></button>' +
             '<a class="rund-knopf" href="#/termine" aria-label="' + (ueber ? ueber + ' überfällige Wiedervorlagen' : 'Keine überfällige Wiedervorlage') + '">' +
               sym.glocke(19) + (ueber ? '<span class="zaehler mono">' + ueber + '</span>' : '') + '</a>' +
             '<a class="nutzer-name" href="#/verwaltung">' + h(W.KONTO.name) +
@@ -193,6 +196,14 @@
     if (abmelden) abmelden.addEventListener('click', function () {
       angemeldet = false;
       try { sessionStorage.removeItem('wertakte.angemeldet'); } catch (e) { /* egal */ }
+      zeichnen();
+    });
+
+    var schrift = document.getElementById('knopf-schrift');
+    if (schrift) schrift.addEventListener('click', function () {
+      grosseSchrift = !grosseSchrift;
+      schriftSetzen();
+      try { localStorage.setItem('wertakte.schrift', grosseSchrift ? 'gross' : 'normal'); } catch (e) { /* egal */ }
       zeichnen();
     });
 
@@ -426,6 +437,15 @@
       sichern(); zeichnen();
     });
     verdrahteTerminKnoepfe();
+
+    /* „Foto aufnehmen“ steht im Kopf der Akte und geht von jedem Reiter aus.
+       Am Handy öffnet der Knopf direkt die Kamera. */
+    var kopfKamera = document.getElementById('eingabe-kamera-kopf');
+    var kopfKnopf = document.getElementById('knopf-kamera-kopf');
+    if (kopfKnopf && kopfKamera) {
+      kopfKnopf.addEventListener('click', function () { kopfKamera.value = ''; kopfKamera.click(); });
+      kopfKamera.addEventListener('change', function () { uebernehmen(o.id, kopfKamera.files); });
+    }
 
     // Reiter Fotos
     if (reiter === 'fotos') verdrahteAufnahme(function () { return o.id; });
@@ -693,10 +713,15 @@
         protokollieren(objektId, 'Foto', 'Foto zur Akte genommen: ' + (f.beschriftung || f.kategorie));
       });
       sichern();
-      if (route().pfad[0] === 'fotos') {
-        var q = Object.assign({}, route().q, { akte: objektId });
+      var r2 = route();
+      if (r2.pfad[0] === 'fotos') {
+        var q = Object.assign({}, r2.q, { akte: objektId });
         var ziel = '#/fotos' + anhaengsel(q);
         if (location.hash !== ziel) { location.hash = ziel; return; }
+      }
+      if (r2.pfad[0] === 'objekt' && (r2.q.reiter || 'expose') !== 'fotos') {
+        location.hash = '#/objekt/' + objektId + '?reiter=fotos';
+        return;
       }
       zeichnen();
     }).catch(function () {
@@ -888,8 +913,14 @@
     }
   }
 
+  function schriftSetzen() {
+    document.documentElement.classList.toggle('gross', grosseSchrift);
+  }
+
   daten = W.speicher.laden();
   stammUebernehmen();
+  try { grosseSchrift = localStorage.getItem('wertakte.schrift') === 'gross'; } catch (e) { grosseSchrift = false; }
+  schriftSetzen();
   try { angemeldet = sessionStorage.getItem('wertakte.angemeldet') === '1'; } catch (e) { angemeldet = false; }
   // Ein Seitenwechsel schliesst offene Dialoge, sonst liegen sie ueber der neuen Seite.
   window.addEventListener('hashchange', function () {

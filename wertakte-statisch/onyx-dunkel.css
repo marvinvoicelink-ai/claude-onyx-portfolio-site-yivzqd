@@ -175,7 +175,7 @@
 
   .onyx-etikett {
     font-family: var(--onyx-schrift-mono);
-    font-size: 10.5px;
+    font-size: .66rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--onyx-text-leise);
@@ -313,7 +313,7 @@
     border: 1px solid;
     border-radius: 999px;
     padding: 0.2rem 0.65rem;
-    font-size: 11.5px;
+    font-size: .72rem;
     font-weight: 500;
     line-height: 1.4;
     white-space: nowrap;

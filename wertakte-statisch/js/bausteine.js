@@ -53,7 +53,7 @@ window.W = window.W || {};
   W.b = {
     statusmarke: function (status, klein) {
       return '<span class="onyx-marke ' + STATUS_KLASSE[status] + '"' +
-        (klein ? ' style="font-size:10.5px;padding:.1rem .5rem"' : '') + '>' +
+        (klein ? ' style="font-size:.66rem;padding:.1rem .5rem"' : '') + '>' +
         h(W.STATUS_TEXT[status]) + '</span>';
     },
 
@@ -116,7 +116,7 @@ window.W = window.W || {};
           'title="' + h(t.titel + ' · fällig ' + W.f.datum(t.faellig)) + '">' +
           '<span class="schiene-balken' + (ueber ? ' ist-warn' : (t.stufe >= 2 ? '' : ' onyx-schiene-balken-leise')) + '" ' +
           'style="left:' + von + '%;width:' + breite + '%">' +
-          '<span class="mono" style="font-size:10.5px">' + h(kurz) + '</span>' +
+          '<span class="mono" style="font-size:.66rem">' + h(kurz) + '</span>' +
           '</span></a>';
       }).join('');
 
@@ -156,13 +156,13 @@ window.W = window.W || {};
 
   W.b.objektmarke = function (status, klein) {
     return '<span class="onyx-marke ' + (OBJEKT_MARKE[status] || 'onyx-marke-ruht') + '"' +
-      (klein ? ' style="font-size:10.5px;padding:.1rem .5rem"' : '') + '>' +
+      (klein ? ' style="font-size:.66rem;padding:.1rem .5rem"' : '') + '>' +
       h(W.OBJEKT_STATUS_TEXT[status] || status) + '</span>';
   };
 
   W.b.unterlagenmarke = function (status) {
     return '<span class="onyx-marke ' + (UNTERLAGE_MARKE[status] || 'onyx-marke-ruht') +
-      '" style="font-size:10.5px;padding:.1rem .5rem">' + h(status) + '</span>';
+      '" style="font-size:.66rem;padding:.1rem .5rem">' + h(status) + '</span>';
   };
 
   /** Ampel für einen Compliance-Punkt: unterzeichnet/geprüft ist gut, offen ist rot. */
@@ -170,7 +170,7 @@ window.W = window.W || {};
     var s = String(status || '').toLowerCase();
     var klasse = /unterzeichnet|geprüft|hinterlegt|erledigt/.test(s) ? 'onyx-marke-fertig'
       : (/offen|fehlt/.test(s) ? 'onyx-marke-warn' : 'onyx-marke-laeuft');
-    return '<span class="onyx-marke ' + klasse + '" style="font-size:10.5px;padding:.1rem .5rem">' + h(status) + '</span>';
+    return '<span class="onyx-marke ' + klasse + '" style="font-size:.66rem;padding:.1rem .5rem">' + h(status) + '</span>';
   };
 
   /** Eskalationsstufe einer Wiedervorlage. Stufe 3 ist rot, das ist die letzte. */

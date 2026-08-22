@@ -7,15 +7,15 @@ window.W = window.W || {};
   W.KONTO = {
     email: 'buero@demo.wertakte.de',
     passwort: 'ortstermin',
-    name: 'K. Ahlers',
+    name: 'Jens Lange',
     rolle: 'Vermittlung von Anlage- und Gewerbeimmobilien',
-    buero: 'Ahlers Gewerbeimmobilien',
+    buero: 'Lange Gewerbeimmobilien',
     strasse: 'Gartenstraße 21',
     ort: '26122 Oldenburg',
     telefon: '0441 3609-27',
     mobil: '0170 3609-118',
-    emailBuero: 'buero@ahlers-gewerbe-beispiel.de',
-    archivEmail: 'archiv@ahlers-gewerbe-beispiel.de'
+    emailBuero: 'buero@lange-gewerbe-beispiel.de',
+    archivEmail: 'archiv@lange-gewerbe-beispiel.de'
   };
 
   W.OBJEKTARTEN = ['Lebensmittel-Fachmarkt', 'Nahversorgungszentrum', 'Fachmarktzentrum',
@@ -154,7 +154,7 @@ window.W = window.W || {};
           '<a class="zeile-link" href="#/objekt/' + h(t.objektId) + '?reiter=termine">' +
             '<span class="balken-links' + kl + '"></span>' +
             '<span class="wachsen">' +
-              '<span class="mono still" style="font-size:11.5px">' + h(o ? o.aktenzeichen : '') + ' · ' + h(t.art) + '</span>' +
+              '<span class="mono still" style="font-size:.72rem">' + h(o ? o.aktenzeichen : '') + ' · ' + h(t.art) + '</span>' +
               '<span class="kuerzen" style="display:block;font-size:.9375rem">' + h(t.titel) + '</span>' +
               '<span class="kuerzen klein leise" style="display:block">' + h((o ? o.bezeichnung : '') + (k ? ' · ' + k.name : '')) + '</span>' +
             '</span>' +
@@ -182,11 +182,29 @@ window.W = window.W || {};
       }).join('') + '</ul>'
       : b.leer('Noch kein Vorgang erfasst.');
 
+    // Was heute wirklich ansteht, steht ganz oben und ist sofort zu erledigen.
+    var dranSort = offeneTermine.slice().sort(function (a, c) { return a.faellig.localeCompare(c.faellig); });
+    var dran = dranSort.filter(function (t) {
+      var x = W.f.tageBis(t.faellig, heute);
+      return x !== null && x <= 3;
+    }).slice(0, 3);
+
+    var heuteBlock = '<section class="heute">' +
+      '<div class="abschnitt-kopf"><h2>' + (dran.length ? 'Das steht jetzt an' : 'Nichts überfällig') + '</h2>' +
+        '<a class="klein amber" href="#/termine" style="display:flex;align-items:center;gap:.3rem">Ganzer Terminplan' + sym.pfeilRechts(13) + '</a></div>' +
+      (dran.length
+        ? '<ul class="onyx-register" style="margin-top:.75rem">' +
+            dran.map(function (t) { return W.terminZeile(d, t, true); }).join('') + '</ul>'
+        : b.leer('Alles im grünen Bereich.',
+            'Kein Punkt ist überfällig oder in den nächsten drei Tagen fällig. Der Terminplan zeigt, was später kommt.')) +
+      '</section>';
+
     return '<div class="kopfzeile-seite"><div>' +
         '<h1>Übersicht</h1>' +
         '<p class="klein leise" style="margin-top:.35rem">Stand ' + h(W.f.datum(heute.toISOString())) + ', ' + vermarktung.length + ' Objekte in Vermarktung</p>' +
       '</div>' +
       '<a class="onyx-knopf onyx-knopf-primaer" href="#/neu">' + sym.plus(16) + 'Objekt anlegen</a></div>' +
+      heuteBlock +
       '<dl class="kacheln-reihe">' + kacheln + '</dl>' +
       '<div class="onyx-karte" style="margin-top:1.25rem;padding:1rem">' +
         '<div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.75rem">' +
@@ -200,8 +218,8 @@ window.W = window.W || {};
       '<section style="margin-top:2rem"><h2>Wiedervorlagen der nächsten Wochen</h2>' +
         '<div style="margin-top:.9rem">' + b.terminschiene(offeneTermine, heute, d) + '</div></section>' +
       '<div class="spalten">' +
-        '<section><div class="abschnitt-kopf"><h2>Offene Wiedervorlagen</h2>' +
-          '<a class="klein amber" href="#/objekte" style="display:flex;align-items:center;gap:.3rem">Alle Objekte' + sym.pfeilRechts(13) + '</a></div>' +
+        '<section><div class="abschnitt-kopf"><h2>Alle offenen Wiedervorlagen</h2>' +
+          '<a class="klein amber" href="#/termine" style="display:flex;align-items:center;gap:.3rem">Terminplan' + sym.pfeilRechts(13) + '</a></div>' +
           wiedervorlagen + '</section>' +
         '<section><h2>Zuletzt im Journal</h2>' + journal +
           '<p class="hinweis" style="margin-top:1.25rem"><span class="amber" style="flex:none;margin-top:.1rem">' + sym.siegel(17) + '</span>' +
@@ -259,7 +277,7 @@ window.W = window.W || {};
       (suche ? '<span class="onyx-marke onyx-marke-laeuft">Suche: ' + h(q.suche) + '</span>' : '') +
       '<span style="flex:1"></span>' +
       ((suche || q.status || q.eigentuemer)
-        ? '<a class="onyx-knopf onyx-knopf-klar" style="font-size:.8125rem;padding:.35rem .6rem" href="' +
+        ? '<a class="onyx-knopf onyx-knopf-klar" style="font-size:.8125rem;padding:.42rem .75rem" href="' +
           (kacheln ? '#/objekte?ansicht=kacheln' : '#/objekte') + '">' + sym.schliessen(13) + 'Zurücksetzen</a>' : '') +
       '</div>';
 
@@ -312,7 +330,7 @@ window.W = window.W || {};
           var e = kontakt(d, o.eigentuemerId), v = vollstaendig(d, o.id);
           return '<li class="onyx-zeile" style="border-bottom:1px solid var(--onyx-kontur-leise)">' +
             '<a class="register-zeile" href="#/objekt/' + h(o.id) + '">' +
-              '<span class="mono still" style="font-size:12.5px">' + h(o.aktenzeichen) + '</span>' +
+              '<span class="mono still" style="font-size:.78rem">' + h(o.aktenzeichen) + '</span>' +
               '<span style="min-width:0">' +
                 '<span class="kuerzen" style="display:block;font-size:.9375rem">' + h(o.bezeichnung) + '</span>' +
                 '<span class="kuerzen klein leise" style="display:block">' + h(o.strasse + ', ' + o.plz + ' ' + o.ort + ' · ' + o.objektart) + '</span>' +
@@ -400,7 +418,7 @@ window.W = window.W || {};
               (f.offen ? ' disabled' : '') + ' aria-label="' + h(f.etikett) + ' ins Exposé übernehmen">' +
             '<span class="klein leise">' + h(f.etikett) + '</span>' +
             (f.offen
-              ? '<span class="klein"><span class="onyx-marke onyx-marke-warn" style="font-size:10.5px;padding:.1rem .5rem">Angabe fehlt</span></span>'
+              ? '<span class="klein"><span class="onyx-marke onyx-marke-warn" style="font-size:.66rem;padding:.1rem .5rem">Angabe fehlt</span></span>'
               : '<span class="klein">' + h(f.wert) + '</span>') +
           '</label>';
         }).join('') + '</div>';
@@ -444,10 +462,10 @@ window.W = window.W || {};
 
           '<div><h2>Eigentümer</h2>' +
             (e ? '<a class="onyx-karte onyx-karte-klick" style="display:block;margin-top:.75rem;padding:1rem" href="#/investor/' + h(e.id) + '">' +
-              '<p class="mono amber" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.1em">' + h(e.typ) + '</p>' +
+              '<p class="mono amber" style="font-size:.66rem;text-transform:uppercase;letter-spacing:.1em">' + h(e.typ) + '</p>' +
               '<p style="margin-top:.25rem;font-size:.9375rem">' + h(e.name) + '</p>' +
               '<p class="klein leise" style="margin-top:.1rem">' + h(e.ansprechpartner) + '</p>' +
-              '<p class="mono leise" style="margin-top:.5rem;font-size:12.5px">' + h(e.telefon + ' · ' + e.email) + '</p></a>' : '') +
+              '<p class="mono leise" style="margin-top:.5rem;font-size:.78rem">' + h(e.telefon + ' · ' + e.email) + '</p></a>' : '') +
             '<p class="klein leise" style="margin-top:.75rem">' + h(o.besitzgesellschaft) + '</p>' +
           '</div>' +
 
@@ -494,14 +512,14 @@ window.W = window.W || {};
             b.unterlagenmarke(x.status) +
             '<span style="display:flex;flex-wrap:wrap;gap:.35rem">' +
               (x.status !== 'angefordert' && x.status !== 'vorhanden'
-                ? '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.75rem;padding:.25rem .55rem" data-ul-anfordern="' + h(x.id) + '">Anfordern</button>' : '') +
+                ? '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.8125rem;padding:.42rem .75rem" data-ul-anfordern="' + h(x.id) + '">Anfordern</button>' : '') +
               (x.status !== 'vorhanden'
-                ? '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.75rem;padding:.25rem .55rem" data-ul-da="' + h(x.id) + '">Liegt vor</button>'
-                : '<button class="onyx-knopf onyx-knopf-klar" style="font-size:.75rem;padding:.25rem .55rem" data-ul-zurueck="' + h(x.id) + '">Zurücksetzen</button>') +
+                ? '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.8125rem;padding:.42rem .75rem" data-ul-da="' + h(x.id) + '">Liegt vor</button>'
+                : '<button class="onyx-knopf onyx-knopf-klar" style="font-size:.8125rem;padding:.42rem .75rem" data-ul-zurueck="' + h(x.id) + '">Zurücksetzen</button>') +
               (x.datei
-                ? '<a class="onyx-knopf onyx-knopf-leise datei-knopf" style="font-size:.75rem;padding:.25rem .55rem" data-ul-oeffnen="' + h(x.id) + '" href="#">' + sym.dokument(13) + 'Öffnen</a>' +
-                  '<button class="onyx-knopf onyx-knopf-klar" style="font-size:.75rem;padding:.25rem .55rem" data-ul-weg="' + h(x.id) + '">Datei entfernen</button>'
-                : '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.75rem;padding:.25rem .55rem" data-ul-datei="' + h(x.id) + '">' + sym.hochladen(13) + 'Scan ablegen</button>') +
+                ? '<a class="onyx-knopf onyx-knopf-leise datei-knopf" style="font-size:.8125rem;padding:.42rem .75rem" data-ul-oeffnen="' + h(x.id) + '" href="#">' + sym.dokument(13) + 'Öffnen</a>' +
+                  '<button class="onyx-knopf onyx-knopf-klar" style="font-size:.8125rem;padding:.42rem .75rem" data-ul-weg="' + h(x.id) + '">Datei entfernen</button>'
+                : '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.8125rem;padding:.42rem .75rem" data-ul-datei="' + h(x.id) + '">' + sym.hochladen(13) + 'Scan ablegen</button>') +
             '</span></li>';
         }).join('') + '</ul></section>';
     }).join('');
@@ -546,7 +564,7 @@ window.W = window.W || {};
             '<span style="display:flex;flex-wrap:wrap;gap:.4rem;align-items:center">' +
               '<span class="onyx-marke ' + (x.stand === 'Kein Interesse' ? 'onyx-marke-ruht'
                 : x.stand === 'Reserviert' ? 'onyx-marke-fertig' : 'onyx-marke-laeuft') +
-                '" style="font-size:10.5px;padding:.1rem .5rem">' + h(x.stand) + '</span>' +
+                '" style="font-size:.66rem;padding:.1rem .5rem">' + h(x.stand) + '</span>' +
               '<span class="mini leise">NDA ' + (x.ndaAm ? h(W.f.datum(x.ndaAm)) : '–') + '</span>' +
               '<span class="mini leise">Exposé ' + (x.exposeAm ? h(W.f.datum(x.exposeAm)) : '–') + '</span>' +
             '</span>' +
@@ -558,8 +576,8 @@ window.W = window.W || {};
             '<label class="nur-sr" for="stand-' + h(x.id) + '">Stand ändern</label>' +
             '<select class="onyx-feld" id="stand-' + h(x.id) + '" data-stand="' + h(x.id) + '" style="width:auto;padding:.25rem .6rem;font-size:.75rem">' +
               opt(W.BETEILIGUNG_STAND, x.stand) + '</select>' +
-            (!x.ndaAm ? '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.75rem;padding:.25rem .55rem" data-nda="' + h(x.id) + '">NDA erhalten</button>' : '') +
-            (x.ndaAm && !x.exposeAm && !erst ? '<button class="onyx-knopf onyx-knopf-primaer" style="font-size:.75rem;padding:.25rem .55rem" data-expose="' + h(x.id) + '">Exposé versenden</button>' : '') +
+            (!x.ndaAm ? '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.8125rem;padding:.42rem .75rem" data-nda="' + h(x.id) + '">NDA erhalten</button>' : '') +
+            (x.ndaAm && !x.exposeAm && !erst ? '<button class="onyx-knopf onyx-knopf-primaer" style="font-size:.8125rem;padding:.42rem .75rem" data-expose="' + h(x.id) + '">Exposé versenden</button>' : '') +
           '</div></li>';
       }).join('') + '</ul>'
       : b.leer('Noch kein Investor auf diesem Objekt.', 'Wähle unten einen Investor aus dem Bestand aus.');
@@ -653,31 +671,56 @@ window.W = window.W || {};
 
   /* --- Reiter 5: Termine ------------------------------------------------------ */
 
+  /* Eine Wiedervorlage als Karte: was zu tun ist, bis wann, und die drei
+     Eskalationsstufen darunter. Der erste Knopf führt die aktuelle Stufe aus. */
   W.terminZeile = function (d, t, mitObjekt) {
     var o = H.obj(d, t.objektId), k = H.kontakt(d, t.kontaktId);
     var tage = W.f.tageBis(t.faellig);
     var erledigt = t.status === 'erledigt';
-    return '<li class="onyx-zeile" style="border-bottom:1px solid var(--onyx-kontur-leise);padding:.85rem .5rem">' +
-      '<div style="display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:flex-start">' +
-        '<span class="balken-links' + (erledigt ? '' : (tage !== null && tage < 0 ? ' ist-warn' : (tage !== null && tage <= 3 ? ' ist-bald' : ''))) + '" style="min-height:2.2rem"></span>' +
-        '<span class="wachsen" style="min-width:14rem">' +
-          '<span class="mono mini still">' + h(t.art) + (mitObjekt && o ? ' · ' + h(o.aktenzeichen) : '') + '</span>' +
-          '<span style="display:block;font-size:.9375rem' + (erledigt ? ';text-decoration:line-through;opacity:.6' : '') + '">' + h(t.titel) + '</span>' +
-          '<span class="mini leise" style="display:block">' + h(k ? k.name : '') + (mitObjekt && o ? ' · ' + h(o.bezeichnung) : '') + '</span>' +
-          '<span class="mini leise" style="display:block;margin-top:.3rem">' + h(t.regel) + '</span>' +
-          (erledigt ? '' : '<span class="mini' + (tage !== null && tage < 0 ? ' warn' : ' still') + '" style="display:block;margin-top:.15rem">' +
-            h(W.naechsteStufe(t)) + '</span>') +
-        '</span>' +
-        '<span style="flex:none;text-align:right;display:grid;gap:.3rem;justify-items:end">' +
-          '<span class="mono mini">' + h(W.f.datum(t.faellig)) + '</span>' +
-          '<span class="mini">' + (erledigt ? '<span class="still">erledigt</span>' : b.fristmarke(t.faellig)) + '</span>' +
-          (erledigt ? '' : b.eskalation(t.stufe)) +
-        '</span>' +
+    var ueber = !erledigt && tage !== null && tage < 0;
+    var bald = !erledigt && tage !== null && tage >= 0 && tage <= 3;
+    var plan = W.stufenPlan(t);
+    var jetzt = plan[t.stufe - 1] || plan[0];
+    var weg = W.stufenWeg(jetzt.text);
+
+    var leiter = '<ol class="stufen">' + plan.map(function (st) {
+      return '<li class="' + (st.dran ? 'ist-dran' : (st.erledigt ? 'ist-durch' : '')) + '">' +
+        '<span class="stufen-nr mono">' + st.nr + '</span>' +
+        '<span class="stufen-text">' + h(st.text) + '</span>' +
+        '<span class="stufen-datum mono">' + (st.nr === 1 ? 'am ' : 'ab ') + h(W.f.datum(st.datum)) + '</span>' +
+        (st.dran ? '<span class="stufen-marke">' + (st.faellig ? 'jetzt dran' : 'als Nächstes') + '</span>' : '') +
+        '</li>';
+    }).join('') + '</ol>';
+
+    var auftrag = JSON.stringify({
+      art: weg, objektId: t.objektId || '', kontaktId: t.kontaktId || '', richtung: 'aus',
+      betreff: t.titel
+    });
+
+    return '<li class="onyx-zeile termin-karte' + (ueber ? ' ist-warn' : (bald ? ' ist-bald' : '')) +
+        (erledigt ? ' ist-durch' : '') + '">' +
+      '<div class="termin-kopf">' +
+        '<div class="wachsen" style="min-width:14rem">' +
+          '<p class="mono mini still">' + h(t.art) + (mitObjekt && o ? ' · ' + h(o.aktenzeichen) : '') + '</p>' +
+          '<p class="termin-titel">' + h(t.titel) + '</p>' +
+          '<p class="klein leise">' + h(k ? k.name : '') + (mitObjekt && o ? ' · ' + h(o.bezeichnung) : '') + '</p>' +
+        '</div>' +
+        '<div class="termin-frist">' +
+          '<p class="mono">' + h(W.f.datum(t.faellig)) + '</p>' +
+          '<p class="' + (erledigt ? 'still' : (ueber ? 'warn' : 'leise')) + '">' +
+            (erledigt ? 'erledigt' + (t.erledigtAm ? ' am ' + h(W.f.datum(t.erledigtAm)) : '') : h(W.f.fristText(tage))) + '</p>' +
+        '</div>' +
       '</div>' +
-      (erledigt ? '' : '<div style="display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.6rem;padding-left:1.6rem">' +
-        (t.stufe < 3 ? '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.75rem;padding:.25rem .55rem" data-eskalieren="' + h(t.id) + '">Eskalieren auf Stufe ' + (t.stufe + 1) + '</button>' : '') +
-        '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.75rem;padding:.25rem .55rem" data-erledigt="' + h(t.id) + '">' + sym.haken(13) + 'Erledigt</button>' +
-      '</div>') + '</li>';
+      (erledigt ? '' : leiter) +
+      (erledigt ? '' : '<div class="termin-knoepfe">' +
+        '<button class="onyx-knopf onyx-knopf-primaer" data-verfassen="' + h(auftrag) + '">' +
+          b.kommSymbol(weg, 'aus', 17) + 'Jetzt ' + h(weg === 'Telefon' ? 'anrufen' : (weg === 'Brief' ? 'Brief schreiben' : weg + ' schreiben')) + '</button>' +
+        (t.stufe < 3
+          ? '<button class="onyx-knopf onyx-knopf-leise" data-eskalieren="' + h(t.id) + '">Auf Stufe ' + (t.stufe + 1) + ' heben</button>'
+          : '') +
+        '<button class="onyx-knopf onyx-knopf-leise" data-erledigt="' + h(t.id) + '">' + sym.haken(16) + 'Erledigt</button>' +
+      '</div>') +
+      '</li>';
   };
 
   /** Ordner nach Dringlichkeit, nicht nach Art: so sieht man zuerst das Wichtige. */
@@ -743,7 +786,7 @@ window.W = window.W || {};
       ? '<ul class="foto-gitter" style="margin-top:1.25rem">' + fotos.map(function (f) {
           return '<li><button class="onyx-karte onyx-karte-klick foto-karte" data-foto="' + h(f.id) + '">' +
             '<span class="bild"><img src="' + h(H.src(f, bilder)) + '" alt="' + h(f.beschriftung || 'Foto ohne Beschriftung') + '" loading="lazy">' +
-              '<span class="bild-marke amber" style="left:0;bottom:0;text-transform:uppercase;letter-spacing:.06em;font-size:10.5px">' + h(f.kategorie) + '</span>' +
+              '<span class="bild-marke amber" style="left:0;bottom:0;text-transform:uppercase;letter-spacing:.06em;font-size:.66rem">' + h(f.kategorie) + '</span>' +
             '</span>' +
             '<span class="foto-text">' + (f.beschriftung
               ? '<span class="zwei-zeilen">' + h(f.beschriftung) + '</span>'
@@ -794,10 +837,12 @@ window.W = window.W || {};
             '<p class="leise" style="display:flex;align-items:center;gap:.4rem;margin-top:.35rem;font-size:.9375rem">' +
               sym.ort(15) + h(o.strasse + ', ' + o.plz + ' ' + o.ort + ' · ' + o.objektart) + '</p></div>' +
           '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:.6rem">' +
-            b.objektmarke(o.status) +
-            '<label class="nur-sr" for="objekt-status">Status ändern</label>' +
+            '<label class="onyx-etikett" for="objekt-status" style="flex:none">Status</label>' +
             '<select class="onyx-feld" id="objekt-status" style="width:auto;padding:.3rem .7rem;font-size:.8125rem">' +
               opt(W.OBJEKT_STATUS.map(function (s) { return { wert: s, text: W.OBJEKT_STATUS_TEXT[s] }; }), o.status) + '</select>' +
+            '<button class="onyx-knopf onyx-knopf-primaer" id="knopf-kamera-kopf">' +
+              sym.kamera(19) + 'Foto aufnehmen</button>' +
+            '<input id="eingabe-kamera-kopf" type="file" accept="image/*" capture="environment" class="nur-sr">' +
             '<button class="onyx-knopf onyx-knopf-primaer" data-verfassen="' +
               h(JSON.stringify({ art: 'E-Mail', objektId: o.id, kontaktId: o.eigentuemerId, richtung: 'aus' })) + '">' +
               sym.mailAus(17) + 'Nachricht verfassen</button>' +
@@ -847,7 +892,7 @@ window.W = window.W || {};
     return '<div class="schleier" id="foto-schleier" role="dialog" aria-modal="true" aria-label="Foto beschriften">' +
       '<div class="onyx-rahmen dialog">' +
         '<div class="dialog-kopf">' +
-          '<p class="mono amber" style="font-size:11px;text-transform:uppercase;letter-spacing:.14em">Foto in der Akte</p>' +
+          '<p class="mono amber" style="font-size:.69rem;text-transform:uppercase;letter-spacing:.14em">Foto in der Akte</p>' +
           '<button id="dialog-zu" class="klein" style="display:flex;align-items:center;gap:.4rem;padding:.25rem">Schließen' + sym.schliessen(15) + '</button>' +
         '</div>' +
         '<div class="dialog-bild"><img src="' + h(H.src(foto, bilder)) + '" alt="' + h(foto.beschriftung || 'Foto ohne Beschriftung') + '"></div>' +
@@ -890,14 +935,14 @@ window.W = window.W || {};
     return '<div class="schleier" id="vorgang-schleier" role="dialog" aria-modal="true" aria-label="Vorgang">' +
       '<div class="onyx-rahmen dialog dialog-breit">' +
         '<div class="dialog-kopf">' +
-          '<p class="mono amber" style="font-size:11px;text-transform:uppercase;letter-spacing:.14em">' +
+          '<p class="mono amber" style="font-size:.69rem;text-transform:uppercase;letter-spacing:.14em">' +
             h(v.art + ' ' + b.richtungText(v.richtung)) + ' · Beleg ' + h(v.belegNr) + '</p>' +
           '<span style="display:flex;flex-wrap:wrap;gap:.4rem;align-items:center">' +
-            '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.75rem;padding:.25rem .6rem" data-verfassen="' +
+            '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.8125rem;padding:.42rem .75rem" data-verfassen="' +
               h(JSON.stringify(antwort)) + '">' + sym.mailAus(14) + 'Antworten</button>' +
-            '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.75rem;padding:.25rem .6rem" data-verfassen="' +
+            '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.8125rem;padding:.42rem .75rem" data-verfassen="' +
               h(JSON.stringify(weiter)) + '">' + sym.pfeilRechts(14) + 'Weiterleiten</button>' +
-            '<a class="onyx-knopf onyx-knopf-leise" style="font-size:.75rem;padding:.25rem .6rem" href="#/vorgang/' + h(v.id) + '">' +
+            '<a class="onyx-knopf onyx-knopf-leise" style="font-size:.8125rem;padding:.42rem .75rem" href="#/vorgang/' + h(v.id) + '">' +
               sym.drucken(14) + 'Drucken</a>' +
             '<button id="dialog-zu" class="klein" style="display:flex;align-items:center;gap:.4rem;padding:.25rem">Schließen' + sym.schliessen(15) + '</button>' +
           '</span>' +
@@ -940,7 +985,7 @@ window.W = window.W || {};
       '<form class="formular" id="neu-formular">' +
         '<section class="formular-abschnitt">' +
           '<h2 style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem">Objekt' +
-            '<span class="mono amber" style="font-size:12.5px">' + h(naechstes) + '</span></h2>' +
+            '<span class="mono amber" style="font-size:.78rem">' + h(naechstes) + '</span></h2>' +
           feld('bezeichnung', 'Bezeichnung', 'text', 'REWE-Markt Oldenburg') +
           feld('strasse', 'Straße und Hausnummer', 'text', 'Bümmersteder Tredde 12') +
           '<div class="feld-paar schmal-breit">' + feld('plz', 'Postleitzahl', 'text', '26129') + feld('ort', 'Ort', 'text', 'Oldenburg') + '</div>' +
@@ -994,7 +1039,7 @@ window.W = window.W || {};
         return '<li><a class="onyx-karte onyx-karte-klick" style="display:flex;flex-direction:column;height:100%;padding:1.25rem" href="#/investor/' + h(i.id) + '">' +
           '<span style="display:flex;justify-content:space-between;gap:1rem">' +
             '<span style="min-width:0">' +
-              '<span class="mono amber" style="display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.1em">' + h(i.typ) + '</span>' +
+              '<span class="mono amber" style="display:block;font-size:.66rem;text-transform:uppercase;letter-spacing:.1em">' + h(i.typ) + '</span>' +
               '<span style="display:block;margin-top:.25rem;font-size:1.0625rem">' + h(i.name) + '</span>' +
               '<span class="klein leise" style="display:block;margin-top:.1rem">' + h(i.ansprechpartner) + '</span>' +
             '</span><span class="leise" style="flex:none">' + sym.pfeilRechts(17) + '</span>' +
@@ -1006,10 +1051,10 @@ window.W = window.W || {};
           '<span style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto;padding-top:1rem">' +
             '<span class="onyx-marke ' + (i.nda && i.nda.status === 'unterzeichnet' ? 'onyx-marke-fertig'
               : i.nda && i.nda.status === 'versendet' ? 'onyx-marke-laeuft' : 'onyx-marke-ruht') +
-              '" style="font-size:10.5px;padding:.1rem .5rem">NDA ' + h(i.nda ? i.nda.status : 'offen') + '</span>' +
+              '" style="font-size:.66rem;padding:.1rem .5rem">NDA ' + h(i.nda ? i.nda.status : 'offen') + '</span>' +
             '<span class="onyx-marke ' + (offeneVal ? 'onyx-marke-warn' : 'onyx-marke-fertig') +
-              '" style="font-size:10.5px;padding:.1rem .5rem">Adresse ' + h(i.adressvalidierung ? i.adressvalidierung.status : 'offen') + '</span>' +
-            '<span class="onyx-marke onyx-marke-ruht" style="font-size:10.5px;padding:.1rem .5rem">' + mandate + ' Objekte</span>' +
+              '" style="font-size:.66rem;padding:.1rem .5rem">Adresse ' + h(i.adressvalidierung ? i.adressvalidierung.status : 'offen') + '</span>' +
+            '<span class="onyx-marke onyx-marke-ruht" style="font-size:.66rem;padding:.1rem .5rem">' + mandate + ' Objekte</span>' +
           '</span></a></li>';
       }).join('') + '</ul>';
   };
@@ -1026,7 +1071,7 @@ window.W = window.W || {};
     return '<a class="zurueck" href="' + (i.rolle === 'Investor' ? '#/investoren' : '#/objekte') + '">' +
         sym.pfeilLinks(14) + (i.rolle === 'Investor' ? 'Alle Investoren' : 'Alle Objekte') + '</a>' +
       '<header style="margin-top:1rem;padding-bottom:1.5rem;border-bottom:1px solid var(--onyx-kontur-leise)">' +
-        '<p class="mono amber" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.12em">' + h(i.rolle + ' · ' + i.typ) + '</p>' +
+        '<p class="mono amber" style="font-size:.66rem;text-transform:uppercase;letter-spacing:.12em">' + h(i.rolle + ' · ' + i.typ) + '</p>' +
         '<h1 style="margin-top:.35rem">' + h(i.name) + '</h1>' +
         '<p class="leise" style="margin-top:.35rem;font-size:.9375rem">' + h(i.ansprechpartner) +
           (i.anrede ? '<span class="mini still"> · Anrede „' + h(i.anrede) + '“</span>' : '') + '</p>' +
@@ -1055,7 +1100,7 @@ window.W = window.W || {};
                 '<a class="zeile-link" href="#/objekt/' + h(o.id) + '">' +
                   '<span class="wachsen"><span class="mono mini still">' + h(o.aktenzeichen) + '</span>' +
                     '<span class="kuerzen" style="display:block;font-size:.875rem">' + h(o.bezeichnung) + '</span></span>' +
-                  '<span class="onyx-marke onyx-marke-ruht" style="font-size:10.5px;padding:.1rem .5rem">Eigentum</span>' +
+                  '<span class="onyx-marke onyx-marke-ruht" style="font-size:.66rem;padding:.1rem .5rem">Eigentum</span>' +
                 '</a></li>';
             }).join('') + '</ul>' : '') +
           (mandate.length ? '<ul class="onyx-register" style="margin-top:.75rem;border-top:1px solid var(--onyx-kontur-leise)">' +
@@ -1066,7 +1111,7 @@ window.W = window.W || {};
                 '<a class="zeile-link" href="#/objekt/' + h(o.id) + '?reiter=investoren">' +
                   '<span class="wachsen"><span class="mono mini still">' + h(o.aktenzeichen) + '</span>' +
                     '<span class="kuerzen" style="display:block;font-size:.875rem">' + h(o.bezeichnung) + '</span></span>' +
-                  '<span class="onyx-marke onyx-marke-laeuft" style="font-size:10.5px;padding:.1rem .5rem">' + h(x.stand) + '</span>' +
+                  '<span class="onyx-marke onyx-marke-laeuft" style="font-size:.66rem;padding:.1rem .5rem">' + h(x.stand) + '</span>' +
                 '</a></li>';
             }).join('') + '</ul>'
             : (eigene.length ? '' : b.leer('Noch keinem Objekt zugeordnet.'))) +
@@ -1116,7 +1161,7 @@ window.W = window.W || {};
         '<label class="nur-sr" for="k-objekt">Nach Objekt filtern</label>' +
         '<select class="onyx-feld" id="k-objekt" data-kfilter="objekt" style="width:auto;max-width:18rem;padding:.35rem .7rem;font-size:.8125rem">' +
           opt(H.alle(d).map(function (o) { return { wert: o.id, text: o.aktenzeichen + ' · ' + o.bezeichnung }; }), q.objekt || '', 'Alle Objekte') + '</select>' +
-        ((q.objekt || gewaehlt) ? '<a class="onyx-knopf onyx-knopf-klar" style="font-size:.8125rem;padding:.35rem .6rem" href="#/kommunikation">' +
+        ((q.objekt || gewaehlt) ? '<a class="onyx-knopf onyx-knopf-klar" style="font-size:.8125rem;padding:.42rem .75rem" href="#/kommunikation">' +
           sym.schliessen(13) + 'Zurücksetzen</a>' : '') +
       '</div></div>' +
       W.ordnerreihe(W.kommOrdner(imObjekt), gewaehlt, function (wert) {
@@ -1177,7 +1222,7 @@ window.W = window.W || {};
         '<ul class="foto-gitter" style="margin-top:.9rem">' + fotos.map(function (f) {
           return '<li><button class="onyx-karte onyx-karte-klick foto-karte" data-foto="' + h(f.id) + '">' +
             '<span class="bild"><img src="' + h(H.src(f, bilder)) + '" alt="' + h(f.beschriftung || 'Foto ohne Beschriftung') + '" loading="lazy">' +
-              '<span class="bild-marke amber" style="left:0;bottom:0;text-transform:uppercase;letter-spacing:.06em;font-size:10.5px">' + h(f.kategorie) + '</span></span>' +
+              '<span class="bild-marke amber" style="left:0;bottom:0;text-transform:uppercase;letter-spacing:.06em;font-size:.66rem">' + h(f.kategorie) + '</span></span>' +
             '<span class="foto-text">' + (f.beschriftung
               ? '<span class="zwei-zeilen">' + h(f.beschriftung) + '</span>'
               : '<span class="amber" style="display:flex;align-items:center;gap:.35rem">' + sym.stift(13) + 'Beschriftung fehlt</span>') +
@@ -1226,7 +1271,7 @@ window.W = window.W || {};
     drin.forEach(function (f) { (gruppen[f.gruppe] = gruppen[f.gruppe] || []).push(f); });
     var angaben = Object.keys(gruppen).map(function (g) {
       return '<section class="blatt-abschnitt" style="margin-top:1.5rem">' +
-        '<p class="sans" style="font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#6C6459">' + h(g) + '</p>' +
+        '<p class="sans" style="font-size:.69rem;text-transform:uppercase;letter-spacing:.1em;color:#6C6459">' + h(g) + '</p>' +
         '<dl class="blatt-tabelle" style="margin-top:.4rem">' + gruppen[g].map(function (f) {
           return '<div><dt>' + h(f.etikett) + '</dt><dd>' + h(f.wert) + '</dd></div>';
         }).join('') + '</dl></section>';
@@ -1246,9 +1291,9 @@ window.W = window.W || {};
       ? '<ol class="lichtbilder">' + fotos.map(function (f, i) {
           return '<li><img src="' + h(H.src(f, bilder)) + '" alt="' + h(f.beschriftung || ('Bild ' + (i + 1))) + '">' +
             '<p style="margin-top:.35rem;font-size:.75rem;line-height:1.4">' +
-              '<span class="sans mono" style="font-size:11px;color:#5F584E">Bild ' + (i + 1) + '</span> ' +
+              '<span class="sans mono" style="font-size:.69rem;color:#5F584E">Bild ' + (i + 1) + '</span> ' +
               (f.beschriftung ? h(f.beschriftung) : '<span style="font-style:italic;color:#6C6459">ohne Beschriftung</span>') + '</p>' +
-            '<p style="font-size:11px;color:#6C6459">' + h(f.kategorie) + '</p></li>';
+            '<p style="font-size:.69rem;color:#6C6459">' + h(f.kategorie) + '</p></li>';
         }).join('') + '</ol>'
       : '<p class="platzhalter">Noch keine Fotos erfasst. Bilder aus dem Reiter Fotos erscheinen hier automatisch.</p>';
 
@@ -1267,10 +1312,10 @@ window.W = window.W || {};
             '<p>' + h(K.strasse) + '</p><p>' + h(K.ort) + '</p><p>' + h(K.telefon) + '</p><p>' + h(K.emailBuero) + '</p></div>' +
         '</header>' +
         '<div class="blatt-deckel">' +
-          '<p class="sans mono" style="font-size:11px;text-transform:uppercase;letter-spacing:.24em;color:#6C6459">Exposé</p>' +
+          '<p class="sans mono" style="font-size:.69rem;text-transform:uppercase;letter-spacing:.24em;color:#6C6459">Exposé</p>' +
           '<h2 style="margin-top:1.25rem;font-size:clamp(1.5rem,1.2rem+1.4vw,1.875rem);line-height:1.2">' + h(o.bezeichnung) + '</h2>' +
           '<p style="margin-top:1.25rem;font-size:1.0625rem;line-height:1.35">' + h(o.strasse) + '<br>' + h(o.plz + ' ' + o.ort) + '</p>' +
-          '<p class="sans mono" style="margin-top:1.5rem;font-size:12.5px;letter-spacing:.1em;color:#5F584E">' + h(o.aktenzeichen) + '</p>' +
+          '<p class="sans mono" style="margin-top:1.5rem;font-size:.78rem;letter-spacing:.1em;color:#5F584E">' + h(o.aktenzeichen) + '</p>' +
         '</div>' +
         '<dl class="blatt-daten">' +
           '<div><dt>Objektart</dt><dd>' + h(o.objektart) + '</dd></div>' +
@@ -1290,7 +1335,7 @@ window.W = window.W || {};
           '<p style="margin-top:.75rem">Verbraucher haben bei außerhalb von Geschäftsräumen oder im Fernabsatz geschlossenen Verträgen ' +
           'ein Widerrufsrecht von vierzehn Tagen. Die vollständige Belehrung und das Muster-Widerrufsformular liegen diesem Exposé als Anlage bei.</p>' +
           '<p class="platzhalter">Vollständiger Belehrungstext wird aus der Vorlage des Büros eingesetzt.</p></section>' +
-        '<footer class="sans" style="margin-top:3rem;padding-top:1rem;border-top:1px solid #D5CFC2;font-size:10.5px;line-height:1.7;color:#6C6459">' +
+        '<footer class="sans" style="margin-top:3rem;padding-top:1rem;border-top:1px solid #D5CFC2;font-size:.66rem;line-height:1.7;color:#6C6459">' +
           'Exposé zu ' + h(o.aktenzeichen) + ', Stand ' + h(W.f.datumLang(heute)) +
           '. Angaben ohne Gewähr, sie beruhen auf Auskünften des Eigentümers. Alle Daten dieser Vorführversion sind Beispieldaten.</footer>' +
       '</article></div>';
@@ -1298,7 +1343,7 @@ window.W = window.W || {};
 
   W.seiten.nichtGefunden = function () {
     return '<div style="padding:5rem 0;text-align:center">' +
-      '<p class="mono amber" style="font-size:11px;text-transform:uppercase;letter-spacing:.24em">Wertakte</p>' +
+      '<p class="mono amber" style="font-size:.69rem;text-transform:uppercase;letter-spacing:.24em">Wertakte</p>' +
       '<h1 style="margin-top:1rem">Diese Seite gibt es nicht</h1>' +
       '<a class="onyx-knopf onyx-knopf-primaer" style="margin-top:1.75rem" href="#/uebersicht">Zur Übersicht</a></div>';
   };

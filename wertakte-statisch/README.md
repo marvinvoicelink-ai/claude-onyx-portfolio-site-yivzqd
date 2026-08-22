@@ -30,6 +30,16 @@ Zugangsdaten sind ausgefüllt, ein Klick auf **Anmelden** genügt.
 | E-Mail   | `buero@demo.wertakte.de` |
 | Passwort | `ortstermin`             |
 
+Angemeldet ist **Jens Lange**, der Inhaber. Name, Firma und Anschrift stehen im
+Briefkopf und als Absender jeder Mail und lassen sich unter **Verwaltung**
+ändern.
+
+## Groß und gut lesbar
+
+Die Grundschrift liegt über dem üblichen Maß. Reicht das nicht, schaltet
+**A Große Schrift** oben rechts die ganze Oberfläche eine Stufe größer –
+Schrift, Knöpfe, Abstände. Die Einstellung bleibt auf dem Gerät gespeichert.
+
 ## Ordner in jedem Bereich
 
 Jeder Bereich hat oben eine Reihe Ordner mit Zahl: **Alle**, dann die Ordner
@@ -94,11 +104,21 @@ nachträglich verändert wurde. **Drucken** öffnet den Beleg auf Briefpapier de
 Büros, mit Kopf, Inhalt, Anlagenverzeichnis und diesem Nachweis: kein Papier im
 Alltag, aber jede Mail und jedes Telefonat einzeln auf Papier.
 
-**5 Termine.** Wiedervorlagen, Fristen und Termine mit Eskalationsstufen.
-Stufe 1 E-Mail, Stufe 2 Anruf, Stufe 3 Eigentümer informieren. Unter jeder
-Wiedervorlage steht, ab wann die nächste Stufe fällig ist – die Abstände liest
-das System aus der hinterlegten Regel („Stufe 2 nach 3 Tagen Anruf“).
-Überfällige Punkte stehen rot, die Zeitschiene zeigt fünf Kalenderwochen.
+**5 Termine.** Jede Wiedervorlage ist eine Karte: was zu tun ist, bis wann,
+und darunter die drei Eskalationsstufen mit Datum – erledigte durchgestrichen,
+die aktuelle amber hervorgehoben („jetzt dran“ bzw. „als Nächstes“). Die
+Abstände liest das System aus der hinterlegten Regel, „Stufe 2 nach 1 Tag
+Anruf“ heißt einen Tag nach der Frist.
+
+Darunter stehen genau drei Knöpfe. Der erste führt die aktuelle Stufe aus und
+heißt entsprechend: **Jetzt anrufen**, **Jetzt E-Mail schreiben**, **Jetzt
+Brief schreiben** – er öffnet das Verfassen-Fenster mit dem richtigen Weg,
+dem Objekt, dem Gegenüber und dem Betreff. Dazu **Auf Stufe X heben** und
+**Erledigt**. Überfällige Punkte stehen rot, die Zeitschiene zeigt fünf
+Kalenderwochen.
+
+Auf der **Übersicht** steht ganz oben „Das steht jetzt an“ mit denselben
+Karten – alles, was überfällig ist oder in den nächsten drei Tagen fällig wird.
 
 **Protokoll.** Eigener Bereich in der linken Leiste. Jede Mail, jedes
 Telefonat, jede erhaltene Unterlage, jeder Statuswechsel, jede Eskalation und
@@ -122,11 +142,14 @@ Standard-Provision) und den Datenbestand mit **Sicherung als Datei** und
 **Zurücksetzen**. Weitere Mitarbeitende mit eingeschränkten Rechten legt im
 Kundensystem allein der Inhaber an.
 
-**Fotos.** Eigener Bereich und zusätzlich ein Reiter in jeder Akte.
-„Foto aufnehmen“ öffnet auf dem Handy direkt die Kamera, das Bild landet sofort
-beim gewählten Objekt, bekommt Beschriftung und Kategorie und erscheint im
-Exposé. „Bilder hochladen“ nimmt vorhandene Dateien, auch mehrere auf einmal.
-Die Demo startet bewusst ohne Bilder.
+**Fotos.** In **jeder Objektakte steht oben „Foto aufnehmen“** – auf jedem
+Reiter, ein Griff. Auf dem Handy öffnet der Knopf direkt die Kamera; das Bild
+landet sofort bei diesem Objekt und die Akte springt in den Reiter Fotos. Dazu
+ein eigener Bereich Fotos über alle Objekte und in jeder Akte ein Reiter mit
+Galerie, Beschriftung und Kategorie. Jedes Bild erscheint im Exposé und in der
+Gesamtakte. „Bilder hochladen“ nimmt vorhandene Dateien, auch mehrere auf
+einmal. Beliebig viele Bilder je Objekt. Die Demo startet bewusst ohne Bilder,
+das erste Foto macht der Kunde in der Vorführung selbst.
 
 ## Ablauf im Gespräch
 
@@ -145,7 +168,8 @@ Die Demo startet bewusst ohne Bilder.
 8. Aus demselben Eintrag heraus **Antworten**, Kanal auf **WhatsApp** wechseln,
    Häkchen bei „Wiedervorlage dazu anlegen“, senden.
 9. Reiter 2: bei einer offenen Unterlage **Scan ablegen**, danach **Öffnen**.
-10. Reiter 5: eine Wiedervorlage eskalieren.
+10. Reiter 5: eine Wiedervorlage ansehen – drei Stufen mit Datum. **Jetzt
+    anrufen** öffnet das Telefonat, **Auf Stufe 3 heben** eskaliert.
 11. Ordner zeigen: in Reiter 2 auf **Offen** klicken, in Reiter 4 auf
     **Posteingang**, in Reiter 5 auf **Überfällig**.
 12. Oben ins Suchfeld „Erbbau“ tippen: Treffer aus Objekt, Unterlagen, Mails
@@ -153,8 +177,9 @@ Die Demo startet bewusst ohne Bilder.
 13. Links **Protokoll**: dieselben Schritte stehen lückenlos darin.
 14. In der Akte oben rechts **Gesamtakte**, dann **Drucken**.
 15. Links **Verwaltung**: ein Konto, neun Rechte, Stammdaten, Sicherung.
-16. **Auf dem Handy** dieselbe Adresse öffnen, Akte, Reiter Fotos,
-    **Foto aufnehmen**.
+16. **Auf dem Handy** dieselbe Adresse öffnen, ein Objekt antippen, oben
+    **Foto aufnehmen** – die Kamera geht direkt auf. Bei Bedarf vorher
+    **A Große Schrift** einschalten.
 
 ## Auf den Ausgangsstand zurücksetzen
 

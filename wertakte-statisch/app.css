@@ -2,6 +2,14 @@
    braucht. Farben kommen ausnahmslos aus onyx-dunkel.css. */
 
 *, *::before, *::after { box-sizing: border-box; }
+
+/* Grundgroesse etwas ueber dem Browser-Standard: alles ist in rem gerechnet,
+   deshalb waechst mit dieser Zeile die ganze Oberflaeche mit. „Große Schrift“
+   im Kopf schaltet auf die zweite Stufe. */
+html { font-size: 17px; }
+html.gross { font-size: 20px; }
+@media (max-width: 480px) { html { font-size: 16.5px; } html.gross { font-size: 18.5px; } }
+
 body { margin: 0; min-height: 100dvh; }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
@@ -66,7 +74,7 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
   position: absolute; top: .2rem; right: .2rem; min-width: 15px; height: 15px; padding: 0 3px;
   display: grid; place-items: center; border-radius: 999px;
   background: var(--onyx-warn); color: var(--onyx-grund-tief);
-  font-family: var(--onyx-schrift-mono); font-size: 9.5px;
+  font-family: var(--onyx-schrift-mono); font-size: .6rem;
 }
 .kuerzel {
   display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 999px;
@@ -82,11 +90,11 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
   padding-bottom: env(safe-area-inset-bottom);
   display: grid; grid-template-columns: repeat(4, 1fr);
 }
-.fuss-nav a { font-size: 10.5px; }
+.fuss-nav a { font-size: .66rem; }
 @media (min-width: 768px) { .fuss-nav { display: none; } }
 .fuss-nav a {
   display: flex; flex-direction: column; align-items: center; gap: .25rem;
-  padding: .6rem 0; font-size: 11px; color: var(--onyx-text-still);
+  padding: .6rem 0; font-size: .69rem; color: var(--onyx-text-still);
 }
 .fuss-nav a[aria-current] { color: var(--onyx-amber); }
 
@@ -149,7 +157,7 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 1280px) { .kachel-gitter { grid-template-columns: repeat(3, 1fr); } }
 .kachel-bild { position: relative; aspect-ratio: 4/3; background: var(--onyx-flaeche-hoch); overflow: hidden; }
 .kachel-bild img { width: 100%; height: 100%; object-fit: cover; }
-.bild-marke { position: absolute; padding: .2rem .45rem; background: rgb(10 10 10 / .85); font-family: var(--onyx-schrift-mono); font-size: 11px; }
+.bild-marke { position: absolute; padding: .2rem .45rem; background: rgb(10 10 10 / .85); font-family: var(--onyx-schrift-mono); font-size: .69rem; }
 
 /* --- Akte -------------------------------------------------------------- */
 .akte-kopf { padding-bottom: 1.5rem; border-bottom: 1px solid var(--onyx-kontur-leise); }
@@ -283,7 +291,7 @@ textarea.onyx-feld { resize: vertical; line-height: 1.65; }
 .reiter a:hover { color: var(--onyx-text); }
 .reiter a[aria-current] { color: var(--onyx-amber); border-bottom-color: var(--onyx-amber); }
 .reiter .zahl {
-  font-family: var(--onyx-schrift-mono); font-size: 10.5px; padding: .05rem .3rem;
+  font-family: var(--onyx-schrift-mono); font-size: .66rem; padding: .05rem .3rem;
   border-radius: 3px; background: var(--onyx-kontur-leise); color: var(--onyx-text-leise);
 }
 .reiter a[aria-current] .zahl { background: var(--onyx-amber-flaeche); color: var(--onyx-amber); }
@@ -413,7 +421,7 @@ textarea.onyx-feld { resize: vertical; line-height: 1.65; }
 .ordner-blatt.ist-an { color: var(--onyx-amber); border-color: var(--onyx-amber); background: var(--onyx-amber-flaeche); }
 .ordner-blatt svg { flex: none; opacity: .8; }
 .ordner-zahl {
-  font-size: 11px; font-variant-numeric: tabular-nums;
+  font-size: .69rem; font-variant-numeric: tabular-nums;
   padding: .05rem .35rem; border-radius: 999px;
   background: var(--onyx-grund-tief); color: var(--onyx-text-still);
 }
@@ -423,7 +431,7 @@ textarea.onyx-feld { resize: vertical; line-height: 1.65; }
 /* --- Verwaltung ----------------------------------------------------------------- */
 .inhaber-marke {
   display: inline-block; margin-left: .45rem; padding: .05rem .4rem;
-  font-family: var(--onyx-schrift-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em;
+  font-family: var(--onyx-schrift-mono); font-size: .63rem; text-transform: uppercase; letter-spacing: .1em;
   color: var(--onyx-amber); background: var(--onyx-amber-flaeche);
   border: 1px solid rgb(232 163 61 / .35); border-radius: 999px; vertical-align: middle;
 }
@@ -442,3 +450,61 @@ textarea.onyx-feld { resize: vertical; line-height: 1.65; }
   font-size: .8125rem; color: var(--onyx-text-leise);
 }
 .rechte-liste li svg { flex: none; color: var(--onyx-gut); }
+
+/* --- Terminplan mit Eskalationsstufen -------------------------------------------- */
+.termin-karte {
+  display: grid; gap: .85rem;
+  padding: 1rem .9rem 1rem 1.1rem;
+  border-bottom: 1px solid var(--onyx-kontur-leise);
+  border-left: 3px solid var(--onyx-kontur-leise);
+}
+.termin-karte.ist-bald { border-left-color: var(--onyx-amber); }
+.termin-karte.ist-warn { border-left-color: var(--onyx-warn); }
+.termin-karte.ist-durch { opacity: .6; }
+.termin-kopf { display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: flex-start; }
+.termin-titel { font-size: 1.0625rem; line-height: 1.35; margin-top: .15rem; }
+.termin-karte.ist-durch .termin-titel { text-decoration: line-through; }
+.termin-frist { flex: none; text-align: right; font-size: .8125rem; line-height: 1.6; }
+.termin-frist .mono { font-size: .9375rem; }
+
+.stufen { display: grid; gap: .3rem; }
+.stufen li {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .55rem;
+  padding: .45rem .6rem; font-size: .875rem;
+  color: var(--onyx-text-still);
+  border: 1px solid transparent; border-radius: var(--onyx-radius-klein);
+}
+.stufen li.ist-durch { text-decoration: line-through; }
+.stufen li.ist-dran {
+  color: var(--onyx-text); background: var(--onyx-amber-flaeche);
+  border-color: rgb(232 163 61 / .35);
+}
+.stufen-nr {
+  width: 1.55rem; height: 1.55rem; flex: none; display: grid; place-items: center;
+  font-size: .78125rem; border-radius: 50%;
+  border: 1px solid var(--onyx-kontur); color: var(--onyx-text-leise);
+}
+.stufen li.ist-dran .stufen-nr { color: var(--onyx-amber); border-color: var(--onyx-amber); }
+.stufen-text { flex: 1; min-width: 8rem; }
+.stufen-datum { font-size: .78125rem; }
+.stufen-marke {
+  font-family: var(--onyx-schrift-mono); font-size: .66rem; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--onyx-amber);
+}
+.termin-knoepfe { display: flex; flex-wrap: wrap; gap: .5rem; }
+.termin-knoepfe .onyx-knopf { font-size: .875rem; padding: .55rem .9rem; }
+
+/* --- Große Schrift ---------------------------------------------------------------- */
+.schrift-knopf {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .35rem .6rem; font-size: .8125rem; line-height: 1;
+  color: var(--onyx-text-leise); background: var(--onyx-flaeche);
+  border: 1px solid var(--onyx-kontur); border-radius: var(--onyx-radius-klein);
+}
+.schrift-knopf:hover { color: var(--onyx-text); border-color: var(--onyx-kontur-stark); }
+html.gross .schrift-knopf { color: var(--onyx-amber); border-color: var(--onyx-amber); background: var(--onyx-amber-flaeche); }
+.schrift-knopf b { font-family: var(--onyx-schrift-mono); font-size: .9rem; font-weight: 500; }
+@media (max-width: 900px) { .schrift-knopf span { display: none; } }
+
+.heute { margin-top: 1.75rem; }
+.heute .onyx-register { border-top: 1px solid var(--onyx-kontur-leise); }

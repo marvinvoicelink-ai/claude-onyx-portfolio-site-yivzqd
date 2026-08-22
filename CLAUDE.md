@@ -102,7 +102,14 @@ Kategorie und „Offen“, Kommunikation nach Posteingang/Postausgang und Weg,
 Termine nach Dringlichkeit, Fotos nach Kategorie, Protokoll nach Art). Der
 gewählte Ordner steht in der Adresszeile.
 
-Es gibt genau ein Konto: den Inhaber, mit allen Rechten. Im Bereich Verwaltung
+Der Terminplan zeigt je Wiedervorlage die drei Eskalationsstufen mit Datum;
+der erste Knopf führt die aktuelle Stufe aus („Jetzt anrufen“) und öffnet das
+Verfassen-Fenster mit dem passenden Weg. In jeder Objektakte steht oben auf
+jedem Reiter „Foto aufnehmen“, am Handy geht damit direkt die Kamera auf.
+Grundschrift 17 px, Schalter „Große Schrift“ im Kopf für 20 px — die Oberfläche
+ist auf einen 66-jährigen Nutzer ausgelegt.
+
+Es gibt genau ein Konto: den Inhaber (Demo: Jens Lange), mit allen Rechten. Im Bereich Verwaltung
 pflegt er sein Konto (die Angaben stehen im Briefkopf und als Absender), die
 Stammdaten (Objektarten, Foto-Kategorien, Pflichtunterlagen, Eskalationsvorgabe,
 Provision) und den Datenbestand (Sicherung als Datei, Zurücksetzen). Konto und
