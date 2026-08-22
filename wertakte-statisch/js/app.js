@@ -120,6 +120,7 @@
       if (bereich === 'objekte') { suche = r.q.suche || ''; inhalt = W.seiten.objekte(daten, r.q, bilder); }
       else if (bereich === 'suche') { suche = r.q.q || ''; inhalt = W.seiten.suche(daten, r.q); aktiv = ''; }
       else if (bereich === 'protokoll') { inhalt = W.seiten.protokoll(daten, r.q); }
+      else if (bereich === 'vorgang') { inhalt = W.seiten.vorgangBlatt(daten, r.pfad[1]); aktiv = 'kommunikation'; }
       else if (bereich === 'objekt' && r.pfad[2] === 'akte') { inhalt = W.seiten.akte(daten, r.pfad[1], bilder); aktiv = 'objekte'; }
       else if (bereich === 'objekt' && r.pfad[2] === 'expose') { inhalt = W.seiten.expose(daten, r.pfad[1], bilder); aktiv = 'objekte'; }
       else if (bereich === 'objekt') { inhalt = W.seiten.objekt(daten, r.pfad[1], r.q, bilder); aktiv = 'objekte'; }
@@ -477,6 +478,8 @@
 
   /* --- Verfassen ------------------------------------------------------------- */
 
+  var letzteVorlage = '';
+
   function entwurfOeffnen(e) {
     entwurf = {
       art: e.art || 'E-Mail', richtung: e.richtung || 'aus',
@@ -484,7 +487,22 @@
       betreff: e.betreff || '', inhalt: e.inhalt || '', anhaenge: e.anhaenge || [],
       dauer: e.dauer || '', versand: e.versand || '', wiedervorlage: false, frist: '7', wvTitel: ''
     };
+    letzteVorlage = '';
+    vorlageSetzen();
     zeichnen();
+  }
+
+  /* Schreiben beginnt nicht auf leerem Blatt: Anrede und Grußformel stehen
+     schon da. Sobald etwas Eigenes im Feld steht, wird nichts mehr ersetzt. */
+  function vorlageSetzen() {
+    if (!entwurf) return;
+    if (entwurf.art !== 'E-Mail' && entwurf.art !== 'Brief') return;
+    if (entwurf.richtung === 'ein') return;
+    var text = entwurf.inhalt || '';
+    if (text && text !== letzteVorlage) return;
+    var g = entwurf.kontaktId ? H.kontakt(daten, entwurf.kontaktId) : null;
+    entwurf.inhalt = W.briefgeruest(g);
+    letzteVorlage = entwurf.inhalt;
   }
 
   /** Holt den Stand des Formulars in den Entwurf, bevor neu gezeichnet wird. */
@@ -508,11 +526,11 @@
   function verdrahteVerfassen() {
     var zu = schliesser('verfassen-schleier', function () { entwurf = null; });
     auf('[data-kanal]', 'click', function (el) {
-      entwurfLesen(); entwurf.art = el.getAttribute('data-kanal'); zeichnen();
+      entwurfLesen(); entwurf.art = el.getAttribute('data-kanal'); vorlageSetzen(); zeichnen();
     });
     ['verf-objekt', 'verf-kontakt'].forEach(function (id) {
       var el = document.getElementById(id);
-      if (el) el.addEventListener('change', function () { entwurfLesen(); zeichnen(); });
+      if (el) el.addEventListener('change', function () { entwurfLesen(); vorlageSetzen(); zeichnen(); });
     });
     var ab = document.getElementById('verfassen-ab');
     if (ab) ab.addEventListener('click', zu);
@@ -528,7 +546,7 @@
     var e = entwurf, k = W.KANAL[e.art] || {};
     var betreff = (e.betreff || '').trim();
     var inhalt = (e.inhalt || '').trim();
-    if (!betreff && !inhalt) {
+    if (!betreff && (!inhalt || inhalt === letzteVorlage.trim())) {
       var feld = document.getElementById('verf-betreff');
       if (feld) feld.focus();
       return;
@@ -722,8 +740,6 @@
 
   function verdrahteVorgangDialog() {
     schliesser('vorgang-schleier', function () { offenerVorgang = null; });
-    var dr = document.getElementById('vorgang-drucken');
-    if (dr) dr.addEventListener('click', function () { window.print(); });
   }
 
   /* --- Neues Objekt ------------------------------------------------------------------ */
@@ -789,7 +805,11 @@
 
   daten = W.speicher.laden();
   try { angemeldet = sessionStorage.getItem('wertakte.angemeldet') === '1'; } catch (e) { angemeldet = false; }
-  window.addEventListener('hashchange', zeichnen);
+  // Ein Seitenwechsel schliesst offene Dialoge, sonst liegen sie ueber der neuen Seite.
+  window.addEventListener('hashchange', function () {
+    offenerVorgang = null; offenesFoto = null; entwurf = null;
+    zeichnen();
+  });
   zeichnen();
 
   window.wertakteZuruecksetzen = function () {

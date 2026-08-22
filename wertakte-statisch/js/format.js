@@ -27,7 +27,7 @@ window.W = window.W || {};
     },
     fristText: function (tage) {
       if (tage === null) return 'Keine Frist';
-      if (tage < 0) return Math.abs(tage) + ' Tage überfällig';
+      if (tage < 0) return Math.abs(tage) + (tage === -1 ? ' Tag' : ' Tage') + ' überfällig';
       if (tage === 0) return 'Heute fällig';
       if (tage === 1) return 'Morgen fällig';
       return 'in ' + tage + ' Tagen';
@@ -46,6 +46,21 @@ window.W = window.W || {};
       t.setUTCDate(t.getUTCDate() + 4 - (t.getUTCDay() || 7));
       var start = new Date(Date.UTC(t.getUTCFullYear(), 0, 1));
       return Math.ceil(((t - start) / 86400000 + 1) / 7);
+    },
+    /* Pruefsumme ueber den Inhalt eines Belegs. Aendert sich der Text, aendert
+       sich der Wert - so laesst sich zeigen, dass nichts stillschweigend
+       nachtraeglich veraendert wurde. Im Kundensystem steht hier ein
+       serverseitiger Hash. */
+    pruefsumme: function (text) {
+      var wert = 0x811c9dc5;
+      var roh = String(text == null ? '' : text);
+      for (var i = 0; i < roh.length; i++) {
+        wert ^= roh.charCodeAt(i);
+        wert = (wert + ((wert << 1) + (wert << 4) + (wert << 7) + (wert << 8) + (wert << 24))) >>> 0;
+      }
+      var eins = ('00000000' + wert.toString(16)).slice(-8);
+      var zwei = ('0000' + ((roh.length * 2654435761) >>> 0).toString(16)).slice(-4);
+      return (eins + zwei).toUpperCase().replace(/(.{4})(?=.)/g, '$1 ');
     },
     /** Text fuer die Ausgabe in HTML entschaerfen. */
     h: function (s) {

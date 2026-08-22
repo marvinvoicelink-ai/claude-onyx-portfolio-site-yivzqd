@@ -158,6 +158,167 @@ window.W = window.W || {};
       '</div></div>';
   };
 
+  /* --- Anrede und Briefgeruest ------------------------------------------------- */
+
+  /* Die Anrede steht als Feld beim Kontakt, sie wird nicht aus dem Namen
+     geraten. Fehlt sie, bleibt es bei der allgemeinen Form. */
+  W.anrede = function (k) {
+    if (!k || !k.anrede) return 'Sehr geehrte Damen und Herren';
+    if (/^Herr\b/.test(k.anrede)) return 'Sehr geehrter ' + k.anrede;
+    if (/^Frau\b/.test(k.anrede)) return 'Sehr geehrte ' + k.anrede;
+    return 'Guten Tag ' + k.anrede;
+  };
+
+  /** Leeres Schreiben mit Anrede und Grußformel, damit nichts abgetippt wird. */
+  W.briefgeruest = function (k) {
+    return W.anrede(k) + ',\n\n\n\nMit freundlichen Grüßen\n' + W.KONTO.name + '\n' + W.KONTO.buero;
+  };
+
+  /* --- Eskalation ------------------------------------------------------------- */
+
+  /* Die Abstaende stehen in der Regel des Termins („Stufe 2 nach 3 Tagen
+     Anruf“). Steht dort keine Zahl, gelten drei und sieben Tage. */
+  W.STUFENABSTAND = [0, 3, 7];
+
+  function abstaende(regel) {
+    var treffer = String(regel || '').match(/nach\s+(\d+)\s+Tag/g) || [];
+    var zahlen = treffer.map(function (x) { return parseInt(x.replace(/\D/g, ''), 10); });
+    return [0, zahlen[0] || W.STUFENABSTAND[1], zahlen[1] || W.STUFENABSTAND[2]];
+  }
+
+  W.naechsteStufe = function (t) {
+    if (t.stufe >= 3) {
+      return 'Letzte Stufe erreicht, Eigentümer informieren';
+    }
+    var tage = abstaende(t.regel)[t.stufe];
+    var d2 = new Date(t.faellig + 'T00:00');
+    d2.setDate(d2.getDate() + tage);
+    var iso = d2.toISOString().slice(0, 10);
+    var offen = W.f.tageBis(iso);
+    var text = 'Stufe ' + (t.stufe + 1) + ' ab ' + W.f.datum(iso);
+    if (offen !== null && offen < 0) return text + ' · überfällig';
+    if (offen === 0) return text + ' · heute';
+    return text;
+  };
+
+  /* --- Beleg: Adressen und Nachweis ------------------------------------------ */
+
+  /** Wer mit wem, je nach Weg mit E-Mail-Adresse, Rufnummer oder Anschrift. */
+  W.belegAdressen = function (d, v) {
+    var K = W.KONTO, k = v.kontaktId ? H.kontakt(d, v.kontaktId) : null;
+    var ich, gegen, vonEtikett = 'Von', anEtikett = 'An';
+
+    if (v.art === 'E-Mail') {
+      ich = K.name + ' <' + K.emailBuero + '>';
+      gegen = k ? k.ansprechpartner + ' <' + k.email + '>' : 'nicht zugeordnet';
+    } else if (v.art === 'Telefon') {
+      ich = K.name + ', ' + K.telefon;
+      gegen = k ? k.ansprechpartner + ' (' + k.name + '), ' + k.telefon : 'unbekannte Nummer';
+      vonEtikett = 'Anrufer'; anEtikett = 'Gesprächspartner';
+    } else if (v.art === 'WhatsApp' || v.art === 'SMS') {
+      ich = K.name + ', ' + K.mobil;
+      gegen = k ? k.ansprechpartner + ', ' + k.telefon : 'unbekannte Nummer';
+      vonEtikett = 'Absender'; anEtikett = 'Empfänger';
+    } else if (v.art === 'Brief') {
+      ich = K.buero + ', ' + K.strasse + ', ' + K.ort;
+      gegen = k ? k.name + ', ' + k.anschrift : 'ohne Empfänger';
+      vonEtikett = 'Absender'; anEtikett = 'Empfänger';
+    } else {
+      ich = K.name + ', ' + K.buero;
+      gegen = k ? k.name : 'interne Notiz, kein Empfänger';
+      vonEtikett = 'Verfasst von'; anEtikett = 'Betrifft';
+    }
+
+    var aus = v.richtung !== 'ein';
+    return {
+      von: aus ? ich : gegen, an: aus ? gegen : ich,
+      kopie: v.art === 'E-Mail' ? K.archivEmail + ' (Outlook-Ablage, in MailStore auffindbar)' : null,
+      vonEtikett: vonEtikett, anEtikett: anEtikett
+    };
+  };
+
+  /** Wert, der sich aendert, sobald am Inhalt etwas geaendert wuerde. */
+  W.belegPruefsumme = function (v) {
+    return W.f.pruefsumme([v.belegNr, v.zeitpunkt, v.art, v.richtung, v.betreff, v.inhalt,
+      (v.anhaenge || []).join(',')].join('|'));
+  };
+
+  /** Der Streifen unter jedem Beleg: so liegt er in der Ablage. */
+  W.belegNachweis = function (v, hell) {
+    return '<div class="beleg-nachweis' + (hell ? ' ist-hell' : '') + '">' +
+      '<p><span class="onyx-etikett">Beleg-Nr.</span><span class="mono">' + h(v.belegNr) + '</span></p>' +
+      '<p><span class="onyx-etikett">Abgelegt</span><span class="mono">' + h(W.f.datumZeit(v.zeitpunkt)) + '</span></p>' +
+      '<p><span class="onyx-etikett">Prüfsumme</span><span class="mono">' + h(W.belegPruefsumme(v)) + '</span></p>' +
+      '<p><span class="onyx-etikett">Ablage</span><span>' +
+        (v.festgeschrieben ? 'festgeschrieben, nicht mehr änderbar' : 'Entwurf') +
+        (v.outlook ? ' · in Outlook gespiegelt' : '') + '</span></p>' +
+      '</div>';
+  };
+
+  /** Ein einzelner Beleg auf Briefpapier, zum Ausdrucken oder als PDF. */
+  W.seiten.vorgangBlatt = function (d, id) {
+    var v = d.vorgaenge.filter(function (x) { return x.id === id; })[0];
+    if (!v) return W.seiten.nichtGefunden();
+    var K = W.KONTO, o = H.obj(d, v.objektId), a = W.belegAdressen(d, v);
+    var heute = new Date().toISOString().slice(0, 10);
+
+    function zeile(etikett, wert) {
+      if (!wert) return '';
+      return '<div><dt>' + h(etikett) + '</dt><dd>' + h(wert) + '</dd></div>';
+    }
+
+    return '<div class="kein-druck" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;padding:1.5rem 0;border-bottom:1px solid var(--onyx-kontur-leise)">' +
+        '<div>' +
+          (o ? '<a class="zurueck" style="padding-top:0" href="#/objekt/' + h(o.id) + '?reiter=kommunikation">' +
+            sym.pfeilLinks(14) + 'Zurück zur Akte ' + h(o.aktenzeichen) + '</a>'
+             : '<a class="zurueck" style="padding-top:0" href="#/kommunikation">' + sym.pfeilLinks(14) + 'Zurück zur Kommunikation</a>') +
+          '<h1 style="margin-top:.5rem">' + h(v.art) + ' ' + h(b.richtungText(v.richtung)) + '</h1>' +
+          '<p class="mini leise" style="margin-top:.25rem;max-width:70ch;line-height:1.7">' +
+            'Beleg ' + h(v.belegNr) + ', so wie er zu den Akten geht. Kein Papier im Alltag, ' +
+            'aber jede Mail und jedes Telefonat einzeln auf Papier.</p>' +
+        '</div>' +
+        '<button class="onyx-knopf onyx-knopf-primaer" id="knopf-drucken">' + sym.drucken(17) + 'Drucken oder als PDF sichern</button>' +
+      '</div>' +
+      '<div style="padding:2rem 0;display:flex;justify-content:center"><article class="blatt">' +
+        '<header class="blatt-kopf">' +
+          '<div><p class="sans" style="font-weight:600;font-size:.9375rem">' + h(K.buero) + '</p>' +
+            '<p class="sans" style="font-size:.71875rem;line-height:1.6;color:#5F584E;max-width:38ch">' + h(K.rolle) + '</p></div>' +
+          '<div class="sans" style="font-size:.71875rem;line-height:1.6;color:#5F584E">' +
+            '<p>' + h(K.strasse) + '</p><p>' + h(K.ort) + '</p><p>' + h(K.telefon) + '</p><p>' + h(K.emailBuero) + '</p></div>' +
+        '</header>' +
+        '<div style="padding:2rem 0 1.25rem">' +
+          '<p class="sans mono" style="font-size:11px;text-transform:uppercase;letter-spacing:.24em;color:#6C6459">' +
+            h(v.art) + ' ' + h(b.richtungText(v.richtung)) + ' · Beleg ' + h(v.belegNr) + '</p>' +
+          '<h2 style="margin-top:.9rem;font-size:1.25rem;line-height:1.3">' + h(v.betreff) + '</h2>' +
+        '</div>' +
+        '<dl class="blatt-tabelle">' +
+          zeile(a.vonEtikett, a.von) +
+          zeile(a.anEtikett, a.an) +
+          zeile('Kopie', a.kopie) +
+          zeile(v.art === 'Telefon' ? 'Zeitpunkt' : 'Gesendet', W.f.datumZeit(v.zeitpunkt)) +
+          zeile('Akte', o ? o.aktenzeichen + ' · ' + o.bezeichnung : 'keiner Akte zugeordnet') +
+        '</dl>' +
+        '<section class="blatt-abschnitt"><h3><span class="nr">1</span>Inhalt</h3>' +
+          '<p style="margin-top:.75rem;white-space:pre-line">' + h(v.inhalt || '(ohne Text)') + '</p></section>' +
+        ((v.anhaenge && v.anhaenge.length)
+          ? '<section class="blatt-abschnitt"><h3><span class="nr">2</span>Anlagen</h3>' +
+            '<ul style="margin-top:.6rem;font-size:.78125rem;line-height:1.9">' + v.anhaenge.map(function (x) {
+              return '<li>' + h(x) + '</li>';
+            }).join('') + '</ul></section>' : '') +
+        '<section class="blatt-abschnitt"><h3><span class="nr">' + (v.anhaenge && v.anhaenge.length ? '3' : '2') + '</span>Nachweis der Ablage</h3>' +
+          '<dl class="blatt-tabelle" style="margin-top:.6rem">' +
+            zeile('Beleg-Nr.', v.belegNr) +
+            zeile('Abgelegt am', W.f.datumZeit(v.zeitpunkt)) +
+            zeile('Prüfsumme', W.belegPruefsumme(v)) +
+            zeile('Zustand', v.festgeschrieben ? 'festgeschrieben, nicht mehr änderbar' : 'Entwurf') +
+            zeile('Spiegelung', v.outlook ? 'in Outlook abgelegt, über MailStore auffindbar' : 'keine') +
+          '</dl></section>' +
+        '<footer class="sans" style="margin-top:3rem;padding-top:1rem;border-top:1px solid #D5CFC2;font-size:10.5px;line-height:1.7;color:#6C6459">' +
+          'Beleg ' + h(v.belegNr) + ' aus der Akte ' + h(o ? o.aktenzeichen : '–') + ', gedruckt am ' +
+          h(W.f.datumLang(heute)) + ' von ' + h(K.name) + '. Alle Daten dieser Vorführversion sind Beispieldaten.</footer>' +
+      '</article></div>';
+  };
+
   /* --- Suche ueber alles ---------------------------------------------------- */
 
   function passt(text, wort) { return String(text || '').toLowerCase().indexOf(wort) >= 0; }
@@ -323,12 +484,14 @@ window.W = window.W || {};
       }).join('') + '</tbody></table>' : '<p class="platzhalter">Noch kein Investor angesprochen.</p>';
 
     var journal = vg.length ? vg.map(function (v) {
-      var k = H.kontakt(d, v.kontaktId);
+      var adr = W.belegAdressen(d, v);
       return '<article class="beleg">' +
         '<p class="beleg-kopf"><span class="mono">' + h(v.belegNr) + '</span> · ' + h(W.f.datumZeit(v.zeitpunkt)) +
-          ' · ' + h(v.art + ' ' + b.richtungText(v.richtung)) + (v.outlook ? ' · in Outlook gespiegelt' : '') + '</p>' +
+          ' · ' + h(v.art + ' ' + b.richtungText(v.richtung)) + (v.outlook ? ' · in Outlook gespiegelt' : '') +
+          ' · Prüfsumme ' + h(W.belegPruefsumme(v)) + '</p>' +
         '<p class="beleg-zeile"><strong>' + h(v.betreff) + '</strong></p>' +
-        '<p class="beleg-zeile">Gegenüber: ' + h(k ? k.name + ', ' + k.ansprechpartner : '–') + '</p>' +
+        '<p class="beleg-zeile">' + h(adr.vonEtikett) + ': ' + h(adr.von) + '</p>' +
+        '<p class="beleg-zeile">' + h(adr.anEtikett) + ': ' + h(adr.an) + '</p>' +
         (v.inhalt ? '<p class="beleg-text">' + h(v.inhalt) + '</p>' : '') +
         ((v.anhaenge || []).length ? '<p class="beleg-zeile">Anlagen: ' + h(v.anhaenge.join(', ')) + '</p>' : '') +
         '</article>';

@@ -61,14 +61,28 @@ Bereich „Investoren“ zeigt zusätzlich Suchprofil, Volumen und Faktorgrenze.
 Notiz. Geschrieben wird im System: Weg wählen, Objekt und Gegenüber wählen,
 Anlagen aus der Akte ankreuzen, absenden. Auf Wunsch entsteht im selben Schritt
 die Wiedervorlage. Jeder Eintrag bekommt Beleg-Nummer und Zeitstempel und ist
-danach festgeschrieben. E-Mails sind als „in Outlook gespiegelt“ gekennzeichnet.
-Aus jedem Vorgang heraus geht **Antworten** und **Weiterleiten**. Jeder Vorgang
-lässt sich einzeln öffnen und ausdrucken: kein Papier im Alltag, aber alles
-druckbar.
+danach festgeschrieben.
+
+Geöffnet sieht ein Vorgang aus wie das, was er ist: **Von** und **An** mit
+E-Mail-Adresse, beim Telefonat mit Rufnummer, beim Brief mit Anschrift. Jede
+ausgehende Mail geht in **Kopie** an die Archivadresse des Büros – das ist die
+Stelle, an der Outlook und MailStore hängen. Beim Schreiben stehen Anrede und
+Grußformel schon da; die Anrede ist ein Feld beim Kontakt, sie wird nicht aus
+dem Namen geraten. Aus jedem Vorgang heraus geht **Antworten** (mit Anrede und
+Zitat) und **Weiterleiten**.
+
+Unter jedem Vorgang steht der Nachweis der Ablage: Beleg-Nummer, Zeitpunkt,
+Zustand und eine **Prüfsumme** über den Inhalt. Ändert sich am Text etwas,
+ändert sich der Wert – so ist sichtbar, dass nichts stillschweigend
+nachträglich verändert wurde. **Drucken** öffnet den Beleg auf Briefpapier des
+Büros, mit Kopf, Inhalt, Anlagenverzeichnis und diesem Nachweis: kein Papier im
+Alltag, aber jede Mail und jedes Telefonat einzeln auf Papier.
 
 **5 Termine.** Wiedervorlagen, Fristen und Termine mit Eskalationsstufen.
-Stufe 1 E-Mail, Stufe 2 Anruf, Stufe 3 Eigentümer informieren. Überfällige
-Punkte stehen rot, die Zeitschiene zeigt fünf Kalenderwochen.
+Stufe 1 E-Mail, Stufe 2 Anruf, Stufe 3 Eigentümer informieren. Unter jeder
+Wiedervorlage steht, ab wann die nächste Stufe fällig ist – die Abstände liest
+das System aus der hinterlegten Regel („Stufe 2 nach 3 Tagen Anruf“).
+Überfällige Punkte stehen rot, die Zeitschiene zeigt fünf Kalenderwochen.
 
 **Protokoll.** Eigener Bereich in der linken Leiste. Jede Mail, jedes
 Telefonat, jede erhaltene Unterlage, jeder Statuswechsel, jede Eskalation und
@@ -97,17 +111,20 @@ Die Demo startet bewusst ohne Bilder.
    der Punkt fehlt im Dokument.
 5. Reiter 3: bei Bruns steht „Exposé-Versand gesperrt“. Über den Investor die
    Adressvalidierung erledigen, zurück, Versand ist frei und steht im Journal.
-6. Reiter 4: **Telefon** wählen, Dauer und Gesprächsnotiz eintragen,
-   registrieren. Der Eintrag steht sofort im Journal, öffnen, **Drucken**.
-7. Aus demselben Eintrag heraus **Antworten**, Kanal auf **WhatsApp** wechseln,
+6. Reiter 4: die Mail „Exposé REWE-Markt Oldenburg“ öffnen – Von, An, Kopie
+   ans Archiv, Anlagen, darunter Beleg-Nr. und Prüfsumme. **Drucken** zeigt
+   sie auf Briefpapier.
+7. Reiter 4: **Telefon** wählen, Dauer und Gesprächsnotiz eintragen,
+   registrieren. Der Eintrag steht sofort im Journal.
+8. Aus demselben Eintrag heraus **Antworten**, Kanal auf **WhatsApp** wechseln,
    Häkchen bei „Wiedervorlage dazu anlegen“, senden.
-8. Reiter 2: bei einer offenen Unterlage **Scan ablegen**, danach **Öffnen**.
-9. Reiter 5: eine Wiedervorlage eskalieren.
-10. Oben ins Suchfeld „Erbbau“ tippen: Treffer aus Objekt, Unterlagen, Mails
+9. Reiter 2: bei einer offenen Unterlage **Scan ablegen**, danach **Öffnen**.
+10. Reiter 5: eine Wiedervorlage eskalieren.
+11. Oben ins Suchfeld „Erbbau“ tippen: Treffer aus Objekt, Unterlagen, Mails
     und Terminen auf einer Seite.
-11. Links **Protokoll**: dieselben Schritte stehen lückenlos darin.
-12. In der Akte oben rechts **Gesamtakte**, dann **Drucken**.
-13. **Auf dem Handy** dieselbe Adresse öffnen, Akte, Reiter Fotos,
+12. Links **Protokoll**: dieselben Schritte stehen lückenlos darin.
+13. In der Akte oben rechts **Gesamtakte**, dann **Drucken**.
+14. **Auf dem Handy** dieselbe Adresse öffnen, Akte, Reiter Fotos,
     **Foto aufnehmen**.
 
 ## Auf den Ausgangsstand zurücksetzen
@@ -129,7 +146,7 @@ mit allen Zahlen aus dem Erfassungsbogen. Alle Namen, Firmen, Adressen und Zahle
 Daten, Fotos und abgelegte Scans liegen im Browser des jeweiligen Geräts, nicht
 auf einem Server. Outlook und MailStore sind nicht angebunden, die Kennzeichnung im
 Journal zeigt, wo die Anbindung sitzt. Revisionssicherheit ist als Beleg-Nummer,
-Zeitstempel und Festschreibung abgebildet, ohne Server-Protokoll. Kein
+Zeitstempel, Prüfsumme und Festschreibung abgebildet, ohne Server-Protokoll. Kein
 Mehrbenutzerbetrieb, keine Rollen.
 
 ## Aufbau

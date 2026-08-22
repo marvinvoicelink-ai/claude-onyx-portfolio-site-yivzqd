@@ -13,7 +13,9 @@ window.W = window.W || {};
     strasse: 'Gartenstraße 21',
     ort: '26122 Oldenburg',
     telefon: '0441 3609-27',
-    emailBuero: 'buero@ahlers-gewerbe-beispiel.de'
+    mobil: '0170 3609-118',
+    emailBuero: 'buero@ahlers-gewerbe-beispiel.de',
+    archivEmail: 'archiv@ahlers-gewerbe-beispiel.de'
   };
 
   W.OBJEKTARTEN = ['Lebensmittel-Fachmarkt', 'Nahversorgungszentrum', 'Fachmarktzentrum',
@@ -607,6 +609,8 @@ window.W = window.W || {};
           '<span style="display:block;font-size:.9375rem' + (erledigt ? ';text-decoration:line-through;opacity:.6' : '') + '">' + h(t.titel) + '</span>' +
           '<span class="mini leise" style="display:block">' + h(k ? k.name : '') + (mitObjekt && o ? ' · ' + h(o.bezeichnung) : '') + '</span>' +
           '<span class="mini leise" style="display:block;margin-top:.3rem">' + h(t.regel) + '</span>' +
+          (erledigt ? '' : '<span class="mini' + (tage !== null && tage < 0 ? ' warn' : ' still') + '" style="display:block;margin-top:.15rem">' +
+            h(W.naechsteStufe(t)) + '</span>') +
         '</span>' +
         '<span style="flex:none;text-align:right;display:grid;gap:.3rem;justify-items:end">' +
           '<span class="mono mini">' + h(W.f.datum(t.faellig)) + '</span>' +
@@ -787,46 +791,55 @@ window.W = window.W || {};
       '</div></div>';
   };
 
-  /** Einzelner Vorgang gross, mit Druckknopf. Kein Papier, aber alles druckbar. */
+  /** Ein Vorgang so, wie er wirklich aussieht: Kopf mit Von, An und Kopie,
+      Text, Anlagen und darunter der Nachweis der Ablage. */
   W.seiten.vorgangDialog = function (d, v) {
-    var k = H.kontakt(d, v.kontaktId), o = H.obj(d, v.objektId);
+    var o = H.obj(d, v.objektId), k = H.kontakt(d, v.kontaktId);
+    var a = W.belegAdressen(d, v);
+    var antwort = { art: v.art, objektId: v.objektId, kontaktId: v.kontaktId, richtung: 'aus',
+      betreff: (/^(AW|WG):/.test(v.betreff) ? v.betreff : 'AW: ' + v.betreff),
+      inhalt: W.anrede(k) + ',\n\n\n\nMit freundlichen Grüßen\n' + W.KONTO.name + '\n' + W.KONTO.buero +
+        '\n\n--- ' + W.f.datumZeit(v.zeitpunkt) + ', Beleg ' + v.belegNr + ', ' + a.von + ' ---\n' + v.inhalt };
+    var weiter = { art: v.art, objektId: v.objektId, kontaktId: '', richtung: 'aus',
+      betreff: 'WG: ' + v.betreff, inhalt: v.inhalt, anhaenge: v.anhaenge || [] };
+
+    function zeile(etikett, wert, mono) {
+      if (!wert) return '';
+      return '<div class="beleg-kopfzeile"><span class="onyx-etikett">' + h(etikett) + '</span>' +
+        '<span' + (mono ? ' class="mono"' : '') + '>' + h(wert) + '</span></div>';
+    }
+
     return '<div class="schleier" id="vorgang-schleier" role="dialog" aria-modal="true" aria-label="Vorgang">' +
-      '<div class="onyx-rahmen dialog">' +
-        '<div class="dialog-kopf kein-druck">' +
-          '<p class="mono amber" style="font-size:11px;text-transform:uppercase;letter-spacing:.14em">Vorgang ' + h(v.belegNr) + '</p>' +
-          '<span style="display:flex;gap:.5rem;align-items:center">' +
+      '<div class="onyx-rahmen dialog dialog-breit">' +
+        '<div class="dialog-kopf">' +
+          '<p class="mono amber" style="font-size:11px;text-transform:uppercase;letter-spacing:.14em">' +
+            h(v.art + ' ' + b.richtungText(v.richtung)) + ' · Beleg ' + h(v.belegNr) + '</p>' +
+          '<span style="display:flex;flex-wrap:wrap;gap:.4rem;align-items:center">' +
             '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.75rem;padding:.25rem .6rem" data-verfassen="' +
-              h(JSON.stringify({ art: v.art, objektId: v.objektId, kontaktId: v.kontaktId, richtung: 'aus',
-                betreff: (/^(AW|WG):/.test(v.betreff) ? v.betreff : 'AW: ' + v.betreff),
-                inhalt: '\n\n--- ' + W.f.datumZeit(v.zeitpunkt) + ', Beleg ' + v.belegNr + ' ---\n' + v.inhalt })) + '">' +
-              sym.mailAus(14) + 'Antworten</button>' +
+              h(JSON.stringify(antwort)) + '">' + sym.mailAus(14) + 'Antworten</button>' +
             '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.75rem;padding:.25rem .6rem" data-verfassen="' +
-              h(JSON.stringify({ art: v.art, objektId: v.objektId, kontaktId: '', richtung: 'aus',
-                betreff: 'WG: ' + v.betreff, inhalt: v.inhalt, anhaenge: v.anhaenge || [] })) + '">' +
-              sym.pfeilRechts(14) + 'Weiterleiten</button>' +
-            '<button class="onyx-knopf onyx-knopf-leise" id="vorgang-drucken" style="font-size:.75rem;padding:.25rem .6rem">' + sym.drucken(14) + 'Drucken</button>' +
+              h(JSON.stringify(weiter)) + '">' + sym.pfeilRechts(14) + 'Weiterleiten</button>' +
+            '<a class="onyx-knopf onyx-knopf-leise" style="font-size:.75rem;padding:.25rem .6rem" href="#/vorgang/' + h(v.id) + '">' +
+              sym.drucken(14) + 'Drucken</a>' +
             '<button id="dialog-zu" class="klein" style="display:flex;align-items:center;gap:.4rem;padding:.25rem">Schließen' + sym.schliessen(15) + '</button>' +
           '</span>' +
         '</div>' +
-        '<div class="dialog-koerper" id="vorgang-druckbereich">' +
-          '<dl style="display:grid;gap:.4rem 1.5rem;grid-template-columns:auto 1fr;font-size:.8125rem">' +
-            '<dt class="leise">Objekt</dt><dd>' + h(o ? o.aktenzeichen + ' · ' + o.bezeichnung : '–') + '</dd>' +
-            '<dt class="leise">Gegenüber</dt><dd>' + h(k ? k.name + ', ' + k.ansprechpartner : '–') + '</dd>' +
-            '<dt class="leise">Art</dt><dd>' + h(v.art + ', ' + b.richtungText(v.richtung)) + '</dd>' +
-            '<dt class="leise">Zeitpunkt</dt><dd class="mono">' + h(W.f.datumZeit(v.zeitpunkt)) + '</dd>' +
-            '<dt class="leise">Beleg-Nr.</dt><dd class="mono">' + h(v.belegNr) + '</dd>' +
-            '<dt class="leise">Ablage</dt><dd>' + (v.festgeschrieben ? 'festgeschrieben, nicht mehr änderbar' : 'Entwurf') +
-              (v.outlook ? ' · in Outlook gespiegelt' : '') + '</dd>' +
-          '</dl>' +
-          '<div style="padding-top:1rem;border-top:1px solid var(--onyx-kontur-leise)">' +
-            '<p style="font-size:.9375rem">' + h(v.betreff) + '</p>' +
-            '<p class="klein leise" style="margin-top:.5rem;line-height:1.75;white-space:pre-line">' + h(v.inhalt) + '</p>' +
+        '<div class="dialog-koerper">' +
+          '<div class="beleg-kopfblock">' +
+            zeile(a.vonEtikett, a.von) +
+            zeile(a.anEtikett, a.an) +
+            zeile('Kopie', a.kopie) +
+            zeile(v.art === 'Telefon' ? 'Zeitpunkt' : 'Gesendet', W.f.datumZeit(v.zeitpunkt), true) +
+            zeile('Betreff', v.betreff) +
+            zeile('Akte', o ? o.aktenzeichen + ' · ' + o.bezeichnung : 'keiner Akte zugeordnet') +
           '</div>' +
-          (v.anhaenge && v.anhaenge.length
-            ? '<div><p class="onyx-etikett">Anlagen</p><ul style="margin-top:.4rem;display:grid;gap:.25rem">' +
-              v.anhaenge.map(function (a) {
-                return '<li class="klein" style="display:flex;align-items:center;gap:.4rem">' + sym.dokument(14) + h(a) + '</li>';
+          '<div class="beleg-koerper">' + h(v.inhalt || '(ohne Text)') + '</div>' +
+          ((v.anhaenge && v.anhaenge.length)
+            ? '<div><p class="onyx-etikett">' + v.anhaenge.length + ' ' + (v.anhaenge.length === 1 ? 'Anlage' : 'Anlagen') + '</p>' +
+              '<ul class="anlagenband">' + v.anhaenge.map(function (x) {
+                return '<li>' + sym.dokument(13) + h(x) + '</li>';
               }).join('') + '</ul></div>' : '') +
+          W.belegNachweis(v) +
         '</div>' +
       '</div></div>';
   };
@@ -929,7 +942,8 @@ window.W = window.W || {};
       '<header style="margin-top:1rem;padding-bottom:1.5rem;border-bottom:1px solid var(--onyx-kontur-leise)">' +
         '<p class="mono amber" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.12em">' + h(i.rolle + ' · ' + i.typ) + '</p>' +
         '<h1 style="margin-top:.35rem">' + h(i.name) + '</h1>' +
-        '<p class="leise" style="margin-top:.35rem;font-size:.9375rem">' + h(i.ansprechpartner) + '</p>' +
+        '<p class="leise" style="margin-top:.35rem;font-size:.9375rem">' + h(i.ansprechpartner) +
+          (i.anrede ? '<span class="mini still"> · Anrede „' + h(i.anrede) + '“</span>' : '') + '</p>' +
         '<ul style="display:flex;flex-wrap:wrap;gap:.5rem 2rem;margin-top:1.25rem;font-size:.84375rem">' +
           '<li style="display:flex;align-items:center;gap:.5rem"><span class="leise">' + sym.telefon(15) + '</span><a class="mono" href="tel:' + h(i.telefon.replace(/\s/g, '')) + '">' + h(i.telefon) + '</a></li>' +
           '<li style="display:flex;align-items:center;gap:.5rem"><span class="leise">' + sym.brief(15) + '</span><a class="mono" href="mailto:' + h(i.email) + '">' + h(i.email) + '</a></li>' +
