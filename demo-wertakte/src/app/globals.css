@@ -1,0 +1,265 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Wertakte - Designsystem
+   Anthrazit als Struktur, warmes Papier als Arbeitsflaeche, ein einziger
+   gedeckter Blauton als Akzent. Kanten fast scharf (3px), Mono fuer
+   Aktenzeichen, Datum und Zahlen. Bewusst kein SaaS-Blau-Weiss.
+   ------------------------------------------------------------------ */
+
+/* Rollen-Tokens. Nur hier stehen Farbwerte, sonst nirgends im Projekt. */
+:root {
+  --schrift-sans: var(--font-geist-sans);
+  --schrift-mono: var(--font-geist-mono);
+
+  --w-kopf: #191D21;
+  --w-kopf-linie: #333B42;
+  --w-kopf-text: #E7E4DD;
+  --w-kopf-text-leise: #9AA1A8;
+
+  --w-papier: #F2F0EA;
+  --w-flaeche: #FBFAF6;
+  --w-flaeche-tief: #E9E6DE;
+  --w-linie: #D8D3C8;
+  --w-linie-stark: #BDB6A8;
+
+  --w-text: #21262A;
+  --w-text-leise: #6A7076;
+
+  --w-akzent: #2E5266;
+  --w-akzent-tief: #22404F;
+  --w-akzent-flaeche: #E2EAEF;
+  --w-auf-akzent: #FFFFFF;
+
+  --w-offen: #7C5F2A;
+  --w-offen-flaeche: #F2E8D3;
+  --w-lauf: #2E5266;
+  --w-lauf-flaeche: #E2EAEF;
+  --w-fertig: #3E5C46;
+  --w-fertig-flaeche: #E0E9E1;
+  --w-warn: #8C4030;
+  --w-warn-flaeche: #F6E3DE;
+}
+
+/* Dunkelmodus: gleiche Rollen, andere Werte. Keine Sektion kippt einzeln. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --w-kopf: #0E1113;
+    --w-kopf-linie: #2A3138;
+    --w-kopf-text: #E7E4DD;
+    --w-kopf-text-leise: #949BA2;
+
+    --w-papier: #16191C;
+    --w-flaeche: #1E2226;
+    --w-flaeche-tief: #262B30;
+    --w-linie: #333940;
+    --w-linie-stark: #4A525A;
+
+    --w-text: #E6E3DC;
+    --w-text-leise: #9BA3AA;
+
+    --w-akzent: #8FB6CC;
+    --w-akzent-tief: #AFCDDC;
+    --w-akzent-flaeche: #22323C;
+    --w-auf-akzent: #10161A;
+
+    --w-offen: #D8AE64;
+    --w-offen-flaeche: #2E2617;
+    --w-lauf: #8FB6CC;
+    --w-lauf-flaeche: #1D2C35;
+    --w-fertig: #93B89B;
+    --w-fertig-flaeche: #1D2A21;
+    --w-warn: #DD9583;
+    --w-warn-flaeche: #33201B;
+  }
+}
+
+/* inline, damit die Utilities die Variablen referenzieren und im
+   Dunkelmodus automatisch mitziehen. */
+@theme inline {
+  --font-sans: var(--schrift-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--schrift-mono), ui-monospace, "SFMono-Regular", monospace;
+  --font-akte: ui-serif, "Iowan Old Style", "Source Serif 4", "Times New Roman", Georgia, serif;
+
+  --radius-kante: 3px;
+
+  --color-kopf: var(--w-kopf);
+  --color-kopf-linie: var(--w-kopf-linie);
+  --color-kopf-text: var(--w-kopf-text);
+  --color-kopf-text-leise: var(--w-kopf-text-leise);
+
+  --color-papier: var(--w-papier);
+  --color-flaeche: var(--w-flaeche);
+  --color-flaeche-tief: var(--w-flaeche-tief);
+  --color-linie: var(--w-linie);
+  --color-linie-stark: var(--w-linie-stark);
+
+  --color-text: var(--w-text);
+  --color-text-leise: var(--w-text-leise);
+
+  --color-akzent: var(--w-akzent);
+  --color-akzent-tief: var(--w-akzent-tief);
+  --color-akzent-flaeche: var(--w-akzent-flaeche);
+  --color-auf-akzent: var(--w-auf-akzent);
+
+  --color-offen: var(--w-offen);
+  --color-offen-flaeche: var(--w-offen-flaeche);
+  --color-lauf: var(--w-lauf);
+  --color-lauf-flaeche: var(--w-lauf-flaeche);
+  --color-fertig: var(--w-fertig);
+  --color-fertig-flaeche: var(--w-fertig-flaeche);
+  --color-warn: var(--w-warn);
+  --color-warn-flaeche: var(--w-warn-flaeche);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-papier);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Sichtbarer, ruhiger Fokus - Tastaturbedienung im Buero ist Alltag. */
+  :focus-visible {
+    outline: 2px solid var(--color-akzent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-akzent);
+    color: var(--color-auf-akzent);
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+}
+
+@layer components {
+  /* Kleines Mono-Label ueber Werten und Spalten. Bewusst sparsam einsetzen. */
+  .etikett {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-leise);
+  }
+
+  .feld {
+    width: 100%;
+    background: var(--color-flaeche);
+    border: 1px solid var(--color-linie-stark);
+    border-radius: var(--radius-kante);
+    padding: 0.55rem 0.7rem;
+    font-size: 0.9375rem;
+    color: var(--color-text);
+  }
+  .feld::placeholder {
+    color: var(--color-text-leise);
+  }
+  .feld:hover {
+    border-color: var(--color-akzent);
+  }
+
+  select.feld {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+      linear-gradient(135deg, currentColor 50%, transparent 50%);
+    background-position: right 0.95rem center, right 0.65rem center;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 2rem;
+  }
+
+  .knopf {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-kante);
+    padding: 0.55rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+    border: 1px solid transparent;
+    transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.08s ease;
+  }
+  .knopf:active {
+    transform: translateY(1px);
+  }
+
+  .knopf-primaer {
+    background: var(--color-akzent);
+    color: var(--color-auf-akzent);
+  }
+  .knopf-primaer:hover {
+    background: var(--color-akzent-tief);
+  }
+
+  .knopf-leise {
+    background: var(--color-flaeche);
+    border-color: var(--color-linie-stark);
+    color: var(--color-text);
+  }
+  .knopf-leise:hover {
+    border-color: var(--color-akzent);
+    background: var(--color-flaeche-tief);
+  }
+
+  .knopf-klar {
+    color: var(--color-text-leise);
+  }
+  .knopf-klar:hover {
+    color: var(--color-text);
+    background: var(--color-flaeche-tief);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Gutachten-Entwurf: am Bildschirm Papierblatt, im Druck echtes A4. */
+@media print {
+  .kein-druck {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
+  .blatt {
+    box-shadow: none !important;
+    border: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+  }
+  .umbruch-vor {
+    break-before: page;
+  }
+  .zusammenhalten {
+    break-inside: avoid;
+  }
+  @page {
+    size: A4;
+    margin: 18mm 16mm;
+  }
+}

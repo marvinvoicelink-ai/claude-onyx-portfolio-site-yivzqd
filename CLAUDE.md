@@ -56,6 +56,12 @@ Lead. WhatsApp und Calendly bleiben als sekundäre, schnelle Kontaktwege
 bestehen (Calendly hat mit `calendly.event_scheduled` ein eigenes
 zuverlässiges Completion-Event, unabhängig vom Lead-Tracking).
 
+## Kunden-Demos im Repo
+`demo-wertakte/` ist eine eigenständige Vorführ-Software für einen Interessenten
+(Immobiliengutachter, Oldenburg) — Next.js + TypeScript, lokal per `npm run dev`.
+Sie gehört NICHT zur Website onyx-ai.de und ist von deren Stack- und
+Nicht-Zielen unten ausgenommen. Details in `demo-wertakte/README.md`.
+
 ## Nicht-Ziele (Scope-Grenze)
 - Kein 3D, keine Scroll-Choreografie, keine WebGL-Effekte in Phase 1
 - Keine weiteren Leistungs-Sections (Automatisierung, Voice-Agenten, Shop-UI)
@@ -68,3 +74,5 @@ zuverlässiges Completion-Event, unabhängig vom Lead-Tracking).
 White-Label-Section (Hero, Leistungsblock, Referenz-Card, Abgrenzung, CTAs)
 als index.html gebaut, live auf Netlify unter onyx-ai.de. Kontaktformular
 (Netlify Forms) als Haupt-CTA ergänzt für zuverlässiges Lead-Tracking.
+Separat davon liegt unter `demo-wertakte/` die Vorführ-Software „Wertakte“
+für das Verkaufsgespräch mit dem Immobiliengutachter in Oldenburg.
