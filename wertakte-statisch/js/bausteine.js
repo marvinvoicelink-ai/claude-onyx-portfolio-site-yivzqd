@@ -34,7 +34,15 @@ window.W = window.W || {};
     schliessen: function (g) { return svg('<path d="M6 6l12 12M18 6 6 18"/>', g); },
     filter: function (g) { return svg('<path d="M3 5h18M6 12h12M10 19h4"/>', g); },
     liste: function (g) { return svg('<path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/>', g); },
-    warnung: function (g) { return svg('<circle cx="12" cy="12" r="9"/><path d="M12 7.5v5M12 16h.01"/>', g); }
+    warnung: function (g) { return svg('<circle cx="12" cy="12" r="9"/><path d="M12 7.5v5M12 16h.01"/>', g); },
+    haken: function (g) { return svg('<path d="m5 12.5 4.5 4.5L19 7"/>', g); },
+    uhr: function (g) { return svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.2 2"/>', g); },
+    ordner: function (g) { return svg('<path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>', g); },
+    investor: function (g) { return svg('<path d="M3 20h18"/><path d="M6 20v-6M10.5 20V9M15 20v-9.5M19.5 20V5"/>', g); },
+    chat: function (g) { return svg('<path d="M20 15.5a2 2 0 0 1-2 2H8l-4 3.5v-15a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 12.5h5"/>', g); },
+    mailAus: function (g) { return svg('<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.5 7 8.5 5.5L20.5 7"/><path d="M17 3.5 20.5 7 17 10.5"/>', g); },
+    fahne: function (g) { return svg('<path d="M5 21V4"/><path d="M5 5h11l-1.6 3.2L16 11.5H5"/>', g); },
+    siegel: function (g) { return svg('<circle cx="12" cy="9.5" r="5.5"/><path d="m8.5 14.5-1 6 4.5-2.2 4.5 2.2-1-6"/>', g); }
   };
 
   /* --- Marken ---------------------------------------------------------- */
@@ -74,19 +82,19 @@ window.W = window.W || {};
         '</div>';
     },
 
-    /* --- Zeitschiene --------------------------------------------------- */
-    terminschiene: function (objekte, heute) {
+    /* --- Zeitschiene der Wiedervorlagen -------------------------------- */
+    terminschiene: function (termine, heute, d) {
       var WOCHEN = 5, TAG = 86400000;
       var start = W.f.wochenStart(heute);
       var ende = new Date(start.getTime() + WOCHEN * 7 * TAG);
       var spanne = ende - start;
-      var anteil = function (d) { return ((d - start) / spanne) * 100; };
+      var anteil = function (x) { return ((x - start) / spanne) * 100; };
       var heuteAnteil = Math.min(100, Math.max(0, anteil(heute)));
 
-      var mitFrist = objekte.filter(function (o) { return o.frist; })
-        .sort(function (a, b) { return (a.frist || '').localeCompare(b.frist || ''); });
-
-      if (!mitFrist.length) return W.b.leer('Keine Akte mit Frist in Arbeit.');
+      var offen = (termine || []).filter(function (t) { return t.faellig && t.status !== 'erledigt'; })
+        .sort(function (a, c) { return a.faellig.localeCompare(c.faellig); })
+        .slice(0, 8);
+      if (!offen.length) return W.b.leer('Keine offene Wiedervorlage.');
 
       var kopf = '';
       for (var i = 0; i < WOCHEN; i++) {
@@ -95,18 +103,20 @@ window.W = window.W || {};
       }
       var raster = new Array(WOCHEN + 1).join('<span></span>');
 
-      var zeilen = mitFrist.map(function (o) {
-        var frist = new Date(o.frist);
-        var tage = W.f.tageBis(o.frist, heute);
+      var zeilen = offen.map(function (t) {
+        var faellig = new Date(t.faellig);
+        var tage = W.f.tageBis(t.faellig, heute);
         var ueber = tage !== null && tage < 0;
-        var bis = Math.min(100, anteil(frist));
-        var von = ueber ? 0 : Math.max(0, Math.min(heuteAnteil, anteil(frist)));
+        var bis = Math.min(100, anteil(faellig));
+        var von = ueber ? 0 : Math.max(0, Math.min(heuteAnteil, anteil(faellig)));
         var breite = ueber ? Math.max(3, heuteAnteil - von) : Math.max(3, bis - von);
-        return '<a class="schiene-zeile" href="#/objekt/' + h(o.id) + '" ' +
-          'title="' + h(o.aktenzeichen + ', ' + o.strasse + ', Frist ' + W.f.datum(o.frist)) + '">' +
-          '<span class="schiene-balken' + (ueber ? ' ist-warn' : '') + '" ' +
+        var o = d ? d.objekte.filter(function (x) { return x.id === t.objektId; })[0] : null;
+        var kurz = o ? o.aktenzeichen.replace(/^VK-\d{4}-/, '') : '';
+        return '<a class="schiene-zeile" href="#/objekt/' + h(t.objektId) + '?reiter=termine" ' +
+          'title="' + h(t.titel + ' · fällig ' + W.f.datum(t.faellig)) + '">' +
+          '<span class="schiene-balken' + (ueber ? ' ist-warn' : (t.stufe >= 2 ? '' : ' onyx-schiene-balken-leise')) + '" ' +
           'style="left:' + von + '%;width:' + breite + '%">' +
-          '<span class="mono" style="font-size:10.5px">' + h(o.aktenzeichen.replace(/^GA-\d{4}-/, '')) + '</span>' +
+          '<span class="mono" style="font-size:10.5px">' + h(kurz) + '</span>' +
           '</span></a>';
       }).join('');
 
@@ -120,8 +130,85 @@ window.W = window.W || {};
           '</div>' +
         '</div>' +
         '<p class="mini leise" style="margin-top:1rem;padding-top:.75rem;border-top:1px solid var(--onyx-kontur-leise)">' +
-          'Balkenende ist die Abgabefrist. Die senkrechte Linie ist heute.</p>' +
+          'Balkenende ist der Fälligkeitstag. Die senkrechte Linie ist heute, Rot heißt überfällig.</p>' +
         '</div>';
     }
+  };
+})();
+
+
+/* --- Teil 2: Bausteine der Objektakte ----------------------------------- */
+(function () {
+  var h = W.f.h, sym = W.sym;
+
+  W.OBJEKT_STATUS = ['akquise', 'unterlagen', 'expose', 'vermarktung', 'reserviert', 'abgeschlossen'];
+  W.OBJEKT_STATUS_TEXT = {
+    akquise: 'Akquise', unterlagen: 'Unterlagen', expose: 'Exposé in Arbeit',
+    vermarktung: 'In Vermarktung', reserviert: 'Reserviert', abgeschlossen: 'Abgeschlossen'
+  };
+  var OBJEKT_MARKE = {
+    akquise: 'onyx-marke-ruht', unterlagen: 'onyx-marke-ruht', expose: 'onyx-marke-laeuft',
+    vermarktung: 'onyx-marke-laeuft', reserviert: 'onyx-marke-fertig', abgeschlossen: 'onyx-marke-fertig'
+  };
+
+  W.UNTERLAGE_STATUS = ['fehlt', 'angefordert', 'vorhanden'];
+  var UNTERLAGE_MARKE = { fehlt: 'onyx-marke-warn', angefordert: 'onyx-marke-laeuft', vorhanden: 'onyx-marke-fertig' };
+
+  W.b.objektmarke = function (status, klein) {
+    return '<span class="onyx-marke ' + (OBJEKT_MARKE[status] || 'onyx-marke-ruht') + '"' +
+      (klein ? ' style="font-size:10.5px;padding:.1rem .5rem"' : '') + '>' +
+      h(W.OBJEKT_STATUS_TEXT[status] || status) + '</span>';
+  };
+
+  W.b.unterlagenmarke = function (status) {
+    return '<span class="onyx-marke ' + (UNTERLAGE_MARKE[status] || 'onyx-marke-ruht') +
+      '" style="font-size:10.5px;padding:.1rem .5rem">' + h(status) + '</span>';
+  };
+
+  /** Ampel für einen Compliance-Punkt: unterzeichnet/geprüft ist gut, offen ist rot. */
+  W.b.pruefmarke = function (status) {
+    var s = String(status || '').toLowerCase();
+    var klasse = /unterzeichnet|geprüft|hinterlegt|erledigt/.test(s) ? 'onyx-marke-fertig'
+      : (/offen|fehlt/.test(s) ? 'onyx-marke-warn' : 'onyx-marke-laeuft');
+    return '<span class="onyx-marke ' + klasse + '" style="font-size:10.5px;padding:.1rem .5rem">' + h(status) + '</span>';
+  };
+
+  /** Eskalationsstufe einer Wiedervorlage. Stufe 3 ist rot, das ist die letzte. */
+  W.b.eskalation = function (stufe) {
+    var klasse = stufe >= 3 ? 'ist-drei' : (stufe === 2 ? 'ist-zwei' : 'ist-eins');
+    var punkte = '';
+    for (var i = 1; i <= 3; i++) punkte += '<span' + (i <= stufe ? ' class="voll"' : '') + '></span>';
+    return '<span class="eskalation ' + klasse + '" title="Eskalationsstufe ' + stufe + ' von 3">' +
+      punkte + '<span class="mini">Stufe ' + stufe + '</span></span>';
+  };
+
+  /** Balken mit Anteil, z. B. vorhandene Pflichtunterlagen. */
+  W.b.fortschritt = function (ist, soll) {
+    var pro = soll ? Math.round((ist / soll) * 100) : 0;
+    return '<span class="onyx-balken" style="display:block"><span style="width:' + pro + '%"></span></span>';
+  };
+
+  W.KOMM_ARTEN = ['E-Mail', 'Telefon', 'WhatsApp', 'SMS', 'Brief', 'Notiz'];
+
+  W.b.kommSymbol = function (art, richtung, g) {
+    if (art === 'E-Mail') return richtung === 'aus' ? sym.mailAus(g) : sym.brief(g);
+    if (art === 'Telefon') return sym.telefon(g);
+    if (art === 'WhatsApp' || art === 'SMS') return sym.chat(g);
+    if (art === 'Brief') return sym.dokument(g);
+    return sym.stift(g);
+  };
+
+  W.b.richtungText = function (richtung) { return richtung === 'aus' ? 'ausgehend' : 'eingehend'; };
+
+  /** Geldbetrag in Euro, ohne Nachkommastellen. */
+  W.b.euro = function (n) {
+    if (n === null || n === undefined || n === '') return '–';
+    return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
+  };
+
+  /** Kaufpreisfaktor, aus Kaufpreis und Jahresmiete gerechnet, nicht erfunden. */
+  W.b.faktor = function (kaufpreis, miete) {
+    if (!kaufpreis || !miete) return '–';
+    return (kaufpreis / miete).toFixed(2).replace('.', ',') + '-fach';
   };
 })();

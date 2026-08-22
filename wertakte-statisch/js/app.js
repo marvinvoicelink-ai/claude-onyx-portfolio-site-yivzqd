@@ -5,15 +5,18 @@
   var daten = null;
   var angemeldet = false;
   var offenesFoto = null;
+  var offenerVorgang = null;
 
+  /* Die Bereiche der linken Leiste. Die fuenf Teile aus der Vorgabe des
+     Kunden liegen zusaetzlich als nummerierte Reiter in jeder Objektakte. */
   var PUNKTE = [
     { pfad: 'uebersicht', text: 'Übersicht', symbol: sym.uebersicht },
     { pfad: 'objekte', text: 'Objekte', symbol: sym.objekte },
-    { pfad: 'fotos', text: 'Fotos', symbol: sym.bild },
-    { pfad: 'auftraggeber', text: 'Auftraggeber', symbol: sym.auftraggeber }
+    { pfad: 'investoren', text: 'Investoren', symbol: sym.investor },
+    { pfad: 'kommunikation', text: 'Kommunikation', symbol: sym.chat },
+    { pfad: 'termine', text: 'Termine', symbol: sym.kalender },
+    { pfad: 'fotos', text: 'Fotos', symbol: sym.bild }
   ];
-
-  /* --- Adresse lesen ---------------------------------------------------- */
 
   function route() {
     var roh = (location.hash || '#/uebersicht').replace(/^#\/?/, '');
@@ -28,67 +31,68 @@
   }
 
   function sichern() { W.speicher.sichern(daten); }
-
-  function neueId(praefix) {
-    return praefix + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
-  }
+  function neueId(p) { return p + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
 
   function naechstesAktenzeichen() {
-    var jahr = new Date().getFullYear();
-    var praefix = 'GA-' + jahr + '-';
-    var zahlen = daten.objekte
-      .filter(function (o) { return o.aktenzeichen.indexOf(praefix) === 0; })
+    var jahr = new Date().getFullYear(), praefix = 'VK-' + jahr + '-';
+    var zahlen = daten.objekte.filter(function (o) { return o.aktenzeichen.indexOf(praefix) === 0; })
       .map(function (o) { return parseInt(o.aktenzeichen.slice(praefix.length), 10); })
       .filter(function (n) { return !isNaN(n); });
-    var n = (zahlen.length ? Math.max.apply(null, zahlen) : 0) + 1;
-    return praefix + String(n).padStart(3, '0');
+    return praefix + String((zahlen.length ? Math.max.apply(null, zahlen) : 0) + 1).padStart(3, '0');
   }
 
-  /* --- Fotoadressen vorbereiten ------------------------------------------ */
+  function naechsteBelegNr() {
+    var zahlen = daten.vorgaenge.map(function (v) { return parseInt(String(v.belegNr).split('-')[1], 10); })
+      .filter(function (n) { return !isNaN(n); });
+    return new Date().getFullYear() + '-' + String((zahlen.length ? Math.max.apply(null, zahlen) : 0) + 1).padStart(6, '0');
+  }
 
   function eigeneFotoIds() {
     return daten.fotos.filter(function (f) { return f.quelle.indexOf('idb:') === 0; })
       .map(function (f) { return f.quelle.slice(4); });
   }
 
-  /* --- Geruest ----------------------------------------------------------- */
+  /* --- Geruest ------------------------------------------------------------ */
 
-  function rail(aktiv) {
+  function railPunkte(aktiv) {
     return PUNKTE.map(function (p) {
-      var an = p.pfad === aktiv;
       return '<a class="onyx-rail-punkt" href="#/' + p.pfad + '" title="' + h(p.text) + '" aria-label="' + h(p.text) + '"' +
-        (an ? ' aria-current="page"' : '') + '>' + p.symbol(21) + '</a>';
+        (p.pfad === aktiv ? ' aria-current="page"' : '') + '>' + p.symbol(21) + '</a>';
     }).join('');
   }
 
   function fussNav(aktiv) {
-    return '<nav class="fuss-nav kein-druck" aria-label="Hauptbereiche">' + PUNKTE.map(function (p) {
-      var an = p.pfad === aktiv;
-      return '<a href="#/' + p.pfad + '"' + (an ? ' aria-current="page"' : '') + '>' + p.symbol(21) + h(p.text) + '</a>';
+    // Am Handy nur die vier meistgenutzten Bereiche, sonst wird es zu eng.
+    var kurz = PUNKTE.filter(function (p) {
+      return ['uebersicht', 'objekte', 'fotos', 'termine'].indexOf(p.pfad) >= 0;
+    });
+    return '<nav class="fuss-nav kein-druck" aria-label="Hauptbereiche">' + kurz.map(function (p) {
+      return '<a href="#/' + p.pfad + '"' + (p.pfad === aktiv ? ' aria-current="page"' : '') + '>' +
+        p.symbol(21) + h(p.text) + '</a>';
     }).join('') + '</nav>';
   }
 
   function geruest(inhalt, aktiv, suche) {
-    var ueber = daten.objekte.filter(function (o) {
-      if (o.status === 'abgeschlossen') return false;
-      var t = W.f.tageBis(o.frist);
-      return t !== null && t < 0;
+    var ueber = daten.termine.filter(function (t) {
+      if (t.status !== 'offen') return false;
+      var x = W.f.tageBis(t.faellig);
+      return x !== null && x < 0;
     }).length;
 
     return '<div class="huelle"><div class="onyx-rahmen fenster">' +
       '<aside class="onyx-rail rail-huelle kein-druck"><div class="rail-inhalt">' +
         '<a class="marke-w" href="#/uebersicht" aria-label="Wertakte, zur Übersicht">W</a>' +
-        '<nav aria-label="Hauptbereiche" style="display:flex;flex-direction:column;gap:.5rem">' + rail(aktiv) + '</nav>' +
+        '<nav aria-label="Hauptbereiche" style="display:flex;flex-direction:column;gap:.5rem">' + railPunkte(aktiv) + '</nav>' +
       '</div></aside>' +
       '<div class="strang">' +
         '<header class="kopf kein-druck">' +
           '<a class="wortmarke" href="#/uebersicht" style="flex:none">Wertakte</a>' +
           '<div class="kopf-suche"><div>' + sym.suche(15) +
-            '<label class="nur-sr" for="kopfsuche">Nach Aktenzeichen, Adresse oder Auftraggeber suchen</label>' +
+            '<label class="nur-sr" for="kopfsuche">Nach Aktenzeichen, Objekt oder Eigentümer suchen</label>' +
             '<input class="onyx-feld onyx-suche" id="kopfsuche" type="search" placeholder="Suchen …" value="' + h(suche || '') + '" style="padding-top:.45rem;padding-bottom:.45rem;font-size:.875rem">' +
           '</div></div>' +
           '<div class="kopf-werkzeuge">' +
-            '<a class="rund-knopf" href="#/uebersicht" aria-label="' + (ueber ? ueber + ' Akten mit überschrittener Frist' : 'Keine überschrittene Frist') + '">' +
+            '<a class="rund-knopf" href="#/termine" aria-label="' + (ueber ? ueber + ' überfällige Wiedervorlagen' : 'Keine überfällige Wiedervorlage') + '">' +
               sym.glocke(19) + (ueber ? '<span class="zaehler mono">' + ueber + '</span>' : '') + '</a>' +
             '<span class="nutzer-name">' + h(W.KONTO.name) + '</span>' +
             '<span class="kuerzel" aria-hidden="true">' + h(W.f.kuerzel(W.KONTO.name)) + '</span>' +
@@ -99,46 +103,27 @@
       '</div></div>' + fussNav(aktiv) + '</div>';
   }
 
-  /* --- Zeichnen ----------------------------------------------------------- */
+  /* --- Zeichnen ------------------------------------------------------------- */
 
   function zeichnen() {
-    if (!angemeldet) {
-      wurzel.innerHTML = W.seiten.anmelden(daten);
-      verdrahteAnmeldung();
-      return;
-    }
+    if (!angemeldet) { wurzel.innerHTML = W.seiten.anmelden(daten); verdrahteAnmeldung(); return; }
     var r = route();
     var bereich = r.pfad[0] || 'uebersicht';
 
-    // Adressen der selbst aufgenommenen Fotos zuerst aufloesen, sonst bleiben
-    // die Bilder beim ersten Zeichnen leer.
     W.speicher.fotoUrls(eigeneFotoIds()).then(function (bilder) {
       var inhalt, aktiv = bereich, suche = '';
 
-      if (bereich === 'objekte') {
-        suche = r.q.suche || '';
-        inhalt = W.seiten.objekte(daten, r.q, bilder);
-      } else if (bereich === 'objekt' && r.pfad[2] === 'entwurf') {
-        inhalt = W.seiten.entwurf(daten, r.pfad[1], bilder);
-        aktiv = 'objekte';
-      } else if (bereich === 'objekt') {
-        inhalt = W.seiten.objekt(daten, r.pfad[1], bilder);
-        aktiv = 'objekte';
-      } else if (bereich === 'fotos') {
-        inhalt = W.seiten.fotos(daten, r.q, bilder);
-      } else if (bereich === 'neu') {
-        inhalt = W.seiten.neu(daten, naechstesAktenzeichen());
-        aktiv = 'objekte';
-      } else if (bereich === 'auftraggeber' && r.pfad[1]) {
-        inhalt = W.seiten.auftraggeberDetail(daten, r.pfad[1]);
-      } else if (bereich === 'auftraggeber') {
-        inhalt = W.seiten.auftraggeber(daten);
-      } else if (bereich === 'uebersicht') {
-        inhalt = W.seiten.uebersicht(daten);
-      } else {
-        inhalt = W.seiten.nichtGefunden();
-        aktiv = '';
-      }
+      if (bereich === 'objekte') { suche = r.q.suche || ''; inhalt = W.seiten.objekte(daten, r.q, bilder); }
+      else if (bereich === 'objekt' && r.pfad[2] === 'expose') { inhalt = W.seiten.expose(daten, r.pfad[1], bilder); aktiv = 'objekte'; }
+      else if (bereich === 'objekt') { inhalt = W.seiten.objekt(daten, r.pfad[1], r.q, bilder); aktiv = 'objekte'; }
+      else if (bereich === 'neu') { inhalt = W.seiten.neu(daten, naechstesAktenzeichen()); aktiv = 'objekte'; }
+      else if (bereich === 'investor') { inhalt = W.seiten.investor(daten, r.pfad[1]); aktiv = 'investoren'; }
+      else if (bereich === 'investoren') { inhalt = W.seiten.investoren(daten); }
+      else if (bereich === 'kommunikation') { inhalt = W.seiten.kommunikation(daten, r.q); }
+      else if (bereich === 'termine') { inhalt = W.seiten.termine(daten, r.q); }
+      else if (bereich === 'fotos') { inhalt = W.seiten.fotos(daten, r.q, bilder); }
+      else if (bereich === 'uebersicht') { inhalt = W.seiten.uebersicht(daten); }
+      else { inhalt = W.seiten.nichtGefunden(); aktiv = ''; }
 
       var warnung = W.speicher.warnung();
       if (warnung) {
@@ -147,26 +132,28 @@
       }
 
       wurzel.innerHTML = geruest(inhalt, aktiv, suche);
+
       if (offenesFoto) {
         var f = daten.fotos.filter(function (x) { return x.id === offenesFoto; })[0];
-        if (f) {
-          wurzel.insertAdjacentHTML('beforeend', W.seiten.fotoDialog(f, bilder));
-          verdrahteDialog(f);
-        } else { offenesFoto = null; }
+        if (f) { wurzel.insertAdjacentHTML('beforeend', W.seiten.fotoDialog(f, bilder)); verdrahteFotoDialog(f); }
+        else offenesFoto = null;
+      }
+      if (offenerVorgang) {
+        var v = daten.vorgaenge.filter(function (x) { return x.id === offenerVorgang; })[0];
+        if (v) { wurzel.insertAdjacentHTML('beforeend', W.seiten.vorgangDialog(daten, v)); verdrahteVorgangDialog(); }
+        else offenerVorgang = null;
       }
       verdrahteSeite(r);
     });
   }
 
-  /* --- Ereignisse ---------------------------------------------------------- */
+  /* --- Ereignisse ------------------------------------------------------------ */
 
   function verdrahteAnmeldung() {
     var form = document.getElementById('anmelde-formular');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var mail = form.email.value.trim().toLowerCase();
-      var pw = form.passwort.value;
-      if (mail !== W.KONTO.email || pw !== W.KONTO.passwort) {
+      if (form.email.value.trim().toLowerCase() !== W.KONTO.email || form.passwort.value !== W.KONTO.passwort) {
         var fehler = document.getElementById('anmelde-fehler');
         fehler.textContent = 'E-Mail oder Passwort stimmt nicht.';
         fehler.style.display = 'flex';
@@ -176,6 +163,12 @@
       try { sessionStorage.setItem('wertakte.angemeldet', '1'); } catch (e2) { /* egal */ }
       if (!location.hash || location.hash === '#/') location.hash = '#/uebersicht';
       zeichnen();
+    });
+  }
+
+  function auf(sel, ereignis, fn) {
+    Array.prototype.forEach.call(document.querySelectorAll(sel), function (el) {
+      el.addEventListener(ereignis, function (e) { fn(el, e); });
     });
   }
 
@@ -195,7 +188,6 @@
         var wert = suchfeld.value;
         timer = setTimeout(function () {
           location.hash = '#/objekte' + (wert ? '?suche=' + encodeURIComponent(wert) : '');
-          // Nach dem Neuzeichnen den Schreibfluss nicht unterbrechen.
           setTimeout(function () {
             var neu = document.getElementById('kopfsuche');
             if (neu) { neu.focus(); neu.setSelectionRange(neu.value.length, neu.value.length); }
@@ -204,68 +196,203 @@
       });
     }
 
-    Array.prototype.forEach.call(document.querySelectorAll('[data-filter]'), function (sel) {
-      sel.addEventListener('change', function () {
-        var q = Object.assign({}, route().q);
-        q[sel.getAttribute('data-filter')] = sel.value;
-        var teile = Object.keys(q).filter(function (k) { return q[k]; })
-          .map(function (k) { return k + '=' + encodeURIComponent(q[k]); });
-        location.hash = '#/objekte' + (teile.length ? '?' + teile.join('&') : '');
-      });
+    auf('[data-filter]', 'change', function (sel) {
+      var q = Object.assign({}, route().q);
+      q[sel.getAttribute('data-filter')] = sel.value;
+      location.hash = '#/objekte' + anhaengsel(q);
+    });
+    auf('[data-kfilter]', 'change', function (sel) {
+      var q = Object.assign({}, route().q);
+      q[sel.getAttribute('data-kfilter')] = sel.value;
+      location.hash = '#/kommunikation' + anhaengsel(q);
     });
 
-    if (r.pfad[0] === 'objekt' && r.pfad[1] && r.pfad[2] !== 'entwurf') verdrahteAkte(r.pfad[1]);
-    if (r.pfad[0] === 'objekt' && r.pfad[2] === 'entwurf') {
-      var drucken = document.getElementById('knopf-drucken');
-      if (drucken) drucken.addEventListener('click', function () { window.print(); });
+    // Grossansicht eines Vorgangs, ueberall wo Journalzeilen stehen
+    auf('[data-vorgang]', 'click', function (el) { offenerVorgang = el.getAttribute('data-vorgang'); zeichnen(); });
+    auf('[data-foto]', 'click', function (el) { offenesFoto = el.getAttribute('data-foto'); zeichnen(); });
+
+    if (r.pfad[0] === 'objekt' && r.pfad[2] === 'expose') {
+      var dr = document.getElementById('knopf-drucken');
+      if (dr) dr.addEventListener('click', function () { window.print(); });
     }
-    if (r.pfad[0] === 'fotos') verdrahteFotoseite();
+    if (r.pfad[0] === 'objekt' && r.pfad[1] && r.pfad[2] !== 'expose') verdrahteAkte(r.pfad[1], r.q.reiter || 'expose');
     if (r.pfad[0] === 'neu') verdrahteNeu();
-    if (r.pfad[0] === 'auftraggeber' && r.pfad[1]) verdrahteAgNotiz(r.pfad[1]);
+    if (r.pfad[0] === 'investor') verdrahteInvestor(r.pfad[1]);
+    if (r.pfad[0] === 'fotos') verdrahteFotoseite();
+    if (r.pfad[0] === 'termine') verdrahteTerminKnoepfe();
   }
 
-  function verdrahteAkte(id) {
+  function anhaengsel(q) {
+    var teile = Object.keys(q).filter(function (k) { return q[k]; })
+      .map(function (k) { return k + '=' + encodeURIComponent(q[k]); });
+    return teile.length ? '?' + teile.join('&') : '';
+  }
+
+  /* --- Objektakte -------------------------------------------------------------- */
+
+  function verdrahteAkte(id, reiter) {
     var o = H.obj(daten, id);
     if (!o) return;
 
-    Array.prototype.forEach.call(document.querySelectorAll('[data-status]'), function (k) {
-      k.addEventListener('click', function () {
-        o.status = k.getAttribute('data-status');
-        sichern();
-        zeichnen();
-      });
-    });
+    var status = document.getElementById('objekt-status');
+    if (status) status.addEventListener('change', function () { o.status = status.value; sichern(); zeichnen(); });
 
+    // Reiter 1: Erfassungsbogen
+    auf('[data-eck]', 'change', function (el) {
+      var i = Number(el.getAttribute('data-eck'));
+      if (o.eckdaten[i]) { o.eckdaten[i].imExpose = el.checked; sichern(); zeichnen(); }
+    });
     var notiz = document.getElementById('notiz-formular');
     if (notiz) notiz.addEventListener('submit', function (e) {
-      e.preventDefault();
-      o.notizen = notiz.notizen.value;
-      sichern();
-      melde(notiz, 'Notizen gespeichert.');
+      e.preventDefault(); o.notizen = notiz.notizen.value; sichern(); melde(notiz, 'Notizen gespeichert.');
     });
 
-    verdrahteAufnahme(function () { return o.id; });
+    // Reiter 2: Unterlagen
+    function ul(id2) { return daten.unterlagen.filter(function (x) { return x.id === id2; })[0]; }
+    var heuteIso = new Date().toISOString().slice(0, 10);
+    auf('[data-ul-anfordern]', 'click', function (el) {
+      var x = ul(el.getAttribute('data-ul-anfordern'));
+      if (x) { x.status = 'angefordert'; x.angefordertAm = heuteIso; sichern(); zeichnen(); }
+    });
+    auf('[data-ul-da]', 'click', function (el) {
+      var x = ul(el.getAttribute('data-ul-da'));
+      if (x) { x.status = 'vorhanden'; x.erhaltenAm = heuteIso; sichern(); zeichnen(); }
+    });
+    auf('[data-ul-zurueck]', 'click', function (el) {
+      var x = ul(el.getAttribute('data-ul-zurueck'));
+      if (x) { x.status = 'fehlt'; x.erhaltenAm = null; x.angefordertAm = null; sichern(); zeichnen(); }
+    });
 
-    Array.prototype.forEach.call(document.querySelectorAll('[data-foto]'), function (k) {
-      k.addEventListener('click', function () {
-        offenesFoto = k.getAttribute('data-foto');
-        zeichnen();
+    // Reiter 3: Investoren
+    function bt(id2) { return daten.beteiligungen.filter(function (x) { return x.id === id2; })[0]; }
+    auf('[data-stand]', 'change', function (el) {
+      var x = bt(el.getAttribute('data-stand'));
+      if (x) { x.stand = el.value; sichern(); zeichnen(); }
+    });
+    auf('[data-nda]', 'click', function (el) {
+      var x = bt(el.getAttribute('data-nda'));
+      if (!x) return;
+      x.ndaAm = heuteIso;
+      if (x.stand === 'NDA offen' || x.stand === 'Angesprochen') x.stand = 'NDA unterzeichnet';
+      var i = H.kontakt(daten, x.investorId);
+      if (i) i.nda = { status: 'unterzeichnet', datum: heuteIso };
+      sichern(); zeichnen();
+    });
+    auf('[data-expose]', 'click', function (el) {
+      var x = bt(el.getAttribute('data-expose'));
+      if (!x) return;
+      var i = H.kontakt(daten, x.investorId);
+      if (i && i.adressvalidierung && i.adressvalidierung.status === 'offen') {
+        alert('Adressvalidierung steht noch aus. Das Exposé kann erst danach versendet werden.');
+        return;
+      }
+      x.exposeAm = heuteIso;
+      x.stand = 'Exposé versendet';
+      vorgangAnlegen({
+        objektId: o.id, kontaktId: x.investorId, art: 'E-Mail', richtung: 'aus',
+        betreff: 'Exposé ' + o.bezeichnung + ', ' + o.aktenzeichen,
+        inhalt: 'Anbei das Exposé inklusive Widerrufsbelehrung. Käuferprovision ' + o.kaeuferprovision + '.',
+        anhaenge: ['Expose_' + o.aktenzeichen + '.pdf', 'Widerrufsbelehrung.pdf'], outlook: true
       });
+      sichern(); zeichnen();
+    });
+    var dazuKnopf = document.getElementById('investor-dazu');
+    if (dazuKnopf) dazuKnopf.addEventListener('click', function () {
+      var sel = document.getElementById('neuer-investor');
+      if (!sel || !sel.value) return;
+      daten.beteiligungen.push({
+        id: neueId('bt'), objektId: o.id, investorId: sel.value, stand: 'Angesprochen',
+        ndaAm: null, exposeAm: null, letzteReaktion: heuteIso, notiz: ''
+      });
+      sichern(); zeichnen();
+    });
+
+    // Reiter 4: Kommunikation
+    var vf = document.getElementById('vorgang-formular');
+    if (vf) vf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var betreff = vf.betreff.value.trim();
+      if (!betreff) { vf.betreff.focus(); return; }
+      vorgangAnlegen({
+        objektId: o.id, kontaktId: vf.kontaktId.value, art: vf.art.value, richtung: vf.richtung.value,
+        betreff: betreff, inhalt: vf.inhalt.value.trim(), anhaenge: [],
+        outlook: vf.art.value === 'E-Mail'
+      });
+      sichern(); zeichnen();
+    });
+
+    // Reiter 5: Termine
+    var tf = document.getElementById('termin-formular');
+    if (tf) tf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var titel = tf.titel.value.trim();
+      if (!titel) { tf.titel.focus(); return; }
+      daten.termine.push({
+        id: neueId('tm'), objektId: o.id, kontaktId: tf.kontaktId.value, titel: titel,
+        art: tf.art.value, faellig: tf.faellig.value || heuteIso, stufe: 1, status: 'offen',
+        regel: tf.regel.value.trim(), erledigtAm: null
+      });
+      sichern(); zeichnen();
+    });
+    verdrahteTerminKnoepfe();
+
+    // Reiter Fotos
+    if (reiter === 'fotos') verdrahteAufnahme(function () { return o.id; });
+  }
+
+  function verdrahteTerminKnoepfe() {
+    function tm(id) { return daten.termine.filter(function (t) { return t.id === id; })[0]; }
+    auf('[data-eskalieren]', 'click', function (el) {
+      var t = tm(el.getAttribute('data-eskalieren'));
+      if (t && t.stufe < 3) { t.stufe += 1; sichern(); zeichnen(); }
+    });
+    auf('[data-erledigt]', 'click', function (el) {
+      var t = tm(el.getAttribute('data-erledigt'));
+      if (t) { t.status = 'erledigt'; t.erledigtAm = new Date().toISOString().slice(0, 10); sichern(); zeichnen(); }
     });
   }
 
-  /** Kamera- und Upload-Knoepfe an die Dateieingaben haengen.
-   *  akteId() liefert, zu welcher Akte die Bilder gehoeren. */
-  function verdrahteAufnahme(akteId) {
+  /** Legt einen Vorgang revisionssicher ab: Beleg-Nummer, Zeitstempel, festgeschrieben. */
+  function vorgangAnlegen(v) {
+    daten.vorgaenge.push({
+      id: neueId('vg'), objektId: v.objektId, kontaktId: v.kontaktId, art: v.art, richtung: v.richtung,
+      zeitpunkt: new Date().toISOString().slice(0, 16), betreff: v.betreff, inhalt: v.inhalt || '',
+      teilnehmer: '', belegNr: naechsteBelegNr(), festgeschrieben: true,
+      outlook: Boolean(v.outlook), anhaenge: v.anhaenge || []
+    });
+  }
+
+  /* --- Investor ---------------------------------------------------------------- */
+
+  function verdrahteInvestor(id) {
+    var i = H.kontakt(daten, id);
+    if (!i) return;
+    var val = document.getElementById('val-erledigt');
+    if (val) val.addEventListener('click', function () {
+      i.adressvalidierung = {
+        status: 'geprüft', datum: new Date().toISOString().slice(0, 10),
+        hinweis: 'In der Vorführung als geprüft gesetzt'
+      };
+      sichern(); zeichnen();
+    });
+    var form = document.getElementById('investor-notiz');
+    if (form) form.addEventListener('submit', function (e) {
+      e.preventDefault(); i.notizen = form.notizen.value; sichern(); melde(form, 'Notizen gespeichert.');
+    });
+  }
+
+  /* --- Fotos --------------------------------------------------------------------- */
+
+  function verdrahteAufnahme(objektId) {
     var kamera = document.getElementById('eingabe-kamera');
     var upload = document.getElementById('eingabe-upload');
-    var kKnopf = document.getElementById('knopf-kamera');
-    var uKnopf = document.getElementById('knopf-upload');
+    var kk = document.getElementById('knopf-kamera');
+    var uk = document.getElementById('knopf-upload');
     if (!kamera || !upload) return;
-    if (kKnopf) kKnopf.addEventListener('click', function () { kamera.click(); });
-    if (uKnopf) uKnopf.addEventListener('click', function () { upload.click(); });
-    kamera.addEventListener('change', function () { uebernehmen(akteId(), kamera.files); });
-    upload.addEventListener('change', function () { uebernehmen(akteId(), upload.files); });
+    if (kk) kk.addEventListener('click', function () { kamera.click(); });
+    if (uk) uk.addEventListener('click', function () { upload.click(); });
+    kamera.addEventListener('change', function () { uebernehmen(objektId(), kamera.files); });
+    upload.addEventListener('change', function () { uebernehmen(objektId(), upload.files); });
   }
 
   function verdrahteFotoseite() {
@@ -273,29 +400,18 @@
       var sel = document.getElementById('neue-akte');
       return sel ? sel.value : null;
     });
-
     var filter = document.getElementById('foto-filter');
     if (filter) filter.addEventListener('change', function () {
       var q = Object.assign({}, route().q);
       q.filter = filter.value;
-      var teile = Object.keys(q).filter(function (k) { return q[k]; })
-        .map(function (k) { return k + '=' + encodeURIComponent(q[k]); });
-      location.hash = '#/fotos' + (teile.length ? '?' + teile.join('&') : '');
-    });
-
-    Array.prototype.forEach.call(document.querySelectorAll('[data-foto]'), function (k) {
-      k.addEventListener('click', function () {
-        offenesFoto = k.getAttribute('data-foto');
-        zeichnen();
-      });
+      location.hash = '#/fotos' + anhaengsel(q);
     });
   }
 
-  /** Ausgewaehlte Bilder in eine Akte uebernehmen. */
   function uebernehmen(objektId, dateien) {
     if (!objektId || !dateien || !dateien.length) return;
-    var kategorieFeld = document.getElementById('neue-kategorie');
-    var kategorie = kategorieFeld ? kategorieFeld.value : 'Außenansicht';
+    var kf = document.getElementById('neue-kategorie');
+    var kategorie = kf ? kf.value : 'Außenansicht';
     var lauf = document.getElementById('upload-lauf');
     var knoepfe = document.querySelector('.aufnahme-knoepfe');
     if (lauf) lauf.style.display = 'flex';
@@ -310,10 +426,7 @@
       var id = neueId('bild');
       return W.speicher.fotoSichern(id, datei).then(function () {
         return {
-          id: neueId('foto'),
-          objektId: objektId,
-          quelle: 'idb:' + id,
-          beschriftung: '',
+          id: neueId('foto'), objektId: objektId, quelle: 'idb:' + id, beschriftung: '',
           kategorie: kategorie,
           aufgenommenAm: new Date(datei.lastModified || Date.now()).toISOString().slice(0, 16)
         };
@@ -321,13 +434,9 @@
     })).then(function (neue) {
       daten.fotos = daten.fotos.concat(neue);
       sichern();
-      // Auf der Fotoseite die gewaehlte Akte behalten, damit mehrere Bilder
-      // hintereinander in dieselbe Akte wandern.
       if (route().pfad[0] === 'fotos') {
         var q = Object.assign({}, route().q, { akte: objektId });
-        var teile = Object.keys(q).filter(function (k) { return q[k]; })
-          .map(function (k) { return k + '=' + encodeURIComponent(q[k]); });
-        var ziel = '#/fotos?' + teile.join('&');
+        var ziel = '#/fotos' + anhaengsel(q);
         if (location.hash !== ziel) { location.hash = ziel; return; }
       }
       zeichnen();
@@ -337,24 +446,29 @@
     });
   }
 
-  function verdrahteDialog(foto) {
-    function zu() { offenesFoto = null; zeichnen(); }
-    document.getElementById('dialog-zu').addEventListener('click', zu);
-    var schleier = document.getElementById('foto-schleier');
-    schleier.addEventListener('click', function (e) { if (e.target === schleier) zu(); });
+  /* --- Dialoge -------------------------------------------------------------------- */
+
+  function schliesser(schleierId, zuruecksetzen) {
+    function zu() { zuruecksetzen(); zeichnen(); }
+    var knopf = document.getElementById('dialog-zu');
+    if (knopf) knopf.addEventListener('click', zu);
+    var schleier = document.getElementById(schleierId);
+    if (schleier) schleier.addEventListener('click', function (e) { if (e.target === schleier) zu(); });
     document.addEventListener('keydown', function esc(e) {
       if (e.key === 'Escape') { document.removeEventListener('keydown', esc); zu(); }
     });
+    return zu;
+  }
 
+  function verdrahteFotoDialog(foto) {
+    var zu = schliesser('foto-schleier', function () { offenesFoto = null; });
     var form = document.getElementById('foto-formular');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       foto.beschriftung = form.beschriftung.value.trim();
       foto.kategorie = form.kategorie.value;
-      sichern();
-      zu();
+      sichern(); zu();
     });
-
     var weg = document.getElementById('foto-weg');
     var sicher = false;
     weg.addEventListener('click', function () {
@@ -367,63 +481,62 @@
       }
       daten.fotos = daten.fotos.filter(function (f) { return f.id !== foto.id; });
       if (foto.quelle.indexOf('idb:') === 0) W.speicher.fotoLoeschen(foto.quelle.slice(4));
-      sichern();
-      zu();
+      sichern(); zu();
     });
   }
+
+  function verdrahteVorgangDialog() {
+    schliesser('vorgang-schleier', function () { offenerVorgang = null; });
+    var dr = document.getElementById('vorgang-drucken');
+    if (dr) dr.addEventListener('click', function () { window.print(); });
+  }
+
+  /* --- Neues Objekt ------------------------------------------------------------------ */
 
   function verdrahteNeu() {
     var form = document.getElementById('neu-formular');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var fehler = document.getElementById('neu-fehler');
-      function meckern(text) { fehler.textContent = text; fehler.style.display = 'block'; }
-
-      var strasse = form.strasse.value.trim();
+      function meckern(t) { fehler.textContent = t; fehler.style.display = 'block'; }
+      var bez = form.bezeichnung.value.trim();
       var ort = form.ort.value.trim();
-      var agId = form.auftraggeberId.value;
-      if (!strasse) return meckern('Bitte die Straße und Hausnummer angeben.');
+      var eig = form.eigentuemerId.value;
+      if (!bez) return meckern('Bitte eine Bezeichnung angeben.');
       if (!ort) return meckern('Bitte den Ort angeben.');
-      if (!agId) return meckern('Bitte einen Auftraggeber auswählen.');
+      if (!eig) return meckern('Bitte einen Eigentümer auswählen.');
 
+      var zahl = function (s) { var n = parseInt(String(s).replace(/[^\d]/g, ''), 10); return isNaN(n) ? 0 : n; };
       var id = neueId('obj');
       daten.objekte.push({
-        id: id,
-        aktenzeichen: naechstesAktenzeichen(),
-        strasse: strasse,
-        plz: form.plz.value.trim(),
-        ort: ort,
-        objekttyp: form.objekttyp.value,
-        auftraggeberId: agId,
-        bewertungsanlass: form.bewertungsanlass.value,
-        status: form.status.value,
-        ortstermin: form.ortstermin.value || null,
-        frist: form.frist.value || null,
-        stichtag: form.stichtag.value || null,
-        baujahr: form.baujahr.value.trim(),
-        wohnflaeche: form.wohnflaeche.value.trim(),
-        grundstuecksflaeche: form.grundstuecksflaeche.value.trim(),
-        notizen: form.notizen.value.trim(),
-        angelegtAm: new Date().toISOString().slice(0, 10)
+        id: id, aktenzeichen: naechstesAktenzeichen(), bezeichnung: bez,
+        strasse: form.strasse.value.trim(), plz: form.plz.value.trim(), ort: ort,
+        objektart: form.objektart.value, status: form.status.value,
+        verkaufsgrund: form.verkaufsgrund.value.trim(), eigentuemerId: eig,
+        besitzgesellschaft: 'nicht geklärt',
+        mieteinnahmen: zahl(form.mieteinnahmen.value), nichtUmlagefaehig: zahl(form.nichtUmlagefaehig.value),
+        nichtUmlagefaehigJahr: String(new Date().getFullYear() - 1),
+        kaufpreis: zahl(form.kaufpreis.value),
+        kaeuferprovision: form.kaeuferprovision.value.trim() || '3,57 % inkl. MwSt.',
+        eckdaten: [], compliance: {
+          provisionsvereinbarung: { status: 'offen', datum: null, hinweis: 'Noch nicht versendet' },
+          widerrufsbelehrung: { status: 'offen', datum: null, hinweis: 'Wird mit dem Exposé erstellt' },
+          adressvalidierung: { status: 'pflicht bei Erstkunden', datum: null, hinweis: 'Vor Exposé-Versand je Interessent zu prüfen' }
+        },
+        notizen: '', angelegtAm: new Date().toISOString().slice(0, 10)
+      });
+      // Pflichtunterlagen mit anlegen, damit die Liste sofort steht.
+      W.PFLICHTUNTERLAGEN.forEach(function (p, i) {
+        daten.unterlagen.push({
+          id: 'ul_' + id + '_' + i, objektId: id, bezeichnung: p[0], kategorie: p[1],
+          pflicht: true, status: 'fehlt', angefordertAm: null, erhaltenAm: null, datei: null, notiz: ''
+        });
       });
       sichern();
       location.hash = '#/objekt/' + id;
     });
   }
 
-  function verdrahteAgNotiz(id) {
-    var a = H.ag(daten, id);
-    var form = document.getElementById('ag-notiz-formular');
-    if (!a || !form) return;
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      a.notizen = form.notizen.value;
-      sichern();
-      melde(form, 'Notizen gespeichert.');
-    });
-  }
-
-  /** Kurze Rueckmeldung unter einem Formular. */
   function melde(form, text) {
     var alt = form.querySelector('.rueckmeldung');
     if (alt) alt.remove();
@@ -435,15 +548,13 @@
     setTimeout(function () { p.remove(); }, 2500);
   }
 
-  /* --- Start --------------------------------------------------------------- */
+  /* --- Start ---------------------------------------------------------------------------- */
 
   daten = W.speicher.laden();
   try { angemeldet = sessionStorage.getItem('wertakte.angemeldet') === '1'; } catch (e) { angemeldet = false; }
   window.addEventListener('hashchange', zeichnen);
   zeichnen();
 
-  /* Fuer die Vorfuehrung: in der Browser-Konsole "wertakteZuruecksetzen()"
-     stellt den Auslieferungsstand wieder her. */
   window.wertakteZuruecksetzen = function () {
     W.speicher.zuruecksetzen().then(function () {
       daten = W.speicher.laden();

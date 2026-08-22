@@ -254,3 +254,65 @@ textarea.onyx-feld { resize: vertical; line-height: 1.65; }
 /* Fotoseite: Zähler unter den Erklärtext, damit er nicht neben dem
    umbrechenden Absatz klebt. */
 @media (max-width: 900px) { .kopfzeile-seite > p { width: 100%; } }
+
+/* --- Eskalationsstufen --------------------------------------------------- */
+.eskalation { display: inline-flex; align-items: center; gap: .3rem; }
+.eskalation > span:not(.mini) {
+  width: .4rem; height: .4rem; border-radius: 999px;
+  border: 1px solid var(--onyx-kontur-stark); background: transparent;
+}
+.eskalation.ist-eins .voll { background: var(--onyx-text-still); border-color: var(--onyx-text-still); }
+.eskalation.ist-zwei .voll { background: var(--onyx-amber); border-color: var(--onyx-amber); }
+.eskalation.ist-drei .voll { background: var(--onyx-warn); border-color: var(--onyx-warn); }
+.eskalation .mini { margin-left: .2rem; color: var(--onyx-text-leise); }
+.eskalation.ist-zwei .mini { color: var(--onyx-amber); }
+.eskalation.ist-drei .mini { color: var(--onyx-warn); }
+
+/* --- Reiter innerhalb einer Objektakte ----------------------------------- */
+.reiter {
+  display: flex; gap: .25rem; overflow-x: auto; scrollbar-width: none;
+  border-bottom: 1px solid var(--onyx-kontur-leise); margin-top: 1.5rem;
+}
+.reiter::-webkit-scrollbar { display: none; }
+.reiter a {
+  display: flex; align-items: center; gap: .4rem; white-space: nowrap;
+  padding: .6rem .85rem; font-size: .875rem; color: var(--onyx-text-leise);
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.reiter a:hover { color: var(--onyx-text); }
+.reiter a[aria-current] { color: var(--onyx-amber); border-bottom-color: var(--onyx-amber); }
+.reiter .zahl {
+  font-family: var(--onyx-schrift-mono); font-size: 10.5px; padding: .05rem .3rem;
+  border-radius: 3px; background: var(--onyx-kontur-leise); color: var(--onyx-text-leise);
+}
+.reiter a[aria-current] .zahl { background: var(--onyx-amber-flaeche); color: var(--onyx-amber); }
+
+/* --- Erfassungsbogen ------------------------------------------------------ */
+.bogen-gruppe { margin-top: 1.5rem; }
+.bogen-zeile {
+  display: grid; grid-template-columns: 1.5rem minmax(0, 12rem) minmax(0, 1fr);
+  gap: .75rem; align-items: start; padding: .5rem 0;
+  border-bottom: 1px solid var(--onyx-kontur-leise);
+}
+.bogen-zeile input[type=checkbox] { margin-top: .2rem; accent-color: var(--onyx-amber); width: 1rem; height: 1rem; }
+.bogen-zeile.ist-offen { opacity: .78; }
+
+/* --- Zeilen mit Symbol links ---------------------------------------------- */
+.symbolzeile { display: flex; gap: .85rem; padding: .9rem .5rem; margin: 0 -.5rem; border-radius: var(--onyx-radius-klein); }
+.symbolkreis {
+  flex: none; display: grid; place-items: center; width: 2rem; height: 2rem;
+  border-radius: 999px; border: 1px solid var(--onyx-kontur); color: var(--onyx-text-leise);
+}
+.symbolkreis.ist-aus { border-color: rgb(232 163 61 / .4); color: var(--onyx-amber); }
+
+/* --- Kennzahlenband -------------------------------------------------------- */
+.zahlenband { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--onyx-kontur-leise); border: 1px solid var(--onyx-kontur-leise); border-radius: var(--onyx-radius); overflow: hidden; }
+@media (min-width: 700px) { .zahlenband { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1100px) { .zahlenband { grid-template-columns: repeat(6, 1fr); } }
+.zahlenband > div { background: var(--onyx-flaeche); padding: .9rem 1rem; }
+.zahlenband dd { font-family: var(--onyx-schrift-mono); font-variant-numeric: tabular-nums; font-size: 1.0625rem; margin-top: .3rem; }
+
+/* --- Druckbarer Einzelvorgang ---------------------------------------------- */
+@media print {
+  .nur-dieser-vorgang ~ *, .kopf, .rail-huelle, .fuss-nav, .reiter { display: none !important; }
+}

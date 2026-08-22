@@ -71,20 +71,31 @@ und Komponenten, bekommen aber das CI des Kunden — dann wird allein die
 Themenebene ersetzt.
 
 ## Kunden-Demos im Repo
-Vorführ-Software „Wertakte“ für einen Interessenten (Immobiliengutachter,
-Oldenburg). Gehört NICHT zur Website onyx-ai.de und ist von deren Stack- und
-Nicht-Zielen unten ausgenommen. Zwei Fassungen:
+Vorführ-Software „Wertakte“ für einen Interessenten in Oldenburg, der
+Anlageimmobilien vermittelt (Musterobjekt: REWE-Markt Oldenburg). Gehört NICHT
+zur Website onyx-ai.de und ist von deren Stack- und Nicht-Zielen unten
+ausgenommen.
 
-- `wertakte-statisch/` — **die Fassung für den Termin.** Statisch, kein
-  Build-Schritt, als ZIP direkt auf Netlify ablegbar (`index.html` liegt an der
-  Wurzel). Startet bewusst OHNE Bilder, der Kunde nimmt in der Vorführung
-  selbst das erste Foto auf: eigener Reiter „Fotos“ links plus Aufnahme direkt
-  in jeder Akte. Daten und Fotos im Browser des Geräts (localStorage +
-  IndexedDB). Details in `wertakte-statisch/README.md`.
-- `demo-wertakte/` — dieselbe Anwendung als Next.js + TypeScript, lokal per
-  `npm run dev`. Zeigt die Architektur, die im echten Kundenprojekt gebaut
-  wird (Server Components, Server Actions, später Supabase statt Dateisystem).
-  Läuft NICHT als ZIP auf Netlify. Details in `demo-wertakte/README.md`.
+Die Software besteht auf Vorgabe des Interessenten aus fünf Teilen, die links
+als Bereiche und in jeder Objektakte als nummerierte Reiter liegen:
+1 Exposé (Erfassungsbogen, Widerrufsbelehrung, Adressvalidierung bei
+Erstkunden, Provisionsvereinbarung) · 2 Unterlagen und Verträge ·
+3 Investoren · 4 Kommunikation (E-Mail, Telefon, WhatsApp, SMS, revisionssicher
+mit Beleg-Nr., in Outlook gespiegelt, einzeln druckbar) · 5 Terminplan mit
+Eskalationsstufen. Dazu ein Bereich Fotos.
+
+Zwei Fassungen:
+
+- `wertakte-statisch/` — **die aktuelle Fassung für den Termin.** Statisch,
+  kein Build-Schritt, als ZIP direkt auf Netlify ablegbar (`index.html` liegt an
+  der Wurzel). Enthält die fünf Teile oben. Startet bewusst OHNE Bilder, der
+  Kunde nimmt in der Vorführung selbst das erste Foto auf. Daten und Fotos im
+  Browser des Geräts (localStorage + IndexedDB). Details in
+  `wertakte-statisch/README.md`.
+- `demo-wertakte/` — ältere Fassung als Next.js + TypeScript, noch auf das
+  Gutachterwesen zugeschnitten. Zeigt die Architektur, die im echten
+  Kundenprojekt gebaut wird (Server Components, Server Actions, später
+  Supabase). Läuft NICHT als ZIP auf Netlify.
 
 ## Nicht-Ziele (Scope-Grenze)
 - Kein 3D, keine Scroll-Choreografie, keine WebGL-Effekte in Phase 1
