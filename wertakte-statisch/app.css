@@ -399,3 +399,46 @@ textarea.onyx-feld { resize: vertical; line-height: 1.65; }
 }
 .beleg-nachweis p { display: flex; flex-wrap: wrap; gap: .3rem .75rem; font-size: .78125rem; }
 .beleg-nachweis .onyx-etikett { width: 6.5rem; flex: none; }
+
+/* --- Ordner in den Bereichen ---------------------------------------------------- */
+.ordner { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1rem; }
+.ordner-blatt {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .4rem .7rem; font-size: .8125rem; line-height: 1;
+  color: var(--onyx-text-leise); background: var(--onyx-flaeche);
+  border: 1px solid var(--onyx-kontur); border-radius: var(--onyx-radius-klein);
+  transition: color .15s, border-color .15s, background .15s;
+}
+.ordner-blatt:hover { color: var(--onyx-text); border-color: var(--onyx-kontur-stark); }
+.ordner-blatt.ist-an { color: var(--onyx-amber); border-color: var(--onyx-amber); background: var(--onyx-amber-flaeche); }
+.ordner-blatt svg { flex: none; opacity: .8; }
+.ordner-zahl {
+  font-size: 11px; font-variant-numeric: tabular-nums;
+  padding: .05rem .35rem; border-radius: 999px;
+  background: var(--onyx-grund-tief); color: var(--onyx-text-still);
+}
+.ordner-blatt.ist-an .ordner-zahl { background: rgb(232 163 61 / .18); color: var(--onyx-amber); }
+@media (max-width: 560px) { .ordner-blatt { font-size: .78125rem; padding: .35rem .55rem; } }
+
+/* --- Verwaltung ----------------------------------------------------------------- */
+.inhaber-marke {
+  display: inline-block; margin-left: .45rem; padding: .05rem .4rem;
+  font-family: var(--onyx-schrift-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--onyx-amber); background: var(--onyx-amber-flaeche);
+  border: 1px solid rgb(232 163 61 / .35); border-radius: 999px; vertical-align: middle;
+}
+.inhaber-kopf { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+.inhaber-kreis {
+  width: 3.25rem; height: 3.25rem; flex: none; display: grid; place-items: center;
+  font-size: 1.0625rem; letter-spacing: .04em;
+  color: var(--onyx-amber); background: var(--onyx-amber-flaeche);
+  border: 1px solid rgb(232 163 61 / .35); border-radius: 50%;
+}
+.verwaltung-gitter { display: grid; gap: 1rem; }
+@media (min-width: 720px) { .verwaltung-gitter { grid-template-columns: 1fr 1fr; } }
+.rechte-liste { display: grid; gap: .3rem; margin-top: 1rem; }
+.rechte-liste li {
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .8125rem; color: var(--onyx-text-leise);
+}
+.rechte-liste li svg { flex: none; color: var(--onyx-gut); }

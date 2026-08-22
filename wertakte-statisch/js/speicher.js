@@ -48,11 +48,15 @@ window.W = window.W || {};
         try {
           var alt = JSON.parse(roh);
           if (!alt.protokoll) alt.protokoll = W.SEED_PROTOKOLL(alt);
+          if (!alt.konto) alt.konto = W.SEED_KONTO();
+          if (!alt.stamm) alt.stamm = W.SEED_STAMM();
           return alt;
         } catch (e) { /* beschaedigt: neu aufsetzen */ }
       }
       var frisch = JSON.parse(JSON.stringify(W.SEED));
       frisch.protokoll = W.SEED_PROTOKOLL(frisch);
+      frisch.konto = W.SEED_KONTO();
+      frisch.stamm = W.SEED_STAMM();
       W.speicher.sichern(frisch);
       return frisch;
     },

@@ -1470,3 +1470,25 @@ W.SEED_PROTOKOLL = function (d) {
   });
   return eintraege.sort(function (a, c) { return a.zeitpunkt.localeCompare(c.zeitpunkt); });
 };
+
+/* Das Konto des Inhabers und die Stammdaten liegen im Datenbestand, damit der
+   Inhaber sie selbst ändern kann. Beim ersten Start kommen sie aus den
+   Vorgaben oben. */
+W.SEED_KONTO = function () {
+  var K = W.KONTO;
+  return {
+    name: K.name, rolle: K.rolle, buero: K.buero, strasse: K.strasse, ort: K.ort,
+    telefon: K.telefon, mobil: K.mobil, emailBuero: K.emailBuero, archivEmail: K.archivEmail,
+    email: K.email, passwort: K.passwort, stellung: 'Inhaber'
+  };
+};
+
+W.SEED_STAMM = function () {
+  return {
+    objektarten: W.OBJEKTARTEN.slice(),
+    kategorien: W.KATEGORIEN.slice(),
+    pflichtunterlagen: W.PFLICHTUNTERLAGEN.map(function (p) { return p.slice(); }),
+    eskalationsregel: 'Stufe 1 E-Mail · Stufe 2 nach 3 Tagen Anruf · Stufe 3 nach 7 Tagen Eigentümer informieren',
+    provision: '3,57 % inkl. MwSt.'
+  };
+};

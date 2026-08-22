@@ -158,6 +158,32 @@ window.W = window.W || {};
       '</div></div>';
   };
 
+  /* --- Ordner ------------------------------------------------------------------ */
+
+  /* Jede Section hat Ordner. Sie filtern die Liste darunter, der Stand steht in
+     der Adresszeile und ist damit verlinkbar. */
+  W.ordnerreihe = function (ordner, aktiv, adresse) {
+    return '<nav class="ordner" aria-label="Ordner">' + ordner.map(function (o) {
+      var an = String(o.wert || '') === String(aktiv || '');
+      return '<a class="ordner-blatt' + (an ? ' ist-an' : '') + '" href="' + h(adresse(o.wert)) + '"' +
+        (an ? ' aria-current="true"' : '') + '>' +
+        sym.ordner(15) + '<span class="ordner-name">' + h(o.text) + '</span>' +
+        '<span class="mono ordner-zahl">' + o.zahl + '</span></a>';
+    }).join('') + '</nav>';
+  };
+
+  /** Zaehlt, wie viele Eintraege in jeden Ordner fallen. */
+  W.ordnerZaehlen = function (liste, namen, zuordnen) {
+    var zaehler = {};
+    liste.forEach(function (x) {
+      var k = zuordnen(x);
+      (Array.isArray(k) ? k : [k]).forEach(function (n) { zaehler[n] = (zaehler[n] || 0) + 1; });
+    });
+    return [{ wert: '', text: 'Alle', zahl: liste.length }].concat(namen.map(function (n) {
+      return { wert: n, text: n, zahl: zaehler[n] || 0 };
+    }));
+  };
+
   /* --- Anrede und Briefgeruest ------------------------------------------------- */
 
   /* Die Anrede steht als Feld beim Kontakt, sie wird nicht aus dem Namen
@@ -421,6 +447,7 @@ window.W = window.W || {};
       if (q.art && p.art !== q.art) return false;
       return true;
     });
+    var nachObjekt = q.objekt ? eintraege.filter(function (p) { return p.objektId === q.objekt; }) : eintraege;
     return '<div class="kopfzeile-seite"><div><h1>Protokoll</h1>' +
         '<p class="klein leise" style="margin-top:.35rem;max-width:70ch;line-height:1.7">' +
           'Revisionssichere Ablage: jede Mail, jedes Telefonat, jede erhaltene Unterlage, jeder Statuswechsel und jedes Foto ' +
@@ -430,15 +457,19 @@ window.W = window.W || {};
         '<label class="nur-sr" for="p-objekt">Nach Objekt filtern</label>' +
         '<select class="onyx-feld" id="p-objekt" data-pfilter="objekt" style="width:auto;max-width:18rem;padding:.35rem .7rem;font-size:.8125rem">' +
           opt(H.alle(d).map(function (o) { return { wert: o.id, text: o.aktenzeichen + ' · ' + o.bezeichnung }; }), q.objekt || '', 'Alle Objekte') + '</select>' +
-        '<label class="nur-sr" for="p-art">Nach Art filtern</label>' +
-        '<select class="onyx-feld" id="p-art" data-pfilter="art" style="width:auto;padding:.35rem .7rem;font-size:.8125rem">' +
-          opt(W.PROTOKOLL_ARTEN, q.art || '', 'Alle Arten') + '</select>' +
         ((q.objekt || q.art) ? '<a class="onyx-knopf onyx-knopf-klar" style="font-size:.8125rem;padding:.35rem .6rem" href="#/protokoll">' +
           sym.schliessen(13) + 'Zurücksetzen</a>' : '') +
         '<span style="flex:1"></span>' +
         '<button class="onyx-knopf onyx-knopf-leise" id="knopf-drucken" style="font-size:.8125rem;padding:.35rem .6rem">' + sym.drucken(14) + 'Drucken</button>' +
       '</div></div>' +
-      (gefiltert.length ? '<ul class="onyx-register" style="margin-top:1rem;border-top:1px solid var(--onyx-kontur-leise)">' +
+      W.ordnerreihe(W.ordnerZaehlen(nachObjekt, W.PROTOKOLL_ARTEN, function (p) { return p.art; }), q.art || '',
+        function (wert) {
+          var teile = [];
+          if (q.objekt) teile.push('objekt=' + encodeURIComponent(q.objekt));
+          if (wert) teile.push('art=' + encodeURIComponent(wert));
+          return '#/protokoll' + (teile.length ? '?' + teile.join('&') : '');
+        }) +
+      (gefiltert.length ? '<ul class="onyx-register" style="margin-top:.9rem;border-top:1px solid var(--onyx-kontur-leise)">' +
         gefiltert.map(function (p) { return W.protokollZeile(d, p, true); }).join('') + '</ul>'
         : b.leer('Kein Eintrag passt zu diesem Filter.'));
   };
@@ -558,5 +589,125 @@ window.W = window.W || {};
           'Gesamtakte ' + h(o.aktenzeichen) + ', gedruckt am ' + h(W.f.datumLang(heute)) + ' von ' + h(K.name) +
           '. Alle Daten dieser Vorführversion sind Beispieldaten.</footer>' +
       '</article></div>';
+  };
+})();
+
+/* --- Verwaltung: ein Inhaber, alle Rechte ------------------------------------ */
+(function () {
+  var h = W.f.h, sym = W.sym, opt = W.opt;
+
+  W.RECHTE = [
+    'Akten anlegen, ändern und schließen',
+    'Exposé freigeben und versenden',
+    'Unterlagen anfordern, ablegen und entfernen',
+    'Investoren führen, NDA und Adressvalidierung bestätigen',
+    'Kommunikation führen, drucken und archivieren',
+    'Termine anlegen und eskalieren',
+    'Stammdaten und Vorlagen pflegen',
+    'Protokoll einsehen und drucken',
+    'Daten sichern und zurücksetzen'
+  ];
+
+  function karte(titel, unter, inhalt) {
+    return '<section class="onyx-karte" style="margin-top:1.5rem;padding:1.25rem">' +
+      '<p class="onyx-etikett">' + h(titel) + '</p>' +
+      (unter ? '<p class="klein leise" style="margin-top:.35rem;max-width:68ch;line-height:1.65">' + h(unter) + '</p>' : '') +
+      '<div style="margin-top:1rem">' + inhalt + '</div></section>';
+  }
+
+  function feld(name, etikett, wert, art, breit) {
+    return '<div class="feld-gruppe"' + (breit ? ' style="grid-column:1/-1"' : '') + '>' +
+      '<label class="onyx-etikett" for="v-' + name + '">' + h(etikett) + '</label>' +
+      '<input class="onyx-feld" id="v-' + name + '" name="' + name + '" type="' + (art || 'text') +
+      '" value="' + h(wert || '') + '"></div>';
+  }
+
+  W.seiten.verwaltung = function (d) {
+    var k = d.konto || {}, st = d.stamm || {};
+    var kuerzel = W.f.kuerzel(k.name || '');
+
+    var kopf = '<div class="inhaber-kopf">' +
+        '<span class="inhaber-kreis mono">' + h(kuerzel) + '</span>' +
+        '<div><p style="font-size:1.125rem">' + h(k.name || '–') + '</p>' +
+          '<p class="klein leise" style="margin-top:.2rem">' + h(k.buero || '') + ' · ' + h(k.ort || '') + '</p>' +
+          '<p style="margin-top:.5rem"><span class="onyx-marke onyx-marke-fertig">Inhaber · alle Rechte</span></p></div>' +
+      '</div>';
+
+    var profil = '<form id="konto-formular" class="verwaltung-gitter">' +
+        feld('name', 'Name', k.name) +
+        feld('rolle', 'Tätigkeit', k.rolle) +
+        feld('buero', 'Firma', k.buero) +
+        feld('strasse', 'Straße und Hausnummer', k.strasse) +
+        feld('ort', 'PLZ und Ort', k.ort) +
+        feld('telefon', 'Telefon', k.telefon, 'tel') +
+        feld('mobil', 'Mobil, für WhatsApp und SMS', k.mobil, 'tel') +
+        feld('emailBuero', 'E-Mail, erscheint als Absender', k.emailBuero, 'email') +
+        feld('archivEmail', 'Archivadresse, Kopie jeder Mail', k.archivEmail, 'email') +
+        feld('email', 'Anmeldung, E-Mail', k.email, 'email') +
+        feld('passwort', 'Anmeldung, Passwort', k.passwort) +
+        '<div style="grid-column:1/-1;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center">' +
+          '<button class="onyx-knopf onyx-knopf-primaer" type="submit">Konto speichern</button>' +
+          '<span class="mini leise">Name, Firma und Adresse stehen auf jedem Ausdruck und in jeder Mail.</span>' +
+        '</div>' +
+      '</form>';
+
+    var benutzer = '<ul class="onyx-register" style="border-top:1px solid var(--onyx-kontur-leise)">' +
+        '<li class="onyx-zeile" style="display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;padding:.75rem .5rem">' +
+          '<span class="kuerzel" aria-hidden="true">' + h(kuerzel) + '</span>' +
+          '<span class="wachsen" style="min-width:12rem">' +
+            '<span style="display:block;font-size:.9375rem">' + h(k.name || '–') + '</span>' +
+            '<span class="mini leise mono">' + h(k.email || '') + '</span></span>' +
+          '<span class="onyx-marke onyx-marke-fertig">Inhaber</span>' +
+          '<span class="mini still">alle Rechte</span>' +
+        '</li></ul>' +
+      '<ul class="rechte-liste">' + W.RECHTE.map(function (r) {
+        return '<li>' + sym.haken(13) + h(r) + '</li>';
+      }).join('') + '</ul>';
+
+    var stammForm = '<form id="stamm-formular" style="display:grid;gap:1rem">' +
+        '<div class="feld-gruppe"><label class="onyx-etikett" for="s-objektarten">Objektarten, eine je Zeile</label>' +
+          '<textarea class="onyx-feld mono" id="s-objektarten" name="objektarten" rows="5" style="font-size:.8125rem">' +
+            h((st.objektarten || []).join('\n')) + '</textarea></div>' +
+        '<div class="feld-gruppe"><label class="onyx-etikett" for="s-kategorien">Foto-Kategorien, eine je Zeile</label>' +
+          '<textarea class="onyx-feld mono" id="s-kategorien" name="kategorien" rows="4" style="font-size:.8125rem">' +
+            h((st.kategorien || []).join('\n')) + '</textarea></div>' +
+        '<div class="feld-gruppe"><label class="onyx-etikett" for="s-unterlagen">Pflichtunterlagen für neue Objekte, je Zeile „Bezeichnung | Ordner“</label>' +
+          '<textarea class="onyx-feld mono" id="s-unterlagen" name="unterlagen" rows="8" style="font-size:.8125rem">' +
+            h((st.pflichtunterlagen || []).map(function (p) { return p[0] + ' | ' + p[1]; }).join('\n')) + '</textarea></div>' +
+        '<div class="feld-gruppe"><label class="onyx-etikett" for="s-regel">Standard-Eskalationsvorgabe</label>' +
+          '<input class="onyx-feld" id="s-regel" name="regel" value="' + h(st.eskalationsregel || '') + '"></div>' +
+        '<div class="feld-gruppe" style="max-width:22rem"><label class="onyx-etikett" for="s-provision">Standard-Käuferprovision</label>' +
+          '<input class="onyx-feld" id="s-provision" name="provision" value="' + h(st.provision || '') + '"></div>' +
+        '<button class="onyx-knopf onyx-knopf-primaer" type="submit" style="justify-self:start">Stammdaten speichern</button>' +
+      '</form>';
+
+    var zahlen = [
+      ['Objekte', d.objekte.length], ['Kontakte', d.kontakte.length],
+      ['Unterlagen', d.unterlagen.length], ['Vorgänge', d.vorgaenge.length],
+      ['Termine', d.termine.length], ['Fotos', d.fotos.length],
+      ['Protokollzeilen', (d.protokoll || []).length]
+    ].map(function (p) {
+      return '<div><dt class="onyx-etikett">' + h(p[0]) + '</dt>' +
+        '<dd class="mono" style="margin-top:.2rem;font-size:1.0625rem">' + p[1] + '</dd></div>';
+    }).join('');
+
+    var daten = '<dl class="zahlenband" style="margin-top:0">' + zahlen + '</dl>' +
+      '<div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem">' +
+        '<button class="onyx-knopf onyx-knopf-leise" id="knopf-sichern">' + sym.hochladen(16) + 'Sicherung als Datei</button>' +
+        '<button class="onyx-knopf onyx-knopf-klar" id="knopf-zuruecksetzen">Auf Ausgangsstand zurücksetzen</button>' +
+      '</div>' +
+      '<p class="mini leise" style="margin-top:.75rem;line-height:1.7">' +
+        'Die Sicherung enthält den gesamten Datenbestand als Datei. Fotos und abgelegte Scans bleiben im Browser dieses Geräts. ' +
+        'Im Kundensystem liegt beides auf dem Server, mit täglicher Sicherung.</p>';
+
+    return '<div class="kopfzeile-seite"><div><h1>Verwaltung</h1>' +
+        '<p class="klein leise" style="margin-top:.35rem;max-width:70ch;line-height:1.7">' +
+          'Ein Konto führt das System: der Inhaber. Er sieht alles, darf alles und ist der Einzige, ' +
+          'der Stammdaten ändert, Daten sichert und zurücksetzt.</p></div></div>' +
+      karte('Inhaber', '', kopf) +
+      karte('Konto und Absenderdaten', 'Diese Angaben stehen im Briefkopf, in jeder Mail und auf jedem Ausdruck.', profil) +
+      karte('Benutzer und Rechte', 'Es gibt genau ein Konto. Weitere Mitarbeitende mit eingeschränkten Rechten legt im Kundensystem allein der Inhaber an.', benutzer) +
+      karte('Stammdaten und Vorlagen', 'Gilt für alle neuen Objekte. Bestehende Akten bleiben, wie sie sind.', stammForm) +
+      karte('Datenbestand', '', daten);
   };
 })();

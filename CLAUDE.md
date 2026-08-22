@@ -97,6 +97,17 @@ und wird nie aus dem Namen geraten. Das Protokoll hält jede Änderung mit
 Zeitpunkt und Bearbeiter fest, das Suchfeld sucht über alle Bereiche, und die
 Gesamtakte druckt alle fünf Teile samt Journal im Wortlaut als ein Stück.
 
+Jeder Bereich hat oben Ordner mit Zahl (Objekte nach Status, Unterlagen nach
+Kategorie und „Offen“, Kommunikation nach Posteingang/Postausgang und Weg,
+Termine nach Dringlichkeit, Fotos nach Kategorie, Protokoll nach Art). Der
+gewählte Ordner steht in der Adresszeile.
+
+Es gibt genau ein Konto: den Inhaber, mit allen Rechten. Im Bereich Verwaltung
+pflegt er sein Konto (die Angaben stehen im Briefkopf und als Absender), die
+Stammdaten (Objektarten, Foto-Kategorien, Pflichtunterlagen, Eskalationsvorgabe,
+Provision) und den Datenbestand (Sicherung als Datei, Zurücksetzen). Konto und
+Stammdaten liegen im Datenbestand, nicht im Code.
+
 Zwei Fassungen:
 
 - `wertakte-statisch/` — **die aktuelle Fassung für den Termin.** Statisch,

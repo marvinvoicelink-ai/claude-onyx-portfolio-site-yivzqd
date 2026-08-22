@@ -18,7 +18,8 @@
     { pfad: 'kommunikation', text: 'Kommunikation', symbol: sym.chat },
     { pfad: 'termine', text: 'Termine', symbol: sym.kalender },
     { pfad: 'fotos', text: 'Fotos', symbol: sym.bild },
-    { pfad: 'protokoll', text: 'Protokoll', symbol: sym.siegel }
+    { pfad: 'protokoll', text: 'Protokoll', symbol: sym.siegel },
+    { pfad: 'verwaltung', text: 'Verwaltung', symbol: sym.auftraggeber }
   ];
 
   function route() {
@@ -98,8 +99,10 @@
             '<button class="onyx-knopf onyx-knopf-primaer knopf-neu" id="knopf-neu">' + sym.plus(16) + '<span>Neuer Vorgang</span></button>' +
             '<a class="rund-knopf" href="#/termine" aria-label="' + (ueber ? ueber + ' überfällige Wiedervorlagen' : 'Keine überfällige Wiedervorlage') + '">' +
               sym.glocke(19) + (ueber ? '<span class="zaehler mono">' + ueber + '</span>' : '') + '</a>' +
-            '<span class="nutzer-name">' + h(W.KONTO.name) + '</span>' +
-            '<span class="kuerzel" aria-hidden="true">' + h(W.f.kuerzel(W.KONTO.name)) + '</span>' +
+            '<a class="nutzer-name" href="#/verwaltung">' + h(W.KONTO.name) +
+              '<span class="inhaber-marke">Inhaber</span></a>' +
+            '<a class="kuerzel" href="#/verwaltung" aria-label="Verwaltung, angemeldet als Inhaber">' +
+              h(W.f.kuerzel(W.KONTO.name)) + '</a>' +
             '<button class="rund-knopf" id="knopf-abmelden" aria-label="Abmelden">' + sym.abmelden(18) + '</button>' +
           '</div>' +
         '</header>' +
@@ -120,13 +123,14 @@
       if (bereich === 'objekte') { suche = r.q.suche || ''; inhalt = W.seiten.objekte(daten, r.q, bilder); }
       else if (bereich === 'suche') { suche = r.q.q || ''; inhalt = W.seiten.suche(daten, r.q); aktiv = ''; }
       else if (bereich === 'protokoll') { inhalt = W.seiten.protokoll(daten, r.q); }
+      else if (bereich === 'verwaltung') { inhalt = W.seiten.verwaltung(daten); }
       else if (bereich === 'vorgang') { inhalt = W.seiten.vorgangBlatt(daten, r.pfad[1]); aktiv = 'kommunikation'; }
       else if (bereich === 'objekt' && r.pfad[2] === 'akte') { inhalt = W.seiten.akte(daten, r.pfad[1], bilder); aktiv = 'objekte'; }
       else if (bereich === 'objekt' && r.pfad[2] === 'expose') { inhalt = W.seiten.expose(daten, r.pfad[1], bilder); aktiv = 'objekte'; }
       else if (bereich === 'objekt') { inhalt = W.seiten.objekt(daten, r.pfad[1], r.q, bilder); aktiv = 'objekte'; }
       else if (bereich === 'neu') { inhalt = W.seiten.neu(daten, naechstesAktenzeichen()); aktiv = 'objekte'; }
       else if (bereich === 'investor') { inhalt = W.seiten.investor(daten, r.pfad[1]); aktiv = 'investoren'; }
-      else if (bereich === 'investoren') { inhalt = W.seiten.investoren(daten); }
+      else if (bereich === 'investoren') { inhalt = W.seiten.investoren(daten, r.q); }
       else if (bereich === 'kommunikation') { inhalt = W.seiten.kommunikation(daten, r.q); }
       else if (bereich === 'termine') { inhalt = W.seiten.termine(daten, r.q); }
       else if (bereich === 'fotos') { inhalt = W.seiten.fotos(daten, r.q, bilder); }
@@ -248,6 +252,7 @@
     auf('[data-vorgang]', 'click', function (el) { offenerVorgang = el.getAttribute('data-vorgang'); zeichnen(); });
     auf('[data-foto]', 'click', function (el) { offenesFoto = el.getAttribute('data-foto'); zeichnen(); });
 
+    if (r.pfad[0] === 'verwaltung') verdrahteVerwaltung();
     if (r.pfad[0] === 'objekt' && r.pfad[1] && !r.pfad[2]) verdrahteAkte(r.pfad[1], r.q.reiter || 'expose');
     if (r.pfad[0] === 'neu') verdrahteNeu();
     if (r.pfad[0] === 'investor') verdrahteInvestor(r.pfad[1]);
@@ -474,7 +479,10 @@
     return d2.toISOString().slice(0, 10);
   }
 
-  var ESKALATIONSREGEL = 'Stufe 1 E-Mail · Stufe 2 nach 3 Tagen Anruf · Stufe 3 nach 7 Tagen Eigentümer informieren';
+  function eskalationsregel() {
+    return (daten.stamm && daten.stamm.eskalationsregel) ||
+      'Stufe 1 E-Mail · Stufe 2 nach 3 Tagen Anruf · Stufe 3 nach 7 Tagen Eigentümer informieren';
+  }
 
   /* --- Verfassen ------------------------------------------------------------- */
 
@@ -570,7 +578,7 @@
       daten.termine.push({
         id: neueId('tm'), objektId: e.objektId || null, kontaktId: e.kontaktId || null,
         titel: titel, art: 'Wiedervorlage', faellig: inTagen(e.frist || 7), stufe: 1,
-        status: 'offen', regel: ESKALATIONSREGEL, erledigtAm: null
+        status: 'offen', regel: eskalationsregel(), erledigtAm: null
       });
       protokollieren(e.objektId, 'Termin', 'Wiedervorlage angelegt: ' + titel);
     }
@@ -768,7 +776,7 @@
         mieteinnahmen: zahl(form.mieteinnahmen.value), nichtUmlagefaehig: zahl(form.nichtUmlagefaehig.value),
         nichtUmlagefaehigJahr: String(new Date().getFullYear() - 1),
         kaufpreis: zahl(form.kaufpreis.value),
-        kaeuferprovision: form.kaeuferprovision.value.trim() || '3,57 % inkl. MwSt.',
+        kaeuferprovision: form.kaeuferprovision.value.trim() || (daten.stamm && daten.stamm.provision) || '3,57 % inkl. MwSt.',
         eckdaten: [], compliance: {
           provisionsvereinbarung: { status: 'offen', datum: null, hinweis: 'Noch nicht versendet' },
           widerrufsbelehrung: { status: 'offen', datum: null, hinweis: 'Wird mit dem Exposé erstellt' },
@@ -790,6 +798,72 @@
     });
   }
 
+  /* --- Verwaltung ------------------------------------------------------------- */
+
+  function verdrahteVerwaltung() {
+    var kf = document.getElementById('konto-formular');
+    if (kf) kf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      ['name', 'rolle', 'buero', 'strasse', 'ort', 'telefon', 'mobil', 'emailBuero',
+        'archivEmail', 'email', 'passwort'].forEach(function (feld) {
+        if (kf[feld]) daten.konto[feld] = kf[feld].value.trim();
+      });
+      daten.konto.email = (daten.konto.email || '').toLowerCase();
+      stammUebernehmen();
+      protokollieren(null, 'Akte', 'Konto des Inhabers geändert');
+      sichern(); zeichnen();
+      hinweisBalken('Konto gespeichert. Briefkopf und Absender sind angepasst.');
+    });
+
+    var sf = document.getElementById('stamm-formular');
+    if (sf) sf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      function zeilen(wert) {
+        return String(wert || '').split('\n').map(function (z) { return z.trim(); })
+          .filter(function (z) { return z; });
+      }
+      daten.stamm.objektarten = zeilen(sf.objektarten.value);
+      daten.stamm.kategorien = zeilen(sf.kategorien.value);
+      daten.stamm.pflichtunterlagen = zeilen(sf.unterlagen.value).map(function (z) {
+        var teile = z.split('|');
+        return [teile[0].trim(), (teile[1] || 'Sonstiges').trim()];
+      });
+      daten.stamm.eskalationsregel = sf.regel.value.trim();
+      daten.stamm.provision = sf.provision.value.trim();
+      stammUebernehmen();
+      protokollieren(null, 'Akte', 'Stammdaten geändert');
+      sichern(); zeichnen();
+      hinweisBalken('Stammdaten gespeichert.');
+    });
+
+    var sichernKnopf = document.getElementById('knopf-sichern');
+    if (sichernKnopf) sichernKnopf.addEventListener('click', function () {
+      var text = JSON.stringify(daten, null, 2);
+      var url = URL.createObjectURL(new Blob([text], { type: 'application/json' }));
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'wertakte-sicherung-' + new Date().toISOString().slice(0, 10) + '.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+      hinweisBalken('Sicherung erstellt.');
+    });
+
+    var zurueck = document.getElementById('knopf-zuruecksetzen');
+    var sicher = false;
+    if (zurueck) zurueck.addEventListener('click', function () {
+      if (!sicher) {
+        sicher = true;
+        zurueck.classList.remove('onyx-knopf-klar');
+        zurueck.classList.add('onyx-knopf-gefahr');
+        zurueck.textContent = 'Wirklich alles zurücksetzen?';
+        return;
+      }
+      window.wertakteZuruecksetzen();
+    });
+  }
+
   function melde(form, text) {
     var alt = form.querySelector('.rueckmeldung');
     if (alt) alt.remove();
@@ -803,7 +877,19 @@
 
   /* --- Start ---------------------------------------------------------------------------- */
 
+  /* Konto und Stammdaten stehen im Datenbestand, damit der Inhaber sie aendern
+     kann. Beim Start werden sie in die Vorgaben uebernommen. */
+  function stammUebernehmen() {
+    if (daten.konto) Object.keys(daten.konto).forEach(function (k) { W.KONTO[k] = daten.konto[k]; });
+    if (daten.stamm) {
+      if (daten.stamm.objektarten && daten.stamm.objektarten.length) W.OBJEKTARTEN = daten.stamm.objektarten;
+      if (daten.stamm.kategorien && daten.stamm.kategorien.length) W.KATEGORIEN = daten.stamm.kategorien;
+      if (daten.stamm.pflichtunterlagen && daten.stamm.pflichtunterlagen.length) W.PFLICHTUNTERLAGEN = daten.stamm.pflichtunterlagen;
+    }
+  }
+
   daten = W.speicher.laden();
+  stammUebernehmen();
   try { angemeldet = sessionStorage.getItem('wertakte.angemeldet') === '1'; } catch (e) { angemeldet = false; }
   // Ein Seitenwechsel schliesst offene Dialoge, sonst liegen sie ueber der neuen Seite.
   window.addEventListener('hashchange', function () {
@@ -815,6 +901,7 @@
   window.wertakteZuruecksetzen = function () {
     W.speicher.zuruecksetzen().then(function () {
       daten = W.speicher.laden();
+      stammUebernehmen();
       location.hash = '#/uebersicht';
       zeichnen();
       console.log('Wertakte zurückgesetzt.');

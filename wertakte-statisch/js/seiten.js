@@ -235,16 +235,29 @@ window.W = window.W || {};
     }
 
     var eigentuemer = d.kontakte.filter(function (k) { return k.rolle === 'Eigentümer'; });
+
+    // Statusordner: dieselben Zahlen wie in der Übersicht, nur zum Anklicken.
+    var vorFilter = liste.filter(function (o) {
+      if (q.eigentuemer && o.eigentuemerId !== q.eigentuemer) return false;
+      if (!suche) return true;
+      var e2 = kontakt(d, o.eigentuemerId);
+      return [o.aktenzeichen, o.bezeichnung, o.strasse, o.plz, o.ort, o.objektart, e2 ? e2.name : '']
+        .join(' ').toLowerCase().indexOf(suche) >= 0;
+    });
+    var ordner = [{ wert: '', text: 'Alle', zahl: vorFilter.length }].concat(
+      W.OBJEKT_STATUS.map(function (st) {
+        return { wert: st, text: W.OBJEKT_STATUS_TEXT[st],
+          zahl: vorFilter.filter(function (o) { return o.status === st; }).length };
+      }));
+    var ordnerreihe = W.ordnerreihe(ordner, q.status || '', function (wert) { return href({ status: wert }); });
+
     var filter = '<div class="filter">' +
-      '<label class="nur-sr" for="f-status">Nach Status filtern</label>' +
-      '<select class="onyx-feld" id="f-status" data-filter="status" style="width:auto;padding:.35rem .7rem;font-size:.8125rem">' +
-        W.opt(W.OBJEKT_STATUS.map(function (s) { return { wert: s, text: W.OBJEKT_STATUS_TEXT[s] }; }), q.status || '', 'Alle Status') +
-      '</select>' +
       '<label class="nur-sr" for="f-eig">Nach Eigentümer filtern</label>' +
       '<select class="onyx-feld" id="f-eig" data-filter="eigentuemer" style="width:auto;max-width:15rem;padding:.35rem .7rem;font-size:.8125rem">' +
         W.opt(eigentuemer.map(function (k) { return { wert: k.id, text: k.name }; }), q.eigentuemer || '', 'Alle Eigentümer') +
       '</select>' +
       (suche ? '<span class="onyx-marke onyx-marke-laeuft">Suche: ' + h(q.suche) + '</span>' : '') +
+      '<span style="flex:1"></span>' +
       ((suche || q.status || q.eigentuemer)
         ? '<a class="onyx-knopf onyx-knopf-klar" style="font-size:.8125rem;padding:.35rem .6rem" href="' +
           (kacheln ? '#/objekte?ansicht=kacheln' : '#/objekte') + '">' + sym.schliessen(13) + 'Zurücksetzen</a>' : '') +
@@ -319,6 +332,7 @@ window.W = window.W || {};
           (treffer.length === liste.length ? liste.length + ' Objekte im Bestand' : treffer.length + ' von ' + liste.length + ' Objekten') +
         '</p></div>' +
         '<a class="onyx-knopf onyx-knopf-primaer" href="#/neu">' + sym.plus(16) + 'Objekt anlegen</a></div>' +
+      ordnerreihe +
       '<div class="werkzeugleiste">' + filter + umschalter + '</div>' + koerper;
   };
 })();
@@ -337,6 +351,13 @@ window.W = window.W || {};
     { id: 'termine', nr: '5', text: 'Termine' },
     { id: 'fotos', nr: '', text: 'Fotos' }
   ];
+
+  /** Adresse eines Ordners innerhalb eines Reiters der Akte. */
+  function akteOrdner(o, reiter) {
+    return function (wert) {
+      return '#/objekt/' + o.id + '?reiter=' + reiter + (wert ? '&ordner=' + encodeURIComponent(wert) : '');
+    };
+  }
 
   function reiterleiste(o, aktiv, zahlen) {
     return '<nav class="reiter" aria-label="Bereiche der Akte">' + W.REITER.map(function (r) {
@@ -442,9 +463,18 @@ window.W = window.W || {};
 
   /* --- Reiter 2: Unterlagen ------------------------------------------------ */
 
-  function reiterUnterlagen(d, o) {
-    var u = H.unterlagenZu(d, o.id);
+  function reiterUnterlagen(d, o, q) {
+    var alle = H.unterlagenZu(d, o.id);
     var v = H.vollstaendig(d, o.id);
+    var namen = [];
+    alle.forEach(function (x) { if (namen.indexOf(x.kategorie) < 0) namen.push(x.kategorie); });
+    var ordner = W.ordnerZaehlen(alle, namen.concat(['Offen']), function (x) {
+      return x.status === 'vorhanden' ? [x.kategorie] : [x.kategorie, 'Offen'];
+    });
+    var gewaehlt = q && q.ordner ? q.ordner : '';
+    var u = gewaehlt === 'Offen' ? alle.filter(function (x) { return x.status !== 'vorhanden'; })
+      : (gewaehlt ? alle.filter(function (x) { return x.kategorie === gewaehlt; }) : alle);
+
     var kategorien = {};
     u.forEach(function (x) { (kategorien[x.kategorie] = kategorien[x.kategorie] || []).push(x); });
 
@@ -485,17 +515,22 @@ window.W = window.W || {};
         '</div>' +
         '<div style="margin-top:.9rem">' + b.fortschritt(v.ist, v.soll) + '</div>' +
       '</div>' +
+      W.ordnerreihe(ordner, gewaehlt, akteOrdner(o, 'unterlagen')) +
       '<input type="file" id="eingabe-unterlage" accept="application/pdf,image/*" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none">' +
-      listen;
+      (u.length ? listen : b.leer('In diesem Ordner liegt nichts.'));
   }
 
   /* --- Reiter 3: Investoren ------------------------------------------------- */
 
-  function reiterInvestoren(d, o) {
-    var bt = H.beteiligungenZu(d, o.id);
+  function reiterInvestoren(d, o, q) {
+    var alleBt = H.beteiligungenZu(d, o.id);
     var frei = H.investoren(d).filter(function (i) {
-      return !bt.some(function (x) { return x.investorId === i.id; });
+      return !alleBt.some(function (x) { return x.investorId === i.id; });
     });
+    var ordner = W.ordnerZaehlen(alleBt, W.BETEILIGUNG_STAND, function (x) { return x.stand; })
+      .filter(function (x) { return x.zahl || !x.wert; });
+    var gewaehlt = q && q.ordner ? q.ordner : '';
+    var bt = gewaehlt ? alleBt.filter(function (x) { return x.stand === gewaehlt; }) : alleBt;
 
     var liste = bt.length ? '<ul class="onyx-register" style="margin-top:1rem;border-top:1px solid var(--onyx-kontur-leise)">' +
       bt.map(function (x) {
@@ -531,7 +566,8 @@ window.W = window.W || {};
 
     return '<div style="padding-top:1.5rem">' +
       '<div class="abschnitt-kopf"><h2>Investoren auf diesem Objekt</h2>' +
-        '<p class="klein leise mono">' + bt.length + ' beteiligt</p></div>' + liste +
+        '<p class="klein leise mono">' + bt.length + ' von ' + alleBt.length + '</p></div>' +
+      W.ordnerreihe(ordner, gewaehlt, akteOrdner(o, 'investoren')) + liste +
       (frei.length ? '<div class="onyx-karte" style="margin-top:1.5rem;padding:1rem;display:flex;flex-wrap:wrap;gap:.6rem;align-items:flex-end">' +
         '<div class="feld-gruppe" style="min-width:16rem;flex:1">' +
           '<label class="onyx-etikett" for="neuer-investor">Investor hinzufügen</label>' +
@@ -566,8 +602,27 @@ window.W = window.W || {};
       '</button></li>';
   };
 
-  function reiterKommunikation(d, o) {
-    var vg = H.vorgaengeZu(d, { objektId: o.id });
+  /** Posteingang, Postausgang und je ein Ordner pro Weg. */
+  W.kommOrdner = function (liste) {
+    return [
+      { wert: '', text: 'Alle', zahl: liste.length },
+      { wert: 'ein', text: 'Posteingang', zahl: liste.filter(function (v) { return v.richtung === 'ein'; }).length },
+      { wert: 'aus', text: 'Postausgang', zahl: liste.filter(function (v) { return v.richtung === 'aus'; }).length }
+    ].concat(W.KOMM_ARTEN.map(function (a) {
+      return { wert: a, text: a, zahl: liste.filter(function (v) { return v.art === a; }).length };
+    }));
+  };
+
+  W.kommFilter = function (liste, wert) {
+    if (!wert) return liste;
+    if (wert === 'ein' || wert === 'aus') return liste.filter(function (v) { return v.richtung === wert; });
+    return liste.filter(function (v) { return v.art === wert; });
+  };
+
+  function reiterKommunikation(d, o, q) {
+    var alleVg = H.vorgaengeZu(d, { objektId: o.id });
+    var gewaehlt = q && q.ordner ? q.ordner : '';
+    var vg = W.kommFilter(alleVg, gewaehlt);
     var beteiligte = H.beteiligungenZu(d, o.id).map(function (x) { return H.kontakt(d, x.investorId); })
       .filter(Boolean);
     var eig = H.kontakt(d, o.eigentuemerId);
@@ -588,10 +643,11 @@ window.W = window.W || {};
           'In der Vorführung sind Outlook und MailStore nicht angebunden, die Kennzeichnung zeigt, wo die Anbindung sitzt.</p>' +
       '</div>' +
       '<div class="abschnitt-kopf" style="margin-top:1.75rem"><h2>Journal</h2>' +
-        '<p class="klein leise mono">' + vg.length + ' Vorgänge</p></div>' +
-      (vg.length ? '<ul class="onyx-register" style="margin-top:.6rem;border-top:1px solid var(--onyx-kontur-leise)">' +
+        '<p class="klein leise mono">' + vg.length + ' von ' + alleVg.length + '</p></div>' +
+      W.ordnerreihe(W.kommOrdner(alleVg), gewaehlt, akteOrdner(o, 'kommunikation')) +
+      (vg.length ? '<ul class="onyx-register" style="margin-top:.9rem;border-top:1px solid var(--onyx-kontur-leise)">' +
         vg.map(function (v) { return W.vorgangZeile(d, v, false); }).join('') + '</ul>'
-        : b.leer('Noch kein Vorgang zu diesem Objekt.')) +
+        : b.leer('In diesem Ordner liegt nichts.')) +
       '</div>';
   }
 
@@ -624,8 +680,23 @@ window.W = window.W || {};
       '</div>') + '</li>';
   };
 
-  function reiterTermine(d, o) {
-    var tm = H.termineZu(d, o.id);
+  /** Ordner nach Dringlichkeit, nicht nach Art: so sieht man zuerst das Wichtige. */
+  W.TERMIN_ORDNER = ['Überfällig', 'Diese Woche', 'Später', 'Erledigt'];
+
+  W.terminOrdnerName = function (t) {
+    if (t.status === 'erledigt') return 'Erledigt';
+    var tage = W.f.tageBis(t.faellig);
+    if (tage === null) return 'Später';
+    if (tage < 0) return 'Überfällig';
+    if (tage <= 7) return 'Diese Woche';
+    return 'Später';
+  };
+
+  function reiterTermine(d, o, q) {
+    var alleTm = H.termineZu(d, o.id);
+    var ordner = W.ordnerZaehlen(alleTm, W.TERMIN_ORDNER, W.terminOrdnerName);
+    var gewaehlt = q && q.ordner ? q.ordner : '';
+    var tm = gewaehlt ? alleTm.filter(function (t) { return W.terminOrdnerName(t) === gewaehlt; }) : alleTm;
     var beteiligte = H.beteiligungenZu(d, o.id).map(function (x) { return H.kontakt(d, x.investorId); }).filter(Boolean);
     var eig = H.kontakt(d, o.eigentuemerId);
     var wer = (eig ? [eig] : []).concat(beteiligte);
@@ -645,23 +716,28 @@ window.W = window.W || {};
                 opt(wer.map(function (k) { return { wert: k.id, text: k.name }; }), eig ? eig.id : '') + '</select></div>' +
           '</div>' +
           '<div class="feld-gruppe"><label class="onyx-etikett" for="t-regel">Eskalationsvorgabe</label>' +
-            '<input class="onyx-feld" id="t-regel" name="regel" value="Stufe 1 E-Mail · Stufe 2 nach 3 Tagen Anruf · Stufe 3 nach 7 Tagen Eigentümer informieren"></div>' +
+            '<input class="onyx-feld" id="t-regel" name="regel" value="' +
+              h((d.stamm && d.stamm.eskalationsregel) || 'Stufe 1 E-Mail · Stufe 2 nach 3 Tagen Anruf · Stufe 3 nach 7 Tagen Eigentümer informieren') + '"></div>' +
           '<button class="onyx-knopf onyx-knopf-primaer" type="submit" style="justify-self:start">' + sym.plus(16) + 'Wiedervorlage anlegen</button>' +
         '</form>' +
       '</div>' +
       '<div class="abschnitt-kopf" style="margin-top:1.75rem"><h2>Terminplan</h2>' +
-        '<p class="klein leise mono">' + tm.filter(function (t) { return t.status === 'offen'; }).length + ' offen</p></div>' +
-      (tm.length ? '<ul class="onyx-register" style="margin-top:.6rem;border-top:1px solid var(--onyx-kontur-leise)">' +
+        '<p class="klein leise mono">' + alleTm.filter(function (t) { return t.status === 'offen'; }).length + ' offen</p></div>' +
+      W.ordnerreihe(ordner, gewaehlt, akteOrdner(o, 'termine')) +
+      (tm.length ? '<ul class="onyx-register" style="margin-top:.9rem;border-top:1px solid var(--onyx-kontur-leise)">' +
         tm.map(function (t) { return W.terminZeile(d, t, false); }).join('') + '</ul>'
-        : b.leer('Keine Wiedervorlage zu diesem Objekt.')) +
+        : b.leer('In diesem Ordner liegt nichts.')) +
       '</div>';
   }
 
   /* --- Reiter Fotos ------------------------------------------------------------ */
 
-  function reiterFotos(d, o, bilder) {
-    var fotos = H.fotosZu(d, o.id);
-    var ohne = fotos.filter(function (f) { return !f.beschriftung; }).length;
+  function reiterFotos(d, o, bilder, q) {
+    var alleF = H.fotosZu(d, o.id);
+    var ohne = alleF.filter(function (f) { return !f.beschriftung; }).length;
+    var ordner = W.ordnerZaehlen(alleF, W.KATEGORIEN, function (f) { return f.kategorie; });
+    var gewaehlt = q && q.ordner ? q.ordner : '';
+    var fotos = gewaehlt ? alleF.filter(function (f) { return f.kategorie === gewaehlt; }) : alleF;
 
     var galerie = fotos.length
       ? '<ul class="foto-gitter" style="margin-top:1.25rem">' + fotos.map(function (f) {
@@ -674,14 +750,16 @@ window.W = window.W || {};
               : '<span class="amber" style="display:flex;align-items:center;gap:.35rem">' + sym.stift(13) + 'Beschriftung fehlt</span>') +
             '</span></button></li>';
         }).join('') + '</ul>'
-      : b.leer('Noch kein Foto zu diesem Objekt.',
-          'Pflicht fürs Exposé: Außenansicht, Gebäudetechnik und bei Flachdach die Dachfläche. Beim Ortstermin direkt mit dem Handy aufnehmen.');
+      : (alleF.length ? b.leer('In diesem Ordner liegt kein Bild.')
+        : b.leer('Noch kein Foto zu diesem Objekt.',
+          'Pflicht fürs Exposé: Außenansicht, Gebäudetechnik und bei Flachdach die Dachfläche. Beim Ortstermin direkt mit dem Handy aufnehmen.'));
 
     return '<div style="padding-top:1.5rem">' +
       '<div class="abschnitt-kopf"><h2>Fotodokumentation</h2>' +
-        '<p class="klein leise mono">' + fotos.length + ' ' + (fotos.length === 1 ? 'Foto' : 'Fotos') +
+        '<p class="klein leise mono">' + alleF.length + ' ' + (alleF.length === 1 ? 'Foto' : 'Fotos') +
         (ohne ? '<span class="amber"> · ' + ohne + ' ohne Beschriftung</span>' : '') + '</p></div>' +
       '<div style="margin-top:.9rem">' + W.seiten.aufnahmeBlock(d, o.id, false) + '</div>' +
+      (alleF.length ? W.ordnerreihe(ordner, gewaehlt, akteOrdner(o, 'fotos')) : '') +
       galerie + '</div>';
   }
 
@@ -701,11 +779,11 @@ window.W = window.W || {};
       fotos: String(H.fotosZu(d, o.id).length)
     };
 
-    var inhalt = aktiv === 'unterlagen' ? reiterUnterlagen(d, o)
-      : aktiv === 'investoren' ? reiterInvestoren(d, o)
-      : aktiv === 'kommunikation' ? reiterKommunikation(d, o)
-      : aktiv === 'termine' ? reiterTermine(d, o)
-      : aktiv === 'fotos' ? reiterFotos(d, o, bilder)
+    var inhalt = aktiv === 'unterlagen' ? reiterUnterlagen(d, o, q)
+      : aktiv === 'investoren' ? reiterInvestoren(d, o, q)
+      : aktiv === 'kommunikation' ? reiterKommunikation(d, o, q)
+      : aktiv === 'termine' ? reiterTermine(d, o, q)
+      : aktiv === 'fotos' ? reiterFotos(d, o, bilder, q)
       : reiterExpose(d, o);
 
     return '<a class="zurueck" href="#/objekte">' + sym.pfeilLinks(14) + 'Alle Objekte</a>' +
@@ -894,12 +972,20 @@ window.W = window.W || {};
 
   /* --- Investoren -------------------------------------------------------------- */
 
-  W.seiten.investoren = function (d) {
-    var liste = H.investoren(d);
+  W.seiten.investoren = function (d, q) {
+    var alleI = H.investoren(d);
+    var typen = [];
+    alleI.forEach(function (i) { if (i.typ && typen.indexOf(i.typ) < 0) typen.push(i.typ); });
+    var gewaehlt = (q && q.ordner) || '';
+    var liste = gewaehlt ? alleI.filter(function (i) { return i.typ === gewaehlt; }) : alleI;
     return '<div class="kopfzeile-seite"><div><h1>Investoren</h1>' +
         '<p class="klein leise" style="margin-top:.35rem;max-width:64ch;line-height:1.7">' +
           'Wenige, dafür wiederkehrende Käufer. Suchprofil, Vertraulichkeitserklärung und Adressvalidierung stehen an jedem Eintrag.</p></div>' +
-        '<p class="klein leise mono">' + liste.length + ' Investoren</p></div>' +
+        '<p class="klein leise mono">' + liste.length + ' von ' + alleI.length + '</p></div>' +
+      W.ordnerreihe(W.ordnerZaehlen(alleI, typen, function (i) { return i.typ; }), gewaehlt, function (wert) {
+        return '#/investoren' + (wert ? '?ordner=' + encodeURIComponent(wert) : '');
+      }) +
+      '<div style="height:1.25rem"></div>' +
       '<ul style="display:grid;gap:1.25rem;padding-bottom:2rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr))">' +
       liste.map(function (i) {
         var p = i.suchprofil || {};
@@ -1014,11 +1100,9 @@ window.W = window.W || {};
 
   W.seiten.kommunikation = function (d, q) {
     var alleV = H.vorgaengeZu(d, {});
-    var gefiltert = alleV.filter(function (v) {
-      if (q.objekt && v.objektId !== q.objekt) return false;
-      if (q.art && v.art !== q.art) return false;
-      return true;
-    });
+    var imObjekt = q.objekt ? alleV.filter(function (v) { return v.objektId === q.objekt; }) : alleV;
+    var gewaehlt = q.ordner || '';
+    var gefiltert = W.kommFilter(imObjekt, gewaehlt);
     return '<div class="kopfzeile-seite"><div><h1>Kommunikation</h1>' +
         '<p class="klein leise" style="margin-top:.35rem;max-width:66ch;line-height:1.7">' +
           'Die gesamte Korrespondenz läuft über das System: E-Mail ein und aus, Telefonate, WhatsApp, SMS und Briefe. ' +
@@ -1032,15 +1116,16 @@ window.W = window.W || {};
         '<label class="nur-sr" for="k-objekt">Nach Objekt filtern</label>' +
         '<select class="onyx-feld" id="k-objekt" data-kfilter="objekt" style="width:auto;max-width:18rem;padding:.35rem .7rem;font-size:.8125rem">' +
           opt(H.alle(d).map(function (o) { return { wert: o.id, text: o.aktenzeichen + ' · ' + o.bezeichnung }; }), q.objekt || '', 'Alle Objekte') + '</select>' +
-        '<label class="nur-sr" for="k-art">Nach Art filtern</label>' +
-        '<select class="onyx-feld" id="k-art" data-kfilter="art" style="width:auto;padding:.35rem .7rem;font-size:.8125rem">' +
-          opt(W.KOMM_ARTEN, q.art || '', 'Alle Arten') + '</select>' +
-        ((q.objekt || q.art) ? '<a class="onyx-knopf onyx-knopf-klar" style="font-size:.8125rem;padding:.35rem .6rem" href="#/kommunikation">' +
+        ((q.objekt || gewaehlt) ? '<a class="onyx-knopf onyx-knopf-klar" style="font-size:.8125rem;padding:.35rem .6rem" href="#/kommunikation">' +
           sym.schliessen(13) + 'Zurücksetzen</a>' : '') +
       '</div></div>' +
-      (gefiltert.length ? '<ul class="onyx-register" style="margin-top:1rem;border-top:1px solid var(--onyx-kontur-leise)">' +
+      W.ordnerreihe(W.kommOrdner(imObjekt), gewaehlt, function (wert) {
+        return '#/kommunikation' + (q.objekt ? '?objekt=' + encodeURIComponent(q.objekt) : '') +
+          (wert ? (q.objekt ? '&' : '?') + 'ordner=' + encodeURIComponent(wert) : '');
+      }) +
+      (gefiltert.length ? '<ul class="onyx-register" style="margin-top:.9rem;border-top:1px solid var(--onyx-kontur-leise)">' +
         gefiltert.map(function (v) { return W.vorgangZeile(d, v, true); }).join('') + '</ul>'
-        : b.leer('Kein Vorgang passt zu diesem Filter.'));
+        : b.leer('In diesem Ordner liegt nichts.'));
   };
 
   /* --- Globale Termine ------------------------------------------------------------- */
@@ -1048,18 +1133,23 @@ window.W = window.W || {};
   W.seiten.termine = function (d, q) {
     var alleT = H.termineZu(d, null);
     var offen = alleT.filter(function (t) { return t.status === 'offen'; });
-    var zeigen = q.alle === '1' ? alleT : offen;
+    var gewaehlt = q.ordner || '';
+    var zeigen = gewaehlt ? alleT.filter(function (t) { return W.terminOrdnerName(t) === gewaehlt; }) : offen;
     var heute = new Date();
     return '<div class="kopfzeile-seite"><div><h1>Terminplan</h1>' +
         '<p class="klein leise" style="margin-top:.35rem;max-width:66ch;line-height:1.7">' +
           'Wiedervorlagen, Fristen und Termine über alle Objekte. Jede Wiedervorlage hat eine Eskalationsvorgabe: ' +
           'erst E-Mail, dann Anruf, dann Eigentümer informieren.</p></div>' +
-        '<a class="onyx-knopf onyx-knopf-leise" href="' + (q.alle === '1' ? '#/termine' : '#/termine?alle=1') + '">' +
-          (q.alle === '1' ? 'Nur offene zeigen' : 'Auch erledigte zeigen') + '</a></div>' +
+        '<p class="klein leise mono">' + zeigen.length + ' von ' + alleT.length + '</p></div>' +
       '<div style="margin-top:.5rem">' + b.terminschiene(offen, heute, d) + '</div>' +
-      (zeigen.length ? '<ul class="onyx-register" style="margin-top:1.75rem;border-top:1px solid var(--onyx-kontur-leise)">' +
+      W.ordnerreihe(W.ordnerZaehlen(alleT, W.TERMIN_ORDNER, W.terminOrdnerName), gewaehlt, function (wert) {
+        return '#/termine' + (wert ? '?ordner=' + encodeURIComponent(wert) : '');
+      }) +
+      '<p class="mini still" style="margin-top:.5rem">' +
+        (gewaehlt ? 'Ordner „' + h(gewaehlt) + '“' : 'Ohne Ordner stehen hier die offenen Punkte. „Alle“ zeigt auch die erledigten.') + '</p>' +
+      (zeigen.length ? '<ul class="onyx-register" style="margin-top:1rem;border-top:1px solid var(--onyx-kontur-leise)">' +
         zeigen.map(function (t) { return W.terminZeile(d, t, true); }).join('') + '</ul>'
-        : b.leer('Keine Wiedervorlage offen.'));
+        : b.leer('In diesem Ordner liegt nichts.'));
   };
 
   /* --- Globale Fotos ---------------------------------------------------------------- */
@@ -1073,9 +1163,12 @@ window.W = window.W || {};
     var gewaehlt = q.akte && H.obj(d, q.akte) ? q.akte : objekte[0].id;
     var gefiltert = q.filter && H.obj(d, q.filter) ? [H.obj(d, q.filter)] : objekte;
     var gesamt = d.fotos.length;
+    var ordnerWert = q.ordner || '';
 
     var gruppen = gefiltert.map(function (o) {
-      var fotos = H.fotosZu(d, o.id);
+      var fotos = H.fotosZu(d, o.id).filter(function (f) {
+        return !ordnerWert || f.kategorie === ordnerWert;
+      });
       if (!fotos.length) return '';
       return '<section style="margin-top:2rem">' +
         '<div class="abschnitt-kopf">' +
@@ -1104,6 +1197,13 @@ window.W = window.W || {};
           '<option value="">Alle Objekte</option>' +
           opt(objekte.map(function (o) { return { wert: o.id, text: o.aktenzeichen + ' · ' + o.bezeichnung }; }), q.filter || '') +
         '</select></div>' : '') +
+      (gesamt ? W.ordnerreihe(W.ordnerZaehlen(d.fotos, W.KATEGORIEN, function (f) { return f.kategorie; }),
+        ordnerWert, function (wert) {
+          var teile = [];
+          if (q.filter) teile.push('filter=' + encodeURIComponent(q.filter));
+          if (wert) teile.push('ordner=' + encodeURIComponent(wert));
+          return '#/fotos' + (teile.length ? '?' + teile.join('&') : '');
+        }) : '') +
       '<div style="padding-bottom:2rem">' +
         (gesamt ? (gruppen || b.leer('Für dieses Objekt ist noch kein Foto erfasst.'))
           : b.leer('Noch kein Foto im System.',

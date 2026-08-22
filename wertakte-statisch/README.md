@@ -30,6 +30,22 @@ Zugangsdaten sind ausgefüllt, ein Klick auf **Anmelden** genügt.
 | E-Mail   | `buero@demo.wertakte.de` |
 | Passwort | `ortstermin`             |
 
+## Ordner in jedem Bereich
+
+Jeder Bereich hat oben eine Reihe Ordner mit Zahl: **Alle**, dann die Ordner
+des Bereichs. Ein Klick zeigt nur, was darin liegt, der Stand steht in der
+Adresszeile und ist damit verlinkbar.
+
+| Bereich       | Ordner                                                             |
+| ------------- | ------------------------------------------------------------------ |
+| Objekte       | Akquise · Unterlagen · Exposé in Arbeit · In Vermarktung · Reserviert · Abgeschlossen |
+| Unterlagen    | Foto · Lage · Vertrag · Nachweis · Offen                            |
+| Investoren    | nach Stand bzw. nach Investorentyp                                  |
+| Kommunikation | Posteingang · Postausgang · E-Mail · Telefon · WhatsApp · SMS · Brief · Notiz |
+| Termine       | Überfällig · Diese Woche · Später · Erledigt                        |
+| Fotos         | Außenansicht · Innenansicht · Gebäudetechnik · Dachfläche · Umgebung |
+| Protokoll     | Akte · Unterlage · Investor · Kommunikation · Termin · Foto · Exposé |
+
 ## Die fünf Teile
 
 Links in der Leiste stehen die Bereiche, in jeder Objektakte liegen sie
@@ -96,6 +112,16 @@ Beleg im Wortlaut, Terminplan, Bilder und Protokoll.
 **Suche.** Das Feld oben sucht über alles auf einmal: Objekte, Kontakte,
 Unterlagen, Vorgänge samt Beleg-Nummer und Text, Termine und Bildbeschriftungen.
 
+**Verwaltung.** Es gibt genau ein Konto: den **Inhaber**. Er sieht alles, darf
+alles und ist der Einzige, der etwas verwaltet. Der Bereich zeigt seine neun
+Rechte, sein Konto mit allen Absenderdaten (Name, Firma, Anschrift, Telefon,
+Mobil, Absenderadresse, Archivadresse, Anmeldung) – diese Angaben stehen im
+Briefkopf und in jeder Mail –, die Stammdaten (Objektarten, Foto-Kategorien,
+Pflichtunterlagen für neue Objekte, Standard-Eskalationsvorgabe,
+Standard-Provision) und den Datenbestand mit **Sicherung als Datei** und
+**Zurücksetzen**. Weitere Mitarbeitende mit eingeschränkten Rechten legt im
+Kundensystem allein der Inhaber an.
+
 **Fotos.** Eigener Bereich und zusätzlich ein Reiter in jeder Akte.
 „Foto aufnehmen“ öffnet auf dem Handy direkt die Kamera, das Bild landet sofort
 beim gewählten Objekt, bekommt Beschriftung und Kategorie und erscheint im
@@ -120,11 +146,14 @@ Die Demo startet bewusst ohne Bilder.
    Häkchen bei „Wiedervorlage dazu anlegen“, senden.
 9. Reiter 2: bei einer offenen Unterlage **Scan ablegen**, danach **Öffnen**.
 10. Reiter 5: eine Wiedervorlage eskalieren.
-11. Oben ins Suchfeld „Erbbau“ tippen: Treffer aus Objekt, Unterlagen, Mails
+11. Ordner zeigen: in Reiter 2 auf **Offen** klicken, in Reiter 4 auf
+    **Posteingang**, in Reiter 5 auf **Überfällig**.
+12. Oben ins Suchfeld „Erbbau“ tippen: Treffer aus Objekt, Unterlagen, Mails
     und Terminen auf einer Seite.
-12. Links **Protokoll**: dieselben Schritte stehen lückenlos darin.
-13. In der Akte oben rechts **Gesamtakte**, dann **Drucken**.
-14. **Auf dem Handy** dieselbe Adresse öffnen, Akte, Reiter Fotos,
+13. Links **Protokoll**: dieselben Schritte stehen lückenlos darin.
+14. In der Akte oben rechts **Gesamtakte**, dann **Drucken**.
+15. Links **Verwaltung**: ein Konto, neun Rechte, Stammdaten, Sicherung.
+16. **Auf dem Handy** dieselbe Adresse öffnen, Akte, Reiter Fotos,
     **Foto aufnehmen**.
 
 ## Auf den Ausgangsstand zurücksetzen
@@ -146,8 +175,9 @@ mit allen Zahlen aus dem Erfassungsbogen. Alle Namen, Firmen, Adressen und Zahle
 Daten, Fotos und abgelegte Scans liegen im Browser des jeweiligen Geräts, nicht
 auf einem Server. Outlook und MailStore sind nicht angebunden, die Kennzeichnung im
 Journal zeigt, wo die Anbindung sitzt. Revisionssicherheit ist als Beleg-Nummer,
-Zeitstempel, Prüfsumme und Festschreibung abgebildet, ohne Server-Protokoll. Kein
-Mehrbenutzerbetrieb, keine Rollen.
+Zeitstempel, Prüfsumme und Festschreibung abgebildet, ohne Server-Protokoll.
+Es gibt genau ein Konto, den Inhaber; weitere Benutzer und abgestufte Rechte
+kommen erst im Kundensystem.
 
 ## Aufbau
 
@@ -161,7 +191,7 @@ js/format.js          Datums- und Zahlenformate
 js/speicher.js        Speicher im Browser
 js/bausteine.js       Marken, Eskalation, Zeitschiene, Symbole
 js/seiten.js          Alle Seiten und die fünf Reiter
-js/zentrale.js        Verfassen, Suche, Protokoll, Gesamtakte
+js/zentrale.js        Verfassen, Suche, Protokoll, Gesamtakte, Ordner, Verwaltung
 js/app.js             Router und Ereignisse
 netlify.toml          Netlify-Einstellungen
 ```
