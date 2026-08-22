@@ -1,6 +1,10 @@
 /* Beispieldaten der Vorfuehrung. Alle Namen, Adressen, Aktenzeichen und
-   Kontaktdaten sind erfunden. Beim ersten Start werden sie in den Browser
-   uebernommen, danach arbeitet die Anwendung mit dem gespeicherten Stand. */
+   Kontaktdaten sind erfunden.
+
+   Bewusst OHNE Fotos: die Fotodokumentation ist leer, damit der Kunde in der
+   Vorfuehrung selbst das erste Bild aufnimmt und sieht, wie es in der Akte
+   landet. Beim ersten Start werden diese Daten in den Browser uebernommen,
+   danach arbeitet die Anwendung mit dem gespeicherten Stand. */
 window.W = window.W || {};
 W.SEED = {
   "auftraggeber": [
@@ -123,94 +127,5 @@ W.SEED = {
       "angelegtAm": "2026-06-09"
     }
   ],
-  "fotos": [
-    {
-      "id": "foto_041_1",
-      "objektId": "obj_041",
-      "quelle": "beispiel-fotos/efh-fassade.jpg",
-      "beschriftung": "Straßenansicht Nordwestseite, Aufnahme vom Gehweg",
-      "kategorie": "Außenansicht",
-      "aufgenommenAm": "2026-08-12T09:41"
-    },
-    {
-      "id": "foto_041_2",
-      "objektId": "obj_041",
-      "quelle": "beispiel-fotos/efh-wohnzimmer.jpg",
-      "beschriftung": "Wohnzimmer Erdgeschoss mit Galerie, Blick nach Süden",
-      "kategorie": "Innenraum",
-      "aufgenommenAm": "2026-08-12T10:02"
-    },
-    {
-      "id": "foto_041_3",
-      "objektId": "obj_041",
-      "quelle": "beispiel-fotos/efh-keller-feuchte.jpg",
-      "beschriftung": "Feuchtigkeitsschaden Sockelbereich Südwand, Putz großflächig abgeplatzt",
-      "kategorie": "Mangel/Schaden",
-      "aufgenommenAm": "2026-08-12T10:19"
-    },
-    {
-      "id": "foto_041_4",
-      "objektId": "obj_041",
-      "quelle": "beispiel-fotos/efh-dachgeschoss.jpg",
-      "beschriftung": "Dachgeschoss nicht ausgebaut, Sparren ohne Zwischensparrendämmung",
-      "kategorie": "Innenraum",
-      "aufgenommenAm": "2026-08-12T10:34"
-    },
-    {
-      "id": "foto_038_1",
-      "objektId": "obj_038",
-      "quelle": "beispiel-fotos/mfh-strasse.jpg",
-      "beschriftung": "Straßenansicht Ostseite, sechs Vollgeschosse, Klinkerfassade",
-      "kategorie": "Außenansicht",
-      "aufgenommenAm": "2026-08-06T14:08"
-    },
-    {
-      "id": "foto_038_2",
-      "objektId": "obj_038",
-      "quelle": "beispiel-fotos/mfh-treppenhaus.jpg",
-      "beschriftung": "Treppenhaus Aufgang B, Blick vom obersten Podest",
-      "kategorie": "Innenraum",
-      "aufgenommenAm": "2026-08-06T14:31"
-    },
-    {
-      "id": "foto_038_3",
-      "objektId": "obj_038",
-      "quelle": "beispiel-fotos/mfh-bad.jpg",
-      "beschriftung": "Bad Wohnung 12, Sanierung laut Eigentümer 2019",
-      "kategorie": "Ausstattung",
-      "aufgenommenAm": "2026-08-06T15:02"
-    },
-    {
-      "id": "foto_044_1",
-      "objektId": "obj_044",
-      "quelle": "beispiel-fotos/rmh-strassenansicht.jpg",
-      "beschriftung": "Straßenansicht der Zeile, Bewertungsobjekt drittes Haus von links",
-      "kategorie": "Außenansicht",
-      "aufgenommenAm": "2026-08-11T17:20"
-    },
-    {
-      "id": "foto_029_1",
-      "objektId": "obj_029",
-      "quelle": "beispiel-fotos/gew-halle-aussen.jpg",
-      "beschriftung": "Lagerhalle Straßenseite, Zufahrt Ost",
-      "kategorie": "Außenansicht",
-      "aufgenommenAm": "2026-06-18T08:12"
-    },
-    {
-      "id": "foto_029_2",
-      "objektId": "obj_029",
-      "quelle": "beispiel-fotos/gew-halle-innen.jpg",
-      "beschriftung": "Hallenkörper innen, Dachtragwerk aus Holzbindern",
-      "kategorie": "Innenraum",
-      "aufgenommenAm": "2026-06-18T08:36"
-    },
-    {
-      "id": "foto_029_3",
-      "objektId": "obj_029",
-      "quelle": "beispiel-fotos/gew-dachschaden.jpg",
-      "beschriftung": "Dachschaden nach Sturmereignis, Sparrenlage auf 40 m² freiliegend",
-      "kategorie": "Mangel/Schaden",
-      "aufgenommenAm": "2026-06-18T09:05"
-    }
-  ]
+  "fotos": []
 };

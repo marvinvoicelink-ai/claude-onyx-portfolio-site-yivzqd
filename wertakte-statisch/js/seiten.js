@@ -363,20 +363,7 @@ window.W = window.W || {};
           '<div class="abschnitt-kopf"><h2>Fotodokumentation</h2>' +
             '<p class="klein leise mono">' + fotos.length + ' ' + (fotos.length === 1 ? 'Foto' : 'Fotos') +
             (ohne ? '<span class="amber"> · ' + ohne + ' ohne Beschriftung</span>' : '') + '</p></div>' +
-          '<div class="onyx-karte" style="margin-top:1rem;padding:1rem">' +
-            '<div class="aufnahme-knoepfe">' +
-              '<button class="onyx-knopf onyx-knopf-primaer" id="knopf-kamera" style="padding:.85rem;font-size:.9375rem">' + sym.kamera(20) + 'Foto aufnehmen</button>' +
-              '<button class="onyx-knopf onyx-knopf-leise" id="knopf-upload" style="padding:.85rem">' + sym.hochladen(18) + 'Bilder hochladen</button>' +
-            '</div>' +
-            '<p id="upload-lauf" class="klein amber" style="display:none;align-items:center;justify-content:center;gap:.6rem;margin-top:.6rem;padding:.9rem;background:var(--onyx-amber-flaeche);border:1px solid var(--onyx-kontur-stark);border-radius:var(--onyx-radius-klein)">Fotos werden in die Akte übernommen …</p>' +
-            '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-top:.75rem">' +
-              '<label class="onyx-etikett" for="neue-kategorie">Neue Fotos ablegen als</label>' +
-              '<select class="onyx-feld" id="neue-kategorie" style="width:auto;padding:.3rem .7rem;font-size:.8125rem">' +
-                auswahlOpt(W.KATEGORIEN, 'Außenansicht') + '</select>' +
-            '</div>' +
-            '<input id="eingabe-kamera" type="file" accept="image/*" capture="environment" class="nur-sr">' +
-            '<input id="eingabe-upload" type="file" accept="image/*" multiple class="nur-sr">' +
-          '</div>' +
+          '<div style="margin-top:1rem">' + W.seiten.aufnahmeBlock(d, o.id, false) + '</div>' +
           '<div style="margin-top:1.25rem">' + galerie + '</div>' +
         '</section>' +
 
@@ -687,5 +674,114 @@ window.W = window.W || {};
       '<h1 style="margin-top:1rem">Diese Seite gibt es nicht</h1>' +
       '<p class="klein leise" style="margin-top:.5rem">Die Akte wurde vielleicht entfernt oder die Adresse stimmt nicht.</p>' +
       '<a class="onyx-knopf onyx-knopf-primaer" style="margin-top:1.75rem" href="#/uebersicht">Zur Übersicht</a></div>';
+  };
+})();
+
+/* --- Teil 3: Aufnahmeblock und Fotoseite -------------------------------- */
+(function () {
+  var h = W.f.h, sym = W.sym, H = W.hilfen;
+
+  function opt(werte, gewaehlt) {
+    return werte.map(function (w) {
+      var wert = typeof w === 'string' ? w : w.wert;
+      var text = typeof w === 'string' ? w : w.text;
+      return '<option value="' + h(wert) + '"' + (wert === gewaehlt ? ' selected' : '') + '>' + h(text) + '</option>';
+    }).join('');
+  }
+
+  /**
+   * Flaeche zum Aufnehmen und Hochladen.
+   * mitAkte = true blendet zusaetzlich die Auswahl ein, zu welcher Akte das
+   * Bild gehoert. In der Akte selbst ist das schon klar.
+   */
+  W.seiten.aufnahmeBlock = function (d, akteId, mitAkte) {
+    var akten = H.alle(d);
+    var akteAuswahl = mitAkte
+      ? '<div class="feld-gruppe" style="min-width:14rem;flex:1">' +
+          '<label class="onyx-etikett" for="neue-akte">Foto gehört zur Akte</label>' +
+          '<select class="onyx-feld" id="neue-akte">' +
+            opt(akten.map(function (o) {
+              return { wert: o.id, text: o.aktenzeichen + ' · ' + o.strasse };
+            }), akteId) +
+          '</select></div>'
+      : '';
+
+    return '<div class="onyx-karte" style="padding:1rem">' +
+      '<div class="aufnahme-knoepfe">' +
+        '<button class="onyx-knopf onyx-knopf-primaer" id="knopf-kamera" style="padding:.85rem;font-size:.9375rem">' +
+          sym.kamera(20) + 'Foto aufnehmen</button>' +
+        '<button class="onyx-knopf onyx-knopf-leise" id="knopf-upload" style="padding:.85rem">' +
+          sym.hochladen(18) + 'Bilder hochladen</button>' +
+      '</div>' +
+      '<p id="upload-lauf" class="klein amber" style="display:none;align-items:center;justify-content:center;gap:.6rem;margin-top:.6rem;padding:.9rem;background:var(--onyx-amber-flaeche);border:1px solid var(--onyx-kontur-stark);border-radius:var(--onyx-radius-klein)">Fotos werden übernommen …</p>' +
+      '<div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:.75rem 1rem;margin-top:.9rem">' +
+        akteAuswahl +
+        '<div class="feld-gruppe" style="min-width:11rem">' +
+          '<label class="onyx-etikett" for="neue-kategorie">Kategorie</label>' +
+          '<select class="onyx-feld" id="neue-kategorie">' + opt(W.KATEGORIEN, 'Außenansicht') + '</select>' +
+        '</div>' +
+      '</div>' +
+      '<input id="eingabe-kamera" type="file" accept="image/*" capture="environment" class="nur-sr">' +
+      '<input id="eingabe-upload" type="file" accept="image/*" multiple class="nur-sr">' +
+      '</div>';
+  };
+
+  /* --- Fotoseite ---------------------------------------------------------- */
+
+  W.seiten.fotos = function (d, q, bilder) {
+    var akten = H.alle(d);
+    if (!akten.length) {
+      return '<div class="kopfzeile-seite"><div><h1>Fotos</h1></div></div>' +
+        W.b.leer('Noch keine Akte angelegt.', 'Fotos gehören immer zu einem Objekt. Lege zuerst einen Gutachtenauftrag an.') +
+        '<div style="margin-top:1.25rem"><a class="onyx-knopf onyx-knopf-primaer" href="#/neu">' + sym.plus(16) + 'Objekt anlegen</a></div>';
+    }
+
+    var gewaehlt = q.akte && H.obj(d, q.akte) ? q.akte : akten[0].id;
+    var gefiltert = q.filter && H.obj(d, q.filter) ? [H.obj(d, q.filter)] : akten;
+    var gesamt = d.fotos.length;
+
+    var gruppen = gefiltert.map(function (o) {
+      var fotos = H.fotosZu(d, o.id);
+      if (!fotos.length) return '';
+      return '<section style="margin-top:2rem">' +
+        '<div class="abschnitt-kopf">' +
+          '<h2 style="font-size:.9375rem"><a href="#/objekt/' + h(o.id) + '">' + h(o.strasse) + '</a></h2>' +
+          '<p class="klein leise mono">' + h(o.aktenzeichen) + ' · ' + fotos.length + ' ' + (fotos.length === 1 ? 'Foto' : 'Fotos') + '</p>' +
+        '</div>' +
+        '<ul class="foto-gitter" style="margin-top:.9rem">' + fotos.map(function (f) {
+          return '<li><button class="onyx-karte onyx-karte-klick foto-karte" data-foto="' + h(f.id) + '">' +
+            '<span class="bild"><img src="' + h(H.src(f, bilder)) + '" alt="' + h(f.beschriftung || 'Foto ohne Beschriftung') + '" loading="lazy">' +
+              '<span class="bild-marke amber" style="left:0;bottom:0;text-transform:uppercase;letter-spacing:.06em;font-size:10.5px">' + h(f.kategorie) + '</span>' +
+            '</span>' +
+            '<span class="foto-text">' + (f.beschriftung
+              ? '<span class="zwei-zeilen">' + h(f.beschriftung) + '</span>'
+              : '<span class="amber" style="display:flex;align-items:center;gap:.35rem">' + sym.stift(13) + 'Beschriftung fehlt</span>') +
+            '</span></button></li>';
+        }).join('') + '</ul></section>';
+    }).join('');
+
+    var galerie = gesamt
+      ? (gruppen || W.b.leer('Für diese Akte ist noch kein Foto erfasst.'))
+      : W.b.leer('Noch kein Foto im System.',
+          'Nimm oben das erste Bild auf. Auf dem Handy öffnet „Foto aufnehmen“ direkt die Kamera, das Bild liegt danach in der gewählten Akte und erscheint im Gutachten-Entwurf.');
+
+    var filter = gesamt ? '<div class="filter" style="margin-top:1.5rem">' +
+      '<label class="onyx-etikett" for="foto-filter">Anzeigen</label>' +
+      '<select class="onyx-feld" id="foto-filter" style="width:auto;max-width:22rem;padding:.35rem .7rem;font-size:.8125rem">' +
+        '<option value="">Alle Akten</option>' +
+        opt(akten.map(function (o) { return { wert: o.id, text: o.aktenzeichen + ' · ' + o.strasse }; }), q.filter || '') +
+      '</select></div>' : '';
+
+    return '<div class="kopfzeile-seite"><div>' +
+        '<h1>Fotos</h1>' +
+        '<p class="klein leise" style="margin-top:.35rem;max-width:62ch;line-height:1.7">' +
+          'Bilder für die Fotodokumentation. Beim Ortstermin direkt mit dem Handy aufnehmen, ' +
+          'sie landen sofort in der gewählten Akte.</p>' +
+        '</div>' +
+        '<p class="klein leise mono">' + gesamt + ' ' + (gesamt === 1 ? 'Foto' : 'Fotos') + ' im System</p>' +
+      '</div>' +
+      W.seiten.aufnahmeBlock(d, gewaehlt, true) +
+      filter +
+      '<div style="padding-bottom:2rem">' + galerie + '</div>';
   };
 })();

@@ -80,8 +80,9 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 30;
   background: var(--onyx-grund); border-top: 1px solid var(--onyx-kontur);
   padding-bottom: env(safe-area-inset-bottom);
-  display: grid; grid-template-columns: repeat(3, 1fr);
+  display: grid; grid-template-columns: repeat(4, 1fr);
 }
+.fuss-nav a { font-size: 10.5px; }
 @media (min-width: 768px) { .fuss-nav { display: none; } }
 .fuss-nav a {
   display: flex; flex-direction: column; align-items: center; gap: .25rem;
@@ -160,7 +161,7 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 1024px) { .akte-spalten { grid-template-columns: 5fr 7fr; gap: 2.5rem; } .akte-spalten > .fotos { order: 2; } .akte-spalten > .angaben { order: 1; } }
 .angaben-gitter { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--onyx-kontur-leise); }
 .weit { grid-column: 1 / -1; }
-.foto-gitter { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; }
+.foto-gitter { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; align-items: start; }
 @media (min-width: 1024px) { .foto-gitter { grid-template-columns: repeat(3, 1fr); } }
 .foto-karte { width: 100%; text-align: left; overflow: hidden; font: inherit; color: inherit; }
 .foto-karte .bild { position: relative; aspect-ratio: 4/3; background: var(--onyx-flaeche-hoch); }
@@ -249,3 +250,7 @@ textarea.onyx-feld { resize: vertical; line-height: 1.65; }
   border-radius: 4px; background: var(--onyx-amber); color: var(--onyx-auf-amber);
 }
 .schiene-balken.ist-warn { background: var(--onyx-warn); color: var(--onyx-grund-tief); }
+
+/* Fotoseite: Zähler unter den Erklärtext, damit er nicht neben dem
+   umbrechenden Absatz klebt. */
+@media (max-width: 900px) { .kopfzeile-seite > p { width: 100%; } }

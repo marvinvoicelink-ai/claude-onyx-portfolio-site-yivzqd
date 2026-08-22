@@ -33,11 +33,20 @@ Zugangsdaten sind ausgefüllt, ein Klick auf **Anmelden** genügt.
 
 ## Fotos
 
-In jeder Akte gibt es **Foto aufnehmen**. Auf dem Handy öffnet der Knopf
-direkt die Kamera, das Bild landet sofort in der Akte, bekommt eine
-Beschriftung und eine Kategorie und erscheint anschließend im
-Gutachten-Entwurf als nummeriertes Lichtbild. **Bilder hochladen** nimmt
-vorhandene Dateien, auch mehrere auf einmal.
+Die Demo startet **ohne Bilder**. Das ist Absicht: der Kunde nimmt in der
+Vorführung selbst das erste Foto auf und sieht, wie es in der Akte landet.
+
+Zwei Wege dorthin:
+
+- **Reiter „Fotos“** in der linken Leiste. Dort wählst du die Akte und die
+  Kategorie und nimmst auf oder lädst hoch. Darunter stehen alle Bilder,
+  nach Akte gruppiert und filterbar.
+- **In der Akte selbst**, im Block Fotodokumentation.
+
+**Foto aufnehmen** öffnet auf dem Handy direkt die Kamera. Das Bild landet
+sofort in der gewählten Akte, bekommt Beschriftung und Kategorie und
+erscheint im Gutachten-Entwurf als nummeriertes Lichtbild. **Bilder
+hochladen** nimmt vorhandene Dateien, auch mehrere auf einmal.
 
 Die Fotos bleiben nach dem Neuladen und nach dem Schließen des Browsers
 erhalten.
@@ -69,10 +78,11 @@ was in einer früheren Vorführung entstanden ist.
    suchen, nach Status oder Auftraggeber filtern.
 4. **Akte GA-2026-041** öffnen: Objektangaben links, Fotodokumentation rechts,
    Status wechseln.
-5. **Foto anklicken**, Beschriftung ändern, speichern.
-6. **Gutachten-Entwurf erstellen**, dann drucken oder als PDF sichern.
-7. **Auf dem Handy** dieselbe Adresse öffnen, Akte aufrufen, **Foto aufnehmen**
-   drücken. Das ist der Moment, der den Kunden überzeugt.
+5. **Reiter Fotos**: Akte wählen, **Foto aufnehmen** drücken, Bild beschriften.
+6. **Gutachten-Entwurf erstellen**: das eben aufgenommene Bild steht dort als
+   Lichtbild 1. Dann drucken oder als PDF sichern.
+7. **Auf dem Handy** dieselbe Adresse öffnen und dort fotografieren. Das ist
+   der Moment, der den Kunden überzeugt.
 
 ## Was drin ist
 
@@ -80,8 +90,10 @@ was in einer früheren Vorführung entstanden ist.
   Objekttyp, Auftraggeber, Bewertungsanlass, Status, Ortstermin, Abgabefrist,
   Wertermittlungsstichtag, Flächen und Notizen
 - Übersicht als Liste und als Kacheln mit Titelfoto, Suche und Filter
-- Fotodokumentation: beliebig viele Fotos je Objekt, Kamera-Aufnahme,
-  Mehrfach-Upload, Beschriftung und Kategorie je Bild
+- Eigener Reiter **Fotos**: aufnehmen oder hochladen, Akte und Kategorie
+  wählen, alle Bilder nach Akte gruppiert und filterbar
+- Fotodokumentation auch direkt in jeder Akte: beliebig viele Fotos,
+  Kamera-Aufnahme, Mehrfach-Upload, Beschriftung und Kategorie je Bild
 - Auftraggeber mit Kontaktdaten, Notizen und vollständiger Auftragshistorie
 - Gutachten-Entwurf: gegliedertes A4-Dokument aus Akte und Fotos, druckbar
 - Fristen und Ortstermine auf der Übersicht, überschrittene Fristen in Rot
@@ -94,8 +106,7 @@ index.html            Hülle
 app.css               Ergänzungen zum Designsystem
 onyx-dunkel.css       Onyx-Designsystem „Dunkel/Amber“
 schriften/            Archivo, Instrument Sans, IBM Plex Mono, selbst gehostet
-beispiel-fotos/       Beispielbilder, Nachweis in BILDNACHWEIS.md
-js/seed.js            Beispieldaten
+js/seed.js            Beispieldaten (vier Akten, vier Auftraggeber, keine Fotos)
 js/format.js          Datums- und Zahlenformate
 js/speicher.js        Speicher im Browser
 js/bausteine.js       Marken, Zeitschiene, Symbole
@@ -104,5 +115,5 @@ js/app.js             Router und Ereignisse
 netlify.toml          Netlify-Einstellungen
 ```
 
-Alle Beispieldaten sind erfunden. Die Fotos stammen unter freien Lizenzen von
-Wikimedia Commons, Nachweis in `beispiel-fotos/BILDNACHWEIS.md`.
+Alle Beispieldaten sind erfunden. Bilder sind keine enthalten, die kommen in
+der Vorführung vom Gerät des Nutzers.

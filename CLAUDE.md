@@ -77,8 +77,10 @@ Nicht-Zielen unten ausgenommen. Zwei Fassungen:
 
 - `wertakte-statisch/` — **die Fassung für den Termin.** Statisch, kein
   Build-Schritt, als ZIP direkt auf Netlify ablegbar (`index.html` liegt an der
-  Wurzel). Daten und aufgenommene Fotos im Browser des Geräts
-  (localStorage + IndexedDB). Details in `wertakte-statisch/README.md`.
+  Wurzel). Startet bewusst OHNE Bilder, der Kunde nimmt in der Vorführung
+  selbst das erste Foto auf: eigener Reiter „Fotos“ links plus Aufnahme direkt
+  in jeder Akte. Daten und Fotos im Browser des Geräts (localStorage +
+  IndexedDB). Details in `wertakte-statisch/README.md`.
 - `demo-wertakte/` — dieselbe Anwendung als Next.js + TypeScript, lokal per
   `npm run dev`. Zeigt die Architektur, die im echten Kundenprojekt gebaut
   wird (Server Components, Server Actions, später Supabase statt Dateisystem).

@@ -9,6 +9,7 @@
   var PUNKTE = [
     { pfad: 'uebersicht', text: 'Übersicht', symbol: sym.uebersicht },
     { pfad: 'objekte', text: 'Objekte', symbol: sym.objekte },
+    { pfad: 'fotos', text: 'Fotos', symbol: sym.bild },
     { pfad: 'auftraggeber', text: 'Auftraggeber', symbol: sym.auftraggeber }
   ];
 
@@ -123,6 +124,8 @@
       } else if (bereich === 'objekt') {
         inhalt = W.seiten.objekt(daten, r.pfad[1], bilder);
         aktiv = 'objekte';
+      } else if (bereich === 'fotos') {
+        inhalt = W.seiten.fotos(daten, r.q, bilder);
       } else if (bereich === 'neu') {
         inhalt = W.seiten.neu(daten, naechstesAktenzeichen());
         aktiv = 'objekte';
@@ -216,6 +219,7 @@
       var drucken = document.getElementById('knopf-drucken');
       if (drucken) drucken.addEventListener('click', function () { window.print(); });
     }
+    if (r.pfad[0] === 'fotos') verdrahteFotoseite();
     if (r.pfad[0] === 'neu') verdrahteNeu();
     if (r.pfad[0] === 'auftraggeber' && r.pfad[1]) verdrahteAgNotiz(r.pfad[1]);
   }
@@ -240,14 +244,7 @@
       melde(notiz, 'Notizen gespeichert.');
     });
 
-    var kamera = document.getElementById('eingabe-kamera');
-    var upload = document.getElementById('eingabe-upload');
-    var kKnopf = document.getElementById('knopf-kamera');
-    var uKnopf = document.getElementById('knopf-upload');
-    if (kKnopf) kKnopf.addEventListener('click', function () { kamera.click(); });
-    if (uKnopf) uKnopf.addEventListener('click', function () { upload.click(); });
-    if (kamera) kamera.addEventListener('change', function () { uebernehmen(o, kamera.files); });
-    if (upload) upload.addEventListener('change', function () { uebernehmen(o, upload.files); });
+    verdrahteAufnahme(function () { return o.id; });
 
     Array.prototype.forEach.call(document.querySelectorAll('[data-foto]'), function (k) {
       k.addEventListener('click', function () {
@@ -257,9 +254,46 @@
     });
   }
 
-  /** Ausgewaehlte Bilder in die Akte uebernehmen. */
-  function uebernehmen(o, dateien) {
-    if (!dateien || !dateien.length) return;
+  /** Kamera- und Upload-Knoepfe an die Dateieingaben haengen.
+   *  akteId() liefert, zu welcher Akte die Bilder gehoeren. */
+  function verdrahteAufnahme(akteId) {
+    var kamera = document.getElementById('eingabe-kamera');
+    var upload = document.getElementById('eingabe-upload');
+    var kKnopf = document.getElementById('knopf-kamera');
+    var uKnopf = document.getElementById('knopf-upload');
+    if (!kamera || !upload) return;
+    if (kKnopf) kKnopf.addEventListener('click', function () { kamera.click(); });
+    if (uKnopf) uKnopf.addEventListener('click', function () { upload.click(); });
+    kamera.addEventListener('change', function () { uebernehmen(akteId(), kamera.files); });
+    upload.addEventListener('change', function () { uebernehmen(akteId(), upload.files); });
+  }
+
+  function verdrahteFotoseite() {
+    verdrahteAufnahme(function () {
+      var sel = document.getElementById('neue-akte');
+      return sel ? sel.value : null;
+    });
+
+    var filter = document.getElementById('foto-filter');
+    if (filter) filter.addEventListener('change', function () {
+      var q = Object.assign({}, route().q);
+      q.filter = filter.value;
+      var teile = Object.keys(q).filter(function (k) { return q[k]; })
+        .map(function (k) { return k + '=' + encodeURIComponent(q[k]); });
+      location.hash = '#/fotos' + (teile.length ? '?' + teile.join('&') : '');
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-foto]'), function (k) {
+      k.addEventListener('click', function () {
+        offenesFoto = k.getAttribute('data-foto');
+        zeichnen();
+      });
+    });
+  }
+
+  /** Ausgewaehlte Bilder in eine Akte uebernehmen. */
+  function uebernehmen(objektId, dateien) {
+    if (!objektId || !dateien || !dateien.length) return;
     var kategorieFeld = document.getElementById('neue-kategorie');
     var kategorie = kategorieFeld ? kategorieFeld.value : 'Außenansicht';
     var lauf = document.getElementById('upload-lauf');
@@ -277,7 +311,7 @@
       return W.speicher.fotoSichern(id, datei).then(function () {
         return {
           id: neueId('foto'),
-          objektId: o.id,
+          objektId: objektId,
           quelle: 'idb:' + id,
           beschriftung: '',
           kategorie: kategorie,
@@ -287,6 +321,15 @@
     })).then(function (neue) {
       daten.fotos = daten.fotos.concat(neue);
       sichern();
+      // Auf der Fotoseite die gewaehlte Akte behalten, damit mehrere Bilder
+      // hintereinander in dieselbe Akte wandern.
+      if (route().pfad[0] === 'fotos') {
+        var q = Object.assign({}, route().q, { akte: objektId });
+        var teile = Object.keys(q).filter(function (k) { return q[k]; })
+          .map(function (k) { return k + '=' + encodeURIComponent(q[k]); });
+        var ziel = '#/fotos?' + teile.join('&');
+        if (location.hash !== ziel) { location.hash = ziel; return; }
+      }
       zeichnen();
     }).catch(function () {
       alert('Die Fotos konnten nicht gespeichert werden. Bitte den privaten Modus des Browsers verlassen.');
