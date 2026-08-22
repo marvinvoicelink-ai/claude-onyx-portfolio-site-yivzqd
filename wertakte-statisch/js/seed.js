@@ -1424,3 +1424,43 @@ W.PFLICHTUNTERLAGEN = [
   ["Energieausweis", "Nachweis"], ["Nebenkostenabrechnung 2025", "Nachweis"],
   ["Baugenehmigung", "Nachweis"], ["Versicherungsnachweis", "Nachweis"]
 ];
+
+/* Das Protokoll wird nicht Zeile fuer Zeile mitgeliefert, sondern beim ersten
+   Start aus den Beispieldaten erzeugt. So passt es immer zu dem, was in der
+   Akte steht, und wird danach nur noch fortgeschrieben. */
+W.SEED_PROTOKOLL = function (d) {
+  var nutzer = (W.KONTO && W.KONTO.name) || 'System';
+  var lauf = 0;
+  var eintraege = [];
+  function dazu(zeitpunkt, objektId, art, text, belegNr) {
+    lauf += 1;
+    eintraege.push({
+      id: 'pr_seed_' + lauf, zeitpunkt: zeitpunkt, objektId: objektId || null,
+      art: art, text: text, nutzer: nutzer, belegNr: belegNr || null
+    });
+  }
+  function name(id) { var k = d.kontakte.filter(function (x) { return x.id === id; })[0]; return k ? k.name : 'unbekannt'; }
+
+  d.objekte.forEach(function (o) {
+    dazu(o.angelegtAm + 'T08:05', o.id, 'Akte', 'Akte ' + o.aktenzeichen + ' angelegt: ' + o.bezeichnung);
+  });
+  d.unterlagen.forEach(function (u) {
+    if (u.angefordertAm) dazu(u.angefordertAm + 'T09:30', u.objektId, 'Unterlage', u.bezeichnung + ' angefordert');
+    if (u.erhaltenAm) dazu(u.erhaltenAm + 'T11:15', u.objektId, 'Unterlage', u.bezeichnung + ' erhalten und abgelegt');
+  });
+  d.beteiligungen.forEach(function (x) {
+    if (x.ndaAm) dazu(x.ndaAm + 'T10:20', x.objektId, 'Investor', 'Vertraulichkeitserklärung von ' + name(x.investorId) + ' eingegangen');
+    if (x.exposeAm) dazu(x.exposeAm + 'T10:40', x.objektId, 'Exposé', 'Exposé an ' + name(x.investorId) + ' versendet');
+  });
+  d.vorgaenge.forEach(function (v) {
+    dazu(v.zeitpunkt, v.objektId, 'Kommunikation',
+      v.art + ' ' + (v.richtung === 'aus' ? 'ausgehend' : 'eingehend') + ' · ' + v.betreff, v.belegNr);
+  });
+  d.termine.forEach(function (t) {
+    if (t.erledigtAm) dazu(t.erledigtAm + 'T16:00', t.objektId, 'Termin', 'Wiedervorlage erledigt: ' + t.titel);
+  });
+  d.fotos.forEach(function (f) {
+    dazu(f.aufgenommenAm, f.objektId, 'Foto', 'Foto zur Akte genommen: ' + (f.beschriftung || f.kategorie));
+  });
+  return eintraege.sort(function (a, c) { return a.zeitpunkt.localeCompare(c.zeitpunkt); });
+};

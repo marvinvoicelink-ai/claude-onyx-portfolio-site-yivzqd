@@ -79,10 +79,18 @@ ausgenommen.
 Die Software besteht auf Vorgabe des Interessenten aus fünf Teilen, die links
 als Bereiche und in jeder Objektakte als nummerierte Reiter liegen:
 1 Exposé (Erfassungsbogen, Widerrufsbelehrung, Adressvalidierung bei
-Erstkunden, Provisionsvereinbarung) · 2 Unterlagen und Verträge ·
-3 Investoren · 4 Kommunikation (E-Mail, Telefon, WhatsApp, SMS, revisionssicher
-mit Beleg-Nr., in Outlook gespiegelt, einzeln druckbar) · 5 Terminplan mit
-Eskalationsstufen. Dazu ein Bereich Fotos.
+Erstkunden, Provisionsvereinbarung) · 2 Unterlagen und Verträge (Scan oder PDF
+direkt zur Zeile ablegbar) · 3 Investoren · 4 Kommunikation (E-Mail, Telefon,
+WhatsApp, SMS, Brief, Notiz, revisionssicher mit Beleg-Nr., in Outlook
+gespiegelt, einzeln druckbar) · 5 Terminplan mit Eskalationsstufen. Dazu die
+Bereiche Fotos und Protokoll.
+
+Alles läuft im System, nichts daneben: verfasst wird über einen zentralen
+Dialog (Weg wählen, Objekt und Gegenüber wählen, Anlagen aus der Akte
+ankreuzen, optional Wiedervorlage im selben Schritt), aus jedem Vorgang heraus
+geht Antworten und Weiterleiten. Das Protokoll hält jede Änderung mit Zeitpunkt
+und Bearbeiter fest, das Suchfeld sucht über alle Bereiche, und die Gesamtakte
+druckt alle fünf Teile samt Journal im Wortlaut als ein Stück.
 
 Zwei Fassungen:
 

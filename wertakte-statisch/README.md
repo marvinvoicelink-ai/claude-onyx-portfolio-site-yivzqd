@@ -1,7 +1,9 @@
 # Wertakte – Vorführ-Software
 
-Objekt- und Vermarktungsverwaltung für die Vermittlung von Anlageimmobilien.
-Statische Anwendung, kein Build-Schritt, keine Server-Einrichtung.
+Ein System für die Vermittlung von Anlageimmobilien: Exposé, Unterlagen,
+Investoren, die gesamte Korrespondenz, der Terminplan und die Fotos liegen in
+einer Akte. Nichts läuft daneben. Statische Anwendung, kein Build-Schritt,
+keine Server-Einrichtung.
 
 ## Auf Netlify stellen
 
@@ -46,6 +48,8 @@ Strukturdaten, Lageplan, Mietvertrag mit Nachträgen, Grundbuchauszug,
 Erbbaurechtsvertrag, Provisionsvereinbarung, Energieausweis,
 Nebenkostenabrechnung, Baugenehmigung, Versicherungsnachweis. Je Unterlage
 anfordern, als vorhanden markieren, zurücksetzen. Der Balken zeigt den Stand.
+Über **Scan ablegen** kommt das Blatt selbst ins System: PDF oder Foto direkt
+zur Zeile, danach lässt es sich öffnen. Kein Ordner mehr im Regal.
 
 **3 Investoren.** Wer auf dem Objekt sitzt, mit Vertraulichkeitserklärung,
 Exposé-Versand und Stand. Das System hält den Exposé-Versand zurück, solange
@@ -54,14 +58,29 @@ Versand freigegeben und automatisch im Journal protokolliert. Der eigene
 Bereich „Investoren“ zeigt zusätzlich Suchprofil, Volumen und Faktorgrenze.
 
 **4 Kommunikation.** E-Mail ein und aus, Telefon, WhatsApp, SMS, Brief und
-Notiz. Jeder Eintrag bekommt Beleg-Nummer und Zeitstempel und ist danach
-festgeschrieben. E-Mails sind als „in Outlook gespiegelt“ gekennzeichnet.
-Jeder Vorgang lässt sich einzeln öffnen und ausdrucken: kein Papier im Alltag,
-aber alles druckbar.
+Notiz. Geschrieben wird im System: Weg wählen, Objekt und Gegenüber wählen,
+Anlagen aus der Akte ankreuzen, absenden. Auf Wunsch entsteht im selben Schritt
+die Wiedervorlage. Jeder Eintrag bekommt Beleg-Nummer und Zeitstempel und ist
+danach festgeschrieben. E-Mails sind als „in Outlook gespiegelt“ gekennzeichnet.
+Aus jedem Vorgang heraus geht **Antworten** und **Weiterleiten**. Jeder Vorgang
+lässt sich einzeln öffnen und ausdrucken: kein Papier im Alltag, aber alles
+druckbar.
 
 **5 Termine.** Wiedervorlagen, Fristen und Termine mit Eskalationsstufen.
 Stufe 1 E-Mail, Stufe 2 Anruf, Stufe 3 Eigentümer informieren. Überfällige
 Punkte stehen rot, die Zeitschiene zeigt fünf Kalenderwochen.
+
+**Protokoll.** Eigener Bereich in der linken Leiste. Jede Mail, jedes
+Telefonat, jede erhaltene Unterlage, jeder Statuswechsel, jede Eskalation und
+jedes Foto stehen mit Zeitpunkt und Bearbeiter darin, nach Objekt und Art
+filterbar und als Ganzes druckbar. Einträge lassen sich nicht ändern.
+
+**Gesamtakte.** In jeder Akte oben rechts. Alle fünf Teile als ein Druckstück:
+Eckdaten, Unterlagenliste, Investoren, das vollständige Journal mit jedem
+Beleg im Wortlaut, Terminplan, Bilder und Protokoll.
+
+**Suche.** Das Feld oben sucht über alles auf einmal: Objekte, Kontakte,
+Unterlagen, Vorgänge samt Beleg-Nummer und Text, Termine und Bildbeschriftungen.
 
 **Fotos.** Eigener Bereich und zusätzlich ein Reiter in jeder Akte.
 „Foto aufnehmen“ öffnet auf dem Handy direkt die Kamera, das Bild landet sofort
@@ -78,10 +97,18 @@ Die Demo startet bewusst ohne Bilder.
    der Punkt fehlt im Dokument.
 5. Reiter 3: bei Bruns steht „Exposé-Versand gesperrt“. Über den Investor die
    Adressvalidierung erledigen, zurück, Versand ist frei und steht im Journal.
-6. Reiter 4: einen Anruf erfassen, Eintrag öffnen, **Drucken**.
-7. Reiter 5: eine Wiedervorlage eskalieren.
-8. **Auf dem Handy** dieselbe Adresse öffnen, Akte, Reiter Fotos,
-   **Foto aufnehmen**.
+6. Reiter 4: **Telefon** wählen, Dauer und Gesprächsnotiz eintragen,
+   registrieren. Der Eintrag steht sofort im Journal, öffnen, **Drucken**.
+7. Aus demselben Eintrag heraus **Antworten**, Kanal auf **WhatsApp** wechseln,
+   Häkchen bei „Wiedervorlage dazu anlegen“, senden.
+8. Reiter 2: bei einer offenen Unterlage **Scan ablegen**, danach **Öffnen**.
+9. Reiter 5: eine Wiedervorlage eskalieren.
+10. Oben ins Suchfeld „Erbbau“ tippen: Treffer aus Objekt, Unterlagen, Mails
+    und Terminen auf einer Seite.
+11. Links **Protokoll**: dieselben Schritte stehen lückenlos darin.
+12. In der Akte oben rechts **Gesamtakte**, dann **Drucken**.
+13. **Auf dem Handy** dieselbe Adresse öffnen, Akte, Reiter Fotos,
+    **Foto aufnehmen**.
 
 ## Auf den Ausgangsstand zurücksetzen
 
@@ -94,13 +121,13 @@ wertakteZuruecksetzen()
 ## Beispieldaten
 
 Drei Objekte, sechs Kontakte, zwölf Vorgänge, sieben Termine, 45 Unterlagen,
-keine Fotos. Musterobjekt ist der REWE-Markt Oldenburg mit allen Zahlen aus
-dem Erfassungsbogen. Alle Namen, Firmen, Adressen und Zahlen sind erfunden.
+72 Protokolleinträge, keine Fotos. Musterobjekt ist der REWE-Markt Oldenburg
+mit allen Zahlen aus dem Erfassungsbogen. Alle Namen, Firmen, Adressen und Zahlen sind erfunden.
 
 ## Grenzen dieser Vorführversion
 
-Daten und Fotos liegen im Browser des jeweiligen Geräts, nicht auf einem
-Server. Outlook und MailStore sind nicht angebunden, die Kennzeichnung im
+Daten, Fotos und abgelegte Scans liegen im Browser des jeweiligen Geräts, nicht
+auf einem Server. Outlook und MailStore sind nicht angebunden, die Kennzeichnung im
 Journal zeigt, wo die Anbindung sitzt. Revisionssicherheit ist als Beleg-Nummer,
 Zeitstempel und Festschreibung abgebildet, ohne Server-Protokoll. Kein
 Mehrbenutzerbetrieb, keine Rollen.
@@ -117,6 +144,7 @@ js/format.js          Datums- und Zahlenformate
 js/speicher.js        Speicher im Browser
 js/bausteine.js       Marken, Eskalation, Zeitschiene, Symbole
 js/seiten.js          Alle Seiten und die fünf Reiter
+js/zentrale.js        Verfassen, Suche, Protokoll, Gesamtakte
 js/app.js             Router und Ereignisse
 netlify.toml          Netlify-Einstellungen
 ```

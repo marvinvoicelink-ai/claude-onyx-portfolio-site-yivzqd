@@ -5,7 +5,7 @@
    Im spaeteren Kundensystem steht hier Supabase mit Postgres und Storage. */
 window.W = window.W || {};
 (function () {
-  var SCHLUESSEL = 'wertakte.daten.v1';
+  var SCHLUESSEL = 'wertakte.daten.v2';
   var DB_NAME = 'wertakte';
   var LADEN = 'fotos';
   var db = null;
@@ -45,9 +45,14 @@ window.W = window.W || {};
       try { roh = localStorage.getItem(SCHLUESSEL); }
       catch (e) { speicherWarnung = 'Der Browser erlaubt kein dauerhaftes Speichern. Änderungen gelten nur bis zum Neuladen.'; }
       if (roh) {
-        try { return JSON.parse(roh); } catch (e) { /* beschaedigt: neu aufsetzen */ }
+        try {
+          var alt = JSON.parse(roh);
+          if (!alt.protokoll) alt.protokoll = W.SEED_PROTOKOLL(alt);
+          return alt;
+        } catch (e) { /* beschaedigt: neu aufsetzen */ }
       }
       var frisch = JSON.parse(JSON.stringify(W.SEED));
+      frisch.protokoll = W.SEED_PROTOKOLL(frisch);
       W.speicher.sichern(frisch);
       return frisch;
     },
@@ -84,6 +89,14 @@ window.W = window.W || {};
         return urlCache[id];
       }).catch(function () { return null; });
     },
+
+    /* Unterlagen und Anlagen liegen im selben Laden wie die Fotos: es sind
+       ebenfalls nur Blobs. Eigene Namen, damit im Aufrufer lesbar bleibt,
+       worum es geht. */
+    dateiSichern: function (id, blob) { return W.speicher.fotoSichern(id, blob); },
+    dateiLoeschen: function (id) { return W.speicher.fotoLoeschen(id); },
+    dateiUrl: function (id) { return W.speicher.fotoUrl(id); },
+    dateiUrls: function (ids) { return W.speicher.fotoUrls(ids); },
 
     /** Adressen aller genannten Fotos auf einmal, fuer das Zeichnen einer Seite. */
     fotoUrls: function (ids) {

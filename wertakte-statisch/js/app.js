@@ -6,6 +6,8 @@
   var angemeldet = false;
   var offenesFoto = null;
   var offenerVorgang = null;
+  var entwurf = null;
+  var zielUnterlage = null;
 
   /* Die Bereiche der linken Leiste. Die fuenf Teile aus der Vorgabe des
      Kunden liegen zusaetzlich als nummerierte Reiter in jeder Objektakte. */
@@ -15,7 +17,8 @@
     { pfad: 'investoren', text: 'Investoren', symbol: sym.investor },
     { pfad: 'kommunikation', text: 'Kommunikation', symbol: sym.chat },
     { pfad: 'termine', text: 'Termine', symbol: sym.kalender },
-    { pfad: 'fotos', text: 'Fotos', symbol: sym.bild }
+    { pfad: 'fotos', text: 'Fotos', symbol: sym.bild },
+    { pfad: 'protokoll', text: 'Protokoll', symbol: sym.siegel }
   ];
 
   function route() {
@@ -88,10 +91,11 @@
         '<header class="kopf kein-druck">' +
           '<a class="wortmarke" href="#/uebersicht" style="flex:none">Wertakte</a>' +
           '<div class="kopf-suche"><div>' + sym.suche(15) +
-            '<label class="nur-sr" for="kopfsuche">Nach Aktenzeichen, Objekt oder Eigentümer suchen</label>' +
-            '<input class="onyx-feld onyx-suche" id="kopfsuche" type="search" placeholder="Suchen …" value="' + h(suche || '') + '" style="padding-top:.45rem;padding-bottom:.45rem;font-size:.875rem">' +
+            '<label class="nur-sr" for="kopfsuche">Über alle Bereiche suchen</label>' +
+            '<input class="onyx-feld onyx-suche" id="kopfsuche" type="search" placeholder="Alles durchsuchen …" value="' + h(suche || '') + '" style="padding-top:.45rem;padding-bottom:.45rem;font-size:.875rem">' +
           '</div></div>' +
           '<div class="kopf-werkzeuge">' +
+            '<button class="onyx-knopf onyx-knopf-primaer knopf-neu" id="knopf-neu">' + sym.plus(16) + '<span>Neuer Vorgang</span></button>' +
             '<a class="rund-knopf" href="#/termine" aria-label="' + (ueber ? ueber + ' überfällige Wiedervorlagen' : 'Keine überfällige Wiedervorlage') + '">' +
               sym.glocke(19) + (ueber ? '<span class="zaehler mono">' + ueber + '</span>' : '') + '</a>' +
             '<span class="nutzer-name">' + h(W.KONTO.name) + '</span>' +
@@ -114,6 +118,9 @@
       var inhalt, aktiv = bereich, suche = '';
 
       if (bereich === 'objekte') { suche = r.q.suche || ''; inhalt = W.seiten.objekte(daten, r.q, bilder); }
+      else if (bereich === 'suche') { suche = r.q.q || ''; inhalt = W.seiten.suche(daten, r.q); aktiv = ''; }
+      else if (bereich === 'protokoll') { inhalt = W.seiten.protokoll(daten, r.q); }
+      else if (bereich === 'objekt' && r.pfad[2] === 'akte') { inhalt = W.seiten.akte(daten, r.pfad[1], bilder); aktiv = 'objekte'; }
       else if (bereich === 'objekt' && r.pfad[2] === 'expose') { inhalt = W.seiten.expose(daten, r.pfad[1], bilder); aktiv = 'objekte'; }
       else if (bereich === 'objekt') { inhalt = W.seiten.objekt(daten, r.pfad[1], r.q, bilder); aktiv = 'objekte'; }
       else if (bereich === 'neu') { inhalt = W.seiten.neu(daten, naechstesAktenzeichen()); aktiv = 'objekte'; }
@@ -142,6 +149,10 @@
         var v = daten.vorgaenge.filter(function (x) { return x.id === offenerVorgang; })[0];
         if (v) { wurzel.insertAdjacentHTML('beforeend', W.seiten.vorgangDialog(daten, v)); verdrahteVorgangDialog(); }
         else offenerVorgang = null;
+      }
+      if (entwurf) {
+        wurzel.insertAdjacentHTML('beforeend', W.seiten.verfassen(daten, entwurf));
+        verdrahteVerfassen();
       }
       verdrahteSeite(r);
     });
@@ -187,7 +198,7 @@
         clearTimeout(timer);
         var wert = suchfeld.value;
         timer = setTimeout(function () {
-          location.hash = '#/objekte' + (wert ? '?suche=' + encodeURIComponent(wert) : '');
+          location.hash = wert ? '#/suche?q=' + encodeURIComponent(wert) : '#/uebersicht';
           setTimeout(function () {
             var neu = document.getElementById('kopfsuche');
             if (neu) { neu.focus(); neu.setSelectionRange(neu.value.length, neu.value.length); }
@@ -195,6 +206,31 @@
         }, 250);
       });
     }
+
+    var neuKnopf = document.getElementById('knopf-neu');
+    if (neuKnopf) neuKnopf.addEventListener('click', function () {
+      var r2 = route();
+      entwurfOeffnen({ art: 'E-Mail', richtung: 'aus',
+        objektId: r2.pfad[0] === 'objekt' ? r2.pfad[1] : (r2.q.objekt || ''), kontaktId: '' });
+    });
+
+    // Verfassen laesst sich von jeder Stelle aus starten, auch aus einem Vorgang heraus.
+    auf('[data-verfassen]', 'click', function (el) {
+      var roh = el.getAttribute('data-verfassen');
+      var e;
+      try { e = JSON.parse(roh); } catch (f) { e = {}; }
+      offenerVorgang = null;
+      entwurfOeffnen(e);
+    });
+
+    auf('[data-pfilter]', 'change', function (sel) {
+      var q = Object.assign({}, route().q);
+      q[sel.getAttribute('data-pfilter')] = sel.value;
+      location.hash = '#/protokoll' + anhaengsel(q);
+    });
+
+    var drucken = document.getElementById('knopf-drucken');
+    if (drucken) drucken.addEventListener('click', function () { window.print(); });
 
     auf('[data-filter]', 'change', function (sel) {
       var q = Object.assign({}, route().q);
@@ -211,11 +247,7 @@
     auf('[data-vorgang]', 'click', function (el) { offenerVorgang = el.getAttribute('data-vorgang'); zeichnen(); });
     auf('[data-foto]', 'click', function (el) { offenesFoto = el.getAttribute('data-foto'); zeichnen(); });
 
-    if (r.pfad[0] === 'objekt' && r.pfad[2] === 'expose') {
-      var dr = document.getElementById('knopf-drucken');
-      if (dr) dr.addEventListener('click', function () { window.print(); });
-    }
-    if (r.pfad[0] === 'objekt' && r.pfad[1] && r.pfad[2] !== 'expose') verdrahteAkte(r.pfad[1], r.q.reiter || 'expose');
+    if (r.pfad[0] === 'objekt' && r.pfad[1] && !r.pfad[2]) verdrahteAkte(r.pfad[1], r.q.reiter || 'expose');
     if (r.pfad[0] === 'neu') verdrahteNeu();
     if (r.pfad[0] === 'investor') verdrahteInvestor(r.pfad[1]);
     if (r.pfad[0] === 'fotos') verdrahteFotoseite();
@@ -235,16 +267,26 @@
     if (!o) return;
 
     var status = document.getElementById('objekt-status');
-    if (status) status.addEventListener('change', function () { o.status = status.value; sichern(); zeichnen(); });
+    if (status) status.addEventListener('change', function () {
+      o.status = status.value;
+      protokollieren(o.id, 'Akte', 'Status geändert auf „' + (W.OBJEKT_STATUS_TEXT[o.status] || o.status) + '“');
+      sichern(); zeichnen();
+    });
 
     // Reiter 1: Erfassungsbogen
     auf('[data-eck]', 'change', function (el) {
       var i = Number(el.getAttribute('data-eck'));
-      if (o.eckdaten[i]) { o.eckdaten[i].imExpose = el.checked; sichern(); zeichnen(); }
+      if (o.eckdaten[i]) {
+        o.eckdaten[i].imExpose = el.checked;
+        protokollieren(o.id, 'Exposé', (el.checked ? 'Angabe ins Exposé übernommen: ' : 'Angabe aus dem Exposé genommen: ') + o.eckdaten[i].etikett);
+        sichern(); zeichnen();
+      }
     });
     var notiz = document.getElementById('notiz-formular');
     if (notiz) notiz.addEventListener('submit', function (e) {
-      e.preventDefault(); o.notizen = notiz.notizen.value; sichern(); melde(notiz, 'Notizen gespeichert.');
+      e.preventDefault(); o.notizen = notiz.notizen.value;
+      protokollieren(o.id, 'Akte', 'Notizen zur Akte geändert');
+      sichern(); melde(notiz, 'Notizen gespeichert.');
     });
 
     // Reiter 2: Unterlagen
@@ -252,22 +294,72 @@
     var heuteIso = new Date().toISOString().slice(0, 10);
     auf('[data-ul-anfordern]', 'click', function (el) {
       var x = ul(el.getAttribute('data-ul-anfordern'));
-      if (x) { x.status = 'angefordert'; x.angefordertAm = heuteIso; sichern(); zeichnen(); }
+      if (!x) return;
+      x.status = 'angefordert'; x.angefordertAm = heuteIso;
+      protokollieren(o.id, 'Unterlage', x.bezeichnung + ' angefordert');
+      sichern(); zeichnen();
     });
     auf('[data-ul-da]', 'click', function (el) {
       var x = ul(el.getAttribute('data-ul-da'));
-      if (x) { x.status = 'vorhanden'; x.erhaltenAm = heuteIso; sichern(); zeichnen(); }
+      if (!x) return;
+      x.status = 'vorhanden'; x.erhaltenAm = heuteIso;
+      protokollieren(o.id, 'Unterlage', x.bezeichnung + ' liegt vor');
+      sichern(); zeichnen();
     });
     auf('[data-ul-zurueck]', 'click', function (el) {
       var x = ul(el.getAttribute('data-ul-zurueck'));
-      if (x) { x.status = 'fehlt'; x.erhaltenAm = null; x.angefordertAm = null; sichern(); zeichnen(); }
+      if (!x) return;
+      x.status = 'fehlt'; x.erhaltenAm = null; x.angefordertAm = null;
+      protokollieren(o.id, 'Unterlage', x.bezeichnung + ' zurückgesetzt');
+      sichern(); zeichnen();
+    });
+
+    // Scan oder PDF zur Zeile: kein Papier mehr, das Blatt liegt im System.
+    var dateiFeld = document.getElementById('eingabe-unterlage');
+    auf('[data-ul-datei]', 'click', function (el) {
+      zielUnterlage = el.getAttribute('data-ul-datei');
+      if (dateiFeld) { dateiFeld.value = ''; dateiFeld.click(); }
+    });
+    if (dateiFeld) dateiFeld.addEventListener('change', function () {
+      var x = ul(zielUnterlage), datei = dateiFeld.files && dateiFeld.files[0];
+      if (!x || !datei) return;
+      var kennung = neueId('dat');
+      W.speicher.dateiSichern(kennung, datei).then(function () {
+        x.datei = { kennung: kennung, name: datei.name, typ: datei.type || 'Datei', groesse: datei.size };
+        if (x.status !== 'vorhanden') { x.status = 'vorhanden'; x.erhaltenAm = heuteIso; }
+        protokollieren(o.id, 'Unterlage', x.bezeichnung + ' abgelegt: ' + datei.name);
+        sichern(); zeichnen();
+      }).catch(function () {
+        alert('Die Datei konnte nicht abgelegt werden. Bitte den privaten Modus des Browsers verlassen.');
+      });
+    });
+    auf('[data-ul-oeffnen]', 'click', function (el, ev) {
+      ev.preventDefault();
+      var x = ul(el.getAttribute('data-ul-oeffnen'));
+      if (!x || !x.datei) return;
+      W.speicher.dateiUrl(x.datei.kennung).then(function (u) {
+        if (u) window.open(u, '_blank');
+        else alert('Die Datei liegt nicht mehr im Speicher dieses Geräts.');
+      });
+    });
+    auf('[data-ul-weg]', 'click', function (el) {
+      var x = ul(el.getAttribute('data-ul-weg'));
+      if (!x || !x.datei) return;
+      W.speicher.dateiLoeschen(x.datei.kennung);
+      protokollieren(o.id, 'Unterlage', x.bezeichnung + ': Datei entfernt (' + x.datei.name + ')');
+      x.datei = null;
+      sichern(); zeichnen();
     });
 
     // Reiter 3: Investoren
     function bt(id2) { return daten.beteiligungen.filter(function (x) { return x.id === id2; })[0]; }
     auf('[data-stand]', 'change', function (el) {
       var x = bt(el.getAttribute('data-stand'));
-      if (x) { x.stand = el.value; sichern(); zeichnen(); }
+      if (!x) return;
+      x.stand = el.value;
+      var wer = H.kontakt(daten, x.investorId);
+      protokollieren(o.id, 'Investor', (wer ? wer.name : 'Investor') + ': Stand auf „' + x.stand + '“ gesetzt');
+      sichern(); zeichnen();
     });
     auf('[data-nda]', 'click', function (el) {
       var x = bt(el.getAttribute('data-nda'));
@@ -276,6 +368,7 @@
       if (x.stand === 'NDA offen' || x.stand === 'Angesprochen') x.stand = 'NDA unterzeichnet';
       var i = H.kontakt(daten, x.investorId);
       if (i) i.nda = { status: 'unterzeichnet', datum: heuteIso };
+      protokollieren(o.id, 'Investor', 'Vertraulichkeitserklärung von ' + (i ? i.name : 'Investor') + ' eingegangen');
       sichern(); zeichnen();
     });
     auf('[data-expose]', 'click', function (el) {
@@ -283,6 +376,8 @@
       if (!x) return;
       var i = H.kontakt(daten, x.investorId);
       if (i && i.adressvalidierung && i.adressvalidierung.status === 'offen') {
+        protokollieren(o.id, 'Exposé', 'Versand an ' + i.name + ' gesperrt: Adressvalidierung steht aus');
+        sichern();
         alert('Adressvalidierung steht noch aus. Das Exposé kann erst danach versendet werden.');
         return;
       }
@@ -294,6 +389,7 @@
         inhalt: 'Anbei das Exposé inklusive Widerrufsbelehrung. Käuferprovision ' + o.kaeuferprovision + '.',
         anhaenge: ['Expose_' + o.aktenzeichen + '.pdf', 'Widerrufsbelehrung.pdf'], outlook: true
       });
+      protokollieren(o.id, 'Exposé', 'Exposé an ' + (i ? i.name : 'Investor') + ' versendet');
       sichern(); zeichnen();
     });
     var dazuKnopf = document.getElementById('investor-dazu');
@@ -304,20 +400,8 @@
         id: neueId('bt'), objektId: o.id, investorId: sel.value, stand: 'Angesprochen',
         ndaAm: null, exposeAm: null, letzteReaktion: heuteIso, notiz: ''
       });
-      sichern(); zeichnen();
-    });
-
-    // Reiter 4: Kommunikation
-    var vf = document.getElementById('vorgang-formular');
-    if (vf) vf.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var betreff = vf.betreff.value.trim();
-      if (!betreff) { vf.betreff.focus(); return; }
-      vorgangAnlegen({
-        objektId: o.id, kontaktId: vf.kontaktId.value, art: vf.art.value, richtung: vf.richtung.value,
-        betreff: betreff, inhalt: vf.inhalt.value.trim(), anhaenge: [],
-        outlook: vf.art.value === 'E-Mail'
-      });
+      var neuerI = H.kontakt(daten, sel.value);
+      protokollieren(o.id, 'Investor', (neuerI ? neuerI.name : 'Investor') + ' zur Akte genommen');
       sichern(); zeichnen();
     });
 
@@ -332,6 +416,7 @@
         art: tf.art.value, faellig: tf.faellig.value || heuteIso, stufe: 1, status: 'offen',
         regel: tf.regel.value.trim(), erledigtAm: null
       });
+      protokollieren(o.id, 'Termin', tf.art.value + ' angelegt: ' + titel);
       sichern(); zeichnen();
     });
     verdrahteTerminKnoepfe();
@@ -344,22 +429,164 @@
     function tm(id) { return daten.termine.filter(function (t) { return t.id === id; })[0]; }
     auf('[data-eskalieren]', 'click', function (el) {
       var t = tm(el.getAttribute('data-eskalieren'));
-      if (t && t.stufe < 3) { t.stufe += 1; sichern(); zeichnen(); }
+      if (!t || t.stufe >= 3) return;
+      t.stufe += 1;
+      protokollieren(t.objektId, 'Termin', 'Eskalation auf Stufe ' + t.stufe + ': ' + t.titel);
+      sichern(); zeichnen();
     });
     auf('[data-erledigt]', 'click', function (el) {
       var t = tm(el.getAttribute('data-erledigt'));
-      if (t) { t.status = 'erledigt'; t.erledigtAm = new Date().toISOString().slice(0, 10); sichern(); zeichnen(); }
+      if (!t) return;
+      t.status = 'erledigt'; t.erledigtAm = new Date().toISOString().slice(0, 10);
+      protokollieren(t.objektId, 'Termin', 'Wiedervorlage erledigt: ' + t.titel);
+      sichern(); zeichnen();
     });
   }
 
   /** Legt einen Vorgang revisionssicher ab: Beleg-Nummer, Zeitstempel, festgeschrieben. */
   function vorgangAnlegen(v) {
-    daten.vorgaenge.push({
+    var eintrag = {
       id: neueId('vg'), objektId: v.objektId, kontaktId: v.kontaktId, art: v.art, richtung: v.richtung,
       zeitpunkt: new Date().toISOString().slice(0, 16), betreff: v.betreff, inhalt: v.inhalt || '',
-      teilnehmer: '', belegNr: naechsteBelegNr(), festgeschrieben: true,
+      teilnehmer: v.teilnehmer || '', belegNr: naechsteBelegNr(), festgeschrieben: true,
       outlook: Boolean(v.outlook), anhaenge: v.anhaenge || []
+    };
+    daten.vorgaenge.push(eintrag);
+    protokollieren(v.objektId, 'Kommunikation',
+      v.art + ' ' + W.b.richtungText(v.richtung) + ' · ' + v.betreff, eintrag.belegNr);
+    return eintrag;
+  }
+
+  /** Revisionssichere Spur: jede Aenderung im System bekommt eine Zeile. */
+  function protokollieren(objektId, art, text, belegNr) {
+    if (!daten.protokoll) daten.protokoll = [];
+    daten.protokoll.push({
+      id: neueId('pr'), zeitpunkt: new Date().toISOString().slice(0, 16),
+      objektId: objektId || null, art: art, text: text,
+      nutzer: W.KONTO.name, belegNr: belegNr || null
     });
+  }
+
+  function inTagen(tage) {
+    var d2 = new Date();
+    d2.setDate(d2.getDate() + (parseInt(tage, 10) || 0));
+    return d2.toISOString().slice(0, 10);
+  }
+
+  var ESKALATIONSREGEL = 'Stufe 1 E-Mail · Stufe 2 nach 3 Tagen Anruf · Stufe 3 nach 7 Tagen Eigentümer informieren';
+
+  /* --- Verfassen ------------------------------------------------------------- */
+
+  function entwurfOeffnen(e) {
+    entwurf = {
+      art: e.art || 'E-Mail', richtung: e.richtung || 'aus',
+      objektId: e.objektId || '', kontaktId: e.kontaktId || '',
+      betreff: e.betreff || '', inhalt: e.inhalt || '', anhaenge: e.anhaenge || [],
+      dauer: e.dauer || '', versand: e.versand || '', wiedervorlage: false, frist: '7', wvTitel: ''
+    };
+    zeichnen();
+  }
+
+  /** Holt den Stand des Formulars in den Entwurf, bevor neu gezeichnet wird. */
+  function entwurfLesen() {
+    var f = document.getElementById('verfassen-formular');
+    if (!f || !entwurf) return;
+    if (f.objektId) entwurf.objektId = f.objektId.value;
+    if (f.kontaktId) entwurf.kontaktId = f.kontaktId.value;
+    if (f.richtung) entwurf.richtung = f.richtung.value;
+    if (f.betreff) entwurf.betreff = f.betreff.value;
+    if (f.inhalt) entwurf.inhalt = f.inhalt.value;
+    if (f.dauer) entwurf.dauer = f.dauer.value;
+    if (f.versand) entwurf.versand = f.versand.value;
+    if (f.frist) entwurf.frist = f.frist.value;
+    if (f.wvTitel) entwurf.wvTitel = f.wvTitel.value;
+    entwurf.wiedervorlage = Boolean(f.wiedervorlage && f.wiedervorlage.checked);
+    entwurf.anhaenge = Array.prototype.slice.call(f.querySelectorAll('input[name="anhang"]:checked'))
+      .map(function (x) { return x.value; });
+  }
+
+  function verdrahteVerfassen() {
+    var zu = schliesser('verfassen-schleier', function () { entwurf = null; });
+    auf('[data-kanal]', 'click', function (el) {
+      entwurfLesen(); entwurf.art = el.getAttribute('data-kanal'); zeichnen();
+    });
+    ['verf-objekt', 'verf-kontakt'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('change', function () { entwurfLesen(); zeichnen(); });
+    });
+    var ab = document.getElementById('verfassen-ab');
+    if (ab) ab.addEventListener('click', zu);
+    var form = document.getElementById('verfassen-formular');
+    if (form) form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      entwurfLesen();
+      absenden();
+    });
+  }
+
+  function absenden() {
+    var e = entwurf, k = W.KANAL[e.art] || {};
+    var betreff = (e.betreff || '').trim();
+    var inhalt = (e.inhalt || '').trim();
+    if (!betreff && !inhalt) {
+      var feld = document.getElementById('verf-betreff');
+      if (feld) feld.focus();
+      return;
+    }
+    if (!betreff) betreff = e.art + ': ' + inhalt.slice(0, 60);
+    var kopf = [];
+    if (k.dauer && e.dauer) kopf.push('Dauer ' + e.dauer + ' Minuten');
+    if (k.versand && e.versand) kopf.push('Versand ' + e.versand);
+    var text = (kopf.length ? kopf.join(' · ') + '\n\n' : '') + inhalt;
+
+    var g = e.kontaktId ? H.kontakt(daten, e.kontaktId) : null;
+    var v = vorgangAnlegen({
+      objektId: e.objektId || null, kontaktId: e.kontaktId || null,
+      art: e.art, richtung: k.ohneRichtung ? 'aus' : e.richtung,
+      betreff: betreff, inhalt: text, anhaenge: e.anhaenge || [],
+      outlook: e.art === 'E-Mail', teilnehmer: g ? g.ansprechpartner : ''
+    });
+
+    if (e.wiedervorlage) {
+      var titel = (e.wvTitel || '').trim() || 'Nachfassen: ' + betreff;
+      daten.termine.push({
+        id: neueId('tm'), objektId: e.objektId || null, kontaktId: e.kontaktId || null,
+        titel: titel, art: 'Wiedervorlage', faellig: inTagen(e.frist || 7), stufe: 1,
+        status: 'offen', regel: ESKALATIONSREGEL, erledigtAm: null
+      });
+      protokollieren(e.objektId, 'Termin', 'Wiedervorlage angelegt: ' + titel);
+    }
+
+    // Beteiligung mitziehen, damit der Stand des Investors zur Akte passt.
+    if (e.objektId && e.kontaktId) {
+      var bt = daten.beteiligungen.filter(function (x) {
+        return x.objektId === e.objektId && x.investorId === e.kontaktId;
+      })[0];
+      if (bt) bt.letzteReaktion = new Date().toISOString().slice(0, 10);
+    }
+
+    var ziel = e.objektId;
+    entwurf = null;
+    sichern();
+    hinweisBalken('Abgelegt als Beleg ' + v.belegNr + (v.outlook ? ' · in Outlook gespiegelt' : ''));
+    if (ziel) {
+      var pfad = '#/objekt/' + ziel + '?reiter=kommunikation';
+      if (location.hash !== pfad) { location.hash = pfad; return; }
+    }
+    zeichnen();
+  }
+
+  /** Kurze Rueckmeldung am unteren Rand, verschwindet von selbst. */
+  function hinweisBalken(text) {
+    var alt2 = document.getElementById('quittung');
+    if (alt2) alt2.remove();
+    var p = document.createElement('p');
+    p.id = 'quittung';
+    p.className = 'quittung mono kein-druck';
+    p.setAttribute('role', 'status');
+    p.textContent = text;
+    document.body.appendChild(p);
+    setTimeout(function () { if (p.parentNode) p.remove(); }, 4000);
   }
 
   /* --- Investor ---------------------------------------------------------------- */
@@ -373,11 +600,14 @@
         status: 'geprüft', datum: new Date().toISOString().slice(0, 10),
         hinweis: 'In der Vorführung als geprüft gesetzt'
       };
+      protokollieren(null, 'Investor', 'Adressvalidierung geprüft: ' + i.name);
       sichern(); zeichnen();
     });
     var form = document.getElementById('investor-notiz');
     if (form) form.addEventListener('submit', function (e) {
-      e.preventDefault(); i.notizen = form.notizen.value; sichern(); melde(form, 'Notizen gespeichert.');
+      e.preventDefault(); i.notizen = form.notizen.value;
+      protokollieren(null, 'Investor', 'Notizen geändert: ' + i.name);
+      sichern(); melde(form, 'Notizen gespeichert.');
     });
   }
 
@@ -433,6 +663,9 @@
       });
     })).then(function (neue) {
       daten.fotos = daten.fotos.concat(neue);
+      neue.forEach(function (f) {
+        protokollieren(objektId, 'Foto', 'Foto zur Akte genommen: ' + (f.beschriftung || f.kategorie));
+      });
       sichern();
       if (route().pfad[0] === 'fotos') {
         var q = Object.assign({}, route().q, { akte: objektId });
@@ -467,6 +700,7 @@
       e.preventDefault();
       foto.beschriftung = form.beschriftung.value.trim();
       foto.kategorie = form.kategorie.value;
+      protokollieren(foto.objektId, 'Foto', 'Foto beschriftet: ' + (foto.beschriftung || foto.kategorie));
       sichern(); zu();
     });
     var weg = document.getElementById('foto-weg');
@@ -481,6 +715,7 @@
       }
       daten.fotos = daten.fotos.filter(function (f) { return f.id !== foto.id; });
       if (foto.quelle.indexOf('idb:') === 0) W.speicher.fotoLoeschen(foto.quelle.slice(4));
+      protokollieren(foto.objektId, 'Foto', 'Foto aus der Akte entfernt: ' + (foto.beschriftung || foto.kategorie));
       sichern(); zu();
     });
   }
@@ -532,6 +767,8 @@
           pflicht: true, status: 'fehlt', angefordertAm: null, erhaltenAm: null, datei: null, notiz: ''
         });
       });
+      protokollieren(id, 'Akte', 'Akte angelegt: ' + bez + ', ' + ort);
+      protokollieren(id, 'Unterlage', W.PFLICHTUNTERLAGEN.length + ' Pflichtunterlagen als offen angelegt');
       sichern();
       location.hash = '#/objekt/' + id;
     });

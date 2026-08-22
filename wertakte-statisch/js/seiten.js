@@ -186,6 +186,15 @@ window.W = window.W || {};
       '</div>' +
       '<a class="onyx-knopf onyx-knopf-primaer" href="#/neu">' + sym.plus(16) + 'Objekt anlegen</a></div>' +
       '<dl class="kacheln-reihe">' + kacheln + '</dl>' +
+      '<div class="onyx-karte" style="margin-top:1.25rem;padding:1rem">' +
+        '<div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.75rem">' +
+          '<p class="onyx-etikett">Hier anfangen</p>' +
+          '<a class="klein amber" href="#/protokoll" style="display:flex;align-items:center;gap:.3rem">Protokoll ansehen' + sym.pfeilRechts(13) + '</a>' +
+        '</div>' +
+        '<p class="klein leise" style="margin-top:.35rem;max-width:64ch;line-height:1.65">' +
+          'Mail, Telefonat, WhatsApp, SMS, Brief oder Notiz \u2013 alles beginnt an dieser Stelle und liegt danach in der Akte.</p>' +
+        '<div class="kanalleiste" style="margin-top:.8rem">' + W.verfassenKnoepfe('', '') + '</div>' +
+      '</div>' +
       '<section style="margin-top:2rem"><h2>Wiedervorlagen der nächsten Wochen</h2>' +
         '<div style="margin-top:.9rem">' + b.terminschiene(offeneTermine, heute, d) + '</div></section>' +
       '<div class="spalten">' +
@@ -194,7 +203,8 @@ window.W = window.W || {};
           wiedervorlagen + '</section>' +
         '<section><h2>Zuletzt im Journal</h2>' + journal +
           '<p class="hinweis" style="margin-top:1.25rem"><span class="amber" style="flex:none;margin-top:.1rem">' + sym.siegel(17) + '</span>' +
-          '<span>Jede Mail, jedes Telefonat und jede Nachricht wird mit Beleg-Nummer und Zeitstempel zur Akte gelegt und lässt sich einzeln ausdrucken.</span></p>' +
+          '<span>Jede Mail, jedes Telefonat und jede Nachricht wird mit Beleg-Nummer und Zeitstempel zur Akte gelegt und lässt sich einzeln ausdrucken. ' +
+          '<a class="amber" href="#/protokoll">Das Protokoll</a> zeigt lückenlos, was wann passiert ist.</span></p>' +
         '</section>' +
       '</div>';
   };
@@ -446,15 +456,20 @@ window.W = window.W || {};
               '<span class="mini leise">' +
                 (x.erhaltenAm ? 'erhalten ' + h(W.f.datum(x.erhaltenAm))
                   : x.angefordertAm ? 'angefordert ' + h(W.f.datum(x.angefordertAm))
-                  : 'noch nicht angefordert') + '</span>' +
+                  : 'noch nicht angefordert') +
+                (x.datei ? ' · <span class="amber">' + h(x.datei.name) + '</span>' : '') + '</span>' +
             '</span>' +
             b.unterlagenmarke(x.status) +
-            '<span style="display:flex;gap:.35rem">' +
+            '<span style="display:flex;flex-wrap:wrap;gap:.35rem">' +
               (x.status !== 'angefordert' && x.status !== 'vorhanden'
                 ? '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.75rem;padding:.25rem .55rem" data-ul-anfordern="' + h(x.id) + '">Anfordern</button>' : '') +
               (x.status !== 'vorhanden'
                 ? '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.75rem;padding:.25rem .55rem" data-ul-da="' + h(x.id) + '">Liegt vor</button>'
                 : '<button class="onyx-knopf onyx-knopf-klar" style="font-size:.75rem;padding:.25rem .55rem" data-ul-zurueck="' + h(x.id) + '">Zurücksetzen</button>') +
+              (x.datei
+                ? '<a class="onyx-knopf onyx-knopf-leise datei-knopf" style="font-size:.75rem;padding:.25rem .55rem" data-ul-oeffnen="' + h(x.id) + '" href="#">' + sym.dokument(13) + 'Öffnen</a>' +
+                  '<button class="onyx-knopf onyx-knopf-klar" style="font-size:.75rem;padding:.25rem .55rem" data-ul-weg="' + h(x.id) + '">Datei entfernen</button>'
+                : '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.75rem;padding:.25rem .55rem" data-ul-datei="' + h(x.id) + '">' + sym.hochladen(13) + 'Scan ablegen</button>') +
             '</span></li>';
         }).join('') + '</ul></section>';
     }).join('');
@@ -463,10 +478,13 @@ window.W = window.W || {};
         '<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem">' +
           '<div><p class="onyx-etikett">Pflichtunterlagen</p>' +
             '<p class="mono" style="margin-top:.25rem;font-size:1.25rem">' + v.ist + ' von ' + v.soll + '</p></div>' +
-          '<p class="klein leise" style="max-width:44ch;line-height:1.65">Ohne diese Unterlagen wird kein Exposé gebaut. Fotos kommen über den Reiter Fotos dazu.</p>' +
+          '<p class="klein leise" style="max-width:48ch;line-height:1.65">Ohne diese Unterlagen wird kein Exposé gebaut. ' +
+            'Scan oder PDF direkt zur Zeile ablegen \u2013 danach liegt das Papier im System, nicht im Ordner.</p>' +
         '</div>' +
         '<div style="margin-top:.9rem">' + b.fortschritt(v.ist, v.soll) + '</div>' +
-      '</div>' + listen;
+      '</div>' +
+      '<input type="file" id="eingabe-unterlage" accept="application/pdf,image/*" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none">' +
+      listen;
   }
 
   /* --- Reiter 3: Investoren ------------------------------------------------- */
@@ -555,25 +573,15 @@ window.W = window.W || {};
 
     return '<div style="padding-top:1.5rem">' +
       '<div class="onyx-karte" style="padding:1rem">' +
-        '<form id="vorgang-formular" style="display:grid;gap:.75rem">' +
-          '<div style="display:flex;flex-wrap:wrap;gap:.6rem">' +
-            '<div class="feld-gruppe" style="min-width:9rem"><label class="onyx-etikett" for="v-art">Art</label>' +
-              '<select class="onyx-feld" id="v-art" name="art">' + opt(W.KOMM_ARTEN, 'E-Mail') + '</select></div>' +
-            '<div class="feld-gruppe" style="min-width:9rem"><label class="onyx-etikett" for="v-richtung">Richtung</label>' +
-              '<select class="onyx-feld" id="v-richtung" name="richtung">' +
-                opt([{ wert: 'aus', text: 'ausgehend' }, { wert: 'ein', text: 'eingehend' }], 'aus') + '</select></div>' +
-            '<div class="feld-gruppe" style="min-width:14rem;flex:1"><label class="onyx-etikett" for="v-kontakt">Gegenüber</label>' +
-              '<select class="onyx-feld" id="v-kontakt" name="kontaktId">' +
-                opt(wer.map(function (k) { return { wert: k.id, text: k.name }; }), eig ? eig.id : '') + '</select></div>' +
-          '</div>' +
-          '<div class="feld-gruppe"><label class="onyx-etikett" for="v-betreff">Betreff</label>' +
-            '<input class="onyx-feld" id="v-betreff" name="betreff" placeholder="z. B. Rückfrage zu den nicht umlagefähigen Kosten"></div>' +
-          '<div class="feld-gruppe"><label class="onyx-etikett" for="v-inhalt">Inhalt oder Gesprächsnotiz</label>' +
-            '<textarea class="onyx-feld" id="v-inhalt" name="inhalt" rows="3"></textarea></div>' +
-          '<button class="onyx-knopf onyx-knopf-primaer" type="submit" style="justify-self:start">' + sym.plus(16) + 'Zum Journal legen</button>' +
-        '</form>' +
+        '<div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.75rem">' +
+          '<p class="onyx-etikett">Neuer Vorgang</p>' +
+          '<p class="mini leise">' + wer.length + ' Beteiligte in dieser Akte</p>' +
+        '</div>' +
+        '<p class="klein leise" style="margin-top:.35rem;max-width:60ch;line-height:1.65">' +
+          'Jeder Weg läuft über das System. Weg wählen, schreiben, absenden \u2013 der Vorgang liegt danach mit ' +
+          'Beleg-Nummer und Zeitstempel in dieser Akte.</p>' +
+        '<div class="kanalleiste" style="margin-top:.8rem">' + W.verfassenKnoepfe(o.id, eig ? eig.id : '') + '</div>' +
         '<p class="mini leise" style="margin-top:.75rem;line-height:1.7">' +
-          'Jeder Eintrag bekommt Beleg-Nummer und Zeitstempel und ist danach nicht mehr änderbar. ' +
           'E-Mails werden parallel in Outlook gespiegelt, damit sie in MailStore auffindbar bleiben. ' +
           'In der Vorführung sind Outlook und MailStore nicht angebunden, die Kennzeichnung zeigt, wo die Anbindung sitzt.</p>' +
       '</div>' +
@@ -708,7 +716,11 @@ window.W = window.W || {};
             '<label class="nur-sr" for="objekt-status">Status ändern</label>' +
             '<select class="onyx-feld" id="objekt-status" style="width:auto;padding:.3rem .7rem;font-size:.8125rem">' +
               opt(W.OBJEKT_STATUS.map(function (s) { return { wert: s, text: W.OBJEKT_STATUS_TEXT[s] }; }), o.status) + '</select>' +
-            '<a class="onyx-knopf onyx-knopf-primaer" href="#/objekt/' + h(o.id) + '/expose">' + sym.dokument(17) + 'Exposé öffnen</a>' +
+            '<button class="onyx-knopf onyx-knopf-primaer" data-verfassen="' +
+              h(JSON.stringify({ art: 'E-Mail', objektId: o.id, kontaktId: o.eigentuemerId, richtung: 'aus' })) + '">' +
+              sym.mailAus(17) + 'Nachricht verfassen</button>' +
+            '<a class="onyx-knopf onyx-knopf-leise" href="#/objekt/' + h(o.id) + '/expose">' + sym.dokument(17) + 'Exposé</a>' +
+            '<a class="onyx-knopf onyx-knopf-leise" href="#/objekt/' + h(o.id) + '/akte">' + sym.drucken(17) + 'Gesamtakte</a>' +
           '</div>' +
         '</div>' +
       '</header>' +
@@ -783,6 +795,15 @@ window.W = window.W || {};
         '<div class="dialog-kopf kein-druck">' +
           '<p class="mono amber" style="font-size:11px;text-transform:uppercase;letter-spacing:.14em">Vorgang ' + h(v.belegNr) + '</p>' +
           '<span style="display:flex;gap:.5rem;align-items:center">' +
+            '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.75rem;padding:.25rem .6rem" data-verfassen="' +
+              h(JSON.stringify({ art: v.art, objektId: v.objektId, kontaktId: v.kontaktId, richtung: 'aus',
+                betreff: (/^(AW|WG):/.test(v.betreff) ? v.betreff : 'AW: ' + v.betreff),
+                inhalt: '\n\n--- ' + W.f.datumZeit(v.zeitpunkt) + ', Beleg ' + v.belegNr + ' ---\n' + v.inhalt })) + '">' +
+              sym.mailAus(14) + 'Antworten</button>' +
+            '<button class="onyx-knopf onyx-knopf-leise" style="font-size:.75rem;padding:.25rem .6rem" data-verfassen="' +
+              h(JSON.stringify({ art: v.art, objektId: v.objektId, kontaktId: '', richtung: 'aus',
+                betreff: 'WG: ' + v.betreff, inhalt: v.inhalt, anhaenge: v.anhaenge || [] })) + '">' +
+              sym.pfeilRechts(14) + 'Weiterleiten</button>' +
             '<button class="onyx-knopf onyx-knopf-leise" id="vorgang-drucken" style="font-size:.75rem;padding:.25rem .6rem">' + sym.drucken(14) + 'Drucken</button>' +
             '<button id="dialog-zu" class="klein" style="display:flex;align-items:center;gap:.4rem;padding:.25rem">Schließen' + sym.schliessen(15) + '</button>' +
           '</span>' +
@@ -899,10 +920,12 @@ window.W = window.W || {};
     if (!i) return W.seiten.nichtGefunden();
     var p = i.suchprofil || {};
     var mandate = d.beteiligungen.filter(function (x) { return x.investorId === i.id; });
+    var eigene = d.objekte.filter(function (o) { return o.eigentuemerId === i.id; });
     var vg = H.vorgaengeZu(d, { kontaktId: i.id });
     var val = i.adressvalidierung || { status: 'offen' };
 
-    return '<a class="zurueck" href="#/investoren">' + sym.pfeilLinks(14) + 'Alle Investoren</a>' +
+    return '<a class="zurueck" href="' + (i.rolle === 'Investor' ? '#/investoren' : '#/objekte') + '">' +
+        sym.pfeilLinks(14) + (i.rolle === 'Investor' ? 'Alle Investoren' : 'Alle Objekte') + '</a>' +
       '<header style="margin-top:1rem;padding-bottom:1.5rem;border-bottom:1px solid var(--onyx-kontur-leise)">' +
         '<p class="mono amber" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.12em">' + h(i.rolle + ' · ' + i.typ) + '</p>' +
         '<h1 style="margin-top:.35rem">' + h(i.name) + '</h1>' +
@@ -912,6 +935,9 @@ window.W = window.W || {};
           '<li style="display:flex;align-items:center;gap:.5rem"><span class="leise">' + sym.brief(15) + '</span><a class="mono" href="mailto:' + h(i.email) + '">' + h(i.email) + '</a></li>' +
           '<li style="display:flex;align-items:center;gap:.5rem"><span class="leise">' + sym.ort(15) + '</span>' + h(i.anschrift) + '</li>' +
         '</ul>' +
+        '<div class="kanalleiste" style="margin-top:1.1rem">' +
+          W.verfassenKnoepfe(mandate.length ? mandate[0].objektId : '', i.id) + '</div>' +
+        '<p class="mini leise" style="margin-top:.5rem">Jeder Weg zu diesem Investor läuft über das System und landet in seiner Historie.</p>' +
       '</header>' +
       '<div class="spalten">' +
         '<section>' +
@@ -923,6 +949,15 @@ window.W = window.W || {};
             b.datenzeile('Faktor maximal', String(p.faktorMax).replace('.', ',') + '-fach', true) +
           '</dl>' : '') +
           '<h2 style="margin-top:2rem">Objekte</h2>' +
+          (eigene.length ? '<ul class="onyx-register" style="margin-top:.75rem;border-top:1px solid var(--onyx-kontur-leise)">' +
+            eigene.map(function (o) {
+              return '<li class="onyx-zeile" style="border-bottom:1px solid var(--onyx-kontur-leise)">' +
+                '<a class="zeile-link" href="#/objekt/' + h(o.id) + '">' +
+                  '<span class="wachsen"><span class="mono mini still">' + h(o.aktenzeichen) + '</span>' +
+                    '<span class="kuerzen" style="display:block;font-size:.875rem">' + h(o.bezeichnung) + '</span></span>' +
+                  '<span class="onyx-marke onyx-marke-ruht" style="font-size:10.5px;padding:.1rem .5rem">Eigentum</span>' +
+                '</a></li>';
+            }).join('') + '</ul>' : '') +
           (mandate.length ? '<ul class="onyx-register" style="margin-top:.75rem;border-top:1px solid var(--onyx-kontur-leise)">' +
             mandate.map(function (x) {
               var o = H.obj(d, x.objektId);
@@ -934,7 +969,7 @@ window.W = window.W || {};
                   '<span class="onyx-marke onyx-marke-laeuft" style="font-size:10.5px;padding:.1rem .5rem">' + h(x.stand) + '</span>' +
                 '</a></li>';
             }).join('') + '</ul>'
-            : b.leer('Noch keinem Objekt zugeordnet.')) +
+            : (eigene.length ? '' : b.leer('Noch keinem Objekt zugeordnet.'))) +
           '<h2 style="margin-top:2rem">Korrespondenz</h2>' +
           (vg.length ? '<ul class="onyx-register" style="margin-top:.75rem;border-top:1px solid var(--onyx-kontur-leise)">' +
             vg.map(function (v) { return W.vorgangZeile(d, v, true); }).join('') + '</ul>'
@@ -975,6 +1010,10 @@ window.W = window.W || {};
           'Die gesamte Korrespondenz läuft über das System: E-Mail ein und aus, Telefonate, WhatsApp, SMS und Briefe. ' +
           'Jeder Eintrag trägt Beleg-Nummer und Zeitstempel und lässt sich einzeln ausdrucken.</p></div>' +
         '<p class="klein leise mono">' + gefiltert.length + ' von ' + alleV.length + '</p></div>' +
+      '<div class="onyx-karte" style="margin-top:1rem;padding:1rem">' +
+        '<p class="onyx-etikett">Neuer Vorgang</p>' +
+        '<div class="kanalleiste" style="margin-top:.7rem">' + W.verfassenKnoepfe(q.objekt || '', '') + '</div>' +
+      '</div>' +
       '<div class="werkzeugleiste"><div class="filter">' +
         '<label class="nur-sr" for="k-objekt">Nach Objekt filtern</label>' +
         '<select class="onyx-feld" id="k-objekt" data-kfilter="objekt" style="width:auto;max-width:18rem;padding:.35rem .7rem;font-size:.8125rem">' +
