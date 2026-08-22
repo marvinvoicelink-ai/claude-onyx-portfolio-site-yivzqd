@@ -71,10 +71,18 @@ und Komponenten, bekommen aber das CI des Kunden — dann wird allein die
 Themenebene ersetzt.
 
 ## Kunden-Demos im Repo
-`demo-wertakte/` ist eine eigenständige Vorführ-Software für einen Interessenten
-(Immobiliengutachter, Oldenburg) — Next.js + TypeScript, lokal per `npm run dev`.
-Sie gehört NICHT zur Website onyx-ai.de und ist von deren Stack- und
-Nicht-Zielen unten ausgenommen. Details in `demo-wertakte/README.md`.
+Vorführ-Software „Wertakte“ für einen Interessenten (Immobiliengutachter,
+Oldenburg). Gehört NICHT zur Website onyx-ai.de und ist von deren Stack- und
+Nicht-Zielen unten ausgenommen. Zwei Fassungen:
+
+- `wertakte-statisch/` — **die Fassung für den Termin.** Statisch, kein
+  Build-Schritt, als ZIP direkt auf Netlify ablegbar (`index.html` liegt an der
+  Wurzel). Daten und aufgenommene Fotos im Browser des Geräts
+  (localStorage + IndexedDB). Details in `wertakte-statisch/README.md`.
+- `demo-wertakte/` — dieselbe Anwendung als Next.js + TypeScript, lokal per
+  `npm run dev`. Zeigt die Architektur, die im echten Kundenprojekt gebaut
+  wird (Server Components, Server Actions, später Supabase statt Dateisystem).
+  Läuft NICHT als ZIP auf Netlify. Details in `demo-wertakte/README.md`.
 
 ## Nicht-Ziele (Scope-Grenze)
 - Kein 3D, keine Scroll-Choreografie, keine WebGL-Effekte in Phase 1

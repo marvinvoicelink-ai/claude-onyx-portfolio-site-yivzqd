@@ -1,0 +1,442 @@
+/* ==================================================================
+   Onyx.AI - Designsystem "Dunkel/Amber"
+   Verbindliche Oberflaechen-Sprache fuer Onyx-eigene Frontends:
+   Demos, Vorfuehrsoftware, Eigenprodukte.
+
+   Near-Black als Grund, Amber als EINZIGER Akzent, warmes Hellgrau als
+   Text. Glow-Rahmen um die Anwendung, Karten mit warmer Haarlinie,
+   Icon-Leiste links, Mono fuer Zahlen und Etiketten.
+
+   Reines CSS, keine Framework-Abhaengigkeit. In einem Tailwind-v4-Projekt
+   wird diese Datei importiert und die Tokens per "@theme inline" auf
+   Utilities gelegt (Beispiel siehe README.md).
+
+   KUNDENPROJEKTE: Struktur und Komponenten sind wiederverwendbar, die
+   Farbebene nicht. Amber ist die Onyx-Handschrift. Fuer ein System, das
+   an einen Kunden uebergeben wird, wird der Block "Themenebene" unten
+   durch das CI des Kunden ersetzt, alles darunter bleibt.
+   ================================================================== */
+
+/* ---------- Themenebene: hier und nur hier stehen Farbwerte ---------- */
+
+:root {
+  /* Grundflaechen, warm abgetoent statt neutralgrau */
+  --onyx-grund: #101010;
+  --onyx-grund-tief: #0A0A0A;
+  --onyx-flaeche: #171614;
+  --onyx-flaeche-hoch: #1E1C19;
+
+  /* Akzent */
+  --onyx-amber: #E8A33D;
+  --onyx-amber-hell: #F2BC6B;
+  --onyx-amber-tief: #C9862A;
+  --onyx-auf-amber: #17120A;
+
+  /* Konturen: Amber mit sehr geringer Deckkraft, nie kaltes Grau */
+  --onyx-kontur: rgb(232 163 61 / 0.16);
+  --onyx-kontur-stark: rgb(232 163 61 / 0.38);
+  --onyx-kontur-leise: rgb(245 242 236 / 0.08);
+
+  /* Text */
+  --onyx-text: #F5F2EC;
+  --onyx-text-leise: #A39C90;
+  --onyx-text-still: #8A8379;
+
+  /* Signale. Kein zweiter Akzent, nur Bedeutung: Amber = laeuft,
+     Rot = Problem, Gruen = erledigt, Grau = ruht. */
+  --onyx-warn: #D9614C;
+  --onyx-warn-flaeche: rgb(217 97 76 / 0.14);
+  --onyx-gut: #7FA87C;
+  --onyx-gut-flaeche: rgb(127 168 124 / 0.13);
+  --onyx-ruht: #857E74;
+  --onyx-ruht-flaeche: rgb(245 242 236 / 0.06);
+  --onyx-amber-flaeche: rgb(232 163 61 / 0.13);
+}
+
+/* ---------- Struktur: gilt auch fuer Kundenprojekte ---------- */
+
+:root {
+  --onyx-schrift-titel: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --onyx-schrift-text: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --onyx-schrift-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  /* Dokumente, die spaeter gedruckt werden, bleiben Papier. */
+  --onyx-schrift-akte: ui-serif, "Iowan Old Style", "Source Serif 4", Georgia, serif;
+
+  --onyx-radius: 12px;
+  --onyx-radius-klein: 8px;
+  --onyx-radius-rail: 10px;
+
+  --onyx-glow: 0 0 0 1px var(--onyx-kontur-stark), 0 0 28px rgb(232 163 61 / 0.16),
+    0 0 90px rgb(232 163 61 / 0.07);
+  --onyx-glow-leise: 0 0 0 1px var(--onyx-kontur), 0 0 18px rgb(232 163 61 / 0.08);
+
+  --onyx-rail: 4.5rem;
+  --onyx-uebergang: 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Die Komponenten liegen im Layer "components". In einem Tailwind-Projekt
+   gewinnen Utilities damit gegen sie (text-warn schlaegt die Grundfarbe einer
+   Kachel). Ungelayert wuerde das System jedes Utility ueberstimmen.
+   Ausserhalb von Tailwind ist die Wirkung dieselbe wie ohne Layer. */
+@layer components {
+  /* ---------- Grundlagen ---------- */
+
+  .onyx {
+    background: var(--onyx-grund-tief);
+    color: var(--onyx-text);
+    font-family: var(--onyx-schrift-text);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .onyx h1,
+  .onyx h2,
+  .onyx h3 {
+    font-family: var(--onyx-schrift-titel);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+
+  .onyx :focus-visible {
+    outline: 2px solid var(--onyx-amber);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+
+  .onyx ::selection {
+    background: var(--onyx-amber);
+    color: var(--onyx-auf-amber);
+  }
+
+  /* ---------- Rahmen: das leuchtende Fenster ---------- */
+
+  .onyx-rahmen {
+    background: var(--onyx-grund);
+    border: 1px solid var(--onyx-kontur-stark);
+    border-radius: var(--onyx-radius);
+    box-shadow: var(--onyx-glow);
+  }
+
+  /* Auf kleinen Schirmen randlos: der Glow kostet dort nur Platz. */
+  @media (max-width: 767px) {
+    .onyx-rahmen {
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+  }
+
+  /* ---------- Karten ---------- */
+
+  .onyx-karte {
+    background: var(--onyx-flaeche);
+    border: 1px solid var(--onyx-kontur);
+    border-radius: var(--onyx-radius);
+  }
+
+  .onyx-karte-hoch {
+    background: var(--onyx-flaeche-hoch);
+    border: 1px solid var(--onyx-kontur);
+    border-radius: var(--onyx-radius);
+  }
+
+  /* Anklickbare Karte: Kontur zieht an, kein Anheben, kein Schatten. */
+  .onyx-karte-klick {
+    transition: border-color var(--onyx-uebergang), background-color var(--onyx-uebergang);
+  }
+  .onyx-karte-klick:hover {
+    border-color: var(--onyx-kontur-stark);
+    background: var(--onyx-flaeche-hoch);
+  }
+
+  /* ---------- Kennzahl-Kachel ---------- */
+
+  .onyx-kachel {
+    background: var(--onyx-flaeche);
+    border: 1px solid var(--onyx-kontur);
+    border-radius: var(--onyx-radius);
+    padding: 1.15rem 1.25rem;
+  }
+
+  .onyx-kachel-zahl {
+    font-family: var(--onyx-schrift-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--onyx-text);
+  }
+
+  .onyx-kachel-zahl-amber {
+    color: var(--onyx-amber);
+  }
+
+  /* ---------- Etikett: kleines Mono-Label ---------- */
+
+  .onyx-etikett {
+    font-family: var(--onyx-schrift-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--onyx-text-leise);
+  }
+
+  /* ---------- Icon-Leiste links ---------- */
+
+  .onyx-rail {
+    width: var(--onyx-rail);
+    background: var(--onyx-grund);
+    border-right: 1px solid var(--onyx-kontur);
+  }
+
+  .onyx-rail-punkt {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--onyx-radius-rail);
+    color: var(--onyx-text-still);
+    transition: color var(--onyx-uebergang), background-color var(--onyx-uebergang);
+  }
+  .onyx-rail-punkt:hover {
+    color: var(--onyx-text);
+    background: var(--onyx-amber-flaeche);
+  }
+  .onyx-rail-punkt[aria-current] {
+    background: var(--onyx-amber);
+    color: var(--onyx-auf-amber);
+  }
+
+  /* ---------- Knoepfe ---------- */
+
+  .onyx-knopf {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: var(--onyx-radius-klein);
+    padding: 0.6rem 1.05rem;
+    font-family: var(--onyx-schrift-text);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+    transition: background-color var(--onyx-uebergang), border-color var(--onyx-uebergang),
+      color var(--onyx-uebergang), transform 0.08s ease;
+  }
+  .onyx-knopf:active {
+    transform: translateY(1px);
+  }
+  .onyx-knopf:disabled {
+    opacity: 0.55;
+  }
+
+  .onyx-knopf-primaer {
+    background: var(--onyx-amber);
+    color: var(--onyx-auf-amber);
+  }
+  .onyx-knopf-primaer:hover:not(:disabled) {
+    background: var(--onyx-amber-hell);
+  }
+
+  .onyx-knopf-leise {
+    background: transparent;
+    border-color: var(--onyx-kontur-stark);
+    color: var(--onyx-text);
+  }
+  .onyx-knopf-leise:hover:not(:disabled) {
+    background: var(--onyx-amber-flaeche);
+    border-color: var(--onyx-amber);
+  }
+
+  .onyx-knopf-klar {
+    background: transparent;
+    color: var(--onyx-text-leise);
+  }
+  .onyx-knopf-klar:hover:not(:disabled) {
+    color: var(--onyx-text);
+    background: var(--onyx-kontur-leise);
+  }
+
+  .onyx-knopf-gefahr {
+    background: var(--onyx-warn-flaeche);
+    border-color: rgb(217 97 76 / 0.4);
+    color: var(--onyx-warn);
+  }
+  .onyx-knopf-gefahr:hover:not(:disabled) {
+    background: rgb(217 97 76 / 0.22);
+  }
+
+  /* ---------- Eingabefelder ---------- */
+
+  .onyx-feld {
+    width: 100%;
+    background: var(--onyx-grund-tief);
+    border: 1px solid var(--onyx-kontur-stark);
+    border-radius: var(--onyx-radius-klein);
+    padding: 0.58rem 0.8rem;
+    font-family: var(--onyx-schrift-text);
+    font-size: 0.9375rem;
+    color: var(--onyx-text);
+    transition: border-color var(--onyx-uebergang);
+  }
+  .onyx-feld::placeholder {
+    color: var(--onyx-text-still);
+  }
+  .onyx-feld:hover {
+    border-color: var(--onyx-amber);
+  }
+
+  /* Suchfeld in der Kopfzeile: Pille, wie im Entwurf. */
+  .onyx-suche {
+    border-radius: 999px;
+    padding-left: 2.35rem;
+  }
+
+  select.onyx-feld {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--onyx-amber) 50%),
+      linear-gradient(135deg, var(--onyx-amber) 50%, transparent 50%);
+    background-position: right 1rem center, right 0.7rem center;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 2.1rem;
+  }
+
+  /* ---------- Marken: Status als Bedeutung, nicht als Farbfest ---------- */
+
+  .onyx-marke {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 1px solid;
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+    font-size: 11.5px;
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+  .onyx-marke-laeuft {
+    background: var(--onyx-amber-flaeche);
+    border-color: rgb(232 163 61 / 0.4);
+    color: var(--onyx-amber);
+  }
+  .onyx-marke-ruht {
+    background: var(--onyx-ruht-flaeche);
+    border-color: var(--onyx-kontur-leise);
+    color: var(--onyx-text-leise);
+  }
+  .onyx-marke-fertig {
+    background: var(--onyx-gut-flaeche);
+    border-color: rgb(127 168 124 / 0.35);
+    color: var(--onyx-gut);
+  }
+  .onyx-marke-warn {
+    background: var(--onyx-warn-flaeche);
+    border-color: rgb(217 97 76 / 0.4);
+    color: var(--onyx-warn);
+  }
+
+  /* Punkt vor einem Listeneintrag, wenn er echte Bedeutung traegt. */
+  .onyx-punkt {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    flex: none;
+  }
+
+  /* ---------- Fortschritt ---------- */
+
+  .onyx-balken {
+    height: 4px;
+    border-radius: 999px;
+    background: rgb(245 242 236 / 0.09);
+    overflow: hidden;
+  }
+  .onyx-balken > span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--onyx-amber);
+  }
+
+  /* ---------- Zeitschiene ---------- */
+
+  .onyx-schiene {
+    position: relative;
+  }
+  /* Senkrechte Rasterlinien der Kalenderwochen */
+  .onyx-schiene-raster {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    pointer-events: none;
+  }
+  .onyx-schiene-raster > span {
+    border-left: 1px solid var(--onyx-kontur-leise);
+  }
+  .onyx-schiene-balken {
+    height: 1.4rem;
+    border-radius: 4px;
+    background: var(--onyx-amber);
+  }
+  .onyx-schiene-balken-leise {
+    background: rgb(232 163 61 / 0.4);
+  }
+
+  /* ---------- Register: dichte Zeilenliste statt Karten ---------- */
+
+  .onyx-register > * + * {
+    border-top: 1px solid var(--onyx-kontur-leise);
+  }
+  .onyx-zeile {
+    transition: background-color var(--onyx-uebergang);
+  }
+  .onyx-zeile:hover {
+    background: var(--onyx-kontur-leise);
+  }
+
+  /* ---------- Trennlinie ---------- */
+
+  .onyx-linie {
+    border: 0;
+    border-top: 1px solid var(--onyx-kontur-leise);
+  }
+
+  /* ---------- Leerer Zustand ---------- */
+
+  .onyx-leer {
+    border: 1px dashed var(--onyx-kontur-stark);
+    border-radius: var(--onyx-radius);
+    background: rgb(232 163 61 / 0.03);
+  }
+}
+
+/* ---------- Bewegung: sparsam, und abschaltbar ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .onyx *,
+  .onyx *::before,
+  .onyx *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- Druck: Glow und Dunkel gehoeren nicht aufs Papier ---------- */
+
+@media print {
+  .onyx-kein-druck {
+    display: none !important;
+  }
+  .onyx,
+  .onyx-rahmen,
+  .onyx-karte {
+    background: #fff !important;
+    color: #000 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+}
