@@ -129,7 +129,9 @@ Gesamtinvestition — leitet das System daraus ab, mit Sätzen aus den
 Stammdaten. Grundschrift 17 px, Schalter „Große Schrift“ im Kopf für 20 px — die Oberfläche
 ist auf einen 66-jährigen Nutzer ausgelegt.
 
-Es gibt genau ein Konto: den Inhaber (Demo: Jens Lange), mit allen Rechten. Im Bereich Verwaltung
+Es gibt genau ein Konto: den Inhaber — Jens Lange, Lange und Partner
+Immobilien GmbH, Alexanderstraße 172, 26121 Oldenburg — mit allen Rechten.
+Sein Zeichen steht im Briefkopf jedes Druckstücks (`W.briefkopf`). Im Bereich Verwaltung
 pflegt er sein Konto (die Angaben stehen im Briefkopf und als Absender), die
 Stammdaten (Objektarten, Foto-Kategorien, Pflichtunterlagen, Eskalationsvorgabe,
 Provision) und den Datenbestand (Sicherung als Datei, „Leer starten“ — alles weg, Konto und
