@@ -133,6 +133,7 @@
       else if (bereich === 'objekt' && r.pfad[2] === 'dokument') { inhalt = W.seiten.dokument(daten, r.pfad[1], r.pfad[3]); aktiv = 'objekte'; }
       else if (bereich === 'objekt') { inhalt = W.seiten.objekt(daten, r.pfad[1], r.q, bilder); aktiv = 'objekte'; }
       else if (bereich === 'neu') { inhalt = W.seiten.neu(daten, naechstesAktenzeichen()); aktiv = 'objekte'; }
+      else if (bereich === 'kontakt-neu') { inhalt = W.seiten.kontaktNeu(daten, r.q.rolle || ''); aktiv = 'kontakte'; }
       else if ((bereich === 'kontakt' || bereich === 'investor') && r.pfad[2] === 'dokument') { inhalt = W.seiten.kontaktDokument(daten, r.pfad[1], r.pfad[3]); aktiv = 'kontakte'; }
       else if (bereich === 'kontakt' || bereich === 'investor') { inhalt = W.seiten.investor(daten, r.pfad[1]); aktiv = 'kontakte'; }
       else if (bereich === 'kontakte' || bereich === 'investoren') { inhalt = W.seiten.kontakte(daten, r.q); aktiv = 'kontakte'; }
@@ -270,6 +271,7 @@
     if (r.pfad[0] === 'verwaltung') verdrahteVerwaltung();
     if (r.pfad[0] === 'objekt' && r.pfad[1] && !r.pfad[2]) verdrahteAkte(r.pfad[1], r.q.reiter || 'expose');
     if (r.pfad[0] === 'neu') verdrahteNeu();
+    if (r.pfad[0] === 'kontakt-neu') verdrahteKontaktNeu();
     if ((r.pfad[0] === 'investor' || r.pfad[0] === 'kontakt') && !r.pfad[2]) verdrahteInvestor(r.pfad[1]);
     if (r.pfad[0] === 'fotos') verdrahteFotoseite();
     if (r.pfad[0] === 'termine') verdrahteTerminKnoepfe();
@@ -871,6 +873,46 @@
     });
   }
 
+  /* --- Neuer Kontakt ------------------------------------------------------------- */
+
+  function verdrahteKontaktNeu() {
+    var form = document.getElementById('kontakt-formular');
+    if (!form) return;
+
+    /* Die Art haengt an der Rolle. Wechselt die Rolle, wechselt die Liste. */
+    form.rolle.addEventListener('change', function () {
+      var typen = W.KONTAKT_TYPEN[form.rolle.value] || [];
+      form.typ.innerHTML = typen.map(function (t) {
+        return '<option value="' + W.f.h(t) + '">' + W.f.h(t) + '</option>';
+      }).join('');
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var fehler = document.getElementById('kontakt-fehler');
+      var name = form.name.value.trim();
+      if (!name) {
+        fehler.textContent = 'Bitte einen Namen oder eine Firma angeben.';
+        fehler.style.display = 'block';
+        form.name.focus();
+        return;
+      }
+      var id = neueId('kt');
+      daten.kontakte.push({
+        id: id, rolle: form.rolle.value, name: name, typ: form.typ.value,
+        ansprechpartner: form.ansprechpartner.value.trim(),
+        anrede: form.anrede.value.trim(),
+        email: form.email.value.trim(), telefon: form.telefon.value.trim(),
+        anschrift: form.anschrift.value.trim(),
+        adressvalidierung: { status: 'offen', datum: null, hinweis: '' },
+        notizen: form.notizen.value.trim()
+      });
+      protokollieren(null, 'Investor', form.rolle.value + ' angelegt: ' + name);
+      sichern();
+      location.hash = '#/kontakt/' + id;
+    });
+  }
+
   /* --- Verwaltung ------------------------------------------------------------- */
 
   function verdrahteVerwaltung() {
@@ -934,6 +976,32 @@
       a.remove();
       setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
       hinweisBalken('Sicherung erstellt.');
+    });
+
+    /* „Leer starten“: alles weg, Konto und Stammdaten bleiben. Zwei Klicks,
+       damit es nicht aus Versehen passiert. */
+    var leeren = document.getElementById('knopf-leeren');
+    var leerenSicher = false;
+    if (leeren) leeren.addEventListener('click', function () {
+      if (!leerenSicher) {
+        leerenSicher = true;
+        leeren.classList.remove('onyx-knopf-klar');
+        leeren.classList.add('onyx-knopf-gefahr');
+        leeren.textContent = 'Wirklich alles leeren?';
+        return;
+      }
+      var konto = daten.konto, stamm = daten.stamm;
+      W.speicher.fotosLoeschen().then(function () {
+        daten = W.LEER();
+        daten.konto = konto;
+        daten.stamm = stamm;
+        protokollieren(null, 'Akte', 'Datenbestand geleert, Konto und Stammdaten behalten');
+        sichern();
+        stammUebernehmen();
+        location.hash = '#/objekte';
+        zeichnen();
+        hinweisBalken('Leer. Zuerst den Eigentümer anlegen, dann das erste eigene Objekt.');
+      });
     });
 
     var zurueck = document.getElementById('knopf-zuruecksetzen');

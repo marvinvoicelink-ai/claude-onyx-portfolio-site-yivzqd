@@ -773,8 +773,14 @@ window.W = window.W || {};
     var daten = '<dl class="zahlenband" style="margin-top:0">' + zahlen + '</dl>' +
       '<div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem">' +
         '<button class="onyx-knopf onyx-knopf-leise" id="knopf-sichern">' + sym.hochladen(16) + 'Sicherung als Datei</button>' +
+        '<button class="onyx-knopf onyx-knopf-klar" id="knopf-leeren">Leer starten</button>' +
         '<button class="onyx-knopf onyx-knopf-klar" id="knopf-zuruecksetzen">Auf Ausgangsstand zurücksetzen</button>' +
       '</div>' +
+      '<p class="mini leise" style="margin-top:.75rem;line-height:1.7">' +
+        '<b>Leer starten</b> räumt alle Objekte, Kontakte, Vorgänge, Termine, Unterlagen und Fotos ' +
+        'weg und lässt ein leeres System stehen — Konto und Stammdaten bleiben. Danach über ' +
+        '„Objekt anlegen“ mit den eigenen Objekten beginnen. ' +
+        '<b>Auf Ausgangsstand zurücksetzen</b> holt die Beispieldaten der Vorführung zurück.</p>' +
       '<p class="mini leise" style="margin-top:.75rem;line-height:1.7">' +
         'Die Sicherung enthält den gesamten Datenbestand als Datei. Fotos und abgelegte Scans bleiben im Browser dieses Geräts. ' +
         'Im Kundensystem liegt beides auf dem Server, mit täglicher Sicherung.</p>';

@@ -6,7 +6,7 @@
 
    Bei jeder Aenderung an den Dateien die Fassung hochzaehlen. Der alte
    Zwischenspeicher wird dann beim naechsten Start geloescht. */
-var FASSUNG = 'wertakte-v1';
+var FASSUNG = 'wertakte-v2';
 
 var DATEIEN = [
   './',

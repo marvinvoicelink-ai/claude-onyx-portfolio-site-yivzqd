@@ -68,6 +68,15 @@ window.W = window.W || {};
       catch (e) { speicherWarnung = 'Der Speicher des Browsers ist voll oder gesperrt. Änderungen gelten nur bis zum Neuladen.'; }
     },
 
+    /* Nur die Bilder und Scans loeschen, den Datensatz nicht anfassen —
+       fuer „Leer starten“, wo Konto und Stammdaten bleiben sollen. */
+    fotosLoeschen: function () {
+      Object.keys(urlCache).forEach(function (k) { URL.revokeObjectURL(urlCache[k]); });
+      urlCache = {};
+      return tx('readwrite', function (s) { return s.clear(); })
+        .catch(function () { /* ohne IndexedDB gibt es nichts zu leeren */ });
+    },
+
     zuruecksetzen: function () {
       try { localStorage.removeItem(SCHLUESSEL); } catch (e) { /* egal */ }
       Object.keys(urlCache).forEach(function (k) { URL.revokeObjectURL(urlCache[k]); });

@@ -1622,6 +1622,16 @@ W.SEED_KONTO = function () {
   };
 };
 
+/* Ein leerer Bestand: dieselbe Form wie die Beispieldaten, nur ohne Inhalt.
+   Damit laesst sich das System vor den Augen des Kunden leerraeumen und mit
+   seinem eigenen Objekt neu beginnen. Konto und Stammdaten bleiben. */
+W.LEER = function () {
+  return {
+    kontakte: [], objekte: [], unterlagen: [], beteiligungen: [],
+    vorgaenge: [], termine: [], fotos: [], protokoll: []
+  };
+};
+
 W.SEED_STAMM = function () {
   return {
     objektarten: W.OBJEKTARTEN.slice(),

@@ -294,7 +294,25 @@ window.W = window.W || {};
       '</div>';
 
     var koerper;
-    if (!treffer.length) {
+    if (!treffer.length && !liste.length) {
+      /* Ganz leerer Bestand — hier steht der Weg zum ersten eigenen Objekt. */
+      var hatEigentuemer = d.kontakte.some(function (k) { return k.rolle === 'Eigentümer'; });
+      koerper = '<div class="onyx-leer" style="margin:3rem 0;padding:3.5rem 1.5rem;text-align:center">' +
+        '<p style="font-size:1.0625rem">Noch kein Objekt im Bestand.</p>' +
+        '<p class="klein leise" style="margin-top:.6rem;line-height:1.8;max-width:52ch;margin-left:auto;margin-right:auto">' +
+          (hatEigentuemer
+            ? 'Objekt anlegen, Kaufpreis und Jahresmiete eintragen — Faktor, Renditen und Kaufnebenkosten ' +
+              'rechnet das System selbst, und die Pflichtunterlagen legt es als offen an.'
+            : 'Zuerst den Eigentümer als Kontakt anlegen, danach das Objekt. Beim Objekt genügen ' +
+              'Kaufpreis und Jahresmiete, alles Rechenbare kommt von selbst.') + '</p>' +
+        '<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem;margin-top:1.75rem">' +
+          (hatEigentuemer
+            ? '<a class="onyx-knopf onyx-knopf-primaer" href="#/neu">' + sym.plus(16) + 'Erstes Objekt anlegen</a>'
+            : '<a class="onyx-knopf onyx-knopf-primaer" href="#/kontakt-neu?rolle=' + encodeURIComponent('Eigentümer') + '">' +
+              sym.plus(16) + 'Eigentümer anlegen</a>' +
+              '<a class="onyx-knopf onyx-knopf-klar" href="#/neu">Objekt anlegen</a>') +
+        '</div></div>';
+    } else if (!treffer.length) {
       koerper = '<div class="onyx-leer" style="margin:3rem 0;padding:3.5rem 1.5rem;text-align:center">' +
         '<p style="font-size:.9375rem">Kein Objekt passt zu dieser Suche.</p>' +
         '<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem;margin-top:1.5rem">' +
@@ -1030,7 +1048,15 @@ window.W = window.W || {};
         '<section class="formular-abschnitt"><h2>Auftrag und Zahlen</h2>' +
           '<div class="feld-gruppe"><label class="onyx-etikett" for="eigentuemerId">Eigentümer</label>' +
             '<select class="onyx-feld" id="eigentuemerId" name="eigentuemerId">' +
-              opt(eig.map(function (k) { return { wert: k.id, text: k.name }; }), '', 'Bitte auswählen') + '</select></div>' +
+              opt(eig.map(function (k) { return { wert: k.id, text: k.name }; }), '', 'Bitte auswählen') + '</select>' +
+            (eig.length
+              ? '<p class="mini leise" style="margin-top:.35rem">Steht er noch nicht in der Liste? ' +
+                '<a class="amber" href="#/kontakt-neu?rolle=' + encodeURIComponent('Eigentümer') + '">Eigentümer anlegen</a></p>'
+              : '<p class="hinweis" style="margin-top:.6rem"><span class="amber" style="flex:none;margin-top:.1rem">' + sym.warnung(17) + '</span>' +
+                '<span>Es gibt noch keinen Eigentümer. ' +
+                '<a class="amber" href="#/kontakt-neu?rolle=' + encodeURIComponent('Eigentümer') + '">Zuerst den Eigentümer anlegen</a>' +
+                ' — danach steht er hier zur Auswahl.</span></p>') +
+          '</div>' +
           '<div class="feld-paar">' + feld('kaufpreis', 'Kaufpreis in Euro', 'text', '3350000') +
             feld('mieteinnahmen', 'Mieteinnahmen p. a. in Euro', 'text', '312000') + '</div>' +
           '<div class="feld-paar">' +
@@ -1060,6 +1086,62 @@ window.W = window.W || {};
       '</form>';
   };
 
+  /* --- Neuer Kontakt ------------------------------------------------------------
+     Ohne diese Seite kaeme man in einem leeren System nicht weiter: der
+     Eigentuemer ist beim Objekt Pflicht, und irgendwo muss er herkommen. */
+  W.KONTAKT_TYPEN = {
+    'Eigentümer': ['Privateigentümer', 'Bestandshalter', 'Erbengemeinschaft', 'Verwaltung', 'Sonstiges'],
+    'Investor': ['Family Office', 'Institutioneller Investor', 'Privatinvestor', 'Projektentwickler', 'Sonstiges'],
+    'Privatkunde': ['Kaufinteressent', 'Verkäufer', 'Sonstiges'],
+    'Notariat': ['Notar'],
+    'Bank': ['Finanzierung']
+  };
+
+  W.seiten.kontaktNeu = function (d, rolle) {
+    var gewaehlt = W.ROLLEN_ORDNUNG.indexOf(rolle) >= 0 ? rolle : 'Eigentümer';
+    function feld(name, etikett, art, platzhalter) {
+      return '<div class="feld-gruppe"><label class="onyx-etikett" for="k-' + name + '">' + h(etikett) + '</label>' +
+        '<input class="onyx-feld" id="k-' + name + '" name="' + name + '" type="' + (art || 'text') + '"' +
+        (platzhalter ? ' placeholder="' + h(platzhalter) + '"' : '') + '></div>';
+    }
+    return '<a class="zurueck" href="#/kontakte">' + sym.pfeilLinks(14) + 'Alle Kontakte</a>' +
+      '<div style="margin-top:1rem;padding-bottom:1.5rem;border-bottom:1px solid var(--onyx-kontur-leise)">' +
+        '<h1>Kontakt anlegen</h1>' +
+        '<p class="klein leise" style="margin-top:.35rem;max-width:64ch;line-height:1.7">' +
+          'Die Rolle entscheidet, in welchem Ordner der Kontakt landet und wo er auftaucht: ' +
+          'Eigentümer stehen beim Objekt, Investoren und Privatkunden lassen sich auf ein Objekt setzen.</p>' +
+      '</div>' +
+      '<form class="formular" id="kontakt-formular">' +
+        '<section class="formular-abschnitt"><h2>Wer</h2>' +
+          '<div class="feld-paar">' +
+            '<div class="feld-gruppe"><label class="onyx-etikett" for="k-rolle">Rolle</label>' +
+              '<select class="onyx-feld" id="k-rolle" name="rolle">' + opt(W.ROLLEN_ORDNUNG, gewaehlt) + '</select></div>' +
+            '<div class="feld-gruppe"><label class="onyx-etikett" for="k-typ">Art</label>' +
+              '<select class="onyx-feld" id="k-typ" name="typ">' + opt(W.KONTAKT_TYPEN[gewaehlt], '') + '</select></div>' +
+          '</div>' +
+          feld('name', 'Name oder Firma', 'text', 'Hansen Immobilien Verwaltungs GmbH') +
+          feld('ansprechpartner', 'Ansprechpartner', 'text', 'Bernd Hansen, Geschäftsführung') +
+          '<div class="feld-gruppe"><label class="onyx-etikett" for="k-anrede">Anrede im Schriftverkehr</label>' +
+            '<input class="onyx-feld" id="k-anrede" name="anrede" type="text" placeholder="Herr Hansen">' +
+            '<p class="mini leise" style="margin-top:.35rem;line-height:1.6">Steht so in jedem Brief und jeder Mail. ' +
+              'Das System rät die Anrede nie aus dem Namen. Bleibt das Feld leer, heißt es ' +
+              '„Sehr geehrte Damen und Herren“.</p></div>' +
+        '</section>' +
+        '<section class="formular-abschnitt"><h2>Erreichbarkeit</h2>' +
+          '<div class="feld-paar">' + feld('telefon', 'Telefon', 'tel', '0441 21807-0') +
+            feld('email', 'E-Mail', 'email', 'b.hansen@beispiel.de') + '</div>' +
+          feld('anschrift', 'Anschrift', 'text', 'Amalienstraße 9, 26135 Oldenburg') +
+          '<div class="feld-gruppe"><label class="onyx-etikett" for="k-notizen">Notizen</label>' +
+            '<textarea class="onyx-feld" id="k-notizen" name="notizen" rows="4"></textarea></div>' +
+        '</section>' +
+        '<p id="kontakt-fehler" class="klein" style="display:none;color:var(--onyx-warn);background:var(--onyx-warn-flaeche);border:1px solid rgb(217 97 76 / .35);border-radius:var(--onyx-radius-klein);padding:.5rem .75rem"></p>' +
+        '<div style="display:flex;align-items:center;gap:.75rem;padding-top:1.5rem;border-top:1px solid var(--onyx-kontur-leise)">' +
+          '<button class="onyx-knopf onyx-knopf-primaer" type="submit">Kontakt anlegen</button>' +
+          '<a class="onyx-knopf onyx-knopf-klar" href="#/kontakte">Abbrechen</a>' +
+        '</div>' +
+      '</form>';
+  };
+
   /* --- Investoren -------------------------------------------------------------- */
 
   /* Alle Menschen, mit denen das Büro zu tun hat, in einer Liste: Eigentümer,
@@ -1084,7 +1166,10 @@ window.W = window.W || {};
         '<p class="klein leise" style="margin-top:.35rem;max-width:68ch;line-height:1.7">' +
           'Alle in einer Liste: Eigentümer, die verkaufen, Investoren und Privatkunden, die kaufen, ' +
           'dazu Notariat und Bank. Die Ordner oben trennen sie, jeder Eintrag führt zur Historie.</p></div>' +
-        '<p class="klein leise mono">' + liste.length + ' von ' + alle.length + '</p></div>' +
+        '<div style="display:flex;align-items:center;gap:1rem">' +
+          '<p class="klein leise mono">' + liste.length + ' von ' + alle.length + '</p>' +
+          '<a class="onyx-knopf onyx-knopf-primaer" href="#/kontakt-neu">' + sym.plus(16) + 'Kontakt anlegen</a>' +
+        '</div></div>' +
       W.ordnerreihe(W.ordnerZaehlen(alle, rollen, function (k) { return k.rolle; }), gewaehlt, function (wert) {
         return '#/kontakte' + (wert ? '?ordner=' + encodeURIComponent(wert) : '');
       }) +

@@ -99,8 +99,10 @@ und wird nie aus dem Namen geraten. Das Protokoll hält jede Änderung mit
 Zeitpunkt und Bearbeiter fest, das Suchfeld sucht über alle Bereiche, und die
 Gesamtakte druckt alle fünf Teile samt Journal im Wortlaut als ein Stück.
 
-Der Bereich Kontakte führt alle Beteiligten in einer Liste, getrennt durch
-Ordner: Eigentümer (verkaufen), Investoren und Privatkunden (kaufen), Notariat,
+Kontakte lassen sich anlegen (Rolle, Art, Anrede, Erreichbarkeit); ohne
+Eigentümer geht kein Objekt, deshalb führt der leere Bestand ausdrücklich
+dorthin. Der Bereich Kontakte führt alle Beteiligten in einer Liste, getrennt
+durch Ordner: Eigentümer (verkaufen), Investoren und Privatkunden (kaufen), Notariat,
 Bank. Damit deckt die Demo sowohl große Anleger als auch normale Privatkunden
 ab, ohne zwei Personenlisten zu haben.
 
@@ -127,7 +129,8 @@ ist auf einen 66-jährigen Nutzer ausgelegt.
 Es gibt genau ein Konto: den Inhaber (Demo: Jens Lange), mit allen Rechten. Im Bereich Verwaltung
 pflegt er sein Konto (die Angaben stehen im Briefkopf und als Absender), die
 Stammdaten (Objektarten, Foto-Kategorien, Pflichtunterlagen, Eskalationsvorgabe,
-Provision) und den Datenbestand (Sicherung als Datei, Zurücksetzen). Konto und
+Provision) und den Datenbestand (Sicherung als Datei, „Leer starten“ — alles weg, Konto und
+Stammdaten bleiben —, Zurücksetzen auf die Beispieldaten). Konto und
 Stammdaten liegen im Datenbestand, nicht im Code.
 
 Zwei Fassungen:

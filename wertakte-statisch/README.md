@@ -240,6 +240,27 @@ das erste Foto macht der Kunde in der Vorführung selbst.
     **Foto aufnehmen** – die Kamera geht direkt auf. Bei Bedarf vorher
     **A Große Schrift** einschalten.
 
+## Leer starten und eigene Objekte anlegen
+
+In **Verwaltung → Datenbestand** steht **Leer starten**. Zwei Klicks, dann sind
+alle Beispieldaten weg — Objekte, Kontakte, Vorgänge, Termine, Unterlagen und
+Fotos. **Konto und Stammdaten bleiben**, das System steht also fertig
+eingerichtet und leer da. Genau der Zustand für den Termin: einmal leerräumen
+und mit dem echten Objekt des Kunden neu anfangen.
+
+Danach in dieser Reihenfolge:
+
+1. **Kontakte → Kontakt anlegen**, Rolle **Eigentümer**. Name, Ansprechpartner
+   und die Anrede, die später in jedem Brief steht. Das System rät die Anrede
+   nie aus dem Namen.
+2. **Objekte → Objekt anlegen.** Bezeichnung, Adresse, Eigentümer,
+   **Kaufpreis und Jahresmiete** — mehr braucht es nicht. Faktor, Renditen,
+   geschätzte nicht umlagefähige Kosten, Kaufnebenkosten und Gesamtinvestition
+   rechnet das System noch während der Eingabe, die fünfzehn Pflichtunterlagen
+   legt es als offen an, das Aktenzeichen vergibt es fortlaufend.
+3. Alles Weitere entsteht in der Akte: Unterlagen ablegen, Interessenten
+   daraufsetzen, schreiben, Termine, Fotos.
+
 ## Auf den Ausgangsstand zurücksetzen
 
 Entwicklerkonsole (F12) öffnen und eingeben:
