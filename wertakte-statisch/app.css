@@ -307,7 +307,15 @@ textarea.onyx-feld { resize: vertical; line-height: 1.65; }
 .bogen-zeile.ist-offen { opacity: .78; }
 
 /* --- Zeilen mit Symbol links ---------------------------------------------- */
-.symbolzeile { display: flex; gap: .85rem; padding: .9rem .5rem; margin: 0 -.5rem; border-radius: var(--onyx-radius-klein); }
+/* Journalzeilen sind teils Knoepfe, teils Links. Ohne diese Angaben malt der
+   Browser dem Knopf seinen hellgrauen Standardgrund - dann leuchtet die Zeile
+   hell auf dunklem Grund. Kein pauschaler button-Reset, siehe oben. */
+.symbolzeile {
+  display: flex; gap: .85rem; padding: .9rem .5rem; margin: 0 -.5rem;
+  border-radius: var(--onyx-radius-klein);
+  width: 100%; text-align: left;
+  background: transparent; border: 0; color: inherit; font: inherit;
+}
 .symbolkreis {
   flex: none; display: grid; place-items: center; width: 2rem; height: 2rem;
   border-radius: 999px; border: 1px solid var(--onyx-kontur); color: var(--onyx-text-leise);
