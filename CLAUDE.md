@@ -102,7 +102,10 @@ Kategorie und „Offen“, Kommunikation nach Posteingang/Postausgang und Weg,
 Termine nach Dringlichkeit, Fotos nach Kategorie, Protokoll nach Art). Der
 gewählte Ordner steht in der Adresszeile.
 
-Der Terminplan zeigt je Wiedervorlage die drei Eskalationsstufen mit Datum;
+Der Terminplan beginnt mit einem Monatskalender (Farbe = Dringlichkeit: rot
+überfällig oder letzte Stufe, amber in den nächsten Tagen, grau später; ein Tag
+angeklickt filtert die Liste darunter, am Handy farbige Punkte statt Titel).
+Darunter zeigt er je Wiedervorlage die drei Eskalationsstufen mit Datum;
 der erste Knopf führt die aktuelle Stufe aus („Jetzt anrufen“) und öffnet das
 Verfassen-Fenster mit dem passenden Weg. In jeder Objektakte steht oben auf
 jedem Reiter „Foto aufnehmen“, am Handy geht damit direkt die Kamera auf.

@@ -1,4 +1,4 @@
-/* Wiederkehrende Bausteine: Symbole, Marken, Zeitschiene, leere Zustaende.
+/* Wiederkehrende Bausteine: Symbole, Marken, Kalender, leere Zustaende.
    Alles liefert HTML als Zeichenkette, gezeichnet wird in seiten.js. */
 window.W = window.W || {};
 (function () {
@@ -82,56 +82,91 @@ window.W = window.W || {};
         '</div>';
     },
 
-    /* --- Zeitschiene der Wiedervorlagen -------------------------------- */
-    terminschiene: function (termine, heute, d) {
-      var WOCHEN = 5, TAG = 86400000;
-      var start = W.f.wochenStart(heute);
-      var ende = new Date(start.getTime() + WOCHEN * 7 * TAG);
-      var spanne = ende - start;
-      var anteil = function (x) { return ((x - start) / spanne) * 100; };
-      var heuteAnteil = Math.min(100, Math.max(0, anteil(heute)));
+    /* --- Monatskalender ------------------------------------------------
+       Ein Blatt wie im Kalender an der Wand: oben der Monat, darunter die
+       Wochen. Die Farbe sagt, wie dringend es ist - rot ueberfaellig oder
+       letzte Stufe, amber in den naechsten Tagen, grau spaeter. Ein Tippen
+       auf einen Tag zeigt unten nur diesen Tag. */
+    monatskalender: function (termine, heute, d, monatIso, adresse, tagGewaehlt) {
+      var jetzt = new Date(heute.getFullYear(), heute.getMonth(), heute.getDate());
+      var teile = String(monatIso || '').split('-');
+      var jahr = parseInt(teile[0], 10), monat = parseInt(teile[1], 10) - 1;
+      if (isNaN(jahr) || isNaN(monat)) { jahr = jetzt.getFullYear(); monat = jetzt.getMonth(); }
 
-      var offen = (termine || []).filter(function (t) { return t.faellig && t.status !== 'erledigt'; })
-        .sort(function (a, c) { return a.faellig.localeCompare(c.faellig); })
-        .slice(0, 8);
-      if (!offen.length) return W.b.leer('Keine offene Wiedervorlage.');
-
-      var kopf = '';
-      for (var i = 0; i < WOCHEN; i++) {
-        var w = new Date(start.getTime() + i * 7 * TAG);
-        kopf += '<span class="onyx-etikett" style="padding-left:.5rem">KW ' + W.f.isoKw(w) + '</span>';
+      function iso(datum) {
+        return datum.getFullYear() + '-' + String(datum.getMonth() + 1).padStart(2, '0') +
+          '-' + String(datum.getDate()).padStart(2, '0');
       }
-      var raster = new Array(WOCHEN + 1).join('<span></span>');
+      function monatWert(j, m) { return j + '-' + String(m + 1).padStart(2, '0'); }
 
-      var zeilen = offen.map(function (t) {
-        var faellig = new Date(t.faellig);
-        var tage = W.f.tageBis(t.faellig, heute);
-        var ueber = tage !== null && tage < 0;
-        var bis = Math.min(100, anteil(faellig));
-        var von = ueber ? 0 : Math.max(0, Math.min(heuteAnteil, anteil(faellig)));
-        var breite = ueber ? Math.max(3, heuteAnteil - von) : Math.max(3, bis - von);
-        var o = d ? d.objekte.filter(function (x) { return x.id === t.objektId; })[0] : null;
-        var kurz = o ? o.aktenzeichen.replace(/^VK-\d{4}-/, '') : '';
-        return '<a class="schiene-zeile" href="#/objekt/' + h(t.objektId) + '?reiter=termine" ' +
-          'title="' + h(t.titel + ' · fällig ' + W.f.datum(t.faellig)) + '">' +
-          '<span class="schiene-balken' + (ueber ? ' ist-warn' : (t.stufe >= 2 ? '' : ' onyx-schiene-balken-leise')) + '" ' +
-          'style="left:' + von + '%;width:' + breite + '%">' +
-          '<span class="mono" style="font-size:.66rem">' + h(kurz) + '</span>' +
-          '</span></a>';
+      var proTag = {};
+      (termine || []).forEach(function (t) {
+        if (!t.faellig) return;
+        (proTag[t.faellig] = proTag[t.faellig] || []).push(t);
+      });
+
+      function dringlichkeit(t) {
+        if (t.status === 'erledigt') return 'ist-durch';
+        var tage = W.f.tageBis(t.faellig, jetzt);
+        if ((tage !== null && tage < 0) || t.stufe >= 3) return 'ist-warn';
+        if (tage !== null && tage <= 3) return 'ist-bald';
+        return '';
+      }
+
+      var erster = new Date(jahr, monat, 1);
+      var start = new Date(jahr, monat, 1 - ((erster.getDay() + 6) % 7));
+      var heuteIso = iso(jetzt);
+
+      var wochentage = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'].map(function (w) {
+        return '<span class="kal-wochentag">' + w + '</span>';
       }).join('');
 
-      return '<div class="onyx-karte" style="padding:1.25rem">' +
-        '<div class="onyx-schiene">' +
-          '<div class="onyx-schiene-raster" style="grid-template-columns:repeat(' + WOCHEN + ',1fr)" aria-hidden="true">' + raster + '</div>' +
-          '<div style="position:relative;display:grid;grid-template-columns:repeat(' + WOCHEN + ',1fr);margin-bottom:.75rem">' + kopf + '</div>' +
-          '<div style="position:relative;display:grid;gap:.6rem">' +
-            '<span aria-hidden="true" style="position:absolute;top:0;bottom:0;width:1px;background:var(--onyx-amber);opacity:.45;left:' + heuteAnteil + '%"></span>' +
-            zeilen +
-          '</div>' +
+      var zellen = '';
+      for (var i = 0; i < 42; i++) {
+        var tag = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i);
+        var tagIso = iso(tag);
+        var drin = proTag[tagIso] || [];
+        var fremd = tag.getMonth() !== monat;
+        var klassen = 'kal-tag' + (fremd ? ' ist-fremd' : '') +
+          (tagIso === heuteIso ? ' ist-heute' : '') +
+          (tagIso === tagGewaehlt ? ' ist-gewaehlt' : '') +
+          (drin.length ? ' hat-termine' : '');
+
+        var punkte = drin.slice(0, 3).map(function (t) {
+          return '<span class="kal-eintrag ' + dringlichkeit(t) + '">' + h(t.titel) + '</span>';
+        }).join('');
+        if (drin.length > 3) punkte += '<span class="kal-mehr mono">+' + (drin.length - 3) + '</span>';
+
+        var inhalt = '<span class="kal-zahl mono">' + tag.getDate() + '</span>' +
+          (drin.length ? '<span class="kal-liste">' + punkte + '</span>' : '');
+
+        zellen += drin.length
+          ? '<a class="' + klassen + '" href="' + h(adresse(monatWert(jahr, monat), tagIso === tagGewaehlt ? '' : tagIso)) + '" ' +
+            'title="' + h(W.f.datum(tagIso) + ' · ' + drin.length + (drin.length === 1 ? ' Termin' : ' Termine')) + '">' + inhalt + '</a>'
+          : '<span class="' + klassen + '">' + inhalt + '</span>';
+      }
+
+      var titel = new Date(jahr, monat, 1).toLocaleDateString('de-DE', { month: 'long', year: 'numeric' });
+      var vor = monatWert(monat === 0 ? jahr - 1 : jahr, monat === 0 ? 11 : monat - 1);
+      var zurueck = monatWert(monat === 11 ? jahr + 1 : jahr, monat === 11 ? 0 : monat + 1);
+
+      return '<section class="kalender">' +
+        '<div class="kal-kopf">' +
+          '<h2 class="kal-monat">' + h(titel) + '</h2>' +
+          '<span class="kal-steuer">' +
+            '<a class="onyx-knopf onyx-knopf-leise" href="' + h(adresse(vor, '')) + '" aria-label="Vorheriger Monat">' + W.sym.pfeilLinks(16) + '</a>' +
+            '<a class="onyx-knopf onyx-knopf-leise" href="' + h(adresse(monatWert(jetzt.getFullYear(), jetzt.getMonth()), '')) + '">Heute</a>' +
+            '<a class="onyx-knopf onyx-knopf-leise" href="' + h(adresse(zurueck, '')) + '" aria-label="Nächster Monat">' + W.sym.pfeilRechts(16) + '</a>' +
+          '</span>' +
         '</div>' +
-        '<p class="mini leise" style="margin-top:1rem;padding-top:.75rem;border-top:1px solid var(--onyx-kontur-leise)">' +
-          'Balkenende ist der Fälligkeitstag. Die senkrechte Linie ist heute, Rot heißt überfällig.</p>' +
-        '</div>';
+        '<div class="kal-gitter">' + wochentage + zellen + '</div>' +
+        '<p class="kal-legende">' +
+          '<span><i class="ist-warn"></i>überfällig oder letzte Stufe</span>' +
+          '<span><i class="ist-bald"></i>in den nächsten Tagen</span>' +
+          '<span><i></i>später</span>' +
+          '<span><i class="ist-durch"></i>erledigt</span>' +
+        '</p>' +
+      '</section>';
     }
   };
 })();

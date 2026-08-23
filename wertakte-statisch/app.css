@@ -250,16 +250,6 @@ textarea.onyx-feld { resize: vertical; line-height: 1.65; }
 @media (min-width: 640px) { .tor-formular { padding: 3.5rem 3rem; } }
 .tor-formular > div { width: 100%; max-width: 27rem; margin: 0 auto; }
 
-/* --- Zeitschiene -------------------------------------------------------- */
-.schiene-zeile { position: relative; display: block; height: 1.5rem; border-radius: 4px; }
-.schiene-zeile:hover { background: var(--onyx-kontur-leise); }
-.schiene-balken {
-  position: absolute; top: 0; bottom: 0; min-width: 2.5rem;
-  display: flex; align-items: center; padding: 0 .5rem;
-  border-radius: 4px; background: var(--onyx-amber); color: var(--onyx-auf-amber);
-}
-.schiene-balken.ist-warn { background: var(--onyx-warn); color: var(--onyx-grund-tief); }
-
 /* Fotoseite: Zähler unter den Erklärtext, damit er nicht neben dem
    umbrechenden Absatz klebt. */
 @media (max-width: 900px) { .kopfzeile-seite > p { width: 100%; } }
@@ -516,3 +506,69 @@ html.gross .schrift-knopf { color: var(--onyx-amber); border-color: var(--onyx-a
 
 .heute { margin-top: 1.75rem; }
 .heute .onyx-register { border-top: 1px solid var(--onyx-kontur-leise); }
+
+/* --- Monatskalender ---------------------------------------------------------- */
+.kalender { margin-top: 1rem; }
+.kal-kopf { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; }
+.kal-monat { font-size: 1.125rem; text-transform: capitalize; }
+.kal-steuer { display: flex; gap: .4rem; }
+.kal-steuer .onyx-knopf { font-size: .8125rem; padding: .42rem .75rem; }
+
+.kal-gitter {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
+  margin-top: .9rem; background: var(--onyx-kontur-leise);
+  border: 1px solid var(--onyx-kontur-leise); border-radius: var(--onyx-radius);
+  overflow: hidden;
+}
+.kal-wochentag {
+  background: var(--onyx-grund-tief); padding: .5rem .6rem;
+  font-family: var(--onyx-schrift-mono); font-size: .69rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--onyx-text-still);
+}
+.kal-tag {
+  display: block; min-height: 5.4rem; padding: .4rem .45rem;
+  background: var(--onyx-grund); color: inherit;
+}
+a.kal-tag:hover { background: var(--onyx-flaeche); }
+.kal-tag.ist-fremd { background: var(--onyx-grund-tief); }
+.kal-tag.ist-fremd .kal-zahl { color: var(--onyx-text-still); opacity: .5; }
+.kal-tag.ist-heute { box-shadow: inset 0 0 0 1px var(--onyx-amber); }
+.kal-tag.ist-heute .kal-zahl {
+  color: var(--onyx-grund); background: var(--onyx-amber);
+  border-radius: 999px; padding: .1rem .45rem;
+}
+.kal-tag.ist-gewaehlt { background: var(--onyx-amber-flaeche); box-shadow: inset 0 0 0 2px var(--onyx-amber); }
+.kal-zahl { display: inline-block; font-size: .8125rem; color: var(--onyx-text-leise); }
+.kal-liste { display: grid; gap: 2px; margin-top: .3rem; }
+.kal-eintrag {
+  display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  padding: .16rem .35rem; border-radius: 4px; font-size: .69rem; line-height: 1.5;
+  color: var(--onyx-text-leise); background: var(--onyx-flaeche-hoch);
+  border-left: 3px solid var(--onyx-text-still);
+}
+.kal-eintrag.ist-warn { color: #F0B4A6; background: var(--onyx-warn-flaeche); border-left-color: var(--onyx-warn); }
+.kal-eintrag.ist-bald { color: var(--onyx-amber-hell); background: var(--onyx-amber-flaeche); border-left-color: var(--onyx-amber); }
+.kal-eintrag.ist-durch { text-decoration: line-through; opacity: .6; border-left-color: var(--onyx-gut); }
+.kal-mehr { font-size: .66rem; color: var(--onyx-text-still); padding-left: .35rem; }
+
+.kal-legende { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; margin-top: .7rem; font-size: .78125rem; color: var(--onyx-text-leise); }
+.kal-legende span { display: flex; align-items: center; gap: .4rem; }
+.kal-legende i { width: .7rem; height: .7rem; border-radius: 3px; background: var(--onyx-text-still); }
+.kal-legende i.ist-warn { background: var(--onyx-warn); }
+.kal-legende i.ist-bald { background: var(--onyx-amber); }
+.kal-legende i.ist-durch { background: var(--onyx-gut); }
+
+/* Am Handy zaehlt der Ueberblick: Zahl und farbige Punkte, Titel erst nach dem Tippen. */
+@media (max-width: 640px) {
+  .kal-tag { min-height: 3.6rem; padding: .3rem .25rem; text-align: center; }
+  .kal-wochentag { padding: .4rem .25rem; text-align: center; }
+  .kal-liste { display: flex; flex-wrap: wrap; gap: 2px; justify-content: center; margin-top: .25rem; }
+  .kal-eintrag {
+    width: .45rem; height: .45rem; padding: 0; border-radius: 999px; border-left: 0;
+    font-size: 0; background: var(--onyx-text-still);
+  }
+  .kal-eintrag.ist-warn { background: var(--onyx-warn); }
+  .kal-eintrag.ist-bald { background: var(--onyx-amber); }
+  .kal-eintrag.ist-durch { background: var(--onyx-gut); opacity: .5; }
+  .kal-mehr { font-size: .6rem; padding: 0; }
+}

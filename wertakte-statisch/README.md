@@ -117,6 +117,13 @@ dem Objekt, dem Gegenüber und dem Betreff. Dazu **Auf Stufe X heben** und
 **Erledigt**. Überfällige Punkte stehen rot, die Zeitschiene zeigt fünf
 Kalenderwochen.
 
+Oben auf der Seite steht ein **Monatskalender** wie an der Wand: Monat
+blättern, „Heute“ springt zurück. Die Farbe sagt, wie dringend es ist – rot
+überfällig oder letzte Stufe, amber in den nächsten Tagen, grau später, grün
+durchgestrichen erledigt. Ein Klick auf einen Tag zeigt unten nur diesen Tag,
+„Ganzen Monat zeigen“ hebt es wieder auf. Am Handy stehen statt der Titel
+farbige Punkte unter der Zahl – dieselbe Bedeutung, nur kleiner.
+
 Auf der **Übersicht** steht ganz oben „Das steht jetzt an“ mit denselben
 Karten – alles, was überfällig ist oder in den nächsten drei Tagen fällig wird.
 

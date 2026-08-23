@@ -215,8 +215,7 @@ window.W = window.W || {};
           'Mail, Telefonat, WhatsApp, SMS, Brief oder Notiz \u2013 alles beginnt an dieser Stelle und liegt danach in der Akte.</p>' +
         '<div class="kanalleiste" style="margin-top:.8rem">' + W.verfassenKnoepfe('', '') + '</div>' +
       '</div>' +
-      '<section style="margin-top:2rem"><h2>Wiedervorlagen der nächsten Wochen</h2>' +
-        '<div style="margin-top:.9rem">' + b.terminschiene(offeneTermine, heute, d) + '</div></section>' +
+
       '<div class="spalten">' +
         '<section><div class="abschnitt-kopf"><h2>Alle offenen Wiedervorlagen</h2>' +
           '<a class="klein amber" href="#/termine" style="display:flex;align-items:center;gap:.3rem">Terminplan' + sym.pfeilRechts(13) + '</a></div>' +
@@ -1179,22 +1178,45 @@ window.W = window.W || {};
     var alleT = H.termineZu(d, null);
     var offen = alleT.filter(function (t) { return t.status === 'offen'; });
     var gewaehlt = q.ordner || '';
-    var zeigen = gewaehlt ? alleT.filter(function (t) { return W.terminOrdnerName(t) === gewaehlt; }) : offen;
+    var tag = q.tag || '';
     var heute = new Date();
+
+    /* Der Kalender zeigt immer alles, was an einem Tag ansteht. Darunter die
+       Liste: ein angetippter Tag, sonst der Ordner, sonst die offenen Punkte. */
+    var zeigen = tag ? alleT.filter(function (t) { return t.faellig === tag; })
+      : (gewaehlt ? alleT.filter(function (t) { return W.terminOrdnerName(t) === gewaehlt; }) : offen);
+
+    function adresse(monat, tagWert) {
+      var teile = [];
+      if (monat) teile.push('monat=' + encodeURIComponent(monat));
+      if (tagWert) teile.push('tag=' + encodeURIComponent(tagWert));
+      if (gewaehlt && !tagWert) teile.push('ordner=' + encodeURIComponent(gewaehlt));
+      return '#/termine' + (teile.length ? '?' + teile.join('&') : '');
+    }
+
+    var unterzeile = tag
+      ? '<span class="onyx-marke onyx-marke-laeuft">' + h(W.f.datumLang(tag)) + '</span>' +
+        '<a class="onyx-knopf onyx-knopf-klar" style="font-size:.8125rem;padding:.42rem .75rem;margin-left:.5rem" href="' +
+        h('#/termine' + (q.monat ? '?monat=' + encodeURIComponent(q.monat) : '')) + '">' + sym.schliessen(13) + 'Ganzen Monat zeigen</a>'
+      : '<span class="mini still">' + (gewaehlt ? 'Ordner „' + h(gewaehlt) + '“'
+          : 'Tippe im Kalender auf einen Tag, dann steht unten nur dieser Tag. Sonst siehst du alle offenen Punkte.') + '</span>';
+
     return '<div class="kopfzeile-seite"><div><h1>Terminplan</h1>' +
         '<p class="klein leise" style="margin-top:.35rem;max-width:66ch;line-height:1.7">' +
           'Wiedervorlagen, Fristen und Termine über alle Objekte. Jede Wiedervorlage hat eine Eskalationsvorgabe: ' +
           'erst E-Mail, dann Anruf, dann Eigentümer informieren.</p></div>' +
         '<p class="klein leise mono">' + zeigen.length + ' von ' + alleT.length + '</p></div>' +
-      '<div style="margin-top:.5rem">' + b.terminschiene(offen, heute, d) + '</div>' +
+      b.monatskalender(alleT, heute, d, q.monat || '', adresse, tag) +
       W.ordnerreihe(W.ordnerZaehlen(alleT, W.TERMIN_ORDNER, W.terminOrdnerName), gewaehlt, function (wert) {
-        return '#/termine' + (wert ? '?ordner=' + encodeURIComponent(wert) : '');
+        var teile = [];
+        if (q.monat) teile.push('monat=' + encodeURIComponent(q.monat));
+        if (wert) teile.push('ordner=' + encodeURIComponent(wert));
+        return '#/termine' + (teile.length ? '?' + teile.join('&') : '');
       }) +
-      '<p class="mini still" style="margin-top:.5rem">' +
-        (gewaehlt ? 'Ordner „' + h(gewaehlt) + '“' : 'Ohne Ordner stehen hier die offenen Punkte. „Alle“ zeigt auch die erledigten.') + '</p>' +
+      '<p style="margin-top:.6rem;display:flex;flex-wrap:wrap;align-items:center;gap:.3rem">' + unterzeile + '</p>' +
       (zeigen.length ? '<ul class="onyx-register" style="margin-top:1rem;border-top:1px solid var(--onyx-kontur-leise)">' +
         zeigen.map(function (t) { return W.terminZeile(d, t, true); }).join('') + '</ul>'
-        : b.leer('In diesem Ordner liegt nichts.'));
+        : b.leer(tag ? 'An diesem Tag steht nichts an.' : 'In diesem Ordner liegt nichts.'));
   };
 
   /* --- Globale Fotos ---------------------------------------------------------------- */
