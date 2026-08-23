@@ -65,7 +65,13 @@ zusätzlich als nummerierte Reiter 1 bis 5.
 **1 Exposé.** Erfassungsbogen mit allen Eckdaten. Nur angekreuzte Punkte
 wandern ins Exposé, fehlende Angaben lassen sich nicht ankreuzen. Daneben die
 drei Prüfungen vor dem Versand: Provisionsvereinbarung, Widerrufsbelehrung,
-Adressvalidierung bei Erstkunden. Über „Exposé öffnen“ entsteht das fertige
+Adressvalidierung bei Erstkunden. Jede der drei lässt sich mit **Ansehen**
+öffnen: dahinter liegt das Schriftstück selbst auf Briefpapier, mit Anschrift
+des Gegenübers und Objektbezug, lesbar und druckbar. Die Provisionsvereinbarung
+ist ein kurzer Maklervertrag mit Parteien, Provisionssätzen, Laufzeit und
+Unterschriftenzeile, die Widerrufsbelehrung enthält das Muster-Widerrufsformular,
+die Adressvalidierung ist ein Prüfbogen mit Haken und Ergebnis. Über
+„Exposé öffnen“ entsteht das fertige
 Dokument mit Deckblatt, Eckdaten, Bildern, Provisionshinweis und
 Widerrufsbelehrung, druckbar als PDF.
 
@@ -158,7 +164,10 @@ Kundensystem allein der Inhaber an.
 
 **Fotos.** In **jeder Objektakte steht oben „Foto aufnehmen“** – auf jedem
 Reiter, ein Griff. Auf dem Handy öffnet der Knopf direkt die Kamera; das Bild
-landet sofort bei diesem Objekt und die Akte springt in den Reiter Fotos. Dazu
+landet sofort bei diesem Objekt und die Akte springt in den Reiter Fotos.
+Dasselbe geht **schon aus der Objektliste heraus**: jede Zeile und jede Kachel
+hat rechts einen Knopf **Foto**, ohne dass die Akte vorher geöffnet werden muss.
+Dazu
 ein eigener Bereich Fotos über alle Objekte und in jeder Akte ein Reiter mit
 Galerie, Beschriftung und Kategorie. Jedes Bild erscheint im Exposé und in der
 Gesamtakte. „Bilder hochladen“ nimmt vorhandene Dateien, auch mehrere auf

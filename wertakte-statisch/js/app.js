@@ -130,6 +130,7 @@
       else if (bereich === 'vorgang') { inhalt = W.seiten.vorgangBlatt(daten, r.pfad[1]); aktiv = 'kommunikation'; }
       else if (bereich === 'objekt' && r.pfad[2] === 'akte') { inhalt = W.seiten.akte(daten, r.pfad[1], bilder); aktiv = 'objekte'; }
       else if (bereich === 'objekt' && r.pfad[2] === 'expose') { inhalt = W.seiten.expose(daten, r.pfad[1], bilder); aktiv = 'objekte'; }
+      else if (bereich === 'objekt' && r.pfad[2] === 'dokument') { inhalt = W.seiten.dokument(daten, r.pfad[1], r.pfad[3]); aktiv = 'objekte'; }
       else if (bereich === 'objekt') { inhalt = W.seiten.objekt(daten, r.pfad[1], r.q, bilder); aktiv = 'objekte'; }
       else if (bereich === 'neu') { inhalt = W.seiten.neu(daten, naechstesAktenzeichen()); aktiv = 'objekte'; }
       else if (bereich === 'kontakt' || bereich === 'investor') { inhalt = W.seiten.investor(daten, r.pfad[1]); aktiv = 'kontakte'; }
@@ -262,6 +263,8 @@
     // Grossansicht eines Vorgangs, ueberall wo Journalzeilen stehen
     auf('[data-vorgang]', 'click', function (el) { offenerVorgang = el.getAttribute('data-vorgang'); zeichnen(); });
     auf('[data-foto]', 'click', function (el) { offenesFoto = el.getAttribute('data-foto'); zeichnen(); });
+
+    if (r.pfad[0] === 'objekte') verdrahteListenKamera();
 
     if (r.pfad[0] === 'verwaltung') verdrahteVerwaltung();
     if (r.pfad[0] === 'objekt' && r.pfad[1] && !r.pfad[2]) verdrahteAkte(r.pfad[1], r.q.reiter || 'expose');
@@ -659,6 +662,23 @@
 
   /* --- Fotos --------------------------------------------------------------------- */
 
+  /* Jede Objektzeile und jede Kachel hat einen eigenen Foto-Knopf. Alle
+     teilen sich ein verstecktes Feld; welches Objekt gemeint ist, merkt sich
+     „offeneKamera“ bis die Datei da ist. */
+  function verdrahteListenKamera() {
+    var feld = document.getElementById('eingabe-kamera-liste');
+    if (!feld) return;
+    var offeneKamera = null;
+    auf('[data-kamera-objekt]', 'click', function (el) {
+      offeneKamera = el.getAttribute('data-kamera-objekt');
+      feld.value = '';
+      feld.click();
+    });
+    feld.addEventListener('change', function () {
+      if (offeneKamera) uebernehmen(offeneKamera, feld.files);
+    });
+  }
+
   function verdrahteAufnahme(objektId) {
     var kamera = document.getElementById('eingabe-kamera');
     var upload = document.getElementById('eingabe-upload');
@@ -720,6 +740,10 @@
         if (location.hash !== ziel) { location.hash = ziel; return; }
       }
       if (r2.pfad[0] === 'objekt' && (r2.q.reiter || 'expose') !== 'fotos') {
+        location.hash = '#/objekt/' + objektId + '?reiter=fotos';
+        return;
+      }
+      if (r2.pfad[0] === 'objekte') {
         location.hash = '#/objekt/' + objektId + '?reiter=fotos';
         return;
       }

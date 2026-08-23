@@ -147,16 +147,40 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 
 .register-kopf { display: none; }
 @media (min-width: 1024px) {
-  .register-kopf, .register-zeile { display: grid; grid-template-columns: 7.5rem minmax(0,1fr) 12rem 4.5rem 9rem 9.5rem; gap: 1rem; align-items: center; }
+  .register-kopf, .register-zeile { display: grid; grid-template-columns: 7.5rem minmax(0,1fr) 11rem 7rem 8rem 9.5rem; gap: 1rem; align-items: center; }
   .register-kopf { padding: 0 .5rem .6rem; border-bottom: 1px solid var(--onyx-kontur-stark); }
+  /* Rechts steht der Foto-Knopf ausserhalb der Zeile. Die Kopfzeile haelt
+     denselben Platz frei, damit die Spalten untereinander bleiben. */
+  .zeile-mit-kamera > .zeilen-kamera { width: 5.75rem; justify-content: center; }
+  .register-kopf { padding-right: 7rem; }
 }
 .register-zeile { display: grid; gap: .35rem; padding: .875rem .5rem; margin: 0 -.5rem; border-radius: var(--onyx-radius-klein); }
 
 .kachel-gitter { display: grid; gap: 1.25rem; padding: 1.5rem 0; grid-template-columns: 1fr; }
 @media (min-width: 640px) { .kachel-gitter { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1280px) { .kachel-gitter { grid-template-columns: repeat(3, 1fr); } }
-.kachel-bild { position: relative; aspect-ratio: 4/3; background: var(--onyx-flaeche-hoch); overflow: hidden; }
+/* Als <span> im <a> geschrieben, deshalb hier ausdruecklich ein Block:
+   sonst greifen weder Seitenverhaeltnis noch die Marken darin. */
+.kachel-bild { display: block; position: relative; aspect-ratio: 4/3; background: var(--onyx-flaeche-hoch); overflow: hidden; }
 .kachel-bild img { width: 100%; height: 100%; object-fit: cover; }
+/* Foto-Knopf an jeder Objektzeile und auf jeder Kachel. Kein pauschaler
+   button-Reset im Projekt: Grund, Rahmen, Farbe und Schrift stehen hier. */
+.zeilen-kamera {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .5rem .7rem; border-radius: var(--onyx-radius-klein);
+  background: var(--onyx-flaeche-hoch); border: 1px solid var(--onyx-kontur);
+  color: var(--onyx-text); font: inherit; font-size: .8125rem; line-height: 1;
+  cursor: pointer; white-space: nowrap;
+}
+.zeilen-kamera:hover { border-color: var(--onyx-amber); color: var(--onyx-amber); }
+.zeile-mit-kamera { display: flex; align-items: center; gap: .75rem; }
+.zeile-mit-kamera > .register-zeile { flex: 1; min-width: 0; }
+.kachel-halter { position: relative; }
+.zeilen-kamera.auf-bild {
+  position: absolute; z-index: 2; top: .6rem; right: .6rem;
+  background: rgb(10 10 10 / .82);
+}
+
 .bild-marke { position: absolute; padding: .2rem .45rem; background: rgb(10 10 10 / .85); font-family: var(--onyx-schrift-mono); font-size: .69rem; }
 
 /* --- Akte -------------------------------------------------------------- */

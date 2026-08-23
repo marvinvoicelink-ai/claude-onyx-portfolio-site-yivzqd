@@ -310,7 +310,10 @@ window.W = window.W || {};
           : '<span style="position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:0 1.5rem">' +
             '<span><span class="still">' + sym.bild(26) + '</span>' +
             '<span class="klein leise" style="display:block;margin-top:.5rem">Noch kein Foto in der Akte</span></span></span>';
-        return '<li><a class="onyx-karte onyx-karte-klick" style="display:block;height:100%;overflow:hidden" href="#/objekt/' + h(o.id) + '">' +
+        return '<li class="kachel-halter">' +
+          '<button type="button" class="zeilen-kamera auf-bild" data-kamera-objekt="' + h(o.id) + '" ' +
+            'title="Foto zu ' + h(o.bezeichnung) + ' aufnehmen">' + sym.kamera(16) + 'Foto</button>' +
+          '<a class="onyx-karte onyx-karte-klick" style="display:block;height:100%;overflow:hidden" href="#/objekt/' + h(o.id) + '">' +
           '<span class="kachel-bild">' + bild +
             '<span class="bild-marke amber" style="left:0;top:0">' + h(o.aktenzeichen) + '</span>' +
             '<span class="bild-marke mono" style="right:0;bottom:0">' + b.euro(o.kaufpreis) + '</span>' +
@@ -335,7 +338,7 @@ window.W = window.W || {};
         '</div><ul class="onyx-register">' +
         treffer.map(function (o) {
           var e = kontakt(d, o.eigentuemerId), v = vollstaendig(d, o.id);
-          return '<li class="onyx-zeile" style="border-bottom:1px solid var(--onyx-kontur-leise)">' +
+          return '<li class="onyx-zeile zeile-mit-kamera" style="border-bottom:1px solid var(--onyx-kontur-leise)">' +
             '<a class="register-zeile" href="#/objekt/' + h(o.id) + '">' +
               '<span class="mono still" style="font-size:.78rem">' + h(o.aktenzeichen) + '</span>' +
               '<span style="min-width:0">' +
@@ -347,7 +350,10 @@ window.W = window.W || {};
                 '<span class="mini leise" style="display:block">' + b.faktor(o.kaufpreis, o.mieteinnahmen) + '</span></span>' +
               '<span class="mini leise" style="min-width:5rem">' + v.ist + '/' + v.soll + b.fortschritt(v.ist, v.soll) + '</span>' +
               '<span style="justify-self:start">' + b.objektmarke(o.status, true) + '</span>' +
-            '</a></li>';
+            '</a>' +
+            '<button type="button" class="zeilen-kamera" data-kamera-objekt="' + h(o.id) + '" ' +
+              'title="Foto zu ' + h(o.bezeichnung) + ' aufnehmen">' + sym.kamera(16) + 'Foto</button>' +
+            '</li>';
         }).join('') + '</ul></div>';
     }
 
@@ -358,7 +364,10 @@ window.W = window.W || {};
         '</p></div>' +
         '<a class="onyx-knopf onyx-knopf-primaer" href="#/neu">' + sym.plus(16) + 'Objekt anlegen</a></div>' +
       ordnerreihe +
-      '<div class="werkzeugleiste">' + filter + umschalter + '</div>' + koerper;
+      '<div class="werkzeugleiste">' + filter + umschalter + '</div>' + koerper +
+      /* Ein einziges verstecktes Feld fuer alle Zeilen. Am Handy oeffnet es
+         direkt die Kamera, am Rechner den Dateiwaehler. */
+      '<input id="eingabe-kamera-liste" type="file" accept="image/*" capture="environment" class="nur-sr">';
   };
 })();
 
@@ -434,13 +443,18 @@ window.W = window.W || {};
     var offen = o.eckdaten.filter(function (f) { return f.offen; }).length;
     var drin = o.eckdaten.filter(function (f) { return f.imExpose; }).length;
 
-    function pruefzeile(etikett, w) {
+    /* Jede Zeile laesst sich oeffnen: das Schriftstueck selbst steht dahinter,
+       lesbar und druckbar. */
+    function pruefzeile(etikett, w, art) {
       return '<div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.5rem 1rem;padding:.65rem 0;border-bottom:1px solid var(--onyx-kontur-leise)">' +
         '<span><span style="display:block;font-size:.875rem">' + h(etikett) + '</span>' +
         '<span class="mini leise">' + h(w.hinweis || '') + '</span></span>' +
         '<span style="display:flex;align-items:center;gap:.6rem">' +
           (w.datum ? '<span class="mono mini still">' + h(W.f.datum(w.datum)) + '</span>' : '') +
-          b.pruefmarke(w.status) + '</span></div>';
+          b.pruefmarke(w.status) +
+          '<a class="onyx-knopf onyx-knopf-klar" style="font-size:.78rem;padding:.35rem .6rem" ' +
+            'href="' + h(W.dokumentAdresse(o.id, art)) + '">' + sym.dokument(14) + 'Ansehen</a>' +
+        '</span></div>';
     }
 
     return '<dl class="zahlenband" style="margin-top:1.5rem">' + band + '</dl>' +
@@ -459,9 +473,9 @@ window.W = window.W || {};
         '<section style="display:grid;gap:2rem;align-content:start">' +
           '<div><h2>Vor dem Versand zu prüfen</h2>' +
             '<div style="margin-top:.75rem">' +
-              pruefzeile('Provisionsvereinbarung Eigentümer', c.provisionsvereinbarung) +
-              pruefzeile('Widerrufsbelehrung im Exposé', c.widerrufsbelehrung) +
-              pruefzeile('Adressvalidierung bei Erstkunden', c.adressvalidierung) +
+              pruefzeile('Provisionsvereinbarung Eigentümer', c.provisionsvereinbarung, 'provision') +
+              pruefzeile('Widerrufsbelehrung im Exposé', c.widerrufsbelehrung, 'widerruf') +
+              pruefzeile('Adressvalidierung bei Erstkunden', c.adressvalidierung, 'validierung') +
             '</div>' +
             '<p class="hinweis" style="margin-top:1rem"><span class="amber" style="flex:none;margin-top:.1rem">' + sym.warnung(17) + '</span>' +
             '<span>Erstkunden erhalten das Exposé erst, wenn Vertraulichkeitserklärung und Adressvalidierung vorliegen. Das System hält den Versand sonst zurück.</span></p>' +
@@ -1394,6 +1408,214 @@ window.W = window.W || {};
         '<footer class="sans" style="margin-top:3rem;padding-top:1rem;border-top:1px solid #D5CFC2;font-size:.66rem;line-height:1.7;color:#6C6459">' +
           'Exposé zu ' + h(o.aktenzeichen) + ', Stand ' + h(W.f.datumLang(heute)) +
           '. Angaben ohne Gewähr, sie beruhen auf Auskünften des Eigentümers. Alle Daten dieser Vorführversion sind Beispieldaten.</footer>' +
+      '</article></div>';
+  };
+
+  /* --- Die drei Schriftstuecke aus Reiter 1 ------------------------------
+     Widerrufsbelehrung, Adressvalidierung und Provisionsvereinbarung lassen
+     sich oeffnen, lesen und drucken. Es sind kurze Muster fuer die
+     Vorfuehrung, kein Rechtstext des Bueros. */
+  W.DOKUMENTE = {
+    widerruf: {
+      etikett: 'Widerrufsbelehrung',
+      kicker: 'Belehrung',
+      titel: 'Widerrufsbelehrung für Verbraucher',
+      unterzeile: 'Liegt jedem Exposé bei, das an einen Verbraucher geht.',
+      partei: 'interessent'
+    },
+    validierung: {
+      etikett: 'Adressvalidierung',
+      kicker: 'Prüfbogen',
+      titel: 'Adressvalidierung bei Erstkunden',
+      unterzeile: 'Vor dem ersten Exposé-Versand auszufüllen. Ohne sie hält das System den Versand zurück.',
+      partei: 'interessent'
+    },
+    provision: {
+      etikett: 'Provisionsvereinbarung',
+      kicker: 'Maklervertrag',
+      titel: 'Provisionsvereinbarung',
+      unterzeile: 'Kurzfassung des Maklervertrags mit dem Eigentümer.',
+      partei: 'eigentuemer'
+    }
+  };
+
+  /** Adresse eines dieser Schriftstuecke. */
+  W.dokumentAdresse = function (objektId, art) {
+    return '#/objekt/' + objektId + '/dokument/' + art;
+  };
+
+  W.seiten.dokument = function (d, id, art) {
+    var o = H.obj(d, id), vorlage = W.DOKUMENTE[art];
+    if (!o || !vorlage) return W.seiten.nichtGefunden();
+
+    var K = d.konto || W.KONTO;
+    var heute = new Date().toISOString().slice(0, 10);
+    var e = H.kontakt(d, o.eigentuemerId);
+    var bt = H.beteiligungenZu(d, o.id)[0];
+    var i = bt ? H.kontakt(d, bt.investorId) : null;
+    var gegen = vorlage.partei === 'eigentuemer' ? e : i;
+
+    /* Eine Zeile im Briefkopf-Block: steht ein Kontakt fest, kommen seine
+       Angaben rein, sonst eine Linie zum Ausfuellen. */
+    function wert(x) {
+      return x ? h(x) : '<span style="display:inline-block;min-width:14rem;border-bottom:1px solid #B9B2A4">&nbsp;</span>';
+    }
+
+    var anschrift = gegen
+      ? h(gegen.name) + '<br>' + (gegen.ansprechpartner ? h(gegen.ansprechpartner) + '<br>' : '') +
+        h(gegen.anschrift || '')
+      : '<span style="display:block;width:18rem;border-bottom:1px solid #B9B2A4;margin-bottom:1.1rem">&nbsp;</span>' +
+        '<span style="display:block;width:18rem;border-bottom:1px solid #B9B2A4;margin-bottom:1.1rem">&nbsp;</span>' +
+        '<span style="display:block;width:18rem;border-bottom:1px solid #B9B2A4">&nbsp;</span>';
+
+    var inhalt;
+
+    if (art === 'widerruf') {
+      inhalt =
+        '<section class="blatt-abschnitt"><h3><span class="nr">1</span>Widerrufsrecht</h3>' +
+          '<p style="margin-top:.75rem">Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen. ' +
+          'Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses.</p>' +
+          '<p style="margin-top:.6rem">Um Ihr Widerrufsrecht auszuüben, müssen Sie uns — ' + h(K.buero) + ', ' + h(K.strasse) + ', ' +
+          h(K.ort) + ', ' + h(K.telefon) + ', ' + h(K.emailBuero) + ' — mittels einer eindeutigen Erklärung ' +
+          '(zum Beispiel ein mit der Post versandter Brief oder eine E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. ' +
+          'Sie können dafür das beigefügte Muster-Widerrufsformular verwenden, das ist aber nicht vorgeschrieben.</p>' +
+          '<p style="margin-top:.6rem">Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des ' +
+          'Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.</p></section>' +
+
+        '<section class="blatt-abschnitt"><h3><span class="nr">2</span>Folgen des Widerrufs</h3>' +
+          '<p style="margin-top:.75rem">Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, ' +
+          'unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf ' +
+          'bei uns eingegangen ist. Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, das Sie bei der ursprünglichen ' +
+          'Transaktion eingesetzt haben, es sei denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart.</p>' +
+          '<p style="margin-top:.6rem">Haben Sie verlangt, dass die Dienstleistung während der Widerrufsfrist beginnen soll, ' +
+          'so haben Sie uns einen angemessenen Betrag zu zahlen, der dem Anteil der bis zum Widerruf bereits erbrachten ' +
+          'Leistungen entspricht.</p></section>' +
+
+        '<section class="blatt-abschnitt"><h3><span class="nr">3</span>Muster-Widerrufsformular</h3>' +
+          '<p class="klein" style="margin-top:.75rem;color:#5F584E">Wenn Sie den Vertrag widerrufen wollen, füllen Sie bitte dieses Formular aus und senden Sie es zurück.</p>' +
+          '<div style="margin-top:.9rem;padding:1.1rem 1.25rem;border:1px solid #D5CFC2">' +
+            '<p>An ' + h(K.buero) + ', ' + h(K.strasse) + ', ' + h(K.ort) + ', ' + h(K.emailBuero) + ':</p>' +
+            '<p style="margin-top:.7rem">Hiermit widerrufe(n) ich/wir den von mir/uns abgeschlossenen Vertrag über die Erbringung ' +
+            'der folgenden Dienstleistung: Nachweis und Vermittlung der Gelegenheit zum Abschluss eines Kaufvertrages über ' +
+            h(o.bezeichnung) + ', ' + h(o.strasse + ', ' + o.plz + ' ' + o.ort) + '.</p>' +
+            '<dl class="blatt-tabelle" style="margin-top:.9rem">' +
+              '<div><dt>Bestellt am / erhalten am</dt><dd>' + wert(null) + '</dd></div>' +
+              '<div><dt>Name des Verbrauchers</dt><dd>' + wert(gegen ? gegen.ansprechpartner || gegen.name : null) + '</dd></div>' +
+              '<div><dt>Anschrift</dt><dd>' + wert(gegen ? gegen.anschrift : null) + '</dd></div>' +
+              '<div><dt>Datum</dt><dd>' + wert(null) + '</dd></div>' +
+              '<div><dt>Unterschrift</dt><dd>' + wert(null) + '</dd></div>' +
+            '</dl>' +
+            '<p class="klein" style="margin-top:.7rem;color:#6C6459">(Unterschrift nur bei Mitteilung auf Papier)</p>' +
+          '</div></section>';
+    } else if (art === 'validierung') {
+      var val = gegen && gegen.adressvalidierung ? gegen.adressvalidierung : null;
+      function haken(text, gesetzt) {
+        return '<div style="display:flex;gap:.7rem;align-items:baseline;padding:.4rem 0;border-bottom:1px solid #E4DFD3;font-size:.84375rem">' +
+          '<span class="mono" style="flex:none;width:1.5rem;text-align:center;border:1px solid #B9B2A4;line-height:1.3">' +
+            (gesetzt ? '✓' : '&nbsp;') + '</span><span>' + text + '</span></div>';
+      }
+      var geprueft = !!(val && val.status === 'geprüft');
+      inhalt =
+        '<section class="blatt-abschnitt"><h3><span class="nr">1</span>Wer geprüft wird</h3>' +
+          '<dl class="blatt-tabelle" style="margin-top:.75rem">' +
+            '<div><dt>Kunde</dt><dd>' + wert(gegen ? gegen.name : null) + '</dd></div>' +
+            '<div><dt>Vertretungsberechtigte Person</dt><dd>' + wert(gegen ? gegen.ansprechpartner : null) + '</dd></div>' +
+            '<div><dt>Anschrift laut Angabe</dt><dd>' + wert(gegen ? gegen.anschrift : null) + '</dd></div>' +
+            '<div><dt>Anlass</dt><dd>Erstkunde, vor Versand des Exposés zu ' + h(o.aktenzeichen) + '</dd></div>' +
+          '</dl></section>' +
+
+        '<section class="blatt-abschnitt"><h3><span class="nr">2</span>Was vorliegen muss</h3>' +
+          '<div style="margin-top:.75rem">' +
+            haken('Aktueller Handelsregisterauszug, nicht älter als drei Monate', geprueft) +
+            haken('Ausweiskopie der vertretungsberechtigten Person', geprueft) +
+            haken('Anschrift mit dem Registerauszug abgeglichen', geprueft) +
+            haken('Wirtschaftlich Berechtigte erfasst', geprueft) +
+            haken('Vertraulichkeitserklärung unterzeichnet zurück', geprueft) +
+          '</div>' +
+          '<p class="klein" style="margin-top:.8rem;color:#5F584E">Die Angaben werden nur zur Prüfung der Geschäftsbeziehung verwendet ' +
+          'und nach Abschluss des Vorgangs entsprechend den gesetzlichen Fristen aufbewahrt.</p></section>' +
+
+        '<section class="blatt-abschnitt"><h3><span class="nr">3</span>Ergebnis</h3>' +
+          '<dl class="blatt-tabelle" style="margin-top:.75rem">' +
+            '<div><dt>Stand</dt><dd>' + h(val ? val.status : 'offen') + '</dd></div>' +
+            '<div><dt>Geprüft am</dt><dd>' + wert(val && val.datum ? W.f.datumLang(val.datum) : null) + '</dd></div>' +
+            '<div><dt>Geprüft durch</dt><dd>' + h(K.name) + '</dd></div>' +
+            '<div><dt>Bemerkung</dt><dd>' + (val && val.hinweis ? h(val.hinweis) : wert(null)) + '</dd></div>' +
+            '<div><dt>Unterschrift</dt><dd>' + wert(null) + '</dd></div>' +
+          '</dl>' +
+          (geprueft
+            ? '<p style="margin-top:.9rem">Der Versand des Exposés ist freigegeben.</p>'
+            : '<p style="margin-top:.9rem">Solange die Prüfung offen ist, gibt das System den Versand des Exposés nicht frei.</p>') +
+        '</section>';
+    } else {
+      /* Der Provisionssatz kommt aus den Stammdaten, nicht aus dem Code. */
+      var satz = (d.stamm && d.stamm.provision) || o.kaeuferprovision || '';
+      inhalt =
+        '<section class="blatt-abschnitt"><h3><span class="nr">1</span>Vertragsparteien</h3>' +
+          '<dl class="blatt-tabelle" style="margin-top:.75rem">' +
+            '<div><dt>Auftraggeber</dt><dd>' + wert(gegen ? gegen.name : null) +
+              (gegen && gegen.ansprechpartner ? '<br><span class="klein" style="color:#5F584E">vertreten durch ' + h(gegen.ansprechpartner) + '</span>' : '') + '</dd></div>' +
+            '<div><dt>Makler</dt><dd>' + h(K.buero) + '<br><span class="klein" style="color:#5F584E">' + h(K.name) + ', ' + h(K.strasse) + ', ' + h(K.ort) + '</span></dd></div>' +
+          '</dl></section>' +
+
+        '<section class="blatt-abschnitt"><h3><span class="nr">2</span>Gegenstand</h3>' +
+          '<p style="margin-top:.75rem">Der Auftraggeber beauftragt den Makler mit dem Nachweis und der Vermittlung der Gelegenheit ' +
+          'zum Abschluss eines Kaufvertrages über das Objekt ' + h(o.bezeichnung) + ', ' + h(o.strasse + ', ' + o.plz + ' ' + o.ort) +
+          ' (Aktenzeichen ' + h(o.aktenzeichen) + ').</p></section>' +
+
+        '<section class="blatt-abschnitt"><h3><span class="nr">3</span>Provision</h3>' +
+          '<dl class="blatt-tabelle" style="margin-top:.75rem">' +
+            '<div><dt>Provision Auftraggeber</dt><dd>' + h(satz) + ' des beurkundeten Kaufpreises</dd></div>' +
+            '<div><dt>Provision Käuferseite</dt><dd>' + h(o.kaeuferprovision || satz) + ' des beurkundeten Kaufpreises</dd></div>' +
+            '<div><dt>Fällig</dt><dd>Mit Beurkundung des Kaufvertrages, zahlbar binnen zehn Tagen</dd></div>' +
+          '</dl>' +
+          '<p style="margin-top:.75rem">Der Provisionsanspruch entsteht, wenn der Kaufvertrag auf Nachweis oder Vermittlung des Maklers ' +
+          'zustande kommt. Beide Seiten tragen die Provision in gleicher Höhe.</p></section>' +
+
+        '<section class="blatt-abschnitt"><h3><span class="nr">4</span>Laufzeit und Pflichten</h3>' +
+          '<p style="margin-top:.75rem">Der Auftrag läuft sechs Monate ab Unterzeichnung und verlängert sich um jeweils drei Monate, ' +
+          'wenn er nicht mit einer Frist von vier Wochen gekündigt wird. Der Auftraggeber stellt dem Makler die für die Vermarktung ' +
+          'erforderlichen Unterlagen zur Verfügung und teilt ihm Direktanfragen mit.</p></section>' +
+
+        '<section class="blatt-abschnitt"><h3><span class="nr">5</span>Schlussbestimmungen</h3>' +
+          '<p style="margin-top:.75rem">Änderungen und Ergänzungen bedürfen der Textform. Ist der Auftraggeber Verbraucher, ' +
+          'gilt die beigefügte Widerrufsbelehrung. Sollte eine Bestimmung unwirksam sein, bleibt der Vertrag im Übrigen wirksam.</p>' +
+          '<div style="display:flex;flex-wrap:wrap;gap:2.5rem;margin-top:2.5rem">' +
+            '<div style="flex:1;min-width:12rem"><div style="border-bottom:1px solid #1E211F;height:2.5rem"></div>' +
+              '<p class="klein" style="margin-top:.4rem;color:#5F584E">Ort, Datum, Auftraggeber</p></div>' +
+            '<div style="flex:1;min-width:12rem"><div style="border-bottom:1px solid #1E211F;height:2.5rem"></div>' +
+              '<p class="klein" style="margin-top:.4rem;color:#5F584E">Ort, Datum, ' + h(K.name) + '</p></div>' +
+          '</div></section>';
+    }
+
+    return '<div class="kein-druck" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;padding:1.5rem 0;border-bottom:1px solid var(--onyx-kontur-leise)">' +
+        '<div><a class="zurueck" style="padding-top:0" href="#/objekt/' + h(o.id) + '">' + sym.pfeilLinks(14) + 'Zurück zur Akte ' + h(o.aktenzeichen) + '</a>' +
+          '<h1 style="margin-top:.5rem">' + h(vorlage.titel) + '</h1>' +
+          '<p class="mini leise" style="margin-top:.25rem;max-width:72ch;line-height:1.7">' + h(vorlage.unterzeile) +
+          ' Muster für die Vorführung — im laufenden Betrieb steht hier die Vorlage des Büros.</p></div>' +
+        '<button class="onyx-knopf onyx-knopf-primaer" id="knopf-drucken">' + sym.drucken(17) + 'Drucken oder als PDF sichern</button>' +
+      '</div>' +
+      '<div style="padding:2rem 0;display:flex;justify-content:center"><article class="blatt">' +
+        '<header class="blatt-kopf">' +
+          '<div><p class="sans" style="font-weight:600;font-size:.9375rem">' + h(K.buero) + '</p>' +
+            '<p class="sans" style="font-size:.71875rem;line-height:1.6;color:#5F584E;max-width:38ch">' + h(K.rolle) + '</p></div>' +
+          '<div class="sans" style="font-size:.71875rem;line-height:1.6;color:#5F584E">' +
+            '<p>' + h(K.strasse) + '</p><p>' + h(K.ort) + '</p><p>' + h(K.telefon) + '</p><p>' + h(K.emailBuero) + '</p></div>' +
+        '</header>' +
+        '<div style="padding:2rem 0 1.5rem">' +
+          '<p class="sans mono" style="font-size:.69rem;text-transform:uppercase;letter-spacing:.24em;color:#6C6459">' + h(vorlage.kicker) + '</p>' +
+          '<h2 style="margin-top:.9rem;font-size:clamp(1.25rem,1.05rem+1vw,1.5rem);line-height:1.25">' + h(vorlage.titel) + '</h2>' +
+          '<div class="sans" style="margin-top:1.4rem;font-size:.84375rem;line-height:1.7">' + anschrift + '</div>' +
+        '</div>' +
+        '<dl class="blatt-daten">' +
+          '<div><dt>Objekt</dt><dd>' + h(o.bezeichnung) + '</dd></div>' +
+          '<div><dt>Aktenzeichen</dt><dd>' + h(o.aktenzeichen) + '</dd></div>' +
+          '<div><dt>Stand</dt><dd>' + h(W.f.datumLang(heute)) + '</dd></div>' +
+        '</dl>' +
+        inhalt +
+        '<footer class="sans" style="margin-top:3rem;padding-top:1rem;border-top:1px solid #D5CFC2;font-size:.66rem;line-height:1.7;color:#6C6459">' +
+          h(vorlage.etikett) + ' zu ' + h(o.aktenzeichen) + ', Stand ' + h(W.f.datumLang(heute)) +
+          '. Muster für die Vorführung, keine Rechtsberatung. Alle Daten dieser Vorführversion sind Beispieldaten.</footer>' +
       '</article></div>';
   };
 

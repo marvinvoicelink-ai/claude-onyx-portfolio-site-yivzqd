@@ -79,7 +79,8 @@ ausgenommen.
 Die Software besteht auf Vorgabe des Interessenten aus fünf Teilen, die links
 als Bereiche und in jeder Objektakte als nummerierte Reiter liegen:
 1 Exposé (Erfassungsbogen, Widerrufsbelehrung, Adressvalidierung bei
-Erstkunden, Provisionsvereinbarung) · 2 Unterlagen und Verträge (Scan oder PDF
+Erstkunden, Provisionsvereinbarung — alle drei als kurze Schriftstücke auf
+Briefpapier zu öffnen und zu drucken) · 2 Unterlagen und Verträge (Scan oder PDF
 direkt zur Zeile ablegbar) · 3 Investoren · 4 Kommunikation (E-Mail, Telefon,
 WhatsApp, SMS, Brief, Notiz, revisionssicher mit Beleg-Nr., in Outlook
 gespiegelt, einzeln druckbar) · 5 Terminplan mit Eskalationsstufen. Dazu die
@@ -114,7 +115,8 @@ angeklickt filtert die Liste darunter, am Handy farbige Punkte statt Titel).
 Darunter zeigt er je Wiedervorlage die drei Eskalationsstufen mit Datum;
 der erste Knopf führt die aktuelle Stufe aus („Jetzt anrufen“) und öffnet das
 Verfassen-Fenster mit dem passenden Weg. In jeder Objektakte steht oben auf
-jedem Reiter „Foto aufnehmen“, am Handy geht damit direkt die Kamera auf.
+jedem Reiter „Foto aufnehmen“, und in der Objektliste hat jede Zeile und jede
+Kachel denselben Knopf; am Handy geht damit direkt die Kamera auf.
 Grundschrift 17 px, Schalter „Große Schrift“ im Kopf für 20 px — die Oberfläche
 ist auf einen 66-jährigen Nutzer ausgelegt.
 

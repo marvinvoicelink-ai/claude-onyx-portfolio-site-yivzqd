@@ -221,7 +221,9 @@ window.W = window.W || {};
   /** Balken mit Anteil, z. B. vorhandene Pflichtunterlagen. */
   W.b.fortschritt = function (ist, soll) {
     var pro = soll ? Math.round((ist / soll) * 100) : 0;
-    return '<span class="onyx-balken" style="display:block"><span style="width:' + pro + '%"></span></span>';
+    /* „flex“ greift nur dort, wo der Balken neben der Zahl in einer Reihe
+       steht — sonst bleibt er wie bisher ein Block ueber die volle Breite. */
+    return '<span class="onyx-balken" style="display:block;flex:1;min-width:3rem"><span style="width:' + pro + '%"></span></span>';
   };
 
   W.KOMM_ARTEN = ['E-Mail', 'Telefon', 'WhatsApp', 'SMS', 'Brief', 'Notiz'];
