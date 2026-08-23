@@ -162,6 +162,22 @@ window.W = window.W || {};
 
   /* Jede Section hat Ordner. Sie filtern die Liste darunter, der Stand steht in
      der Adresszeile und ist damit verlinkbar. */
+  /* Der Briefkopf steht auf jedem Druckstueck gleich: Zeichen und Firmierung
+     des Buros links, Anschrift rechts. Kommt aus dem Konto, nicht aus dem
+     Code — aendert der Inhaber seine Angaben, aendern sich alle Blaetter. */
+  W.briefkopf = function (K) {
+    return '<header class="blatt-kopf">' +
+      '<div class="briefkopf-marke">' +
+        '<img class="briefkopf-zeichen" src="themen/lp-logo.svg" alt="' + h(K.buero) + '">' +
+        '<p class="sans" style="font-size:.71875rem;line-height:1.6;color:#5F584E;max-width:40ch">' + h(K.rolle) + '</p>' +
+      '</div>' +
+      '<div class="sans" style="font-size:.71875rem;line-height:1.6;color:#5F584E;text-align:right">' +
+        '<p>' + h(K.strasse) + '</p><p>' + h(K.ort) + '</p><p>' + h(K.telefon) + '</p>' +
+        '<p>' + h(K.emailBuero) + '</p>' + (K.web ? '<p>' + h(K.web) + '</p>' : '') +
+      '</div>' +
+    '</header>';
+  };
+
   W.ordnerreihe = function (ordner, aktiv, adresse) {
     return '<nav class="ordner" aria-label="Ordner">' + ordner.map(function (o) {
       var an = String(o.wert || '') === String(aktiv || '');
@@ -346,12 +362,7 @@ window.W = window.W || {};
         '<button class="onyx-knopf onyx-knopf-primaer" id="knopf-drucken">' + sym.drucken(17) + 'Drucken oder als PDF sichern</button>' +
       '</div>' +
       '<div style="padding:2rem 0;display:flex;justify-content:center"><article class="blatt">' +
-        '<header class="blatt-kopf">' +
-          '<div><p class="sans" style="font-weight:600;font-size:.9375rem">' + h(K.buero) + '</p>' +
-            '<p class="sans" style="font-size:.71875rem;line-height:1.6;color:#5F584E;max-width:38ch">' + h(K.rolle) + '</p></div>' +
-          '<div class="sans" style="font-size:.71875rem;line-height:1.6;color:#5F584E">' +
-            '<p>' + h(K.strasse) + '</p><p>' + h(K.ort) + '</p><p>' + h(K.telefon) + '</p><p>' + h(K.emailBuero) + '</p></div>' +
-        '</header>' +
+        W.briefkopf(K) +
         '<div style="padding:2rem 0 1.25rem">' +
           '<p class="sans mono" style="font-size:.69rem;text-transform:uppercase;letter-spacing:.24em;color:#6C6459">' +
             h(v.art) + ' ' + h(b.richtungText(v.richtung)) + ' · Beleg ' + h(v.belegNr) + '</p>' +
@@ -595,12 +606,7 @@ window.W = window.W || {};
         '<button class="onyx-knopf onyx-knopf-primaer" id="knopf-drucken">' + sym.drucken(17) + 'Drucken oder als PDF sichern</button>' +
       '</div>' +
       '<div style="padding:2rem 0;display:flex;justify-content:center"><article class="blatt">' +
-        '<header class="blatt-kopf">' +
-          '<div><p class="sans" style="font-weight:600;font-size:.9375rem">' + h(K.buero) + '</p>' +
-            '<p class="sans" style="font-size:.71875rem;line-height:1.6;color:#5F584E;max-width:38ch">' + h(K.rolle) + '</p></div>' +
-          '<div class="sans" style="font-size:.71875rem;line-height:1.6;color:#5F584E">' +
-            '<p>' + h(K.strasse) + '</p><p>' + h(K.ort) + '</p><p>' + h(K.telefon) + '</p><p>' + h(K.emailBuero) + '</p></div>' +
-        '</header>' +
+        W.briefkopf(K) +
         '<div class="blatt-deckel">' +
           '<p class="sans mono" style="font-size:.69rem;text-transform:uppercase;letter-spacing:.24em;color:#6C6459">Gesamtakte</p>' +
           '<h2 style="margin-top:1.25rem;font-size:clamp(1.5rem,1.2rem+1.4vw,1.875rem);line-height:1.2">' + h(o.bezeichnung) + '</h2>' +

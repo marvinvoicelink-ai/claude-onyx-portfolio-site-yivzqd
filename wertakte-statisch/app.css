@@ -288,7 +288,11 @@ textarea.onyx-feld { resize: vertical; line-height: 1.65; }
 .blatt h2, .blatt h3 { font-family: var(--onyx-schrift-akte); }
 .blatt .sans { font-family: var(--onyx-schrift-text); }
 .blatt .mono { font-family: var(--onyx-schrift-mono); }
-.blatt-kopf { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1.5rem; padding-bottom: 1.25rem; border-bottom: 2px solid #1E211F; }
+.blatt-kopf { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 1.5rem; padding-bottom: 1.25rem; border-bottom: 2px solid #1E211F; }
+.briefkopf-marke { max-width: 24rem; }
+/* Das Zeichen des Buros steht auf jedem Blatt, auch im Ausdruck. */
+.briefkopf-zeichen { display: block; width: 12.5rem; height: auto; margin-bottom: .5rem; }
+@media print { .briefkopf-zeichen { width: 58mm; } }
 .blatt-deckel { padding: 3rem 0 2.5rem; text-align: center; }
 .blatt-daten { display: grid; gap: .75rem 2.5rem; padding: 1.25rem 0; border-top: 1px solid #D5CFC2; border-bottom: 1px solid #D5CFC2; font-size: .84375rem; }
 @media (min-width: 640px) { .blatt-daten { grid-template-columns: 1fr 1fr; } }

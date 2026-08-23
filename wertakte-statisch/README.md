@@ -12,7 +12,13 @@ Wurzelverzeichnis, deshalb funktioniert das Ablegen direkt.
 
 ## Erscheinungsbild: Onyx oder Kunden-CI
 
-Das System läuft standardmäßig im **CI von Lange und Partner Immobilien**:
+Das System läuft als **System von Lange und Partner Immobilien**: Firmierung,
+Anschrift, Telefon, E-Mail und Archivadresse stehen im Konto, das Zeichen des
+Büros steht auf jedem Druckstück im Briefkopf — Exposé, Einzelbeleg,
+Gesamtakte und die vier Schriftstücke. Ändert der Inhaber seine Angaben in der
+Verwaltung, ändern sich alle Blätter mit.
+
+Farblich:
 Navy `#193381`, heller Grund, PT Serif und Roboto, das runde Zeichen in der
 Leiste, der Schriftzug im Kopf, sein Zeichen auch als App-Symbol auf dem
 Startbildschirm. In **Verwaltung → Erscheinungsbild** lässt sich auf
@@ -67,7 +73,7 @@ Zugangsdaten sind ausgefüllt, ein Klick auf **Anmelden** genügt.
 
 | Feld     | Wert                     |
 | -------- | ------------------------ |
-| E-Mail   | `buero@demo.wertakte.de` |
+| E-Mail   | `j.lange@lp-immobilien.eu` |
 | Passwort | `ortstermin`             |
 
 Angemeldet ist **Jens Lange**, der Inhaber. Name, Firma und Anschrift stehen im

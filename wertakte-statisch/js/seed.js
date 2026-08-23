@@ -1263,7 +1263,7 @@ W.SEED = {
       "richtung": "aus",
       "zeitpunkt": "2026-05-14T08:02",
       "betreff": "Provisionsvereinbarung und Unterlagenliste",
-      "inhalt": "Sehr geehrter Herr Hansen,\n\nvielen Dank für das Gespräch. Anbei die Provisionsvereinbarung zur Unterzeichnung sowie die Liste der Unterlagen, die wir für ein belastbares Exposé benötigen.\n\nBesonders wichtig sind Mietvertrag mit sämtlichen Nachträgen, Grundbuchauszug, Erbbaurechtsvertrag, die Nebenkostenabrechnung des Vorjahres und der Energieausweis. Ohne diese Unterlagen gehen wir nicht in die Vermarktung.\n\nMit freundlichen Grüßen\nJens Lange\nLange Gewerbeimmobilien",
+      "inhalt": "Sehr geehrter Herr Hansen,\n\nvielen Dank für das Gespräch. Anbei die Provisionsvereinbarung zur Unterzeichnung sowie die Liste der Unterlagen, die wir für ein belastbares Exposé benötigen.\n\nBesonders wichtig sind Mietvertrag mit sämtlichen Nachträgen, Grundbuchauszug, Erbbaurechtsvertrag, die Nebenkostenabrechnung des Vorjahres und der Energieausweis. Ohne diese Unterlagen gehen wir nicht in die Vermarktung.\n\nMit freundlichen Grüßen\nJens Lange\nLange und Partner Immobilien GmbH",
       "teilnehmer": "Bernd Hansen",
       "belegNr": "2026-000433",
       "festgeschrieben": true,
@@ -1298,7 +1298,7 @@ W.SEED = {
       "richtung": "aus",
       "zeitpunkt": "2026-08-10T10:20",
       "betreff": "Anlageobjekt Oldenburg, Vertraulichkeitserklärung",
-      "inhalt": "Sehr geehrte Frau Dr. Ahrend,\n\nwir haben ein Anlageobjekt im Raum Oldenburg an der Hand, das Ihrem Suchprofil entspricht: Lebensmittel-Fachmarkt, langfristiger Mietvertrag mit Indexierung, Kaufpreis im mittleren einstelligen Millionenbereich.\n\nFür die Übersendung des Exposés benötigen wir vorab die beigefügte Vertraulichkeitserklärung unterzeichnet zurück.\n\nMit freundlichen Grüßen\nJens Lange\nLange Gewerbeimmobilien",
+      "inhalt": "Sehr geehrte Frau Dr. Ahrend,\n\nwir haben ein Anlageobjekt im Raum Oldenburg an der Hand, das Ihrem Suchprofil entspricht: Lebensmittel-Fachmarkt, langfristiger Mietvertrag mit Indexierung, Kaufpreis im mittleren einstelligen Millionenbereich.\n\nFür die Übersendung des Exposés benötigen wir vorab die beigefügte Vertraulichkeitserklärung unterzeichnet zurück.\n\nMit freundlichen Grüßen\nJens Lange\nLange und Partner Immobilien GmbH",
       "teilnehmer": "Dr. Silke Ahrend",
       "belegNr": "2026-000712",
       "festgeschrieben": true,
@@ -1332,7 +1332,7 @@ W.SEED = {
       "richtung": "aus",
       "zeitpunkt": "2026-08-12T09:05",
       "betreff": "Exposé REWE-Markt Oldenburg, VK-2026-014",
-      "inhalt": "Sehr geehrte Frau Dr. Ahrend,\n\nanbei das Exposé zum REWE-Markt Oldenburg, Aktenzeichen VK-2026-014, einschließlich Widerrufsbelehrung.\n\nEckdaten: 1.980 m² vermietete Fläche, 7.000 m² Grundstück im Erbbaurecht, 77 Stellplätze, Mieteinnahmen 312.000 Euro p. a., Kaufpreis 3.350.000 Euro. Die Käuferprovision beträgt 3,57 % inkl. MwSt.\n\nFür Rückfragen stehe ich zur Verfügung.\n\nMit freundlichen Grüßen\nJens Lange\nLange Gewerbeimmobilien",
+      "inhalt": "Sehr geehrte Frau Dr. Ahrend,\n\nanbei das Exposé zum REWE-Markt Oldenburg, Aktenzeichen VK-2026-014, einschließlich Widerrufsbelehrung.\n\nEckdaten: 1.980 m² vermietete Fläche, 7.000 m² Grundstück im Erbbaurecht, 77 Stellplätze, Mieteinnahmen 312.000 Euro p. a., Kaufpreis 3.350.000 Euro. Die Käuferprovision beträgt 3,57 % inkl. MwSt.\n\nFür Rückfragen stehe ich zur Verfügung.\n\nMit freundlichen Grüßen\nJens Lange\nLange und Partner Immobilien GmbH",
       "teilnehmer": "Dr. Silke Ahrend",
       "belegNr": "2026-000724",
       "festgeschrieben": true,
@@ -1380,7 +1380,7 @@ W.SEED = {
       "richtung": "aus",
       "zeitpunkt": "2026-08-18T17:40",
       "betreff": "Vertraulichkeitserklärung und Adressvalidierung",
-      "inhalt": "Sehr geehrter Herr Bruns,\n\nwie besprochen anbei die Vertraulichkeitserklärung zum Anlageobjekt in Oldenburg.\n\nDa wir erstmals zusammenarbeiten, benötigen wir vor dem Versand des Exposés zusätzlich eine Adressvalidierung: einen aktuellen Handelsregisterauszug sowie eine Ausweiskopie der vertretungsberechtigten Person. Das ist bei uns Voraussetzung, das System gibt den Versand erst danach frei.\n\nMit freundlichen Grüßen\nJens Lange\nLange Gewerbeimmobilien",
+      "inhalt": "Sehr geehrter Herr Bruns,\n\nwie besprochen anbei die Vertraulichkeitserklärung zum Anlageobjekt in Oldenburg.\n\nDa wir erstmals zusammenarbeiten, benötigen wir vor dem Versand des Exposés zusätzlich eine Adressvalidierung: einen aktuellen Handelsregisterauszug sowie eine Ausweiskopie der vertretungsberechtigten Person. Das ist bei uns Voraussetzung, das System gibt den Versand erst danach frei.\n\nMit freundlichen Grüßen\nJens Lange\nLange und Partner Immobilien GmbH",
       "teilnehmer": "Heiko Bruns",
       "belegNr": "2026-000796",
       "festgeschrieben": true,
@@ -1397,7 +1397,7 @@ W.SEED = {
       "richtung": "aus",
       "zeitpunkt": "2026-08-17T11:15",
       "betreff": "Provisionsvereinbarung und fehlende Unterlagen",
-      "inhalt": "Sehr geehrte Frau Ehlers,\n\nanbei die Provisionsvereinbarung zum Nahversorgungszentrum Wildeshausen.\n\nEs fehlen uns noch Flurkarte, Stellplatznachweis und die Nebenkostenabrechnung 2025. Bitte senden Sie diese, sobald sie vorliegen, dann können wir das Exposé aufsetzen.\n\nMit freundlichen Grüßen\nJens Lange\nLange Gewerbeimmobilien",
+      "inhalt": "Sehr geehrte Frau Ehlers,\n\nanbei die Provisionsvereinbarung zum Nahversorgungszentrum Wildeshausen.\n\nEs fehlen uns noch Flurkarte, Stellplatznachweis und die Nebenkostenabrechnung 2025. Bitte senden Sie diese, sobald sie vorliegen, dann können wir das Exposé aufsetzen.\n\nMit freundlichen Grüßen\nJens Lange\nLange und Partner Immobilien GmbH",
       "teilnehmer": "Anke Ehlers",
       "belegNr": "2026-000778",
       "festgeschrieben": true,
@@ -1446,7 +1446,7 @@ W.SEED = {
       "richtung": "aus",
       "zeitpunkt": "2026-08-21T15:10",
       "betreff": "Entwurf Kaufvertrag Wohn- und Geschäftshaus Delmenhorst",
-      "inhalt": "Sehr geehrte Frau Dr. Rohde,\n\nfür das Wohn- und Geschäftshaus in Delmenhorst zeichnet sich ein Abschluss ab. Anbei Grundbuchauszug und die Eckdaten für den Vertragsentwurf.\n\nKäuferseite ist noch offen, es liegen zwei Interessenten vor. Ich melde mich, sobald es feststeht, und schlage dann Termine vor.\n\nMit freundlichen Grüßen\nJens Lange\nLange Gewerbeimmobilien",
+      "inhalt": "Sehr geehrte Frau Dr. Rohde,\n\nfür das Wohn- und Geschäftshaus in Delmenhorst zeichnet sich ein Abschluss ab. Anbei Grundbuchauszug und die Eckdaten für den Vertragsentwurf.\n\nKäuferseite ist noch offen, es liegen zwei Interessenten vor. Ich melde mich, sobald es feststeht, und schlage dann Termine vor.\n\nMit freundlichen Grüßen\nJens Lange\nLange und Partner Immobilien GmbH",
       "teilnehmer": "Dr. Anke Rohde",
       "belegNr": "2026-000805",
       "festgeschrieben": true,
@@ -1618,7 +1618,7 @@ W.SEED_KONTO = function () {
   return {
     name: K.name, rolle: K.rolle, buero: K.buero, strasse: K.strasse, ort: K.ort,
     telefon: K.telefon, mobil: K.mobil, emailBuero: K.emailBuero, archivEmail: K.archivEmail,
-    email: K.email, passwort: K.passwort, stellung: 'Inhaber'
+    email: K.email, passwort: K.passwort, web: K.web, stellung: 'Inhaber'
   };
 };
 

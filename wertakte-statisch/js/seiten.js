@@ -5,17 +5,18 @@ window.W = window.W || {};
   var h = W.f.h, b = W.b, sym = W.sym;
 
   W.KONTO = {
-    email: 'buero@demo.wertakte.de',
+    email: 'j.lange@lp-immobilien.eu',
     passwort: 'ortstermin',
     name: 'Jens Lange',
-    rolle: 'Vermittlung von Anlage- und Gewerbeimmobilien',
-    buero: 'Lange Gewerbeimmobilien',
-    strasse: 'Gartenstraße 21',
-    ort: '26122 Oldenburg',
-    telefon: '0441 3609-27',
-    mobil: '0170 3609-118',
-    emailBuero: 'buero@lange-gewerbe-beispiel.de',
-    archivEmail: 'archiv@lange-gewerbe-beispiel.de'
+    rolle: 'Immobilienmakler · Vermittlung von Anlage- und Gewerbeimmobilien',
+    buero: 'Lange und Partner Immobilien GmbH',
+    strasse: 'Alexanderstraße 172',
+    ort: '26121 Oldenburg',
+    telefon: '0441 36115511',
+    mobil: '0170 3611-118',
+    emailBuero: 'info@lp-immobilien.eu',
+    archivEmail: 'archiv@lp-immobilien.eu',
+    web: 'lp-immobilien.eu'
   };
 
   W.OBJEKTARTEN = ['Lebensmittel-Fachmarkt', 'Nahversorgungszentrum', 'Fachmarktzentrum',
@@ -1493,12 +1494,7 @@ window.W = window.W || {};
         '<button class="onyx-knopf onyx-knopf-primaer" id="knopf-drucken">' + sym.drucken(17) + 'Drucken oder als PDF sichern</button>' +
       '</div>' +
       '<div style="padding:2rem 0;display:flex;justify-content:center"><article class="blatt">' +
-        '<header class="blatt-kopf">' +
-          '<div><p class="sans" style="font-weight:600;font-size:.9375rem">' + h(K.buero) + '</p>' +
-            '<p class="sans" style="font-size:.71875rem;line-height:1.6;color:#5F584E;max-width:38ch">' + h(K.rolle) + '</p></div>' +
-          '<div class="sans" style="font-size:.71875rem;line-height:1.6;color:#5F584E">' +
-            '<p>' + h(K.strasse) + '</p><p>' + h(K.ort) + '</p><p>' + h(K.telefon) + '</p><p>' + h(K.emailBuero) + '</p></div>' +
-        '</header>' +
+        W.briefkopf(K) +
         '<div class="blatt-deckel">' +
           '<p class="sans mono" style="font-size:.69rem;text-transform:uppercase;letter-spacing:.24em;color:#6C6459">Exposé</p>' +
           '<h2 style="margin-top:1.25rem;font-size:clamp(1.5rem,1.2rem+1.4vw,1.875rem);line-height:1.2">' + h(o.bezeichnung) + '</h2>' +
@@ -1787,12 +1783,7 @@ window.W = window.W || {};
         '<button class="onyx-knopf onyx-knopf-primaer" id="knopf-drucken">' + sym.drucken(17) + 'Drucken oder als PDF sichern</button>' +
       '</div>' +
       '<div style="padding:2rem 0;display:flex;justify-content:center"><article class="blatt">' +
-        '<header class="blatt-kopf">' +
-          '<div><p class="sans" style="font-weight:600;font-size:.9375rem">' + h(K.buero) + '</p>' +
-            '<p class="sans" style="font-size:.71875rem;line-height:1.6;color:#5F584E;max-width:38ch">' + h(K.rolle) + '</p></div>' +
-          '<div class="sans" style="font-size:.71875rem;line-height:1.6;color:#5F584E">' +
-            '<p>' + h(K.strasse) + '</p><p>' + h(K.ort) + '</p><p>' + h(K.telefon) + '</p><p>' + h(K.emailBuero) + '</p></div>' +
-        '</header>' +
+        W.briefkopf(K) +
         '<div style="padding:2rem 0 1.5rem">' +
           '<p class="sans mono" style="font-size:.69rem;text-transform:uppercase;letter-spacing:.24em;color:#6C6459">' + h(vorlage.kicker) + '</p>' +
           '<h2 style="margin-top:.9rem;font-size:clamp(1.25rem,1.05rem+1vw,1.5rem);line-height:1.25">' + h(vorlage.titel) + '</h2>' +
