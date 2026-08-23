@@ -118,7 +118,10 @@ der erste Knopf führt die aktuelle Stufe aus („Jetzt anrufen“) und öffnet 
 Verfassen-Fenster mit dem passenden Weg. In jeder Objektakte steht oben auf
 jedem Reiter „Foto aufnehmen“, und in der Objektliste hat jede Zeile und jede
 Kachel denselben Knopf; am Handy geht damit direkt die Kamera auf.
-Grundschrift 17 px, Schalter „Große Schrift“ im Kopf für 20 px — die Oberfläche
+Eingetragen wird je Objekt nur Kaufpreis und Jahresmiete; alles Rechenbare —
+Faktor, Renditen, geschätzte nicht umlagefähige Kosten, Kaufnebenkosten,
+Gesamtinvestition — leitet das System daraus ab, mit Sätzen aus den
+Stammdaten. Grundschrift 17 px, Schalter „Große Schrift“ im Kopf für 20 px — die Oberfläche
 ist auf einen 66-jährigen Nutzer ausgelegt.
 
 Es gibt genau ein Konto: den Inhaber (Demo: Jens Lange), mit allen Rechten. Im Bereich Verwaltung

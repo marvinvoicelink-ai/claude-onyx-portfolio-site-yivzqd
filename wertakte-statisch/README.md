@@ -62,6 +62,17 @@ Adresszeile und ist damit verlinkbar.
 Links in der Leiste stehen die Bereiche, in jeder Objektakte liegen sie
 zusätzlich als nummerierte Reiter 1 bis 5.
 
+**Was das System selbst rechnet.** Eingetragen werden je Objekt nur Kaufpreis
+und Jahresmiete. Alles Rechenbare leitet das System daraus ab und zeigt es in
+Reiter 1 und schon beim Anlegen, während der Eingabe: Faktor, Bruttorendite,
+geschätzte nicht umlagefähige Kosten (Verwaltung, Instandhaltung,
+Mietausfallwagnis), Reinertrag, Nettorendite, Grunderwerbsteuer, Notar und
+Grundbuch, Käuferprovision, Gesamtinvestition und die Nettorendite darauf. Die
+Sätze stehen in der Verwaltung unter Stammdaten und lassen sich dort ändern —
+danach rechnet jedes Objekt neu. Liegt die Nebenkostenabrechnung vor und wird
+der echte Wert eingetragen, hat er Vorrang vor der Schätzung, und die Karte
+schreibt dazu, woher die Zahl kommt.
+
 **1 Exposé.** Erfassungsbogen mit allen Eckdaten. Nur angekreuzte Punkte
 wandern ins Exposé, fehlende Angaben lassen sich nicht ankreuzen. Daneben die
 drei Prüfungen vor dem Versand: Provisionsvereinbarung, Widerrufsbelehrung,

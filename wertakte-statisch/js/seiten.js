@@ -409,11 +409,12 @@ window.W = window.W || {};
     var e = H.kontakt(d, o.eigentuemerId);
     var c = o.compliance;
 
+    var rw = W.rechnen(d, o);
     var band = [
       ['Kaufpreis', b.euro(o.kaufpreis)],
       ['Mieteinnahmen p. a.', b.euro(o.mieteinnahmen)],
       ['Faktor', b.faktor(o.kaufpreis, o.mieteinnahmen)],
-      ['Nicht umlagefähig ' + h(o.nichtUmlagefaehigJahr), b.euro(o.nichtUmlagefaehig)],
+      ['Nicht umlagefähig ' + h(rw.ausAbrechnung ? o.nichtUmlagefaehigJahr : 'geschätzt'), b.euro(rw.nichtUmlagefaehig)],
       ['Käuferprovision', h(o.kaeuferprovision)],
       ['Verkaufsgrund', h(o.verkaufsgrund)]
     ].map(function (p) {
@@ -479,6 +480,12 @@ window.W = window.W || {};
             '</div>' +
             '<p class="hinweis" style="margin-top:1rem"><span class="amber" style="flex:none;margin-top:.1rem">' + sym.warnung(17) + '</span>' +
             '<span>Erstkunden erhalten das Exposé erst, wenn Vertraulichkeitserklärung und Adressvalidierung vorliegen. Das System hält den Versand sonst zurück.</span></p>' +
+          '</div>' +
+
+          '<div><h2>Rechnet das System</h2>' +
+            '<p class="klein leise" style="margin-top:.35rem;line-height:1.7">Aus Kaufpreis und Jahresmiete abgeleitet, ' +
+              'nicht eingetragen. Die Sätze stehen in der Verwaltung unter Stammdaten.</p>' +
+            '<div style="margin-top:.75rem">' + W.rechenkarte(d, o) + '</div>' +
           '</div>' +
 
           '<div><h2>Eigentümer</h2>' +
@@ -997,6 +1004,8 @@ window.W = window.W || {};
         (platzhalter ? ' placeholder="' + h(platzhalter) + '"' : '') + '></div>';
     }
     var eig = d.kontakte.filter(function (k) { return k.rolle === 'Eigentümer'; });
+    var sa = W.saetze(d);
+    var vorgabe = (d.stamm && d.stamm.provision) || '3,57 % inkl. MwSt.';
     return '<a class="zurueck" href="#/objekte">' + sym.pfeilLinks(14) + 'Alle Objekte</a>' +
       '<div style="margin-top:1rem;padding-bottom:1.5rem;border-bottom:1px solid var(--onyx-kontur-leise)">' +
         '<h1>Neues Objekt anlegen</h1>' +
@@ -1024,9 +1033,24 @@ window.W = window.W || {};
               opt(eig.map(function (k) { return { wert: k.id, text: k.name }; }), '', 'Bitte auswählen') + '</select></div>' +
           '<div class="feld-paar">' + feld('kaufpreis', 'Kaufpreis in Euro', 'text', '3350000') +
             feld('mieteinnahmen', 'Mieteinnahmen p. a. in Euro', 'text', '312000') + '</div>' +
-          '<div class="feld-paar">' + feld('nichtUmlagefaehig', 'Nicht umlagefähige Nebenkosten in Euro', 'text', '17330') +
-            feld('kaeuferprovision', 'Käuferprovision', 'text', '3,57 % inkl. MwSt.') + '</div>' +
+          '<div class="feld-paar">' +
+            '<div class="feld-gruppe"><label class="onyx-etikett" for="nichtUmlagefaehig">Nicht umlagefähige Nebenkosten in Euro</label>' +
+              '<input class="onyx-feld" id="nichtUmlagefaehig" name="nichtUmlagefaehig" type="text" placeholder="wird geschätzt">' +
+              '<p class="mini leise" style="margin-top:.35rem;line-height:1.6">Leer lassen — das System schätzt ' +
+                h(String(sa.verwaltung + sa.instandhaltung + sa.mietausfall).replace('.', ',')) + ' % der Jahresmiete. ' +
+                'Sobald die Nebenkostenabrechnung da ist, hier den echten Wert eintragen.</p></div>' +
+            feld('kaeuferprovision', 'Käuferprovision', 'text', h(vorgabe)) + '</div>' +
           feld('verkaufsgrund', 'Verkaufsgrund', 'text', 'Portfoliobereinigung') +
+        '</section>' +
+
+        /* Alles hier rechnet das System selbst, sobald Kaufpreis und Miete
+           stehen. Nichts davon tippt jemand ein. */
+        '<section class="formular-abschnitt"><h2>Rechnet das System</h2>' +
+          '<p class="klein leise" style="margin-top:-.35rem;line-height:1.7;max-width:62ch">' +
+            'Sobald Kaufpreis und Jahresmiete stehen, ergibt sich der Rest von selbst — Faktor, Renditen, ' +
+            'nicht umlagefähige Kosten, Kaufnebenkosten und Gesamtinvestition. Die Sätze dahinter stehen in ' +
+            'der Verwaltung unter Stammdaten.</p>' +
+          '<div id="neu-rechnung" style="margin-top:1rem">' + W.rechenkarte(d, { kaufpreis: 0, mieteinnahmen: 0 }) + '</div>' +
         '</section>' +
         '<p id="neu-fehler" class="klein" style="display:none;color:var(--onyx-warn);background:var(--onyx-warn-flaeche);border:1px solid rgb(217 97 76 / .35);border-radius:var(--onyx-radius-klein);padding:.5rem .75rem"></p>' +
         '<div style="display:flex;align-items:center;gap:.75rem;padding-top:1.5rem;border-top:1px solid var(--onyx-kontur-leise)">' +

@@ -249,4 +249,100 @@ window.W = window.W || {};
     if (!kaufpreis || !miete) return '–';
     return (kaufpreis / miete).toFixed(2).replace('.', ',') + '-fach';
   };
+
+  W.b.prozent = function (n) {
+    if (n === null || n === undefined || !isFinite(n)) return '–';
+    return n.toFixed(2).replace('.', ',') + ' %';
+  };
+
+  /* --- Rechenwerte ---------------------------------------------------------
+     Alles hier wird aus Kaufpreis, Jahresmiete und den Saetzen der
+     Stammdaten gerechnet. Nichts davon muss jemand eintippen; wo ein Wert
+     doch von Hand kommt (nicht umlagefaehige Kosten aus der Abrechnung),
+     hat er Vorrang und das System rechnet mit ihm weiter. */
+  W.SAETZE = { verwaltung: 3, instandhaltung: 4, mietausfall: 2, grunderwerbsteuer: 5, notarGrundbuch: 2 };
+
+  W.saetze = function (d) {
+    var r = (d && d.stamm && d.stamm.rechnung) || {};
+    var raus = {};
+    Object.keys(W.SAETZE).forEach(function (k) {
+      var n = parseFloat(r[k]);
+      raus[k] = isNaN(n) ? W.SAETZE[k] : n;
+    });
+    return raus;
+  };
+
+  /** Prozentsatz aus der Provisionsangabe, z. B. „3,57 % inkl. MwSt.“ → 3.57 */
+  W.provisionssatz = function (text) {
+    var m = String(text || '').match(/([\d]+(?:[.,]\d+)?)\s*%/);
+    return m ? parseFloat(m[1].replace(',', '.')) : 0;
+  };
+
+  /**
+   * Rechnet ein Objekt durch. `kaufpreis` und `miete` genuegen; alles andere
+   * ist abgeleitet. `nichtUmlagefaehig` ueberschreibt die Schaetzung.
+   */
+  W.rechnen = function (d, o) {
+    var s = W.saetze(d);
+    var kp = Number(o.kaufpreis) || 0;
+    var miete = Number(o.mieteinnahmen) || 0;
+    var satzNU = s.verwaltung + s.instandhaltung + s.mietausfall;
+    var geschaetzt = Math.round(miete * satzNU / 100);
+    var eingetragen = Number(o.nichtUmlagefaehig) || 0;
+    var nu = eingetragen || geschaetzt;
+    var reinertrag = miete - nu;
+    var grest = Math.round(kp * s.grunderwerbsteuer / 100);
+    var notar = Math.round(kp * s.notarGrundbuch / 100);
+    var provSatz = W.provisionssatz(o.kaeuferprovision || (d && d.stamm && d.stamm.provision));
+    var provision = Math.round(kp * provSatz / 100);
+    var nebenkosten = grest + notar + provision;
+    return {
+      kaufpreis: kp, miete: miete,
+      satzNichtUmlage: satzNU,
+      nichtUmlagefaehig: nu,
+      nichtUmlageGeschaetzt: geschaetzt,
+      ausAbrechnung: !!eingetragen,
+      reinertrag: reinertrag,
+      faktor: miete ? kp / miete : null,
+      bruttorendite: kp ? (miete / kp) * 100 : null,
+      nettorendite: kp ? (reinertrag / kp) * 100 : null,
+      grunderwerbsteuer: grest, notarGrundbuch: notar,
+      provisionssatz: provSatz, provision: provision,
+      nebenkosten: nebenkosten,
+      gesamtinvestition: kp + nebenkosten,
+      /* Auf die Gesamtinvestition gerechnet — die Zahl, die ein Anleger sehen will. */
+      nettoAufGesamt: (kp + nebenkosten) ? (reinertrag / (kp + nebenkosten)) * 100 : null
+    };
+  };
+
+  /** Die gerechneten Werte als Karte. Steht im Anlegen-Formular und in Reiter 1. */
+  W.rechenkarte = function (d, o) {
+    var r = W.rechnen(d, o);
+    var s = W.saetze(d);
+    var e = W.b.euro, pz = W.b.prozent;
+    function zeile(etikett, wert, hinweis) {
+      return '<div class="rechenzeile"><span class="klein">' + W.f.h(etikett) +
+        (hinweis ? '<span class="mini still" style="display:block">' + W.f.h(hinweis) + '</span>' : '') + '</span>' +
+        '<span class="mono" style="font-size:.9375rem;text-align:right">' + wert + '</span></div>';
+    }
+    var leer = !r.kaufpreis && !r.miete;
+    return '<div class="onyx-karte rechenkarte' + (leer ? ' ist-leer' : '') + '">' +
+      (leer
+        ? '<p class="klein leise" style="padding:.4rem 0">Sobald Kaufpreis und Jahresmiete stehen, erscheinen hier Faktor, Renditen, ' +
+          'geschätzte nicht umlagefähige Kosten, Kaufnebenkosten und Gesamtinvestition.</p>'
+        : zeile('Faktor', W.b.faktor(r.kaufpreis, r.miete)) +
+          zeile('Bruttorendite', pz(r.bruttorendite)) +
+          zeile('Nicht umlagefähig',
+            e(r.nichtUmlagefaehig),
+            r.ausAbrechnung ? 'aus der Nebenkostenabrechnung' : 'geschätzt, ' + String(r.satzNichtUmlage).replace('.', ',') + ' % der Jahresmiete') +
+          zeile('Reinertrag p. a.', e(r.reinertrag), 'Jahresmiete abzüglich nicht umlagefähiger Kosten') +
+          zeile('Nettorendite', pz(r.nettorendite), 'auf den Kaufpreis') +
+          '<div class="rechen-trenner"></div>' +
+          zeile('Grunderwerbsteuer', e(r.grunderwerbsteuer), String(s.grunderwerbsteuer).replace('.', ',') + ' %') +
+          zeile('Notar und Grundbuch', e(r.notarGrundbuch), String(s.notarGrundbuch).replace('.', ',') + ' %') +
+          zeile('Käuferprovision', e(r.provision), String(r.provisionssatz).replace('.', ',') + ' %') +
+          zeile('Gesamtinvestition', e(r.gesamtinvestition), 'Kaufpreis und Kaufnebenkosten') +
+          zeile('Nettorendite auf Gesamtinvestition', pz(r.nettoAufGesamt))) +
+      '</div>';
+  };
 })();

@@ -804,6 +804,25 @@
 
   function verdrahteNeu() {
     var form = document.getElementById('neu-formular');
+
+    /* Waehrend des Tippens rechnet das System mit. Der Nutzer traegt nur
+       Kaufpreis und Miete ein, alles andere erscheint von selbst. */
+    var karte = document.getElementById('neu-rechnung');
+    function nachrechnen() {
+      if (!karte) return;
+      var zahl = function (x) { var n = parseInt(String(x).replace(/[^\d]/g, ''), 10); return isNaN(n) ? 0 : n; };
+      karte.innerHTML = W.rechenkarte(daten, {
+        kaufpreis: zahl(form.kaufpreis.value),
+        mieteinnahmen: zahl(form.mieteinnahmen.value),
+        nichtUmlagefaehig: zahl(form.nichtUmlagefaehig.value),
+        kaeuferprovision: form.kaeuferprovision.value
+      });
+    }
+    ['kaufpreis', 'mieteinnahmen', 'nichtUmlagefaehig', 'kaeuferprovision'].forEach(function (n) {
+      if (form[n]) form[n].addEventListener('input', nachrechnen);
+    });
+    nachrechnen();
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var fehler = document.getElementById('neu-fehler');
@@ -823,8 +842,12 @@
         objektart: form.objektart.value, status: form.status.value,
         verkaufsgrund: form.verkaufsgrund.value.trim(), eigentuemerId: eig,
         besitzgesellschaft: 'nicht geklärt',
-        mieteinnahmen: zahl(form.mieteinnahmen.value), nichtUmlagefaehig: zahl(form.nichtUmlagefaehig.value),
-        nichtUmlagefaehigJahr: String(new Date().getFullYear() - 1),
+        mieteinnahmen: zahl(form.mieteinnahmen.value),
+        /* Leer gelassen heisst: geschaetzt. Der Wert steht in der Akte und
+           laesst sich ersetzen, sobald die Abrechnung vorliegt. */
+        nichtUmlagefaehig: zahl(form.nichtUmlagefaehig.value),
+        nichtUmlagefaehigJahr: zahl(form.nichtUmlagefaehig.value)
+          ? String(new Date().getFullYear() - 1) : 'geschätzt',
         kaufpreis: zahl(form.kaufpreis.value),
         kaeuferprovision: form.kaeuferprovision.value.trim() || (daten.stamm && daten.stamm.provision) || '3,57 % inkl. MwSt.',
         eckdaten: [], compliance: {
@@ -880,6 +903,12 @@
       });
       daten.stamm.eskalationsregel = sf.regel.value.trim();
       daten.stamm.provision = sf.provision.value.trim();
+      daten.stamm.rechnung = daten.stamm.rechnung || {};
+      ['verwaltung', 'instandhaltung', 'mietausfall', 'grunderwerbsteuer', 'notarGrundbuch'].forEach(function (k) {
+        if (!sf[k]) return;
+        var n = parseFloat(String(sf[k].value).replace(',', '.'));
+        if (!isNaN(n) && n >= 0) daten.stamm.rechnung[k] = n;
+      });
       stammUebernehmen();
       protokollieren(null, 'Akte', 'Stammdaten geändert');
       sichern(); zeichnen();

@@ -1628,6 +1628,16 @@ W.SEED_STAMM = function () {
     kategorien: W.KATEGORIEN.slice(),
     pflichtunterlagen: W.PFLICHTUNTERLAGEN.map(function (p) { return p.slice(); }),
     eskalationsregel: 'Stufe 1 E-Mail · Stufe 2 nach 3 Tagen Anruf · Stufe 3 nach 7 Tagen Eigentümer informieren',
-    provision: '3,57 % inkl. MwSt.'
+    provision: '3,57 % inkl. MwSt.',
+    /* Saetze fuer die Rechenwerte. Aus ihnen leitet das System alles ab, was
+       sich rechnen laesst — der Nutzer traegt nur Kaufpreis und Miete ein.
+       Grunderwerbsteuer: Niedersachsen. */
+    rechnung: {
+      verwaltung: 3,
+      instandhaltung: 4,
+      mietausfall: 2,
+      grunderwerbsteuer: 5,
+      notarGrundbuch: 2
+    }
   };
 };

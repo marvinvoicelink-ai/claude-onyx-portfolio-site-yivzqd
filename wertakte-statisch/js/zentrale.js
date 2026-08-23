@@ -704,6 +704,12 @@ window.W = window.W || {};
         return '<li>' + sym.haken(13) + h(r) + '</li>';
       }).join('') + '</ul>';
 
+    var sa = W.saetze(d);
+    function satzfeld(name, etikett) {
+      return '<div class="feld-gruppe"><label class="onyx-etikett" for="s-' + name + '">' + h(etikett) + '</label>' +
+        '<input class="onyx-feld mono" id="s-' + name + '" name="' + name + '" type="text" inputmode="decimal" ' +
+          'value="' + h(String(sa[name]).replace('.', ',')) + '"></div>';
+    }
     var stammForm = '<form id="stamm-formular" style="display:grid;gap:1rem">' +
         '<div class="feld-gruppe"><label class="onyx-etikett" for="s-objektarten">Objektarten, eine je Zeile</label>' +
           '<textarea class="onyx-feld mono" id="s-objektarten" name="objektarten" rows="5" style="font-size:.8125rem">' +
@@ -718,6 +724,17 @@ window.W = window.W || {};
           '<input class="onyx-feld" id="s-regel" name="regel" value="' + h(st.eskalationsregel || '') + '"></div>' +
         '<div class="feld-gruppe" style="max-width:22rem"><label class="onyx-etikett" for="s-provision">Standard-Käuferprovision</label>' +
           '<input class="onyx-feld" id="s-provision" name="provision" value="' + h(st.provision || '') + '"></div>' +
+        /* Aus diesen Saetzen leitet das System alles ab, was sich rechnen
+           laesst — der Nutzer traegt je Objekt nur Kaufpreis und Miete ein. */
+        '<div><p class="onyx-etikett">Sätze für die Rechenwerte, in Prozent</p>' +
+          '<p class="mini leise" style="margin-top:.3rem;line-height:1.65;max-width:56ch">Die ersten drei ergeben zusammen ' +
+            'die geschätzten nicht umlagefähigen Kosten, gerechnet auf die Jahresmiete. Die letzten beiden gehen in die ' +
+            'Kaufnebenkosten, gerechnet auf den Kaufpreis.</p>' +
+          '<div class="satz-gitter">' +
+            satzfeld('verwaltung', 'Verwaltung') + satzfeld('instandhaltung', 'Instandhaltung') +
+            satzfeld('mietausfall', 'Mietausfallwagnis') + satzfeld('grunderwerbsteuer', 'Grunderwerbsteuer') +
+            satzfeld('notarGrundbuch', 'Notar und Grundbuch') +
+          '</div></div>' +
         '<button class="onyx-knopf onyx-knopf-primaer" type="submit" style="justify-self:start">Stammdaten speichern</button>' +
       '</form>';
 

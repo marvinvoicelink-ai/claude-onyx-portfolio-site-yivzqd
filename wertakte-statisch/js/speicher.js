@@ -50,6 +50,8 @@ window.W = window.W || {};
           if (!alt.protokoll) alt.protokoll = W.SEED_PROTOKOLL(alt);
           if (!alt.konto) alt.konto = W.SEED_KONTO();
           if (!alt.stamm) alt.stamm = W.SEED_STAMM();
+          /* Aeltere Staende kennen die Rechensaetze noch nicht. */
+          if (!alt.stamm.rechnung) alt.stamm.rechnung = W.SEED_STAMM().rechnung;
           return alt;
         } catch (e) { /* beschaedigt: neu aufsetzen */ }
       }

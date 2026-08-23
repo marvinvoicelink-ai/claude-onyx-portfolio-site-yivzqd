@@ -183,6 +183,19 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 
 .bild-marke { position: absolute; padding: .2rem .45rem; background: rgb(10 10 10 / .85); font-family: var(--onyx-schrift-mono); font-size: .69rem; }
 
+/* --- Rechenwerte -------------------------------------------------------- */
+/* Was das System selbst rechnet, steht in dieser Karte — im Anlegen-Formular
+   und in Reiter 1 der Akte. */
+.rechenkarte { padding: .35rem 1.1rem; }
+.rechenkarte.ist-leer { padding: .9rem 1.1rem; }
+.rechenzeile {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  padding: .6rem 0; border-bottom: 1px solid var(--onyx-kontur-leise);
+}
+.rechenzeile:last-child { border-bottom: 0; }
+.rechen-trenner { height: 1px; margin: .35rem 0; background: var(--onyx-kontur); }
+.satz-gitter { display: grid; gap: .75rem 1rem; margin-top: .75rem; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); }
+
 /* --- Akte -------------------------------------------------------------- */
 .akte-kopf { padding-bottom: 1.5rem; border-bottom: 1px solid var(--onyx-kontur-leise); }
 .akte-kopf-reihe { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 1rem 2rem; }
