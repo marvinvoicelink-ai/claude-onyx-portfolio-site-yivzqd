@@ -42,6 +42,7 @@ window.W = window.W || {};
     chat: function (g) { return svg('<path d="M20 15.5a2 2 0 0 1-2 2H8l-4 3.5v-15a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 12.5h5"/>', g); },
     mailAus: function (g) { return svg('<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.5 7 8.5 5.5L20.5 7"/><path d="M17 3.5 20.5 7 17 10.5"/>', g); },
     fahne: function (g) { return svg('<path d="M5 21V4"/><path d="M5 5h11l-1.6 3.2L16 11.5H5"/>', g); },
+    zahnrad: function (g) { return svg('<circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6M18.4 18.4l-1.6-1.6M7.2 7.2 5.6 5.6"/>', g); },
     siegel: function (g) { return svg('<circle cx="12" cy="9.5" r="5.5"/><path d="m8.5 14.5-1 6 4.5-2.2 4.5 2.2-1-6"/>', g); }
   };
 

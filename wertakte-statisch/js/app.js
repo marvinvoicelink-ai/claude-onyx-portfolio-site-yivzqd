@@ -15,12 +15,12 @@
   var PUNKTE = [
     { pfad: 'uebersicht', text: 'Übersicht', symbol: sym.uebersicht },
     { pfad: 'objekte', text: 'Objekte', symbol: sym.objekte },
-    { pfad: 'investoren', text: 'Investoren', symbol: sym.investor },
+    { pfad: 'kontakte', text: 'Kontakte', symbol: sym.auftraggeber },
     { pfad: 'kommunikation', text: 'Kommunikation', symbol: sym.chat },
     { pfad: 'termine', text: 'Termine', symbol: sym.kalender },
     { pfad: 'fotos', text: 'Fotos', symbol: sym.bild },
     { pfad: 'protokoll', text: 'Protokoll', symbol: sym.siegel },
-    { pfad: 'verwaltung', text: 'Verwaltung', symbol: sym.auftraggeber }
+    { pfad: 'verwaltung', text: 'Verwaltung', symbol: sym.zahnrad }
   ];
 
   function route() {
@@ -132,8 +132,8 @@
       else if (bereich === 'objekt' && r.pfad[2] === 'expose') { inhalt = W.seiten.expose(daten, r.pfad[1], bilder); aktiv = 'objekte'; }
       else if (bereich === 'objekt') { inhalt = W.seiten.objekt(daten, r.pfad[1], r.q, bilder); aktiv = 'objekte'; }
       else if (bereich === 'neu') { inhalt = W.seiten.neu(daten, naechstesAktenzeichen()); aktiv = 'objekte'; }
-      else if (bereich === 'investor') { inhalt = W.seiten.investor(daten, r.pfad[1]); aktiv = 'investoren'; }
-      else if (bereich === 'investoren') { inhalt = W.seiten.investoren(daten, r.q); }
+      else if (bereich === 'kontakt' || bereich === 'investor') { inhalt = W.seiten.investor(daten, r.pfad[1]); aktiv = 'kontakte'; }
+      else if (bereich === 'kontakte' || bereich === 'investoren') { inhalt = W.seiten.kontakte(daten, r.q); aktiv = 'kontakte'; }
       else if (bereich === 'kommunikation') { inhalt = W.seiten.kommunikation(daten, r.q); }
       else if (bereich === 'termine') { inhalt = W.seiten.termine(daten, r.q); }
       else if (bereich === 'fotos') { inhalt = W.seiten.fotos(daten, r.q, bilder); }

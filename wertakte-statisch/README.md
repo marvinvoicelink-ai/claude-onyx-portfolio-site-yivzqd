@@ -50,7 +50,8 @@ Adresszeile und ist damit verlinkbar.
 | ------------- | ------------------------------------------------------------------ |
 | Objekte       | Akquise · Unterlagen · Exposé in Arbeit · In Vermarktung · Reserviert · Abgeschlossen |
 | Unterlagen    | Foto · Lage · Vertrag · Nachweis · Offen                            |
-| Investoren    | nach Stand bzw. nach Investorentyp                                  |
+| Kontakte      | Eigentümer · Investor · Privatkunde · Notariat · Bank                |
+| Investoren (Akte) | nach Stand der Beteiligung                                      |
 | Kommunikation | Posteingang · Postausgang · E-Mail · Telefon · WhatsApp · SMS · Brief · Notiz |
 | Termine       | Überfällig · Diese Woche · Später · Erledigt                        |
 | Fotos         | Außenansicht · Innenansicht · Gebäudetechnik · Dachfläche · Umgebung |
@@ -80,8 +81,14 @@ zur Zeile, danach lässt es sich öffnen. Kein Ordner mehr im Regal.
 **3 Investoren.** Wer auf dem Objekt sitzt, mit Vertraulichkeitserklärung,
 Exposé-Versand und Stand. Das System hält den Exposé-Versand zurück, solange
 bei einem Erstkunden die Adressvalidierung fehlt. Ist sie erledigt, wird der
-Versand freigegeben und automatisch im Journal protokolliert. Der eigene
-Bereich „Investoren“ zeigt zusätzlich Suchprofil, Volumen und Faktorgrenze.
+Versand freigegeben und automatisch im Journal protokolliert. Als Interessent
+lassen sich Investoren **und Privatkunden** aufs Objekt setzen.
+
+**Kontakte.** Ein eigener Bereich mit allen, mit denen das Büro zu tun hat,
+getrennt durch Ordner: **Eigentümer** (verkaufen), **Investoren** und
+**Privatkunden** (kaufen), dazu **Notariat** und **Bank**. Jede Karte zeigt
+Rolle, Ansprechpartner, Telefon und E-Mail; bei Käufern zusätzlich Suchprofil,
+NDA und Adressvalidierung. Ein Klick führt zur Historie mit allen Vorgängen.
 
 **4 Kommunikation.** E-Mail ein und aus, Telefon, WhatsApp, SMS, Brief und
 Notiz. Geschrieben wird im System: Weg wählen, Objekt und Gegenüber wählen,
@@ -198,7 +205,8 @@ wertakteZuruecksetzen()
 
 ## Beispieldaten
 
-Drei Objekte, sechs Kontakte, zwölf Vorgänge, sieben Termine, 45 Unterlagen,
+Drei Objekte, zehn Kontakte (zwei Eigentümer, vier Investoren, zwei
+Privatkunden, Notariat, Bank), vierzehn Vorgänge, acht Termine, 45 Unterlagen,
 72 Protokolleinträge, keine Fotos. Musterobjekt ist der REWE-Markt Oldenburg
 mit allen Zahlen aus dem Erfassungsbogen. Alle Namen, Firmen, Adressen und Zahlen sind erfunden.
 

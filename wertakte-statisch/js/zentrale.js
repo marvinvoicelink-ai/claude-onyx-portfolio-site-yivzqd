@@ -438,7 +438,7 @@ window.W = window.W || {};
         return treffer('#/objekt/' + o.id, sym.objekte(15), o.aktenzeichen + ' · ' + o.objektart, o.bezeichnung, o.strasse + ', ' + o.plz + ' ' + o.ort);
       }) +
       block('Kontakte', kontakte, function (k) {
-        return treffer('#/investor/' + k.id, sym.investor(15), k.rolle, k.name, k.ansprechpartner + ' · ' + k.email);
+        return treffer('#/kontakt/' + k.id, sym.investor(15), k.rolle, k.name, k.ansprechpartner + ' · ' + k.email);
       }) +
       block('Unterlagen', unterlagen, function (u) {
         var o = H.obj(d, u.objektId);

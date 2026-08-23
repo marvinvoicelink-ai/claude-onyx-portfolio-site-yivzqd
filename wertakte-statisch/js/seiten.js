@@ -32,6 +32,14 @@ window.W = window.W || {};
     return d.objekte.slice().sort(function (a, c) { return c.aktenzeichen.localeCompare(a.aktenzeichen); });
   }
   function investoren(d) { return d.kontakte.filter(function (k) { return k.rolle === 'Investor'; }); }
+  /* Wer als Interessent auf ein Objekt kann: die Profis und die Privatkunden,
+     die kaufen wollen. Wer verkauft, steht nicht zur Auswahl. */
+  function kaeufer(d) {
+    return d.kontakte.filter(function (k) {
+      if (k.rolle === 'Investor') return true;
+      return k.rolle === 'Privatkunde' && k.typ !== 'Verkäufer';
+    });
+  }
   function unterlagenZu(d, id) { return d.unterlagen.filter(function (u) { return u.objektId === id; }); }
   function beteiligungenZu(d, id) { return d.beteiligungen.filter(function (x) { return x.objektId === id; }); }
   function vorgaengeZu(d, filter) {
@@ -59,7 +67,7 @@ window.W = window.W || {};
   }
   W.hilfen = {
     kontakt: kontakt, obj: obj, alle: alle, investoren: investoren, unterlagenZu: unterlagenZu,
-    beteiligungenZu: beteiligungenZu, vorgaengeZu: vorgaengeZu, termineZu: termineZu,
+    beteiligungenZu: beteiligungenZu, vorgaengeZu: vorgaengeZu, termineZu: termineZu, kaeufer: kaeufer,
     fotosZu: fotosZu, src: src, vollstaendig: vollstaendig
   };
 
@@ -460,7 +468,7 @@ window.W = window.W || {};
           '</div>' +
 
           '<div><h2>Eigentümer</h2>' +
-            (e ? '<a class="onyx-karte onyx-karte-klick" style="display:block;margin-top:.75rem;padding:1rem" href="#/investor/' + h(e.id) + '">' +
+            (e ? '<a class="onyx-karte onyx-karte-klick" style="display:block;margin-top:.75rem;padding:1rem" href="#/kontakt/' + h(e.id) + '">' +
               '<p class="mono amber" style="font-size:.66rem;text-transform:uppercase;letter-spacing:.1em">' + h(e.typ) + '</p>' +
               '<p style="margin-top:.25rem;font-size:.9375rem">' + h(e.name) + '</p>' +
               '<p class="klein leise" style="margin-top:.1rem">' + h(e.ansprechpartner) + '</p>' +
@@ -541,7 +549,7 @@ window.W = window.W || {};
 
   function reiterInvestoren(d, o, q) {
     var alleBt = H.beteiligungenZu(d, o.id);
-    var frei = H.investoren(d).filter(function (i) {
+    var frei = H.kaeufer(d).filter(function (i) {
       return !alleBt.some(function (x) { return x.investorId === i.id; });
     });
     var ordner = W.ordnerZaehlen(alleBt, W.BETEILIGUNG_STAND, function (x) { return x.stand; })
@@ -556,7 +564,7 @@ window.W = window.W || {};
         var erst = i.adressvalidierung && i.adressvalidierung.status === 'offen';
         return '<li class="onyx-zeile" style="border-bottom:1px solid var(--onyx-kontur-leise);padding:.9rem .5rem">' +
           '<div style="display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:flex-start">' +
-            '<a class="wachsen" style="min-width:14rem" href="#/investor/' + h(i.id) + '">' +
+            '<a class="wachsen" style="min-width:14rem" href="#/kontakt/' + h(i.id) + '">' +
               '<span style="display:block;font-size:.9375rem">' + h(i.name) + '</span>' +
               '<span class="klein leise" style="display:block">' + h(i.ansprechpartner + ' · ' + i.typ) + '</span>' +
             '</a>' +
@@ -587,9 +595,9 @@ window.W = window.W || {};
       W.ordnerreihe(ordner, gewaehlt, akteOrdner(o, 'investoren')) + liste +
       (frei.length ? '<div class="onyx-karte" style="margin-top:1.5rem;padding:1rem;display:flex;flex-wrap:wrap;gap:.6rem;align-items:flex-end">' +
         '<div class="feld-gruppe" style="min-width:16rem;flex:1">' +
-          '<label class="onyx-etikett" for="neuer-investor">Investor hinzufügen</label>' +
+          '<label class="onyx-etikett" for="neuer-investor">Interessent hinzufügen</label>' +
           '<select class="onyx-feld" id="neuer-investor">' +
-            opt(frei.map(function (i) { return { wert: i.id, text: i.name + ' · ' + i.typ }; }), '') + '</select>' +
+            opt(frei.map(function (i) { return { wert: i.id, text: i.name + ' · ' + i.rolle + ', ' + i.typ }; }), '') + '</select>' +
         '</div>' +
         '<button class="onyx-knopf onyx-knopf-primaer" id="investor-dazu">' + sym.plus(16) + 'Hinzufügen</button>' +
       '</div>' : '') + '</div>';
@@ -1016,45 +1024,72 @@ window.W = window.W || {};
 
   /* --- Investoren -------------------------------------------------------------- */
 
-  W.seiten.investoren = function (d, q) {
-    var alleI = H.investoren(d);
-    var typen = [];
-    alleI.forEach(function (i) { if (i.typ && typen.indexOf(i.typ) < 0) typen.push(i.typ); });
+  /* Alle Menschen, mit denen das Büro zu tun hat, in einer Liste: Eigentümer,
+     Investoren, Privatkunden, Notariat, Bank. Die Ordner oben trennen sie. */
+  W.ROLLEN_ORDNUNG = ['Eigentümer', 'Investor', 'Privatkunde', 'Notariat', 'Bank'];
+
+  W.seiten.kontakte = function (d, q) {
+    var alle = d.kontakte.slice().sort(function (a, c) { return a.name.localeCompare(c.name); });
+    var rollen = W.ROLLEN_ORDNUNG.filter(function (r) {
+      return alle.some(function (k) { return k.rolle === r; });
+    });
+    alle.forEach(function (k) { if (k.rolle && rollen.indexOf(k.rolle) < 0) rollen.push(k.rolle); });
+
     var gewaehlt = (q && q.ordner) || '';
-    var liste = gewaehlt ? alleI.filter(function (i) { return i.typ === gewaehlt; }) : alleI;
-    return '<div class="kopfzeile-seite"><div><h1>Investoren</h1>' +
-        '<p class="klein leise" style="margin-top:.35rem;max-width:64ch;line-height:1.7">' +
-          'Wenige, dafür wiederkehrende Käufer. Suchprofil, Vertraulichkeitserklärung und Adressvalidierung stehen an jedem Eintrag.</p></div>' +
-        '<p class="klein leise mono">' + liste.length + ' von ' + alleI.length + '</p></div>' +
-      W.ordnerreihe(W.ordnerZaehlen(alleI, typen, function (i) { return i.typ; }), gewaehlt, function (wert) {
-        return '#/investoren' + (wert ? '?ordner=' + encodeURIComponent(wert) : '');
+    var liste = gewaehlt ? alle.filter(function (k) { return k.rolle === gewaehlt; }) : alle;
+
+    function marke(text, art) {
+      return '<span class="onyx-marke onyx-marke-' + art + '" style="font-size:.66rem;padding:.1rem .5rem">' + h(text) + '</span>';
+    }
+
+    return '<div class="kopfzeile-seite"><div><h1>Kontakte</h1>' +
+        '<p class="klein leise" style="margin-top:.35rem;max-width:68ch;line-height:1.7">' +
+          'Alle in einer Liste: Eigentümer, die verkaufen, Investoren und Privatkunden, die kaufen, ' +
+          'dazu Notariat und Bank. Die Ordner oben trennen sie, jeder Eintrag führt zur Historie.</p></div>' +
+        '<p class="klein leise mono">' + liste.length + ' von ' + alle.length + '</p></div>' +
+      W.ordnerreihe(W.ordnerZaehlen(alle, rollen, function (k) { return k.rolle; }), gewaehlt, function (wert) {
+        return '#/kontakte' + (wert ? '?ordner=' + encodeURIComponent(wert) : '');
       }) +
       '<div style="height:1.25rem"></div>' +
       '<ul style="display:grid;gap:1.25rem;padding-bottom:2rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr))">' +
       liste.map(function (i) {
-        var p = i.suchprofil || {};
+        var pr = i.suchprofil || {};
+        var kauft = i.rolle === 'Investor' || i.rolle === 'Privatkunde';
         var offeneVal = i.adressvalidierung && i.adressvalidierung.status === 'offen';
+        var eigene = d.objekte.filter(function (o) { return o.eigentuemerId === i.id; }).length;
         var mandate = d.beteiligungen.filter(function (x) { return x.investorId === i.id; }).length;
-        return '<li><a class="onyx-karte onyx-karte-klick" style="display:flex;flex-direction:column;height:100%;padding:1.25rem" href="#/investor/' + h(i.id) + '">' +
+        var vorgaenge = d.vorgaenge.filter(function (v) { return v.kontaktId === i.id; }).length;
+
+        var marken = '';
+        if (i.rolle === 'Eigentümer') marken += marke(eigene + (eigene === 1 ? ' Objekt' : ' Objekte'), 'ruht');
+        if (kauft) {
+          marken += marke('NDA ' + (i.nda ? i.nda.status : 'offen'),
+            i.nda && i.nda.status === 'unterzeichnet' ? 'fertig'
+              : (i.nda && i.nda.status === 'nicht erforderlich' ? 'ruht'
+                : (i.nda && i.nda.status === 'versendet' ? 'laeuft' : 'ruht')));
+          marken += marke('Adresse ' + (i.adressvalidierung ? i.adressvalidierung.status : 'offen'),
+            offeneVal ? 'warn' : 'fertig');
+          marken += marke(mandate + (mandate === 1 ? ' Objekt' : ' Objekte'), 'ruht');
+        }
+        if (!kauft && i.rolle !== 'Eigentümer' && vorgaenge) marken += marke(vorgaenge + (vorgaenge === 1 ? ' Vorgang' : ' Vorgänge'), 'ruht');
+
+        return '<li><a class="onyx-karte onyx-karte-klick" style="display:flex;flex-direction:column;height:100%;padding:1.25rem" href="#/kontakt/' + h(i.id) + '">' +
           '<span style="display:flex;justify-content:space-between;gap:1rem">' +
             '<span style="min-width:0">' +
-              '<span class="mono amber" style="display:block;font-size:.66rem;text-transform:uppercase;letter-spacing:.1em">' + h(i.typ) + '</span>' +
+              '<span class="mono amber" style="display:block;font-size:.66rem;text-transform:uppercase;letter-spacing:.1em">' +
+                h(i.rolle) + (i.typ ? ' · ' + h(i.typ) : '') + '</span>' +
               '<span style="display:block;margin-top:.25rem;font-size:1.0625rem">' + h(i.name) + '</span>' +
               '<span class="klein leise" style="display:block;margin-top:.1rem">' + h(i.ansprechpartner) + '</span>' +
             '</span><span class="leise" style="flex:none">' + sym.pfeilRechts(17) + '</span>' +
           '</span>' +
-          (p.assetklassen ? '<span class="mini leise" style="display:block;margin-top:.75rem;line-height:1.6">' +
-            h(p.assetklassen.join(', ')) + '<br>' + h((p.regionen || []).join(', ')) + '<br>' +
-            b.euro(p.volumenVon) + ' bis ' + b.euro(p.volumenBis) + ', max. ' + String(p.faktorMax).replace('.', ',') + '-fach' +
+          '<span class="mini leise mono" style="display:block;margin-top:.6rem;overflow-wrap:anywhere">' +
+            h(i.telefon) + '<br>' + h(i.email) + '</span>' +
+          (pr.assetklassen ? '<span class="mini leise" style="display:block;margin-top:.6rem;line-height:1.6">' +
+            h(pr.assetklassen.join(', ')) + '<br>' + h((pr.regionen || []).join(', ')) + '<br>' +
+            b.euro(pr.volumenVon) + ' bis ' + b.euro(pr.volumenBis) + ', max. ' + String(pr.faktorMax).replace('.', ',') + '-fach' +
             '</span>' : '') +
-          '<span style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto;padding-top:1rem">' +
-            '<span class="onyx-marke ' + (i.nda && i.nda.status === 'unterzeichnet' ? 'onyx-marke-fertig'
-              : i.nda && i.nda.status === 'versendet' ? 'onyx-marke-laeuft' : 'onyx-marke-ruht') +
-              '" style="font-size:.66rem;padding:.1rem .5rem">NDA ' + h(i.nda ? i.nda.status : 'offen') + '</span>' +
-            '<span class="onyx-marke ' + (offeneVal ? 'onyx-marke-warn' : 'onyx-marke-fertig') +
-              '" style="font-size:.66rem;padding:.1rem .5rem">Adresse ' + h(i.adressvalidierung ? i.adressvalidierung.status : 'offen') + '</span>' +
-            '<span class="onyx-marke onyx-marke-ruht" style="font-size:.66rem;padding:.1rem .5rem">' + mandate + ' Objekte</span>' +
-          '</span></a></li>';
+          '<span style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto;padding-top:1rem">' + marken + '</span>' +
+          '</a></li>';
       }).join('') + '</ul>';
   };
 
@@ -1067,8 +1102,7 @@ window.W = window.W || {};
     var vg = H.vorgaengeZu(d, { kontaktId: i.id });
     var val = i.adressvalidierung || { status: 'offen' };
 
-    return '<a class="zurueck" href="' + (i.rolle === 'Investor' ? '#/investoren' : '#/objekte') + '">' +
-        sym.pfeilLinks(14) + (i.rolle === 'Investor' ? 'Alle Investoren' : 'Alle Objekte') + '</a>' +
+    return '<a class="zurueck" href="#/kontakte">' + sym.pfeilLinks(14) + 'Alle Kontakte</a>' +
       '<header style="margin-top:1rem;padding-bottom:1.5rem;border-bottom:1px solid var(--onyx-kontur-leise)">' +
         '<p class="mono amber" style="font-size:.66rem;text-transform:uppercase;letter-spacing:.12em">' + h(i.rolle + ' · ' + i.typ) + '</p>' +
         '<h1 style="margin-top:.35rem">' + h(i.name) + '</h1>' +

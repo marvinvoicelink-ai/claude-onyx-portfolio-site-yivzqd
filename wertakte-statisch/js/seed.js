@@ -177,6 +177,90 @@ W.SEED = {
         "hinweis": "Ausweise beider Gesellschafter geprüft"
       },
       "notizen": "Verkauf im Zuge einer Nachfolgeregelung."
+    },
+    {
+      "id": "kt_meyer",
+      "rolle": "Privatkunde",
+      "name": "Eheleute Meyer",
+      "typ": "Kaufinteressent",
+      "ansprechpartner": "Ilse und Werner Meyer",
+      "anrede": "Frau Meyer",
+      "email": "w.meyer@beispiel.de",
+      "telefon": "04221 78149",
+      "anschrift": "Lindenweg 8, 27753 Delmenhorst",
+      "nda": {
+        "status": "nicht erforderlich",
+        "datum": null
+      },
+      "adressvalidierung": {
+        "status": "geprüft",
+        "datum": "2026-08-04",
+        "hinweis": "Ausweiskopien beider Eheleute liegen vor"
+      },
+      "notizen": "Erste eigene Anlageimmobilie, Eigenkapital 350.000 Euro. Braucht mehr Erklärung als die Profis, dafür schnelle Entscheidung."
+    },
+    {
+      "id": "kt_ruhnke",
+      "rolle": "Privatkunde",
+      "name": "Gerd Ruhnke",
+      "typ": "Verkäufer",
+      "ansprechpartner": "Gerd Ruhnke",
+      "anrede": "Herr Ruhnke",
+      "email": "g.ruhnke@beispiel.de",
+      "telefon": "0441 885512",
+      "anschrift": "Donnerschweer Straße 214, 26123 Oldenburg",
+      "nda": {
+        "status": "nicht erforderlich",
+        "datum": null
+      },
+      "adressvalidierung": {
+        "status": "geprüft",
+        "datum": "2026-08-19",
+        "hinweis": "Personalausweis in Kopie zur Akte"
+      },
+      "notizen": "Möchte sein Mehrfamilienhaus aus Altersgründen verkaufen. Erstgespräch geführt, Unterlagen noch nicht angefordert."
+    },
+    {
+      "id": "kt_notar",
+      "rolle": "Notariat",
+      "name": "Notariat Dr. Rohde",
+      "typ": "Notar",
+      "ansprechpartner": "Dr. Anke Rohde",
+      "anrede": "Frau Dr. Rohde",
+      "email": "kanzlei@notariat-rohde-beispiel.de",
+      "telefon": "0441 21188-0",
+      "anschrift": "Am Damm 3, 26135 Oldenburg",
+      "nda": {
+        "status": "nicht erforderlich",
+        "datum": null
+      },
+      "adressvalidierung": {
+        "status": "nicht erforderlich",
+        "datum": null,
+        "hinweis": ""
+      },
+      "notizen": "Beurkundet regelmäßig für das Büro. Entwurf spätestens zwei Wochen vor dem Termin."
+    },
+    {
+      "id": "kt_bank",
+      "rolle": "Bank",
+      "name": "Oldenburgische Volksbank eG",
+      "typ": "Finanzierung",
+      "ansprechpartner": "Sven Klattenhoff, Firmenkunden",
+      "anrede": "Herr Klattenhoff",
+      "email": "s.klattenhoff@ovb-beispiel.de",
+      "telefon": "04401 805-2210",
+      "anschrift": "Ritterstraße 8, 26122 Oldenburg",
+      "nda": {
+        "status": "nicht erforderlich",
+        "datum": null
+      },
+      "adressvalidierung": {
+        "status": "nicht erforderlich",
+        "datum": null,
+        "hinweis": ""
+      },
+      "notizen": "Stellt Finanzierungsbestätigungen für Käufer aus, kennt den Markt in Oldenburg."
     }
   ],
   "objekte": [
@@ -1128,6 +1212,16 @@ W.SEED = {
       "exposeAm": "2026-04-02",
       "letzteReaktion": "2026-08-15",
       "notiz": "Finanzierungsbestätigung liegt vor, Notartermin in Abstimmung."
+    },
+    {
+      "id": "bt_6",
+      "objektId": "obj_wgh",
+      "investorId": "kt_meyer",
+      "stand": "Prüfung läuft",
+      "ndaAm": "2026-08-05",
+      "exposeAm": "2026-08-05",
+      "letzteReaktion": "2026-08-21",
+      "notiz": "Erste Anlageimmobilie, Finanzierung bei der Volksbank angefragt."
     }
   ],
   "vorgaenge": [
@@ -1328,6 +1422,39 @@ W.SEED = {
       "anhaenge": [
         "Finanzierungsbestaetigung.pdf"
       ]
+    },
+    {
+      "id": "vg_13",
+      "objektId": "obj_wgh",
+      "kontaktId": "kt_meyer",
+      "art": "Telefon",
+      "richtung": "ein",
+      "zeitpunkt": "2026-08-21T09:40",
+      "betreff": "Rückfrage Nebenkosten und Rücklage, 14 Minuten",
+      "inhalt": "Dauer 14 Minuten\n\nFrau Meyer fragt, welche Kosten nach dem Kauf jährlich auf sie zukommen und ob die Instandhaltungsrücklage ausreicht. In Ruhe erklärt: nicht umlagefähige Nebenkosten, Rücklage, Verwaltergebühr.\n\nSie schickt die Finanzierungszusage der Volksbank nach, danach möchte sie das Haus ein zweites Mal besichtigen.",
+      "teilnehmer": "Ilse Meyer",
+      "belegNr": "2026-000804",
+      "festgeschrieben": true,
+      "outlook": false,
+      "anhaenge": []
+    },
+    {
+      "id": "vg_14",
+      "objektId": "obj_wgh",
+      "kontaktId": "kt_notar",
+      "art": "E-Mail",
+      "richtung": "aus",
+      "zeitpunkt": "2026-08-21T15:10",
+      "betreff": "Entwurf Kaufvertrag Wohn- und Geschäftshaus Delmenhorst",
+      "inhalt": "Sehr geehrte Frau Dr. Rohde,\n\nfür das Wohn- und Geschäftshaus in Delmenhorst zeichnet sich ein Abschluss ab. Anbei Grundbuchauszug und die Eckdaten für den Vertragsentwurf.\n\nKäuferseite ist noch offen, es liegen zwei Interessenten vor. Ich melde mich, sobald es feststeht, und schlage dann Termine vor.\n\nMit freundlichen Grüßen\nJens Lange\nLange Gewerbeimmobilien",
+      "teilnehmer": "Dr. Anke Rohde",
+      "belegNr": "2026-000805",
+      "festgeschrieben": true,
+      "outlook": true,
+      "anhaenge": [
+        "Grundbuchauszug.pdf",
+        "Eckdaten VK-2026-006.pdf"
+      ]
     }
   ],
   "termine": [
@@ -1413,6 +1540,18 @@ W.SEED = {
       "stufe": 1,
       "status": "offen",
       "regel": "Flachdach, Fotos sind Pflichtunterlage fürs Exposé",
+      "erledigtAm": null
+    },
+    {
+      "id": "tm_8",
+      "objektId": "obj_wgh",
+      "kontaktId": "kt_meyer",
+      "titel": "Zweite Besichtigung mit Eheleuten Meyer abstimmen",
+      "art": "Wiedervorlage",
+      "faellig": "2026-08-26",
+      "stufe": 1,
+      "status": "offen",
+      "regel": "Stufe 1 Anruf · Stufe 2 nach 2 Tagen E-Mail · Stufe 3 nach 5 Tagen Eigentümer informieren",
       "erledigtAm": null
     }
   ],

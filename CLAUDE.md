@@ -97,9 +97,15 @@ und wird nie aus dem Namen geraten. Das Protokoll hält jede Änderung mit
 Zeitpunkt und Bearbeiter fest, das Suchfeld sucht über alle Bereiche, und die
 Gesamtakte druckt alle fünf Teile samt Journal im Wortlaut als ein Stück.
 
+Der Bereich Kontakte führt alle Beteiligten in einer Liste, getrennt durch
+Ordner: Eigentümer (verkaufen), Investoren und Privatkunden (kaufen), Notariat,
+Bank. Damit deckt die Demo sowohl große Anleger als auch normale Privatkunden
+ab, ohne zwei Personenlisten zu haben.
+
 Jeder Bereich hat oben Ordner mit Zahl (Objekte nach Status, Unterlagen nach
-Kategorie und „Offen“, Kommunikation nach Posteingang/Postausgang und Weg,
-Termine nach Dringlichkeit, Fotos nach Kategorie, Protokoll nach Art). Der
+Kategorie und „Offen“, Kontakte nach Rolle, Kommunikation nach
+Posteingang/Postausgang und Weg, Termine nach Dringlichkeit, Fotos nach
+Kategorie, Protokoll nach Art). Der
 gewählte Ordner steht in der Adresszeile.
 
 Der Terminplan beginnt mit einem Monatskalender (Farbe = Dringlichkeit: rot
