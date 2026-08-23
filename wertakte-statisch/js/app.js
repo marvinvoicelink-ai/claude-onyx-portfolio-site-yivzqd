@@ -915,6 +915,13 @@
       hinweisBalken('Stammdaten gespeichert.');
     });
 
+    var appKnopf = document.getElementById('knopf-app');
+    if (appKnopf) appKnopf.addEventListener('click', function () {
+      W.appInstallieren().then(function (ja) {
+        if (ja) hinweisBalken('Die Wertakte liegt jetzt auf dem Startbildschirm.');
+      });
+    });
+
     var sichernKnopf = document.getElementById('knopf-sichern');
     if (sichernKnopf) sichernKnopf.addEventListener('click', function () {
       var text = JSON.stringify(daten, null, 2);
@@ -971,8 +978,102 @@
     document.documentElement.classList.toggle('gross', grosseSchrift);
   }
 
+  /* --- Als App aufs Handy ------------------------------------------------
+     Die Wertakte laesst sich auf den Startbildschirm legen. Danach hat sie
+     ein eigenes Symbol, oeffnet ohne Browserleiste und laeuft auch ohne
+     Netz. Es bleibt dieselbe Datei, es wird nichts installiert. */
+
+  var installAufruf = null;
+
+  function alsAppOffen() {
+    try {
+      return window.matchMedia('(display-mode: standalone)').matches ||
+        window.navigator.standalone === true;
+    } catch (e) { return false; }
+  }
+
+  /* Am iPhone gibt es keinen Installations-Knopf, dort fuehrt nur der Weg
+     ueber „Teilen“. Deshalb wird dort erklaert statt angeboten. */
+  function istApple() {
+    var u = navigator.userAgent || '';
+    return /iPad|iPhone|iPod/.test(u) ||
+      (/Macintosh/.test(u) && navigator.maxTouchPoints > 1);
+  }
+
+  W.appLage = function () {
+    return { offen: alsAppOffen(), aufruf: !!installAufruf, apple: istApple() };
+  };
+
+  W.appInstallieren = function () {
+    if (!installAufruf) return Promise.resolve(false);
+    var a = installAufruf;
+    installAufruf = null;
+    a.prompt();
+    return a.userChoice.then(function (wahl) {
+      return wahl && wahl.outcome === 'accepted';
+    }).catch(function () { return false; });
+  };
+
+  function appLeisteZeigen() {
+    if (alsAppOffen()) return;
+    try { if (localStorage.getItem('wertakte.appleiste') === 'weg') return; } catch (e) { /* egal */ }
+    if (document.getElementById('app-leiste')) return;
+
+    var leiste = document.createElement('div');
+    leiste.id = 'app-leiste';
+    leiste.className = 'app-leiste kein-druck';
+    leiste.innerHTML =
+      '<div><p>Wertakte aufs Handy legen</p>' +
+        '<p class="mini leise">' +
+          (istApple()
+            ? 'Unten auf Teilen tippen, dann „Zum Home-Bildschirm“.'
+            : 'Eigenes Symbol, ohne Browserleiste, auch ohne Netz nutzbar.') +
+        '</p></div>' +
+      '<div class="app-leiste-knoepfe">' +
+        (istApple() ? '' : '<button class="onyx-knopf onyx-knopf-primaer" id="app-leiste-ja">Hinzufügen</button>') +
+        '<button class="rund-knopf" id="app-leiste-weg" aria-label="Hinweis ausblenden">' + sym.schliessen(16) + '</button>' +
+      '</div>';
+    document.body.appendChild(leiste);
+
+    var ja = document.getElementById('app-leiste-ja');
+    if (ja) ja.addEventListener('click', function () {
+      W.appInstallieren().then(function () { leiste.remove(); });
+    });
+    document.getElementById('app-leiste-weg').addEventListener('click', function () {
+      try { localStorage.setItem('wertakte.appleiste', 'weg'); } catch (e) { /* egal */ }
+      leiste.remove();
+    });
+  }
+
+  function appVorbereiten() {
+    if ('serviceWorker' in navigator) {
+      var sicher = location.protocol === 'https:' ||
+        location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+      if (sicher) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('sw.js').catch(function () { /* dann eben ohne */ });
+        });
+      }
+    }
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault();
+      installAufruf = e;
+      appLeisteZeigen();
+      zeichnen();
+    });
+    window.addEventListener('appinstalled', function () {
+      installAufruf = null;
+      var l = document.getElementById('app-leiste');
+      if (l) l.remove();
+      zeichnen();
+    });
+    /* Am iPhone kommt kein Ereignis — dort den Hinweis von selbst zeigen. */
+    if (istApple()) setTimeout(appLeisteZeigen, 1200);
+  }
+
   daten = W.speicher.laden();
   stammUebernehmen();
+  appVorbereiten();
   try { grosseSchrift = localStorage.getItem('wertakte.schrift') === 'gross'; } catch (e) { grosseSchrift = false; }
   schriftSetzen();
   try { angemeldet = sessionStorage.getItem('wertakte.angemeldet') === '1'; } catch (e) { angemeldet = false; }

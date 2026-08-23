@@ -738,6 +738,28 @@ window.W = window.W || {};
         '<button class="onyx-knopf onyx-knopf-primaer" type="submit" style="justify-self:start">Stammdaten speichern</button>' +
       '</form>';
 
+    /* Als App aufs Handy — steht dauerhaft hier, nicht nur als Hinweis
+       beim Start. */
+    var lage = W.appLage ? W.appLage() : { offen: false, aufruf: false, apple: false };
+    var appBlock = '<div class="onyx-karte" style="padding:1.1rem">' +
+      (lage.offen
+        ? '<p class="klein">Die Wertakte läuft gerade als App auf diesem Gerät.</p>' +
+          '<p class="mini leise" style="margin-top:.4rem;line-height:1.7">Sie startet über ihr eigenes Symbol, ' +
+          'ohne Browserleiste, und funktioniert auch ohne Netz. Die Daten liegen weiterhin auf diesem Gerät.</p>'
+        : '<p class="klein">Auf den Startbildschirm legen</p>' +
+          '<p class="mini leise" style="margin-top:.4rem;line-height:1.7">Danach hat die Wertakte ein eigenes Symbol, ' +
+          'öffnet ohne Browserleiste und läuft auch ohne Netz — im Ortstermin, im Keller, im Funkloch. ' +
+          'Es wird nichts installiert, es bleibt dieselbe Seite.</p>' +
+          (lage.apple
+            ? '<p class="klein" style="margin-top:.9rem;line-height:1.8">Am iPhone und iPad: unten auf <b>Teilen</b> tippen, ' +
+              'in der Liste <b>Zum Home-Bildschirm</b> wählen, oben rechts auf <b>Hinzufügen</b>.</p>'
+            : (lage.aufruf
+              ? '<button class="onyx-knopf onyx-knopf-primaer" id="knopf-app" style="margin-top:.9rem">Zum Startbildschirm hinzufügen</button>'
+              : '<p class="klein" style="margin-top:.9rem;line-height:1.8">Im Browsermenü <b>App installieren</b> ' +
+                'oder <b>Zum Startbildschirm hinzufügen</b> wählen. Der Punkt erscheint nur über eine sichere Verbindung ' +
+                '(https), nicht bei einer lokal geöffneten Datei.</p>'))) +
+      '</div>';
+
     var zahlen = [
       ['Objekte', d.objekte.length], ['Kontakte', d.kontakte.length],
       ['Unterlagen', d.unterlagen.length], ['Vorgänge', d.vorgaenge.length],
@@ -765,6 +787,7 @@ window.W = window.W || {};
       karte('Konto und Absenderdaten', 'Diese Angaben stehen im Briefkopf, in jeder Mail und auf jedem Ausdruck.', profil) +
       karte('Benutzer und Rechte', 'Es gibt genau ein Konto. Weitere Mitarbeitende mit eingeschränkten Rechten legt im Kundensystem allein der Inhaber an.', benutzer) +
       karte('Stammdaten und Vorlagen', 'Gilt für alle neuen Objekte. Bestehende Akten bleiben, wie sie sind.', stammForm) +
+      karte('Wertakte als App', 'Auf dem Handy oder Tablet wie eine App starten — mit eigenem Symbol und ohne Netz.', appBlock) +
       karte('Datenbestand', '', daten);
   };
 })();

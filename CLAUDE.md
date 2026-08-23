@@ -136,7 +136,9 @@ Zwei Fassungen:
   kein Build-Schritt, als ZIP direkt auf Netlify ablegbar (`index.html` liegt an
   der Wurzel). Enthält die fünf Teile oben. Startet bewusst OHNE Bilder, der
   Kunde nimmt in der Vorführung selbst das erste Foto auf. Daten und Fotos im
-  Browser des Geräts (localStorage + IndexedDB). Details in
+  Browser des Geräts (localStorage + IndexedDB). Lässt sich als App auf den
+  Startbildschirm legen (Manifest + Service Worker, läuft dann ohne Netz);
+  nach jeder Änderung `FASSUNG` in `sw.js` hochzählen. Details in
   `wertakte-statisch/README.md`.
 - `demo-wertakte/` — ältere Fassung als Next.js + TypeScript, noch auf das
   Gutachterwesen zugeschnitten. Zeigt die Architektur, die im echten

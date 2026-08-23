@@ -10,6 +10,27 @@ keine Server-Einrichtung.
 Die ZIP-Datei auf <https://app.netlify.com/drop> ziehen. `index.html` liegt im
 Wurzelverzeichnis, deshalb funktioniert das Ablegen direkt.
 
+## Als App aufs Handy
+
+Die Wertakte lässt sich auf den Startbildschirm legen. Danach hat sie ein
+eigenes Symbol, öffnet ohne Browserleiste und läuft **auch ohne Netz** — im
+Ortstermin, im Keller, im Funkloch. Es wird nichts installiert, es bleibt
+dieselbe Seite; der Browser hält die Dateien vor.
+
+- **iPhone und iPad:** Seite in Safari öffnen, unten auf **Teilen**, in der
+  Liste **Zum Home-Bildschirm**, oben rechts **Hinzufügen**.
+- **Android:** Beim ersten Besuch erscheint unten der Hinweis
+  **Wertakte aufs Handy legen** mit dem Knopf **Hinzufügen**. Sonst im
+  Browsermenü **App installieren**.
+- Dauerhaft steht beides in **Verwaltung → Wertakte als App**.
+
+Das geht nur über eine sichere Verbindung (https), also über die
+Netlify-Adresse — nicht bei einer lokal geöffneten Datei.
+
+Nach jeder Änderung an den Dateien muss `FASSUNG` in `sw.js` hochgezählt
+werden, sonst startet ein Gerät, auf dem die App liegt, weiter mit der alten
+Fassung.
+
 ## Auf dem eigenen Rechner starten
 
 ```bash
@@ -241,7 +262,9 @@ auf einem Server. Outlook und MailStore sind nicht angebunden, die Kennzeichnung
 Journal zeigt, wo die Anbindung sitzt. Revisionssicherheit ist als Beleg-Nummer,
 Zeitstempel, Prüfsumme und Festschreibung abgebildet, ohne Server-Protokoll.
 Es gibt genau ein Konto, den Inhaber; weitere Benutzer und abgestufte Rechte
-kommen erst im Kundensystem.
+kommen erst im Kundensystem. Als App auf dem Startbildschirm läuft dieselbe
+Seite offline weiter, sie bleibt aber an dieses eine Gerät gebunden — geteilte
+Daten über mehrere Geräte gibt es erst mit dem Server im Kundensystem.
 
 ## Aufbau
 
@@ -256,6 +279,9 @@ js/speicher.js        Speicher im Browser
 js/bausteine.js       Marken, Eskalation, Zeitschiene, Symbole
 js/seiten.js          Alle Seiten und die fünf Reiter
 js/zentrale.js        Verfassen, Suche, Protokoll, Gesamtakte, Ordner, Verwaltung
-js/app.js             Router und Ereignisse
+js/app.js             Router, Ereignisse, App-Installation
+manifest.webmanifest  Angaben für den Startbildschirm
+sw.js                 Hält die Dateien vor, damit es ohne Netz läuft
+symbole/              App-Symbole für Startbildschirm und Browserleiste
 netlify.toml          Netlify-Einstellungen
 ```
