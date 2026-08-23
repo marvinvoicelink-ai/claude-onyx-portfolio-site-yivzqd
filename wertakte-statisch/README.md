@@ -10,6 +10,26 @@ keine Server-Einrichtung.
 Die ZIP-Datei auf <https://app.netlify.com/drop> ziehen. `index.html` liegt im
 Wurzelverzeichnis, deshalb funktioniert das Ablegen direkt.
 
+## Erscheinungsbild: Onyx oder Kunden-CI
+
+In **Verwaltung → Erscheinungsbild** lässt sich zwischen zwei Fassungen
+umschalten, je Gerät gespeichert:
+
+- **Onyx — Dunkel/Amber:** die Handschrift von Onyx.AI.
+- **Lange und Partner Immobilien:** Farben und Zeichen von lp-immobilien.eu —
+  Navy `#193381`, heller Grund, PT Serif und Roboto, das runde Zeichen in der
+  Leiste, der Schriftzug im Kopf.
+
+Das ist White-Label zum Anfassen: umschalten und zusehen, wie dasselbe System
+das eigene Erscheinungsbild annimmt. Ausgetauscht wird allein die Farbebene in
+`themen/lp-immobilien.css`; Aufbau, Wege und Druckstücke bleiben Zeile für
+Zeile dieselben. Ein weiteres Kunden-CI entsteht, indem diese Datei kopiert und
+`data-ci` um einen Wert ergänzt wird.
+
+Damit das funktioniert, stehen Farben mit Deckkraft (Konturen, Glow, Schleier)
+nicht mehr als Zahlen im Code, sondern als `--onyx-akzent-rgb`,
+`--onyx-text-rgb` und `--onyx-tief-rgb` in der Themenebene.
+
 ## Als App aufs Handy
 
 Die Wertakte lässt sich auf den Startbildschirm legen. Danach hat sie ein

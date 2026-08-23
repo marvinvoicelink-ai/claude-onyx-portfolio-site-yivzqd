@@ -1,0 +1,85 @@
+/* ==================================================================
+   Kunden-CI: Lange und Partner Immobilien GmbH, Oldenburg
+   Farben und Logo von lp-immobilien.eu.
+
+   White-Label: Struktur und Komponenten bleiben unveraendert, ersetzt
+   wird allein die Themenebene. Wirksam, sobald am <html> das Merkmal
+   data-ci="lp" steht — ohne das Merkmal laeuft weiter Onyx Dunkel/Amber.
+   ================================================================== */
+
+html[data-ci="lp"] {
+  /* Grundflaechen: hell, wie die Website des Kunden */
+  --onyx-grund: #F2F5FB;
+  --onyx-grund-tief: #E6EBF6;
+  --onyx-flaeche: #FFFFFF;
+  --onyx-flaeche-hoch: #FFFFFF;
+
+  /* Rohwerte fuer Konturen, Glow und Schleier */
+  --onyx-akzent-rgb: 25 51 129;
+  --onyx-text-rgb: 27 35 64;
+  --onyx-tief-rgb: 25 51 129;
+
+  /* Akzent: das Navy aus Logo und Website */
+  --onyx-amber: #193381;
+  --onyx-amber-hell: #2E4CA8;
+  --onyx-amber-tief: #101F52;
+  --onyx-auf-amber: #FFFFFF;
+
+  --onyx-kontur: rgb(25 51 129 / 0.14);
+  --onyx-kontur-stark: rgb(25 51 129 / 0.34);
+  --onyx-kontur-leise: rgb(27 35 64 / 0.10);
+
+  /* Text */
+  --onyx-text: #1B2340;
+  --onyx-text-leise: #55515A;
+  --onyx-text-still: #6C6A76;
+
+  /* Signale, auf hellem Grund nachgezogen */
+  --onyx-warn: #B23A26;
+  --onyx-warn-flaeche: rgb(178 58 38 / 0.10);
+  --onyx-gut: #3F7A55;
+  --onyx-gut-flaeche: rgb(63 122 85 / 0.11);
+  --onyx-ruht: #6F6D77;
+  --onyx-ruht-flaeche: rgb(27 35 64 / 0.06);
+  --onyx-amber-flaeche: rgb(25 51 129 / 0.08);
+
+  /* Auf Hell wirkt ein Glow falsch — hier traegt ein weicher Schatten. */
+  --onyx-glow: 0 0 0 1px rgb(25 51 129 / 0.16), 0 18px 48px rgb(25 51 129 / 0.10);
+  --onyx-glow-leise: 0 0 0 1px rgb(25 51 129 / 0.12), 0 8px 20px rgb(25 51 129 / 0.06);
+
+  /* Schriften des Kunden: PT Serif fuer Titel, Roboto fuer Text */
+  --onyx-schrift-titel: "PT Serif", ui-serif, Georgia, serif;
+  --onyx-schrift-text: "Roboto", ui-sans-serif, system-ui, sans-serif;
+
+  color-scheme: light;
+}
+
+/* Der Rahmen ums Fenster bleibt, wird aber zur Karte statt zum Leuchten. */
+html[data-ci="lp"] .fenster { background: var(--onyx-flaeche); }
+html[data-ci="lp"] .huelle { background: var(--onyx-grund); }
+
+/* Die Icon-Leiste traegt beim Kunden sein Blau als Flaeche. */
+html[data-ci="lp"] .onyx-rail { background: #193381; }
+html[data-ci="lp"] .onyx-rail-punkt { color: rgb(255 255 255 / 0.72); }
+html[data-ci="lp"] .onyx-rail-punkt:hover { color: #FFFFFF; background: rgb(255 255 255 / 0.12); }
+html[data-ci="lp"] .onyx-rail-punkt[aria-current] { background: #FFFFFF; color: #193381; }
+
+/* Oben in der Leiste steht das runde Zeichen des Kunden statt des W. */
+html[data-ci="lp"] .marke-w {
+  background: url("lp-zeichen-weiss.svg") no-repeat center / 88% auto;
+  color: transparent; border-color: rgb(255 255 255 / 0.35);
+}
+
+/* Im Kopf traegt der Schriftzug des Kunden, wo sonst „Wertakte“ steht. */
+html[data-ci="lp"] .wortmarke {
+  display: block; width: 9.5rem; height: 1.6rem; overflow: hidden;
+  text-indent: -999em; white-space: nowrap;
+  background: url("lp-logo.svg") no-repeat left center / contain;
+}
+
+/* Bildmarken auf Fotos: dunkles Blau statt Near-Black. */
+html[data-ci="lp"] .bild-marke { color: #FFFFFF; }
+
+/* Der Kopf setzt sich hell vom Inhalt ab. */
+html[data-ci="lp"] .kopf { background: var(--onyx-flaeche); }
+html[data-ci="lp"] .fuss-nav { background: var(--onyx-flaeche); }

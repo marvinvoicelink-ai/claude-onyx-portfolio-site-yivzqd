@@ -6,7 +6,7 @@
 
    Bei jeder Aenderung an den Dateien die Fassung hochzaehlen. Der alte
    Zwischenspeicher wird dann beim naechsten Start geloescht. */
-var FASSUNG = 'wertakte-v2';
+var FASSUNG = 'wertakte-v3';
 
 var DATEIEN = [
   './',
@@ -19,6 +19,15 @@ var DATEIEN = [
   './schriften/instrument-sans-latin-wght-normal.woff2',
   './schriften/ibm-plex-mono-latin-400-normal.woff2',
   './schriften/ibm-plex-mono-latin-500-normal.woff2',
+  './schriften/pt-serif-latin-400-normal.woff2',
+  './schriften/pt-serif-latin-700-normal.woff2',
+  './schriften/roboto-latin-400-normal.woff2',
+  './schriften/roboto-latin-500-normal.woff2',
+  './schriften/roboto-latin-700-normal.woff2',
+  './themen/lp-immobilien.css',
+  './themen/lp-logo.svg',
+  './themen/lp-zeichen.svg',
+  './themen/lp-zeichen-weiss.svg',
   './js/seed.js',
   './js/format.js',
   './js/speicher.js',

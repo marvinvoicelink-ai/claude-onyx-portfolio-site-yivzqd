@@ -760,6 +760,21 @@ window.W = window.W || {};
                 '(https), nicht bei einer lokal geöffneten Datei.</p>'))) +
       '</div>';
 
+    /* White-Label sichtbar gemacht: umschalten und zusehen. */
+    var jetzt = W.erscheinung ? W.erscheinung() : '';
+    var ciBlock = '<div class="ci-wahl">' + (W.ERSCHEINUNG || []).map(function (e) {
+      var an = e.wert === jetzt;
+      return '<button type="button" class="ci-feld' + (an ? ' ist-an' : '') + '" data-ci-wahl="' + h(e.wert) + '"' +
+        (an ? ' aria-current="true"' : '') + '>' +
+        '<span class="ci-punkte"><span class="ci-punkt" style="background:' +
+          (e.wert === 'lp' ? '#193381' : '#E8A33D') + '"></span>' +
+        '<span class="ci-punkt" style="background:' + (e.wert === 'lp' ? '#F2F5FB' : '#101010') + '"></span></span>' +
+        '<span><span class="klein" style="display:block">' + h(e.text) + '</span>' +
+        '<span class="mini leise" style="display:block">' + h(e.hinweis) + '</span></span></button>';
+    }).join('') + '</div>' +
+    '<p class="mini leise" style="margin-top:.75rem;line-height:1.7">Im übergebenen System steht hier nur noch das ' +
+      'Erscheinungsbild des Kunden. Ausgetauscht wird allein die Farbebene — Aufbau, Wege und Druckstücke bleiben Zeile für Zeile dieselben.</p>';
+
     var zahlen = [
       ['Objekte', d.objekte.length], ['Kontakte', d.kontakte.length],
       ['Unterlagen', d.unterlagen.length], ['Vorgänge', d.vorgaenge.length],
@@ -793,6 +808,7 @@ window.W = window.W || {};
       karte('Konto und Absenderdaten', 'Diese Angaben stehen im Briefkopf, in jeder Mail und auf jedem Ausdruck.', profil) +
       karte('Benutzer und Rechte', 'Es gibt genau ein Konto. Weitere Mitarbeitende mit eingeschränkten Rechten legt im Kundensystem allein der Inhaber an.', benutzer) +
       karte('Stammdaten und Vorlagen', 'Gilt für alle neuen Objekte. Bestehende Akten bleiben, wie sie sind.', stammForm) +
+      karte('Erscheinungsbild', 'Dasselbe System, das CI des Kunden. Nur die Farbebene wechselt, die Struktur bleibt.', ciBlock) +
       karte('Wertakte als App', 'Auf dem Handy oder Tablet wie eine App starten — mit eigenem Symbol und ohne Netz.', appBlock) +
       karte('Datenbestand', '', daten);
   };

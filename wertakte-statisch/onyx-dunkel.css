@@ -26,16 +26,23 @@
   --onyx-flaeche: #171614;
   --onyx-flaeche-hoch: #1E1C19;
 
-  /* Akzent */
+  /* Rohwerte fuer Farben mit Deckkraft. Nur hier stehen sie als Zahlen —
+     dadurch traegt ein Kunden-CI auch Konturen, Glow und Schleier mit. */
+  --onyx-akzent-rgb: 232 163 61;
+  --onyx-text-rgb: 245 242 236;
+  --onyx-tief-rgb: 10 10 10;
+
+  /* Akzent. Der Name bleibt „amber“, damit die Komponenten unveraendert
+     bleiben; im Kunden-CI steht hier dessen Farbe. */
   --onyx-amber: #E8A33D;
   --onyx-amber-hell: #F2BC6B;
   --onyx-amber-tief: #C9862A;
   --onyx-auf-amber: #17120A;
 
   /* Konturen: Amber mit sehr geringer Deckkraft, nie kaltes Grau */
-  --onyx-kontur: rgb(232 163 61 / 0.16);
-  --onyx-kontur-stark: rgb(232 163 61 / 0.38);
-  --onyx-kontur-leise: rgb(245 242 236 / 0.08);
+  --onyx-kontur: rgb(var(--onyx-akzent-rgb) / 0.16);
+  --onyx-kontur-stark: rgb(var(--onyx-akzent-rgb) / 0.38);
+  --onyx-kontur-leise: rgb(var(--onyx-text-rgb) / 0.08);
 
   /* Text */
   --onyx-text: #F5F2EC;
@@ -49,8 +56,8 @@
   --onyx-gut: #7FA87C;
   --onyx-gut-flaeche: rgb(127 168 124 / 0.13);
   --onyx-ruht: #857E74;
-  --onyx-ruht-flaeche: rgb(245 242 236 / 0.06);
-  --onyx-amber-flaeche: rgb(232 163 61 / 0.13);
+  --onyx-ruht-flaeche: rgb(var(--onyx-text-rgb) / 0.06);
+  --onyx-amber-flaeche: rgb(var(--onyx-akzent-rgb) / 0.13);
 }
 
 /* ---------- Struktur: gilt auch fuer Kundenprojekte ---------- */
@@ -66,9 +73,9 @@
   --onyx-radius-klein: 8px;
   --onyx-radius-rail: 10px;
 
-  --onyx-glow: 0 0 0 1px var(--onyx-kontur-stark), 0 0 28px rgb(232 163 61 / 0.16),
-    0 0 90px rgb(232 163 61 / 0.07);
-  --onyx-glow-leise: 0 0 0 1px var(--onyx-kontur), 0 0 18px rgb(232 163 61 / 0.08);
+  --onyx-glow: 0 0 0 1px var(--onyx-kontur-stark), 0 0 28px rgb(var(--onyx-akzent-rgb) / 0.16),
+    0 0 90px rgb(var(--onyx-akzent-rgb) / 0.07);
+  --onyx-glow-leise: 0 0 0 1px var(--onyx-kontur), 0 0 18px rgb(var(--onyx-akzent-rgb) / 0.08);
 
   --onyx-rail: 4.5rem;
   --onyx-uebergang: 0.16s cubic-bezier(0.16, 1, 0.3, 1);
@@ -320,7 +327,7 @@
   }
   .onyx-marke-laeuft {
     background: var(--onyx-amber-flaeche);
-    border-color: rgb(232 163 61 / 0.4);
+    border-color: rgb(var(--onyx-akzent-rgb) / 0.4);
     color: var(--onyx-amber);
   }
   .onyx-marke-ruht {
@@ -352,7 +359,7 @@
   .onyx-balken {
     height: 4px;
     border-radius: 999px;
-    background: rgb(245 242 236 / 0.09);
+    background: rgb(var(--onyx-text-rgb) / 0.09);
     overflow: hidden;
   }
   .onyx-balken > span {
@@ -383,7 +390,7 @@
     background: var(--onyx-amber);
   }
   .onyx-schiene-balken-leise {
-    background: rgb(232 163 61 / 0.4);
+    background: rgb(var(--onyx-akzent-rgb) / 0.4);
   }
 
   /* ---------- Register: dichte Zeilenliste statt Karten ---------- */
@@ -410,7 +417,7 @@
   .onyx-leer {
     border: 1px dashed var(--onyx-kontur-stark);
     border-radius: var(--onyx-radius);
-    background: rgb(232 163 61 / 0.03);
+    background: rgb(var(--onyx-akzent-rgb) / 0.03);
   }
 }
 

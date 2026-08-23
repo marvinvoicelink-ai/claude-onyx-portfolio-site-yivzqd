@@ -957,6 +957,13 @@
       hinweisBalken('Stammdaten gespeichert.');
     });
 
+    auf('[data-ci-wahl]', 'click', function (el) {
+      erscheinung = el.getAttribute('data-ci-wahl');
+      erscheinungSetzen();
+      try { localStorage.setItem('wertakte.ci', erscheinung); } catch (e) { /* egal */ }
+      zeichnen();
+    });
+
     var appKnopf = document.getElementById('knopf-app');
     if (appKnopf) appKnopf.addEventListener('click', function () {
       W.appInstallieren().then(function (ja) {
@@ -1045,6 +1052,25 @@
   function schriftSetzen() {
     document.documentElement.classList.toggle('gross', grosseSchrift);
   }
+
+  /* --- Erscheinungsbild --------------------------------------------------
+     White-Label: dasselbe System, das CI des Kunden. Ersetzt wird allein
+     die Themenebene, die Struktur bleibt Zeile fuer Zeile dieselbe. */
+  var ERSCHEINUNG = [
+    { wert: '', text: 'Onyx — Dunkel/Amber', hinweis: 'Die Handschrift von Onyx.AI.' },
+    { wert: 'lp', text: 'Lange und Partner Immobilien', hinweis: 'Farben und Zeichen von lp-immobilien.eu.' }
+  ];
+  var erscheinung = '';
+
+  function erscheinungSetzen() {
+    if (erscheinung) document.documentElement.setAttribute('data-ci', erscheinung);
+    else document.documentElement.removeAttribute('data-ci');
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute('content', erscheinung === 'lp' ? '#193381' : '#101010');
+  }
+
+  W.ERSCHEINUNG = ERSCHEINUNG;
+  W.erscheinung = function () { return erscheinung; };
 
   /* --- Als App aufs Handy ------------------------------------------------
      Die Wertakte laesst sich auf den Startbildschirm legen. Danach hat sie
@@ -1144,6 +1170,8 @@
   appVorbereiten();
   try { grosseSchrift = localStorage.getItem('wertakte.schrift') === 'gross'; } catch (e) { grosseSchrift = false; }
   schriftSetzen();
+  try { erscheinung = localStorage.getItem('wertakte.ci') || ''; } catch (e) { erscheinung = ''; }
+  erscheinungSetzen();
   try { angemeldet = sessionStorage.getItem('wertakte.angemeldet') === '1'; } catch (e) { angemeldet = false; }
   // Ein Seitenwechsel schliesst offene Dialoge, sonst liegen sie ueber der neuen Seite.
   window.addEventListener('hashchange', function () {

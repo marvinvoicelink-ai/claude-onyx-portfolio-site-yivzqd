@@ -68,7 +68,10 @@ Regeln und Bausteine: `onyx-designsystem/README.md`, Musterseite:
 
 Amber bleibt bei Onyx. Systeme, die an Kunden übergeben werden, erben Struktur
 und Komponenten, bekommen aber das CI des Kunden — dann wird allein die
-Themenebene ersetzt.
+Themenebene ersetzt. Farben mit Deckkraft laufen über `--onyx-akzent-rgb`,
+`--onyx-text-rgb` und `--onyx-tief-rgb`, damit Konturen, Glow und Schleier
+mitwechseln. Beispiel: `wertakte-statisch/themen/lp-immobilien.css` (Lange und
+Partner Immobilien, Navy `#193381`), umschaltbar in der Verwaltung.
 
 ## Kunden-Demos im Repo
 Vorführ-Software „Wertakte“ für einen Interessenten in Oldenburg, der
