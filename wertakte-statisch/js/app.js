@@ -133,6 +133,7 @@
       else if (bereich === 'objekt' && r.pfad[2] === 'dokument') { inhalt = W.seiten.dokument(daten, r.pfad[1], r.pfad[3]); aktiv = 'objekte'; }
       else if (bereich === 'objekt') { inhalt = W.seiten.objekt(daten, r.pfad[1], r.q, bilder); aktiv = 'objekte'; }
       else if (bereich === 'neu') { inhalt = W.seiten.neu(daten, naechstesAktenzeichen()); aktiv = 'objekte'; }
+      else if ((bereich === 'kontakt' || bereich === 'investor') && r.pfad[2] === 'dokument') { inhalt = W.seiten.kontaktDokument(daten, r.pfad[1], r.pfad[3]); aktiv = 'kontakte'; }
       else if (bereich === 'kontakt' || bereich === 'investor') { inhalt = W.seiten.investor(daten, r.pfad[1]); aktiv = 'kontakte'; }
       else if (bereich === 'kontakte' || bereich === 'investoren') { inhalt = W.seiten.kontakte(daten, r.q); aktiv = 'kontakte'; }
       else if (bereich === 'kommunikation') { inhalt = W.seiten.kommunikation(daten, r.q); }
@@ -269,7 +270,7 @@
     if (r.pfad[0] === 'verwaltung') verdrahteVerwaltung();
     if (r.pfad[0] === 'objekt' && r.pfad[1] && !r.pfad[2]) verdrahteAkte(r.pfad[1], r.q.reiter || 'expose');
     if (r.pfad[0] === 'neu') verdrahteNeu();
-    if (r.pfad[0] === 'investor') verdrahteInvestor(r.pfad[1]);
+    if ((r.pfad[0] === 'investor' || r.pfad[0] === 'kontakt') && !r.pfad[2]) verdrahteInvestor(r.pfad[1]);
     if (r.pfad[0] === 'fotos') verdrahteFotoseite();
     if (r.pfad[0] === 'termine') verdrahteTerminKnoepfe();
   }

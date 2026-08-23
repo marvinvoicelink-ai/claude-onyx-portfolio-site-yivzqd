@@ -79,8 +79,9 @@ ausgenommen.
 Die Software besteht auf Vorgabe des Interessenten aus fünf Teilen, die links
 als Bereiche und in jeder Objektakte als nummerierte Reiter liegen:
 1 Exposé (Erfassungsbogen, Widerrufsbelehrung, Adressvalidierung bei
-Erstkunden, Provisionsvereinbarung — alle drei als kurze Schriftstücke auf
-Briefpapier zu öffnen und zu drucken) · 2 Unterlagen und Verträge (Scan oder PDF
+Erstkunden, Provisionsvereinbarung — als kurze Schriftstücke auf
+Briefpapier zu öffnen und zu drucken, ebenso die Vertraulichkeitserklärung
+und die Adressvalidierung aus den Prüfungen beim Kontakt) · 2 Unterlagen und Verträge (Scan oder PDF
 direkt zur Zeile ablegbar) · 3 Investoren · 4 Kommunikation (E-Mail, Telefon,
 WhatsApp, SMS, Brief, Notiz, revisionssicher mit Beleg-Nr., in Outlook
 gespiegelt, einzeln druckbar) · 5 Terminplan mit Eskalationsstufen. Dazu die

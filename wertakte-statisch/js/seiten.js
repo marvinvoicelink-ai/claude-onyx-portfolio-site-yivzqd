@@ -1116,6 +1116,17 @@ window.W = window.W || {};
     var vg = H.vorgaengeZu(d, { kontaktId: i.id });
     var val = i.adressvalidierung || { status: 'offen' };
 
+    /* Beide Pruefungen lassen sich oeffnen: dahinter liegt das Schriftstueck
+       selbst, auf Briefpapier und druckbar. */
+    function pruefzeileKontakt(etikett, stand, art) {
+      return '<div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem .75rem;align-items:center">' +
+        '<span class="klein">' + h(etikett) + '</span>' +
+        '<span style="display:flex;align-items:center;gap:.6rem">' + b.pruefmarke(stand) +
+          '<a class="onyx-knopf onyx-knopf-klar" style="font-size:.78rem;padding:.35rem .6rem" ' +
+            'href="' + h(W.kontaktDokumentAdresse(i.id, art)) + '">' + sym.dokument(14) + 'Ansehen</a>' +
+        '</span></div>';
+    }
+
     return '<a class="zurueck" href="#/kontakte">' + sym.pfeilLinks(14) + 'Alle Kontakte</a>' +
       '<header style="margin-top:1rem;padding-bottom:1.5rem;border-bottom:1px solid var(--onyx-kontur-leise)">' +
         '<p class="mono amber" style="font-size:.66rem;text-transform:uppercase;letter-spacing:.12em">' + h(i.rolle + ' · ' + i.typ) + '</p>' +
@@ -1170,10 +1181,8 @@ window.W = window.W || {};
         '<section style="display:grid;gap:2rem;align-content:start">' +
           '<div><h2>Prüfungen</h2>' +
             '<div class="onyx-karte" style="margin-top:.75rem;padding:1rem;display:grid;gap:.75rem">' +
-              '<div style="display:flex;justify-content:space-between;gap:.75rem;align-items:center">' +
-                '<span class="klein">Vertraulichkeitserklärung</span>' + b.pruefmarke(i.nda ? i.nda.status : 'offen') + '</div>' +
-              '<div style="display:flex;justify-content:space-between;gap:.75rem;align-items:center">' +
-                '<span class="klein">Adressvalidierung</span>' + b.pruefmarke(val.status) + '</div>' +
+              pruefzeileKontakt('Vertraulichkeitserklärung', i.nda ? i.nda.status : 'offen', 'nda') +
+              pruefzeileKontakt('Adressvalidierung', val.status, 'validierung') +
               (val.hinweis ? '<p class="mini leise" style="line-height:1.65">' + h(val.hinweis) + '</p>' : '') +
               (val.status === 'offen'
                 ? '<button class="onyx-knopf onyx-knopf-primaer" id="val-erledigt" style="font-size:.8125rem;justify-self:start">' + sym.haken(15) + 'Adresse geprüft</button>' : '') +
@@ -1411,10 +1420,11 @@ window.W = window.W || {};
       '</article></div>';
   };
 
-  /* --- Die drei Schriftstuecke aus Reiter 1 ------------------------------
-     Widerrufsbelehrung, Adressvalidierung und Provisionsvereinbarung lassen
-     sich oeffnen, lesen und drucken. Es sind kurze Muster fuer die
-     Vorfuehrung, kein Rechtstext des Bueros. */
+  /* --- Die Schriftstuecke zum Oeffnen ------------------------------------
+     Widerrufsbelehrung, Adressvalidierung, Provisionsvereinbarung und
+     Vertraulichkeitserklaerung lassen sich oeffnen, lesen und drucken —
+     aus Reiter 1 der Akte und aus den Pruefungen beim Kontakt. Es sind
+     kurze Muster fuer die Vorfuehrung, kein Rechtstext des Bueros. */
   W.DOKUMENTE = {
     widerruf: {
       etikett: 'Widerrufsbelehrung',
@@ -1436,24 +1446,58 @@ window.W = window.W || {};
       titel: 'Provisionsvereinbarung',
       unterzeile: 'Kurzfassung des Maklervertrags mit dem Eigentümer.',
       partei: 'eigentuemer'
+    },
+    nda: {
+      etikett: 'Vertraulichkeitserklärung',
+      kicker: 'Erklärung',
+      titel: 'Vertraulichkeitserklärung',
+      unterzeile: 'Geht jedem Exposé voraus. Ohne sie werden keine Objektunterlagen herausgegeben.',
+      partei: 'interessent'
     }
   };
 
-  /** Adresse eines dieser Schriftstuecke. */
+  /** Adresse eines Schriftstuecks — aus der Akte heraus oder vom Kontakt aus. */
   W.dokumentAdresse = function (objektId, art) {
     return '#/objekt/' + objektId + '/dokument/' + art;
   };
+  W.kontaktDokumentAdresse = function (kontaktId, art) {
+    return '#/kontakt/' + kontaktId + '/dokument/' + art;
+  };
 
+  /* Aus der Akte: das Objekt steht fest, das Gegenueber ergibt sich daraus. */
   W.seiten.dokument = function (d, id, art) {
     var o = H.obj(d, id), vorlage = W.DOKUMENTE[art];
     if (!o || !vorlage) return W.seiten.nichtGefunden();
-
-    var K = d.konto || W.KONTO;
-    var heute = new Date().toISOString().slice(0, 10);
     var e = H.kontakt(d, o.eigentuemerId);
     var bt = H.beteiligungenZu(d, o.id)[0];
     var i = bt ? H.kontakt(d, bt.investorId) : null;
-    var gegen = vorlage.partei === 'eigentuemer' ? e : i;
+    return blatt(d, o, vorlage.partei === 'eigentuemer' ? e : i, art,
+      { text: 'Zurück zur Akte ' + o.aktenzeichen, ziel: '#/objekt/' + o.id });
+  };
+
+  /* Vom Kontakt aus: das Gegenueber steht fest, das Objekt kommt aus seiner
+     ersten Beteiligung — hat er keine, bleibt der Objektbezug offen. */
+  W.seiten.kontaktDokument = function (d, kid, art) {
+    var k = H.kontakt(d, kid), vorlage = W.DOKUMENTE[art];
+    if (!k || !vorlage) return W.seiten.nichtGefunden();
+    var o = null;
+    if (k.rolle === 'Eigentümer') {
+      o = H.alle(d).filter(function (x) { return x.eigentuemerId === k.id; })[0] || null;
+    } else {
+      var bt = d.beteiligungen.filter(function (x) { return x.investorId === k.id; })[0];
+      o = bt ? H.obj(d, bt.objektId) : null;
+    }
+    return blatt(d, o, k, art, { text: 'Zurück zu ' + k.name, ziel: '#/kontakt/' + k.id });
+  };
+
+  function blatt(d, o, gegen, art, zurueck) {
+    var vorlage = W.DOKUMENTE[art];
+    var K = d.konto || W.KONTO;
+    var heute = new Date().toISOString().slice(0, 10);
+    /* Ohne Objektbezug bleiben die Stellen leer, an denen sonst das Objekt
+       steht — das Blatt bleibt trotzdem vollstaendig lesbar. */
+    var objektText = o ? o.bezeichnung + ', ' + o.strasse + ', ' + o.plz + ' ' + o.ort : '';
+    var az = o ? o.aktenzeichen : '';
 
     /* Eine Zeile im Briefkopf-Block: steht ein Kontakt fest, kommen seine
        Angaben rein, sonst eine Linie zum Ausfuellen. */
@@ -1496,8 +1540,8 @@ window.W = window.W || {};
           '<div style="margin-top:.9rem;padding:1.1rem 1.25rem;border:1px solid #D5CFC2">' +
             '<p>An ' + h(K.buero) + ', ' + h(K.strasse) + ', ' + h(K.ort) + ', ' + h(K.emailBuero) + ':</p>' +
             '<p style="margin-top:.7rem">Hiermit widerrufe(n) ich/wir den von mir/uns abgeschlossenen Vertrag über die Erbringung ' +
-            'der folgenden Dienstleistung: Nachweis und Vermittlung der Gelegenheit zum Abschluss eines Kaufvertrages über ' +
-            h(o.bezeichnung) + ', ' + h(o.strasse + ', ' + o.plz + ' ' + o.ort) + '.</p>' +
+            'der folgenden Dienstleistung: Nachweis und Vermittlung der Gelegenheit zum Abschluss eines Kaufvertrages' +
+            (objektText ? ' über ' + h(objektText) : '') + '.</p>' +
             '<dl class="blatt-tabelle" style="margin-top:.9rem">' +
               '<div><dt>Bestellt am / erhalten am</dt><dd>' + wert(null) + '</dd></div>' +
               '<div><dt>Name des Verbrauchers</dt><dd>' + wert(gegen ? gegen.ansprechpartner || gegen.name : null) + '</dd></div>' +
@@ -1521,7 +1565,7 @@ window.W = window.W || {};
             '<div><dt>Kunde</dt><dd>' + wert(gegen ? gegen.name : null) + '</dd></div>' +
             '<div><dt>Vertretungsberechtigte Person</dt><dd>' + wert(gegen ? gegen.ansprechpartner : null) + '</dd></div>' +
             '<div><dt>Anschrift laut Angabe</dt><dd>' + wert(gegen ? gegen.anschrift : null) + '</dd></div>' +
-            '<div><dt>Anlass</dt><dd>Erstkunde, vor Versand des Exposés zu ' + h(o.aktenzeichen) + '</dd></div>' +
+            '<div><dt>Anlass</dt><dd>Erstkunde, vor Versand des Exposés' + (az ? ' zu ' + h(az) : '') + '</dd></div>' +
           '</dl></section>' +
 
         '<section class="blatt-abschnitt"><h3><span class="nr">2</span>Was vorliegen muss</h3>' +
@@ -1547,9 +1591,47 @@ window.W = window.W || {};
             ? '<p style="margin-top:.9rem">Der Versand des Exposés ist freigegeben.</p>'
             : '<p style="margin-top:.9rem">Solange die Prüfung offen ist, gibt das System den Versand des Exposés nicht frei.</p>') +
         '</section>';
+    } else if (art === 'nda') {
+      inhalt =
+        '<section class="blatt-abschnitt"><h3><span class="nr">1</span>Wer erklärt</h3>' +
+          '<dl class="blatt-tabelle" style="margin-top:.75rem">' +
+            '<div><dt>Empfänger der Unterlagen</dt><dd>' + wert(gegen ? gegen.name : null) +
+              (gegen && gegen.ansprechpartner ? '<br><span class="klein" style="color:#5F584E">vertreten durch ' + h(gegen.ansprechpartner) + '</span>' : '') + '</dd></div>' +
+            '<div><dt>Übermittelt durch</dt><dd>' + h(K.buero) + '<br><span class="klein" style="color:#5F584E">' + h(K.name) + ', ' + h(K.strasse) + ', ' + h(K.ort) + '</span></dd></div>' +
+          '</dl></section>' +
+
+        '<section class="blatt-abschnitt"><h3><span class="nr">2</span>Worum es geht</h3>' +
+          '<p style="margin-top:.75rem">Der Empfänger erhält Unterlagen und Angaben' +
+          (objektText ? ' zum Objekt ' + h(objektText) : ' zu einem Anlageobjekt') +
+          (az ? ' (Aktenzeichen ' + h(az) + ')' : '') + ' — darunter Exposé, Mietvertrag, ' +
+          'Nebenkostenabrechnung, Grundbuchauszug und weitere Objektunterlagen. Diese Angaben sind ' +
+          'vertraulich und ausschließlich zur Prüfung eines Erwerbs bestimmt.</p></section>' +
+
+        '<section class="blatt-abschnitt"><h3><span class="nr">3</span>Pflichten des Empfängers</h3>' +
+          '<p style="margin-top:.75rem">Der Empfänger verpflichtet sich, die Unterlagen vertraulich zu behandeln, sie nicht ' +
+          'an Dritte weiterzugeben und sie zu keinem anderen Zweck als der Prüfung eines Erwerbs zu verwenden. Eine Weitergabe ' +
+          'an eigene Berater, finanzierende Banken und verbundene Unternehmen ist zulässig, sofern diese in gleicher Weise ' +
+          'zur Vertraulichkeit verpflichtet werden.</p>' +
+          '<p style="margin-top:.6rem">Der Mieter und die Mitarbeiter vor Ort dürfen nicht angesprochen werden. Besichtigungen ' +
+          'finden nur nach Voranmeldung und in Begleitung des Maklers statt.</p></section>' +
+
+        '<section class="blatt-abschnitt"><h3><span class="nr">4</span>Nachweis des Maklers</h3>' +
+          '<p style="margin-top:.75rem">Der Empfänger bestätigt, dass ihm das Objekt bisher nicht bekannt war und dass es ihm ' +
+          'durch ' + h(K.buero) + ' nachgewiesen wurde. Kommt der Kaufvertrag auf diesen Nachweis hin zustande, entsteht der ' +
+          'Provisionsanspruch nach der gesonderten Provisionsvereinbarung.</p></section>' +
+
+        '<section class="blatt-abschnitt"><h3><span class="nr">5</span>Dauer</h3>' +
+          '<p style="margin-top:.75rem">Die Verpflichtung gilt für zwei Jahre ab Unterzeichnung, auch wenn es nicht zum Erwerb ' +
+          'kommt. Kommt kein Kaufvertrag zustande, sind die Unterlagen auf Verlangen zurückzugeben oder zu löschen.</p>' +
+          '<div style="display:flex;flex-wrap:wrap;gap:2.5rem;margin-top:2.5rem">' +
+            '<div style="flex:1;min-width:12rem"><div style="border-bottom:1px solid #1E211F;height:2.5rem"></div>' +
+              '<p class="klein" style="margin-top:.4rem;color:#5F584E">Ort, Datum, Empfänger</p></div>' +
+            '<div style="flex:1;min-width:12rem"><div style="border-bottom:1px solid #1E211F;height:2.5rem"></div>' +
+              '<p class="klein" style="margin-top:.4rem;color:#5F584E">Ort, Datum, ' + h(K.name) + '</p></div>' +
+          '</div></section>';
     } else {
       /* Der Provisionssatz kommt aus den Stammdaten, nicht aus dem Code. */
-      var satz = (d.stamm && d.stamm.provision) || o.kaeuferprovision || '';
+      var satz = (d.stamm && d.stamm.provision) || (o && o.kaeuferprovision) || '';
       inhalt =
         '<section class="blatt-abschnitt"><h3><span class="nr">1</span>Vertragsparteien</h3>' +
           '<dl class="blatt-tabelle" style="margin-top:.75rem">' +
@@ -1560,13 +1642,13 @@ window.W = window.W || {};
 
         '<section class="blatt-abschnitt"><h3><span class="nr">2</span>Gegenstand</h3>' +
           '<p style="margin-top:.75rem">Der Auftraggeber beauftragt den Makler mit dem Nachweis und der Vermittlung der Gelegenheit ' +
-          'zum Abschluss eines Kaufvertrages über das Objekt ' + h(o.bezeichnung) + ', ' + h(o.strasse + ', ' + o.plz + ' ' + o.ort) +
-          ' (Aktenzeichen ' + h(o.aktenzeichen) + ').</p></section>' +
+          'zum Abschluss eines Kaufvertrages' + (objektText ? ' über das Objekt ' + h(objektText) : '') +
+          (az ? ' (Aktenzeichen ' + h(az) + ')' : '') + '.</p></section>' +
 
         '<section class="blatt-abschnitt"><h3><span class="nr">3</span>Provision</h3>' +
           '<dl class="blatt-tabelle" style="margin-top:.75rem">' +
             '<div><dt>Provision Auftraggeber</dt><dd>' + h(satz) + ' des beurkundeten Kaufpreises</dd></div>' +
-            '<div><dt>Provision Käuferseite</dt><dd>' + h(o.kaeuferprovision || satz) + ' des beurkundeten Kaufpreises</dd></div>' +
+            '<div><dt>Provision Käuferseite</dt><dd>' + h((o && o.kaeuferprovision) || satz) + ' des beurkundeten Kaufpreises</dd></div>' +
             '<div><dt>Fällig</dt><dd>Mit Beurkundung des Kaufvertrages, zahlbar binnen zehn Tagen</dd></div>' +
           '</dl>' +
           '<p style="margin-top:.75rem">Der Provisionsanspruch entsteht, wenn der Kaufvertrag auf Nachweis oder Vermittlung des Maklers ' +
@@ -1589,7 +1671,7 @@ window.W = window.W || {};
     }
 
     return '<div class="kein-druck" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;padding:1.5rem 0;border-bottom:1px solid var(--onyx-kontur-leise)">' +
-        '<div><a class="zurueck" style="padding-top:0" href="#/objekt/' + h(o.id) + '">' + sym.pfeilLinks(14) + 'Zurück zur Akte ' + h(o.aktenzeichen) + '</a>' +
+        '<div><a class="zurueck" style="padding-top:0" href="' + h(zurueck.ziel) + '">' + sym.pfeilLinks(14) + h(zurueck.text) + '</a>' +
           '<h1 style="margin-top:.5rem">' + h(vorlage.titel) + '</h1>' +
           '<p class="mini leise" style="margin-top:.25rem;max-width:72ch;line-height:1.7">' + h(vorlage.unterzeile) +
           ' Muster für die Vorführung — im laufenden Betrieb steht hier die Vorlage des Büros.</p></div>' +
@@ -1608,16 +1690,16 @@ window.W = window.W || {};
           '<div class="sans" style="margin-top:1.4rem;font-size:.84375rem;line-height:1.7">' + anschrift + '</div>' +
         '</div>' +
         '<dl class="blatt-daten">' +
-          '<div><dt>Objekt</dt><dd>' + h(o.bezeichnung) + '</dd></div>' +
-          '<div><dt>Aktenzeichen</dt><dd>' + h(o.aktenzeichen) + '</dd></div>' +
+          (o ? '<div><dt>Objekt</dt><dd>' + h(o.bezeichnung) + '</dd></div>' +
+               '<div><dt>Aktenzeichen</dt><dd>' + h(o.aktenzeichen) + '</dd></div>' : '') +
           '<div><dt>Stand</dt><dd>' + h(W.f.datumLang(heute)) + '</dd></div>' +
         '</dl>' +
         inhalt +
         '<footer class="sans" style="margin-top:3rem;padding-top:1rem;border-top:1px solid #D5CFC2;font-size:.66rem;line-height:1.7;color:#6C6459">' +
-          h(vorlage.etikett) + ' zu ' + h(o.aktenzeichen) + ', Stand ' + h(W.f.datumLang(heute)) +
+          h(vorlage.etikett) + (az ? ' zu ' + h(az) : '') + ', Stand ' + h(W.f.datumLang(heute)) +
           '. Muster für die Vorführung, keine Rechtsberatung. Alle Daten dieser Vorführversion sind Beispieldaten.</footer>' +
       '</article></div>';
-  };
+  }
 
   W.seiten.nichtGefunden = function () {
     return '<div style="padding:5rem 0;text-align:center">' +

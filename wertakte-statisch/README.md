@@ -94,7 +94,11 @@ lassen sich Investoren **und Privatkunden** aufs Objekt setzen.
 getrennt durch Ordner: **Eigentümer** (verkaufen), **Investoren** und
 **Privatkunden** (kaufen), dazu **Notariat** und **Bank**. Jede Karte zeigt
 Rolle, Ansprechpartner, Telefon und E-Mail; bei Käufern zusätzlich Suchprofil,
-NDA und Adressvalidierung. Ein Klick führt zur Historie mit allen Vorgängen.
+NDA und Adressvalidierung. Beide Prüfungen lassen sich mit **Ansehen** öffnen:
+dahinter liegen die Vertraulichkeitserklärung und der Prüfbogen zur
+Adressvalidierung auf Briefpapier, mit Anschrift des Kontakts und Objektbezug,
+lesbar und druckbar. Ein Klick auf die Karte führt zur Historie mit allen
+Vorgängen.
 
 **4 Kommunikation.** E-Mail ein und aus, Telefon, WhatsApp, SMS, Brief und
 Notiz. Geschrieben wird im System: Weg wählen, Objekt und Gegenüber wählen,
