@@ -622,7 +622,9 @@ a.kal-tag:hover { background: var(--onyx-flaeche); }
   color: var(--onyx-text-leise); background: var(--onyx-flaeche-hoch);
   border-left: 3px solid var(--onyx-text-still);
 }
-.kal-eintrag.ist-warn { color: #F0B4A6; background: var(--onyx-warn-flaeche); border-left-color: var(--onyx-warn); }
+/* Fest verdrahtet waere die Schrift hier im hellen Kunden-CI unlesbar —
+   deshalb aus der Themenebene. */
+.kal-eintrag.ist-warn { color: var(--onyx-warn-text); background: var(--onyx-warn-flaeche); border-left-color: var(--onyx-warn); }
 .kal-eintrag.ist-bald { color: var(--onyx-amber-hell); background: var(--onyx-amber-flaeche); border-left-color: var(--onyx-amber); }
 .kal-eintrag.ist-durch { text-decoration: line-through; opacity: .6; border-left-color: var(--onyx-gut); }
 .kal-mehr { font-size: .66rem; color: var(--onyx-text-still); padding-left: .35rem; }

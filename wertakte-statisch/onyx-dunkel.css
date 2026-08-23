@@ -52,6 +52,8 @@
   /* Signale. Kein zweiter Akzent, nur Bedeutung: Amber = laeuft,
      Rot = Problem, Gruen = erledigt, Grau = ruht. */
   --onyx-warn: #D9614C;
+  /* Schriftfarbe auf der Warnflaeche — auf Dunkel hell, im hellen CI dunkel. */
+  --onyx-warn-text: #F0B4A6;
   --onyx-warn-flaeche: rgb(217 97 76 / 0.14);
   --onyx-gut: #7FA87C;
   --onyx-gut-flaeche: rgb(127 168 124 / 0.13);

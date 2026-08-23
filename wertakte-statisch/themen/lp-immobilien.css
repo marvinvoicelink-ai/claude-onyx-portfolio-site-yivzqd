@@ -32,10 +32,11 @@ html[data-ci="lp"] {
   /* Text */
   --onyx-text: #1B2340;
   --onyx-text-leise: #55515A;
-  --onyx-text-still: #6C6A76;
+  --onyx-text-still: #656370;
 
   /* Signale, auf hellem Grund nachgezogen */
   --onyx-warn: #B23A26;
+  --onyx-warn-text: #8E2C1B;
   --onyx-warn-flaeche: rgb(178 58 38 / 0.10);
   --onyx-gut: #3F7A55;
   --onyx-gut-flaeche: rgb(63 122 85 / 0.11);
