@@ -1057,8 +1057,8 @@
      White-Label: dasselbe System, das CI des Kunden. Ersetzt wird allein
      die Themenebene, die Struktur bleibt Zeile fuer Zeile dieselbe. */
   var ERSCHEINUNG = [
-    { wert: '', text: 'Onyx — Dunkel/Amber', hinweis: 'Die Handschrift von Onyx.AI.' },
-    { wert: 'lp', text: 'Lange und Partner Immobilien', hinweis: 'Farben und Zeichen von lp-immobilien.eu.' }
+    { wert: 'lp', text: 'Lange und Partner Immobilien', hinweis: 'Ihre Farben und Ihr Zeichen — so, wie das System bei Ihnen läuft.' },
+    { wert: '', text: 'Onyx — Dunkel/Amber', hinweis: 'Die Handschrift von Onyx.AI, zum Vergleich.' }
   ];
   var erscheinung = '';
 
@@ -1170,7 +1170,11 @@
   appVorbereiten();
   try { grosseSchrift = localStorage.getItem('wertakte.schrift') === 'gross'; } catch (e) { grosseSchrift = false; }
   schriftSetzen();
-  try { erscheinung = localStorage.getItem('wertakte.ci') || ''; } catch (e) { erscheinung = ''; }
+  /* Ohne eigene Wahl laeuft das System im CI des Kunden — es ist seins. */
+  try {
+    var ciGespeichert = localStorage.getItem('wertakte.ci');
+    erscheinung = ciGespeichert === null ? 'lp' : ciGespeichert;
+  } catch (e) { erscheinung = 'lp'; }
   erscheinungSetzen();
   try { angemeldet = sessionStorage.getItem('wertakte.angemeldet') === '1'; } catch (e) { angemeldet = false; }
   // Ein Seitenwechsel schliesst offene Dialoge, sonst liegen sie ueber der neuen Seite.

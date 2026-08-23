@@ -12,13 +12,12 @@ Wurzelverzeichnis, deshalb funktioniert das Ablegen direkt.
 
 ## Erscheinungsbild: Onyx oder Kunden-CI
 
-In **Verwaltung → Erscheinungsbild** lässt sich zwischen zwei Fassungen
-umschalten, je Gerät gespeichert:
-
-- **Onyx — Dunkel/Amber:** die Handschrift von Onyx.AI.
-- **Lange und Partner Immobilien:** Farben und Zeichen von lp-immobilien.eu —
-  Navy `#193381`, heller Grund, PT Serif und Roboto, das runde Zeichen in der
-  Leiste, der Schriftzug im Kopf.
+Das System läuft standardmäßig im **CI von Lange und Partner Immobilien**:
+Navy `#193381`, heller Grund, PT Serif und Roboto, das runde Zeichen in der
+Leiste, der Schriftzug im Kopf, sein Zeichen auch als App-Symbol auf dem
+Startbildschirm. In **Verwaltung → Erscheinungsbild** lässt sich auf
+**Onyx — Dunkel/Amber** umschalten, die Handschrift von Onyx.AI; die Wahl wird
+je Gerät gespeichert.
 
 Das ist White-Label zum Anfassen: umschalten und zusehen, wie dasselbe System
 das eigene Erscheinungsbild annimmt. Ausgetauscht wird allein die Farbebene in
