@@ -30,6 +30,13 @@ const systems = [
     image: "/generated/hausmanager-case.jpg",
     alt: "HausManager Pro: Auftragsübersicht mit Objekt, Mitarbeiter, Priorität und Status",
   },
+  {
+    branche: "Immobilien & Makler",
+    title: "Objekt, Exposé und Nachweise in einer Akte.",
+    text: "Fotos direkt am Objekt aufnehmen, Unterlagen, Investoren und Termine im selben Vorgang. Vor dem Versand prüft das System selbst, ob Provisionsvereinbarung, Widerrufsbelehrung und Adressvalidierung vorliegen, und hält das Exposé zurück, solange etwas fehlt. Ein Klick legt die Akte als App aufs Handy.",
+    image: "/generated/tablet-immobilien.png",
+    alt: "Maklersoftware: Objektakte mit Kaufpreis, Mieteinnahmen, Faktor, Erfassungsbogen und den Prüfungen vor dem Exposé-Versand",
+  },
 ];
 
 export default function BuiltSystems() {
@@ -54,7 +61,10 @@ export default function BuiltSystems() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {/* Vier Systeme, deshalb zwei Spalten statt drei: sonst haengt das
+          vierte allein in der zweiten Reihe. Groessere Kacheln lassen die
+          Screens ausserdem lesbar. */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {systems.map((s) => (
           <div
             key={s.branche}
@@ -66,7 +76,7 @@ export default function BuiltSystems() {
                 src={s.image}
                 alt={s.alt}
                 fill
-                sizes="(min-width: 1024px) 380px, (min-width: 768px) 50vw, 92vw"
+                sizes="(min-width: 768px) 50vw, 92vw"
                 style={{ objectFit: "cover", objectPosition: "top" }}
               />
             </div>

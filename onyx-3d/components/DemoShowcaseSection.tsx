@@ -1,27 +1,9 @@
-"use client";
-
-import Image from "next/image";
 import Link from "next/link";
 
 const bullets = [
   "Demo passend zu deiner Branche, nicht generisch",
   "Du siehst das System live, keine Blackbox",
   "Erst danach entscheidest du dich für ein Angebot",
-];
-
-const examples = [
-  {
-    src: "/generated/tablet-handwerk.png",
-    alt: "Tablet-Ansicht eines echten Onyx-Systems: Dashboard mit Angeboten, Rechnungen, Aufträgen und Beständen",
-    label: "Beispiel: Dienstleistungsbetrieb",
-    text: "Links die Navigation zu Angeboten, Rechnungen, Finanzen, Kunden, Aufträgen, Beständen, Terminen und Mitarbeitern. Oben fünf Kennzahlen auf einen Blick: offene Rechnungen, automatisch versendete Dokumente, laufende Aufträge, Kundenumsatz und knappe Bestände. Darunter die Liste offener Angebote und Rechnungen mit Status wie „versendet“ oder „überfällig“. Rechts protokolliert ein Live-Feed jede automatische Aktion, vom verschickten Angebot über die Zahlungserinnerung bis zum erkannten Zahlungseingang.",
-  },
-  {
-    src: "/generated/tablet-garten.png",
-    alt: "Tablet-Ansicht eines echten Onyx-Systems: dasselbe Dashboard für ein Unternehmen mit Projektgeschäft",
-    label: "Beispiel: Projektgeschäft",
-    text: "Dasselbe Grundprinzip, für ein Unternehmen mit Projektgeschäft umgebaut. Aufträge heißen hier Projekte und laufen über Wochen statt über Tage. Gleiche Kennzahlen, gleiche automatischen Zahlungserinnerungen, gleicher Live-Feed. Angepasst ist der Wortschatz und was oben steht, weil in einem Projektgeschäft andere Zahlen zählen als im Tagesgeschäft.",
-  },
 ];
 
 /** Trust block: a working demo already exists per industry and gets shown live in the free Erstgespräch. */
@@ -46,30 +28,9 @@ export default function DemoShowcaseSection({ blatt }: { blatt?: string }) {
         </p>
       </div>
 
-      <div className="mx-auto px-7" style={{ maxWidth: 980, marginTop: 26 }}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {examples.map((ex) => (
-            <div key={ex.src} className="text-left">
-              <div className="relative rounded-2xl overflow-hidden mb-4" style={{ border: "1px solid var(--hairline)" }}>
-                <Image
-                  src={ex.src}
-                  alt={ex.alt}
-                  width={1000}
-                  height={727}
-                  sizes="(min-width: 640px) 480px, 92vw"
-                  className="w-full h-auto block"
-                  priority={false}
-                />
-              </div>
-              <span className="mono block mb-1.5" style={{ fontSize: 11, letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--amber)" }}>
-                {ex.label}
-              </span>
-              <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.92rem", lineHeight: 1.55 }}>{ex.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
+      {/* Die zwei Tablet-Screens standen hier ein zweites Mal: sie sind
+          weiter oben schon in "Aus Tool-Chaos wird ein System" zu sehen. Der
+          Block bleibt Text, damit dieselben Bilder die Seite nicht doppeln. */}
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 780, marginTop: 24 }}>
         <ul className="flex flex-col sm:flex-row sm:justify-center gap-x-8 gap-y-2.5 mb-6">
           {bullets.map((b) => (
