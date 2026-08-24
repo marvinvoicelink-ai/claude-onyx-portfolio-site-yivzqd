@@ -40,21 +40,27 @@ Kaufen.
 
 ## Kontakt & Tracking
 Kontaktformular (Netlify Forms) ist der primäre CTA seitenweit. Meta-Pixel
-`Lead`-Event feuert **nur bei Klick auf einen Kontakt-Button** — also auf
-jeden Button/Link, der das Kontaktformular ist oder dorthin führt:
-Formular-Absenden-Button, Nav-CTAs, Hero-CTA, CTABanner, DemoShowcase-CTA,
-DemoBooking-CTA. Unabhängig vom Erfolg der jeweiligen Aktion (bewusste
-Entscheidung von Marvin, Stand 2026: jeder dieser Klicks soll als Lead in
-Facebook erscheinen). Reine UI-Klicks — Akkordeon, Navigation ohne
-Kontaktbezug, FAQ, Cookie-Banner — feuern **kein** Lead.
+`Lead`-Event feuert **nur bei einem tatsächlich erfolgten Kontakt**, nicht
+bei einem Klick (Entscheidung von Marvin, Stand August 2026 — ersetzt die
+frühere Regel „jeder Klick auf einen Kontakt-Button feuert Lead", die zu
+vielen Leads ohne echten Kontakt geführt hat).
 
-WhatsApp-Buttons feuern zusätzlich zum weiterhin bestehenden
-`WhatsAppClick`-Custom-Event ebenfalls `Lead` (gleiche Entscheidung, auf
-WhatsApp ausgeweitet) — WhatsApp-Klicks lassen sich technisch nicht bis zum
-"Nachricht abgeschickt"-Zeitpunkt zurückverfolgen, zählen aber genauso als
-Lead. WhatsApp und Calendly bleiben als sekundäre, schnelle Kontaktwege
-bestehen (Calendly hat mit `calendly.event_scheduled` ein eigenes
-zuverlässiges Completion-Event, unabhängig vom Lead-Tracking).
+Genau zwei Auslöser:
+- Kontaktformular, erst nachdem Netlify den Versand mit `response.ok`
+  bestätigt hat — nicht beim Absende-Klick.
+- `calendly.event_scheduled`, also ein wirklich gebuchter Termin.
+
+Alles andere feuert **kein** `Lead`: Nav-CTAs, Hero-CTA, CTA-Banner und
+jeder andere Link, der nur zum Formular führt, ebenso reine UI-Klicks
+(Akkordeon, FAQ, Cookie-Banner).
+
+WhatsApp-Buttons feuern das Custom-Event `WhatsAppClick`, **keinen Lead**.
+Ob jemand in WhatsApp wirklich auf Senden tippt, ist von der Seite aus
+nicht sichtbar — ein Klick öffnet nur die App und ist damit Interesse,
+kein Kontakt. Echte WhatsApp-Nachrichten sieht Marvin in WhatsApp selbst;
+wenn sie in Meta als Conversion zählen sollen, geht das nur über einen
+manuellen Offline-Conversion-Upload. WhatsApp und Calendly bleiben als
+sekundäre, schnelle Kontaktwege bestehen.
 
 ## Design-Sprache für Frontends
 Für Onyx-eigene Software (Demos, Vorführsysteme, Eigenprodukte) gilt das
