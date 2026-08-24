@@ -1,6 +1,6 @@
 "use client";
 
-import { trackLead } from "@/lib/trackLead";
+import { trackWhatsAppClick } from "@/lib/trackLead";
 
 declare global {
   interface Window {
@@ -83,10 +83,7 @@ export default function CTABanner({
               href={WHATSAPP_HREF}
               target="_blank"
               rel="noopener"
-              onClick={() => {
-                trackLead();
-                if (typeof window.fbq === "function") window.fbq("trackCustom", "WhatsAppClick");
-              }}
+              onClick={trackWhatsAppClick}
               className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap btn-ghost"
               style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}
             >

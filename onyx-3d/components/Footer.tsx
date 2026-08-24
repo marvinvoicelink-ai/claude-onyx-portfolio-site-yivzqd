@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { trackCalendlyClick } from "@/lib/trackLead";
 
 export default function Footer() {
   return (
@@ -34,7 +35,13 @@ export default function Footer() {
           >
             Cookie-Einstellungen
           </button>
-          <a href="https://calendly.com/onyx-ai/30min" target="_blank" rel="noopener" className="footer-link">
+          <a
+            href="https://calendly.com/onyx-ai/30min"
+            target="_blank"
+            rel="noopener"
+            onClick={trackCalendlyClick}
+            className="footer-link"
+          >
             Termin buchen
           </a>
         </div>

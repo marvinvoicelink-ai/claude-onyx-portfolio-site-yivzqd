@@ -42,25 +42,36 @@ Kaufen.
 Kontaktformular (Netlify Forms) ist der primäre CTA seitenweit. Das
 Meta-Pixel-Event `Lead` feuert **nur bei einer echten Kontaktaufnahme**
 (Entscheidung von Marvin, Stand 2026 — in Facebook sollen ausschließlich
-Leads auftauchen, die sich tatsächlich gemeldet haben). Genau zwei Auslöser:
+Leads auftauchen, die sich tatsächlich gemeldet haben). Genau drei Auslöser:
 
 1. **Abgeschicktes Kontaktformular** — erst wenn alle Pflichtfelder ausgefüllt
    sind und Netlify die Absendung angenommen hat (`res.ok` in `handleSubmit`
    von `ContactSection` und `SystemFormSection`). Ein abgebrochener Versuch
    oder ein Fehler beim Absenden zählt nicht.
-2. **Klick auf einen WhatsApp-Button** — zusätzlich zum bestehenden
-   `WhatsAppClick`-Custom-Event.
+2. **Klick auf einen WhatsApp-Button** — `trackWhatsAppClick()`, zusätzlich
+   zum `WhatsAppClick`-Custom-Event.
+3. **Klick auf einen Calendly-Link** — `trackCalendlyClick()`, zusätzlich zum
+   `CalendlyClick`-Custom-Event.
 
-Alles andere feuert **kein** Lead: Buttons, die nur zum Formular scrollen
-oder navigieren (Hero-CTA, Nav-CTAs, CTABanner, DemoShowcase, DemoBooking,
-MobileNav), sowie reine UI-Klicks (Akkordeon, FAQ, Cookie-Banner).
+Alle drei Auslöser liegen in `lib/trackLead.ts`; nirgends sonst wird `fbq`
+für Leads aufgerufen. Alles andere feuert **kein** Lead: Buttons, die nur zum
+Formular scrollen oder navigieren (Hero-CTA, Nav-CTAs, CTABanner,
+DemoShowcase, DemoBooking, MobileNav), sowie reine UI-Klicks (Akkordeon, FAQ,
+Cookie-Banner).
 
-Grenze des Messbaren: Ob nach dem WhatsApp-Klick wirklich eine Nachricht
-abgeschickt wird, kann die Website nicht sehen — WhatsApp öffnet sich außerhalb
-der Seite und meldet nichts zurück. Der Klick ist das letzte messbare Ereignis.
-Wer nur belegbar abgeschickte Anfragen zählen will, nimmt die
-Formular-Leads. Calendly hat mit `calendly.event_scheduled` ein eigenes
-zuverlässiges Completion-Event, unabhängig vom Lead-Tracking.
+Grenze des Messbaren: Ob nach dem Klick wirklich eine WhatsApp-Nachricht
+geschrieben oder ein Calendly-Termin gebucht wird, kann die Website nicht
+sehen — beides passiert außerhalb der Seite und meldet nichts zurück. Der
+Klick ist das letzte messbare Ereignis. Belegbar abgeschickt sind nur die
+Formular-Leads.
+
+Genauer ginge Calendly nur über eine Bestätigungsseite: In der Calendly-
+Terminart „Redirect to a custom page" auf eine eigene Danke-Seite zeigen
+lassen, die dann den Lead feuert — dann zählen ausschließlich wirklich
+gebuchte Termine. Erfordert eine Einstellung in Marvins Calendly-Konto.
+Ein Calendly-Embed auf der Seite (mit `calendly.event_scheduled`) ist bewusst
+**nicht** eingebaut: die Datenschutzerklärung sagt zu, dass nichts von
+Calendly nachgeladen wird.
 
 ## Nicht-Ziele (Scope-Grenze)
 - Kein 3D, keine Scroll-Choreografie, keine WebGL-Effekte in Phase 1

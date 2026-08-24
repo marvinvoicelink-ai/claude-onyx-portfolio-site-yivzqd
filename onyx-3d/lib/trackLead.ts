@@ -35,3 +35,27 @@ export function trackLead() {
 
   window.fbq("track", "Lead");
 }
+
+/**
+ * Klick auf einen WhatsApp-Button: Lead plus eigenes Ereignis, um beide
+ * Wege in Facebook auseinanderhalten zu koennen.
+ */
+export function trackWhatsAppClick() {
+  trackLead();
+  if (typeof window !== "undefined" && typeof window.fbq === "function") {
+    window.fbq("trackCustom", "WhatsAppClick");
+  }
+}
+
+/**
+ * Klick auf einen Calendly-Link. Wie bei WhatsApp ist der Klick das Letzte,
+ * was diese Seite sehen kann — die Terminauswahl passiert auf calendly.com.
+ * Genauer ginge es nur ueber eine Bestaetigungsseite, auf die Calendly nach
+ * gebuchtem Termin zurueckleitet.
+ */
+export function trackCalendlyClick() {
+  trackLead();
+  if (typeof window !== "undefined" && typeof window.fbq === "function") {
+    window.fbq("trackCustom", "CalendlyClick");
+  }
+}
