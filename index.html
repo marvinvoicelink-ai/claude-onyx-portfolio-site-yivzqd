@@ -619,6 +619,39 @@ function enableMetaPixel(){
   }
 
 
+
+  .showcase-case{
+    display:grid; grid-template-columns:1.05fr 1fr; gap:38px; align-items:center;
+    border:1px solid var(--hairline); border-radius:14px;
+    padding:30px; margin-bottom:44px;
+    background:rgba(245,242,236,0.015);
+  }
+  @media (max-width:900px){
+    .showcase-case{grid-template-columns:1fr; gap:26px; padding:22px;}
+  }
+  .showcase-case h3{font-size:1.35rem; margin:0 0 12px;}
+  .showcase-case p{
+    color:var(--warm-grey-dim); font-size:1rem; line-height:1.7; margin:0 0 18px;
+  }
+  .showcase-case .ref-video{margin-bottom:12px;}
+  .showcase-case-foot{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; color:var(--warm-grey-faint);
+  }
+  .showcase-case-facts{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px 20px; margin-bottom:20px;
+  }
+  @media (max-width:480px){ .showcase-case-facts{grid-template-columns:1fr;} }
+  .showcase-case-facts div{
+    font-size:.92rem; color:var(--warm-grey-dim); line-height:1.5;
+    padding-left:16px; position:relative;
+  }
+  .showcase-case-facts div::before{
+    content:""; position:absolute; left:0; top:.5em;
+    width:6px; height:6px; border-radius:50%; background:var(--amber);
+  }
+  .showcase-case-facts strong{display:block; color:var(--warm-grey);}
+
   /* Gebaute Systeme — Schaufenster */
   .showcase-grid{
     display:grid; grid-template-columns:repeat(3, 1fr); gap:26px; margin-bottom:44px;
@@ -1257,6 +1290,36 @@ function enableMetaPixel(){
         </div>
       </div>
 
+      <div class="showcase-case">
+        <div>
+          <div class="ref-video">
+            <video controls preload="none" playsinline poster="assets/hausmanager-poster.jpg">
+              <source src="assets/hausmanager-demo.mp4" type="video/mp4">
+              Dein Browser kann dieses Video nicht abspielen.
+            </video>
+          </div>
+          <div class="showcase-case-foot">HausManager Pro — Onboarding-Ausschnitt</div>
+        </div>
+        <div>
+          <span class="ref-tag">Kundencase · gebaut &amp; übergeben</span>
+          <h3>HausManager Pro</h3>
+          <p>
+            Für eine Hausverwaltung haben wir ein komplettes CRM von Grund
+            auf entwickelt und vollständig übergeben — mit Objekten,
+            Mietern, Belegen und Vorgängen in einem System.
+          </p>
+          <div class="showcase-case-facts">
+            <div><strong>Vollständig übergeben</strong>Code, Zugänge &amp; Dokumentation</div>
+            <div><strong>100&nbsp;% Eigentum</strong>Kein Onyx-Zugriff mehr danach</div>
+            <div><strong>DSGVO-konform</strong>Gehostet in Deutschland, mit AVV</div>
+            <div><strong>Im Alltag im Einsatz</strong>Seit der Übergabe produktiv genutzt</div>
+          </div>
+          <div class="case-note">
+            <span>Case-Referenz, kein Produkt zum Kaufen — ein Beispiel, was für dein Unternehmen möglich ist.</span>
+          </div>
+        </div>
+      </div>
+
       <div class="showcase-caps">
         <div class="showcase-cap">
           <strong>Wir bauen Systeme</strong>
@@ -1740,21 +1803,14 @@ document.addEventListener('DOMContentLoaded', function () {
     banner.hidden = false;
   });
 
-  // WhatsApp: Lead erst, wenn der Tab nach dem Klick wirklich in den
-  // Hintergrund geht — bestaetigt echte Navigation statt nur Klick.
+  // WhatsApp: KEIN Lead. Ob jemand in WhatsApp wirklich auf Senden tippt,
+  // ist von der Seite aus nicht sichtbar — ein Klick ist nur Interesse,
+  // kein Kontakt. Deshalb ein eigenes Ereignis, das nicht als Lead zaehlt.
+  // Lead feuert ausschliesslich bei zugestelltem Formular und gebuchtem
+  // Calendly-Termin; echte WhatsApp-Nachrichten siehst du in WhatsApp.
   document.querySelectorAll('a[href^="https://wa.me/"]').forEach(function (el) {
     el.addEventListener('click', function () {
-      var fired = false;
-      function onVisibilityChange() {
-        if (fired || !document.hidden) return;
-        fired = true;
-        if (typeof fbq === 'function') fbq('track', 'Lead');
-        document.removeEventListener('visibilitychange', onVisibilityChange);
-      }
-      document.addEventListener('visibilitychange', onVisibilityChange);
-      setTimeout(function () {
-        document.removeEventListener('visibilitychange', onVisibilityChange);
-      }, 3000);
+      if (typeof fbq === 'function') fbq('trackCustom', 'WhatsAppClick');
     });
   });
 
