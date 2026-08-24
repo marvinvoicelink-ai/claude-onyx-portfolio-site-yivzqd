@@ -54,10 +54,22 @@ Leads auftauchen, die sich tatsächlich gemeldet haben). Genau drei Auslöser:
    `CalendlyClick`-Custom-Event.
 
 Alle drei Auslöser liegen in `lib/trackLead.ts`; nirgends sonst wird `fbq`
-für Leads aufgerufen. Alles andere feuert **kein** Lead: Buttons, die nur zum
-Formular scrollen oder navigieren (Hero-CTA, Nav-CTAs, CTABanner,
-DemoShowcase, DemoBooking, MobileNav), sowie reine UI-Klicks (Akkordeon, FAQ,
-Cookie-Banner).
+für Leads aufgerufen. Alles andere feuert **kein** Lead: reine UI-Klicks
+(Akkordeon, FAQ, Cookie-Banner).
+
+**Woher der Lead kam.** Buttons, die nur zum Formular führen — Hero-CTA,
+Nav-CTA, Mobilmenü-CTA, CTA-Banner, „Kostenloses Erstgespräch sichern",
+„Demo buchen" — feuern beim Klick weiterhin nichts. Sie hinterlegen per
+`noteCtaSource()` nur ihren Namen im `sessionStorage`. Wird das Formular
+danach wirklich abgeschickt, hängt der Name als `content_name` am
+`Lead`-Event, und in Facebook ist zu sehen, welcher Button die Anfrage
+gebracht hat. Wer abbricht, taucht nicht auf. Wer ohne CTA-Klick direkt ins
+Formular schreibt, erzeugt einen Lead ohne Quelle. WhatsApp- und
+Calendly-Leads tragen `WhatsApp` bzw. `Calendly` als Quelle.
+
+`sessionStorage`, nicht `localStorage`: die Zuordnung gilt nur für diesen
+Besuch. Nach dem Auslesen wird sie gelöscht, damit eine zweite Anfrage im
+selben Besuch nicht nochmal demselben Button gutgeschrieben wird.
 
 Grenze des Messbaren: Ob nach dem Klick wirklich eine WhatsApp-Nachricht
 geschrieben oder ein Calendly-Termin gebucht wird, kann die Website nicht

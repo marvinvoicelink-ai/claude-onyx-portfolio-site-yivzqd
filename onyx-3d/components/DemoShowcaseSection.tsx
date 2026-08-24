@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { noteCtaSource } from "@/lib/trackLead";
 
 const bullets = [
   "Demo passend zu deiner Branche, nicht generisch",
@@ -45,6 +48,7 @@ export default function DemoShowcaseSection({ blatt }: { blatt?: string }) {
 
         <Link
           href="#kontakt"
+          onClick={() => noteCtaSource("Erstgespraech-CTA")}
           className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold btn-amber"
           style={{ background: "var(--amber)", color: "#12141a", fontSize: 15.5 }}
         >

@@ -1,6 +1,6 @@
 "use client";
 
-import { trackWhatsAppClick } from "@/lib/trackLead";
+import { trackWhatsAppClick, noteCtaSource } from "@/lib/trackLead";
 
 declare global {
   interface Window {
@@ -55,10 +55,12 @@ export default function CTABanner({
               zweiten, schnelleren Weg. Nebeneinander sahen beide gleich
               wichtig aus. */}
           <div className="flex flex-col items-center gap-3.5">
-            {/* Kein Tracking hier: der Button fuehrt nur zum Formular. Als
-                Lead zaehlt erst die abgeschickte Anfrage. */}
+            {/* Kein Lead beim Klick: der Button fuehrt nur zum Formular. Er
+                hinterlaesst nur seinen Namen — wird das Formular danach
+                abgeschickt, haengt der Name am Lead. */}
             <a
               href={ctaHref}
+              onClick={() => noteCtaSource("CTA-Banner")}
               className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap btn-amber"
               style={{ background: "var(--amber)", color: "#12141a", fontSize: 15.5 }}
             >

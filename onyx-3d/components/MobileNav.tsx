@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { offerings } from "@/lib/offerings";
+import { noteCtaSource } from "@/lib/trackLead";
 
 const pageLinks = [
   { href: "/", label: "Startseite" },
@@ -116,7 +117,10 @@ export default function MobileNav() {
 
               <Link
                 href="/kontakt"
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  setOpen(false);
+                  noteCtaSource("Mobilmenue-CTA");
+                }}
                 className="inline-flex items-center justify-center rounded-full font-semibold btn-amber"
                 style={{ background: "var(--amber)", color: "#12141a", fontSize: 16, padding: "16px 0", margin: "24px 0 32px" }}
               >
