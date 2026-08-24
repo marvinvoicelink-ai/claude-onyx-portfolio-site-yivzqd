@@ -39,32 +39,30 @@ const systems = [
   },
 ];
 
-export default function BuiltSystems() {
+export default function BuiltSystems({ blatt }: { blatt?: string }) {
   return (
-    <div className="mt-12">
-      <div className="text-center mb-9">
-        <h3
-          style={{
-            fontFamily: "var(--font-archivo), sans-serif",
-            fontWeight: 800,
-            fontSize: "clamp(1.4rem, 2.8vw, 1.9rem)",
-            lineHeight: 1.15,
-            marginBottom: 10,
-          }}
+    <section className="py-12">
+      <div className="mx-auto px-7 text-center" style={{ maxWidth: 1180 }}>
+        <span
+          className="mono inline-flex items-center gap-2 mb-4"
+          style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
         >
+          <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Gebaute Systeme` : "Gebaute Systeme"}
+        </span>
+        <h2 className="mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "24ch", marginBottom: 12 }}>
           Aus Tool-Chaos wird ein System.
-        </h3>
-        <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7, maxWidth: "60ch" }}>
-          Verschiedene Branchen, ein Prinzip: gebaut nach dem Ablauf des
-          Betriebs statt nach einer Vorlage, mit Automatisierung von Anfang an
-          — und danach vollständig übergeben.
+        </h2>
+        <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7, maxWidth: "62ch", marginBottom: 32 }}>
+          Immobilien, Handwerk, Garten- &amp; Landschaftsbau, Hausverwaltung —
+          vier gebaute Systeme, ein Prinzip: nach dem Ablauf des Betriebs
+          gebaut statt nach einer Vorlage, mit Automatisierung von Anfang an
+          und danach vollständig übergeben.
         </p>
-      </div>
 
       {/* Vier Systeme, deshalb zwei Spalten statt drei: sonst haengt das
           vierte allein in der zweiten Reihe. Groessere Kacheln lassen die
           Screens ausserdem lesbar. */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-left">
         {systems.map((s) => (
           <div
             key={s.branche}
@@ -96,7 +94,8 @@ export default function BuiltSystems() {
             </div>
           </div>
         ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

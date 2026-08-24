@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import LogoMarquee from "@/components/LogoMarquee";
 import OfferingsAccordion from "@/components/OfferingsAccordion";
 import ProblemSection from "@/components/ProblemSection";
+import BuiltSystems from "@/components/BuiltSystems";
 import CaseRow from "@/components/CaseRow";
 import ArbeitsweiseSection from "@/components/ArbeitsweiseSection";
 import SystemFormSection from "@/components/SystemFormSection";
@@ -38,13 +39,19 @@ export default function Home() {
 
         <ProblemSection blatt="02" />
 
-        {/* Direkt hinter der Ausgangslage: erst das Problem, dann die
-            Einordnung, ob der Leser damit gemeint ist. Erst danach die
-            Lösung — vorher weiss er noch nicht, ob sie ihn betrifft. */}
-        <IndustriesSection blatt="03" />
+        {/* Eigenes Blatt statt Anhaengsel der Ausgangslage: die vier gebauten
+            Systeme sind der Beweis, dass das Problem loesbar ist, und tragen
+            als Section mehr Gewicht als als Schlussabsatz. */}
+        <BuiltSystems blatt="03" />
+
+        {/* Direkt hinter den gebauten Systemen: erst das Problem, dann der
+            Beweis, dann die Einordnung, ob der Leser damit gemeint ist. Erst
+            danach die Lösung — vorher weiss er noch nicht, ob sie ihn
+            betrifft. */}
+        <IndustriesSection blatt="04" />
 
         <WheelTransition edge="enter">
-          <ArbeitsweiseSection blatt="04" />
+          <ArbeitsweiseSection blatt="05" />
         </WheelTransition>
 
         <section className="pt-10 pb-2">
@@ -53,7 +60,7 @@ export default function Home() {
               className="mono inline-flex items-center gap-2 mb-4"
               style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
             >
-              <span style={{ opacity: 0.7 }}>§</span> Blatt 05 / Referenzen
+              <span style={{ opacity: 0.7 }}>§</span> Blatt 06 / Referenzen
             </span>
             <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "22ch", marginBottom: 14 }}>
               Schon gebaut. Und übergeben.
@@ -151,10 +158,10 @@ export default function Home() {
           <ExplainerSection />
         </WheelTransition>
 
-        <DemoShowcaseSection blatt="06" />
+        <DemoShowcaseSection blatt="07" />
 
         <WheelTransition edge="exit">
-          <FAQSection blatt="07" />
+          <FAQSection blatt="08" />
         </WheelTransition>
 
         <CTABanner
@@ -167,7 +174,7 @@ export default function Home() {
         <DemoBookingSection />
 
         <WheelTransition edge="enter">
-          <ContactSection blatt="08" />
+          <ContactSection blatt="09" />
         </WheelTransition>
 
         <Footer />

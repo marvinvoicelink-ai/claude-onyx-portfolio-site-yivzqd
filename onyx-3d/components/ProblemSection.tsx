@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import BuiltSystems from "./BuiltSystems";
 import Link from "next/link";
 import { problems, type Problem } from "@/lib/problems";
 
@@ -118,8 +117,6 @@ export default function ProblemSection({ blatt }: { blatt?: string }) {
             <ProblemRow key={p.slug} p={p} imageRight={i % 2 === 1} />
           ))}
         </div>
-
-        <BuiltSystems />
       </div>
     </section>
   );
