@@ -434,36 +434,8 @@ function enableMetaPixel(){
   }
 
   /* Kundencase — Referenz als Case-Card */
-  .case-study{
-    display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;
-  }
-  @media (max-width:900px){
-    .case-study{grid-template-columns:1fr; gap:40px;}
-  }
-  .case-logo{font-size:1.5rem; margin-bottom:22px;}
-  .case-desc{color:var(--warm-grey-dim); font-size:1.02rem; line-height:1.75; margin-bottom:28px;}
-  .case-stats{
-    display:grid; grid-template-columns:repeat(2, 1fr); gap:14px;
-    margin-bottom:24px;
-  }
   @media (max-width:480px){
-    .case-stats{grid-template-columns:1fr;}
   }
-  .case-stat{
-    border:1px solid rgba(232,163,61,0.3);
-    border-radius:12px;
-    padding:16px 18px;
-    background:var(--near-black-2);
-    display:flex; align-items:flex-start; gap:12px;
-    transition:border-color .22s ease, transform .22s ease;
-  }
-  .case-stat:hover{transform:translateY(-3px); border-color:rgba(232,163,61,0.6);}
-  .case-stat .num{
-    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--amber);
-    flex-shrink:0; padding-top:2px;
-  }
-  .case-stat strong{display:block; font-size:0.95rem; color:var(--warm-grey); font-weight:700;}
-  .case-stat span{display:block; font-size:0.82rem; color:var(--warm-grey-faint); margin-top:2px; line-height:1.4;}
   .case-checklist{display:flex; flex-direction:column; gap:10px; margin-bottom:24px;}
   .case-checklist li{
     display:flex; align-items:center; gap:10px;
@@ -503,19 +475,6 @@ function enableMetaPixel(){
     position:relative;
     display:flex; align-items:center; justify-content:center;
     min-height:340px;
-  }
-  .case-video-wrap{
-    position:relative; z-index:1;
-    width:100%; max-width:440px;
-  }
-  .case-video-wrap .ref-video{
-    margin-bottom:0;
-    border-color:rgba(232,163,61,0.55);
-    box-shadow:0 0 0 1px rgba(232,163,61,0.12), 0 24px 60px -20px rgba(0,0,0,0.65), 0 0 46px -10px rgba(232,163,61,0.4);
-  }
-  .case-video-wrap .ref-foot{
-    text-align:center; margin-top:14px; padding-top:0; border-top:none;
-    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--warm-grey-faint);
   }
 
   /* So läuft's ab — Fortschrittsbalken */
@@ -657,6 +616,65 @@ function enableMetaPixel(){
   .founder-card .role{
     font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--warm-grey-faint);
     margin-top:2px;
+  }
+
+
+  /* Gebaute Systeme — Schaufenster */
+  .showcase-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:26px; margin-bottom:44px;
+  }
+  @media (max-width:1000px){ .showcase-grid{grid-template-columns:1fr; gap:34px;} }
+  .showcase-item{ display:flex; flex-direction:column; gap:16px; }
+  .showcase-shot{
+    position:relative; border-radius:11px; overflow:hidden; background:#000;
+    border:1px solid rgba(232,163,61,0.42);
+    box-shadow:0 0 0 1px rgba(232,163,61,0.10),
+               0 18px 44px -18px rgba(0,0,0,0.72),
+               0 0 34px -12px rgba(232,163,61,0.32);
+  }
+  .showcase-bar{
+    display:flex; align-items:center; gap:6px; padding:8px 10px;
+    background:#161616; border-bottom:1px solid rgba(232,163,61,0.2);
+  }
+  .showcase-bar span{
+    width:7px; height:7px; border-radius:50%; background:rgba(245,242,236,0.22);
+  }
+  .showcase-bar b{
+    margin-left:8px; font-family:var(--font-mono, monospace); font-weight:400;
+    font-size:.66rem; letter-spacing:.05em; color:rgba(245,242,236,0.34);
+  }
+  .showcase-shot img{
+    display:block; width:100%; height:auto;
+  }
+  /* Standfuß, damit es als Bildschirm lesbar wird */
+  .showcase-screen{ display:block; }
+  .showcase-screen::after{
+    content:""; display:block; width:22%; height:9px; margin:0 auto;
+    background:linear-gradient(180deg, rgba(232,163,61,0.20), rgba(232,163,61,0.05));
+    border:1px solid rgba(232,163,61,0.22); border-top:0;
+    border-radius:0 0 4px 4px;
+  }
+  .showcase-item h3{
+    font-size:1.08rem; margin:0;
+  }
+  .showcase-item p{
+    color:var(--warm-grey-dim); font-size:.97rem; line-height:1.65; margin:0;
+  }
+  .showcase-caps{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:20px;
+    border-top:1px solid var(--hairline); padding-top:32px;
+  }
+  @media (max-width:900px){ .showcase-caps{grid-template-columns:repeat(2, 1fr);} }
+  @media (max-width:560px){ .showcase-caps{grid-template-columns:1fr;} }
+  .showcase-cap strong{
+    display:block; font-size:1rem; margin-bottom:6px;
+  }
+  .showcase-cap p{
+    color:var(--warm-grey-dim); font-size:.93rem; line-height:1.6; margin:0;
+  }
+  .showcase-note{
+    color:var(--warm-grey-dim); font-size:.88rem; line-height:1.6;
+    margin-top:28px; padding-left:14px; border-left:2px solid var(--hairline);
   }
 
   /* Lösungsbereiche */
@@ -1187,61 +1205,96 @@ function enableMetaPixel(){
     </div>
   </section>
 
-  <!-- REFERENZ / KUNDENCASE -->
+  <!-- GEBAUTE SYSTEME -->
   <section class="section-border">
     <span class="section-num" aria-hidden="true">06</span>
     <div class="wrap">
-      <div class="case-study">
-        <div>
-          <span class="ref-tag">Kundencase · gebaut &amp; übergeben</span>
-          <h3 class="case-logo">HausManager Pro</h3>
-          <h2 style="font-size:clamp(1.5rem, 2.6vw, 2.1rem); margin-bottom:18px;">Vom Excel-Chaos zum eigenen System.</h2>
-          <p class="case-desc">
-            Für eine Hausverwaltung haben wir ein komplettes CRM von
-            Grund auf entwickelt und vollständig übergeben. Kein Produkt
-            zum Kaufen, sondern ein Beispiel dafür, was für dein
-            Unternehmen möglich ist.
-          </p>
-          <div class="case-stats">
-            <div class="case-stat">
-              <div class="num">01</div>
-              <div><strong>Vollständig übergeben</strong><span>Code, Zugänge &amp; Dokumentation</span></div>
-            </div>
-            <div class="case-stat">
-              <div class="num">02</div>
-              <div><strong>100&nbsp;% Eigentum</strong><span>Kein Onyx-Zugriff mehr danach</span></div>
-            </div>
-            <div class="case-stat">
-              <div class="num">03</div>
-              <div><strong>DSGVO-konform</strong><span>Gehostet in Deutschland, mit AVV</span></div>
-            </div>
-            <div class="case-stat">
-              <div class="num">04</div>
-              <div><strong>Im Alltag im Einsatz</strong><span>Seit der Übergabe produktiv genutzt</span></div>
-            </div>
+      <div style="max-width:62ch;margin-bottom:44px;">
+        <span class="kicker" style="display:block;margin-bottom:16px;">Gebaute Systeme</span>
+        <h2 style="font-size:clamp(1.5rem, 2.6vw, 2.1rem);">So sieht ein System aus, das wir bauen.</h2>
+        <p style="color:var(--warm-grey-dim); font-size:1.05rem; line-height:1.7; margin-top:18px;">
+          Ausschnitte aus einer Software, die wir für die Vermittlung von
+          Anlage- und Gewerbeimmobilien gebaut haben — Objektakte,
+          Korrespondenz, Unterlagen und Wiedervorlagen an einem Ort. Kein
+          Baukasten, kein Template: exakt der Prozess des Unternehmens,
+          in dessen Erscheinungsbild.
+        </p>
+      </div>
+
+      <div class="showcase-grid">
+        <div class="showcase-item">
+          <div class="showcase-screen">
+          <div class="showcase-shot">
+            <div class="showcase-bar"><span></span><span></span><span></span><b>wertakte — Objekte</b></div>
+            <img src="assets/system-objekte.jpg" width="1600" height="1000" loading="lazy" decoding="async"
+                 alt="Objektübersicht des Systems mit Status, Kennzahlen und Ordnern">
           </div>
-          <ul class="case-checklist">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Individuelle Prozessanalyse &amp; Konzept</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Vollständige Entwicklung im Onyx-Standard</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Übergabe von Code, Zugängen &amp; Doku</li>
-          </ul>
-          <div class="case-note">
-            <span>Case-Referenz, kein Produkt zum Kaufen — ein Beispiel, was für dein Unternehmen möglich ist.</span>
           </div>
+          <h3>Alles an einem Ort</h3>
+          <p>Jedes Objekt mit Status, Zahlen und offenen Punkten — statt verteilt über Excel, Ordner und Postfach.</p>
         </div>
-        <div class="case-visual">
-          <div class="case-video-wrap">
-            <div class="ref-video">
-              <video controls preload="none" playsinline poster="assets/hausmanager-poster.jpg">
-                <source src="assets/hausmanager-demo.mp4" type="video/mp4">
-              </video>
-            </div>
-            <div class="ref-foot">HausManager Pro — Onboarding-Ausschnitt</div>
+        <div class="showcase-item">
+          <div class="showcase-screen">
+          <div class="showcase-shot">
+            <div class="showcase-bar"><span></span><span></span><span></span><b>wertakte — Objektakte</b></div>
+            <img src="assets/system-akte.jpg" width="1600" height="1000" loading="lazy" decoding="async"
+                 alt="Objektakte mit Erfassungsbogen, Kennzahlen und Prüfungen vor dem Versand">
           </div>
+          </div>
+          <h3>Regeln, die das System durchsetzt</h3>
+          <p>Fehlt eine Pflichtangabe oder eine Prüfung, hält das System den Versand zurück. Kennzahlen rechnet es selbst.</p>
         </div>
+        <div class="showcase-item">
+          <div class="showcase-screen">
+          <div class="showcase-shot">
+            <div class="showcase-bar"><span></span><span></span><span></span><b>wertakte — Terminplan</b></div>
+            <img src="assets/system-termine.jpg" width="1600" height="1000" loading="lazy" decoding="async"
+                 alt="Terminplan mit Monatskalender und Eskalationsstufen">
+          </div>
+          </div>
+          <h3>Nichts fällt hinten runter</h3>
+          <p>Wiedervorlagen mit Eskalationsstufen: erst E-Mail, dann Anruf, dann Eskalation — mit Datum, automatisch gerechnet.</p>
+        </div>
+      </div>
+
+      <div class="showcase-caps">
+        <div class="showcase-cap">
+          <strong>Wir bauen Systeme</strong>
+          <p>Dashboards, Portale und interne Tools, zugeschnitten auf deinen Prozess statt auf einen Branchendurchschnitt.</p>
+        </div>
+        <div class="showcase-cap">
+          <strong>Wir automatisieren darin</strong>
+          <p>Wiederkehrende Schritte — Mails, Belege, Erinnerungen, Auswertungen — laufen im System automatisch mit.</p>
+        </div>
+        <div class="showcase-cap">
+          <strong>Wir bauen KI-Agenten ein</strong>
+          <p>Direkt im System: Texte vorbereiten, Unterlagen auslesen, Anfragen vorsortieren, Antworten vorschlagen.</p>
+        </div>
+        <div class="showcase-cap">
+          <strong>Wir bauen, was du brauchst</strong>
+          <p>Kommt im Betrieb etwas dazu, wird es gebaut. Das System richtet sich nach dir, nicht umgekehrt.</p>
+        </div>
+      </div>
+
+      <p class="showcase-note">
+        Beispielansichten aus einem gebauten System, mit anonymisierten
+        Daten und im Onyx-Erscheinungsbild. Dein System bekommt dein Logo,
+        deine Farben und deine Begriffe — und gehört nach der Übergabe
+        vollständig dir.
+      </p>
+
+      <div class="cta-row" style="margin-top:36px;">
+        <a class="btn btn-primary" href="#kontakt">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6h16v12H4z" fill="none"/>
+            <path d="m4 7 8 6 8-6"/>
+          </svg>
+          System für dein Unternehmen anfragen
+        </a>
       </div>
     </div>
   </section>
+
 
   <!-- KONTAKTFORMULAR MITTE -->
   <section class="cta-strip" id="kontakt-mitte">
