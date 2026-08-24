@@ -1258,7 +1258,7 @@ function enableMetaPixel(){
         <div class="showcase-item">
           <div class="showcase-screen">
           <div class="showcase-shot">
-            <div class="showcase-bar"><span></span><span></span><span></span><b>wertakte — Objekte</b></div>
+            <div class="showcase-bar"><span></span><span></span><span></span><b>Muster Immobilien — Objekte</b></div>
             <img src="assets/system-objekte.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="Objektübersicht des Systems mit Status, Kennzahlen und Ordnern">
           </div>
@@ -1269,7 +1269,7 @@ function enableMetaPixel(){
         <div class="showcase-item">
           <div class="showcase-screen">
           <div class="showcase-shot">
-            <div class="showcase-bar"><span></span><span></span><span></span><b>wertakte — Objektakte</b></div>
+            <div class="showcase-bar"><span></span><span></span><span></span><b>Muster Immobilien — Objektakte</b></div>
             <img src="assets/system-akte.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="Objektakte mit Erfassungsbogen, Kennzahlen und Prüfungen vor dem Versand">
           </div>
@@ -1280,7 +1280,7 @@ function enableMetaPixel(){
         <div class="showcase-item">
           <div class="showcase-screen">
           <div class="showcase-shot">
-            <div class="showcase-bar"><span></span><span></span><span></span><b>wertakte — Terminplan</b></div>
+            <div class="showcase-bar"><span></span><span></span><span></span><b>Muster Immobilien — Terminplan</b></div>
             <img src="assets/system-termine.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="Terminplan mit Monatskalender und Eskalationsstufen">
           </div>
@@ -1836,6 +1836,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   window.addEventListener('message', function (e) {
     if (!e.data || typeof e.data.event !== 'string' || e.data.event.indexOf('calendly.') !== 0) return;
+    // Lead: ein wirklich gebuchter Termin, kein blosser Klick. Calendly
+    // meldet event_scheduled erst nach abgeschlossener Buchung.
     if (e.data.event === 'calendly.event_scheduled' && typeof fbq === 'function') {
       fbq('track', 'Lead');
     }
