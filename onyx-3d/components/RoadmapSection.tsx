@@ -12,7 +12,7 @@ function Dot({ delay = 0 }: { delay?: number }) {
   return (
     <span
       aria-hidden
-      className="dot-glow"
+      className="dot-glow on-dark"
       style={{
         position: "relative",
         display: "block",
@@ -39,8 +39,8 @@ function Dot({ delay = 0 }: { delay?: number }) {
 function StepLabel({ label }: { label: string }) {
   return (
     <div
-      className="rounded-lg px-4 py-2.5"
-      style={{ border: "1px solid rgba(212, 175, 106,0.4)", background: "var(--near-black-2)", whiteSpace: "nowrap" }}
+      className="rounded-lg px-4 py-2.5 on-dark silver-rim"
+      style={{ border: "1px solid rgba(232, 163, 61,0.4)", background: "var(--near-black-2)", whiteSpace: "nowrap" }}
     >
       <span style={{ fontWeight: 700, fontSize: "0.92rem" }}>{label}</span>
     </div>
@@ -78,7 +78,7 @@ export default function RoadmapSection({ blatt }: { blatt?: string }) {
               right: 0,
               height: 2,
               background:
-                "linear-gradient(90deg, rgba(212, 175, 106,0.1), var(--amber) 12%, var(--amber) 88%, rgba(212, 175, 106,0.1))",
+                "linear-gradient(90deg, rgba(232, 163, 61,0.1), var(--amber) 12%, var(--amber) 88%, rgba(232, 163, 61,0.1))",
               transform: "translateY(-50%)",
             }}
           />
@@ -98,7 +98,7 @@ export default function RoadmapSection({ blatt }: { blatt?: string }) {
                     }}
                   >
                     <StepLabel label={s.label} />
-                    <div style={{ width: 1, height: 26, background: "rgba(212, 175, 106,0.5)" }} />
+                    <div style={{ width: 1, height: 26, background: "rgba(232, 163, 61,0.5)" }} />
                   </div>
                 )}
                 <Dot delay={i * 0.35} />
@@ -114,7 +114,7 @@ export default function RoadmapSection({ blatt }: { blatt?: string }) {
                       alignItems: "center",
                     }}
                   >
-                    <div style={{ width: 1, height: 26, background: "rgba(212, 175, 106,0.5)" }} />
+                    <div style={{ width: 1, height: 26, background: "rgba(232, 163, 61,0.5)" }} />
                     <StepLabel label={s.label} />
                   </div>
                 )}
@@ -130,7 +130,7 @@ export default function RoadmapSection({ blatt }: { blatt?: string }) {
               {i < steps.length - 1 && (
                 <div
                   aria-hidden
-                  style={{ position: "absolute", left: 9, top: 22, bottom: -10, width: 2, background: "rgba(212, 175, 106,0.4)" }}
+                  style={{ position: "absolute", left: 9, top: 22, bottom: -10, width: 2, background: "rgba(232, 163, 61,0.4)" }}
                 />
               )}
               <Dot delay={i * 0.35} />

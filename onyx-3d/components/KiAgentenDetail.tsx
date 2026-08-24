@@ -19,7 +19,7 @@ export default function KiAgentenDetail() {
               width={a.w}
               height={a.h}
               className="w-full h-auto block rounded-2xl"
-              style={{ maxWidth: 380, filter: "drop-shadow(0 0 40px rgba(212, 175, 106,0.35))" }}
+              style={{ maxWidth: 380, filter: "drop-shadow(0 0 40px rgba(203, 203, 201,0.32))" }}
             />
           </div>
         );
@@ -33,7 +33,7 @@ export default function KiAgentenDetail() {
                   height: 42,
                   background: "var(--amber-soft)",
                   color: "var(--amber)",
-                  border: "1px solid rgba(212, 175, 106,0.3)",
+                  border: "1px solid rgba(232, 163, 61,0.3)",
                 }}
               >
                 {a.icon}

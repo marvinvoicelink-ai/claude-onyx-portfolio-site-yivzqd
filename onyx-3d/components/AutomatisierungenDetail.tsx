@@ -8,7 +8,7 @@ export default function AutomatisierungenDetail() {
         <section key={a.slug} id={a.slug} className="py-10" style={{ scrollMarginTop: 96 }}>
           <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
             <div
-              className="rounded-2xl px-7 py-8 md:px-10 md:py-10"
+              className="rounded-2xl px-7 py-8 md:px-10 md:py-10 on-dark silver-rim"
               style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
             >
               <div className="flex items-center gap-3 mb-5">
@@ -19,7 +19,7 @@ export default function AutomatisierungenDetail() {
                     height: 42,
                     background: "var(--amber-soft)",
                     color: "var(--amber)",
-                    border: "1px solid rgba(212, 175, 106,0.3)",
+                    border: "1px solid rgba(232, 163, 61,0.3)",
                   }}
                 >
                   {a.icon}

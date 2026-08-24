@@ -59,7 +59,7 @@ export default async function BranchePage({
             href={`/downloads/branchen/${industry.slug}.pdf`}
             download
             className="inline-flex items-center gap-2.5 rounded-full px-5 py-2.5 mono"
-            style={{ fontSize: 13, color: "var(--amber)", border: "1px solid rgba(212, 175, 106,0.3)", background: "var(--amber-soft)" }}
+            style={{ fontSize: 13, color: "var(--amber)", border: "1px solid rgba(232, 163, 61,0.3)", background: "var(--amber-soft)" }}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={15} height={15}>
               <path d="M12 3v13m0 0-4-4m4 4 4-4M4 21h16" />
@@ -78,7 +78,7 @@ export default async function BranchePage({
             {industry.capabilities.map((c) => (
               <div
                 key={c}
-                className="flex items-start gap-3 rounded-xl px-5 py-4"
+                className="flex items-start gap-3 rounded-xl px-5 py-4 on-dark silver-rim"
                 style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
               >
                 <svg
@@ -126,7 +126,7 @@ export default async function BranchePage({
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div
-                    className="rounded-xl overflow-hidden flex-shrink-0 w-[72px] h-[52px] sm:w-[168px] sm:h-[118px]"
+                    className="rounded-xl overflow-hidden flex-shrink-0 w-[72px] h-[52px] sm:w-[168px] sm:h-[118px] on-dark silver-rim"
                     style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
                   >
                     <div className="relative w-full h-full">

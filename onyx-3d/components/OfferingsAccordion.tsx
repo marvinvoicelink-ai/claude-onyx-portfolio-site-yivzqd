@@ -32,7 +32,7 @@ export default function OfferingsAccordion({ blatt }: { blatt?: string }) {
         </p>
 
         <div
-          className="rounded-2xl overflow-hidden"
+          className="rounded-2xl overflow-hidden on-dark silver-glow"
           style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
         >
           {offerings.map((o, i) => {
@@ -49,7 +49,7 @@ export default function OfferingsAccordion({ blatt }: { blatt?: string }) {
                   aria-expanded={isOpen}
                   className="w-full flex items-center gap-4 px-5 py-5 sm:px-7 text-left"
                   style={{
-                    background: isOpen ? "rgba(212, 175, 106,0.06)" : "transparent",
+                    background: isOpen ? "rgba(232, 163, 61,0.06)" : "transparent",
                     transition: "background 0.2s ease",
                   }}
                 >
@@ -119,7 +119,7 @@ export default function OfferingsAccordion({ blatt }: { blatt?: string }) {
                       <Link
                         href={`/angebot/${o.slug}`}
                         className="inline-flex items-center gap-2 rounded-[10px] px-5 py-3 font-semibold btn-amber"
-                        style={{ background: "var(--amber)", color: "#161104", fontSize: 14.5 }}
+                        style={{ background: "var(--amber)", color: "#12141a", fontSize: 14.5 }}
                       >
                         {titlePlain} im Detail
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={14} height={14}>

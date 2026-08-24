@@ -57,7 +57,7 @@ export default function AutomatisierungenPage() {
         <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
           <div
             className="rounded-2xl px-7 py-7 md:px-10 md:py-8"
-            style={{ background: "var(--amber-soft)", border: "1px solid rgba(212, 175, 106,0.3)" }}
+            style={{ background: "var(--amber-soft)", border: "1px solid rgba(232, 163, 61,0.3)" }}
           >
             <h2 style={{ fontSize: "clamp(1.2rem, 2.4vw, 1.55rem)", marginBottom: 10 }}>
               Dein bestehendes System bleibt, wo es ist.

@@ -30,6 +30,51 @@ export default function ArbeitsweiseSection({ blatt }: { blatt?: string }) {
           weg. Am Ende gehört dir, was wir gebaut haben.
         </p>
 
+        {/* Teil 0: das Kernangebot. Stand bisher nirgends in diesem Blatt —
+            die Section begann mit KI-Agenten und Automatisierung, also mit
+            dem, was im System steckt, nie mit dem System selbst. */}
+        <div
+          className="rounded-2xl px-6 py-7 md:px-9 md:py-8 mb-10 on-dark silver-glow"
+          style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] gap-7 lg:gap-12 items-center">
+            <div>
+              <span
+                className="mono block mb-3"
+                style={{ fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
+              >
+                Das Kernstück
+              </span>
+              <h3 style={{ fontSize: "clamp(1.3rem, 2.4vw, 1.7rem)", marginBottom: 12, maxWidth: "22ch" }}>
+                Dein eigenes System, im White-Label gebaut.
+              </h3>
+              <p style={{ color: "var(--warm-grey-dim)", fontSize: "1rem", lineHeight: 1.7, maxWidth: "50ch", marginBottom: 20 }}>
+                Dashboards, Kundenportale, interne Tools: Wir bauen das System
+                nach deinem Ablauf statt nach einer Vorlage — und übergeben es
+                vollständig. Es läuft unter deiner Marke, nicht unter unserer.
+              </p>
+              <Link href="/angebot" className="mono inline-flex items-center gap-1.5" style={{ fontSize: 12.5, color: "var(--amber)" }}>
+                Alle sechs Bausteine ansehen →
+              </Link>
+            </div>
+
+            <div className="flex flex-col gap-3.5">
+              {[
+                "Quellcode, Zugänge und Dokumentation gehen an dich",
+                "Gehostet bei dir oder deinem Wunschanbieter — DSGVO-konform, mit AVV",
+                "Nach der Übergabe entscheidest du, wie es weitergeht",
+              ].map((point) => (
+                <div key={point} className="flex gap-3">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={17} height={17} style={{ flexShrink: 0, marginTop: 3 }}>
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                  <span style={{ color: "var(--warm-grey-dim)", fontSize: "0.97rem", lineHeight: 1.55 }}>{point}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* Teil 1: KI-Agenten */}
         <div className="mb-10">
           <div className="flex flex-wrap items-baseline justify-between gap-3 mb-5">
@@ -44,7 +89,7 @@ export default function ArbeitsweiseSection({ blatt }: { blatt?: string }) {
             {kiAgenten.map((agent) => (
               <div
                 key={agent.slug}
-                className="rounded-xl px-5 py-5"
+                className="rounded-xl px-5 py-5 on-dark silver-rim"
                 style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
               >
                 <div
@@ -62,7 +107,7 @@ export default function ArbeitsweiseSection({ blatt }: { blatt?: string }) {
 
         {/* Teil 2: Automatisierungen */}
         <div
-          className="rounded-2xl px-6 py-7 md:px-9 md:py-8 mb-10"
+          className="rounded-2xl px-6 py-7 md:px-9 md:py-8 mb-10 on-dark silver-glow"
           style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">

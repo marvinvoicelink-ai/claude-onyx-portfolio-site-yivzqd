@@ -18,7 +18,7 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
     const data = new FormData(form);
     if (data.get("bot-field")) return;
 
-    if (typeof window.fbq === "function") window.fbq("track", "Lead");
+    trackLead();
 
     const encoded = new URLSearchParams();
     data.forEach((value, key) => encoded.append(key, String(value)));
@@ -44,7 +44,7 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
   return (
     <section
       id="kontakt"
-      className="py-14"
+      className="py-14 on-dark silver-rim"
       style={{ background: "var(--near-black-2)" }}
     >
       <div className="mx-auto px-7" style={{ maxWidth: 720 }}>
@@ -89,7 +89,7 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
                   name={field}
                   required
                   autoComplete={field}
-                  className="w-full rounded-[10px] px-4 py-3"
+                  className="w-full rounded-[10px] px-4 py-3 on-dark"
                   style={{
                     background: "var(--near-black)",
                     border: "1px solid var(--hairline)",
@@ -109,7 +109,7 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
               name="message"
               rows={4}
               required
-              className="w-full rounded-[10px] px-4 py-3"
+              className="w-full rounded-[10px] px-4 py-3 on-dark"
               style={{
                 background: "var(--near-black)",
                 border: "1px solid var(--hairline)",
@@ -122,11 +122,14 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
 
           <button
             type="submit"
+            /* Beim Klick, nicht erst beim erfolgreichen Absenden: sonst
+               verschluckt die Pflichtfeldpruefung des Browsers das Event. */
+            onClick={trackLead}
             disabled={status === "sending"}
             className="w-full rounded-[10px] py-4 font-semibold btn-amber"
             style={{
               background: "var(--amber)",
-              color: "#161104",
+              color: "#12141a",
               fontSize: 15.5,
               opacity: status === "sending" ? 0.6 : 1,
             }}

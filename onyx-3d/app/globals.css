@@ -1,18 +1,58 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+ * Farbtokens — durchgehend dunkler Grund
+ *
+ * Die Klasse .on-dark aus dem hellen Zwischenstand bleibt bestehen: sie
+ * setzt dieselben Werte noch einmal und ist damit wirkungslos, aber sie
+ * markiert weiterhin die dunklen Flaechen. Wer spaeter wieder auf hell
+ * umstellen will, aendert nur die Werte hier in :root.
+ * ------------------------------------------------------------------------ */
 :root {
   --near-black: #111111;
   --near-black-2: #161616;
-  /* Champagner-Gold aus dem aktuellen Onyx-Logo. Die Variable heisst weiter
-     --amber, damit die rund 170 Verwendungen im Projekt unveraendert bleiben. */
-  --amber: #d4af6a;
-  --amber-soft: rgba(212, 175, 106, 0.14);
-  /* Zweiter Ton aus dem Logo, fuer silberne Akzente verfuegbar. */
-  --silver: #c8ccd2;
+
+  /* Akzent- und CTA-Farbe auf dunklem Grund */
+  --amber: #e8a33d;
+  --amber-soft: rgba(232, 163, 61, 0.14);
+  /* Gleicher Ton; die Variable bleibt, weil Skip-Link und .btn-amber sie
+     benutzen. Auf dunklem Grund gibt es keinen Unterschied mehr. */
+  --amber-bright: #e8a33d;
+
+  /* Silber aus dem Logo — neutralgrau, kein Blaustich. Nur fuer Leuchten:
+     Kartenraender, Bild-Halos, Section-Schein. Nie fuer Text. */
+  --silver: #cbcbc9;
+  --silver-glow: rgba(203, 203, 201, 0.34);
+  --silver-line: rgba(203, 203, 201, 0.34);
+
+  /* Text auf dunklem Grund */
   --warm-grey: #f5f2ec;
   --warm-grey-dim: rgba(245, 242, 236, 0.72);
   --warm-grey-faint: rgba(245, 242, 236, 0.55);
-  --hairline: rgba(245, 242, 236, 0.12);
+  --hairline: rgba(203, 203, 201, 0.26);
+
+  /* Feste helle Flaeche fuer die Stellen, die bewusst hell sind
+     (Referenz-Cases, Logo-Kacheln, die Karte im Abschlussblock). */
+  --plate-light: #f5f2ec;
+}
+
+/* Dunkle Flaeche. Auf dem jetzt durchgehend dunklen Grund identisch mit
+   :root — bleibt als Markierung stehen. */
+.on-dark {
+  --amber: #e8a33d;
+  --amber-soft: rgba(232, 163, 61, 0.14);
+  --warm-grey: #ffffff;
+  --warm-grey-dim: rgba(255, 255, 255, 0.74);
+  --warm-grey-faint: rgba(255, 255, 255, 0.58);
+  /* Silberne statt warmweisse Kante an Karten und Trennern. */
+  --hairline: rgba(203, 203, 201, 0.4);
+  color: var(--warm-grey);
+}
+
+.on-dark h1,
+.on-dark h2,
+.on-dark h3 {
+  color: var(--warm-grey);
 }
 
 * {
@@ -59,6 +99,9 @@ h3 {
   font-family: var(--font-archivo), sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
+  /* Ohne eigenen Wert erben Ueberschriften die 1.6 vom Body — bei 2.6rem
+     reisst das zweizeilige Headlines sichtbar auseinander. */
+  line-height: 1.18;
   color: var(--warm-grey);
 }
 
@@ -96,7 +139,7 @@ a {
   left: 12px;
   top: -60px;
   z-index: 100;
-  background: var(--amber);
+  background: var(--amber-bright);
   color: #161104;
   font-weight: 600;
   padding: 10px 18px;
@@ -143,7 +186,7 @@ a {
 }
 
 .nav-dropdown-row:hover {
-  background: rgba(212, 175, 106, 0.1);
+  background: rgba(232, 163, 61, 0.1);
   color: var(--amber) !important;
 }
 
@@ -184,7 +227,7 @@ a {
 }
 
 .btn-ghost:hover {
-  border-color: rgba(212, 175, 106, 0.5);
+  border-color: rgba(232, 163, 61, 0.5);
   background: rgba(245, 242, 236, 0.04);
   transform: translateY(-1px);
 }
@@ -220,10 +263,10 @@ a {
 @keyframes dot-glow {
   0%,
   100% {
-    box-shadow: 0 0 10px 2px rgba(212, 175, 106, 0.55), 0 0 22px 6px rgba(212, 175, 106, 0.22);
+    box-shadow: 0 0 10px 2px rgba(232, 163, 61, 0.55), 0 0 22px 6px rgba(232, 163, 61, 0.22);
   }
   50% {
-    box-shadow: 0 0 20px 6px rgba(212, 175, 106, 1), 0 0 54px 18px rgba(212, 175, 106, 0.65);
+    box-shadow: 0 0 20px 6px rgba(232, 163, 61, 1), 0 0 54px 18px rgba(232, 163, 61, 0.65);
   }
 }
 
@@ -299,7 +342,7 @@ a {
 
 .alive-hover-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(212, 175, 106, 0.4);
+  border-color: rgba(232, 163, 61, 0.4);
   box-shadow: 0 14px 32px -12px rgba(0, 0, 0, 0.5);
 }
 
@@ -361,24 +404,24 @@ a {
 @keyframes logo-glow-pulse {
   0%,
   100% {
-    filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(212, 175, 106, 0.35));
+    filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(203, 203, 201, 0.35));
     opacity: 0.78;
   }
   50% {
-    filter: drop-shadow(0 0 18px rgba(212, 175, 106, 0.85));
+    filter: drop-shadow(0 0 18px rgba(203, 203, 201, 0.85));
     opacity: 1;
   }
 }
 
 .logo-flat {
-  filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(212, 175, 106, 0.35));
+  filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(203, 203, 201, 0.35));
   opacity: 0.78;
   transition: opacity 0.3s ease, filter 0.3s ease;
   animation: logo-glow-pulse 5s ease-in-out infinite;
 }
 
 .logo-flat:hover {
-  filter: drop-shadow(0 0 16px rgba(212, 175, 106, 0.8));
+  filter: drop-shadow(0 0 16px rgba(203, 203, 201, 0.8));
   opacity: 1;
   animation-play-state: paused;
 }
@@ -386,7 +429,7 @@ a {
 @media (prefers-reduced-motion: reduce) {
   .logo-flat {
     animation: none;
-    filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(212, 175, 106, 0.4));
+    filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(203, 203, 201, 0.4));
     opacity: 0.85;
   }
 }
@@ -415,19 +458,19 @@ a {
   0%,
   100% {
     box-shadow:
-      0 -1px 10px 0 rgba(212, 175, 106, 0.25),
-      0 1px 10px 0 rgba(212, 175, 106, 0.25);
+      0 -1px 10px 0 rgba(203, 203, 201, 0.25),
+      0 1px 10px 0 rgba(203, 203, 201, 0.25);
   }
   50% {
     box-shadow:
-      0 -1px 22px 2px rgba(212, 175, 106, 0.55),
-      0 1px 22px 2px rgba(212, 175, 106, 0.55);
+      0 -1px 22px 2px rgba(203, 203, 201, 0.55),
+      0 1px 22px 2px rgba(203, 203, 201, 0.55);
   }
 }
 
 .marquee-border-glow {
-  border-top: 1px solid rgba(212, 175, 106, 0.4);
-  border-bottom: 1px solid rgba(212, 175, 106, 0.4);
+  border-top: 1px solid rgba(203, 203, 201, 0.4);
+  border-bottom: 1px solid rgba(203, 203, 201, 0.4);
   animation: marquee-border-glow 5s ease-in-out infinite;
 }
 
@@ -435,8 +478,8 @@ a {
   .marquee-border-glow {
     animation: none;
     box-shadow:
-      0 -1px 14px 0 rgba(212, 175, 106, 0.35),
-      0 1px 14px 0 rgba(212, 175, 106, 0.35);
+      0 -1px 14px 0 rgba(203, 203, 201, 0.35),
+      0 1px 14px 0 rgba(203, 203, 201, 0.35);
   }
 }
 
@@ -453,7 +496,7 @@ a {
 .alive-logo-card:hover {
   transform: translateZ(60px) scale(1.1);
   box-shadow: 0 30px 55px -18px rgba(0, 0, 0, 0.65);
-  border-color: rgba(212, 175, 106, 0.5) !important;
+  border-color: rgba(232, 163, 61, 0.5) !important;
   z-index: 5;
 }
 
@@ -466,19 +509,19 @@ a {
 @keyframes chip-glow {
   0%,
   100% {
-    border-color: rgba(212, 175, 106, 0.35);
+    border-color: rgba(232, 163, 61, 0.35);
     color: var(--warm-grey);
     box-shadow: none;
     background: transparent;
   }
   35%,
   65% {
-    border-color: rgba(212, 175, 106, 0.95);
+    border-color: rgba(232, 163, 61, 0.95);
     color: var(--amber);
-    background: rgba(212, 175, 106, 0.1);
+    background: rgba(232, 163, 61, 0.1);
     box-shadow:
-      0 0 12px 2px rgba(212, 175, 106, 0.8),
-      0 0 48px 10px rgba(212, 175, 106, 0.5);
+      0 0 12px 2px rgba(232, 163, 61, 0.8),
+      0 0 48px 10px rgba(232, 163, 61, 0.5);
   }
 }
 
@@ -494,7 +537,7 @@ a {
   }
   .chip-glow {
     animation: none;
-    border-color: rgba(212, 175, 106, 0.4) !important;
+    border-color: rgba(232, 163, 61, 0.4) !important;
     color: var(--warm-grey) !important;
   }
 }
@@ -534,7 +577,7 @@ a {
 
 .legal-content a {
   color: var(--amber);
-  border-bottom: 1px solid rgba(212, 175, 106, 0.3);
+  border-bottom: 1px solid rgba(232, 163, 61, 0.3);
   transition: border-color 0.2s ease;
 }
 
@@ -655,4 +698,129 @@ a {
 }
 .diff-mark:hover > div {
   color: var(--amber);
+}
+
+/* ---------------------------------------------------------------------------
+ * Zentrierte Section-Koepfe
+ *
+ * Statt in ~40 Dateien einzeln text-center zu setzen, greifen drei Regeln
+ * genau den Kopf einer Section: den Kicker direkt vor der Ueberschrift, die
+ * Ueberschrift selbst und den Einleitungsabsatz direkt danach. Fliesstext,
+ * Listen und Karteninhalte bleiben bewusst linksbuendig — zentrierte
+ * Mehrzeiler mit wechselnder Zeilenlaenge liest niemand gern.
+ * ------------------------------------------------------------------------ */
+main h1,
+main h2 {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Einleitungsabsatz direkt unter der Ueberschrift */
+main h1 + p,
+main h2 + p {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Kicker, dessen naechstes Geschwister die Ueberschrift ist */
+main span:has(+ h1),
+main span:has(+ h2),
+main div:has(+ h1),
+main div:has(+ h2) {
+  display: flex;
+  justify-content: center;
+}
+
+
+/* Gefuellte Amber-Buttons tragen immer den hellen Goldton: auf dem hellen
+   Grund waere var(--amber) das dunkle Gold, und dunkle Schrift darauf faellt
+   unter den Mindestkontrast. Als Flaeche funktioniert Amber auf beiden
+   Untergruenden. Inline-Styles setzen background, deshalb !important. */
+.btn-amber {
+  background: var(--amber-bright) !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * Pulsierender Silberschimmer um die Karten
+ *
+ * Auf dunklem Grund braucht es die dunkle Zwischenlage nicht mehr — die
+ * Karte steht ohnehin auf Schwarz. Bleibt der helle Saum an der Kante und
+ * der Halo, der ins Dunkel auslaeuft.
+ *
+ * Bewusst kein Pseudo-Element: das Akkordeon in Blatt 01 hat
+ * overflow:hidden und wuerde es abschneiden. Der lange Zyklus von 5s haelt
+ * die Repaint-Last niedrig.
+ * ------------------------------------------------------------------------ */
+@keyframes card-silver-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(203, 203, 201, 0.28),
+      0 0 16px 1px rgba(203, 203, 201, 0.2),
+      0 0 60px 8px rgba(203, 203, 201, 0.12),
+      0 26px 60px -34px rgba(0, 0, 0, 0.85);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(231, 231, 229, 0.6),
+      0 0 26px 3px rgba(216, 216, 214, 0.45),
+      0 0 90px 16px rgba(203, 203, 201, 0.3),
+      0 26px 60px -34px rgba(0, 0, 0, 0.85);
+  }
+}
+
+.silver-glow {
+  border: 1px solid var(--silver-line);
+  animation: card-silver-pulse 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .silver-glow {
+    animation: none;
+    box-shadow:
+      0 0 0 1px rgba(216, 216, 214, 0.42),
+      0 0 22px 2px rgba(210, 210, 208, 0.3),
+      0 0 74px 12px rgba(203, 203, 201, 0.2),
+      0 26px 60px -34px rgba(0, 0, 0, 0.85);
+  }
+}
+
+
+/* ---------------------------------------------------------------------------
+ * Silberkante an den einzelnen Karten
+ *
+ * Nicht nur die grossen Bloecke (.silver-glow), sondern jede Karte bekommt
+ * einen leisen Silbersaum: ein Innenring auf der Kante und ein kurzer
+ * Schein nach aussen. Bewusst schwach — bei ueber dreissig Karten auf der
+ * Startseite wird aus "leuchtet" sonst schnell "flimmert".
+ * ------------------------------------------------------------------------ */
+.silver-rim {
+  box-shadow:
+    inset 0 0 0 1px rgba(224, 224, 222, 0.26),
+    0 0 0 1px rgba(203, 203, 201, 0.16),
+    0 0 24px -2px rgba(210, 210, 208, 0.5),
+    0 0 60px 2px rgba(203, 203, 201, 0.26);
+}
+
+/* ---------------------------------------------------------------------------
+ * Silber in der Kopfzeile
+ *
+ * Die Leiste steht auf dem dunklen Grund ohne eigene Kante. Eine silberne
+ * Unterkante plus ein feiner Schein darunter trennt sie sichtbar vom
+ * Inhalt, und das Logo bekommt denselben Ton als Halo.
+ * ------------------------------------------------------------------------ */
+.nav-silver {
+  border-bottom: 1px solid rgba(203, 203, 201, 0.22);
+  box-shadow: 0 1px 24px -6px rgba(203, 203, 201, 0.3);
+}
+
+.nav-silver .nav-logo-link img {
+  filter: drop-shadow(0 0 14px rgba(203, 203, 201, 0.4));
+  transition: filter 0.3s ease;
+}
+
+.nav-silver .nav-logo-link:hover img {
+  filter: drop-shadow(0 0 22px rgba(216, 216, 214, 0.65));
 }

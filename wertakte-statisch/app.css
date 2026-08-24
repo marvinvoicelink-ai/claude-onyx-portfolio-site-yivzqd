@@ -1,0 +1,656 @@
+/* Ergaenzungen zum Onyx-Designsystem, nur was diese Anwendung zusaetzlich
+   braucht. Farben kommen ausnahmslos aus onyx-dunkel.css. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Grundgroesse etwas ueber dem Browser-Standard: alles ist in rem gerechnet,
+   deshalb waechst mit dieser Zeile die ganze Oberflaeche mit. „Große Schrift“
+   im Kopf schaltet auf die zweite Stufe. */
+html { font-size: 17px; }
+html.gross { font-size: 20px; }
+@media (max-width: 480px) { html { font-size: 16.5px; } html.gross { font-size: 18.5px; } }
+
+body { margin: 0; min-height: 100dvh; }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+/* Knopfklassen bestimmen ihre Textfarbe selbst, auch wenn der Knopf ein <a>
+   ist. Ohne diese Zeilen gewinnt die Regel darueber, weil die Komponenten im
+   Layer „components“ liegen und diese hier nicht — dann steht heller Text
+   auf der Akzentflaeche. */
+a.onyx-knopf-primaer { color: var(--onyx-auf-amber); }
+a.onyx-knopf-leise { color: var(--onyx-text); }
+a.onyx-knopf-klar { color: var(--onyx-text-leise); }
+a.onyx-knopf-klar:hover { color: var(--onyx-text); }
+a.onyx-knopf-gefahr { color: var(--onyx-warn); }
+/* Kein pauschaler Reset auf "button": diese Datei liegt ausserhalb der
+   Layer und wuerde damit die Flaechen und Textfarben des Designsystems
+   ueberschreiben. Schlichte Knoepfe bekommen ihre Werte einzeln. */
+button { cursor: pointer; }
+h1 { font-size: clamp(1.5rem, 1.2rem + 1vw, 1.75rem); margin: 0; }
+h2 { font-size: 1.0625rem; margin: 0; }
+p { margin: 0; }
+ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
+
+.laedt { padding: 4rem 1.5rem; text-align: center; color: var(--onyx-text-leise); }
+.nur-sr {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* --- Geruest ---------------------------------------------------------- */
+.huelle { min-height: 100dvh; }
+.fenster { min-height: 100dvh; display: flex; overflow: hidden; }
+.strang { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.kopf {
+  position: sticky; top: 0; z-index: 30; height: 3.5rem;
+  display: flex; align-items: center; gap: .75rem;
+  padding: 0 1rem; background: var(--onyx-grund);
+  border-bottom: 1px solid var(--onyx-kontur);
+}
+.inhalt { flex: 1; padding: 0 1rem 6rem; }
+.rail-huelle { display: none; }
+
+@media (min-width: 768px) {
+  .huelle { padding: 1rem; }
+  .fenster { min-height: calc(100dvh - 2rem); }
+  .kopf { height: 4rem; padding: 0 1.5rem; }
+  .inhalt { padding: 0 1.5rem 2.5rem; }
+  .rail-huelle { display: block; flex: none; }
+  .rail-inhalt {
+    position: sticky; top: 0; height: 100dvh;
+    display: flex; flex-direction: column; align-items: center; gap: 1.5rem; padding: 1rem 0;
+  }
+}
+@media (min-width: 1024px) { .huelle { padding: 1.25rem; } .inhalt { padding: 0 2rem 2.5rem; } }
+
+.marke-w {
+  display: grid; place-items: center; width: 2.5rem; height: 2.5rem;
+  border: 1px solid var(--onyx-kontur-stark); border-radius: var(--onyx-radius-klein);
+  color: var(--onyx-amber); font-family: var(--onyx-schrift-mono); font-size: .9375rem;
+}
+.wortmarke { font-family: var(--onyx-schrift-mono); font-size: .75rem; letter-spacing: .26em; text-transform: uppercase; }
+.kopf-suche { flex: 1; min-width: 0; display: flex; justify-content: center; }
+.kopf-suche > div { position: relative; width: 100%; max-width: 26rem; }
+.kopf-suche svg { position: absolute; left: .85rem; top: 50%; transform: translateY(-50%); pointer-events: none; }
+.kopf-werkzeuge { display: flex; align-items: center; gap: .35rem; flex: none; }
+.rund-knopf {
+  display: grid; place-items: center; width: 2.25rem; height: 2.25rem;
+  border-radius: var(--onyx-radius-klein); color: var(--onyx-text-leise); position: relative;
+  background: transparent; border: 0; font: inherit;
+}
+.rund-knopf:hover { color: var(--onyx-text); background: var(--onyx-amber-flaeche); }
+.zaehler {
+  position: absolute; top: .2rem; right: .2rem; min-width: 15px; height: 15px; padding: 0 3px;
+  display: grid; place-items: center; border-radius: 999px;
+  background: var(--onyx-warn); color: var(--onyx-grund-tief);
+  font-family: var(--onyx-schrift-mono); font-size: .6rem;
+}
+.kuerzel {
+  display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 999px;
+  background: var(--onyx-amber-flaeche); border: 1px solid var(--onyx-kontur-stark);
+  color: var(--onyx-amber); font-family: var(--onyx-schrift-mono); font-size: .75rem;
+}
+.nutzer-name { display: none; font-size: .8125rem; color: var(--onyx-text-leise); }
+@media (min-width: 1024px) { .nutzer-name { display: block; } }
+
+.fuss-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 30;
+  background: var(--onyx-grund); border-top: 1px solid var(--onyx-kontur);
+  padding-bottom: env(safe-area-inset-bottom);
+  display: grid; grid-template-columns: repeat(4, 1fr);
+}
+.fuss-nav a { font-size: .66rem; }
+@media (min-width: 768px) { .fuss-nav { display: none; } }
+.fuss-nav a {
+  display: flex; flex-direction: column; align-items: center; gap: .25rem;
+  padding: .6rem 0; font-size: .69rem; color: var(--onyx-text-still);
+}
+.fuss-nav a[aria-current] { color: var(--onyx-amber); }
+
+/* Hinweis „aufs Handy legen“. Sitzt ueber der Fussleiste, damit er die
+   Bereiche nicht verdeckt, und laesst sich wegtippen. */
+.app-leiste {
+  position: fixed; left: .75rem; right: .75rem; z-index: 40;
+  bottom: calc(4.4rem + env(safe-area-inset-bottom));
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: .8rem .9rem;
+  background: var(--onyx-flaeche-hoch); border: 1px solid var(--onyx-kontur-stark);
+  border-radius: var(--onyx-radius); box-shadow: 0 12px 34px rgb(var(--onyx-tief-rgb) / .55);
+}
+.app-leiste p:first-child { font-size: .875rem; }
+.app-leiste-knoepfe { display: flex; align-items: center; gap: .5rem; flex: none; }
+.app-leiste .onyx-knopf { font-size: .8125rem; padding: .45rem .75rem; }
+@media (min-width: 768px) {
+  .app-leiste { left: auto; right: 1.25rem; bottom: 1.25rem; max-width: 25rem; }
+}
+
+/* --- Wiederkehrendes -------------------------------------------------- */
+.kopfzeile-seite {
+  display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
+  gap: 1rem; padding: 1.5rem 0 1.75rem;
+}
+.zurueck { display: inline-flex; align-items: center; gap: .4rem; font-size: .8125rem; color: var(--onyx-text-leise); padding-top: 1.5rem; }
+.zurueck:hover { color: var(--onyx-amber); }
+.leise { color: var(--onyx-text-leise); }
+.still { color: var(--onyx-text-still); }
+.amber { color: var(--onyx-amber); }
+.warn { color: var(--onyx-warn); }
+.mono { font-family: var(--onyx-schrift-mono); font-variant-numeric: tabular-nums; }
+.klein { font-size: .8125rem; }
+.mini { font-size: .75rem; }
+.kacheln-reihe { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; }
+@media (min-width: 1280px) { .kacheln-reihe { grid-template-columns: repeat(4, 1fr); } }
+.spalten { display: grid; gap: 2.25rem; padding: 2.25rem 0; }
+@media (min-width: 1024px) { .spalten { grid-template-columns: 7fr 5fr; gap: 2.5rem; } }
+.abschnitt-kopf { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+
+.zeile-link { display: flex; align-items: center; gap: 1rem; padding: .875rem .5rem; margin: 0 -.5rem; border-radius: var(--onyx-radius-klein); }
+.balken-links { width: 3px; align-self: stretch; border-radius: 999px; background: var(--onyx-kontur-stark); }
+.balken-links.ist-warn { background: var(--onyx-warn); }
+.balken-links.ist-bald { background: var(--onyx-amber); }
+.wachsen { flex: 1; min-width: 0; }
+.kuerzen { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.termin-tag {
+  flex: none; width: 3.6rem; text-align: center; padding: .5rem .25rem;
+  background: var(--onyx-amber); color: var(--onyx-auf-amber); border-radius: var(--onyx-radius-klein);
+}
+.hinweis {
+  display: flex; gap: .65rem; padding: 1rem; border-radius: var(--onyx-radius);
+  background: var(--onyx-amber-flaeche); border: 1px solid var(--onyx-kontur);
+  font-size: .8125rem; line-height: 1.65; color: var(--onyx-text-leise);
+}
+
+/* --- Objektliste ------------------------------------------------------ */
+.werkzeugleiste {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .75rem;
+  padding-bottom: 1.25rem; border-bottom: 1px solid var(--onyx-kontur-leise);
+}
+.filter { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; flex: 1; }
+.umschalter { display: flex; gap: .15rem; padding: .15rem; border: 1px solid var(--onyx-kontur-stark); border-radius: var(--onyx-radius-klein); }
+.umschalter a { display: flex; align-items: center; gap: .4rem; padding: .35rem .6rem; border-radius: 4px; font-size: .8125rem; color: var(--onyx-text-leise); }
+.umschalter a[aria-current] { background: var(--onyx-amber); color: var(--onyx-auf-amber); }
+
+.register-kopf { display: none; }
+@media (min-width: 1024px) {
+  .register-kopf, .register-zeile { display: grid; grid-template-columns: 7.5rem minmax(0,1fr) 11rem 7rem 8rem 9.5rem; gap: 1rem; align-items: center; }
+  .register-kopf { padding: 0 .5rem .6rem; border-bottom: 1px solid var(--onyx-kontur-stark); }
+  /* Rechts steht der Foto-Knopf ausserhalb der Zeile. Die Kopfzeile haelt
+     denselben Platz frei, damit die Spalten untereinander bleiben. */
+  .zeile-mit-kamera > .zeilen-kamera { width: 5.75rem; justify-content: center; }
+  .register-kopf { padding-right: 7rem; }
+}
+.register-zeile { display: grid; gap: .35rem; padding: .875rem .5rem; margin: 0 -.5rem; border-radius: var(--onyx-radius-klein); }
+
+.kachel-gitter { display: grid; gap: 1.25rem; padding: 1.5rem 0; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .kachel-gitter { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1280px) { .kachel-gitter { grid-template-columns: repeat(3, 1fr); } }
+/* Als <span> im <a> geschrieben, deshalb hier ausdruecklich ein Block:
+   sonst greifen weder Seitenverhaeltnis noch die Marken darin. */
+.kachel-bild { display: block; position: relative; aspect-ratio: 4/3; background: var(--onyx-flaeche-hoch); overflow: hidden; }
+.kachel-bild img { width: 100%; height: 100%; object-fit: cover; }
+/* Foto-Knopf an jeder Objektzeile und auf jeder Kachel. Kein pauschaler
+   button-Reset im Projekt: Grund, Rahmen, Farbe und Schrift stehen hier. */
+.zeilen-kamera {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .5rem .7rem; border-radius: var(--onyx-radius-klein);
+  background: var(--onyx-flaeche-hoch); border: 1px solid var(--onyx-kontur);
+  color: var(--onyx-text); font: inherit; font-size: .8125rem; line-height: 1;
+  cursor: pointer; white-space: nowrap;
+}
+.zeilen-kamera:hover { border-color: var(--onyx-amber); color: var(--onyx-amber); }
+.zeile-mit-kamera { display: flex; align-items: center; gap: .75rem; }
+.zeile-mit-kamera > .register-zeile { flex: 1; min-width: 0; }
+.kachel-halter { position: relative; }
+.zeilen-kamera.auf-bild {
+  position: absolute; z-index: 2; top: .6rem; right: .6rem;
+  background: rgb(var(--onyx-tief-rgb) / .82);
+}
+
+.bild-marke { position: absolute; padding: .2rem .45rem; background: rgb(var(--onyx-tief-rgb) / .85); font-family: var(--onyx-schrift-mono); font-size: .69rem; }
+
+/* --- Rechenwerte -------------------------------------------------------- */
+/* Was das System selbst rechnet, steht in dieser Karte — im Anlegen-Formular
+   und in Reiter 1 der Akte. */
+.rechenkarte { padding: .35rem 1.1rem; }
+.rechenkarte.ist-leer { padding: .9rem 1.1rem; }
+.rechenzeile {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  padding: .6rem 0; border-bottom: 1px solid var(--onyx-kontur-leise);
+}
+.rechenzeile:last-child { border-bottom: 0; }
+.rechen-trenner { height: 1px; margin: .35rem 0; background: var(--onyx-kontur); }
+.ci-wahl { display: grid; gap: .6rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+.ci-feld {
+  display: flex; align-items: center; gap: .8rem; text-align: left;
+  padding: .8rem .9rem; border-radius: var(--onyx-radius-klein);
+  background: var(--onyx-flaeche-hoch); border: 1px solid var(--onyx-kontur);
+  color: var(--onyx-text); font: inherit; cursor: pointer;
+}
+.ci-feld:hover { border-color: var(--onyx-amber); }
+.ci-feld.ist-an { border-color: var(--onyx-amber); background: var(--onyx-amber-flaeche); }
+.ci-punkte { display: flex; flex: none; }
+.ci-punkt { width: 1.1rem; height: 1.1rem; border-radius: 999px; border: 1px solid var(--onyx-kontur-stark); }
+.ci-punkt + .ci-punkt { margin-left: -.4rem; }
+
+.satz-gitter { display: grid; gap: .75rem 1rem; margin-top: .75rem; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); }
+
+/* --- Akte -------------------------------------------------------------- */
+.akte-kopf { padding-bottom: 1.5rem; border-bottom: 1px solid var(--onyx-kontur-leise); }
+.akte-kopf-reihe { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 1rem 2rem; }
+.akte-werte { display: flex; flex-wrap: wrap; gap: .75rem 2rem; }
+.akte-aktionen { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; justify-content: space-between; padding-top: 1.5rem; }
+.status-gruppe { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.akte-spalten { display: grid; gap: 2.25rem; padding: 2rem 0; }
+@media (min-width: 1024px) { .akte-spalten { grid-template-columns: 5fr 7fr; gap: 2.5rem; } .akte-spalten > .fotos { order: 2; } .akte-spalten > .angaben { order: 1; } }
+.angaben-gitter { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--onyx-kontur-leise); }
+.weit { grid-column: 1 / -1; }
+.foto-gitter { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; align-items: start; }
+@media (min-width: 1024px) { .foto-gitter { grid-template-columns: repeat(3, 1fr); } }
+.foto-karte { width: 100%; text-align: left; overflow: hidden; font: inherit; color: inherit; }
+.foto-karte .bild { position: relative; aspect-ratio: 4/3; background: var(--onyx-flaeche-hoch); }
+.foto-karte .bild img { width: 100%; height: 100%; object-fit: cover; }
+.foto-text { padding: .5rem .6rem; font-size: .8125rem; line-height: 1.4; }
+.zwei-zeilen { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; hyphens: auto; overflow-wrap: anywhere; }
+.aufnahme-knoepfe { display: grid; gap: .6rem; }
+@media (min-width: 640px) { .aufnahme-knoepfe { grid-template-columns: 1fr auto; } }
+textarea.onyx-feld { resize: vertical; line-height: 1.65; }
+
+/* --- Grossansicht ------------------------------------------------------ */
+.schleier { position: fixed; inset: 0; z-index: 50; background: rgb(var(--onyx-tief-rgb) / .92); overflow-y: auto; padding: .75rem; }
+@media (min-width: 640px) { .schleier { padding: 1.5rem; } }
+.dialog { max-width: 56rem; margin: 0 auto; overflow: hidden; background: var(--onyx-grund); }
+.dialog-kopf { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1rem; padding: .6rem 1rem; border-bottom: 1px solid var(--onyx-kontur); }
+.dialog-kopf > :first-child { flex: 1 1 10rem; min-width: 0; }
+.dialog-kopf button { background: transparent; border: 0; font: inherit; color: var(--onyx-text-leise); }
+.dialog-kopf button:hover { color: var(--onyx-text); }
+.dialog-bild { background: var(--onyx-grund-tief); }
+.dialog-bild img { width: 100%; max-height: 55dvh; object-fit: contain; }
+.dialog-koerper { display: grid; gap: 1rem; padding: 1rem; }
+@media (min-width: 640px) { .dialog-koerper { padding: 1.25rem; } }
+
+/* --- Formular ----------------------------------------------------------- */
+.formular { display: grid; gap: 2.25rem; padding: 2rem 0; max-width: 48rem; }
+.feld-gruppe { display: grid; gap: .5rem; }
+.feld-paar { display: grid; gap: 1.25rem; }
+@media (min-width: 640px) { .feld-paar { grid-template-columns: 1fr 1fr; } .feld-paar.schmal-breit { grid-template-columns: 9rem 1fr; } }
+.formular-abschnitt { display: grid; gap: 1.25rem; }
+.formular-abschnitt > h2 { padding-bottom: .5rem; border-bottom: 1px solid var(--onyx-kontur-leise); }
+
+/* --- Gutachten-Entwurf: bleibt Papier ----------------------------------- */
+.blatt {
+  width: 100%; max-width: 210mm; margin: 0 auto;
+  background: #FBF9F4; color: #1E211F; font-family: var(--onyx-schrift-akte);
+  border-radius: var(--onyx-radius); padding: 2.5rem 1.25rem;
+  box-shadow: 0 0 0 1px rgb(var(--onyx-akzent-rgb) / .25), 0 18px 60px rgb(var(--onyx-tief-rgb) / .55);
+}
+@media (min-width: 640px) { .blatt { padding: 3rem 3.5rem; } }
+.blatt h2, .blatt h3 { font-family: var(--onyx-schrift-akte); }
+.blatt .sans { font-family: var(--onyx-schrift-text); }
+.blatt .mono { font-family: var(--onyx-schrift-mono); }
+.blatt-kopf { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 1.5rem; padding-bottom: 1.25rem; border-bottom: 2px solid #1E211F; }
+.briefkopf-marke { max-width: 24rem; }
+/* Das Zeichen des Buros steht auf jedem Blatt, auch im Ausdruck. */
+.briefkopf-zeichen { display: block; width: 12.5rem; height: auto; margin-bottom: .5rem; }
+@media print { .briefkopf-zeichen { width: 58mm; } }
+.blatt-deckel { padding: 3rem 0 2.5rem; text-align: center; }
+.blatt-daten { display: grid; gap: .75rem 2.5rem; padding: 1.25rem 0; border-top: 1px solid #D5CFC2; border-bottom: 1px solid #D5CFC2; font-size: .84375rem; }
+@media (min-width: 640px) { .blatt-daten { grid-template-columns: 1fr 1fr; } }
+.blatt-daten > div { display: flex; gap: .75rem; }
+.blatt-daten dt { width: 11rem; flex: none; color: #5F584E; }
+.blatt-abschnitt { margin-top: 2.25rem; }
+.blatt-abschnitt > h3 { display: flex; gap: .75rem; align-items: baseline; font-size: .96875rem; font-weight: 600; padding-bottom: .35rem; border-bottom: 1px solid #D5CFC2; }
+.blatt-abschnitt > h3 .nr { font-family: var(--onyx-schrift-mono); font-size: .8125rem; color: #7A7266; }
+.blatt p { font-size: .84375rem; line-height: 1.7; }
+.platzhalter { margin-top: .75rem; padding: .25rem 0 .25rem 1rem; border-left: 2px solid #B9B2A3; font-style: italic; color: #6C6459; font-size: .84375rem; line-height: 1.7; }
+.blatt-tabelle > div { display: flex; gap: 1rem; padding: .375rem 0; border-bottom: 1px solid #E4DFD3; font-size: .84375rem; }
+.blatt-tabelle dt { width: 13rem; flex: none; color: #5F584E; }
+.lichtbilder { display: grid; gap: 1.5rem; }
+@media (min-width: 640px) { .lichtbilder { grid-template-columns: 1fr 1fr; } }
+.lichtbilder img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border: 1px solid #D5CFC2; }
+.unterschrift { margin-top: 4rem; }
+.unterschrift .linie { width: 16rem; border-top: 1px solid #1E211F; margin-bottom: .35rem; }
+
+@media print {
+  .kein-druck { display: none !important; }
+  html, body { background: #fff !important; }
+  .blatt { box-shadow: none !important; border-radius: 0 !important; padding: 0 !important; max-width: none !important; }
+  .lichtbilder li, .unterschrift { break-inside: avoid; }
+  @page { size: A4; margin: 18mm 16mm; }
+}
+
+/* --- Anmeldung ---------------------------------------------------------- */
+.tor { min-height: 100dvh; display: grid; }
+@media (min-width: 1024px) { .tor { padding: 1.25rem; } }
+.tor-fenster { min-height: 100dvh; display: grid; overflow: hidden; }
+@media (min-width: 1024px) { .tor-fenster { min-height: calc(100dvh - 2.5rem); grid-template-columns: 1fr minmax(26rem, 40%); } }
+.tor-bild { display: none; }
+@media (min-width: 1024px) { .tor-bild { display: flex; flex-direction: column; justify-content: space-between; padding: 3rem; border-right: 1px solid var(--onyx-kontur); } }
+.tor-formular { display: flex; flex-direction: column; justify-content: center; padding: 3.5rem 1.5rem; }
+@media (min-width: 640px) { .tor-formular { padding: 3.5rem 3rem; } }
+.tor-formular > div { width: 100%; max-width: 27rem; margin: 0 auto; }
+
+/* Fotoseite: Zähler unter den Erklärtext, damit er nicht neben dem
+   umbrechenden Absatz klebt. */
+@media (max-width: 900px) { .kopfzeile-seite > p { width: 100%; } }
+
+/* --- Eskalationsstufen --------------------------------------------------- */
+.eskalation { display: inline-flex; align-items: center; gap: .3rem; }
+.eskalation > span:not(.mini) {
+  width: .4rem; height: .4rem; border-radius: 999px;
+  border: 1px solid var(--onyx-kontur-stark); background: transparent;
+}
+.eskalation.ist-eins .voll { background: var(--onyx-text-still); border-color: var(--onyx-text-still); }
+.eskalation.ist-zwei .voll { background: var(--onyx-amber); border-color: var(--onyx-amber); }
+.eskalation.ist-drei .voll { background: var(--onyx-warn); border-color: var(--onyx-warn); }
+.eskalation .mini { margin-left: .2rem; color: var(--onyx-text-leise); }
+.eskalation.ist-zwei .mini { color: var(--onyx-amber); }
+.eskalation.ist-drei .mini { color: var(--onyx-warn); }
+
+/* --- Reiter innerhalb einer Objektakte ----------------------------------- */
+.reiter {
+  display: flex; gap: .25rem; overflow-x: auto; scrollbar-width: none;
+  border-bottom: 1px solid var(--onyx-kontur-leise); margin-top: 1.5rem;
+}
+.reiter::-webkit-scrollbar { display: none; }
+.reiter a {
+  display: flex; align-items: center; gap: .4rem; white-space: nowrap;
+  padding: .6rem .85rem; font-size: .875rem; color: var(--onyx-text-leise);
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.reiter a:hover { color: var(--onyx-text); }
+.reiter a[aria-current] { color: var(--onyx-amber); border-bottom-color: var(--onyx-amber); }
+.reiter .zahl {
+  font-family: var(--onyx-schrift-mono); font-size: .66rem; padding: .05rem .3rem;
+  border-radius: 3px; background: var(--onyx-kontur-leise); color: var(--onyx-text-leise);
+}
+.reiter a[aria-current] .zahl { background: var(--onyx-amber-flaeche); color: var(--onyx-amber); }
+
+/* --- Erfassungsbogen ------------------------------------------------------ */
+.bogen-gruppe { margin-top: 1.5rem; }
+.bogen-zeile {
+  display: grid; grid-template-columns: 1.5rem minmax(0, 12rem) minmax(0, 1fr);
+  gap: .75rem; align-items: start; padding: .5rem 0;
+  border-bottom: 1px solid var(--onyx-kontur-leise);
+}
+.bogen-zeile input[type=checkbox] { margin-top: .2rem; accent-color: var(--onyx-amber); width: 1rem; height: 1rem; }
+.bogen-zeile.ist-offen { opacity: .78; }
+
+/* --- Zeilen mit Symbol links ---------------------------------------------- */
+/* Journalzeilen sind teils Knoepfe, teils Links. Ohne diese Angaben malt der
+   Browser dem Knopf seinen hellgrauen Standardgrund - dann leuchtet die Zeile
+   hell auf dunklem Grund. Kein pauschaler button-Reset, siehe oben. */
+.symbolzeile {
+  display: flex; gap: .85rem; padding: .9rem .5rem; margin: 0 -.5rem;
+  border-radius: var(--onyx-radius-klein);
+  width: 100%; text-align: left;
+  background: transparent; border: 0; color: inherit; font: inherit;
+}
+.symbolkreis {
+  flex: none; display: grid; place-items: center; width: 2rem; height: 2rem;
+  border-radius: 999px; border: 1px solid var(--onyx-kontur); color: var(--onyx-text-leise);
+}
+.symbolkreis.ist-aus { border-color: rgb(var(--onyx-akzent-rgb) / .4); color: var(--onyx-amber); }
+
+/* --- Kennzahlenband -------------------------------------------------------- */
+.zahlenband { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--onyx-kontur-leise); border: 1px solid var(--onyx-kontur-leise); border-radius: var(--onyx-radius); overflow: hidden; }
+@media (min-width: 700px) { .zahlenband { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1100px) { .zahlenband { grid-template-columns: repeat(6, 1fr); } }
+.zahlenband > div { background: var(--onyx-flaeche); padding: .9rem 1rem; }
+.zahlenband dd { font-family: var(--onyx-schrift-mono); font-variant-numeric: tabular-nums; font-size: 1.0625rem; margin-top: .3rem; }
+
+/* --- Druck: Geruest bleibt draussen ------------------------------------------ */
+@media print {
+  .kopf, .rail-huelle, .fuss-nav, .reiter, .schleier { display: none !important; }
+}
+
+/* --- Kanalleiste und Verfassen ---------------------------------------------- */
+.kanalleiste { display: flex; flex-wrap: wrap; gap: .4rem; }
+.kanal {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .45rem .75rem; font-size: .8125rem; line-height: 1;
+  color: var(--onyx-text-leise); background: var(--onyx-flaeche);
+  border: 1px solid var(--onyx-kontur); border-radius: var(--onyx-radius-klein);
+  cursor: pointer; transition: color .15s, border-color .15s, background .15s;
+}
+.kanal:hover { color: var(--onyx-text); border-color: var(--onyx-kontur-stark); }
+.kanal.ist-an { color: var(--onyx-amber); border-color: var(--onyx-amber); background: var(--onyx-amber-flaeche); }
+.kanal svg { flex: none; }
+
+.dialog-breit { max-width: 46rem; }
+.anlagenwahl { display: grid; gap: .3rem; margin-top: .4rem; }
+.anlagenwahl label {
+  display: flex; align-items: center; gap: .5rem; font-size: .8125rem;
+  padding: .35rem .5rem; border: 1px solid var(--onyx-kontur-leise);
+  border-radius: var(--onyx-radius-klein); cursor: pointer;
+}
+.anlagenwahl label:hover { border-color: var(--onyx-kontur-stark); }
+.anlagenwahl label.ist-aus { opacity: .55; cursor: not-allowed; }
+.anlagenwahl input { accent-color: var(--onyx-amber); }
+.ankreuz { display: flex; align-items: center; gap: .5rem; font-size: .875rem; cursor: pointer; }
+.ankreuz input { accent-color: var(--onyx-amber); }
+.wiedervorlage-block {
+  padding: .75rem; border: 1px dashed var(--onyx-kontur); border-radius: var(--onyx-radius-klein);
+}
+.knopf-neu { font-size: .8125rem; padding: .4rem .7rem; }
+@media (max-width: 720px) { .knopf-neu span { display: none; } .knopf-neu { padding: .4rem .5rem; } }
+
+/* Kurze Quittung nach dem Absenden, sitzt ueber allem. */
+.quittung {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: calc(1rem + env(safe-area-inset-bottom)); z-index: 60;
+  max-width: min(92vw, 32rem); text-align: center;
+  padding: .6rem 1rem; font-size: .78125rem;
+  color: var(--onyx-grund); background: var(--onyx-amber);
+  border-radius: var(--onyx-radius-klein); box-shadow: 0 10px 30px rgb(var(--onyx-tief-rgb) / .5);
+}
+@media (max-width: 900px) { .quittung { bottom: calc(4.75rem + env(safe-area-inset-bottom)); } }
+
+/* --- Protokoll ---------------------------------------------------------------- */
+.protokoll-zeile { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem .75rem; padding: .6rem .5rem; }
+
+/* --- Gesamtakte auf Papier ----------------------------------------------------- */
+.blatt-liste { width: 100%; border-collapse: collapse; margin-top: .6rem; font-size: .78125rem; }
+.blatt-liste th, .blatt-liste td { text-align: left; padding: .3rem .5rem .3rem 0; border-bottom: 1px solid #E4DFD3; vertical-align: top; }
+.blatt-liste th { color: #5F584E; font-weight: 600; border-bottom-color: #D5CFC2; }
+.beleg { margin-top: 1rem; padding-left: .75rem; border-left: 2px solid #D5CFC2; break-inside: avoid; }
+.beleg-kopf { font-size: .71875rem !important; color: #6C6459; }
+.beleg-zeile { font-size: .78125rem !important; }
+.beleg-text { margin-top: .3rem; white-space: pre-line; }
+
+/* --- Beleg in der Großansicht -------------------------------------------------- */
+.beleg-kopfblock {
+  display: grid; gap: .3rem;
+  padding-bottom: .9rem; border-bottom: 1px solid var(--onyx-kontur-leise);
+}
+.beleg-kopfzeile { display: flex; flex-wrap: wrap; gap: .3rem .75rem; font-size: .8125rem; line-height: 1.6; }
+.beleg-kopfzeile > .onyx-etikett { width: 6.5rem; flex: none; padding-top: .15rem; }
+.beleg-kopfzeile > span:last-child { flex: 1; min-width: 12rem; overflow-wrap: anywhere; }
+.beleg-koerper {
+  font-size: .875rem; line-height: 1.8; white-space: pre-line;
+  padding: .25rem 0; max-width: 68ch;
+}
+.anlagenband { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .4rem; }
+.anlagenband li {
+  display: flex; align-items: center; gap: .4rem;
+  padding: .3rem .6rem; font-size: .78125rem;
+  color: var(--onyx-text-leise); background: var(--onyx-flaeche);
+  border: 1px solid var(--onyx-kontur); border-radius: var(--onyx-radius-klein);
+}
+.beleg-nachweis {
+  display: grid; gap: .25rem; margin-top: .25rem;
+  padding: .75rem .9rem; border: 1px solid var(--onyx-kontur);
+  border-left: 2px solid var(--onyx-amber); border-radius: var(--onyx-radius-klein);
+  background: var(--onyx-flaeche);
+}
+.beleg-nachweis p { display: flex; flex-wrap: wrap; gap: .3rem .75rem; font-size: .78125rem; }
+.beleg-nachweis .onyx-etikett { width: 6.5rem; flex: none; }
+
+/* --- Ordner in den Bereichen ---------------------------------------------------- */
+.ordner { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1rem; }
+.ordner-blatt {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .4rem .7rem; font-size: .8125rem; line-height: 1;
+  color: var(--onyx-text-leise); background: var(--onyx-flaeche);
+  border: 1px solid var(--onyx-kontur); border-radius: var(--onyx-radius-klein);
+  transition: color .15s, border-color .15s, background .15s;
+}
+.ordner-blatt:hover { color: var(--onyx-text); border-color: var(--onyx-kontur-stark); }
+.ordner-blatt.ist-an { color: var(--onyx-amber); border-color: var(--onyx-amber); background: var(--onyx-amber-flaeche); }
+.ordner-blatt svg { flex: none; opacity: .8; }
+.ordner-zahl {
+  font-size: .69rem; font-variant-numeric: tabular-nums;
+  padding: .05rem .35rem; border-radius: 999px;
+  background: var(--onyx-grund-tief); color: var(--onyx-text-still);
+}
+.ordner-blatt.ist-an .ordner-zahl { background: rgb(var(--onyx-akzent-rgb) / .18); color: var(--onyx-amber); }
+@media (max-width: 560px) { .ordner-blatt { font-size: .78125rem; padding: .35rem .55rem; } }
+
+/* --- Verwaltung ----------------------------------------------------------------- */
+.inhaber-marke {
+  display: inline-block; margin-left: .45rem; padding: .05rem .4rem;
+  font-family: var(--onyx-schrift-mono); font-size: .63rem; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--onyx-amber); background: var(--onyx-amber-flaeche);
+  border: 1px solid rgb(var(--onyx-akzent-rgb) / .35); border-radius: 999px; vertical-align: middle;
+}
+.inhaber-kopf { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+.inhaber-kreis {
+  width: 3.25rem; height: 3.25rem; flex: none; display: grid; place-items: center;
+  font-size: 1.0625rem; letter-spacing: .04em;
+  color: var(--onyx-amber); background: var(--onyx-amber-flaeche);
+  border: 1px solid rgb(var(--onyx-akzent-rgb) / .35); border-radius: 50%;
+}
+.verwaltung-gitter { display: grid; gap: 1rem; }
+@media (min-width: 720px) { .verwaltung-gitter { grid-template-columns: 1fr 1fr; } }
+.rechte-liste { display: grid; gap: .3rem; margin-top: 1rem; }
+.rechte-liste li {
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .8125rem; color: var(--onyx-text-leise);
+}
+.rechte-liste li svg { flex: none; color: var(--onyx-gut); }
+
+/* --- Terminplan mit Eskalationsstufen -------------------------------------------- */
+.termin-karte {
+  display: grid; gap: .85rem;
+  padding: 1rem .9rem 1rem 1.1rem;
+  border-bottom: 1px solid var(--onyx-kontur-leise);
+  border-left: 3px solid var(--onyx-kontur-leise);
+}
+.termin-karte.ist-bald { border-left-color: var(--onyx-amber); }
+.termin-karte.ist-warn { border-left-color: var(--onyx-warn); }
+.termin-karte.ist-durch { opacity: .6; }
+.termin-kopf { display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: flex-start; }
+.termin-titel { font-size: 1.0625rem; line-height: 1.35; margin-top: .15rem; }
+.termin-karte.ist-durch .termin-titel { text-decoration: line-through; }
+.termin-frist { flex: none; text-align: right; font-size: .8125rem; line-height: 1.6; }
+.termin-frist .mono { font-size: .9375rem; }
+
+.stufen { display: grid; gap: .3rem; }
+.stufen li {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .55rem;
+  padding: .45rem .6rem; font-size: .875rem;
+  color: var(--onyx-text-still);
+  border: 1px solid transparent; border-radius: var(--onyx-radius-klein);
+}
+.stufen li.ist-durch { text-decoration: line-through; }
+.stufen li.ist-dran {
+  color: var(--onyx-text); background: var(--onyx-amber-flaeche);
+  border-color: rgb(var(--onyx-akzent-rgb) / .35);
+}
+.stufen-nr {
+  width: 1.55rem; height: 1.55rem; flex: none; display: grid; place-items: center;
+  font-size: .78125rem; border-radius: 50%;
+  border: 1px solid var(--onyx-kontur); color: var(--onyx-text-leise);
+}
+.stufen li.ist-dran .stufen-nr { color: var(--onyx-amber); border-color: var(--onyx-amber); }
+.stufen-text { flex: 1; min-width: 8rem; }
+.stufen-datum { font-size: .78125rem; }
+.stufen-marke {
+  font-family: var(--onyx-schrift-mono); font-size: .66rem; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--onyx-amber);
+}
+.termin-knoepfe { display: flex; flex-wrap: wrap; gap: .5rem; }
+.termin-knoepfe .onyx-knopf { font-size: .875rem; padding: .55rem .9rem; }
+
+/* --- Große Schrift ---------------------------------------------------------------- */
+.schrift-knopf {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .35rem .6rem; font-size: .8125rem; line-height: 1;
+  color: var(--onyx-text-leise); background: var(--onyx-flaeche);
+  border: 1px solid var(--onyx-kontur); border-radius: var(--onyx-radius-klein);
+}
+.schrift-knopf:hover { color: var(--onyx-text); border-color: var(--onyx-kontur-stark); }
+html.gross .schrift-knopf { color: var(--onyx-amber); border-color: var(--onyx-amber); background: var(--onyx-amber-flaeche); }
+.schrift-knopf b { font-family: var(--onyx-schrift-mono); font-size: .9rem; font-weight: 500; }
+@media (max-width: 900px) { .schrift-knopf span { display: none; } }
+
+.heute { margin-top: 1.75rem; }
+.heute .onyx-register { border-top: 1px solid var(--onyx-kontur-leise); }
+
+/* --- Monatskalender ---------------------------------------------------------- */
+.kalender { margin-top: 1rem; }
+.kal-kopf { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; }
+.kal-monat { font-size: 1.125rem; text-transform: capitalize; }
+.kal-steuer { display: flex; gap: .4rem; }
+.kal-steuer .onyx-knopf { font-size: .8125rem; padding: .42rem .75rem; }
+
+.kal-gitter {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
+  margin-top: .9rem; background: var(--onyx-kontur-leise);
+  border: 1px solid var(--onyx-kontur-leise); border-radius: var(--onyx-radius);
+  overflow: hidden;
+}
+.kal-wochentag {
+  background: var(--onyx-grund-tief); padding: .5rem .6rem;
+  font-family: var(--onyx-schrift-mono); font-size: .69rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--onyx-text-still);
+}
+.kal-tag {
+  display: block; min-height: 5.4rem; padding: .4rem .45rem;
+  background: var(--onyx-grund); color: inherit;
+}
+a.kal-tag:hover { background: var(--onyx-flaeche); }
+.kal-tag.ist-fremd { background: var(--onyx-grund-tief); }
+.kal-tag.ist-fremd .kal-zahl { color: var(--onyx-text-still); opacity: .5; }
+.kal-tag.ist-heute { box-shadow: inset 0 0 0 1px var(--onyx-amber); }
+.kal-tag.ist-heute .kal-zahl {
+  color: var(--onyx-grund); background: var(--onyx-amber);
+  border-radius: 999px; padding: .1rem .45rem;
+}
+.kal-tag.ist-gewaehlt { background: var(--onyx-amber-flaeche); box-shadow: inset 0 0 0 2px var(--onyx-amber); }
+.kal-zahl { display: inline-block; font-size: .8125rem; color: var(--onyx-text-leise); }
+.kal-liste { display: grid; gap: 2px; margin-top: .3rem; }
+.kal-eintrag {
+  display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  padding: .16rem .35rem; border-radius: 4px; font-size: .69rem; line-height: 1.5;
+  color: var(--onyx-text-leise); background: var(--onyx-flaeche-hoch);
+  border-left: 3px solid var(--onyx-text-still);
+}
+/* Fest verdrahtet waere die Schrift hier im hellen Kunden-CI unlesbar —
+   deshalb aus der Themenebene. */
+.kal-eintrag.ist-warn { color: var(--onyx-warn-text); background: var(--onyx-warn-flaeche); border-left-color: var(--onyx-warn); }
+.kal-eintrag.ist-bald { color: var(--onyx-amber-hell); background: var(--onyx-amber-flaeche); border-left-color: var(--onyx-amber); }
+.kal-eintrag.ist-durch { text-decoration: line-through; opacity: .6; border-left-color: var(--onyx-gut); }
+.kal-mehr { font-size: .66rem; color: var(--onyx-text-still); padding-left: .35rem; }
+
+.kal-legende { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; margin-top: .7rem; font-size: .78125rem; color: var(--onyx-text-leise); }
+.kal-legende span { display: flex; align-items: center; gap: .4rem; }
+.kal-legende i { width: .7rem; height: .7rem; border-radius: 3px; background: var(--onyx-text-still); }
+.kal-legende i.ist-warn { background: var(--onyx-warn); }
+.kal-legende i.ist-bald { background: var(--onyx-amber); }
+.kal-legende i.ist-durch { background: var(--onyx-gut); }
+
+/* Am Handy zaehlt der Ueberblick: Zahl und farbige Punkte, Titel erst nach dem Tippen. */
+@media (max-width: 640px) {
+  .kal-tag { min-height: 3.6rem; padding: .3rem .25rem; text-align: center; }
+  .kal-wochentag { padding: .4rem .25rem; text-align: center; }
+  .kal-liste { display: flex; flex-wrap: wrap; gap: 2px; justify-content: center; margin-top: .25rem; }
+  .kal-eintrag {
+    width: .45rem; height: .45rem; padding: 0; border-radius: 999px; border-left: 0;
+    font-size: 0; background: var(--onyx-text-still);
+  }
+  .kal-eintrag.ist-warn { background: var(--onyx-warn); }
+  .kal-eintrag.ist-bald { background: var(--onyx-amber); }
+  .kal-eintrag.ist-durch { background: var(--onyx-gut); opacity: .5; }
+  .kal-mehr { font-size: .6rem; padding: 0; }
+}

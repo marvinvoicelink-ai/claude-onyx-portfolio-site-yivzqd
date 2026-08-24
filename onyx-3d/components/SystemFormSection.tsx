@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { trackLead } from "@/lib/trackLead";
 import Image from "next/image";
 
 declare global {
@@ -19,7 +20,7 @@ export default function SystemFormSection() {
     const data = new FormData(form);
     if (data.get("bot-field")) return;
 
-    if (typeof window.fbq === "function") window.fbq("track", "Lead");
+    trackLead();
 
     const encoded = new URLSearchParams();
     data.forEach((value, key) => encoded.append(key, String(value)));
@@ -46,10 +47,13 @@ export default function SystemFormSection() {
     <section className="py-14">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
-          className="rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2"
+          className="rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 on-dark silver-glow"
           style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
         >
-          <div className="relative" style={{ minHeight: 320, aspectRatio: "4 / 3" }}>
+          {/* Feste 4:3-Kachel liess unter dem Bild eine schwarze Luecke, seit
+              das Formular durch das vierte Feld hoeher ist. Ab lg fuellt die
+              Spalte deshalb die Hoehe der Formularspalte. */}
+          <div className="relative min-h-[320px] aspect-[4/3] lg:aspect-auto lg:h-full">
             <Image
               src="/generated/system-form.png"
               alt="Dein System: Module, die zusammenspielen."
@@ -94,7 +98,7 @@ export default function SystemFormSection() {
                       name={field}
                       required
                       autoComplete={field}
-                      className="w-full rounded-[10px] px-4 py-3"
+                      className="w-full rounded-[10px] px-4 py-3 on-dark"
                       style={{
                         background: "var(--near-black)",
                         border: "1px solid var(--hairline)",
@@ -104,15 +108,41 @@ export default function SystemFormSection() {
                     />
                   </label>
                 ))}
+
+                {/* Ohne dieses Feld kommt jede Anfrage ohne Anliegen an und
+                    kostet eine Rueckfrage. Bewusst nicht als Pflichtfeld —
+                    ein Pflicht-Freitext bricht mehr Absendungen ab, als er
+                    an Information bringt. */}
+                <label className="block">
+                  <span className="mono block mb-2" style={{ fontSize: 12.5, color: "var(--warm-grey-dim)" }}>
+                    Worum geht es?
+                  </span>
+                  <textarea
+                    name="message"
+                    rows={3}
+                    placeholder="Kurz in eigenen Worten — was hakt bei euch gerade?"
+                    className="w-full rounded-[10px] px-4 py-3 on-dark"
+                    style={{
+                      background: "var(--near-black)",
+                      border: "1px solid var(--hairline)",
+                      color: "var(--warm-grey)",
+                      fontSize: 15,
+                      resize: "vertical",
+                    }}
+                  />
+                </label>
               </div>
 
               <button
                 type="submit"
+                /* Beim Klick, nicht erst beim erfolgreichen Absenden: sonst
+                   verschluckt die Pflichtfeldpruefung des Browsers das Event. */
+                onClick={trackLead}
                 disabled={status === "sending"}
                 className="w-full rounded-[10px] py-4 font-semibold btn-amber"
                 style={{
                   background: "var(--amber)",
-                  color: "#161104",
+                  color: "#12141a",
                   fontSize: 15.5,
                   opacity: status === "sending" ? 0.6 : 1,
                 }}

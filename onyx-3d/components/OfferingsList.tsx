@@ -36,7 +36,7 @@ export default function OfferingsList({ blatt }: { blatt?: string }) {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div
-                  className="rounded-xl overflow-hidden flex-shrink-0 w-[72px] h-[52px] sm:w-[168px] sm:h-[118px]"
+                  className="rounded-xl overflow-hidden flex-shrink-0 w-[72px] h-[52px] sm:w-[168px] sm:h-[118px] on-dark silver-rim"
                   style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
                 >
                   <div className="relative w-full h-full">

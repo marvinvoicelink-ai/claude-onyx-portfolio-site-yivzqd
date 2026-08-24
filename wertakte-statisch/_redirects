@@ -1,0 +1,3 @@
+# Die Anwendung nutzt Adressen mit Raute (#/objekte), es gibt also nur eine
+# echte Seite. Dieser Eintrag faengt trotzdem alles ab, was daneben geht.
+/*  /index.html  200
