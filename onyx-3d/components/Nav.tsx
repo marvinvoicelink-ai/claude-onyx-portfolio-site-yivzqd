@@ -6,7 +6,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MobileNav from "./MobileNav";
 import { offerings } from "@/lib/offerings";
-import { trackLead } from "@/lib/trackLead";
 
 const links = [
   { href: "/", label: "Startseite" },
@@ -179,7 +178,6 @@ export default function Nav() {
 
           <Link
             href="/kontakt"
-            onClick={trackLead}
             className="hidden md:inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold whitespace-nowrap btn-amber"
             style={{ background: "var(--amber)", color: "#12141a", fontSize: 13.5 }}
           >

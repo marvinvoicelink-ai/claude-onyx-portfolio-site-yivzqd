@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { trackLead } from "@/lib/trackLead";
 
 /**
  * Abschlussblock: links die grosse Aufforderung, rechts eine helle Karte, in
@@ -125,7 +124,6 @@ export default function DemoBookingSection() {
               </p>
               <Link
                 href="#kontakt"
-                onClick={trackLead}
                 className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber"
                 style={{ background: "var(--amber)", color: "#12141a", fontSize: "15.5px" }}
               >

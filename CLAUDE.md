@@ -39,22 +39,28 @@ HausManager Pro ist Referenz/Beweis eines gebauten Systems, kein Produkt zum
 Kaufen.
 
 ## Kontakt & Tracking
-Kontaktformular (Netlify Forms) ist der primäre CTA seitenweit. Meta-Pixel
-`Lead`-Event feuert **nur bei Klick auf einen Kontakt-Button** — also auf
-jeden Button/Link, der das Kontaktformular ist oder dorthin führt:
-Formular-Absenden-Button, Nav-CTAs, Hero-CTA, CTABanner, DemoShowcase-CTA,
-DemoBooking-CTA. Unabhängig vom Erfolg der jeweiligen Aktion (bewusste
-Entscheidung von Marvin, Stand 2026: jeder dieser Klicks soll als Lead in
-Facebook erscheinen). Reine UI-Klicks — Akkordeon, Navigation ohne
-Kontaktbezug, FAQ, Cookie-Banner — feuern **kein** Lead.
+Kontaktformular (Netlify Forms) ist der primäre CTA seitenweit. Das
+Meta-Pixel-Event `Lead` feuert **nur bei einer echten Kontaktaufnahme**
+(Entscheidung von Marvin, Stand 2026 — in Facebook sollen ausschließlich
+Leads auftauchen, die sich tatsächlich gemeldet haben). Genau zwei Auslöser:
 
-WhatsApp-Buttons feuern zusätzlich zum weiterhin bestehenden
-`WhatsAppClick`-Custom-Event ebenfalls `Lead` (gleiche Entscheidung, auf
-WhatsApp ausgeweitet) — WhatsApp-Klicks lassen sich technisch nicht bis zum
-"Nachricht abgeschickt"-Zeitpunkt zurückverfolgen, zählen aber genauso als
-Lead. WhatsApp und Calendly bleiben als sekundäre, schnelle Kontaktwege
-bestehen (Calendly hat mit `calendly.event_scheduled` ein eigenes
-zuverlässiges Completion-Event, unabhängig vom Lead-Tracking).
+1. **Abgeschicktes Kontaktformular** — erst wenn alle Pflichtfelder ausgefüllt
+   sind und Netlify die Absendung angenommen hat (`res.ok` in `handleSubmit`
+   von `ContactSection` und `SystemFormSection`). Ein abgebrochener Versuch
+   oder ein Fehler beim Absenden zählt nicht.
+2. **Klick auf einen WhatsApp-Button** — zusätzlich zum bestehenden
+   `WhatsAppClick`-Custom-Event.
+
+Alles andere feuert **kein** Lead: Buttons, die nur zum Formular scrollen
+oder navigieren (Hero-CTA, Nav-CTAs, CTABanner, DemoShowcase, DemoBooking,
+MobileNav), sowie reine UI-Klicks (Akkordeon, FAQ, Cookie-Banner).
+
+Grenze des Messbaren: Ob nach dem WhatsApp-Klick wirklich eine Nachricht
+abgeschickt wird, kann die Website nicht sehen — WhatsApp öffnet sich außerhalb
+der Seite und meldet nichts zurück. Der Klick ist das letzte messbare Ereignis.
+Wer nur belegbar abgeschickte Anfragen zählen will, nimmt die
+Formular-Leads. Calendly hat mit `calendly.event_scheduled` ein eigenes
+zuverlässiges Completion-Event, unabhängig vom Lead-Tracking.
 
 ## Nicht-Ziele (Scope-Grenze)
 - Kein 3D, keine Scroll-Choreografie, keine WebGL-Effekte in Phase 1

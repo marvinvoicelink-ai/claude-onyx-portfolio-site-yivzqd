@@ -5,18 +5,26 @@ declare global {
 }
 
 /**
- * Ein Klick auf denselben Button laeuft durch zwei Wege: den globalen
- * Listener in GlobalClickLead und, wo noch vorhanden, den onClick am Element
- * selbst. Ohne Sperre zaehlte Facebook denselben Klick doppelt. 50 ms sind
- * kuerzer als jeder menschliche Doppelklick auf zwei verschiedene Buttons und
- * lang genug, um beide Wege desselben Klicks zusammenzufassen.
+ * Schutz gegen Doppelzaehlung: sollte derselbe Vorgang zwei Wege nehmen
+ * (etwa ein Handler am Element und einer am Container), zaehlt Facebook sonst
+ * zweimal. 50 ms sind kuerzer als jeder menschliche Doppelklick auf zwei
+ * verschiedene Buttons und lang genug, um beide Wege desselben Ereignisses
+ * zusammenzufassen.
  */
 let lastFired = 0;
 
 /**
- * Feuert das Meta-Pixel-Event `Lead`. Wird bei jedem Klick auf einen Button
- * oder Link ausgeloest, unabhaengig vom Erfolg der Aktion — bewusste
- * Entscheidung von Marvin: der Klick allein zaehlt als Lead.
+ * Feuert das Meta-Pixel-Event `Lead`.
+ *
+ * Bewusst nur an zwei Stellen aufgerufen:
+ * 1. nachdem Netlify eine vollstaendig ausgefuellte Formularabsendung
+ *    angenommen hat (ContactSection, SystemFormSection),
+ * 2. beim Klick auf einen WhatsApp-Button.
+ *
+ * Ein Klick auf einen Button, der nur zum Formular fuehrt, ist kein Lead.
+ * Bei WhatsApp ist der Klick das Letzte, was die Seite sehen kann — ob die
+ * Nachricht danach wirklich abgeschickt wird, laesst sich technisch nicht
+ * zurueckverfolgen.
  */
 export function trackLead() {
   if (typeof window === "undefined" || typeof window.fbq !== "function") return;

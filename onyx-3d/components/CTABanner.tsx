@@ -55,9 +55,10 @@ export default function CTABanner({
               zweiten, schnelleren Weg. Nebeneinander sahen beide gleich
               wichtig aus. */}
           <div className="flex flex-col items-center gap-3.5">
+            {/* Kein Tracking hier: der Button fuehrt nur zum Formular. Als
+                Lead zaehlt erst die abgeschickte Anfrage. */}
             <a
               href={ctaHref}
-              onClick={trackLead}
               className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap btn-amber"
               style={{ background: "var(--amber)", color: "#12141a", fontSize: 15.5 }}
             >

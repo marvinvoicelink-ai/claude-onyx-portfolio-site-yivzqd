@@ -18,8 +18,6 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
     const data = new FormData(form);
     if (data.get("bot-field")) return;
 
-    trackLead();
-
     const encoded = new URLSearchParams();
     data.forEach((value, key) => encoded.append(key, String(value)));
 
@@ -31,6 +29,10 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
         body: encoded.toString(),
       });
       if (res.ok) {
+        // Erst hier: das Formular ist vollstaendig ausgefuellt, abgeschickt
+        // und von Netlify angenommen. Ein Klick auf den Button allein ist
+        // noch keine Anfrage.
+        trackLead();
         setStatus("ok");
         form.reset();
       } else {
@@ -120,11 +122,10 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
             />
           </label>
 
+          {/* Kein onClick-Tracking: der Lead entsteht erst, wenn Netlify die
+              Absendung angenommen hat (siehe handleSubmit). */}
           <button
             type="submit"
-            /* Beim Klick, nicht erst beim erfolgreichen Absenden: sonst
-               verschluckt die Pflichtfeldpruefung des Browsers das Event. */
-            onClick={trackLead}
             disabled={status === "sending"}
             className="w-full rounded-[10px] py-4 font-semibold btn-amber"
             style={{
