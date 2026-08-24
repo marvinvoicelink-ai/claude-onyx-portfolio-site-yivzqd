@@ -37,12 +37,11 @@ export default function Home() {
           <OfferingsAccordion blatt="01" />
         </WheelTransition>
 
-        <ProblemSection blatt="02" />
+        {/* Direkt hinter den Leistungen: erst was wir bauen, dann sofort
+            Beispiele, wie das aussieht. Die Ausgangslage folgt danach. */}
+        <BuiltSystems blatt="02" />
 
-        {/* Eigenes Blatt statt Anhaengsel der Ausgangslage: die vier gebauten
-            Systeme sind der Beweis, dass das Problem loesbar ist, und tragen
-            als Section mehr Gewicht als als Schlussabsatz. */}
-        <BuiltSystems blatt="03" />
+        <ProblemSection blatt="03" />
 
         {/* Direkt hinter den gebauten Systemen: erst das Problem, dann der
             Beweis, dann die Einordnung, ob der Leser damit gemeint ist. Erst
