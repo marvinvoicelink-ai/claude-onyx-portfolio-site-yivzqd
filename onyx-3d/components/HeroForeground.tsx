@@ -56,7 +56,7 @@ export default function HeroForeground() {
             color: "var(--amber)",
           }}
         >
-          White-Label-Systeme · Bauen &amp; übergeben
+          Systeme unter deinem Namen · Gebaut &amp; übergeben
         </span>
 
         {/* Der Nutzen trägt die Headline allein — kein zweiter Claim
@@ -71,11 +71,12 @@ export default function HeroForeground() {
             maxWidth: "21ch",
           }}
         >
-          Weniger Komplexität im Unternehmen.
-          {/* Eigene Zeile, damit der zweite Satz nie mit einem Wort am
-              Zeilenende anfaengt — unabhaengig von der Viewport-Breite. */}
+          Weniger Komplexität im Unternehmen,
+          {/* Eigene Zeile, damit der zweite Teil nie mit einem Wort am
+              Zeilenende anfaengt — unabhaengig von der Viewport-Breite.
+              Klein geschrieben, weil das Komma den Satz weiterlaufen laesst. */}
           <span className="accent block">
-            Mehr Zeit für das, womit du Geld verdienst — in wenigen Wochen.
+            mehr Zeit für das, womit du Geld verdienst … in wenigen Wochen.
           </span>
         </h1>
 
@@ -89,9 +90,11 @@ export default function HeroForeground() {
           }}
         >
           Wir schauen zuerst, wo bei dir die Zeit verloren geht, und bauen
-          genau das: ein Dashboard, einen Agenten fürs Telefon oder eine
-          Automatisierung, die im Hintergrund läuft. Am Ende gehört es dir —
-          Code, Daten, Zugänge, gehostet bei dir.
+          genau das: ein Dashboard, einen Telefon-Agenten oder eine
+          Automatisierung im Hintergrund. Ein System, das schon verkorkst ist,
+          bauen wir sauber neu und führen alles in einem zusammen — unter
+          deinem Namen, mit deinem Logo. Am Ende gehört es dir: Code, Daten,
+          Zugänge, gehostet bei dir.
         </p>
 
         <div className="mt-9">
