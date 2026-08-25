@@ -60,21 +60,23 @@ export default function HeroForeground() {
         </span>
 
         {/* Der Nutzen trägt die Headline allein — kein zweiter Claim
-            darunter, der ihr die Wirkung nimmt. Kurz gehalten: auf dem Handy
-            fuellte die lange Fassung den halben Bildschirm, bevor der Leser
-            beim Angebot war. */}
+            darunter, der ihr die Wirkung nimmt. Der Zusatz am Ende nennt den
+            Zeitrahmen, damit "mehr Zeit" nicht nach einem fernen Versprechen
+            klingt. Der Absatz darunter ist dafuer kurz gehalten. */}
         <h1
           className={entered ? "hero-blur-visible" : "hero-blur-hidden"}
           style={{
-            fontSize: "clamp(1.85rem, 3.8vw, 3rem)",
+            fontSize: "clamp(1.85rem, 3.6vw, 2.9rem)",
             lineHeight: 1.12,
-            maxWidth: "17ch",
+            maxWidth: "21ch",
           }}
         >
-          Weniger Komplexität.
+          Weniger Komplexität im Unternehmen.
           {/* Eigene Zeile, damit der zweite Satz nie mit einem Wort am
               Zeilenende anfaengt — unabhaengig von der Viewport-Breite. */}
-          <span className="accent block">Mehr Zeit fürs Geschäft.</span>
+          <span className="accent block">
+            Mehr Zeit für das, womit du Geld verdienst — in wenigen Wochen.
+          </span>
         </h1>
 
         <p
@@ -86,11 +88,10 @@ export default function HeroForeground() {
             maxWidth: "52ch",
           }}
         >
-          Der eine braucht ein Dashboard. Der nächste jemanden, der ans
-          Telefon geht. Wieder ein anderer nur eine Automatisierung, die im
-          Hintergrund läuft und nie wieder auffällt. Wir schauen zuerst, wo
-          bei dir die Zeit verloren geht, und bauen dann genau das. Am Ende
-          gehört es dir — Code, Daten, Zugänge, gehostet bei dir.
+          Wir schauen zuerst, wo bei dir die Zeit verloren geht, und bauen
+          genau das: ein Dashboard, einen Agenten fürs Telefon oder eine
+          Automatisierung, die im Hintergrund läuft. Am Ende gehört es dir —
+          Code, Daten, Zugänge, gehostet bei dir.
         </p>
 
         <div className="mt-9">
