@@ -401,36 +401,40 @@ a {
  * logos (e.g. PawPlace) nearly invisible, since their luminance stayed
  * low even after the brightness/contrast tweaks.
  */
-@keyframes logo-glow-pulse {
-  0%,
-  100% {
-    filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(203, 203, 201, 0.35));
-    opacity: 0.78;
-  }
-  50% {
-    filter: drop-shadow(0 0 18px rgba(203, 203, 201, 0.85));
-    opacity: 1;
-  }
+/* Die Logos laufen in ihrer eigenen Farbe durch — durchgehend sichtbar,
+   ohne Farbwechsel. Frueher wechselte eine Animation zwischen weisser
+   Silhouette und Originalfarbe; bei den dunklen Vorlagen sah das aus, als
+   waeren sie schwarz und wuerden nur kurz aufleuchten. */
+.logo-flat {
+  opacity: 0.92;
+  filter: drop-shadow(0 0 6px rgba(203, 203, 201, 0.25));
+  transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
-.logo-flat {
-  filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(203, 203, 201, 0.35));
-  opacity: 0.78;
-  transition: opacity 0.3s ease, filter 0.3s ease;
-  animation: logo-glow-pulse 5s ease-in-out infinite;
+/* Nur fuer Vorlagen, die fast schwarz sind: umkehren, sonst verschwinden sie
+   auf dem dunklen Grund. */
+.logo-lift {
+  filter: invert(1) drop-shadow(0 0 6px rgba(203, 203, 201, 0.25));
 }
 
 .logo-flat:hover {
-  filter: drop-shadow(0 0 16px rgba(203, 203, 201, 0.8));
   opacity: 1;
-  animation-play-state: paused;
+  filter: drop-shadow(0 0 14px rgba(203, 203, 201, 0.6));
 }
 
-@media (prefers-reduced-motion: reduce) {
+.logo-lift:hover {
+  opacity: 1;
+  filter: invert(1) drop-shadow(0 0 14px rgba(203, 203, 201, 0.6));
+}
+
+/* Auf dem Handy stehen sie voll sichtbar, ohne jeden Effekt. */
+@media (max-width: 767px), (hover: none) {
   .logo-flat {
-    animation: none;
-    filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(203, 203, 201, 0.4));
-    opacity: 0.85;
+    opacity: 1;
+    filter: drop-shadow(0 0 7px rgba(203, 203, 201, 0.3));
+  }
+  .logo-lift {
+    filter: invert(1) drop-shadow(0 0 7px rgba(203, 203, 201, 0.3));
   }
 }
 

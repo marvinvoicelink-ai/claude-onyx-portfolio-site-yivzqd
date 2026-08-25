@@ -60,19 +60,21 @@ export default function HeroForeground() {
         </span>
 
         {/* Der Nutzen trägt die Headline allein — kein zweiter Claim
-            darunter, der ihr die Wirkung nimmt. */}
+            darunter, der ihr die Wirkung nimmt. Kurz gehalten: auf dem Handy
+            fuellte die lange Fassung den halben Bildschirm, bevor der Leser
+            beim Angebot war. */}
         <h1
           className={entered ? "hero-blur-visible" : "hero-blur-hidden"}
           style={{
-            fontSize: "clamp(2.05rem, 3.8vw, 3rem)",
-            lineHeight: 1.1,
-            maxWidth: "21ch",
+            fontSize: "clamp(1.85rem, 3.8vw, 3rem)",
+            lineHeight: 1.12,
+            maxWidth: "17ch",
           }}
         >
-          Weniger Komplexität im Unternehmen.
+          Weniger Komplexität.
           {/* Eigene Zeile, damit der zweite Satz nie mit einem Wort am
               Zeilenende anfaengt — unabhaengig von der Viewport-Breite. */}
-          <span className="accent block">Mehr Zeit für das, womit du Geld verdienst.</span>
+          <span className="accent block">Mehr Zeit fürs Geschäft.</span>
         </h1>
 
         <p

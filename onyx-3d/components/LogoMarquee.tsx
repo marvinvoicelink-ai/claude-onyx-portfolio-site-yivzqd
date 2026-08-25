@@ -1,18 +1,24 @@
 import Image from "next/image";
 
-type LogoItem = { name: string; src: string };
+/**
+ * `dark` markiert Logos, deren Vorlage fast schwarz ist (gemessen: PawPlace
+ * rgb(25,23,23), raum in form #111111, HWP rgb(85,82,74)). Nur die werden
+ * umgekehrt, damit sie auf dem dunklen Grund ueberhaupt zu sehen sind. Alle
+ * anderen laufen in ihrer eigenen Farbe durch.
+ */
+type LogoItem = { name: string; src: string; dark?: boolean };
 
 const logos: LogoItem[] = [
-  { name: "HWP — Haushalt Wirtschaft Plan", src: "/logos/flat/hwp.png" },
+  { name: "HWP — Haushalt Wirtschaft Plan", src: "/logos/flat/hwp.png", dark: true },
   { name: "Rebstöckel", src: "/logos/flat/rebstoeckel.png" },
-  { name: "PawPlace", src: "/logos/flat/pawplace.png" },
+  { name: "PawPlace", src: "/logos/flat/pawplace.png", dark: true },
   { name: "Haas Wasserkraft", src: "/logos/flat/haas-wasserkraft.png" },
   { name: "SpeedFire Design", src: "/logos/flat/speedfire.png" },
   { name: "VoiceLink AI", src: "/logos/flat/voicelink.png" },
   { name: "MGA", src: "/logos/flat/mga.svg" },
   { name: "Mordor Intelligence", src: "/logos/flat/mordor-intelligence.svg" },
   { name: "Buena Vista Crew", src: "/logos/flat/buena-vista-crew.svg" },
-  { name: "raum in form", src: "/logos/flat/raum-in-form.svg" },
+  { name: "raum in form", src: "/logos/flat/raum-in-form.svg", dark: true },
 ];
 
 /** Flat, monochrome client-logo strip — no card backgrounds, just logos and slash separators scrolling past. */
@@ -63,14 +69,13 @@ export default function LogoMarquee() {
               <img
                 src={item.src}
                 alt={item.name}
-                className="logo-flat"
+                className={item.dark ? "logo-flat logo-lift" : "logo-flat"}
                 style={{
                   height: 26,
                   width: "auto",
                   maxWidth: 130,
                   objectFit: "contain",
                   margin: "0 26px",
-                  animationDelay: `${(i % logos.length) * 0.5}s`,
                 }}
               />
               <span className="mono" aria-hidden style={{ fontSize: 16, color: "var(--hairline)" }}>
