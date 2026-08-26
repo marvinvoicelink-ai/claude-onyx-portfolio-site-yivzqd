@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 /**
  * The sharp HTML text layer (badge, kicker, headline) that sits above
@@ -23,6 +24,16 @@ export default function HeroForeground() {
   return (
     <div className="relative z-10 w-full px-7" style={{ maxWidth: 1180, margin: "0 auto" }}>
       <div className="max-w-[680px] mx-auto text-center flex flex-col items-center">
+        <Image
+          src="/logo/onyx-ai-logo.png"
+          alt="ONYX.AI"
+          width={1350}
+          height={368}
+          priority
+          className="mb-6"
+          style={{ height: 34, width: "auto", display: "block" }}
+        />
+
         <div
           className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 mono"
           style={{
