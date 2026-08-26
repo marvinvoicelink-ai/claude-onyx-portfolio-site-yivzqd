@@ -37,12 +37,11 @@ export default function LogoMarquee() {
           selben visuellen Block. */}
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 900, marginBottom: 26 }}>
         <p style={{ fontSize: "clamp(1.02rem, 1.7vw, 1.22rem)", lineHeight: 1.6, color: "var(--warm-grey-dim)" }}>
-          Wir bauen maßgeschneiderte Systeme für mittelständische Unternehmen
-          — Kundenportale, interne Tools und Dashboards, mit KI und
-          Automatisierung von Anfang an.{" "}
+          Wir bauen digitale Systeme unter deinem Namen, vom spezialisierten
+          Portal bis zur individuellen CRM- oder ERP-Lösung.{" "}
           <span className="accent">
-            Zugeschnitten auf deinen Ablauf, vollständig übergeben und danach
-            dein Eigentum.
+            Wir integrieren Bestehendes, wenn es sinnvoll ist, oder bauen neu,
+            wenn Standardsoftware nicht zum Prozess passt.
           </span>
         </p>
 
