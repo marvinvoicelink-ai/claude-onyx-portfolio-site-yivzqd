@@ -45,7 +45,7 @@ export default function LogoMarquee() {
             width={1350}
             height={368}
             className="mx-auto"
-            style={{ height: "clamp(54px, 9vw, 96px)", width: "auto", display: "block" }}
+            style={{ height: "clamp(68px, 11vw, 124px)", width: "auto", display: "block" }}
           />
         </h2>
         <p style={{ fontSize: "clamp(1.02rem, 1.7vw, 1.22rem)", lineHeight: 1.6, color: "var(--warm-grey-dim)" }}>
