@@ -1,20 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { noteCtaSource } from "@/lib/trackLead";
 
 /**
- * The sharp HTML text layer (badge, kicker, headline, CTA) that sits above
+ * The sharp HTML text layer (badge, kicker, headline) that sits above
  * whichever hero background is active — the same layer whether the 3D
  * scene or the static fallback renders behind it.
  */
 export default function HeroForeground() {
-  const [reducedMotion, setReducedMotion] = useState(false);
   const [entered, setEntered] = useState(false);
 
   useEffect(() => {
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(motionQuery.matches);
 
     if (motionQuery.matches) {
       setEntered(true);
@@ -59,10 +56,9 @@ export default function HeroForeground() {
           Systeme unter deinem Namen · Gebaut &amp; übergeben
         </span>
 
-        {/* Der Nutzen trägt die Headline allein — kein zweiter Claim
-            darunter, der ihr die Wirkung nimmt. Der Zusatz am Ende nennt den
-            Zeitrahmen, damit "mehr Zeit" nicht nach einem fernen Versprechen
-            klingt. Der Absatz darunter ist dafuer kurz gehalten. */}
+        {/* Der Nutzen trägt die Headline allein — kein Untertext darunter,
+            der ihr die Wirkung nimmt. CTA und Vertrauenszeile stehen weiter
+            unten im ONYX.AI-Block. */}
         <h1
           className={entered ? "hero-blur-visible" : "hero-blur-hidden"}
           style={{
@@ -80,53 +76,6 @@ export default function HeroForeground() {
           </span>
         </h1>
 
-        <p
-          className="mt-6"
-          style={{
-            fontSize: "clamp(1.02rem, 1.6vw, 1.15rem)",
-            color: "var(--warm-grey-dim)",
-            lineHeight: 1.7,
-            maxWidth: "52ch",
-          }}
-        >
-          Wir schauen zuerst, wo bei dir die Zeit verloren geht, und bauen
-          genau das: ein Dashboard, einen Telefon-Agenten oder eine
-          Automatisierung im Hintergrund. Ein System, das schon verkorkst ist,
-          bauen wir sauber neu und führen alles in einem zusammen — unter
-          deinem Namen, mit deinem Logo. Am Ende gehört es dir: Code, Daten,
-          Zugänge, gehostet bei dir.
-        </p>
-
-        <div className="mt-9">
-          <a
-            href="#kontakt"
-            onClick={() => noteCtaSource("Hero-CTA")}
-            className={`inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber ${entered ? "hero-cta-visible" : "hero-cta-hidden"}`}
-            style={{
-              background: "var(--amber)",
-              color: "#12141a",
-              fontSize: "15.5px",
-              ["--reveal-delay" as string]: "220ms",
-            }}
-          >
-            Jetzt Kontakt aufnehmen
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={16} height={16}>
-              <path d="M5 12h14M13 6l6 6-6 6" />
-            </svg>
-          </a>
-        </div>
-
-        <div
-          className="mono mt-7"
-          style={{
-            fontSize: 12.5,
-            color: "var(--warm-grey-faint)",
-            opacity: entered && !reducedMotion ? 1 : entered ? 1 : 0,
-            transition: "opacity 0.6s ease 0.4s",
-          }}
-        >
-          DSGVO-konform · Gebaut in Deutschland · Für mittelständische Unternehmen
-        </div>
       </div>
     </div>
   );
