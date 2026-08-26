@@ -18,7 +18,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative flex overflow-hidden on-dark" style={{ minHeight: "100vh", background: "var(--near-black)", alignItems: "flex-start", paddingTop: "10vh" }}>
+    <section className="relative flex overflow-hidden on-dark" style={{ background: "var(--near-black)", paddingTop: "9vh", paddingBottom: "7vh" }}>
       <div className="absolute inset-0">
         {reducedMotion ? (
           // eslint-disable-next-line @next/next/no-img-element
