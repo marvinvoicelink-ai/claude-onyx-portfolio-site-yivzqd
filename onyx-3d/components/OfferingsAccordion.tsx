@@ -12,7 +12,7 @@ import { offerings } from "@/lib/offerings";
  * Stichpunkte und den Weg zur Detailseite.
  */
 export default function OfferingsAccordion({ blatt }: { blatt?: string }) {
-  const [open, setOpen] = useState(0);
+  const [open, setOpen] = useState(-1);
 
   return (
     <section className="py-10">
