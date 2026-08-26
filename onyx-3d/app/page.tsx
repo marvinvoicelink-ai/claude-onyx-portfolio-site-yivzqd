@@ -1,7 +1,6 @@
 import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import Hero from "@/components/Hero";
-import LogoMarquee from "@/components/LogoMarquee";
 import OfferingsAccordion from "@/components/OfferingsAccordion";
 import ProblemSection from "@/components/ProblemSection";
 import BuiltSystems from "@/components/BuiltSystems";
@@ -31,7 +30,6 @@ export default function Home() {
     <SmoothScroll>
       <main>
         <Hero />
-        <LogoMarquee />
 
         <WheelTransition edge="both">
           <OfferingsAccordion blatt="01" />

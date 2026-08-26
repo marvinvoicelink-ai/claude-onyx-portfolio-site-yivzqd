@@ -29,10 +29,12 @@ const REPEAT = 8;
 export default function LogoMarquee() {
   const track = Array.from({ length: REPEAT }, () => logos).flat();
   return (
-    <section className="marquee-border-glow on-dark" style={{ background: "var(--near-black)", padding: "38px 0 28px" }}>
+    <div className="marquee-border-glow on-dark" style={{ borderTop: "none", paddingTop: 20, paddingBottom: 28 }}>
       {/* Einordnungssatz direkt ueber den Logos: sagt in einem Satz, was
           Onyx baut, fuer wen und was am Ende damit passiert. Bewusst leicht
-          gesetzt, damit er die Headline im Hero nicht doppelt. */}
+          gesetzt, damit er die Headline im Hero nicht doppelt. Kein eigener
+          Section-Umbruch mehr — haengt direkt unter der Hero-Headline, im
+          selben visuellen Block. */}
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 900, marginBottom: 26 }}>
         <p style={{ fontSize: "clamp(1.02rem, 1.7vw, 1.22rem)", lineHeight: 1.6, color: "var(--warm-grey-dim)" }}>
           Wir bauen maßgeschneiderte Systeme für mittelständische Unternehmen
@@ -92,6 +94,6 @@ export default function LogoMarquee() {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }
