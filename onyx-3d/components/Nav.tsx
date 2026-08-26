@@ -63,32 +63,41 @@ export default function Nav() {
         WebkitBackdropFilter: "blur(10px)",
       }}
     >
-      <div
-        className="mx-auto px-7 flex items-center justify-between"
-        style={{ maxWidth: 1180, height: 80 }}
-      >
-        <Link href="/" className="nav-logo-link inline-flex items-center gap-3">
-          <span
-            style={{
-              opacity: entered ? 1 : 0,
-              transform: entered ? "translateY(0)" : "translateY(8px)",
-              transition: "opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)",
-            }}
-          >
-            <Image
-              src="/logo/onyx-ai-logo.png"
-              alt="ONYX.AI"
-              width={1350}
-              height={368}
-              priority
-              style={{ height: 40, width: "auto", display: "block" }}
-            />
-          </span>
-        </Link>
+      <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
+        {/* Zeile 1: Logo, auf allen Breiten mittig — dank eigener Zeile kann
+            es gross sein, ohne mit den Links zu kollidieren. Der Hamburger
+            (nur unterhalb von lg sichtbar) sitzt absolut rechts daneben. */}
+        <div className="relative flex items-center justify-center" style={{ height: 76 }}>
+          <Link href="/" className="nav-logo-link inline-flex items-center gap-3">
+            <span
+              style={{
+                opacity: entered ? 1 : 0,
+                transform: entered ? "translateY(0)" : "translateY(8px)",
+                transition: "opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)",
+              }}
+            >
+              <Image
+                src="/logo/onyx-ai-logo.png"
+                alt="ONYX.AI"
+                width={1350}
+                height={368}
+                priority
+                style={{ height: 56, width: "auto", display: "block" }}
+              />
+            </span>
+          </Link>
 
+          <div className="lg:hidden absolute right-0">
+            <MobileNav />
+          </div>
+        </div>
+
+        {/* Zeile 2: Unterseiten und CTA, rechtsbuendig — nur ab lg, darunter
+            uebernimmt der Hamburger oben rechts. */}
         <div
-          className="flex items-center gap-4"
+          className="hidden lg:flex items-center justify-end gap-4"
           style={{
+            paddingBottom: 16,
             opacity: entered ? 1 : 0,
             transform: entered ? "translateY(0)" : "translateY(-6px)",
             transition: "opacity 0.5s ease, transform 0.5s ease",
@@ -96,8 +105,8 @@ export default function Nav() {
           }}
         >
           <nav
-            className="hidden md:flex items-center gap-6"
-            style={{ fontFamily: "var(--font-archivo), sans-serif", fontWeight: 700, fontSize: 13.5, letterSpacing: "-0.01em" }}
+            className="flex items-center gap-5"
+            style={{ fontFamily: "var(--font-archivo), sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "-0.01em" }}
           >
             {links.map((l) => {
               const active = pathname === l.href;
@@ -180,13 +189,11 @@ export default function Nav() {
           <Link
             href="/kontakt"
             onClick={() => noteCtaSource("Nav-CTA")}
-            className="hidden md:inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold whitespace-nowrap btn-amber"
-            style={{ background: "var(--amber)", color: "#12141a", fontSize: 13.5 }}
+            className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold whitespace-nowrap btn-amber"
+            style={{ background: "var(--amber)", color: "#12141a", fontSize: 13 }}
           >
             Kontakt aufnehmen
           </Link>
-
-          <MobileNav />
         </div>
       </div>
     </header>

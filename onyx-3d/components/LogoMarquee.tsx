@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { noteCtaSource } from "@/lib/trackLead";
 
 /**
@@ -35,19 +34,6 @@ export default function LogoMarquee() {
           Onyx baut, fuer wen und was am Ende damit passiert. Bewusst leicht
           gesetzt, damit er die Headline im Hero nicht doppelt. */}
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 900, marginBottom: 26 }}>
-        {/* Statt des Wortes das Logo selbst. Bleibt eine h2, damit die
-            Ueberschriften-Struktur der Seite erhalten bleibt — der Name steht
-            im alt-Text, fuer Screenreader und Suchmaschinen. */}
-        <h2 style={{ marginBottom: 14 }}>
-          <Image
-            src="/logo/onyx-ai-logo.png"
-            alt="ONYX.AI"
-            width={1350}
-            height={368}
-            className="mx-auto"
-            style={{ height: "clamp(68px, 11vw, 124px)", width: "auto", display: "block" }}
-          />
-        </h2>
         <p style={{ fontSize: "clamp(1.02rem, 1.7vw, 1.22rem)", lineHeight: 1.6, color: "var(--warm-grey-dim)" }}>
           Wir bauen maßgeschneiderte Systeme für mittelständische Unternehmen
           — Kundenportale, interne Tools und Dashboards, mit KI und
