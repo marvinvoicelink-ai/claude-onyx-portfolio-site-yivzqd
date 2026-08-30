@@ -41,9 +41,6 @@ export default function Home() {
           <OfferingsAccordion blatt="01" />
         </WheelTransition>
 
-        {/* CTA direkt nach den Leistungen. */}
-        <InlineCta source="Leistungen-CTA" sub="Kostenlos & unverbindlich · Der Gründer meldet sich persönlich" />
-
         {/* Direkt hinter den Leistungen: erst was wir bauen, dann sofort
             Beispiele, wie das aussieht. Die Ausgangslage folgt danach. */}
         <BuiltSystems blatt="02" />
@@ -62,6 +59,9 @@ export default function Home() {
         <WheelTransition edge="enter">
           <ArbeitsweiseSection blatt="05" />
         </WheelTransition>
+
+        {/* CTA nach der Arbeitsweise / "Dein Zugang. Deine Regeln." */}
+        <InlineCta source="Arbeitsweise-CTA" sub="Kostenlos & unverbindlich · Der Gründer meldet sich persönlich" />
 
         <section className="pt-10 pb-2">
           <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
