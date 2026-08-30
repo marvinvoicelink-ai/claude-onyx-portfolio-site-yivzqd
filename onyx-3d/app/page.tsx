@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import Hero from "@/components/Hero";
+import DemoSignupSection from "@/components/DemoSignupSection";
 import OfferingsAccordion from "@/components/OfferingsAccordion";
 import ProblemSection from "@/components/ProblemSection";
 import BuiltSystems from "@/components/BuiltSystems";
@@ -30,6 +31,10 @@ export default function Home() {
     <SmoothScroll>
       <main>
         <Hero />
+
+        {/* Frueh auf der Seite: das Demo-Angebot als erster greifbarer
+            Einstieg, direkt nach dem Hero und vor den Leistungen. */}
+        <DemoSignupSection />
 
         <WheelTransition edge="both">
           <OfferingsAccordion blatt="01" />
