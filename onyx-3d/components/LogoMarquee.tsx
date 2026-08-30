@@ -91,10 +91,12 @@ export default function LogoMarquee() {
         <p style={{ fontSize: "clamp(1.02rem, 1.7vw, 1.22rem)", lineHeight: 1.65, color: "var(--warm-grey-dim)" }}>
           Wir sind Onyx.AI, eine Digitalisierungsagentur für maßgeschneiderte
           Systeme. Wir bauen Kundenportale, interne Tools und CRM- oder
-          ERP-Lösungen — genau auf deinen Ablauf zugeschnitten, statt dich in
-          fertige Software zu zwängen. Wir integrieren, was schon läuft, und
-          bauen neu, wo Standardsoftware nicht passt. Am Ende übergeben wir dir
-          alles vollständig: Code und Daten gehören dir, kein Abo, kein Lock-in.
+          ERP-Lösungen und richten KI-Agenten und Automatisierungen ein, die
+          dir wiederkehrende Arbeit abnehmen — genau auf deinen Ablauf
+          zugeschnitten, statt dich in fertige Software zu zwängen. Wir
+          integrieren, was schon läuft, und bauen neu, wo Standardsoftware
+          nicht passt. Am Ende übergeben wir dir alles vollständig: Code und
+          Daten gehören dir, kein Abo, kein Lock-in.
         </p>
       </div>
     </div>
