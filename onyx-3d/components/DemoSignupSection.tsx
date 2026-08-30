@@ -66,16 +66,17 @@ export default function DemoSignupSection() {
                 className="inline-block rounded-full"
                 style={{ width: 6, height: 6, background: "var(--amber)", boxShadow: "0 0 8px 1px rgba(232, 163, 61,0.6)" }}
               />
-              Kostenlose Demo
+              Geschenkt für dich
             </span>
-            <h2 style={{ fontSize: "clamp(1.7rem, 3.6vw, 2.5rem)", lineHeight: 1.12, marginBottom: 16, maxWidth: "18ch" }}>
-              Sieh dein System, bevor du dich entscheidest.
+            <h2 style={{ fontSize: "clamp(1.7rem, 3.6vw, 2.5rem)", lineHeight: 1.14, marginBottom: 16, maxWidth: "22ch" }}>
+              Wir schenken dir eine kostenlose Demo, damit du siehst, wie{" "}
+              <span className="accent">dein eigenes System</span> aussieht.
             </h2>
             <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.04rem", lineHeight: 1.75, marginBottom: 20, maxWidth: "46ch" }}>
-              Trag dich ein, und wir bauen dir eine kostenlose Demo — ein
-              laufendes System, zugeschnitten auf deinen Betrieb und deinen
-              Ablauf. Kein Verkaufsgespräch, kein Foliensatz: du siehst genau
-              das, was dir später gehört.
+              Trag dich ein, und wir bauen dir kostenlos eine Demo — ein
+              laufendes System, zugeschnitten auf deinen Betrieb. So siehst du
+              schon vorher, was wir für dich tun können, und wie dein System
+              später aussieht. Kein Verkaufsgespräch, kein Foliensatz.
             </p>
             <ul className="flex flex-col gap-2.5" style={{ marginBottom: 4 }}>
               {[
