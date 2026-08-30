@@ -1,6 +1,6 @@
 "use client";
 
-import { noteCtaSource } from "@/lib/trackLead";
+import { openContactForm } from "@/lib/contactModal";
 
 /**
  * `dark` markiert Logos, deren Vorlage fast schwarz ist (gemessen: PawPlace
@@ -38,7 +38,7 @@ export default function LogoMarquee() {
         <div className="mt-2">
           <a
             href="#kontakt"
-            onClick={() => noteCtaSource("Hero-CTA")}
+            onClick={(e) => { e.preventDefault(); openContactForm("Hero-CTA"); }}
             className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber"
             style={{ background: "var(--amber)", color: "#12141a", fontSize: "15.5px" }}
           >

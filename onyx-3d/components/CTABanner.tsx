@@ -1,6 +1,7 @@
 "use client";
 
-import { trackWhatsAppClick, noteCtaSource } from "@/lib/trackLead";
+import { trackWhatsAppClick } from "@/lib/trackLead";
+import { openContactForm } from "@/lib/contactModal";
 
 declare global {
   interface Window {
@@ -60,7 +61,7 @@ export default function CTABanner({
                 abgeschickt, haengt der Name am Lead. */}
             <a
               href={ctaHref}
-              onClick={() => noteCtaSource("CTA-Banner")}
+              onClick={(e) => { e.preventDefault(); openContactForm("CTA-Banner"); }}
               className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap btn-amber"
               style={{ background: "var(--amber)", color: "#12141a", fontSize: 15.5 }}
             >

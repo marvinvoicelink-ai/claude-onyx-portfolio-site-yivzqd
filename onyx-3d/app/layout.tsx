@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Archivo, Instrument_Sans, IBM_Plex_Mono } from "next/font/google";
 import Nav from "@/components/Nav";
 import CookieConsent from "@/components/CookieConsent";
+import ContactModal from "@/components/ContactModal";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -73,6 +74,9 @@ export default function RootLayout({
           <input type="text" name="bot-field" />
         </form>
         <div id="main-content">{children}</div>
+        {/* Ein Kontakt-Formular-Overlay, das jeder CTA-Button seitenweit
+            oeffnet (openContactForm). */}
+        <ContactModal />
         <CookieConsent />
       </body>
     </html>

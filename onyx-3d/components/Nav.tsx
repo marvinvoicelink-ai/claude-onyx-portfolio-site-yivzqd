@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MobileNav from "./MobileNav";
 import { offerings } from "@/lib/offerings";
-import { noteCtaSource } from "@/lib/trackLead";
+import { openContactForm } from "@/lib/contactModal";
 
 const links = [
   { href: "/", label: "Startseite" },
@@ -186,14 +186,14 @@ export default function Nav() {
             })}
           </nav>
 
-          <Link
+          <a
             href="/kontakt"
-            onClick={() => noteCtaSource("Nav-CTA")}
+            onClick={(e) => { e.preventDefault(); openContactForm("Nav-CTA"); }}
             className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold whitespace-nowrap btn-amber"
             style={{ background: "var(--amber)", color: "#12141a", fontSize: 13 }}
           >
             Kontakt aufnehmen
-          </Link>
+          </a>
         </div>
       </div>
     </header>

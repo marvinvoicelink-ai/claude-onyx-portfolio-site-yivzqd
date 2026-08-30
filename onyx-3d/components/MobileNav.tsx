@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { offerings } from "@/lib/offerings";
-import { noteCtaSource } from "@/lib/trackLead";
+import { openContactForm } from "@/lib/contactModal";
 
 const pageLinks = [
   { href: "/", label: "Startseite" },
@@ -115,17 +115,18 @@ export default function MobileNav() {
                 );
               })}
 
-              <Link
+              <a
                 href="/kontakt"
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   setOpen(false);
-                  noteCtaSource("Mobilmenue-CTA");
+                  openContactForm("Mobilmenue-CTA");
                 }}
                 className="inline-flex items-center justify-center rounded-full font-semibold btn-amber"
                 style={{ background: "var(--amber)", color: "#12141a", fontSize: 16, padding: "16px 0", margin: "24px 0 32px" }}
               >
                 Kontakt aufnehmen
-              </Link>
+              </a>
             </nav>
           </div>,
           document.body
