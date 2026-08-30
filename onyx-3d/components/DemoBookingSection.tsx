@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { noteCtaSource } from "@/lib/trackLead";
+import { trackLead } from "@/lib/trackLead";
 
 /**
  * Abschlussblock: links die grosse Aufforderung, rechts eine helle Karte, in
@@ -51,6 +50,40 @@ export default function DemoBookingSection() {
   const ref = useRef<HTMLDivElement>(null);
   // 0 = nur Begruessung, 1 = Kennzahlen dazu, 2 = Aktivitaeten dazu
   const [step, setStep] = useState(-1);
+
+  // Klick auf "Demo buchen" blendet das Formular hier direkt ein, statt zur
+  // Kontakt-Section zu springen. Der Lead feuert erst, wenn Netlify die
+  // vollstaendige Absendung angenommen hat (res.ok) — siehe lib/trackLead.ts.
+  const [showForm, setShowForm] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    if (data.get("bot-field")) return;
+
+    const encoded = new URLSearchParams();
+    data.forEach((value, key) => encoded.append(key, String(value)));
+
+    setStatus("sending");
+    try {
+      const res = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encoded.toString(),
+      });
+      if (res.ok) {
+        trackLead("Demo-buchen");
+        setStatus("ok");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  }
 
   useEffect(() => {
     const el = ref.current;
@@ -123,17 +156,114 @@ export default function DemoBookingSection() {
                 laufendes System, das zu deinem Bereich passt, und du sagst
                 uns, was daran für dich fehlt.
               </p>
-              <Link
-                href="#kontakt"
-                onClick={() => noteCtaSource("Demo-buchen-CTA")}
-                className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber"
-                style={{ background: "var(--amber)", color: "#12141a", fontSize: "15.5px" }}
-              >
-                Demo buchen
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={16} height={16}>
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
-              </Link>
+              {/* Vor dem Klick nur der Button; danach klappt das Formular auf.
+                  Ist es abgeschickt, ersetzt die Danke-Zeile den Button. */}
+              {!showForm && status !== "ok" && (
+                <button
+                  type="button"
+                  onClick={() => setShowForm(true)}
+                  className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber"
+                  style={{ background: "var(--amber)", color: "#12141a", fontSize: "15.5px" }}
+                >
+                  Demo buchen
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={16} height={16}>
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </button>
+              )}
+
+              {showForm && status !== "ok" && (
+                <form
+                  name="demo"
+                  method="POST"
+                  data-netlify="true"
+                  data-netlify-honeypot="bot-field"
+                  onSubmit={handleSubmit}
+                  className="text-left"
+                  style={{ maxWidth: 440 }}
+                >
+                  <input type="hidden" name="form-name" value="demo" />
+                  <p style={{ position: "absolute", left: -9999 }}>
+                    <label>
+                      Nicht ausfüllen: <input name="bot-field" tabIndex={-1} autoComplete="off" />
+                    </label>
+                  </p>
+
+                  <div className="flex flex-col gap-4 mb-5">
+                    {(
+                      [
+                        { field: "name", label: "Name", type: "text", ac: "name" },
+                        { field: "email", label: "E-Mail", type: "email", ac: "email" },
+                        { field: "company", label: "Unternehmen / Branche", type: "text", ac: "organization" },
+                      ] as const
+                    ).map(({ field, label, type, ac }) => (
+                      <label key={field} className="block">
+                        <span className="mono block mb-2" style={{ fontSize: 12.5, color: "var(--warm-grey-dim)" }}>
+                          {label}
+                        </span>
+                        <input
+                          type={type}
+                          name={field}
+                          required
+                          autoComplete={ac}
+                          className="w-full rounded-[10px] px-4 py-3 on-dark"
+                          style={{
+                            background: "var(--near-black)",
+                            border: "1px solid var(--hairline)",
+                            color: "var(--warm-grey)",
+                            fontSize: 15,
+                          }}
+                        />
+                      </label>
+                    ))}
+
+                    <label className="block">
+                      <span className="mono block mb-2" style={{ fontSize: 12.5, color: "var(--warm-grey-dim)" }}>
+                        Was soll die Demo zeigen?
+                      </span>
+                      <textarea
+                        name="message"
+                        rows={3}
+                        placeholder="Welcher Ablauf oder welches Tool soll darin vorkommen?"
+                        className="w-full rounded-[10px] px-4 py-3 on-dark"
+                        style={{
+                          background: "var(--near-black)",
+                          border: "1px solid var(--hairline)",
+                          color: "var(--warm-grey)",
+                          fontSize: 15,
+                          resize: "vertical",
+                        }}
+                      />
+                    </label>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={status === "sending"}
+                    className="w-full rounded-[10px] py-4 font-semibold btn-amber"
+                    style={{
+                      background: "var(--amber)",
+                      color: "#12141a",
+                      fontSize: 15.5,
+                      opacity: status === "sending" ? 0.6 : 1,
+                    }}
+                  >
+                    {status === "sending" ? "Wird gesendet …" : "Demo anfragen"}
+                  </button>
+
+                  {status === "error" && (
+                    <p className="mono mt-3.5" style={{ fontSize: 13, color: "var(--warm-grey-dim)" }}>
+                      Etwas ist schiefgelaufen. Schreib uns stattdessen direkt auf WhatsApp.
+                    </p>
+                  )}
+                </form>
+              )}
+
+              {status === "ok" && (
+                <p className="mono" role="status" aria-live="polite" style={{ fontSize: 14, color: "var(--amber)", lineHeight: 1.5 }}>
+                  Danke! Wir melden uns mit deiner Demo bei dir.
+                </p>
+              )}
             </div>
 
             {/* Rechte Spalte: der helle Mock */}
