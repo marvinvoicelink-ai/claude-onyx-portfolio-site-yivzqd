@@ -30,21 +30,9 @@ export default function LogoMarquee() {
   const track = Array.from({ length: REPEAT }, () => logos).flat();
   return (
     <div className="marquee-border-glow on-dark" style={{ borderTop: "none", paddingTop: 8, paddingBottom: 28 }}>
-      {/* Reihenfolge: erst wer wir sind und was wir bieten, direkt unter der
-          Hero-Headline. Danach die Logos als Beweis, und erst darunter der
-          CTA — der Leser weiss dann schon, wer da ruft und warum. */}
-      <div className="mx-auto px-7 text-center" style={{ maxWidth: 820, marginBottom: 30 }}>
-        <p style={{ fontSize: "clamp(1.02rem, 1.7vw, 1.22rem)", lineHeight: 1.6, color: "var(--warm-grey-dim)" }}>
-          Wir sind Onyx.AI und bauen digitale Systeme unter deinem Namen — vom
-          spezialisierten Portal bis zur individuellen CRM- oder ERP-Lösung,
-          zugeschnitten auf deinen Ablauf.{" "}
-          <span className="accent">
-            Wir entwickeln dein System, übergeben es vollständig und ziehen uns
-            zurück: Code und Daten gehören danach dir. Kein Abo, kein Lock-in.
-          </span>
-        </p>
-      </div>
-
+      {/* Reihenfolge: unter der Headline steht nur der kurze Untertext
+          (in HeroForeground). Hier kommen zuerst die Logos als Beweis, dann
+          der ausfuehrliche ONYX.AI-Text und darunter der CTA. */}
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 1180, marginBottom: 20 }}>
         <span className="mono" style={{ fontSize: 11.5, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--warm-grey-faint)" }}>
           Unternehmen, die uns vertrauen
@@ -75,20 +63,34 @@ export default function LogoMarquee() {
         </div>
       </div>
 
-      {/* CTA jetzt unter den Logos: der letzte Schritt, nachdem Text und
-          Beweis gelesen sind. */}
-      <div className="mx-auto px-7 text-center" style={{ maxWidth: 900, marginTop: 34 }}>
-        <a
-          href="#kontakt"
-          onClick={() => noteCtaSource("Hero-CTA")}
-          className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber"
-          style={{ background: "var(--amber)", color: "#12141a", fontSize: "15.5px" }}
-        >
-          Jetzt Kontakt aufnehmen
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={16} height={16}>
-            <path d="M5 12h14M13 6l6 6-6 6" />
-          </svg>
-        </a>
+      {/* Nach den Logos: der ausfuehrliche ONYX.AI-Text — wer wir sind, was
+          wir bauen, welchen Mehrwert das bringt — und darunter der CTA. */}
+      <div className="mx-auto px-7 text-center" style={{ maxWidth: 860, marginTop: 36 }}>
+        <p style={{ fontSize: "clamp(1.02rem, 1.7vw, 1.22rem)", lineHeight: 1.65, color: "var(--warm-grey-dim)" }}>
+          Wir sind Onyx.AI, ein Studio für maßgeschneiderte digitale Systeme.
+          Wir bauen Kundenportale, interne Tools und CRM- oder ERP-Lösungen —
+          genau auf deinen Ablauf zugeschnitten, statt dich in fertige
+          Software zu zwängen.{" "}
+          <span className="accent">
+            Wir integrieren, was schon läuft, und bauen neu, wo Standardsoftware
+            nicht passt. Am Ende übergeben wir dir alles vollständig: Code und
+            Daten gehören dir, kein Abo, kein Lock-in.
+          </span>
+        </p>
+
+        <div className="mt-8">
+          <a
+            href="#kontakt"
+            onClick={() => noteCtaSource("Hero-CTA")}
+            className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber"
+            style={{ background: "var(--amber)", color: "#12141a", fontSize: "15.5px" }}
+          >
+            Jetzt Kontakt aufnehmen
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={16} height={16}>
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+        </div>
 
         <div className="mono mt-7" style={{ fontSize: 12.5, color: "var(--warm-grey-faint)" }}>
           DSGVO-konform · Gebaut in Deutschland · Für mittelständische Unternehmen

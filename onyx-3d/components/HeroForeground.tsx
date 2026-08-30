@@ -56,9 +56,6 @@ export default function HeroForeground() {
           Systeme unter deinem Namen · Gebaut &amp; übergeben
         </span>
 
-        {/* Der Nutzen trägt die Headline allein — kein Untertext darunter,
-            der ihr die Wirkung nimmt. CTA und Vertrauenszeile stehen weiter
-            unten im ONYX.AI-Block. */}
         <h1
           className={entered ? "hero-blur-visible" : "hero-blur-hidden"}
           style={{
@@ -75,6 +72,22 @@ export default function HeroForeground() {
             mehr Zeit für das, womit du Geld verdienst … in wenigen Wochen.
           </span>
         </h1>
+
+        {/* Kurzer Untertext direkt unter der Headline: fasst das Versprechen
+            in einem Satz. Der ausfuehrliche ONYX.AI-Text kommt erst nach den
+            Logos. */}
+        <p
+          className="mt-5"
+          style={{
+            fontSize: "clamp(1rem, 1.6vw, 1.16rem)",
+            lineHeight: 1.6,
+            color: "var(--warm-grey-dim)",
+            maxWidth: "48ch",
+          }}
+        >
+          Wir bauen dir digitale Systeme, die dir Arbeit abnehmen statt neue zu
+          schaffen — schnell umgesetzt und danach ganz in deiner Hand.
+        </p>
 
       </div>
     </div>
