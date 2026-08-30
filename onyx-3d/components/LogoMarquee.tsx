@@ -31,20 +31,11 @@ export default function LogoMarquee() {
   return (
     <div className="marquee-border-glow on-dark" style={{ borderTop: "none", paddingTop: 8, paddingBottom: 28 }}>
       {/* Reihenfolge: unter der Headline steht der kurze Untertext (in
-          HeroForeground). Hier kommt zuerst der ausfuehrliche ONYX.AI-Text
-          mit CTA, und erst darunter der Logo-Slide als Beweis. Amber wird
-          bewusst sparsam eingesetzt — nur der Button traegt die Farbe. */}
+          HeroForeground). Hier kommt zuerst der CTA, dann der Logo-Slide als
+          Beweis — und erst darunter der ausfuehrliche ONYX.AI-Text. Amber
+          wird bewusst sparsam eingesetzt — nur der Button traegt die Farbe. */}
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 860, marginBottom: 8 }}>
-        <p style={{ fontSize: "clamp(1.02rem, 1.7vw, 1.22rem)", lineHeight: 1.65, color: "var(--warm-grey-dim)" }}>
-          Wir sind Onyx.AI, ein Studio für maßgeschneiderte digitale Systeme.
-          Wir bauen Kundenportale, interne Tools und CRM- oder ERP-Lösungen —
-          genau auf deinen Ablauf zugeschnitten, statt dich in fertige
-          Software zu zwängen. Wir integrieren, was schon läuft, und bauen neu,
-          wo Standardsoftware nicht passt. Am Ende übergeben wir dir alles
-          vollständig: Code und Daten gehören dir, kein Abo, kein Lock-in.
-        </p>
-
-        <div className="mt-8">
+        <div className="mt-2">
           <a
             href="#kontakt"
             onClick={() => noteCtaSource("Hero-CTA")}
@@ -63,7 +54,7 @@ export default function LogoMarquee() {
         </div>
       </div>
 
-      {/* Logo-Slide jetzt unter dem CTA. */}
+      {/* Logo-Slide unter dem CTA. */}
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 1180, marginTop: 38, marginBottom: 20 }}>
         <span className="mono" style={{ fontSize: 11.5, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--warm-grey-faint)" }}>
           Unternehmen, die uns vertrauen
@@ -92,6 +83,19 @@ export default function LogoMarquee() {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Der ausfuehrliche ONYX.AI-Text jetzt unter den Logos: wer wir sind
+          (Digitalisierungsagentur), was wir bauen und welchen Mehrwert. */}
+      <div className="mx-auto px-7 text-center" style={{ maxWidth: 860, marginTop: 34 }}>
+        <p style={{ fontSize: "clamp(1.02rem, 1.7vw, 1.22rem)", lineHeight: 1.65, color: "var(--warm-grey-dim)" }}>
+          Wir sind Onyx.AI, eine Digitalisierungsagentur für maßgeschneiderte
+          Systeme. Wir bauen Kundenportale, interne Tools und CRM- oder
+          ERP-Lösungen — genau auf deinen Ablauf zugeschnitten, statt dich in
+          fertige Software zu zwängen. Wir integrieren, was schon läuft, und
+          bauen neu, wo Standardsoftware nicht passt. Am Ende übergeben wir dir
+          alles vollständig: Code und Daten gehören dir, kein Abo, kein Lock-in.
+        </p>
       </div>
     </div>
   );
