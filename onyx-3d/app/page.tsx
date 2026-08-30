@@ -2,6 +2,7 @@ import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import Hero from "@/components/Hero";
 import DemoSignupSection from "@/components/DemoSignupSection";
+import InlineCta from "@/components/InlineCta";
 import OfferingsAccordion from "@/components/OfferingsAccordion";
 import ProblemSection from "@/components/ProblemSection";
 import BuiltSystems from "@/components/BuiltSystems";
@@ -40,9 +41,15 @@ export default function Home() {
           <OfferingsAccordion blatt="01" />
         </WheelTransition>
 
+        {/* CTA direkt nach den Leistungen. */}
+        <InlineCta source="Leistungen-CTA" sub="Kostenlos & unverbindlich · Der Gründer meldet sich persönlich" />
+
         {/* Direkt hinter den Leistungen: erst was wir bauen, dann sofort
             Beispiele, wie das aussieht. Die Ausgangslage folgt danach. */}
         <BuiltSystems blatt="02" />
+
+        {/* CTA nach den gebauten Systemen. */}
+        <InlineCta label="System wie diese anfragen" source="Gebaute-Systeme-CTA" sub="Kostenlos & unverbindlich · Der Gründer meldet sich persönlich" />
 
         <ProblemSection blatt="03" />
 
