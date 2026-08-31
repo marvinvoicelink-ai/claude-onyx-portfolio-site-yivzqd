@@ -788,6 +788,66 @@ main div:has(+ h2) {
   animation: card-silver-pulse 5s ease-in-out infinite;
 }
 
+/* ---------------------------------------------------------------------------
+ * Umlaufender Amber-Balken um die Karte (statt Schein von hinten).
+ *
+ * Ein Lichtstrahl wandert an der Kante entlang: eine rotierende
+ * conic-gradient-Fuellung, per Maske nur auf den 1,5px-Rahmenring begrenzt.
+ * Der Ring liegt aussen an der Kante, das Karteninnere bleibt frei.
+ * ------------------------------------------------------------------------ */
+@property --beam-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.beam-border {
+  position: relative;
+  border: 1px solid var(--hairline);
+  isolation: isolate;
+}
+.beam-border::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--beam-angle),
+    transparent 0deg,
+    transparent 235deg,
+    rgba(232, 163, 61, 0.12) 285deg,
+    var(--amber) 330deg,
+    rgba(232, 163, 61, 0.12) 350deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: beam-spin 5s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+@keyframes beam-spin {
+  to {
+    --beam-angle: 360deg;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .beam-border::after {
+    animation: none;
+    background: none;
+  }
+}
+/* Aeltere Browser ohne @property zeigen keinen wandernden, aber einen
+   ruhenden Amber-Schimmer am oberen Rand — nie eine harte Vollflaeche. */
+@supports not (background: conic-gradient(from var(--beam-angle), red, blue)) {
+  .beam-border::after {
+    background: linear-gradient(90deg, transparent, rgba(232, 163, 61, 0.5), transparent);
+    animation: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .silver-glow {
     animation: none;

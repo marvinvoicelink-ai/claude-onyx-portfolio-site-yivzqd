@@ -172,7 +172,7 @@ export default function CapabilitiesSection({ blatt }: { blatt?: string }) {
           {pillars.map((p) => (
             <div
               key={p.kw}
-              className="rounded-2xl p-6 md:p-8 on-dark silver-rim"
+              className="rounded-2xl p-6 md:p-8 on-dark beam-border"
               style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
             >
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-7 lg:gap-12 items-center">

@@ -65,8 +65,8 @@ export default function AutopilotSection({ blatt }: { blatt?: string }) {
     <section className="py-12">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
-          className="rounded-[28px] px-7 py-10 md:px-12 md:py-12 on-dark silver-glow"
-          style={{ background: "var(--near-black-2)", border: "1px solid var(--silver-line)", boxShadow: "0 0 44px -10px rgba(203, 203, 201,0.28)" }}
+          className="rounded-[28px] px-7 py-10 md:px-12 md:py-12 on-dark beam-border"
+          style={{ background: "var(--near-black-2)", border: "1px solid var(--silver-line)" }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 lg:gap-14 items-center">
             <div className="text-left">

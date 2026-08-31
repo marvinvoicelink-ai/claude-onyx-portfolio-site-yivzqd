@@ -41,20 +41,8 @@ export default function HeroForeground() {
               boxShadow: "0 0 8px 1px rgba(232, 163, 61,0.6)",
             }}
           />
-          Kein Account-Manager, direkt zum Chef
+          Systeme, Automationen &amp; KI-Agenten für den Mittelstand
         </div>
-
-        <span
-          className="mono block mb-3"
-          style={{
-            fontSize: "12.5px",
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            color: "var(--amber)",
-          }}
-        >
-          Systeme unter deinem Namen · Gebaut &amp; übergeben
-        </span>
 
         {/* Auf dem Handy bewusst kleiner (kleinere clamp-Untergrenze) und
             enger, damit Headline, Untertext und CTA frueher ins Bild passen. */}

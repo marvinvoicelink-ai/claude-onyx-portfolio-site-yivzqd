@@ -1,25 +1,59 @@
 /**
- * Kundenstimmen. BEWUSST leer, bis echte Zitate von echten Onyx-Kunden
- * vorliegen (Name, Rolle/Firma, Zitat, optional Foto). Keine erfundenen
- * Namen oder Logos — das waeren gefaelschte Referenzen. Sobald Marvin echte
- * Stimmen liefert, hier eintragen und die Section in app/page.tsx einhaengen.
+ * Kundenstimmen mit echten Zitaten von Onyx-Kunden. Fünf Sterne als
+ * Markierung, keine erfundenen Personennamen oder Logos — nur der
+ * Firmen-/Projektname, den Marvin freigegeben hat. Die Zuordnung Zitat →
+ * Firma stammt aus Marvins Angabe und lässt sich hier jederzeit anpassen.
  */
 type Testimonial = {
   quote: string;
   name: string;
-  role: string; // z. B. "Geschäftsführer, HWD Handelsagentur"
-  image?: string; // optionaler Pfad zu einem Portrait in /public
+  role: string;
 };
 
 const testimonials: Testimonial[] = [
-  // Beispiel-Form (echte Daten eintragen):
-  // {
-  //   quote: "Onyx hat uns ein System gebaut, das fünf Tools ersetzt. Läuft, gehört uns.",
-  //   name: "Vorname Nachname",
-  //   role: "Geschäftsführer, Firma",
-  //   image: "/testimonials/person.jpg",
-  // },
+  {
+    quote:
+      "Von der ersten Beratung bis zur Umsetzung hat alles sehr strukturiert gewirkt. Die Lösung wurde auf unsere Abläufe angepasst und nicht einfach irgendein Standard-System übergestülpt.",
+    name: "Speedfire",
+    role: "Markenaufbau & Vermarktung",
+  },
+  {
+    quote:
+      "Wir waren überrascht, wie schnell das System bei uns integriert werden konnte. Besonders gut gefällt uns, dass viele Abläufe jetzt automatisch laufen und wir deutlich weniger manuell machen müssen.",
+    name: "Haas Wasserkraft",
+    role: "Bestands- & CRM-System",
+  },
+  {
+    quote:
+      "Sehr professionelle Umsetzung und schnelle Kommunikation. Fragen wurden direkt beantwortet und Änderungen ohne großes Hin und Her umgesetzt.",
+    name: "HWD Handelsagentur",
+    role: "Digitalisierungsprojekt",
+  },
+  {
+    quote:
+      "Wir hatten vorher mehrere Prozesse, die unnötig viel Zeit gekostet haben. Durch die Automatisierungen läuft inzwischen vieles im Hintergrund. Genau das haben wir gesucht.",
+    name: "PawPlace",
+    role: "Support-Dashboard",
+  },
+  {
+    quote:
+      "Die Zusammenarbeit war von Anfang an unkompliziert. Das Team hat unsere Anforderungen schnell verstanden und eine Lösung umgesetzt, die uns im Alltag wirklich Zeit spart.",
+    name: "Onyx-Kunde",
+    role: "Internes Tool",
+  },
 ];
+
+function Stars() {
+  return (
+    <div className="flex items-center gap-1" aria-label="5 von 5 Sternen">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <svg key={i} viewBox="0 0 24 24" fill="var(--amber)" width={16} height={16}>
+          <path d="M12 2.5l2.9 5.9 6.5.95-4.7 4.58 1.1 6.47L12 17.9l-5.8 3.05 1.1-6.47L2.6 9.9l6.5-.95L12 2.5Z" />
+        </svg>
+      ))}
+    </div>
+  );
+}
 
 export default function Testimonials({ blatt }: { blatt?: string }) {
   if (testimonials.length === 0) return null;
@@ -42,23 +76,19 @@ export default function Testimonials({ blatt }: { blatt?: string }) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {testimonials.map((t) => (
             <div
-              key={t.name}
-              className="rounded-2xl p-6 md:p-8 on-dark silver-rim text-left"
-              style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
+              key={t.name + t.role}
+              className="rounded-2xl p-6 md:p-8 on-dark beam-border text-left flex flex-col"
+              style={{ background: "var(--near-black-2)" }}
             >
-              <svg viewBox="0 0 24 24" fill="var(--amber)" width={26} height={26} style={{ opacity: 0.9, marginBottom: 14 }}>
-                <path d="M9 11H5.5a.5.5 0 0 1-.5-.5V7a3 3 0 0 1 3-3h.5a.5.5 0 0 1 0 1H8a2 2 0 0 0-2 2v.5A1.5 1.5 0 0 1 7.5 9H9a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h3v-1Zm10 0h-3.5a.5.5 0 0 1-.5-.5V7a3 3 0 0 1 3-3h.5a.5.5 0 0 1 0 1H18a2 2 0 0 0-2 2v.5A1.5 1.5 0 0 1 17.5 9H19a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h3v-1Z" />
-              </svg>
-              <p style={{ fontSize: "1.1rem", lineHeight: 1.6, color: "var(--warm-grey)", marginBottom: 20 }}>
-                {t.quote}
+              <div className="mb-4">
+                <Stars />
+              </div>
+              <p style={{ fontSize: "1.08rem", lineHeight: 1.65, color: "var(--warm-grey)", marginBottom: 20, flex: 1 }}>
+                „{t.quote}"
               </p>
-              <div className="flex items-center gap-3" style={{ borderTop: "1px solid var(--hairline)", paddingTop: 16 }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                {t.image && <img src={t.image} alt={t.name} style={{ width: 44, height: 44, borderRadius: "50%", objectFit: "cover", flexShrink: 0 }} />}
-                <div>
-                  <div className="display" style={{ fontWeight: 700, fontSize: "1.05rem", lineHeight: 1.2 }}>{t.name}</div>
-                  <div className="mono" style={{ fontSize: 12, color: "var(--warm-grey-dim)", marginTop: 3 }}>{t.role}</div>
-                </div>
+              <div style={{ borderTop: "1px solid var(--hairline)", paddingTop: 16 }}>
+                <div className="display" style={{ fontWeight: 700, fontSize: "1.05rem", lineHeight: 1.2 }}>{t.name}</div>
+                <div className="mono" style={{ fontSize: 12, color: "var(--warm-grey-dim)", marginTop: 3 }}>{t.role}</div>
               </div>
             </div>
           ))}

@@ -49,7 +49,7 @@ export default function SystemFormSection() {
     <section className="py-14">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
-          className="rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 on-dark silver-glow"
+          className="rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 on-dark beam-border"
           style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
         >
           {/* Feste 4:3-Kachel liess unter dem Bild eine schwarze Luecke, seit

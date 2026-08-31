@@ -20,6 +20,7 @@ import FAQSection from "@/components/FAQSection";
 import CTABanner from "@/components/CTABanner";
 import DemoBookingSection from "@/components/DemoBookingSection";
 import ContactSection from "@/components/ContactSection";
+import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
 import WheelTransition from "@/components/WheelTransition";
 
@@ -45,30 +46,30 @@ export default function Home() {
         <DemoSignupSection />
 
         <WheelTransition edge="both">
-          <OfferingsAccordion blatt="01" />
+          <OfferingsAccordion />
         </WheelTransition>
 
         {/* Direkt hinter den Leistungen: erst was wir bauen, dann sofort
             Beispiele, wie das aussieht. Die Ausgangslage folgt danach. */}
-        <BuiltSystems blatt="02" />
+        <BuiltSystems />
 
         {/* CTA nach den gebauten Systemen. */}
         <InlineCta label="System wie diese anfragen" source="Gebaute-Systeme-CTA" sub="Kostenlos & unverbindlich · Der Gründer meldet sich persönlich" />
 
-        <ProblemSection blatt="03" />
+        <ProblemSection />
 
         {/* Direkt nach der Ausgangslage: was ein eigenes System, Automationen
             und KI-Agenten konkret übernehmen, beschleunigen und ermöglichen. */}
-        <CapabilitiesSection blatt="04" />
+        <CapabilitiesSection />
 
         {/* Wie wir dahin kommen: Analyse, Bauen, Übergeben. */}
-        <ProcessSteps blatt="05" />
+        <ProcessSteps />
 
         {/* Danach die Einordnung, ob der Leser damit gemeint ist. */}
-        <IndustriesSection blatt="06" />
+        <IndustriesSection />
 
         <WheelTransition edge="enter">
-          <ArbeitsweiseSection blatt="07" />
+          <ArbeitsweiseSection />
         </WheelTransition>
 
         {/* CTA nach der Arbeitsweise / "Dein Zugang. Deine Regeln." */}
@@ -80,7 +81,7 @@ export default function Home() {
               className="mono inline-flex items-center gap-2 mb-4"
               style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
             >
-              <span style={{ opacity: 0.7 }}>§</span> Blatt 08 / Referenzen
+              <span style={{ opacity: 0.7 }}>§</span> Referenzen
             </span>
             <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "22ch", marginBottom: 14 }}>
               Schon gebaut, <span className="accent">und übergeben</span>
@@ -172,20 +173,23 @@ export default function Home() {
           </Link>
         </div>
 
+        {/* Kundenstimmen direkt hinter den Referenzen. */}
+        <Testimonials />
+
         <SystemFormSection />
 
         <WheelTransition edge="enter">
           <ExplainerSection />
         </WheelTransition>
 
-        <DemoShowcaseSection blatt="09" />
+        <DemoShowcaseSection />
 
         <WheelTransition edge="exit">
-          <FAQSection blatt="10" />
+          <FAQSection />
         </WheelTransition>
 
         {/* Abschluss-Argument: Systeme, die ohne dich laufen. */}
-        <AutopilotSection blatt="11" />
+        <AutopilotSection />
 
         <CTABanner
           heading="Dein System, gebaut für genau dein Geschäft."
@@ -197,7 +201,7 @@ export default function Home() {
         <DemoBookingSection />
 
         <WheelTransition edge="enter">
-          <ContactSection blatt="12" />
+          <ContactSection />
         </WheelTransition>
 
         <Footer />

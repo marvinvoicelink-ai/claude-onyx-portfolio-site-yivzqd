@@ -34,7 +34,7 @@ export default function ArbeitsweiseSection({ blatt }: { blatt?: string }) {
             die Section begann mit KI-Agenten und Automatisierung, also mit
             dem, was im System steckt, nie mit dem System selbst. */}
         <div
-          className="rounded-2xl px-6 py-7 md:px-9 md:py-8 mb-10 on-dark silver-glow"
+          className="rounded-2xl px-6 py-7 md:px-9 md:py-8 mb-10 on-dark beam-border"
           style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] gap-7 lg:gap-12 items-center">
@@ -107,7 +107,7 @@ export default function ArbeitsweiseSection({ blatt }: { blatt?: string }) {
 
         {/* Teil 2: Automatisierungen */}
         <div
-          className="rounded-2xl px-6 py-7 md:px-9 md:py-8 mb-10 on-dark silver-glow"
+          className="rounded-2xl px-6 py-7 md:px-9 md:py-8 mb-10 on-dark beam-border"
           style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">

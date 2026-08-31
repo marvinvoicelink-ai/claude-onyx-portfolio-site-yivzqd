@@ -8,8 +8,8 @@
 type Stat = { value: string; label: string };
 
 const stats: Stat[] = [
+  { value: "600.000 €+", label: "eigener Umsatz" },
   { value: "20+", label: "Std./Monat gespart" },
-  { value: "5–6 → 1", label: "Tools im Einsatz" },
   { value: "100 %", label: "Eigentum bei dir" },
 ];
 
@@ -19,11 +19,11 @@ export default function StatsBar() {
       <div className="mx-auto px-7" style={{ maxWidth: 1000 }}>
         <div className="text-center mb-5">
           <span className="mono" style={{ fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--warm-grey-faint)" }}>
-            Ein Kundenergebnis in Zahlen · HausManager Pro
+            Onyx.AI in Zahlen
           </span>
         </div>
         <div
-          className="rounded-2xl overflow-hidden on-dark silver-glow grid grid-cols-1 sm:grid-cols-3"
+          className="rounded-2xl overflow-hidden on-dark beam-border grid grid-cols-1 sm:grid-cols-3"
           style={{ background: "var(--near-black-2)", border: "1px solid var(--silver-line)" }}
         >
           {stats.map((s, i) => (
@@ -36,9 +36,10 @@ export default function StatsBar() {
                 className="display"
                 style={{
                   fontWeight: 800,
-                  fontSize: "clamp(2rem, 4.5vw, 2.9rem)",
+                  fontSize: "clamp(1.7rem, 4vw, 2.7rem)",
                   lineHeight: 1,
                   color: "var(--amber)",
+                  whiteSpace: "nowrap",
                 }}
               >
                 {s.value}

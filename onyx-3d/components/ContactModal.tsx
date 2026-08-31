@@ -89,7 +89,7 @@ export default function ContactModal() {
       }}
     >
       <div
-        className="relative w-full on-dark silver-glow"
+        className="relative w-full on-dark beam-border"
         style={{
           maxWidth: 560,
           marginTop: "clamp(16px, 6vh, 64px)",

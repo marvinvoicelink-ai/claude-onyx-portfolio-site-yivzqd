@@ -32,7 +32,7 @@ export default function OfferingsAccordion({ blatt }: { blatt?: string }) {
         </p>
 
         <div
-          className="rounded-2xl overflow-hidden on-dark silver-glow"
+          className="rounded-2xl overflow-hidden on-dark beam-border"
           style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
         >
           {offerings.map((o, i) => {

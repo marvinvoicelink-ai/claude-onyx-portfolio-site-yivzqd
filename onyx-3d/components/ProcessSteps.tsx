@@ -56,7 +56,7 @@ export default function ProcessSteps({ blatt }: { blatt?: string }) {
           {steps.map((s, i) => (
             <div key={s.num} className="relative">
               <div
-                className="rounded-2xl p-6 h-full on-dark silver-rim text-left"
+                className="rounded-2xl p-6 h-full on-dark beam-border text-left"
                 style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
               >
                 <div className="flex items-baseline gap-3 mb-3">
@@ -77,7 +77,7 @@ export default function ProcessSteps({ blatt }: { blatt?: string }) {
         </div>
 
         {/* Prozess-Audit-Mock */}
-        <div className="rounded-2xl p-5 sm:p-6 on-dark silver-rim" style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)", maxWidth: 720, margin: "0 auto" }}>
+        <div className="rounded-2xl p-5 sm:p-6 on-dark beam-border" style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)", maxWidth: 720, margin: "0 auto" }}>
           <div className="flex items-center justify-between mb-4">
             <span className="mono" style={{ fontSize: 12.5, fontWeight: 700, letterSpacing: "0.04em", textTransform: "uppercase" }}>Prozess-Audit</span>
             <span className="mono" style={{ fontSize: 12.5, fontWeight: 700, color: "var(--amber)" }}>18,5 Std./Woche</span>

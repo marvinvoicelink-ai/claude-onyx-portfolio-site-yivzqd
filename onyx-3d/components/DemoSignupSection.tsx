@@ -49,11 +49,10 @@ export default function DemoSignupSection() {
     <section id="demo" className="py-14">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
-          className="rounded-[28px] overflow-hidden grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.92fr)] on-dark silver-glow"
+          className="rounded-[28px] overflow-hidden grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.92fr)] on-dark beam-border"
           style={{
             background: "var(--near-black-2)",
             border: "1px solid var(--silver-line)",
-            boxShadow: "0 0 44px -10px rgba(203, 203, 201,0.28)",
           }}
         >
           {/* Linke Spalte: das Angebot in Worten. */}
