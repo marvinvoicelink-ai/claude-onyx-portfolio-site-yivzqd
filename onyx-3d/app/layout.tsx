@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Archivo, Instrument_Sans, IBM_Plex_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import Nav from "@/components/Nav";
 import CookieConsent from "@/components/CookieConsent";
 import ContactModal from "@/components/ContactModal";
@@ -21,6 +22,24 @@ const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
   weight: ["400", "500"],
   subsets: ["latin"],
+});
+
+/**
+ * Integral CF als Display-/Headline-Schrift der Seite (fett, verdichtet,
+ * Großbuchstaben). Nur fuer Ueberschriften und grosse Display-Zahlen — der
+ * Fliesstext bleibt Instrument Sans, weil Integral als reine Versal-Schrift
+ * in langen Absaetzen nicht lesbar waere.
+ */
+const integral = localFont({
+  variable: "--font-integral",
+  display: "swap",
+  src: [
+    { path: "./fonts/integral-cf-regular.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/integral-cf-medium.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/integral-cf-bold.woff2", weight: "700", style: "normal" },
+    { path: "./fonts/integral-cf-extra-bold.woff2", weight: "800", style: "normal" },
+    { path: "./fonts/integral-cf-heavy.woff2", weight: "900", style: "normal" },
+  ],
 });
 
 const title = "Onyx.AI — White-Label-Systeme. Gebaut. Übergeben. Deins.";
@@ -54,7 +73,7 @@ export default function RootLayout({
   return (
     <html
       lang="de"
-      className={`${archivo.variable} ${instrumentSans.variable} ${plexMono.variable}`}
+      className={`${archivo.variable} ${instrumentSans.variable} ${plexMono.variable} ${integral.variable}`}
     >
       <body>
         <div className="grain-overlay" aria-hidden="true" />

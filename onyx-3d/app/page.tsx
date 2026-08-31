@@ -72,7 +72,7 @@ export default function Home() {
               <span style={{ opacity: 0.7 }}>§</span> Blatt 06 / Referenzen
             </span>
             <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "22ch", marginBottom: 14 }}>
-              Schon gebaut. Und übergeben.
+              Schon gebaut. Und übergeben<span className="accent">.</span>
             </h2>
             <p style={{ color: "var(--warm-grey-dim)", maxWidth: "58ch", fontSize: "1.02rem", lineHeight: 1.7 }}>
               Vier Projekte im Überblick, der Rest auf der Referenzseite.

@@ -139,9 +139,9 @@ export default function DemoBookingSection() {
               </span>
               <p
                 style={{
-                  fontFamily: "var(--font-archivo), sans-serif",
+                  fontFamily: "var(--font-integral), var(--font-archivo), sans-serif",
                   fontWeight: 700,
-                  letterSpacing: "-0.02em",
+                  letterSpacing: "0",
                   lineHeight: 1.05,
                   fontSize: "clamp(2.4rem, 5vw, 4rem)",
                   marginBottom: 18,

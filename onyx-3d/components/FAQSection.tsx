@@ -31,15 +31,15 @@ export default function FAQSection({ blatt }: { blatt?: string }) {
           >
             <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Rückfragen` : "Rückfragen"}
           </span>
-          <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 30 }}>Bevor du fragst.</h2>
+          <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 30 }}>Bevor du fragst<span className="accent">.</span></h2>
         </div>
 
         <div>
           {faqs.map((f) => (
             <details key={f.q} className="group" style={{ borderBottom: "1px solid var(--hairline)", padding: "20px 0" }}>
               <summary
-                className="flex items-center justify-between cursor-pointer list-none"
-                style={{ fontWeight: 600, fontSize: "1.02rem" }}
+                className="display flex items-center justify-between cursor-pointer list-none"
+                style={{ fontWeight: 700, fontSize: "1.02rem", lineHeight: 1.3 }}
               >
                 {f.q}
                 <span className="mono" style={{ color: "var(--amber)", fontSize: "1.3rem" }}>

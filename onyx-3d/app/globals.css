@@ -96,17 +96,25 @@ body {
 h1,
 h2,
 h3 {
-  font-family: var(--font-archivo), sans-serif;
+  /* Integral CF ist die Display-Schrift der Seite: verdichtete Versalien,
+     daher ohne negatives Tracking und mit engerer Zeilenhoehe, weil Versalien
+     keine Unterlaengen haben. */
+  font-family: var(--font-integral), var(--font-archivo), sans-serif;
   font-weight: 700;
-  letter-spacing: -0.02em;
-  /* Ohne eigenen Wert erben Ueberschriften die 1.6 vom Body — bei 2.6rem
-     reisst das zweizeilige Headlines sichtbar auseinander. */
-  line-height: 1.18;
+  letter-spacing: 0;
+  line-height: 1.08;
   color: var(--warm-grey);
 }
 
 .mono {
   font-family: var(--font-plex-mono), monospace;
+}
+
+/* Display-Schrift (Integral CF) fuer Titel, die keine echten Ueberschriften-
+   Tags sind — Karten-Titel, Akkordeon-Zeilen, FAQ-Fragen. */
+.display {
+  font-family: var(--font-integral), var(--font-archivo), sans-serif;
+  letter-spacing: 0;
 }
 
 a {

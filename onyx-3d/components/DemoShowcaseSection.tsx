@@ -20,7 +20,7 @@ export default function DemoShowcaseSection({ blatt }: { blatt?: string }) {
           <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Dein Erstgespräch` : "Dein Erstgespräch"}
         </span>
         <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 14 }}>
-          Du siehst dein System, bevor du unterschreibst.
+          Du siehst dein System, bevor du unterschreibst<span className="accent">.</span>
         </h2>
         <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 8, maxWidth: "58ch" }}>
           Für die meisten Branchen haben wir längst eine Demoversion gebaut.
