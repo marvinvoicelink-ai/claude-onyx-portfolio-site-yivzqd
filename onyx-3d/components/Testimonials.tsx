@@ -13,33 +13,39 @@ type Testimonial = {
 const testimonials: Testimonial[] = [
   {
     quote:
-      "Von der ersten Beratung bis zur Umsetzung hat alles sehr strukturiert gewirkt. Die Lösung wurde auf unsere Abläufe angepasst und nicht einfach irgendein Standard-System übergestülpt.",
-    name: "Speedfire",
-    role: "Markenaufbau & Vermarktung",
-  },
-  {
-    quote:
-      "Wir waren überrascht, wie schnell das System bei uns integriert werden konnte. Besonders gut gefällt uns, dass viele Abläufe jetzt automatisch laufen und wir deutlich weniger manuell machen müssen.",
+      "Die Zusammenarbeit war von Anfang an unkompliziert. Das Team hat unsere Anforderungen schnell verstanden und eine Lösung umgesetzt, die uns im Alltag wirklich Zeit spart.",
     name: "Haas Wasserkraft",
     role: "Bestands- & CRM-System",
   },
   {
     quote:
-      "Sehr professionelle Umsetzung und schnelle Kommunikation. Fragen wurden direkt beantwortet und Änderungen ohne großes Hin und Her umgesetzt.",
-    name: "HWD Handelsagentur",
-    role: "Digitalisierungsprojekt",
+      "Wir waren überrascht, wie schnell das System bei uns integriert werden konnte. Besonders gut gefällt uns, dass viele Abläufe jetzt automatisch laufen und wir deutlich weniger manuell machen müssen.",
+    name: "Speedfire",
+    role: "Markenaufbau & Vermarktung",
   },
   {
     quote:
-      "Wir hatten vorher mehrere Prozesse, die unnötig viel Zeit gekostet haben. Durch die Automatisierungen läuft inzwischen vieles im Hintergrund. Genau das haben wir gesucht.",
+      "Sehr professionelle Umsetzung und schnelle Kommunikation. Fragen wurden direkt beantwortet und Änderungen ohne großes Hin und Her umgesetzt.",
     name: "PawPlace",
     role: "Support-Dashboard",
   },
   {
     quote:
-      "Die Zusammenarbeit war von Anfang an unkompliziert. Das Team hat unsere Anforderungen schnell verstanden und eine Lösung umgesetzt, die uns im Alltag wirklich Zeit spart.",
-    name: "Onyx-Kunde",
-    role: "Internes Tool",
+      "Wir hatten vorher mehrere Prozesse, die unnötig viel Zeit gekostet haben. Durch die Automatisierungen läuft inzwischen vieles im Hintergrund. Genau das haben wir gesucht.",
+    name: "HWD Handelsagentur",
+    role: "Automatisierungen",
+  },
+  {
+    quote:
+      "Von der ersten Beratung bis zur Umsetzung hat alles sehr strukturiert gewirkt. Die Lösung wurde auf unsere Abläufe angepasst und nicht einfach irgendein Standard-System übergestülpt.",
+    name: "Rebstöckel",
+    role: "Maßgeschneidertes System",
+  },
+  {
+    quote:
+      "Mit dem HausManager sparen wir jeden Tag Zeit. Wiederkehrende Aufgaben werden zuverlässig organisiert, und wir müssen deutlich weniger manuell nachhalten.",
+    name: "Hausverwaltung",
+    role: "HausManager Pro",
   },
 ];
 

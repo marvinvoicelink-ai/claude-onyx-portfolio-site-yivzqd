@@ -8,7 +8,7 @@
 type Stat = { value: string; label: string };
 
 const stats: Stat[] = [
-  { value: "600.000 €+", label: "eigener Umsatz" },
+  { value: "600K €", label: "eigener Umsatz" },
   { value: "20+", label: "Std./Monat gespart" },
   { value: "100 %", label: "Eigentum bei dir" },
 ];
