@@ -84,21 +84,6 @@ export default function LogoMarquee() {
           ))}
         </div>
       </div>
-
-      {/* Der ausfuehrliche ONYX.AI-Text jetzt unter den Logos: wer wir sind
-          (Digitalisierungsagentur), was wir bauen und welchen Mehrwert. */}
-      <div className="mx-auto px-7 text-center" style={{ maxWidth: 860, marginTop: 34 }}>
-        <p style={{ fontSize: "clamp(1.02rem, 1.7vw, 1.22rem)", lineHeight: 1.65, color: "var(--warm-grey-dim)" }}>
-          Wir sind Onyx.AI, eine Digitalisierungsagentur für maßgeschneiderte
-          Systeme. Wir bauen Kundenportale, interne Tools und CRM- oder
-          ERP-Lösungen und richten KI-Agenten und Automatisierungen ein, die
-          dir wiederkehrende Arbeit abnehmen — genau auf deinen Ablauf
-          zugeschnitten, statt dich in fertige Software zu zwängen. Wir
-          integrieren, was schon läuft, und bauen neu, wo Standardsoftware
-          nicht passt. Am Ende übergeben wir dir alles vollständig: Code und
-          Daten gehören dir, kein Abo, kein Lock-in.
-        </p>
-      </div>
     </div>
   );
 }
