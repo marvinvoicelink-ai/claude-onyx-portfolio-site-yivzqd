@@ -58,7 +58,7 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
             <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Kontakt` : "Kontakt"}
           </span>
           <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)", marginBottom: 14 }}>
-            Lass uns dein System besprechen<span className="accent">.</span>
+            Lass uns <span className="accent">dein System</span> besprechen
           </h2>
           <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", marginBottom: 36, maxWidth: "50ch" }}>
             Schreib direkt, was dein Unternehmen braucht — der Gründer

@@ -74,7 +74,7 @@ export default function HeroForeground() {
               Headline bleibt in der normalen Textfarbe. */}
           <span className="block">
             mehr Zeit für das, womit du Geld verdienst …{" "}
-            <span className="accent">in wenigen Wochen.</span>
+            <span className="accent">in wenigen Wochen</span>
           </span>
         </h1>
 

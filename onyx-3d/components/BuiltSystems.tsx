@@ -178,7 +178,7 @@ export default function BuiltSystems({ blatt }: { blatt?: string }) {
           <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Gebaute Systeme` : "Gebaute Systeme"}
         </span>
         <h2 className="mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "24ch", marginBottom: 12 }}>
-          Aus Tool-Chaos wird ein System<span className="accent">.</span>
+          Aus Tool-Chaos wird <span className="accent">ein System</span>
         </h2>
         <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7, maxWidth: "62ch", marginBottom: 32 }}>
           Immobilien, Handwerk, Garten- &amp; Landschaftsbau, Hausverwaltung —

@@ -106,7 +106,7 @@ export default function ProblemSection({ blatt }: { blatt?: string }) {
           <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Ausgangslage` : "Ausgangslage"}
         </span>
         <h2 className="mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "24ch", marginBottom: 12 }}>
-          Warum Unternehmen bei uns landen<span className="accent">.</span>
+          Warum Unternehmen <span className="accent">bei uns landen</span>
         </h2>
         <p
           className="mx-auto"

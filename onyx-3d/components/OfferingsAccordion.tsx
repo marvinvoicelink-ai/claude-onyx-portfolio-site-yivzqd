@@ -24,7 +24,7 @@ export default function OfferingsAccordion({ blatt }: { blatt?: string }) {
           <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Leistungen` : "Leistungen"}
         </span>
         <h2 style={{ fontSize: "clamp(1.9rem, 3.8vw, 2.7rem)", maxWidth: "20ch", marginBottom: 14 }}>
-          Das können wir für dich tun<span className="accent">.</span>
+          Das können wir <span className="accent">für dich tun</span>
         </h2>
         <p style={{ color: "var(--warm-grey-dim)", maxWidth: "58ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 30 }}>
           Sechs Bausteine, aus denen wir Systeme zusammensetzen. Kein Betrieb

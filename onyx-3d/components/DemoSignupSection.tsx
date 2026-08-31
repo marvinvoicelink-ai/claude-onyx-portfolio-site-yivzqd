@@ -70,7 +70,7 @@ export default function DemoSignupSection() {
             </span>
             <h2 style={{ fontSize: "clamp(1.7rem, 3.6vw, 2.5rem)", lineHeight: 1.14, marginBottom: 16, maxWidth: "22ch" }}>
               Wir schenken dir eine kostenlose Demo, damit du siehst, wie{" "}
-              <span className="accent">dein eigenes System</span> aussieht.
+              <span className="accent">dein eigenes System</span> aussieht
             </h2>
             <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.04rem", lineHeight: 1.75, marginBottom: 20, maxWidth: "46ch" }}>
               Trag dich ein, und wir bauen dir kostenlos eine Demo — ein

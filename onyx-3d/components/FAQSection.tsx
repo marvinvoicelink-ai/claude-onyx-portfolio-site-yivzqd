@@ -31,7 +31,7 @@ export default function FAQSection({ blatt }: { blatt?: string }) {
           >
             <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Rückfragen` : "Rückfragen"}
           </span>
-          <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 30 }}>Bevor du fragst<span className="accent">.</span></h2>
+          <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 30 }}>Bevor du <span className="accent">fragst</span></h2>
         </div>
 
         <div>

@@ -35,7 +35,7 @@ export default function IndustriesSection({ blatt }: { blatt?: string }) {
           <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Für wen wir bauen` : "Für wen wir bauen"}
         </span>
         <h2 className="mx-auto" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", maxWidth: "26ch", marginBottom: 14 }}>
-          Systeme für mittelständische Unternehmen<span className="accent">.</span>
+          Systeme für <span className="accent">mittelständische Unternehmen</span>
         </h2>
         <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", maxWidth: "62ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 26 }}>
           Wir arbeiten mit mittelständischen Unternehmen, die aus gewachsenen
