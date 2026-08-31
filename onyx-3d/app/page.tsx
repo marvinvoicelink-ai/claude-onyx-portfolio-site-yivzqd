@@ -2,6 +2,8 @@ import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import Hero from "@/components/Hero";
 import DemoSignupSection from "@/components/DemoSignupSection";
+import StatsBar from "@/components/StatsBar";
+import CapabilitiesSection from "@/components/CapabilitiesSection";
 import InlineCta from "@/components/InlineCta";
 import OfferingsAccordion from "@/components/OfferingsAccordion";
 import ProblemSection from "@/components/ProblemSection";
@@ -33,6 +35,9 @@ export default function Home() {
       <main>
         <Hero />
 
+        {/* Ergebnis-Leiste direkt nach dem Hero als schneller Vertrauensbeweis. */}
+        <StatsBar />
+
         {/* Frueh auf der Seite: das Demo-Angebot als erster greifbarer
             Einstieg, direkt nach dem Hero und vor den Leistungen. */}
         <DemoSignupSection />
@@ -50,14 +55,15 @@ export default function Home() {
 
         <ProblemSection blatt="03" />
 
-        {/* Direkt hinter den gebauten Systemen: erst das Problem, dann der
-            Beweis, dann die Einordnung, ob der Leser damit gemeint ist. Erst
-            danach die Lösung — vorher weiss er noch nicht, ob sie ihn
-            betrifft. */}
-        <IndustriesSection blatt="04" />
+        {/* Direkt nach der Ausgangslage: was ein eigenes System, Automationen
+            und KI-Agenten konkret übernehmen, beschleunigen und ermöglichen. */}
+        <CapabilitiesSection blatt="04" />
+
+        {/* Danach die Einordnung, ob der Leser damit gemeint ist. */}
+        <IndustriesSection blatt="05" />
 
         <WheelTransition edge="enter">
-          <ArbeitsweiseSection blatt="05" />
+          <ArbeitsweiseSection blatt="06" />
         </WheelTransition>
 
         {/* CTA nach der Arbeitsweise / "Dein Zugang. Deine Regeln." */}
@@ -69,7 +75,7 @@ export default function Home() {
               className="mono inline-flex items-center gap-2 mb-4"
               style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
             >
-              <span style={{ opacity: 0.7 }}>§</span> Blatt 06 / Referenzen
+              <span style={{ opacity: 0.7 }}>§</span> Blatt 07 / Referenzen
             </span>
             <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "22ch", marginBottom: 14 }}>
               Schon gebaut, <span className="accent">und übergeben</span>
@@ -167,10 +173,10 @@ export default function Home() {
           <ExplainerSection />
         </WheelTransition>
 
-        <DemoShowcaseSection blatt="07" />
+        <DemoShowcaseSection blatt="08" />
 
         <WheelTransition edge="exit">
-          <FAQSection blatt="08" />
+          <FAQSection blatt="09" />
         </WheelTransition>
 
         <CTABanner
@@ -183,7 +189,7 @@ export default function Home() {
         <DemoBookingSection />
 
         <WheelTransition edge="enter">
-          <ContactSection blatt="09" />
+          <ContactSection blatt="10" />
         </WheelTransition>
 
         <Footer />
