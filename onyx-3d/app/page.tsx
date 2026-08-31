@@ -4,6 +4,8 @@ import Hero from "@/components/Hero";
 import DemoSignupSection from "@/components/DemoSignupSection";
 import StatsBar from "@/components/StatsBar";
 import CapabilitiesSection from "@/components/CapabilitiesSection";
+import ProcessSteps from "@/components/ProcessSteps";
+import AutopilotSection from "@/components/AutopilotSection";
 import InlineCta from "@/components/InlineCta";
 import OfferingsAccordion from "@/components/OfferingsAccordion";
 import ProblemSection from "@/components/ProblemSection";
@@ -59,11 +61,14 @@ export default function Home() {
             und KI-Agenten konkret übernehmen, beschleunigen und ermöglichen. */}
         <CapabilitiesSection blatt="04" />
 
+        {/* Wie wir dahin kommen: Analyse, Bauen, Übergeben. */}
+        <ProcessSteps blatt="05" />
+
         {/* Danach die Einordnung, ob der Leser damit gemeint ist. */}
-        <IndustriesSection blatt="05" />
+        <IndustriesSection blatt="06" />
 
         <WheelTransition edge="enter">
-          <ArbeitsweiseSection blatt="06" />
+          <ArbeitsweiseSection blatt="07" />
         </WheelTransition>
 
         {/* CTA nach der Arbeitsweise / "Dein Zugang. Deine Regeln." */}
@@ -75,7 +80,7 @@ export default function Home() {
               className="mono inline-flex items-center gap-2 mb-4"
               style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
             >
-              <span style={{ opacity: 0.7 }}>§</span> Blatt 07 / Referenzen
+              <span style={{ opacity: 0.7 }}>§</span> Blatt 08 / Referenzen
             </span>
             <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "22ch", marginBottom: 14 }}>
               Schon gebaut, <span className="accent">und übergeben</span>
@@ -173,11 +178,14 @@ export default function Home() {
           <ExplainerSection />
         </WheelTransition>
 
-        <DemoShowcaseSection blatt="08" />
+        <DemoShowcaseSection blatt="09" />
 
         <WheelTransition edge="exit">
-          <FAQSection blatt="09" />
+          <FAQSection blatt="10" />
         </WheelTransition>
+
+        {/* Abschluss-Argument: Systeme, die ohne dich laufen. */}
+        <AutopilotSection blatt="11" />
 
         <CTABanner
           heading="Dein System, gebaut für genau dein Geschäft."
@@ -189,7 +197,7 @@ export default function Home() {
         <DemoBookingSection />
 
         <WheelTransition edge="enter">
-          <ContactSection blatt="10" />
+          <ContactSection blatt="12" />
         </WheelTransition>
 
         <Footer />
