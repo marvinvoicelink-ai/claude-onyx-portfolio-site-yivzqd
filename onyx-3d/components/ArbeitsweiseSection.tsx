@@ -89,7 +89,7 @@ export default function ArbeitsweiseSection({ blatt }: { blatt?: string }) {
             {kiAgenten.map((agent) => (
               <div
                 key={agent.slug}
-                className="rounded-xl px-5 py-5 on-dark silver-rim"
+                className="rounded-xl px-5 py-5 on-dark beam-border"
                 style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
               >
                 <div

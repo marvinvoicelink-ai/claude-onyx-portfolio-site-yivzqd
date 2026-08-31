@@ -197,7 +197,7 @@ export default function BuiltSystems({ blatt }: { blatt?: string }) {
           {systems.map((s, si) => (
             <div
               key={s.branche}
-              className="rounded-2xl overflow-hidden on-dark silver-rim flex flex-col"
+              className="rounded-2xl overflow-hidden on-dark beam-border flex flex-col"
               style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
             >
               <button

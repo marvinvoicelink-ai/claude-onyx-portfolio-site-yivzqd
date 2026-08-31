@@ -50,7 +50,7 @@ export default function CaseRow({
       /* Am Handy steht das Bild immer unter dem Text, egal auf welcher Seite
          es am Desktop sitzt — sonst faengt der zweite Fall mit einem Bild an
          und das Logo taucht erst darunter auf. Getauscht wird erst ab lg. */
-      className={`rounded-2xl overflow-hidden on-dark silver-rim ${imageRight ? "" : "lg:order-first"}`}
+      className={`rounded-2xl overflow-hidden on-dark beam-border ${imageRight ? "" : "lg:order-first"}`}
       style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
     >
       <div className="relative w-full" style={{ aspectRatio: "16 / 10" }}>
