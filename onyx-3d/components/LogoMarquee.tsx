@@ -42,7 +42,7 @@ export default function LogoMarquee() {
             className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber"
             style={{ background: "var(--amber)", color: "#12141a", fontSize: "15.5px" }}
           >
-            Jetzt Kontakt aufnehmen
+            Kostenlose Demo sichern
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={16} height={16}>
               <path d="M5 12h14M13 6l6 6-6 6" />
             </svg>

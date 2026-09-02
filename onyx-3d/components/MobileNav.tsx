@@ -125,7 +125,7 @@ export default function MobileNav() {
                 className="inline-flex items-center justify-center rounded-full font-semibold btn-amber"
                 style={{ background: "var(--amber)", color: "#12141a", fontSize: 16, padding: "16px 0", margin: "24px 0 32px" }}
               >
-                Kontakt aufnehmen
+                Kostenlose Demo sichern
               </a>
             </nav>
           </div>,

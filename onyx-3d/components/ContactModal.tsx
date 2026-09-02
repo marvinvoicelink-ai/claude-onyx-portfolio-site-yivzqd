@@ -126,14 +126,15 @@ export default function ContactModal() {
           className="mono block mb-3"
           style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
         >
-          Kontakt
+          Kostenlose Demo
         </span>
         <h2 style={{ fontSize: "clamp(1.5rem, 3.4vw, 2rem)", lineHeight: 1.15, marginBottom: 10 }}>
-          Lass uns dein System besprechen.
+          Sichere dir deine <span className="accent">kostenlose Demo</span>
         </h2>
         <p style={{ color: "var(--warm-grey-dim)", fontSize: "1rem", lineHeight: 1.6, marginBottom: 24, maxWidth: "46ch" }}>
-          Schreib kurz, was dein Unternehmen braucht — der Gründer antwortet
-          selbst, kein Bot, keine Warteschlange.
+          Name und E-Mail reichen — der Gründer meldet sich persönlich und
+          baut dir eine Demo, die zu deinem Betrieb passt. Kein Bot, keine
+          Warteschlange.
         </p>
 
         {status === "ok" ? (
@@ -186,12 +187,11 @@ export default function ContactModal() {
 
               <label className="block">
                 <span className="mono block mb-2" style={{ fontSize: 12.5, color: "var(--warm-grey-dim)" }}>
-                  Was braucht dein Unternehmen?
+                  Was soll die Demo zeigen? (optional)
                 </span>
                 <textarea
                   name="message"
                   rows={3}
-                  required
                   className="w-full rounded-[10px] px-4 py-3 on-dark"
                   style={{
                     background: "var(--near-black)",
@@ -215,7 +215,7 @@ export default function ContactModal() {
                 opacity: status === "sending" ? 0.6 : 1,
               }}
             >
-              {status === "sending" ? "Wird gesendet …" : "Nachricht senden"}
+              {status === "sending" ? "Wird gesendet …" : "Kostenlose Demo anfragen"}
             </button>
 
             <p

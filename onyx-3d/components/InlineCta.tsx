@@ -9,7 +9,7 @@ import { openContactForm } from "@/lib/contactModal";
  * sehen ist, welcher Abschnitt die Anfrage gebracht hat.
  */
 export default function InlineCta({
-  label = "Jetzt Kontakt aufnehmen",
+  label = "Kostenlose Demo sichern",
   source,
   sub,
 }: {

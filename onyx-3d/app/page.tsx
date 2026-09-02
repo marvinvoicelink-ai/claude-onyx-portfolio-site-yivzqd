@@ -5,32 +5,37 @@ import DemoSignupSection from "@/components/DemoSignupSection";
 import StatsBar from "@/components/StatsBar";
 import CapabilitiesSection from "@/components/CapabilitiesSection";
 import ProcessSteps from "@/components/ProcessSteps";
-import AutopilotSection from "@/components/AutopilotSection";
 import InlineCta from "@/components/InlineCta";
-import OfferingsAccordion from "@/components/OfferingsAccordion";
 import ProblemSection from "@/components/ProblemSection";
 import BuiltSystems from "@/components/BuiltSystems";
 import CaseRow from "@/components/CaseRow";
-import ArbeitsweiseSection from "@/components/ArbeitsweiseSection";
-import SystemFormSection from "@/components/SystemFormSection";
 import ExplainerSection from "@/components/ExplainerSection";
 import IndustriesSection from "@/components/IndustriesSection";
-import DemoShowcaseSection from "@/components/DemoShowcaseSection";
+import Differentiators from "@/components/Differentiators";
 import FAQSection from "@/components/FAQSection";
 import CTABanner from "@/components/CTABanner";
-import DemoBookingSection from "@/components/DemoBookingSection";
 import ContactSection from "@/components/ContactSection";
 import Testimonials from "@/components/Testimonials";
+import StickyCta from "@/components/StickyCta";
 import Footer from "@/components/Footer";
 import WheelTransition from "@/components/WheelTransition";
 
 /**
- * Leseweg der Startseite: zuerst das Angebot ("Das können wir für dich tun"),
- * jeder Baustein direkt anklickbar zu seiner Detailseite. Danach die
- * Ausgangslage als Begründung und direkt im Anschluss, für wen wir bauen —
- * damit der Leser sich einordnen kann, bevor die Lösung kommt. Dann in einem
- * Block die Arbeitsweise (KI-Agenten, Automatisierungen, Abgrenzung) und der
- * Beweis über die Referenzen. Zum Schluss Ablauf und Kontakt.
+ * Startseite als Lead-Funnel. Ein Angebot (kostenlose Demo), ein Weg dorthin,
+ * und jede Section hat genau eine Aufgabe auf dem Weg zur Anfrage:
+ *
+ *   1. Hero + Zahlen      — was, fuer wen, Beweis, CTA (alles ueber dem Falz)
+ *   2. Problem            — "kenn ich" (Ausgangslage)
+ *   3. Loesung            — was ein eigenes System uebernimmt (drei Saeulen)
+ *   4. Beweis             — gebaute Systeme, Cases mit Zahlen, Kundenstimmen
+ *   5. Demo-Formular      — der Koeder, erst NACH dem Vertrauensaufbau
+ *   6. Ablauf + Video     — nimmt die Angst vor dem ersten Schritt
+ *   7. Einwaende          — kein Lock-in, FAQ
+ *   8. Schluss-CTA + Kontakt
+ *
+ * Bewusst weggelassen (Doppelungen, verwaesserten die Conversion):
+ * Leistungs-Akkordeon, lange Arbeitsweise, zweites/drittes/viertes Formular,
+ * Demo-Showcase, Autopilot. Detailseiten (/angebot, /ki-agenten, ...) bleiben.
  */
 export default function Home() {
   return (
@@ -38,42 +43,23 @@ export default function Home() {
       <main>
         <Hero />
 
-        {/* Ergebnis-Leiste direkt nach dem Hero als schneller Vertrauensbeweis. */}
+        {/* Zahlen direkt nach dem Hero: schneller Vertrauensbeweis. */}
         <StatsBar />
 
-        {/* Frueh auf der Seite: das Demo-Angebot als erster greifbarer
-            Einstieg, direkt nach dem Hero und vor den Leistungen. */}
-        <DemoSignupSection />
-
-        <WheelTransition edge="both">
-          <OfferingsAccordion />
-        </WheelTransition>
-
-        {/* Direkt hinter den Leistungen: erst was wir bauen, dann sofort
-            Beispiele, wie das aussieht. Die Ausgangslage folgt danach. */}
-        <BuiltSystems />
-
-        {/* CTA nach den gebauten Systemen. */}
-        <InlineCta label="System wie diese anfragen" source="Gebaute-Systeme-CTA" sub="Kostenlos & unverbindlich · Der Gründer meldet sich persönlich" />
-
+        {/* Ausgangslage: der Leser soll sich wiedererkennen. */}
         <ProblemSection />
 
-        {/* Direkt nach der Ausgangslage: was ein eigenes System, Automationen
-            und KI-Agenten konkret übernehmen, beschleunigen und ermöglichen. */}
+        {/* Loesung: was ein eigenes System, Automationen und KI-Agenten
+            konkret uebernehmen, beschleunigen und ermoeglichen. */}
         <CapabilitiesSection />
 
-        {/* Wie wir dahin kommen: Analyse, Bauen, Übergeben. */}
-        <ProcessSteps />
+        {/* Beweis, Teil 1: echte gebaute Systeme mit Screens. */}
+        <BuiltSystems />
 
-        {/* Danach die Einordnung, ob der Leser damit gemeint ist. */}
+        {/* Fuer wen: kurze Selbst-Einordnung ueber die Branchen. */}
         <IndustriesSection />
 
-        <WheelTransition edge="enter">
-          <ArbeitsweiseSection />
-        </WheelTransition>
-
-        {/* CTA nach der Arbeitsweise / "Dein Zugang. Deine Regeln." */}
-        <InlineCta source="Arbeitsweise-CTA" sub="Kostenlos & unverbindlich · Der Gründer meldet sich persönlich" />
+        <InlineCta source="Gebaute-Systeme-CTA" sub="Kostenlos & unverbindlich · Der Gründer meldet sich persönlich" />
 
         <section className="pt-10 pb-2">
           <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
@@ -173,38 +159,43 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Kundenstimmen direkt hinter den Referenzen. */}
+        {/* Beweis, Teil 3: Kundenstimmen. */}
         <Testimonials />
 
-        <SystemFormSection />
+        {/* Der Koeder: das Demo-Formular — erst jetzt, nachdem Beweis und
+            Stimmen Vertrauen aufgebaut haben. Einziges Formular mitten auf
+            der Seite. */}
+        <DemoSignupSection />
+
+        {/* Nimmt die Angst vor dem ersten Schritt: Ablauf + Erklaervideo. */}
+        <ProcessSteps />
 
         <WheelTransition edge="enter">
           <ExplainerSection />
         </WheelTransition>
 
-        <DemoShowcaseSection />
+        {/* Einwaende kurz vor dem Abschluss: kein Lock-in, dann FAQ. */}
+        <Differentiators />
 
         <WheelTransition edge="exit">
           <FAQSection />
         </WheelTransition>
 
-        {/* Abschluss-Argument: Systeme, die ohne dich laufen. */}
-        <AutopilotSection />
-
         <CTABanner
           heading="Dein System, gebaut für genau dein Geschäft."
           sub="Kein Baukasten, kein Abo — ein System, das dir gehört."
-          buttonText="Kostenloses Erstgespräch sichern"
+          buttonText="Kostenlose Demo sichern"
           ctaHref="#kontakt"
         />
-
-        <DemoBookingSection />
 
         <WheelTransition edge="enter">
           <ContactSection />
         </WheelTransition>
 
         <Footer />
+
+        {/* Handy: Demo + WhatsApp jederzeit einen Daumen entfernt. */}
+        <StickyCta />
       </main>
     </SmoothScroll>
   );
