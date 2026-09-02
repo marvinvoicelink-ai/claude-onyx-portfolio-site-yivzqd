@@ -53,7 +53,9 @@ export default async function AngebotDetailPage({
           </Link>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-            <div>
+            {/* Ganze Spalte zentriert, sonst steht der Fliesstext linksbuendig
+                unter einer zentrierten Ueberschrift. */}
+            <div className="text-center">
               <span
                 className="mono block mb-4"
                 style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
@@ -64,7 +66,7 @@ export default async function AngebotDetailPage({
               <p style={{ color: "var(--warm-grey)", fontSize: "1.1rem", lineHeight: 1.6, marginBottom: 14 }}>
                 {offering.subtitle}
               </p>
-              <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.75, maxWidth: "56ch" }}>
+              <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.75, maxWidth: "56ch" }}>
                 {offering.detail}
               </p>
             </div>
@@ -77,7 +79,7 @@ export default async function AngebotDetailPage({
                 height={offering.h}
                 priority
                 className="w-full h-auto block"
-                style={{ maxWidth: "68%", filter: "drop-shadow(0 0 28px rgba(212, 175, 106,0.3))" }}
+                style={{ maxWidth: "68%", filter: "drop-shadow(0 0 28px rgba(203, 203, 201,0.32))" }}
               />
             </GlowCard>
           </div>
@@ -100,13 +102,15 @@ export default async function AngebotDetailPage({
             {offering.painPoints.map((p, i) => (
               <div
                 key={p}
-                className="rounded-xl px-6 py-6"
+                className="rounded-xl px-6 py-6 on-dark silver-rim"
                 style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
               >
-                <span className="mono block mb-3" style={{ fontSize: 13, color: "var(--warm-grey-faint)" }}>
+                <span className="mono block mb-3" style={{ fontSize: 13, color: "var(--amber)" }}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.98rem", lineHeight: 1.6 }}>{p}</p>
+                {/* Volle Helligkeit statt gedimmt: die Ausgangslage ist der
+                    Einstieg der Seite und soll ohne Anstrengung lesbar sein. */}
+                <p style={{ color: "var(--warm-grey)", fontSize: "0.98rem", lineHeight: 1.6 }}>{p}</p>
               </div>
             ))}
           </div>
@@ -140,7 +144,7 @@ export default async function AngebotDetailPage({
 
             <div
               className="rounded-2xl px-7 py-8 md:px-9 md:py-9"
-              style={{ background: "var(--amber-soft)", border: "1px solid rgba(212, 175, 106,0.3)" }}
+              style={{ background: "var(--amber-soft)", border: "1px solid rgba(232, 163, 61,0.3)" }}
             >
               <span
                 className="mono block mb-4"
@@ -162,7 +166,7 @@ export default async function AngebotDetailPage({
       <section className="py-10">
         <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
           <div
-            className="rounded-2xl px-7 py-7 md:px-10 md:py-8"
+            className="rounded-2xl px-7 py-7 md:px-10 md:py-8 on-dark silver-rim"
             style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
           >
             <h2 style={{ fontSize: "clamp(1.15rem, 2.2vw, 1.45rem)", marginBottom: 10 }}>

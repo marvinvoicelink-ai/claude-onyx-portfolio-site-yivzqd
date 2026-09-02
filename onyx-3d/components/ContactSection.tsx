@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { trackLead } from "@/lib/trackLead";
+import { trackLead, trackWhatsAppClick, trackCalendlyClick } from "@/lib/trackLead";
 
 declare global {
   interface Window {
@@ -18,8 +18,6 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
     const data = new FormData(form);
     if (data.get("bot-field")) return;
 
-    if (typeof window.fbq === "function") window.fbq("track", "Lead");
-
     const encoded = new URLSearchParams();
     data.forEach((value, key) => encoded.append(key, String(value)));
 
@@ -31,6 +29,10 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
         body: encoded.toString(),
       });
       if (res.ok) {
+        // Erst hier: das Formular ist vollstaendig ausgefuellt, abgeschickt
+        // und von Netlify angenommen. Ein Klick auf den Button allein ist
+        // noch keine Anfrage.
+        trackLead();
         setStatus("ok");
         form.reset();
       } else {
@@ -44,7 +46,7 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
   return (
     <section
       id="kontakt"
-      className="py-14"
+      className="py-14 on-dark silver-rim"
       style={{ background: "var(--near-black-2)" }}
     >
       <div className="mx-auto px-7" style={{ maxWidth: 720 }}>
@@ -56,7 +58,7 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
             <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Kontakt` : "Kontakt"}
           </span>
           <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)", marginBottom: 14 }}>
-            Lass uns dein System besprechen.
+            Lass uns <span className="accent">dein System</span> besprechen
           </h2>
           <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", marginBottom: 36, maxWidth: "50ch" }}>
             Schreib direkt, was dein Unternehmen braucht — der Gründer
@@ -89,7 +91,7 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
                   name={field}
                   required
                   autoComplete={field}
-                  className="w-full rounded-[10px] px-4 py-3"
+                  className="w-full rounded-[10px] px-4 py-3 on-dark"
                   style={{
                     background: "var(--near-black)",
                     border: "1px solid var(--hairline)",
@@ -109,7 +111,7 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
               name="message"
               rows={4}
               required
-              className="w-full rounded-[10px] px-4 py-3"
+              className="w-full rounded-[10px] px-4 py-3 on-dark"
               style={{
                 background: "var(--near-black)",
                 border: "1px solid var(--hairline)",
@@ -120,13 +122,15 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
             />
           </label>
 
+          {/* Kein onClick-Tracking: der Lead entsteht erst, wenn Netlify die
+              Absendung angenommen hat (siehe handleSubmit). */}
           <button
             type="submit"
             disabled={status === "sending"}
             className="w-full rounded-[10px] py-4 font-semibold btn-amber"
             style={{
               background: "var(--amber)",
-              color: "#161104",
+              color: "#12141a",
               fontSize: 15.5,
               opacity: status === "sending" ? 0.6 : 1,
             }}
@@ -163,10 +167,7 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
             href="https://wa.me/4917632273522?text=Hallo%20Marvin%2C%20ich%20interessiere%20mich%20f%C3%BCr%20ein%20White-Label-System%20von%20Onyx."
             target="_blank"
             rel="noopener"
-            onClick={() => {
-              trackLead();
-              if (typeof window.fbq === "function") window.fbq("trackCustom", "WhatsAppClick");
-            }}
+            onClick={trackWhatsAppClick}
             className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold"
             style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}
           >
@@ -176,6 +177,7 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
             href="https://calendly.com/onyx-ai/30min"
             target="_blank"
             rel="noopener"
+            onClick={trackCalendlyClick}
             className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold"
             style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}
           >
@@ -186,10 +188,7 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
           WhatsApp{" "}
           <a
             href="https://wa.me/4917632273522"
-            onClick={() => {
-              trackLead();
-              if (typeof window.fbq === "function") window.fbq("trackCustom", "WhatsAppClick");
-            }}
+            onClick={trackWhatsAppClick}
             style={{ color: "var(--amber)" }}
           >
             0176 322 273 522

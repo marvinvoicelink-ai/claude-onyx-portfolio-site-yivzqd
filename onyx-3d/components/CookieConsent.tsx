@@ -78,7 +78,7 @@ export default function CookieConsent() {
 
   return (
     <div
-      className="fixed left-0 right-0 bottom-0"
+      className="fixed left-0 right-0 bottom-0 on-dark silver-rim"
       style={{
         zIndex: 200,
         background: "var(--near-black-2)",
@@ -110,7 +110,7 @@ export default function CookieConsent() {
             type="button"
             onClick={accept}
             className="rounded-[10px] px-5 py-2.5 font-semibold btn-amber"
-            style={{ background: "var(--amber)", color: "#161104", fontSize: 14 }}
+            style={{ background: "var(--amber)", color: "#12141a", fontSize: 14 }}
           >
             Akzeptieren
           </button>

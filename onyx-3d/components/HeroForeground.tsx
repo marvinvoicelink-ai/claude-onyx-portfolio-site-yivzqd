@@ -1,20 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { trackLead } from "@/lib/trackLead";
 
 /**
- * The sharp HTML text layer (badge, kicker, headline, CTA) that sits above
+ * The sharp HTML text layer (badge, kicker, headline) that sits above
  * whichever hero background is active — the same layer whether the 3D
  * scene or the static fallback renders behind it.
  */
 export default function HeroForeground() {
-  const [reducedMotion, setReducedMotion] = useState(false);
   const [entered, setEntered] = useState(false);
 
   useEffect(() => {
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(motionQuery.matches);
 
     if (motionQuery.matches) {
       setEntered(true);
@@ -25,9 +22,9 @@ export default function HeroForeground() {
 
   return (
     <div className="relative z-10 w-full px-7" style={{ maxWidth: 1180, margin: "0 auto" }}>
-      <div className="max-w-[620px]">
+      <div className="max-w-[680px] mx-auto text-center flex flex-col items-center">
         <div
-          className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 mono"
+          className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-4 mono"
           style={{
             fontSize: 12,
             color: "var(--warm-grey-dim)",
@@ -41,85 +38,50 @@ export default function HeroForeground() {
               width: 6,
               height: 6,
               background: "var(--amber)",
-              boxShadow: "0 0 8px 1px rgba(212, 175, 106,0.6)",
+              boxShadow: "0 0 8px 1px rgba(232, 163, 61,0.6)",
             }}
           />
-          Kein Bot — der Gründer antwortet selbst
+          Systeme, Automationen &amp; KI-Agenten für den Mittelstand
         </div>
 
-        <span
-          className="mono block mb-4"
-          style={{
-            fontSize: "12.5px",
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            color: "var(--amber)",
-          }}
-        >
-          White-Label-Systeme · Bauen &amp; übergeben
-        </span>
-
+        {/* Auf dem Handy bewusst kleiner (kleinere clamp-Untergrenze) und
+            enger, damit Headline, Untertext und CTA frueher ins Bild passen. */}
         <h1
           className={entered ? "hero-blur-visible" : "hero-blur-hidden"}
           style={{
-            fontSize: "clamp(2.1rem, 4vw, 3.2rem)",
-            lineHeight: 1.08,
+            fontSize: "clamp(1.55rem, 5vw, 2.9rem)",
+            lineHeight: 1.1,
             maxWidth: "21ch",
           }}
         >
-          Wir machen nicht alles.
-          <br />
-          Aber wir passen uns{" "}
-          <span className="accent">deinen Anforderungen</span> an.
+          Weniger Komplexität im Unternehmen,
+          {/* Eigene Zeile, damit der zweite Teil nie mit einem Wort am
+              Zeilenende anfaengt — unabhaengig von der Viewport-Breite.
+              Klein geschrieben, weil das Komma den Satz weiterlaufen laesst.
+              Nur "in wenigen Wochen" traegt den Amber-Akzent, der Rest der
+              Headline bleibt in der normalen Textfarbe. */}
+          <span className="block">
+            mehr Zeit für das, womit du Geld verdienst …{" "}
+            <span className="accent">in wenigen Wochen</span>
+          </span>
         </h1>
 
+        {/* Kurzer Untertext direkt unter der Headline: fasst das Versprechen
+            in einem Satz. Der ausfuehrliche ONYX.AI-Text kommt erst nach den
+            Logos. */}
         <p
-          className="mt-6"
+          className="mt-4"
           style={{
-            fontSize: "clamp(1.08rem, 1.7vw, 1.25rem)",
+            fontSize: "clamp(0.98rem, 1.6vw, 1.16rem)",
+            lineHeight: 1.55,
             color: "var(--warm-grey-dim)",
-            lineHeight: 1.7,
-            maxWidth: "50ch",
+            maxWidth: "48ch",
           }}
         >
-          Der eine Betrieb braucht ein Dashboard. Der nächste jemanden, der
-          ans Telefon geht. Wieder ein anderer nur eine Automatisierung, die
-          im Hintergrund läuft und nie wieder auffällt. Wir schauen uns
-          zuerst an, wo bei dir die Zeit verloren geht, und bauen dann das,
-          was dort wirklich etwas ändert. Am Ende gehört es dir: Code, Daten,
-          Zugänge. Gehostet wird bei dir, nicht bei uns.
+          Wir bauen dir digitale Systeme, die dir Arbeit abnehmen statt neue zu
+          schaffen — schnell umgesetzt und danach ganz in deiner Hand.
         </p>
 
-        <div className="mt-9">
-          <a
-            href="#kontakt"
-            onClick={trackLead}
-            className={`inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber ${entered ? "hero-cta-visible" : "hero-cta-hidden"}`}
-            style={{
-              background: "var(--amber)",
-              color: "#161104",
-              fontSize: "15.5px",
-              ["--reveal-delay" as string]: "220ms",
-            }}
-          >
-            Jetzt Kontakt aufnehmen
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={16} height={16}>
-              <path d="M5 12h14M13 6l6 6-6 6" />
-            </svg>
-          </a>
-        </div>
-
-        <div
-          className="mono mt-7"
-          style={{
-            fontSize: 12.5,
-            color: "var(--warm-grey-faint)",
-            opacity: entered && !reducedMotion ? 1 : entered ? 1 : 0,
-            transition: "opacity 0.6s ease 0.4s",
-          }}
-        >
-          DSGVO-konform · Gebaut in Deutschland · Für mittelständische Unternehmen
-        </div>
       </div>
     </div>
   );

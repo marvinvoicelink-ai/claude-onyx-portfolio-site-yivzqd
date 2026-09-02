@@ -1,6 +1,7 @@
 "use client";
 
-import { trackLead } from "@/lib/trackLead";
+import { trackWhatsAppClick } from "@/lib/trackLead";
+import { openContactForm } from "@/lib/contactModal";
 
 declare global {
   interface Window {
@@ -28,7 +29,7 @@ export default function CTABanner({
     <section className="py-7">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
-          className="rounded-2xl px-8 py-10 md:px-12 md:py-12 flex flex-col md:flex-row items-center justify-between gap-6"
+          className="rounded-2xl px-8 py-10 md:px-12 md:py-12 flex flex-col md:flex-row items-center justify-between gap-6 on-dark beam-border"
           style={{
             background:
               "linear-gradient(135deg, var(--near-black-2) 0%, var(--near-black) 100%)",
@@ -50,12 +51,19 @@ export default function CTABanner({
               <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.98rem" }}>{sub}</p>
             )}
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          {/* Untereinander statt nebeneinander: der Hauptweg steht oben allein,
+              darunter fuehrt eine Zeile mit Pfeil auf den WhatsApp-Button als
+              zweiten, schnelleren Weg. Nebeneinander sahen beide gleich
+              wichtig aus. */}
+          <div className="flex flex-col items-center gap-3.5">
+            {/* Kein Lead beim Klick: der Button fuehrt nur zum Formular. Er
+                hinterlaesst nur seinen Namen — wird das Formular danach
+                abgeschickt, haengt der Name am Lead. */}
             <a
               href={ctaHref}
-              onClick={trackLead}
+              onClick={(e) => { e.preventDefault(); openContactForm("CTA-Banner"); }}
               className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap btn-amber"
-              style={{ background: "var(--amber)", color: "#161104", fontSize: 15.5 }}
+              style={{ background: "var(--amber)", color: "#12141a", fontSize: 15.5 }}
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" width={18} height={18}>
                 <path d="M4 6h16v12H4z" fill="none" />
@@ -63,14 +71,22 @@ export default function CTABanner({
               </svg>
               {buttonText}
             </a>
+
+            <span
+              className="mono inline-flex items-center gap-2"
+              style={{ fontSize: 12.5, color: "var(--warm-grey-faint)" }}
+            >
+              oder schreib direkt mit mir
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" width={14} height={14} aria-hidden="true">
+                <path d="M12 5v14M6 13l6 6 6-6" />
+              </svg>
+            </span>
+
             <a
               href={WHATSAPP_HREF}
               target="_blank"
               rel="noopener"
-              onClick={() => {
-                trackLead();
-                if (typeof window.fbq === "function") window.fbq("trackCustom", "WhatsAppClick");
-              }}
+              onClick={trackWhatsAppClick}
               className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap btn-ghost"
               style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}
             >

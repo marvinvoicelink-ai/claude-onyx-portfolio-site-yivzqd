@@ -54,7 +54,7 @@ export default function UeberMichPage() {
       <section className="py-10">
         <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
           <div
-            className="rounded-2xl px-7 py-8 md:px-10 md:py-10"
+            className="rounded-2xl px-7 py-8 md:px-10 md:py-10 on-dark silver-rim"
             style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
           >
             <span
@@ -151,9 +151,9 @@ export default function UeberMichPage() {
             <div
               key={m.name}
               className="rounded-2xl"
-              style={{ boxShadow: "0 0 60px -10px rgba(212, 175, 106,0.45)" }}
+              style={{ boxShadow: "0 0 60px -10px rgba(203, 203, 201,0.4)" }}
             >
-              <div className="rounded-2xl overflow-hidden" style={{ background: "var(--near-black-2)" }}>
+              <div className="rounded-2xl overflow-hidden on-dark silver-rim" style={{ background: "var(--near-black-2)" }}>
                 <div className="relative w-full" style={{ aspectRatio: "3 / 4" }}>
                   <Image
                     src={m.image}

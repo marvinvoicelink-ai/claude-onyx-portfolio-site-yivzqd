@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MobileNav from "./MobileNav";
 import { offerings } from "@/lib/offerings";
-import { trackLead } from "@/lib/trackLead";
+import { openContactForm } from "@/lib/contactModal";
 
 const links = [
   { href: "/", label: "Startseite" },
@@ -56,48 +56,60 @@ export default function Nav() {
 
   return (
     <header
-      className="sticky top-0 z-50"
+      className="sticky top-0 z-50 on-dark nav-silver"
       style={{
         background: "rgba(17,17,17,0.72)",
         backdropFilter: "blur(10px)",
         WebkitBackdropFilter: "blur(10px)",
       }}
     >
-      <div
-        className="mx-auto px-7 flex items-center justify-between"
-        style={{ maxWidth: 1180, height: 80 }}
-      >
-        <Link href="/" className="nav-logo-link inline-flex items-center gap-3">
-          <span
+      <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
+        {/* Ab lg: eine Zeile — Logo, Links und CTA auf gleicher Hoehe, per
+            Grid mit drei Spalten (Logo | Links zentriert | CTA), damit die
+            Links unabhaengig von der Logobreite mittig bleiben. Darunter
+            (Handy/Tablet) bleibt das Logo zentriert mit Hamburger daneben,
+            weil dort kein Platz fuer Links in derselben Zeile ist. */}
+        <div
+          className="relative flex items-center justify-center lg:grid lg:grid-cols-[auto_1fr_auto] lg:gap-6"
+          style={{ height: 76 }}
+        >
+          <Link href="/" className="nav-logo-link inline-flex items-center gap-3">
+            <span
+              style={{
+                opacity: entered ? 1 : 0,
+                transform: entered ? "translateY(0)" : "translateY(8px)",
+                transition: "opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)",
+              }}
+            >
+              <Image
+                src="/logo/onyx-ai-logo.png"
+                alt="ONYX.AI"
+                width={1350}
+                height={368}
+                priority
+                style={{ height: 56, width: "auto", display: "block" }}
+              />
+            </span>
+          </Link>
+
+          <div className="lg:hidden absolute right-0">
+            <MobileNav />
+          </div>
+
+          {/* Links + CTA, auf gleicher Hoehe wie das Logo — nur ab lg,
+              darunter uebernimmt der Hamburger. */}
+          <div
+            className="hidden lg:flex items-center justify-center gap-4"
             style={{
               opacity: entered ? 1 : 0,
-              transform: entered ? "translateY(0)" : "translateY(8px)",
-              transition: "opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)",
+              transform: entered ? "translateY(0)" : "translateY(-6px)",
+              transition: "opacity 0.5s ease, transform 0.5s ease",
+              transitionDelay: "160ms",
             }}
           >
-            <Image
-              src="/logo/onyx-ai-logo.png"
-              alt="ONYX.AI"
-              width={1350}
-              height={368}
-              priority
-              style={{ height: 40, width: "auto", display: "block" }}
-            />
-          </span>
-        </Link>
-
-        <div
-          className="flex items-center gap-4"
-          style={{
-            opacity: entered ? 1 : 0,
-            transform: entered ? "translateY(0)" : "translateY(-6px)",
-            transition: "opacity 0.5s ease, transform 0.5s ease",
-            transitionDelay: "160ms",
-          }}
-        >
           <nav
-            className="hidden md:flex items-center gap-6"
-            style={{ fontFamily: "var(--font-archivo), sans-serif", fontWeight: 700, fontSize: 13.5, letterSpacing: "-0.01em" }}
+            className="flex items-center gap-5"
+            style={{ fontFamily: "var(--font-archivo), sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "-0.01em" }}
           >
             {links.map((l) => {
               const active = pathname === l.href;
@@ -115,7 +127,7 @@ export default function Nav() {
                       className="nav-link inline-flex items-center gap-1.5"
                       aria-current={active ? "page" : undefined}
                       aria-expanded={offeringsOpen}
-                      style={{ color: active ? "var(--amber)" : "#ffffff" }}
+                      style={{ color: active ? "var(--amber)" : "var(--warm-grey)" }}
                     >
                       {l.label}
                       <svg
@@ -135,7 +147,7 @@ export default function Nav() {
 
                     {offeringsOpen && (
                       <div
-                        className="absolute rounded-xl overflow-hidden"
+                        className="absolute rounded-xl overflow-hidden on-dark silver-rim"
                         style={{
                           top: "calc(100% + 12px)",
                           left: "50%",
@@ -152,7 +164,7 @@ export default function Nav() {
                             href={ol.href}
                             onClick={() => setOfferingsOpen(false)}
                             className="block nav-dropdown-row"
-                            style={{ color: "#ffffff" }}
+                            style={{ color: "var(--warm-grey)" }}
                           >
                             {ol.label}
                           </Link>
@@ -169,24 +181,33 @@ export default function Nav() {
                   href={l.href}
                   className="nav-link"
                   aria-current={active ? "page" : undefined}
-                  style={{ color: active ? "var(--amber)" : "#ffffff" }}
+                  style={{ color: active ? "var(--amber)" : "var(--warm-grey)" }}
                 >
                   {l.label}
                 </Link>
               );
             })}
           </nav>
+          </div>
 
-          <Link
+          {/* CTA in der dritten Grid-Spalte, eigene Fade-in-Verzoegerung wie
+              zuvor bei Links+CTA zusammen. */}
+          <a
             href="/kontakt"
-            onClick={trackLead}
-            className="hidden md:inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold whitespace-nowrap btn-amber"
-            style={{ background: "var(--amber)", color: "#161104", fontSize: 13.5 }}
+            onClick={(e) => { e.preventDefault(); openContactForm("Nav-CTA"); }}
+            className="hidden lg:inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold whitespace-nowrap btn-amber"
+            style={{
+              background: "var(--amber)",
+              color: "#12141a",
+              fontSize: 13,
+              opacity: entered ? 1 : 0,
+              transform: entered ? "translateY(0)" : "translateY(-6px)",
+              transition: "opacity 0.5s ease, transform 0.5s ease",
+              transitionDelay: "160ms",
+            }}
           >
-            Kontakt aufnehmen
-          </Link>
-
-          <MobileNav />
+            Kostenlose Demo
+          </a>
         </div>
       </div>
     </header>

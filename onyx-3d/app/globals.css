@@ -1,18 +1,58 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+ * Farbtokens — durchgehend dunkler Grund
+ *
+ * Die Klasse .on-dark aus dem hellen Zwischenstand bleibt bestehen: sie
+ * setzt dieselben Werte noch einmal und ist damit wirkungslos, aber sie
+ * markiert weiterhin die dunklen Flaechen. Wer spaeter wieder auf hell
+ * umstellen will, aendert nur die Werte hier in :root.
+ * ------------------------------------------------------------------------ */
 :root {
   --near-black: #111111;
   --near-black-2: #161616;
-  /* Champagner-Gold aus dem aktuellen Onyx-Logo. Die Variable heisst weiter
-     --amber, damit die rund 170 Verwendungen im Projekt unveraendert bleiben. */
-  --amber: #d4af6a;
-  --amber-soft: rgba(212, 175, 106, 0.14);
-  /* Zweiter Ton aus dem Logo, fuer silberne Akzente verfuegbar. */
-  --silver: #c8ccd2;
+
+  /* Akzent- und CTA-Farbe auf dunklem Grund */
+  --amber: #e8a33d;
+  --amber-soft: rgba(232, 163, 61, 0.14);
+  /* Gleicher Ton; die Variable bleibt, weil Skip-Link und .btn-amber sie
+     benutzen. Auf dunklem Grund gibt es keinen Unterschied mehr. */
+  --amber-bright: #e8a33d;
+
+  /* Silber aus dem Logo — neutralgrau, kein Blaustich. Nur fuer Leuchten:
+     Kartenraender, Bild-Halos, Section-Schein. Nie fuer Text. */
+  --silver: #cbcbc9;
+  --silver-glow: rgba(203, 203, 201, 0.34);
+  --silver-line: rgba(203, 203, 201, 0.34);
+
+  /* Text auf dunklem Grund */
   --warm-grey: #f5f2ec;
   --warm-grey-dim: rgba(245, 242, 236, 0.72);
   --warm-grey-faint: rgba(245, 242, 236, 0.55);
-  --hairline: rgba(245, 242, 236, 0.12);
+  --hairline: rgba(203, 203, 201, 0.26);
+
+  /* Feste helle Flaeche fuer die Stellen, die bewusst hell sind
+     (Referenz-Cases, Logo-Kacheln, die Karte im Abschlussblock). */
+  --plate-light: #f5f2ec;
+}
+
+/* Dunkle Flaeche. Auf dem jetzt durchgehend dunklen Grund identisch mit
+   :root — bleibt als Markierung stehen. */
+.on-dark {
+  --amber: #e8a33d;
+  --amber-soft: rgba(232, 163, 61, 0.14);
+  --warm-grey: #ffffff;
+  --warm-grey-dim: rgba(255, 255, 255, 0.74);
+  --warm-grey-faint: rgba(255, 255, 255, 0.58);
+  /* Silberne statt warmweisse Kante an Karten und Trennern. */
+  --hairline: rgba(203, 203, 201, 0.4);
+  color: var(--warm-grey);
+}
+
+.on-dark h1,
+.on-dark h2,
+.on-dark h3 {
+  color: var(--warm-grey);
 }
 
 * {
@@ -56,14 +96,25 @@ body {
 h1,
 h2,
 h3 {
-  font-family: var(--font-archivo), sans-serif;
+  /* Integral CF ist die Display-Schrift der Seite: verdichtete Versalien,
+     daher ohne negatives Tracking und mit engerer Zeilenhoehe, weil Versalien
+     keine Unterlaengen haben. */
+  font-family: var(--font-integral), var(--font-archivo), sans-serif;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
+  line-height: 1.08;
   color: var(--warm-grey);
 }
 
 .mono {
   font-family: var(--font-plex-mono), monospace;
+}
+
+/* Display-Schrift (Integral CF) fuer Titel, die keine echten Ueberschriften-
+   Tags sind — Karten-Titel, Akkordeon-Zeilen, FAQ-Fragen. */
+.display {
+  font-family: var(--font-integral), var(--font-archivo), sans-serif;
+  letter-spacing: 0;
 }
 
 a {
@@ -96,7 +147,7 @@ a {
   left: 12px;
   top: -60px;
   z-index: 100;
-  background: var(--amber);
+  background: var(--amber-bright);
   color: #161104;
   font-weight: 600;
   padding: 10px 18px;
@@ -143,7 +194,7 @@ a {
 }
 
 .nav-dropdown-row:hover {
-  background: rgba(212, 175, 106, 0.1);
+  background: rgba(232, 163, 61, 0.1);
   color: var(--amber) !important;
 }
 
@@ -184,7 +235,7 @@ a {
 }
 
 .btn-ghost:hover {
-  border-color: rgba(212, 175, 106, 0.5);
+  border-color: rgba(232, 163, 61, 0.5);
   background: rgba(245, 242, 236, 0.04);
   transform: translateY(-1px);
 }
@@ -220,10 +271,10 @@ a {
 @keyframes dot-glow {
   0%,
   100% {
-    box-shadow: 0 0 10px 2px rgba(212, 175, 106, 0.55), 0 0 22px 6px rgba(212, 175, 106, 0.22);
+    box-shadow: 0 0 10px 2px rgba(232, 163, 61, 0.55), 0 0 22px 6px rgba(232, 163, 61, 0.22);
   }
   50% {
-    box-shadow: 0 0 20px 6px rgba(212, 175, 106, 1), 0 0 54px 18px rgba(212, 175, 106, 0.65);
+    box-shadow: 0 0 20px 6px rgba(232, 163, 61, 1), 0 0 54px 18px rgba(232, 163, 61, 0.65);
   }
 }
 
@@ -299,7 +350,7 @@ a {
 
 .alive-hover-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(212, 175, 106, 0.4);
+  border-color: rgba(232, 163, 61, 0.4);
   box-shadow: 0 14px 32px -12px rgba(0, 0, 0, 0.5);
 }
 
@@ -358,36 +409,40 @@ a {
  * logos (e.g. PawPlace) nearly invisible, since their luminance stayed
  * low even after the brightness/contrast tweaks.
  */
-@keyframes logo-glow-pulse {
-  0%,
-  100% {
-    filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(212, 175, 106, 0.35));
-    opacity: 0.78;
-  }
-  50% {
-    filter: drop-shadow(0 0 18px rgba(212, 175, 106, 0.85));
-    opacity: 1;
-  }
+/* Die Logos laufen in ihrer eigenen Farbe durch — durchgehend sichtbar,
+   ohne Farbwechsel. Frueher wechselte eine Animation zwischen weisser
+   Silhouette und Originalfarbe; bei den dunklen Vorlagen sah das aus, als
+   waeren sie schwarz und wuerden nur kurz aufleuchten. */
+.logo-flat {
+  opacity: 0.92;
+  filter: drop-shadow(0 0 6px rgba(203, 203, 201, 0.25));
+  transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
-.logo-flat {
-  filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(212, 175, 106, 0.35));
-  opacity: 0.78;
-  transition: opacity 0.3s ease, filter 0.3s ease;
-  animation: logo-glow-pulse 5s ease-in-out infinite;
+/* Nur fuer Vorlagen, die fast schwarz sind: umkehren, sonst verschwinden sie
+   auf dem dunklen Grund. */
+.logo-lift {
+  filter: invert(1) drop-shadow(0 0 6px rgba(203, 203, 201, 0.25));
 }
 
 .logo-flat:hover {
-  filter: drop-shadow(0 0 16px rgba(212, 175, 106, 0.8));
   opacity: 1;
-  animation-play-state: paused;
+  filter: drop-shadow(0 0 14px rgba(203, 203, 201, 0.6));
 }
 
-@media (prefers-reduced-motion: reduce) {
+.logo-lift:hover {
+  opacity: 1;
+  filter: invert(1) drop-shadow(0 0 14px rgba(203, 203, 201, 0.6));
+}
+
+/* Auf dem Handy stehen sie voll sichtbar, ohne jeden Effekt. */
+@media (max-width: 767px), (hover: none) {
   .logo-flat {
-    animation: none;
-    filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(212, 175, 106, 0.4));
-    opacity: 0.85;
+    opacity: 1;
+    filter: drop-shadow(0 0 7px rgba(203, 203, 201, 0.3));
+  }
+  .logo-lift {
+    filter: invert(1) drop-shadow(0 0 7px rgba(203, 203, 201, 0.3));
   }
 }
 
@@ -415,19 +470,19 @@ a {
   0%,
   100% {
     box-shadow:
-      0 -1px 10px 0 rgba(212, 175, 106, 0.25),
-      0 1px 10px 0 rgba(212, 175, 106, 0.25);
+      0 -1px 10px 0 rgba(203, 203, 201, 0.25),
+      0 1px 10px 0 rgba(203, 203, 201, 0.25);
   }
   50% {
     box-shadow:
-      0 -1px 22px 2px rgba(212, 175, 106, 0.55),
-      0 1px 22px 2px rgba(212, 175, 106, 0.55);
+      0 -1px 22px 2px rgba(203, 203, 201, 0.55),
+      0 1px 22px 2px rgba(203, 203, 201, 0.55);
   }
 }
 
 .marquee-border-glow {
-  border-top: 1px solid rgba(212, 175, 106, 0.4);
-  border-bottom: 1px solid rgba(212, 175, 106, 0.4);
+  border-top: 1px solid rgba(203, 203, 201, 0.4);
+  border-bottom: 1px solid rgba(203, 203, 201, 0.4);
   animation: marquee-border-glow 5s ease-in-out infinite;
 }
 
@@ -435,8 +490,8 @@ a {
   .marquee-border-glow {
     animation: none;
     box-shadow:
-      0 -1px 14px 0 rgba(212, 175, 106, 0.35),
-      0 1px 14px 0 rgba(212, 175, 106, 0.35);
+      0 -1px 14px 0 rgba(203, 203, 201, 0.35),
+      0 1px 14px 0 rgba(203, 203, 201, 0.35);
   }
 }
 
@@ -453,7 +508,7 @@ a {
 .alive-logo-card:hover {
   transform: translateZ(60px) scale(1.1);
   box-shadow: 0 30px 55px -18px rgba(0, 0, 0, 0.65);
-  border-color: rgba(212, 175, 106, 0.5) !important;
+  border-color: rgba(232, 163, 61, 0.5) !important;
   z-index: 5;
 }
 
@@ -466,19 +521,19 @@ a {
 @keyframes chip-glow {
   0%,
   100% {
-    border-color: rgba(212, 175, 106, 0.35);
+    border-color: rgba(232, 163, 61, 0.35);
     color: var(--warm-grey);
     box-shadow: none;
     background: transparent;
   }
   35%,
   65% {
-    border-color: rgba(212, 175, 106, 0.95);
+    border-color: rgba(232, 163, 61, 0.95);
     color: var(--amber);
-    background: rgba(212, 175, 106, 0.1);
+    background: rgba(232, 163, 61, 0.1);
     box-shadow:
-      0 0 12px 2px rgba(212, 175, 106, 0.8),
-      0 0 48px 10px rgba(212, 175, 106, 0.5);
+      0 0 12px 2px rgba(232, 163, 61, 0.8),
+      0 0 48px 10px rgba(232, 163, 61, 0.5);
   }
 }
 
@@ -494,7 +549,7 @@ a {
   }
   .chip-glow {
     animation: none;
-    border-color: rgba(212, 175, 106, 0.4) !important;
+    border-color: rgba(232, 163, 61, 0.4) !important;
     color: var(--warm-grey) !important;
   }
 }
@@ -534,7 +589,7 @@ a {
 
 .legal-content a {
   color: var(--amber);
-  border-bottom: 1px solid rgba(212, 175, 106, 0.3);
+  border-bottom: 1px solid rgba(232, 163, 61, 0.3);
   transition: border-color 0.2s ease;
 }
 
@@ -655,4 +710,325 @@ a {
 }
 .diff-mark:hover > div {
   color: var(--amber);
+}
+
+/* ---------------------------------------------------------------------------
+ * Zentrierte Section-Koepfe
+ *
+ * Statt in ~40 Dateien einzeln text-center zu setzen, greifen drei Regeln
+ * genau den Kopf einer Section: den Kicker direkt vor der Ueberschrift, die
+ * Ueberschrift selbst und den Einleitungsabsatz direkt danach. Fliesstext,
+ * Listen und Karteninhalte bleiben bewusst linksbuendig — zentrierte
+ * Mehrzeiler mit wechselnder Zeilenlaenge liest niemand gern.
+ * ------------------------------------------------------------------------ */
+main h1,
+main h2 {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Einleitungsabsatz direkt unter der Ueberschrift */
+main h1 + p,
+main h2 + p {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Kicker, dessen naechstes Geschwister die Ueberschrift ist */
+main span:has(+ h1),
+main span:has(+ h2),
+main div:has(+ h1),
+main div:has(+ h2) {
+  display: flex;
+  justify-content: center;
+}
+
+
+/* Gefuellte Amber-Buttons tragen immer den hellen Goldton: auf dem hellen
+   Grund waere var(--amber) das dunkle Gold, und dunkle Schrift darauf faellt
+   unter den Mindestkontrast. Als Flaeche funktioniert Amber auf beiden
+   Untergruenden. Inline-Styles setzen background, deshalb !important. */
+.btn-amber {
+  background: var(--amber-bright) !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * Pulsierender Silberschimmer um die Karten
+ *
+ * Auf dunklem Grund braucht es die dunkle Zwischenlage nicht mehr — die
+ * Karte steht ohnehin auf Schwarz. Bleibt der helle Saum an der Kante und
+ * der Halo, der ins Dunkel auslaeuft.
+ *
+ * Bewusst kein Pseudo-Element: das Akkordeon in Blatt 01 hat
+ * overflow:hidden und wuerde es abschneiden. Der lange Zyklus von 5s haelt
+ * die Repaint-Last niedrig.
+ * ------------------------------------------------------------------------ */
+@keyframes card-silver-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(203, 203, 201, 0.28),
+      0 0 16px 1px rgba(203, 203, 201, 0.2),
+      0 0 60px 8px rgba(203, 203, 201, 0.12),
+      0 26px 60px -34px rgba(0, 0, 0, 0.85);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(231, 231, 229, 0.6),
+      0 0 26px 3px rgba(216, 216, 214, 0.45),
+      0 0 90px 16px rgba(203, 203, 201, 0.3),
+      0 26px 60px -34px rgba(0, 0, 0, 0.85);
+  }
+}
+
+.silver-glow {
+  border: 1px solid var(--silver-line);
+  animation: card-silver-pulse 5s ease-in-out infinite;
+}
+
+/* ---------------------------------------------------------------------------
+ * Umlaufender Amber-Balken um die Karte (statt Schein von hinten).
+ *
+ * Ein Lichtstrahl wandert an der Kante entlang: eine rotierende
+ * conic-gradient-Fuellung, per Maske nur auf den 1,5px-Rahmenring begrenzt.
+ * Der Ring liegt aussen an der Kante, das Karteninnere bleibt frei.
+ * ------------------------------------------------------------------------ */
+@property --beam-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.beam-border {
+  position: relative;
+  border: 1px solid var(--hairline);
+  isolation: isolate;
+}
+.beam-border::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--beam-angle),
+    transparent 0deg,
+    transparent 235deg,
+    rgba(232, 163, 61, 0.12) 285deg,
+    var(--amber) 330deg,
+    rgba(232, 163, 61, 0.12) 350deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: beam-spin 5s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+@keyframes beam-spin {
+  to {
+    --beam-angle: 360deg;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .beam-border::after {
+    animation: none;
+    background: none;
+  }
+}
+/* Aeltere Browser ohne @property zeigen keinen wandernden, aber einen
+   ruhenden Amber-Schimmer am oberen Rand — nie eine harte Vollflaeche. */
+@supports not (background: conic-gradient(from var(--beam-angle), red, blue)) {
+  .beam-border::after {
+    background: linear-gradient(90deg, transparent, rgba(232, 163, 61, 0.5), transparent);
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .silver-glow {
+    animation: none;
+    box-shadow:
+      0 0 0 1px rgba(216, 216, 214, 0.42),
+      0 0 22px 2px rgba(210, 210, 208, 0.3),
+      0 0 74px 12px rgba(203, 203, 201, 0.2),
+      0 26px 60px -34px rgba(0, 0, 0, 0.85);
+  }
+}
+
+
+/* ---------------------------------------------------------------------------
+ * Silberkante an den einzelnen Karten
+ *
+ * Nicht nur die grossen Bloecke (.silver-glow), sondern jede Karte bekommt
+ * einen leisen Silbersaum: ein Innenring auf der Kante und ein kurzer
+ * Schein nach aussen. Bewusst schwach — bei ueber dreissig Karten auf der
+ * Startseite wird aus "leuchtet" sonst schnell "flimmert".
+ * ------------------------------------------------------------------------ */
+/* Kein Schein von hinten mehr: nur noch eine ruhige Kante. Der wandernde
+   Amber-Balken (.beam-border) uebernimmt die Betonung der Karten. */
+.silver-rim {
+  box-shadow: inset 0 0 0 1px rgba(224, 224, 222, 0.14);
+}
+
+/* ---------------------------------------------------------------------------
+ * Silber in der Kopfzeile
+ *
+ * Die Leiste steht auf dem dunklen Grund ohne eigene Kante. Eine silberne
+ * Unterkante plus ein feiner Schein darunter trennt sie sichtbar vom
+ * Inhalt, und das Logo bekommt denselben Ton als Halo.
+ * ------------------------------------------------------------------------ */
+.nav-silver {
+  border-bottom: 1px solid rgba(203, 203, 201, 0.22);
+  box-shadow: 0 1px 24px -6px rgba(203, 203, 201, 0.3);
+}
+
+.nav-silver .nav-logo-link img {
+  filter: drop-shadow(0 0 14px rgba(203, 203, 201, 0.4));
+  transition: filter 0.3s ease;
+}
+
+.nav-silver .nav-logo-link:hover img {
+  filter: drop-shadow(0 0 22px rgba(216, 216, 214, 0.65));
+}
+
+/* --- Screens vergroessern (Blatt 03 / Gebaute Systeme) --------------------
+   In der Kachel ist jeder Screen oben beschnitten; der Klick zeigt ihn ganz.
+   Reines CSS + ein Zustand in der Komponente, keine Bibliothek. */
+.zoom-tile {
+  overflow: hidden;
+}
+.zoom-hint {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--warm-grey);
+  background: rgba(17, 17, 17, 0.72);
+  border: 1px solid rgba(203, 203, 201, 0.3);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  pointer-events: none;
+}
+.zoom-tile:hover .zoom-hint,
+.zoom-tile:focus-visible .zoom-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Auf Touch gibt es kein Hover — dort steht der Hinweis dauerhaft. */
+@media (hover: none) {
+  .zoom-hint { opacity: 1; transform: none; }
+}
+
+.zoom-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 24px;
+  background: rgba(8, 8, 8, 0.92);
+  backdrop-filter: blur(8px);
+  cursor: zoom-out;
+  animation: zoom-fade 0.16s ease-out;
+}
+@keyframes zoom-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.zoom-figure {
+  cursor: default;
+  max-width: min(1180px, 96vw);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.zoom-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 82vh;
+  object-fit: contain;
+  border-radius: 14px;
+  border: 1px solid rgba(203, 203, 201, 0.22);
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.95);
+}
+.zoom-cap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  color: var(--warm-grey);
+  font-size: 0.95rem;
+}
+.zoom-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: var(--warm-grey);
+  background: rgba(245, 242, 236, 0.08);
+  border: 1px solid rgba(203, 203, 201, 0.3);
+  cursor: pointer;
+}
+.zoom-close:hover {
+  background: rgba(245, 242, 236, 0.16);
+}
+@media (prefers-reduced-motion: reduce) {
+  .zoom-overlay { animation: none; }
+  .zoom-hint { transition: none; }
+}
+
+/* Blaettern in der Grossansicht */
+.zoom-overlay { flex-direction: row; }
+.zoom-nav {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: var(--warm-grey);
+  background: rgba(245, 242, 236, 0.08);
+  border: 1px solid rgba(203, 203, 201, 0.3);
+  cursor: pointer;
+  z-index: 1;
+}
+.zoom-nav:hover { background: rgba(245, 242, 236, 0.18); }
+.zoom-dots { display: inline-flex; gap: 6px; margin-top: 2px; }
+.zoom-dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(203, 203, 201, 0.32);
+}
+.zoom-dots i.on { background: var(--amber); }
+/* Auf schmalen Schirmen stehen die Pfeile unter dem Bild statt daneben. */
+@media (max-width: 720px) {
+  .zoom-overlay { flex-direction: column; }
+  .zoom-nav { position: static; }
+  .zoom-prev { order: 2; }
+  .zoom-figure { order: 1; }
+  .zoom-next { order: 3; }
+  .zoom-overlay { gap: 10px; }
 }
