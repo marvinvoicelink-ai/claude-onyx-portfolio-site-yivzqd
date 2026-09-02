@@ -64,10 +64,15 @@ export default function Nav() {
       }}
     >
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
-        {/* Zeile 1: Logo. Ab lg linksbuendig (Desktop-Konvention, Platz fuer
-            Links/CTA rechts in Zeile 2); darunter mittig, weil dort der
-            Hamburger rechts danebensitzt und die Mitte sonst schief wirkt. */}
-        <div className="relative flex items-center justify-center lg:justify-start" style={{ height: 76 }}>
+        {/* Ab lg: eine Zeile — Logo, Links und CTA auf gleicher Hoehe, per
+            Grid mit drei Spalten (Logo | Links zentriert | CTA), damit die
+            Links unabhaengig von der Logobreite mittig bleiben. Darunter
+            (Handy/Tablet) bleibt das Logo zentriert mit Hamburger daneben,
+            weil dort kein Platz fuer Links in derselben Zeile ist. */}
+        <div
+          className="relative flex items-center justify-center lg:grid lg:grid-cols-[auto_1fr_auto] lg:gap-6"
+          style={{ height: 76 }}
+        >
           <Link href="/" className="nav-logo-link inline-flex items-center gap-3">
             <span
               style={{
@@ -90,20 +95,18 @@ export default function Nav() {
           <div className="lg:hidden absolute right-0">
             <MobileNav />
           </div>
-        </div>
 
-        {/* Zeile 2: Unterseiten und CTA, rechtsbuendig — nur ab lg, darunter
-            uebernimmt der Hamburger oben rechts. */}
-        <div
-          className="hidden lg:flex items-center justify-end gap-4"
-          style={{
-            paddingBottom: 16,
-            opacity: entered ? 1 : 0,
-            transform: entered ? "translateY(0)" : "translateY(-6px)",
-            transition: "opacity 0.5s ease, transform 0.5s ease",
-            transitionDelay: "160ms",
-          }}
-        >
+          {/* Links + CTA, auf gleicher Hoehe wie das Logo — nur ab lg,
+              darunter uebernimmt der Hamburger. */}
+          <div
+            className="hidden lg:flex items-center justify-center gap-4"
+            style={{
+              opacity: entered ? 1 : 0,
+              transform: entered ? "translateY(0)" : "translateY(-6px)",
+              transition: "opacity 0.5s ease, transform 0.5s ease",
+              transitionDelay: "160ms",
+            }}
+          >
           <nav
             className="flex items-center gap-5"
             style={{ fontFamily: "var(--font-archivo), sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "-0.01em" }}
@@ -185,12 +188,23 @@ export default function Nav() {
               );
             })}
           </nav>
+          </div>
 
+          {/* CTA in der dritten Grid-Spalte, eigene Fade-in-Verzoegerung wie
+              zuvor bei Links+CTA zusammen. */}
           <a
             href="/kontakt"
             onClick={(e) => { e.preventDefault(); openContactForm("Nav-CTA"); }}
-            className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold whitespace-nowrap btn-amber"
-            style={{ background: "var(--amber)", color: "#12141a", fontSize: 13 }}
+            className="hidden lg:inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold whitespace-nowrap btn-amber"
+            style={{
+              background: "var(--amber)",
+              color: "#12141a",
+              fontSize: 13,
+              opacity: entered ? 1 : 0,
+              transform: entered ? "translateY(0)" : "translateY(-6px)",
+              transition: "opacity 0.5s ease, transform 0.5s ease",
+              transitionDelay: "160ms",
+            }}
           >
             Kostenlose Demo
           </a>

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { trackLead } from "@/lib/trackLead";
+import { trackLead, trackWhatsAppClick, trackCalendlyClick } from "@/lib/trackLead";
+import DemoSlotsBadge from "./DemoSlotsBadge";
 
 /**
  * Frueh auf der Seite, direkt hinter dem Hero: das Angebot einer kostenlosen,
@@ -91,6 +92,9 @@ export default function DemoSignupSection() {
                 </li>
               ))}
             </ul>
+            <div className="mt-6">
+              <DemoSlotsBadge />
+            </div>
           </div>
 
           {/* Rechte Spalte: die Eintragung. */}
@@ -196,14 +200,16 @@ export default function DemoSignupSection() {
 
               {/* Naechster Schritt direkt nach dem Absenden: Termin oder
                   WhatsApp, damit aus dem Lead schneller ein Gespraech wird.
-                  Bewusst OHNE zweites Lead-Tracking — der Lead ist mit dem
-                  Formular schon gezaehlt, ein Klick hier waere dieselbe Person. */}
+                  Eigenes Tracking, denn das Formular allein bucht noch keinen
+                  Termin und schreibt keine WhatsApp-Nachricht — das ist ein
+                  zusaetzlicher, nicht automatischer Klick. */}
               {status === "ok" && (
                 <div className="mt-4 flex flex-wrap gap-2.5">
                   <a
                     href="https://calendly.com/onyx-ai/30min"
                     target="_blank"
                     rel="noopener"
+                    onClick={trackCalendlyClick}
                     className="inline-flex items-center gap-2 rounded-[10px] px-4 py-2.5 font-semibold btn-ghost"
                     style={{ border: "1px solid rgba(232,163,61,0.45)", color: "var(--amber)", fontSize: 14 }}
                   >
@@ -213,6 +219,7 @@ export default function DemoSignupSection() {
                     href="https://wa.me/4917632273522"
                     target="_blank"
                     rel="noopener"
+                    onClick={trackWhatsAppClick}
                     className="inline-flex items-center gap-2 rounded-[10px] px-4 py-2.5 font-semibold btn-ghost"
                     style={{ border: "1px solid var(--hairline)", color: "var(--warm-grey)", fontSize: 14 }}
                   >

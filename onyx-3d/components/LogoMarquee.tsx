@@ -1,6 +1,7 @@
 "use client";
 
 import { openContactForm } from "@/lib/contactModal";
+import DemoSlotsBadge from "./DemoSlotsBadge";
 
 /**
  * `dark` markiert Logos, deren Vorlage fast schwarz ist (gemessen: PawPlace
@@ -35,7 +36,10 @@ export default function LogoMarquee() {
           Beweis — und erst darunter der ausfuehrliche ONYX.AI-Text. Amber
           wird bewusst sparsam eingesetzt — nur der Button traegt die Farbe. */}
       <div className="mx-auto px-7 text-center" style={{ maxWidth: 860, marginBottom: 8 }}>
-        <div className="mt-2">
+        <div className="mt-2 mb-5 flex justify-center">
+          <DemoSlotsBadge />
+        </div>
+        <div>
           <a
             href="#kontakt"
             onClick={(e) => { e.preventDefault(); openContactForm("Hero-CTA"); }}

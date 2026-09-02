@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { trackLead } from "@/lib/trackLead";
+import { trackLead, trackWhatsAppClick, trackCalendlyClick } from "@/lib/trackLead";
 import { OPEN_CONTACT_EVENT } from "@/lib/contactModal";
 
 /**
@@ -146,13 +146,14 @@ export default function ContactModal() {
               Willst du es schneller? Dann buch dir direkt einen Termin oder
               schreib auf WhatsApp.
             </p>
-            {/* Ohne zweites Lead-Tracking: der Lead ist mit dem Formular
-                schon gezaehlt, ein Klick hier ist dieselbe Person. */}
+            {/* Eigenes Tracking: das Formular allein bucht noch keinen Termin
+                und schreibt keine WhatsApp-Nachricht — zusaetzlicher Klick. */}
             <div className="flex flex-wrap gap-2.5">
               <a
                 href="https://calendly.com/onyx-ai/30min"
                 target="_blank"
                 rel="noopener"
+                onClick={trackCalendlyClick}
                 className="inline-flex items-center gap-2 rounded-[10px] px-4 py-2.5 font-semibold btn-ghost"
                 style={{ border: "1px solid rgba(232,163,61,0.45)", color: "var(--amber)", fontSize: 14 }}
               >
@@ -162,6 +163,7 @@ export default function ContactModal() {
                 href="https://wa.me/4917632273522"
                 target="_blank"
                 rel="noopener"
+                onClick={trackWhatsAppClick}
                 className="inline-flex items-center gap-2 rounded-[10px] px-4 py-2.5 font-semibold btn-ghost"
                 style={{ border: "1px solid var(--hairline)", color: "var(--warm-grey)", fontSize: 14 }}
               >
