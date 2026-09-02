@@ -16,6 +16,7 @@ import FAQSection from "@/components/FAQSection";
 import CTABanner from "@/components/CTABanner";
 import ContactSection from "@/components/ContactSection";
 import Testimonials from "@/components/Testimonials";
+import FounderBlock from "@/components/FounderBlock";
 import StickyCta from "@/components/StickyCta";
 import Footer from "@/components/Footer";
 import WheelTransition from "@/components/WheelTransition";
@@ -161,6 +162,9 @@ export default function Home() {
 
         {/* Beweis, Teil 3: Kundenstimmen. */}
         <Testimonials />
+
+        {/* Wer dahinter steckt: Gesicht und Name direkt vor der Bitte. */}
+        <FounderBlock />
 
         {/* Der Koeder: das Demo-Formular — erst jetzt, nachdem Beweis und
             Stimmen Vertrauen aufgebaut haben. Einziges Formular mitten auf

@@ -138,9 +138,37 @@ export default function ContactModal() {
         </p>
 
         {status === "ok" ? (
-          <p className="mono" role="status" aria-live="polite" style={{ fontSize: 14.5, color: "var(--amber)", lineHeight: 1.6 }}>
-            Danke! Deine Nachricht ist angekommen — wir melden uns zeitnah.
-          </p>
+          <div role="status" aria-live="polite">
+            <p className="mono" style={{ fontSize: 14.5, color: "var(--amber)", lineHeight: 1.6, marginBottom: 14 }}>
+              Danke! Deine Anfrage ist angekommen — Marvin meldet sich persönlich.
+            </p>
+            <p style={{ fontSize: 14.5, color: "var(--warm-grey-dim)", lineHeight: 1.6, marginBottom: 14 }}>
+              Willst du es schneller? Dann buch dir direkt einen Termin oder
+              schreib auf WhatsApp.
+            </p>
+            {/* Ohne zweites Lead-Tracking: der Lead ist mit dem Formular
+                schon gezaehlt, ein Klick hier ist dieselbe Person. */}
+            <div className="flex flex-wrap gap-2.5">
+              <a
+                href="https://calendly.com/onyx-ai/30min"
+                target="_blank"
+                rel="noopener"
+                className="inline-flex items-center gap-2 rounded-[10px] px-4 py-2.5 font-semibold btn-ghost"
+                style={{ border: "1px solid rgba(232,163,61,0.45)", color: "var(--amber)", fontSize: 14 }}
+              >
+                Direkt Termin buchen →
+              </a>
+              <a
+                href="https://wa.me/4917632273522"
+                target="_blank"
+                rel="noopener"
+                className="inline-flex items-center gap-2 rounded-[10px] px-4 py-2.5 font-semibold btn-ghost"
+                style={{ border: "1px solid var(--hairline)", color: "var(--warm-grey)", fontSize: 14 }}
+              >
+                Oder auf WhatsApp
+              </a>
+            </div>
+          </div>
         ) : (
           <form
             name="contact"

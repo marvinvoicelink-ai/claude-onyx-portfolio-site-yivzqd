@@ -193,6 +193,33 @@ export default function DemoSignupSection() {
                 {status === "error" && "Etwas ist schiefgelaufen. Schreib uns stattdessen direkt auf WhatsApp."}
                 {status === "idle" && "DSGVO-konform · Kein Abo, keine Verpflichtung"}
               </p>
+
+              {/* Naechster Schritt direkt nach dem Absenden: Termin oder
+                  WhatsApp, damit aus dem Lead schneller ein Gespraech wird.
+                  Bewusst OHNE zweites Lead-Tracking — der Lead ist mit dem
+                  Formular schon gezaehlt, ein Klick hier waere dieselbe Person. */}
+              {status === "ok" && (
+                <div className="mt-4 flex flex-wrap gap-2.5">
+                  <a
+                    href="https://calendly.com/onyx-ai/30min"
+                    target="_blank"
+                    rel="noopener"
+                    className="inline-flex items-center gap-2 rounded-[10px] px-4 py-2.5 font-semibold btn-ghost"
+                    style={{ border: "1px solid rgba(232,163,61,0.45)", color: "var(--amber)", fontSize: 14 }}
+                  >
+                    Direkt Termin buchen →
+                  </a>
+                  <a
+                    href="https://wa.me/4917632273522"
+                    target="_blank"
+                    rel="noopener"
+                    className="inline-flex items-center gap-2 rounded-[10px] px-4 py-2.5 font-semibold btn-ghost"
+                    style={{ border: "1px solid var(--hairline)", color: "var(--warm-grey)", fontSize: 14 }}
+                  >
+                    Oder auf WhatsApp
+                  </a>
+                </div>
+              )}
             </form>
           </div>
         </div>

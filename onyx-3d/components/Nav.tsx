@@ -64,10 +64,10 @@ export default function Nav() {
       }}
     >
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
-        {/* Zeile 1: Logo, auf allen Breiten mittig — dank eigener Zeile kann
-            es gross sein, ohne mit den Links zu kollidieren. Der Hamburger
-            (nur unterhalb von lg sichtbar) sitzt absolut rechts daneben. */}
-        <div className="relative flex items-center justify-center" style={{ height: 76 }}>
+        {/* Zeile 1: Logo. Ab lg linksbuendig (Desktop-Konvention, Platz fuer
+            Links/CTA rechts in Zeile 2); darunter mittig, weil dort der
+            Hamburger rechts danebensitzt und die Mitte sonst schief wirkt. */}
+        <div className="relative flex items-center justify-center lg:justify-start" style={{ height: 76 }}>
           <Link href="/" className="nav-logo-link inline-flex items-center gap-3">
             <span
               style={{
