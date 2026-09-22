@@ -1,4 +1,4 @@
-/** Klar gekennzeichneter Platzhalter statt eines erfundenen Produkt-Screenshots — ein echtes Rundgang-Video gibt es für dieses neue Angebot noch nicht. */
+/** KI-generiertes Stimmungsvideo (Higgsfield), als "Symbolbild" gekennzeichnet — zeigt bewusst keine App-Oberfläche, um keine Funktionen vorzutäuschen. */
 export default function ErfassungVideoSection() {
   return (
     <section className="py-14" style={{ background: "var(--near-black-2)" }}>
@@ -23,19 +23,24 @@ export default function ErfassungVideoSection() {
           </div>
 
           <div
-            className="beam-border rounded-2xl flex flex-col items-center justify-center text-center px-8"
-            style={{
-              aspectRatio: "16 / 10",
-              background: "var(--near-black)",
-              border: "1px dashed var(--hairline)",
-            }}
+            className="beam-border rounded-2xl overflow-hidden relative"
+            style={{ aspectRatio: "16 / 9", background: "var(--near-black)" }}
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--warm-grey-faint)" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" width={38} height={38} style={{ opacity: 0.55, marginBottom: 14 }}>
-              <path d="M23 7l-7 5 7 5V7Z" />
-              <rect x="1" y="5" width="15" height="14" rx="2" />
-            </svg>
-            <span className="mono" style={{ fontSize: 11.5, letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--warm-grey-faint)" }}>
-              Platzhalter — reales Rundgang-Video folgt
+            <video
+              src="/generated/rundgang-baustelle.mp4"
+              poster="/generated/rundgang-baustelle-poster.jpg"
+              autoPlay
+              muted
+              loop
+              playsInline
+              aria-label="Rundgang durch einen Rohbau, Handy in der Hand"
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+            />
+            <span
+              className="mono absolute"
+              style={{ left: 12, bottom: 10, fontSize: 10.5, letterSpacing: "0.06em", textTransform: "uppercase", color: "rgba(245,242,236,0.7)", background: "rgba(17,17,17,0.55)", padding: "3px 8px", borderRadius: 6, zIndex: 3 }}
+            >
+              Symbolbild
             </span>
           </div>
         </div>
