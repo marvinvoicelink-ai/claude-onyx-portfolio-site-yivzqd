@@ -9,6 +9,7 @@ import { trackLead } from "@/lib/trackLead";
 
 const pageLinks = [
   { href: "/", label: "Startseite" },
+  { href: "/vor-ort-erfassung", label: "Vor-Ort-Erfassung" },
   { href: "/fuer-dich", label: "Für dich" },
   { href: "/problem", label: "Problem" },
   { href: "/referenzen", label: "Referenzen" },

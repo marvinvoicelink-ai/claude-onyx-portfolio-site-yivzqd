@@ -11,6 +11,7 @@ import { trackLead } from "@/lib/trackLead";
 const links = [
   { href: "/", label: "Startseite" },
   { href: "/angebot", label: "Angebot" },
+  { href: "/vor-ort-erfassung", label: "Erfassung" },
   { href: "/fuer-dich", label: "Für dich" },
   { href: "/problem", label: "Problem" },
   { href: "/referenzen", label: "Referenzen" },
