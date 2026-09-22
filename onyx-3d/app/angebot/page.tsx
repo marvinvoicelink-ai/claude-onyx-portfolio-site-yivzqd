@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import OfferingsList from "@/components/OfferingsList";
 import IndustriesSection from "@/components/IndustriesSection";
 import CTABanner from "@/components/CTABanner";
@@ -34,6 +35,22 @@ export default function AngebotPage() {
       </section>
 
       <OfferingsList />
+
+      <section className="py-6">
+        <div className="mx-auto px-7 text-center" style={{ maxWidth: 760 }}>
+          <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7 }}>
+            Daneben gibt es die Vor-Ort-Erfassung: kein weiterer Baustein, den
+            wir für dich bauen, sondern ein eigener, pro Objekt abgerechneter
+            Bereich für Bau, Handwerk und Immobilien.
+          </p>
+          <div className="mt-6">
+            <Link href="/vor-ort-erfassung" className="mono" style={{ fontSize: 13, color: "var(--amber)" }}>
+              Mehr zur Vor-Ort-Erfassung →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <IndustriesSection />
 
       <CTABanner

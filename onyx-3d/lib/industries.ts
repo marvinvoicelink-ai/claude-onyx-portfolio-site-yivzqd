@@ -5,6 +5,8 @@ export type Industry = {
   painPoints: string[];
   capabilities: string[];
   recommended: string[]; // offering slugs, see lib/offerings.ts
+  /** Optionaler Verweis auf einen eigenständigen Bereich außerhalb der Bausteine, z. B. die Vor-Ort-Erfassung. */
+  crossLink?: { href: string; label: string; text: string };
 };
 
 export const industries: Industry[] = [
@@ -26,6 +28,11 @@ export const industries: Industry[] = [
       "Angebote und Rechnungen aus einem Tool statt mehreren Vorlagen",
     ],
     recommended: ["interne-tools", "dokumentenverwaltung", "terminplanung"],
+    crossLink: {
+      href: "/vor-ort-erfassung",
+      label: "Vor-Ort-Erfassung",
+      text: "Aufmaß und Baustellendoku direkt beim Rundgang einsprechen und filmen, statt sie später im Büro noch einmal zu erfassen.",
+    },
   },
   {
     slug: "hausverwaltung-immobilien",
@@ -44,6 +51,11 @@ export const industries: Industry[] = [
       "Weniger Rückfragen per Anruf oder E-Mail an die Verwaltung",
     ],
     recommended: ["kundenportale", "dokumentenverwaltung", "dashboards"],
+    crossLink: {
+      href: "/vor-ort-erfassung",
+      label: "Vor-Ort-Erfassung",
+      text: "Objektdaten beim Rundgang einsprechen und filmen — daraus entstehen Exposé und Scroll-Website, auf Deutsch und Spanisch.",
+    },
   },
   {
     slug: "personaldienstleistung",

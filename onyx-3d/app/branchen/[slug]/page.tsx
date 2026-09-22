@@ -162,6 +162,33 @@ export default async function BranchePage({
         </div>
       </section>
 
+      {industry.crossLink && (
+        <section className="pb-6">
+          <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
+            <Link
+              href={industry.crossLink.href}
+              className="alive-hover-card flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl px-7 py-6"
+              style={{ background: "var(--amber-soft)", border: "1px solid rgba(212, 175, 106,0.3)" }}
+            >
+              <div>
+                <span className="mono block mb-2" style={{ fontSize: 11.5, color: "var(--amber)" }}>
+                  Außerdem im Angebot · {industry.crossLink.label}
+                </span>
+                <span style={{ color: "var(--warm-grey-dim)", fontSize: "0.96rem", lineHeight: 1.55 }}>
+                  {industry.crossLink.text}
+                </span>
+              </div>
+              <span className="mono inline-flex items-center gap-1.5 flex-shrink-0" style={{ fontSize: 13, color: "var(--amber)" }}>
+                Mehr erfahren
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={14} height={14}>
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+            </Link>
+          </div>
+        </section>
+      )}
+
       <CTABanner
         heading={`Bereit für dein eigenes System für ${industry.label}?`}
         sub="Kein Baukasten, kein Abo — ein System, das dir gehört."
