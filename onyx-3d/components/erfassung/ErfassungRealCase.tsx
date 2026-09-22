@@ -50,7 +50,7 @@ export default function ErfassungRealCase() {
           <div className="p-8 md:p-11 flex flex-col justify-center">
             <span
               className="mono inline-flex items-center self-start gap-2 rounded-full px-4 py-1.5 mb-5"
-              style={{ fontSize: 11.5, letterSpacing: "0.05em", textTransform: "uppercase", color: "var(--amber)", background: "var(--amber-soft)", border: "1px solid rgba(212, 175, 106,0.3)" }}
+              style={{ fontSize: 11.5, letterSpacing: "0.05em", textTransform: "uppercase", color: "var(--amber)", background: "var(--amber-soft)", border: "1px solid rgba(232, 163, 61,0.3)" }}
             >
               Live-Beispiel · Mallorca Fincas
             </span>

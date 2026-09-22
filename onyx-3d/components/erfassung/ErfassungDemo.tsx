@@ -63,7 +63,7 @@ export default function ErfassungDemo() {
               className="rounded-xl mb-6 flex items-center justify-center"
               style={{
                 aspectRatio: "16 / 10",
-                background: "linear-gradient(160deg, rgba(212,175,106,0.1) 0%, rgba(17,17,17,0) 60%), var(--near-black)",
+                background: "linear-gradient(160deg, rgba(232,163,61,0.1) 0%, rgba(17,17,17,0) 60%), var(--near-black)",
                 border: "1px solid var(--hairline)",
               }}
             >
@@ -85,8 +85,8 @@ export default function ErfassungDemo() {
                     fontSize: "0.92rem",
                     lineHeight: 1.5,
                     color: "var(--warm-grey)",
-                    background: "rgba(212, 175, 106,0.1)",
-                    border: "1px solid rgba(212, 175, 106,0.25)",
+                    background: "rgba(232, 163, 61,0.1)",
+                    border: "1px solid rgba(232, 163, 61,0.25)",
                     borderRadius: 12,
                     padding: "10px 14px",
                   }}
@@ -149,22 +149,22 @@ function SchematicDrawing({ visible }: { visible: boolean }) {
         <svg viewBox="0 0 400 260" style={{ width: "100%", height: "auto", display: "block" }} role="img" aria-label="Schematische Skizze eines zweistöckigen Gebäudes mit Wohnzimmer, Küche, drei Schlafzimmern, Pool und Einfahrt">
           {/* Obergeschoss */}
           <rect x="70" y="14" width="260" height="88" rx="6" fill="none" stroke="var(--hairline)" strokeWidth="1.5" />
-          <rect x="82" y="26" width="72" height="64" rx="3" fill="rgba(212,175,106,0.06)" stroke="rgba(212,175,106,0.4)" strokeWidth="1.2" />
-          <rect x="164" y="26" width="72" height="64" rx="3" fill="rgba(212,175,106,0.06)" stroke="rgba(212,175,106,0.4)" strokeWidth="1.2" />
-          <rect x="246" y="26" width="72" height="64" rx="3" fill="rgba(212,175,106,0.06)" stroke="rgba(212,175,106,0.4)" strokeWidth="1.2" />
+          <rect x="82" y="26" width="72" height="64" rx="3" fill="rgba(232,163,61,0.06)" stroke="rgba(232,163,61,0.4)" strokeWidth="1.2" />
+          <rect x="164" y="26" width="72" height="64" rx="3" fill="rgba(232,163,61,0.06)" stroke="rgba(232,163,61,0.4)" strokeWidth="1.2" />
+          <rect x="246" y="26" width="72" height="64" rx="3" fill="rgba(232,163,61,0.06)" stroke="rgba(232,163,61,0.4)" strokeWidth="1.2" />
           <text x="118" y="62" textAnchor="middle" fontSize="9" fill="var(--warm-grey-faint)" fontFamily="var(--font-plex-mono), monospace">SZ 1</text>
           <text x="200" y="62" textAnchor="middle" fontSize="9" fill="var(--warm-grey-faint)" fontFamily="var(--font-plex-mono), monospace">SZ 2</text>
           <text x="282" y="62" textAnchor="middle" fontSize="9" fill="var(--warm-grey-faint)" fontFamily="var(--font-plex-mono), monospace">SZ 3</text>
 
           {/* Erdgeschoss */}
           <rect x="30" y="118" width="300" height="110" rx="6" fill="none" stroke="var(--hairline)" strokeWidth="1.5" />
-          <rect x="42" y="130" width="150" height="86" rx="3" fill="rgba(212,175,106,0.06)" stroke="rgba(212,175,106,0.4)" strokeWidth="1.2" />
+          <rect x="42" y="130" width="150" height="86" rx="3" fill="rgba(232,163,61,0.06)" stroke="rgba(232,163,61,0.4)" strokeWidth="1.2" />
           <text x="117" y="176" textAnchor="middle" fontSize="10" fill="var(--warm-grey-dim)" fontFamily="var(--font-plex-mono), monospace">Wohnzimmer</text>
 
           {/* Offener Durchgang zwischen Wohnzimmer und Küche */}
           <line x1="192" y1="150" x2="192" y2="196" stroke="var(--amber)" strokeWidth="1.4" strokeDasharray="3 4" />
 
-          <rect x="200" y="130" width="100" height="86" rx="3" fill="rgba(212,175,106,0.06)" stroke="rgba(212,175,106,0.4)" strokeWidth="1.2" />
+          <rect x="200" y="130" width="100" height="86" rx="3" fill="rgba(232,163,61,0.06)" stroke="rgba(232,163,61,0.4)" strokeWidth="1.2" />
           <text x="250" y="176" textAnchor="middle" fontSize="10" fill="var(--warm-grey-dim)" fontFamily="var(--font-plex-mono), monospace">Küche</text>
 
           {/* Pool */}

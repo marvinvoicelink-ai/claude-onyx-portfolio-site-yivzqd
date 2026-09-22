@@ -47,7 +47,7 @@ export default function ErfassungPreise() {
               className="rounded-2xl px-6 py-7 flex flex-col alive-hover-card"
               style={{
                 background: c.highlight ? "var(--amber-soft)" : "var(--near-black-2)",
-                border: c.highlight ? "1px solid rgba(212, 175, 106,0.45)" : "1px solid var(--hairline)",
+                border: c.highlight ? "1px solid rgba(232, 163, 61,0.45)" : "1px solid var(--hairline)",
               }}
             >
               <h3 style={{ fontSize: "1.1rem", marginBottom: 10 }}>{c.title}</h3>

@@ -44,7 +44,7 @@ export default function HomeHero() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(212, 175, 106,0.1), transparent 65%)",
+            "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(232, 163, 61,0.1), transparent 65%)",
         }}
       />
       <div className="relative mx-auto px-7 text-center" style={{ maxWidth: 820 }}>

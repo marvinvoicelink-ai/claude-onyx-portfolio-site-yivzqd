@@ -216,7 +216,7 @@ export function AliveHairlineGrid({
                       width: "100%",
                       height: "100%",
                       objectFit: "contain",
-                      filter: light ? "drop-shadow(0 12px 20px rgba(22,17,4,0.18))" : "drop-shadow(0 0 20px rgba(212, 175, 106,0.25))",
+                      filter: light ? "drop-shadow(0 12px 20px rgba(22,17,4,0.18))" : "drop-shadow(0 0 20px rgba(232, 163, 61,0.25))",
                     }}
                   />
                 </div>
@@ -308,7 +308,7 @@ export function AliveCtaBand({
           style={{
             background: image
               ? "var(--near-black-2)"
-              : "radial-gradient(circle at 20% 20%, rgba(212, 175, 106,0.14), transparent 55%), var(--near-black-2)",
+              : "radial-gradient(circle at 20% 20%, rgba(232, 163, 61,0.14), transparent 55%), var(--near-black-2)",
             border: "1px solid var(--hairline)",
           }}
         >
@@ -576,7 +576,7 @@ export function AliveCase({
   const textDim = light ? "rgba(22,17,4,0.75)" : "var(--warm-grey-dim)";
   const tagColor = light ? "#7d6220" : "var(--amber)";
   const tagBg = light ? "rgba(125,98,32,0.12)" : "var(--amber-soft)";
-  const tagBorder = light ? "rgba(125,98,32,0.35)" : "rgba(212, 175, 106,0.3)";
+  const tagBorder = light ? "rgba(125,98,32,0.35)" : "rgba(232, 163, 61,0.3)";
   const headingStyle: React.CSSProperties = light ? { color: "#161104" } : {};
 
   const media = (
@@ -778,7 +778,7 @@ export function AliveTimeline({
           preserveAspectRatio="none"
           style={{ position: "absolute", top: 62, left: 0 }}
         >
-          <line x1={margin} y1={35} x2={TIMELINE_VB_W - margin} y2={35} stroke="rgba(212, 175, 106,0.15)" strokeWidth={2} />
+          <line x1={margin} y1={35} x2={TIMELINE_VB_W - margin} y2={35} stroke="rgba(232, 163, 61,0.15)" strokeWidth={2} />
           <path
             ref={pathRef}
             d={`M ${margin} 35 L ${TIMELINE_VB_W - margin} 35`}
@@ -836,7 +836,7 @@ export function AliveTimeline({
         {steps.map((s, i) => (
           <div key={s.num} className="relative flex gap-4" style={{ paddingBottom: i < steps.length - 1 ? 28 : 0 }}>
             {i < steps.length - 1 && (
-              <div aria-hidden style={{ position: "absolute", left: 9, top: 22, bottom: -6, width: 2, background: "rgba(212, 175, 106,0.3)" }} />
+              <div aria-hidden style={{ position: "absolute", left: 9, top: 22, bottom: -6, width: 2, background: "rgba(232, 163, 61,0.3)" }} />
             )}
             <span
               style={{

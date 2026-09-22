@@ -76,7 +76,7 @@ export default function ErfassungBereiche() {
               >
                 <span
                   className="mono inline-flex items-center self-start rounded-full px-3.5 py-1.5 mb-5"
-                  style={{ fontSize: 12, letterSpacing: "0.04em", color: "var(--amber)", background: "var(--amber-soft)", border: "1px solid rgba(212, 175, 106,0.3)" }}
+                  style={{ fontSize: 12, letterSpacing: "0.04em", color: "var(--amber)", background: "var(--amber-soft)", border: "1px solid rgba(232, 163, 61,0.3)" }}
                 >
                   {b.tab}
                 </span>
@@ -90,8 +90,8 @@ export default function ErfassungBereiche() {
                     fontSize: "0.92rem",
                     lineHeight: 1.55,
                     color: "var(--warm-grey)",
-                    background: "rgba(212, 175, 106,0.1)",
-                    border: "1px solid rgba(212, 175, 106,0.25)",
+                    background: "rgba(232, 163, 61,0.1)",
+                    border: "1px solid rgba(232, 163, 61,0.25)",
                   }}
                 >
                   {b.beispiel}
