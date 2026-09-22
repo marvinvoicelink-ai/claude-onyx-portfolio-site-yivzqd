@@ -5,23 +5,23 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 const STEPS = [
   {
     num: "01",
-    title: "Durchgehen und sprechen",
-    text: "Du gehst durchs Objekt und sagst, was du siehst: Räume, Maße, Mängel oder Besonderheiten. Kein Tippen und kein Formular vor Ort.",
+    title: "Mit der App auf dem Objekt sprechen",
+    text: "Du bist mit der App auf der Baustelle oder im Objekt unterwegs und sprichst rein, was du siehst: Räume, Maße, Mängel, Besonderheiten. Die App erkennt und strukturiert das automatisch — kein Tippen, kein Formular vor Ort.",
   },
   {
     num: "02",
-    title: "Video aufnehmen",
-    text: "Du filmst deinen Rundgang durch das Objekt. Das Video ist das Hauptmaterial; zusätzliche Fotos werden nur dort benötigt, wo sie sinnvoll sind.",
+    title: "Flächen und Zeichnung entstehen von selbst",
+    text: "Am Ende zählt das System die Quadratmeterzahl jedes Raums automatisch zusammen und zeichnet daraus eine schematische Skizze des Objekts.",
   },
   {
     num: "03",
-    title: "Daten und Zeichnung entstehen",
-    text: "Aus den gesprochenen Angaben werden strukturierte Datensätze und eine schematische Zeichnung. Flächen und Zimmerzahlen werden aus den erfassten Daten berechnet.",
+    title: "Ein Knopfdruck, und es geht an den Rechner",
+    text: "Drückst du auf Abschließen, werden die erfassten Daten sofort an deinen Computer übertragen. Ein KI-Agent startet direkt und baut daraus die vorgesehenen Unterlagen — für Immobilien zum Beispiel das Exposé.",
   },
   {
     num: "04",
-    title: "Unterlagen erstellen lassen",
-    text: "Beim Speichern startet automatisch ein KI-Agent. Gemessen beginnt er nach etwa drei Sekunden damit, aus den erfassten Informationen die vorgesehenen Unterlagen zu bauen. Für Immobilien können daraus Exposé und Scroll-Website entstehen — die Veröffentlichung der Website ist danach ein eigener, bewusster Schritt.",
+    title: "Der Scroll-Website-Entwurf steht bereit",
+    text: "Noch während du auf dem Objekt stehst, ist der Entwurf der Scroll-Website fertig zum Ansehen. Veröffentlicht wird sie erst, wenn du das bewusst freigibst — das bleibt ein eigener Schritt.",
   },
 ];
 

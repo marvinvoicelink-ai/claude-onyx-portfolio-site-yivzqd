@@ -11,7 +11,6 @@ import { trackLead } from "@/lib/trackLead";
 const links = [
   { href: "/", label: "Startseite" },
   { href: "/angebot", label: "Angebot" },
-  { href: "/vor-ort-erfassung", label: "Erfassung" },
   { href: "/fuer-dich", label: "Für dich" },
   { href: "/problem", label: "Problem" },
   { href: "/referenzen", label: "Referenzen" },
@@ -184,7 +183,7 @@ export default function Nav() {
             className="hidden md:inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold whitespace-nowrap btn-amber"
             style={{ background: "var(--amber)", color: "#161104", fontSize: 13.5 }}
           >
-            Kontakt aufnehmen
+            Objekt ausprobieren
           </Link>
 
           <MobileNav />

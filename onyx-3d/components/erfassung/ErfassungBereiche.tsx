@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 type Bereich = {
   tab: string;
@@ -40,13 +40,17 @@ const BEREICHE: Bereich[] = [
   },
 ];
 
+/**
+ * Beide Anwendungsbereiche stehen immer nebeneinander offen da, statt
+ * hinter einem Tab versteckt zu sein — wer nur kurz scrollt, soll beide
+ * Beispiele trotzdem sehen, nicht nur das zuerst aktive.
+ */
 export default function ErfassungBereiche() {
-  const [active, setActive] = useState(0);
-  const b = BEREICHE[active];
+  const reveal = useScrollReveal<HTMLDivElement>(BEREICHE.length);
 
   return (
     <section className="py-14">
-      <div className="mx-auto px-7" style={{ maxWidth: 900 }}>
+      <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div className="text-center mb-10">
           <span
             className="mono inline-flex items-center gap-2 mb-4"
@@ -59,74 +63,62 @@ export default function ErfassungBereiche() {
           </h2>
         </div>
 
-        <div
-          role="tablist"
-          aria-label="Anwendungsbereich wählen"
-          className="inline-flex mx-auto rounded-full p-1 mb-10"
-          style={{ display: "flex", background: "var(--near-black-2)", border: "1px solid var(--hairline)", width: "fit-content" }}
-        >
-          {BEREICHE.map((item, i) => (
-            <button
-              key={item.tab}
-              type="button"
-              role="tab"
-              aria-selected={active === i}
-              onClick={() => setActive(i)}
-              className="rounded-full font-semibold"
-              style={{
-                padding: "10px 20px",
-                fontSize: 13.5,
-                background: active === i ? "var(--amber)" : "transparent",
-                color: active === i ? "#161104" : "var(--warm-grey-dim)",
-                transition: "background 0.2s ease, color 0.2s ease",
-              }}
-            >
-              {item.tab}
-            </button>
-          ))}
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {BEREICHE.map((b, i) => {
+            const visible = reveal.visible[i];
+            return (
+              <div
+                key={b.tab}
+                ref={reveal.setRef(i)}
+                data-reveal-index={i}
+                className={`rounded-2xl p-7 sm:p-9 flex flex-col ${visible ? "reveal-visible" : "reveal-hidden"}`}
+                style={{ ["--reveal-delay" as string]: `${i * 120}ms`, background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
+              >
+                <span
+                  className="mono inline-flex items-center self-start rounded-full px-3.5 py-1.5 mb-5"
+                  style={{ fontSize: 12, letterSpacing: "0.04em", color: "var(--amber)", background: "var(--amber-soft)", border: "1px solid rgba(212, 175, 106,0.3)" }}
+                >
+                  {b.tab}
+                </span>
 
-        <div
-          className="rounded-2xl p-7 sm:p-9"
-          style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
-        >
-          <h3 style={{ fontSize: "clamp(1.2rem, 2.2vw, 1.5rem)", marginBottom: 14, maxWidth: "30ch" }}>{b.headline}</h3>
-          <p style={{ color: "var(--warm-grey-dim)", fontSize: "1rem", lineHeight: 1.75, marginBottom: 24 }}>{b.text}</p>
+                <h3 style={{ fontSize: "clamp(1.15rem, 2.2vw, 1.4rem)", marginBottom: 14 }}>{b.headline}</h3>
+                <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.98rem", lineHeight: 1.7, marginBottom: 22 }}>{b.text}</p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
-            <div
-              className="rounded-xl px-4 py-4"
-              style={{
-                fontSize: "0.94rem",
-                lineHeight: 1.55,
-                color: "var(--warm-grey)",
-                background: "rgba(212, 175, 106,0.1)",
-                border: "1px solid rgba(212, 175, 106,0.25)",
-              }}
-            >
-              {b.beispiel}
-            </div>
+                <div
+                  className="rounded-xl px-4 py-4 mb-4"
+                  style={{
+                    fontSize: "0.92rem",
+                    lineHeight: 1.55,
+                    color: "var(--warm-grey)",
+                    background: "rgba(212, 175, 106,0.1)",
+                    border: "1px solid rgba(212, 175, 106,0.25)",
+                  }}
+                >
+                  {b.beispiel}
+                </div>
 
-            <div
-              className="rounded-xl px-4 py-4"
-              style={{ background: "var(--near-black)", border: "1px solid var(--hairline)" }}
-            >
-              <div className="flex flex-col gap-2">
-                {b.daten.map((d) => (
-                  <div key={d.label} className="flex gap-2" style={{ fontSize: "0.86rem" }}>
-                    <span className="mono" style={{ color: "var(--amber)", flexShrink: 0 }}>
-                      {d.label}:
-                    </span>
-                    <span style={{ color: "var(--warm-grey-dim)" }}>{d.wert}</span>
+                <div
+                  className="rounded-xl px-4 py-4 mb-5"
+                  style={{ background: "var(--near-black)", border: "1px solid var(--hairline)" }}
+                >
+                  <div className="flex flex-col gap-2">
+                    {b.daten.map((d) => (
+                      <div key={d.label} className="flex gap-2" style={{ fontSize: "0.85rem" }}>
+                        <span className="mono" style={{ color: "var(--amber)", flexShrink: 0 }}>
+                          {d.label}:
+                        </span>
+                        <span style={{ color: "var(--warm-grey-dim)" }}>{d.wert}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
+                </div>
 
-          <p className="mt-6" style={{ color: "var(--warm-grey-faint)", fontSize: "0.9rem", lineHeight: 1.6 }}>
-            {b.note}
-          </p>
+                <p style={{ color: "var(--warm-grey-faint)", fontSize: "0.88rem", lineHeight: 1.6, marginTop: "auto" }}>
+                  {b.note}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

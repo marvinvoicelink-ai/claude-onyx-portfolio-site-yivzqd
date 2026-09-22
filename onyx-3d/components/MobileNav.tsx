@@ -9,7 +9,6 @@ import { trackLead } from "@/lib/trackLead";
 
 const pageLinks = [
   { href: "/", label: "Startseite" },
-  { href: "/vor-ort-erfassung", label: "Vor-Ort-Erfassung" },
   { href: "/fuer-dich", label: "Für dich" },
   { href: "/problem", label: "Problem" },
   { href: "/referenzen", label: "Referenzen" },
@@ -125,7 +124,7 @@ export default function MobileNav() {
                 className="inline-flex items-center justify-center rounded-full font-semibold btn-amber"
                 style={{ background: "var(--amber)", color: "#161104", fontSize: 16, padding: "16px 0", margin: "24px 0 32px" }}
               >
-                Kontakt aufnehmen
+                Objekt ausprobieren
               </Link>
             </nav>
           </div>,

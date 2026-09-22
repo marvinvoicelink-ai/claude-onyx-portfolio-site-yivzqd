@@ -6,19 +6,16 @@ import { trackLead } from "@/lib/trackLead";
 const CARDS = [
   {
     title: "Exposé",
-    preis: "{PREIS_EXPOSE}",
     text: "Aus den erfassten Daten und dem vorhandenen Material wird ein Exposé erstellt.",
     highlight: false,
   },
   {
     title: "Scroll-Website",
-    preis: "{PREIS_SCROLLSEITE}",
     text: "Der Agent baut eine Scroll-Website für das Objekt. Du entscheidest anschließend selbst, wann sie veröffentlicht wird.",
     highlight: false,
   },
   {
     title: "Exposé + Scroll-Website",
-    preis: "{PREIS_BEIDES}",
     text: "Beide Ergebnisse aus derselben Erfassung vor Ort.",
     highlight: true,
   },
@@ -35,9 +32,12 @@ export default function ErfassungPreise() {
           >
             <span style={{ opacity: 0.7 }}>§</span> Preismodell
           </span>
-          <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", maxWidth: "28ch", marginLeft: "auto", marginRight: "auto" }}>
+          <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", maxWidth: "28ch", marginLeft: "auto", marginRight: "auto", marginBottom: 12 }}>
             Du zahlst pro Objekt. Nicht für den nächsten Softwarevertrag.
           </h2>
+          <p className="mx-auto" style={{ color: "var(--warm-grey-faint)", fontSize: "0.92rem", maxWidth: "48ch" }}>
+            Den genauen Preis pro Objekt besprechen wir im kostenlosen Erstgespräch — abhängig vom Objekt und davon, ob du regelmäßig lieferst.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
@@ -52,10 +52,10 @@ export default function ErfassungPreise() {
             >
               <h3 style={{ fontSize: "1.1rem", marginBottom: 10 }}>{c.title}</h3>
               <div className="mono" style={{ marginBottom: 14 }}>
-                <div style={{ fontSize: "1.3rem", fontWeight: 800, color: "var(--amber)", lineHeight: 1.3, wordBreak: "break-word" }}>
-                  {c.preis}
+                <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--amber)", lineHeight: 1.3 }}>
+                  Preis auf Anfrage
                 </div>
-                <div style={{ fontSize: "0.85rem", fontWeight: 500, color: "var(--warm-grey-dim)" }}>/ Objekt</div>
+                <div style={{ fontSize: "0.85rem", fontWeight: 500, color: "var(--warm-grey-dim)" }}>pro Objekt</div>
               </div>
               <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.94rem", lineHeight: 1.6, marginBottom: 24, flex: 1 }}>
                 {c.text}

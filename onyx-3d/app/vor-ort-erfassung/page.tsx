@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import ErfassungHero from "@/components/erfassung/ErfassungHero";
 import ErfassungDemo from "@/components/erfassung/ErfassungDemo";
 import ErfassungSteps from "@/components/erfassung/ErfassungSteps";
+import ErfassungRealCase from "@/components/erfassung/ErfassungRealCase";
 import ErfassungBereiche from "@/components/erfassung/ErfassungBereiche";
 import ErfassungVideoSection from "@/components/erfassung/ErfassungVideoSection";
 import ErfassungSprachen from "@/components/erfassung/ErfassungSprachen";
@@ -45,6 +46,7 @@ export default function VorOrtErfassungPage() {
       <ErfassungHero />
       <ErfassungDemo />
       <ErfassungSteps />
+      <ErfassungRealCase />
       <ErfassungBereiche />
       <ErfassungVideoSection />
       <ErfassungSprachen />
