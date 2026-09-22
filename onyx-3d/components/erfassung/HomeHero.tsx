@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { trackLead } from "@/lib/trackLead";
+import { lp, type Lang } from "@/lib/i18n";
 import FlowSpine from "./FlowSpine";
 
 declare global {
@@ -11,14 +12,47 @@ declare global {
   }
 }
 
-const WHATSAPP_HREF =
-  "https://wa.me/4917632273522?text=Hallo%20Marvin%2C%20ich%20interessiere%20mich%20f%C3%BCr%20die%20Vor-Ort-Erfassung%20von%20Onyx.";
-
-const AUDIENCES = [
-  { title: "Bauunternehmer & Bauleiter", text: "Baudokumentation, Mängel und Aufmaß direkt vor Ort erfassen." },
-  { title: "Immobilienmakler", text: "Objektdaten erfassen und daraus Exposé und Scroll-Website erstellen." },
-  { title: "Handwerker", text: "Maße und Leistungen beim Rundgang erfassen statt später im Büro." },
-];
+const TEXT: Record<
+  Lang,
+  {
+    kicker: string;
+    h1: [string, string, string];
+    intro: string;
+    audiences: { title: string; text: string }[];
+    cta: string;
+    whatsapp: string;
+    whatsappText: string;
+  }
+> = {
+  de: {
+    kicker: "Onyx.AI für Bau, Handwerk & Immobilien",
+    h1: ["Du gehst durchs Objekt, sprichst – und der ", "Papierkram entsteht daraus", "."],
+    intro:
+      "Onyx.AI hat ein eigenes System gebaut, das genau das übernimmt: Räume, Maße und Mängel direkt vor Ort einsprechen und filmen. Onyx.AI strukturiert die Angaben, erstellt eine schematische Zeichnung und baut daraus die Unterlagen, die du danach brauchst.",
+    audiences: [
+      { title: "Bauunternehmer & Bauleiter", text: "Baudokumentation, Mängel und Aufmaß direkt vor Ort erfassen." },
+      { title: "Immobilienmakler", text: "Objektdaten erfassen und daraus Exposé und Scroll-Website erstellen." },
+      { title: "Handwerker", text: "Maße und Leistungen beim Rundgang erfassen statt später im Büro." },
+    ],
+    cta: "Mit einem Objekt ausprobieren",
+    whatsapp: "WhatsApp schreiben",
+    whatsappText: "Hallo Marvin, ich interessiere mich für die Vor-Ort-Erfassung von Onyx.",
+  },
+  es: {
+    kicker: "Onyx.AI para construcción, oficios e inmobiliarias",
+    h1: ["Recorres el inmueble, hablas – y ", "el papeleo sale solo", "."],
+    intro:
+      "Onyx.AI ha construido un sistema propio que se encarga justo de eso: dictas y grabas en el mismo lugar las estancias, las medidas y los defectos. Onyx.AI ordena los datos, dibuja un esquema y prepara con ello la documentación que necesitas después.",
+    audiences: [
+      { title: "Constructores y jefes de obra", text: "Registra la documentación de obra, los defectos y las mediciones directamente in situ." },
+      { title: "Agentes inmobiliarios", text: "Registra los datos del inmueble y genera con ellos el dossier y la web con scroll." },
+      { title: "Profesionales de oficios", text: "Toma medidas y partidas durante el recorrido, no después en la oficina." },
+    ],
+    cta: "Probar con un inmueble",
+    whatsapp: "Escribir por WhatsApp",
+    whatsappText: "Hola Marvin, me interesa la captura in situ de Onyx.",
+  },
+};
 
 /**
  * Startseiten-Hero: Onyx.AI positioniert sich hier direkt als Erbauer des
@@ -26,8 +60,9 @@ const AUDIENCES = [
  * allgemeinen "White-Label für jeden Mittelstandsbetrieb"-Botschaft, die
  * jetzt auf den Nebenseiten bleibt.
  */
-export default function HomeHero() {
+export default function HomeHero({ lang }: { lang: Lang }) {
   const [entered, setEntered] = useState(false);
+  const t = TEXT[lang];
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -52,32 +87,30 @@ export default function HomeHero() {
           className={`mono inline-flex items-center gap-2 mb-5 ${entered ? "hero-cta-visible" : "hero-cta-hidden"}`}
           style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
         >
-          <span style={{ opacity: 0.7 }}>§</span> Onyx.AI für Bau, Handwerk &amp; Immobilien
+          <span style={{ opacity: 0.7 }}>§</span> {t.kicker}
         </span>
 
         <h1
           className={entered ? "hero-blur-visible" : "hero-blur-hidden"}
           style={{ fontSize: "clamp(2.1rem, 5.2vw, 3.4rem)", lineHeight: 1.1, marginBottom: 22, maxWidth: "18ch", marginLeft: "auto", marginRight: "auto" }}
         >
-          Du gehst durchs Objekt, sprichst – und der{" "}
-          <span className="accent">Papierkram entsteht daraus</span>.
+          {t.h1[0]}
+          <span className="accent">{t.h1[1]}</span>
+          {t.h1[2]}
         </h1>
 
         <p
           className={entered ? "hero-cta-visible" : "hero-cta-hidden"}
           style={{ ["--reveal-delay" as string]: "100ms", color: "var(--warm-grey-dim)", fontSize: "1.1rem", lineHeight: 1.7, marginBottom: 10, maxWidth: "56ch", marginLeft: "auto", marginRight: "auto" }}
         >
-          Onyx.AI hat ein eigenes System gebaut, das genau das übernimmt:
-          Räume, Maße und Mängel direkt vor Ort einsprechen und filmen.
-          Onyx.AI strukturiert die Angaben, erstellt eine schematische
-          Zeichnung und baut daraus die Unterlagen, die du danach brauchst.
+          {t.intro}
         </p>
 
         <div
           className={`grid grid-cols-1 sm:grid-cols-3 gap-3 mb-9 mt-8 ${entered ? "hero-cta-visible" : "hero-cta-hidden"}`}
           style={{ ["--reveal-delay" as string]: "200ms" }}
         >
-          {AUDIENCES.map((a) => (
+          {t.audiences.map((a) => (
             <div
               key={a.title}
               className="beam-border rounded-xl px-5 py-4 text-left"
@@ -96,18 +129,18 @@ export default function HomeHero() {
           style={{ ["--reveal-delay" as string]: "300ms" }}
         >
           <Link
-            href="/kontakt"
+            href={lp(lang, "/kontakt")}
             onClick={trackLead}
             className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber"
             style={{ background: "var(--amber)", color: "#161104", fontSize: 15.5 }}
           >
-            Mit einem Objekt ausprobieren
+            {t.cta}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={14} height={14}>
               <path d="M5 12h14M13 6l6 6-6 6" />
             </svg>
           </Link>
           <a
-            href={WHATSAPP_HREF}
+            href={`https://wa.me/4917632273522?text=${encodeURIComponent(t.whatsappText)}`}
             target="_blank"
             rel="noopener"
             onClick={() => {
@@ -117,11 +150,11 @@ export default function HomeHero() {
             className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-ghost"
             style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}
           >
-            WhatsApp schreiben
+            {t.whatsapp}
           </a>
         </div>
 
-        <FlowSpine />
+        <FlowSpine lang={lang} />
       </div>
     </section>
   );

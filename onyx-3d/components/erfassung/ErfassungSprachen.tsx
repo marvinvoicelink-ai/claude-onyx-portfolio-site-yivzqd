@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import type { Lang } from "@/lib/i18n";
 
 const SAMPLE = {
   de: {
@@ -13,9 +14,23 @@ const SAMPLE = {
   },
 };
 
-export default function ErfassungSprachen() {
-  const [lang, setLang] = useState<"de" | "es">("de");
-  const s = SAMPLE[lang];
+const TEXT: Record<Lang, { kicker: string; heading: string; body: string }> = {
+  de: {
+    kicker: "Deutsch + Spanisch",
+    heading: "Ein Objekt. Zwei Sprachen.",
+    body: "Exposé und Scroll-Website lassen sich auf Deutsch und Spanisch erstellen.",
+  },
+  es: {
+    kicker: "Alemán + español",
+    heading: "Un inmueble. Dos idiomas.",
+    body: "El dossier y la web con scroll pueden crearse en alemán y en español.",
+  },
+};
+
+export default function ErfassungSprachen({ lang }: { lang: Lang }) {
+  const [sampleLang, setSampleLang] = useState<Lang>(lang);
+  const t = TEXT[lang];
+  const s = SAMPLE[sampleLang];
 
   return (
     <section className="py-14">
@@ -24,14 +39,11 @@ export default function ErfassungSprachen() {
           className="mono inline-flex items-center gap-2 mb-4"
           style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
         >
-          <span style={{ opacity: 0.7 }}>§</span> Deutsch + Spanisch
+          <span style={{ opacity: 0.7 }}>§</span> {t.kicker}
         </span>
-        <h2 style={{ fontSize: "clamp(1.5rem, 2.8vw, 2rem)", marginBottom: 14 }}>
-          Ein Objekt. Zwei Sprachen.
-        </h2>
+        <h2 style={{ fontSize: "clamp(1.5rem, 2.8vw, 2rem)", marginBottom: 14 }}>{t.heading}</h2>
         <p className="mx-auto mb-9" style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7, maxWidth: "48ch" }}>
-          Exposé und Scroll-Website lassen sich auf Deutsch und Spanisch
-          erstellen.
+          {t.body}
         </p>
 
         <div
@@ -42,14 +54,14 @@ export default function ErfassungSprachen() {
             <button
               key={l}
               type="button"
-              onClick={() => setLang(l)}
-              aria-pressed={lang === l}
+              onClick={() => setSampleLang(l)}
+              aria-pressed={sampleLang === l}
               className="rounded-full font-semibold mono"
               style={{
                 padding: "8px 22px",
                 fontSize: 13,
-                background: lang === l ? "var(--amber)" : "transparent",
-                color: lang === l ? "#161104" : "var(--warm-grey-dim)",
+                background: sampleLang === l ? "var(--amber)" : "transparent",
+                color: sampleLang === l ? "#161104" : "var(--warm-grey-dim)",
                 transition: "background 0.2s ease, color 0.2s ease",
               }}
             >
@@ -59,6 +71,7 @@ export default function ErfassungSprachen() {
         </div>
 
         <div
+          lang={sampleLang}
           className="beam-border rounded-2xl px-7 py-7 text-left"
           style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
         >

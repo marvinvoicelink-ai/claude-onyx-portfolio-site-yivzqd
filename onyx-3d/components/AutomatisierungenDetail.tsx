@@ -1,10 +1,13 @@
-import { automatisierungen } from "@/lib/automatisierungen";
+import { getAutomatisierungen } from "@/lib/automatisierungen";
+import type { Lang } from "@/lib/i18n";
+
+const LABEL: Record<Lang, string> = { de: "Bereich", es: "Área" };
 
 /** One anchored block per automation area — text-only rows, since the visual weight on this page sits in the hero image. */
-export default function AutomatisierungenDetail() {
+export default function AutomatisierungenDetail({ lang = "de" }: { lang?: Lang }) {
   return (
     <div>
-      {automatisierungen.map((a, i) => (
+      {getAutomatisierungen(lang).map((a, i) => (
         <section key={a.slug} id={a.slug} className="py-10" style={{ scrollMarginTop: 96 }}>
           <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
             <div
@@ -25,7 +28,7 @@ export default function AutomatisierungenDetail() {
                   {a.icon}
                 </div>
                 <span className="mono" style={{ fontSize: 11.5, letterSpacing: "0.05em", textTransform: "uppercase", color: "var(--amber)" }}>
-                  Bereich {String(i + 1).padStart(2, "0")}
+                  {LABEL[lang]} {String(i + 1).padStart(2, "0")}
                 </span>
               </div>
 

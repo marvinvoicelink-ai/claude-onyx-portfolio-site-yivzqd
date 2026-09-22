@@ -5,30 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MobileNav from "./MobileNav";
-import { offerings } from "@/lib/offerings";
+import LangSwitch from "./LangSwitch";
 import { trackLead } from "@/lib/trackLead";
+import { lp, type Lang } from "@/lib/i18n";
+import { NAV_CTA, NAV_LINKS, offeringLinks } from "./navData";
 
-const links = [
-  { href: "/", label: "Startseite" },
-  { href: "/angebot", label: "Angebot" },
-  { href: "/fuer-dich", label: "Für dich" },
-  { href: "/problem", label: "Problem" },
-  { href: "/referenzen", label: "Referenzen" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/ueber-mich", label: "Über mich" },
-];
-
-/** Per-offering deep links — automatisierung gets its own dedicated pages instead of an /angebot anchor. */
-const offeringLinks = offerings.flatMap((o) =>
-  o.slug === "automatisierung"
-    ? [
-        { href: "/ki-agenten", label: "KI-Agenten" },
-        { href: "/automatisierungen", label: "Automatisierungen" },
-      ]
-    : [{ href: `/angebot/${o.slug}`, label: o.title.replace(/\.$/, "") }],
-);
-
-export default function Nav() {
+export default function Nav({ lang }: { lang: Lang }) {
   const pathname = usePathname();
   const [offeringsOpen, setOfferingsOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -54,6 +36,8 @@ export default function Nav() {
     closeTimer.current = setTimeout(() => setOfferingsOpen(false), 120);
   };
 
+  const dropdown = offeringLinks(lang);
+
   return (
     <header
       className="sticky top-0 z-50"
@@ -67,7 +51,7 @@ export default function Nav() {
         className="mx-auto px-7 flex items-center justify-between"
         style={{ maxWidth: 1180, height: 80 }}
       >
-        <Link href="/" className="nav-logo-link inline-flex items-center gap-3">
+        <Link href={lp(lang, "/")} className="nav-logo-link inline-flex items-center gap-3">
           <span
             style={{
               opacity: entered ? 1 : 0,
@@ -96,11 +80,12 @@ export default function Nav() {
           }}
         >
           <nav
-            className="hidden md:flex items-center gap-6"
+            className="hidden lg:flex items-center gap-6"
             style={{ fontFamily: "var(--font-archivo), sans-serif", fontWeight: 700, fontSize: 13.5, letterSpacing: "-0.01em" }}
           >
-            {links.map((l) => {
-              const active = pathname === l.href;
+            {NAV_LINKS[lang].map((l) => {
+              const href = lp(lang, l.href);
+              const active = pathname === href;
 
               if (l.href === "/angebot") {
                 return (
@@ -111,7 +96,7 @@ export default function Nav() {
                     onMouseLeave={closeMenu}
                   >
                     <Link
-                      href={l.href}
+                      href={href}
                       className="nav-link inline-flex items-center gap-1.5"
                       aria-current={active ? "page" : undefined}
                       aria-expanded={offeringsOpen}
@@ -146,7 +131,7 @@ export default function Nav() {
                           boxShadow: "0 20px 40px -12px rgba(0,0,0,0.6)",
                         }}
                       >
-                        {offeringLinks.map((ol) => (
+                        {dropdown.map((ol) => (
                           <Link
                             key={ol.href}
                             href={ol.href}
@@ -166,7 +151,7 @@ export default function Nav() {
               return (
                 <Link
                   key={l.href}
-                  href={l.href}
+                  href={href}
                   className="nav-link"
                   aria-current={active ? "page" : undefined}
                   style={{ color: active ? "var(--amber)" : "#ffffff" }}
@@ -177,16 +162,18 @@ export default function Nav() {
             })}
           </nav>
 
+          <LangSwitch lang={lang} />
+
           <Link
-            href="/kontakt"
+            href={lp(lang, "/kontakt")}
             onClick={trackLead}
-            className="hidden md:inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold whitespace-nowrap btn-amber"
+            className="hidden lg:inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold whitespace-nowrap btn-amber"
             style={{ background: "var(--amber)", color: "#161104", fontSize: 13.5 }}
           >
-            Objekt ausprobieren
+            {NAV_CTA[lang]}
           </Link>
 
-          <MobileNav />
+          <MobileNav lang={lang} />
         </div>
       </div>
     </header>

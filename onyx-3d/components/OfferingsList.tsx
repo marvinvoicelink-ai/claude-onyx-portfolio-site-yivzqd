@@ -1,9 +1,26 @@
 import Image from "next/image";
 import Link from "next/link";
-import { offerings } from "@/lib/offerings";
+import { getOfferings } from "@/lib/offerings";
+import { lp, type Lang } from "@/lib/i18n";
+
+const TEXT: Record<Lang, { kicker: string; heading: string; body: string; more: string }> = {
+  de: {
+    kicker: "Leistungen",
+    heading: "Das können wir für dich tun.",
+    body: "Sechs Bausteine, aus denen wir Systeme zusammensetzen. Kein Betrieb braucht alle sechs, und wir verkaufen dir auch keine, die du nicht brauchst. Klick auf einen, dann siehst du im Detail, was dahintersteckt.",
+    more: "Mehr erfahren",
+  },
+  es: {
+    kicker: "Servicios",
+    heading: "Esto es lo que podemos hacer por ti.",
+    body: "Seis módulos con los que montamos sistemas. Ninguna empresa necesita los seis, y tampoco te vamos a vender ninguno que no necesites. Haz clic en uno y verás en detalle qué hay detrás.",
+    more: "Ver más",
+  },
+};
 
 /** Editorial row list of offerings — numbered, with a thumbnail per row, divided by hairlines, each linking to its detail on /angebot. */
-export default function OfferingsList({ blatt }: { blatt?: string }) {
+export default function OfferingsList({ lang = "de", blatt }: { lang?: Lang; blatt?: string }) {
+  const t = TEXT[lang];
   return (
     <section className="py-10">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
@@ -11,23 +28,20 @@ export default function OfferingsList({ blatt }: { blatt?: string }) {
           className="mono inline-flex items-center gap-2 mb-4"
           style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
         >
-          <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Leistungen` : "Leistungen"}
+          <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / ${t.kicker}` : t.kicker}
         </span>
         <h2 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", maxWidth: "22ch", marginBottom: 16 }}>
-          Das können wir für dich tun.
+          {t.heading}
         </h2>
         <p style={{ color: "var(--warm-grey-dim)", maxWidth: "58ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 28 }}>
-          Sechs Bausteine, aus denen wir Systeme zusammensetzen. Kein Betrieb
-          braucht alle sechs, und wir verkaufen dir auch keine, die du nicht
-          brauchst. Klick auf einen, dann siehst du im Detail, was
-          dahintersteckt.
+          {t.body}
         </p>
 
         <div style={{ borderTop: "1px solid var(--hairline)" }}>
-          {offerings.map((o, i) => (
+          {getOfferings(lang).map((o, i) => (
             <Link
               key={o.slug}
-              href={`/angebot/${o.slug}`}
+              href={lp(lang, `/angebot/${o.slug}`)}
               className="offering-row flex items-center justify-between gap-3 sm:gap-6 py-5"
               style={{ borderBottom: "1px solid var(--hairline)" }}
             >
@@ -50,7 +64,7 @@ export default function OfferingsList({ blatt }: { blatt?: string }) {
               </div>
               <div className="flex items-center gap-4 flex-shrink-0">
                 <span className="mono offering-row-cta hidden sm:inline" style={{ fontSize: 12.5, color: "var(--warm-grey-faint)", letterSpacing: "0.03em" }}>
-                  Mehr erfahren
+                  {t.more}
                 </span>
                 <span
                   className="offering-row-arrow flex items-center justify-center rounded-full w-8 h-8 sm:w-[38px] sm:h-[38px]"

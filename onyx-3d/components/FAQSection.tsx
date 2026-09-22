@@ -1,6 +1,7 @@
 import SectionGlow from "./SectionGlow";
+import type { Lang } from "@/lib/i18n";
 
-const faqs = [
+const FAQS_DE = [
   {
     q: "Was kostet ein System von Onyx?",
     a: "Jedes System ist individuell — deshalb gibt es keinen Katalogpreis. Nach dem ersten Gespräch bekommst du ein klares Konzept mit Festpreis.",
@@ -19,7 +20,32 @@ const faqs = [
   },
 ];
 
-export default function FAQSection({ blatt }: { blatt?: string }) {
+const FAQS_ES = [
+  {
+    q: "¿Cuánto cuesta un sistema de Onyx?",
+    a: "Cada sistema es a medida, por eso no hay precio de catálogo. Después de la primera conversación recibes un concepto claro con precio cerrado.",
+  },
+  {
+    q: "¿Cuánto tarda en construirse?",
+    a: "Una herramienta concreta puede estar lista en pocas semanas; un CRM completo lleva más tiempo. En la primera conversación te damos una estimación realista.",
+  },
+  {
+    q: "¿Necesito conocimientos técnicos?",
+    a: "No. Tú nos describes tu proceso y nosotros lo convertimos en un sistema, con documentación clara en la entrega.",
+  },
+  {
+    q: "¿Mi sistema cumple el RGPD?",
+    a: "Sí. Lo alojas tú, en Alemania o en la UE, con contrato de encargo del tratamiento. Ningún dato pasa por servidores ajenos que no controles.",
+  },
+];
+
+const TEXT: Record<Lang, { kicker: string; heading: string; faqs: { q: string; a: string }[] }> = {
+  de: { kicker: "Rückfragen", heading: "Bevor du fragst.", faqs: FAQS_DE },
+  es: { kicker: "Preguntas", heading: "Antes de que preguntes.", faqs: FAQS_ES },
+};
+
+export default function FAQSection({ lang = "de", blatt }: { lang?: Lang; blatt?: string }) {
+  const t = TEXT[lang];
   return (
     <section className="py-14 relative overflow-hidden">
       <SectionGlow position="top" />
@@ -29,13 +55,13 @@ export default function FAQSection({ blatt }: { blatt?: string }) {
             className="mono inline-flex items-center gap-2 mb-4"
             style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
           >
-            <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Rückfragen` : "Rückfragen"}
+            <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / ${t.kicker}` : t.kicker}
           </span>
-          <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 30 }}>Bevor du fragst.</h2>
+          <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 30 }}>{t.heading}</h2>
         </div>
 
         <div>
-          {faqs.map((f) => (
+          {t.faqs.map((f) => (
             <details key={f.q} className="group" style={{ borderBottom: "1px solid var(--hairline)", padding: "20px 0" }}>
               <summary
                 className="flex items-center justify-between cursor-pointer list-none"

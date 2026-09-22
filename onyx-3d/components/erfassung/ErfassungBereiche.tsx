@@ -1,6 +1,7 @@
 "use client";
 
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import type { Lang } from "@/lib/i18n";
 
 type Bereich = {
   tab: string;
@@ -11,7 +12,7 @@ type Bereich = {
   note: string;
 };
 
-const BEREICHE: Bereich[] = [
+const BEREICHE_DE: Bereich[] = [
   {
     tab: "Bau & Handwerk",
     headline: "Von der Baustelle ins Protokoll, ohne alles zweimal zu erfassen.",
@@ -40,13 +41,48 @@ const BEREICHE: Bereich[] = [
   },
 ];
 
+const BEREICHE_ES: Bereich[] = [
+  {
+    tab: "Construcción y oficios",
+    headline: "De la obra al informe, sin registrarlo todo dos veces.",
+    text: "Dicta en el lugar los elementos, las medidas, los trabajos y los defectos, y documéntalos en vídeo. La información se registra de forma ordenada y sirve para la documentación de obra, los informes de defectos y las mediciones.",
+    beispiel: "«Dormitorio 2, humedad a la izquierda bajo la ventana, unos 60 centímetros de ancho.»",
+    daten: [
+      { label: "Estancia", wert: "Dormitorio 2" },
+      { label: "Categoría", wert: "Defecto" },
+      { label: "Zona", wert: "Ventana" },
+      { label: "Descripción", wert: "Humedad a la izquierda bajo la ventana" },
+      { label: "Dato", wert: "aprox. 60 cm" },
+    ],
+    note: "En lugar de montar el presupuesto después de la visita a partir de notas a mano, las medidas y los trabajos quedan registrados de forma ordenada ya durante el recorrido.",
+  },
+  {
+    tab: "Inmobiliarias",
+    headline: "Un recorrido por el inmueble, y los datos están listos para comercializarlo.",
+    text: "Dicta las estancias, los metros cuadrados y las particularidades durante la visita. Onyx.AI ordena los datos en el CRM, dibuja el esquema y usa después el vídeo y los datos del inmueble para preparar la documentación de venta.",
+    beispiel: "«Salón de 40 metros cuadrados con corredera a la piscina, cocina abierta de 20, tres dormitorios arriba.»",
+    daten: [
+      { label: "Salón", wert: "40 m² · corredera a la piscina" },
+      { label: "Cocina", wert: "20 m² · abierta al salón" },
+      { label: "Planta alta", wert: "3 dormitorios" },
+    ],
+    note: "El dossier y la web con scroll pueden crearse en alemán y en español, con solo pulsar un botón.",
+  },
+];
+
+const TEXT: Record<Lang, { kicker: string; heading: string; bereiche: Bereich[] }> = {
+  de: { kicker: "Zwei Anwendungsbereiche", heading: "Ein Ablauf, zwei konkrete Einsätze.", bereiche: BEREICHE_DE },
+  es: { kicker: "Dos ámbitos de uso", heading: "Un mismo proceso, dos usos concretos.", bereiche: BEREICHE_ES },
+};
+
 /**
  * Beide Anwendungsbereiche stehen immer nebeneinander offen da, statt
  * hinter einem Tab versteckt zu sein — wer nur kurz scrollt, soll beide
  * Beispiele trotzdem sehen, nicht nur das zuerst aktive.
  */
-export default function ErfassungBereiche() {
-  const reveal = useScrollReveal<HTMLDivElement>(BEREICHE.length);
+export default function ErfassungBereiche({ lang }: { lang: Lang }) {
+  const t = TEXT[lang];
+  const reveal = useScrollReveal<HTMLDivElement>(t.bereiche.length);
 
   return (
     <section className="py-14">
@@ -56,15 +92,15 @@ export default function ErfassungBereiche() {
             className="mono inline-flex items-center gap-2 mb-4"
             style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
           >
-            <span style={{ opacity: 0.7 }}>§</span> Zwei Anwendungsbereiche
+            <span style={{ opacity: 0.7 }}>§</span> {t.kicker}
           </span>
           <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", maxWidth: "26ch", marginLeft: "auto", marginRight: "auto" }}>
-            Ein Ablauf, zwei konkrete Einsätze.
+            {t.heading}
           </h2>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {BEREICHE.map((b, i) => {
+          {t.bereiche.map((b, i) => {
             const visible = reveal.visible[i];
             return (
               <div

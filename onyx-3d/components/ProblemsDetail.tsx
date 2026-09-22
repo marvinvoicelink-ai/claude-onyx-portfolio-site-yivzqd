@@ -1,5 +1,8 @@
 import Image from "next/image";
-import { problems } from "@/lib/problems";
+import { getProblems } from "@/lib/problems";
+import type { Lang } from "@/lib/i18n";
+
+const LABEL: Record<Lang, string> = { de: "Problem", es: "Problema" };
 
 /**
  * The detailed explanation each homepage problem-card link lands on —
@@ -7,10 +10,10 @@ import { problems } from "@/lib/problems";
  * straight to it), image alternating sides for rhythm, real bullets
  * instead of just repeating the homepage's one-line teaser.
  */
-export default function ProblemsDetail() {
+export default function ProblemsDetail({ lang = "de" }: { lang?: Lang }) {
   return (
     <div>
-      {problems.map((p, i) => {
+      {getProblems(lang).map((p, i) => {
         const imageRight = i % 2 === 1;
         const media = (
           <div className="relative flex items-center justify-center">
@@ -40,7 +43,7 @@ export default function ProblemsDetail() {
                 {p.icon}
               </div>
               <span className="mono" style={{ fontSize: 11.5, letterSpacing: "0.05em", textTransform: "uppercase", color: "var(--amber)" }}>
-                Problem {p.num}
+                {LABEL[lang]} {p.num}
               </span>
             </div>
             <h2 style={{ fontSize: "clamp(1.5rem, 2.8vw, 2rem)", marginBottom: 16 }}>

@@ -1,3 +1,6 @@
+import type { Lang } from "./i18n";
+import { industriesEs } from "./industries.es";
+
 export type Industry = {
   slug: string;
   label: string;
@@ -167,6 +170,23 @@ export const industries: Industry[] = [
   },
 ];
 
-export function getIndustry(slug: string): Industry | undefined {
-  return industries.find((i) => i.slug === slug);
+/** Übersetzbare Teile einer Branche. crossLink.href bleibt sprachneutral und wird beim Rendern lokalisiert. */
+export type IndustryText = Pick<Industry, "label" | "intro" | "painPoints" | "capabilities"> & {
+  crossLink?: Pick<NonNullable<Industry["crossLink"]>, "label" | "text">;
+};
+
+export function getIndustries(lang: Lang): Industry[] {
+  if (lang === "de") return industries;
+  return industries.map((i) => {
+    const t = industriesEs[i.slug];
+    return {
+      ...i,
+      ...t,
+      crossLink: i.crossLink && t.crossLink ? { ...i.crossLink, ...t.crossLink } : i.crossLink,
+    };
+  });
+}
+
+export function getIndustry(slug: string, lang: Lang = "de"): Industry | undefined {
+  return getIndustries(lang).find((i) => i.slug === slug);
 }

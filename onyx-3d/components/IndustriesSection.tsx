@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SectionGlow from "./SectionGlow";
-import { industries } from "@/lib/industries";
+import { getIndustries } from "@/lib/industries";
+import { lp, type Lang } from "@/lib/i18n";
 
 /**
  * Anzeigereihenfolge der Branchen-Kacheln. Bewusst nicht die Reihenfolge aus
@@ -19,11 +20,28 @@ const displayOrder = [
   "handwerk-bau",
 ];
 
-const sortedIndustries = [...industries].sort(
-  (a, b) => displayOrder.indexOf(a.slug) - displayOrder.indexOf(b.slug),
-);
+const TEXT: Record<Lang, { kicker: string; heading: string; body: string; listLabel: string; note: string }> = {
+  de: {
+    kicker: "Für wen wir bauen",
+    heading: "Systeme für mittelständische Unternehmen.",
+    body: "Wir arbeiten mit mittelständischen Unternehmen, die aus gewachsenen Excel-Landschaften und verstreuten Tools herauswollen. Die Branche ist dabei zweitrangig. Entscheidend ist, dass es einen Ablauf gibt, der oft genug wiederkehrt, um sich zu lohnen. Ob das ein Kundenportal wird, ein Dashboard für die Geschäftsführung oder eine Automatisierung im Hintergrund, entscheidet dein Prozess.",
+    listLabel: "Branchen, in denen wir bauen",
+    note: "Beispiele, keine abschließende Liste — passt dein Prozess, passt Onyx.",
+  },
+  es: {
+    kicker: "Para quién construimos",
+    heading: "Sistemas para medianas empresas.",
+    body: "Trabajamos con medianas empresas que quieren dejar atrás las hojas de Excel acumuladas y las herramientas dispersas. El sector es lo de menos. Lo decisivo es que haya un proceso que se repita lo bastante a menudo como para que merezca la pena. Si acaba siendo un portal de clientes, un panel para la dirección o una automatización en segundo plano, lo decide tu proceso.",
+    listLabel: "Sectores en los que trabajamos",
+    note: "Ejemplos, no una lista cerrada: si tu proceso encaja, Onyx encaja.",
+  },
+};
 
-export default function IndustriesSection({ blatt }: { blatt?: string }) {
+export default function IndustriesSection({ lang = "de", blatt }: { lang?: Lang; blatt?: string }) {
+  const t = TEXT[lang];
+  const sortedIndustries = [...getIndustries(lang)].sort(
+    (a, b) => displayOrder.indexOf(a.slug) - displayOrder.indexOf(b.slug),
+  );
   return (
     <section className="py-10 relative overflow-hidden">
       <SectionGlow position="top" />
@@ -32,28 +50,23 @@ export default function IndustriesSection({ blatt }: { blatt?: string }) {
           className="mono inline-flex items-center gap-2 mb-4"
           style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
         >
-          <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Für wen wir bauen` : "Für wen wir bauen"}
+          <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / ${t.kicker}` : t.kicker}
         </span>
         <h2 className="mx-auto" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", maxWidth: "26ch", marginBottom: 14 }}>
-          Systeme für mittelständische Unternehmen.
+          {t.heading}
         </h2>
         <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", maxWidth: "62ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 26 }}>
-          Wir arbeiten mit mittelständischen Unternehmen, die aus gewachsenen
-          Excel-Landschaften und verstreuten Tools herauswollen. Die Branche
-          ist dabei zweitrangig. Entscheidend ist, dass es einen Ablauf gibt,
-          der oft genug wiederkehrt, um sich zu lohnen. Ob das ein
-          Kundenportal wird, ein Dashboard für die Geschäftsführung oder eine
-          Automatisierung im Hintergrund, entscheidet dein Prozess.
+          {t.body}
         </p>
 
         <p className="mono mb-5" style={{ fontSize: 11.5, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--warm-grey-faint)" }}>
-          Branchen, in denen wir bauen
+          {t.listLabel}
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mx-auto" style={{ maxWidth: 1040 }}>
           {sortedIndustries.map((industry, i) => (
             <Link
               key={industry.slug}
-              href={`/branchen/${industry.slug}`}
+              href={lp(lang, `/branchen/${industry.slug}`)}
               className="alive-hover-card flex items-center gap-3 rounded-xl px-5 py-4 text-left"
               style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
             >
@@ -66,7 +79,7 @@ export default function IndustriesSection({ blatt }: { blatt?: string }) {
         </div>
 
         <p className="mono mt-8" style={{ fontSize: 12, color: "var(--warm-grey-faint)" }}>
-          Beispiele, keine abschließende Liste — passt dein Prozess, passt Onyx.
+          {t.note}
         </p>
       </div>
     </section>
