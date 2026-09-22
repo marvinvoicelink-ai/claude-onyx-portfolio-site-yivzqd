@@ -44,7 +44,7 @@ export default function ErfassungPreise() {
           {CARDS.map((c) => (
             <div
               key={c.title}
-              className="rounded-2xl px-6 py-7 flex flex-col alive-hover-card"
+              className="beam-border rounded-2xl px-6 py-7 flex flex-col alive-hover-card"
               style={{
                 background: c.highlight ? "var(--amber-soft)" : "var(--near-black-2)",
                 border: c.highlight ? "1px solid rgba(232, 163, 61,0.45)" : "1px solid var(--hairline)",

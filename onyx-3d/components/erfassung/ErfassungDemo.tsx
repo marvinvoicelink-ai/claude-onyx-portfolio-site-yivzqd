@@ -48,7 +48,7 @@ export default function ErfassungDemo() {
         <div ref={reveal.setRef(0)} data-reveal-index={0} className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           {/* Aufnahme-Panel mit nacheinander erscheinenden Sprechblasen */}
           <div
-            className={`rounded-2xl p-6 sm:p-7 ${visible ? "reveal-left-visible" : "reveal-left-hidden"}`}
+            className={`beam-border rounded-2xl p-6 sm:p-7 ${visible ? "reveal-left-visible" : "reveal-left-hidden"}`}
             style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
           >
             <div className="flex items-center gap-2.5 mb-6">
@@ -143,7 +143,7 @@ function SchematicDrawing({ visible }: { visible: boolean }) {
       style={{ ["--reveal-delay" as string]: "1180ms" }}
     >
       <div
-        className="rounded-xl p-5"
+        className="beam-border rounded-xl p-5"
         style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
       >
         <svg viewBox="0 0 400 260" style={{ width: "100%", height: "auto", display: "block" }} role="img" aria-label="Schematische Skizze eines zweistöckigen Gebäudes mit Wohnzimmer, Küche, drei Schlafzimmern, Pool und Einfahrt">

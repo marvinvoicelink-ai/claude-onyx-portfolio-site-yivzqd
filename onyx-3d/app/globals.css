@@ -20,6 +20,64 @@
   box-sizing: border-box;
 }
 
+/* Amber-Schweif, der dauerhaft um die Karte läuft: rotierender Conic-Gradient,
+   per Mask-Composite auf einen 1.5px-Rahmen beschnitten. */
+@property --beam-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes beam-spin {
+  to {
+    --beam-angle: 360deg;
+  }
+}
+
+.beam-border {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid var(--hairline);
+}
+
+.beam-border::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--beam-angle),
+    transparent 0deg,
+    transparent 235deg,
+    rgba(232, 163, 61, 0.12) 285deg,
+    var(--amber) 330deg,
+    rgba(232, 163, 61, 0.12) 350deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2;
+  animation: beam-spin 5s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beam-border::after {
+    background: none;
+    animation: none;
+  }
+}
+
+@supports not (background: conic-gradient(from var(--beam-angle), red, blue)) {
+  .beam-border::after {
+    background: linear-gradient(90deg, transparent, rgba(232, 163, 61, 0.5), transparent);
+    animation: none;
+  }
+}
+
 /* Fixed, full-page film-grain texture — the thing that makes an otherwise
    flat dark page feel tactile/"alive" instead of a solid color fill.
    SVG feTurbulence noise as a data-URI, no image asset needed. */

@@ -51,7 +51,7 @@ export default function ErfassungSteps() {
                 key={s.num}
                 ref={reveal.setRef(i)}
                 data-reveal-index={i}
-                className={`rounded-2xl px-6 py-6 alive-hover-card ${visible ? "reveal-visible" : "reveal-hidden"}`}
+                className={`beam-border rounded-2xl px-6 py-6 alive-hover-card ${visible ? "reveal-visible" : "reveal-hidden"}`}
                 style={{
                   ["--reveal-delay" as string]: `${i * 90}ms`,
                   background: "var(--near-black)",

@@ -71,7 +71,7 @@ export default function ErfassungBereiche() {
                 key={b.tab}
                 ref={reveal.setRef(i)}
                 data-reveal-index={i}
-                className={`rounded-2xl p-7 sm:p-9 flex flex-col ${visible ? "reveal-visible" : "reveal-hidden"}`}
+                className={`beam-border rounded-2xl p-7 sm:p-9 flex flex-col ${visible ? "reveal-visible" : "reveal-hidden"}`}
                 style={{ ["--reveal-delay" as string]: `${i * 120}ms`, background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
               >
                 <span

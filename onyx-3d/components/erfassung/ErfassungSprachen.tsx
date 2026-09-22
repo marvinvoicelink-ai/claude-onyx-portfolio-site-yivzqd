@@ -59,7 +59,7 @@ export default function ErfassungSprachen() {
         </div>
 
         <div
-          className="rounded-2xl px-7 py-7 text-left"
+          className="beam-border rounded-2xl px-7 py-7 text-left"
           style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
         >
           <div style={{ fontWeight: 700, fontSize: "1.05rem", marginBottom: 8 }}>{s.titel}</div>

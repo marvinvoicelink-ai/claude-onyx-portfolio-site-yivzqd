@@ -23,7 +23,7 @@ export default function ErfassungVideoSection() {
           </div>
 
           <div
-            className="relative rounded-2xl flex flex-col items-center justify-center text-center px-8"
+            className="beam-border rounded-2xl flex flex-col items-center justify-center text-center px-8"
             style={{
               aspectRatio: "16 / 10",
               background: "var(--near-black)",

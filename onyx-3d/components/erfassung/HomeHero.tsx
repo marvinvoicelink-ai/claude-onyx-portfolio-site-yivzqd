@@ -80,7 +80,7 @@ export default function HomeHero() {
           {AUDIENCES.map((a) => (
             <div
               key={a.title}
-              className="rounded-xl px-5 py-4 text-left"
+              className="beam-border rounded-xl px-5 py-4 text-left"
               style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
             >
               <div className="mono" style={{ fontSize: 12, color: "var(--amber)", marginBottom: 5 }}>

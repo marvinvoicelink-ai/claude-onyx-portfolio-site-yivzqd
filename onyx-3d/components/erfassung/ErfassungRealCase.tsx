@@ -32,7 +32,7 @@ export default function ErfassungRealCase() {
         <div
           ref={reveal.setRef(0)}
           data-reveal-index={0}
-          className={`rounded-[28px] overflow-hidden grid grid-cols-1 lg:grid-cols-2 on-dark ${visible ? "reveal-zoom-visible" : "reveal-zoom-hidden"}`}
+          className={`beam-border rounded-[28px] overflow-hidden grid grid-cols-1 lg:grid-cols-2 on-dark ${visible ? "reveal-zoom-visible" : "reveal-zoom-hidden"}`}
           style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
         >
           <div className="relative min-h-[240px] aspect-video lg:aspect-auto lg:h-full">
