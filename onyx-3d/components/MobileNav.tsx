@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { trackLead } from "@/lib/trackLead";
 import { lp, type Lang } from "@/lib/i18n";
 import { NAV_CTA, NAV_LINKS, offeringLinks } from "./navData";
+import { trackContactClick } from "@/lib/trackLead";
 
 const TEXT: Record<Lang, { open: string; close: string; offerings: string }> = {
   de: { open: "Menü öffnen", close: "Menü schließen", offerings: "Angebot" },
@@ -112,7 +112,7 @@ export default function MobileNav({ lang }: { lang: Lang }) {
                 href={lp(lang, "/kontakt")}
                 onClick={() => {
                   setOpen(false);
-                  trackLead();
+                  trackContactClick();
                 }}
                 className="inline-flex items-center justify-center rounded-full font-semibold btn-amber"
                 style={{ background: "var(--amber)", color: "#161104", fontSize: 16, padding: "16px 0", margin: "24px 0 32px" }}

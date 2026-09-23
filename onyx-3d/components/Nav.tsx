@@ -6,9 +6,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MobileNav from "./MobileNav";
 import LangSwitch from "./LangSwitch";
-import { trackLead } from "@/lib/trackLead";
 import { lp, type Lang } from "@/lib/i18n";
 import { NAV_CTA, NAV_LINKS, offeringLinks } from "./navData";
+import { trackContactClick } from "@/lib/trackLead";
 
 export default function Nav({ lang }: { lang: Lang }) {
   const pathname = usePathname();
@@ -166,7 +166,7 @@ export default function Nav({ lang }: { lang: Lang }) {
 
           <Link
             href={lp(lang, "/kontakt")}
-            onClick={trackLead}
+            onClick={trackContactClick}
             className="hidden lg:inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold whitespace-nowrap btn-amber"
             style={{ background: "var(--amber)", color: "#161104", fontSize: 13.5 }}
           >

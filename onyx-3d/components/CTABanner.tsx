@@ -1,7 +1,7 @@
 "use client";
 
-import { trackLead } from "@/lib/trackLead";
 import { lp, type Lang } from "@/lib/i18n";
+import { trackWhatsApp, trackContactClick } from "@/lib/trackLead";
 
 declare global {
   interface Window {
@@ -67,7 +67,7 @@ export default function CTABanner({
           <div className="flex flex-wrap items-center justify-center gap-3">
             <a
               href={ctaHref ?? lp(lang, "/kontakt")}
-              onClick={trackLead}
+              onClick={trackContactClick}
               className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap btn-amber"
               style={{ background: "var(--amber)", color: "#161104", fontSize: 15.5 }}
             >
@@ -81,10 +81,7 @@ export default function CTABanner({
               href={`https://wa.me/4917632273522?text=${encodeURIComponent(t.whatsappText)}`}
               target="_blank"
               rel="noopener"
-              onClick={() => {
-                trackLead();
-                if (typeof window.fbq === "function") window.fbq("trackCustom", "WhatsAppClick");
-              }}
+              onClick={trackWhatsApp}
               className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap btn-ghost"
               style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}
             >

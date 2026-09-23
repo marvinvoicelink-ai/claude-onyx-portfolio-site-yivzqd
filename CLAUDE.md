@@ -40,17 +40,17 @@ Kaufen.
 
 ## Kontakt & Tracking
 Kontaktformular (Netlify Forms) ist der primäre CTA seitenweit. Meta-Pixel
-`Lead`-Event feuert bei Klick auf jeden Button/Link, der das Kontaktformular
-ist oder dorthin führt — Formular-Absenden-Button, Nav-CTAs, Hero-CTA,
-CTABanner, DemoShowcase-CTA — unabhängig vom Erfolg der jeweiligen Aktion
-(bewusste Entscheidung von Marvin, Stand 2026: jeder dieser Klicks soll als
-Lead in Facebook erscheinen). WhatsApp-Buttons feuern zusätzlich zum
-weiterhin bestehenden `WhatsAppClick`-Custom-Event ebenfalls `Lead` (gleiche
-Entscheidung, auf WhatsApp ausgeweitet) — WhatsApp-Klicks lassen sich
-technisch nicht bis zum "Nachricht abgeschickt"-Zeitpunkt zurückverfolgen,
-zählen aber genauso als Lead. WhatsApp und Calendly bleiben als sekundäre,
-schnelle Kontaktwege bestehen (Calendly hat mit `calendly.event_scheduled`
-ein eigenes zuverlässiges Completion-Event, unabhängig vom Lead-Tracking).
+`Lead` zählt nur echten Kontakt (Entscheidung von Marvin, Stand 09/2026,
+ersetzt die frühere "jeder CTA-Klick ist ein Lead"-Regel):
+- Kontaktformular: `Lead` erst, wenn der Submit bei Netlify erfolgreich
+  angekommen ist (`res.ok`), nicht beim Klick auf "Absenden".
+- WhatsApp-Buttons: `Lead` + Custom-Event `WhatsAppClick` beim Klick — ob die
+  Nachricht in WhatsApp danach wirklich abgeschickt wird, kann die Website
+  technisch nicht sehen; der Klick ist der letzte messbare Punkt.
+- Buttons, die nur zum Formular führen (Nav-CTA, Hero, CTABanner, Preise …),
+  feuern nur das Custom-Event `ContactClick`, kein `Lead`.
+Alle Helfer in `lib/trackLead.ts`. Pixel lädt nur nach Cookie-Zustimmung.
+WhatsApp und Calendly bleiben als sekundäre, schnelle Kontaktwege bestehen.
 
 ## Nicht-Ziele (Scope-Grenze)
 - Kein 3D, keine Scroll-Choreografie, keine WebGL-Effekte in Phase 1

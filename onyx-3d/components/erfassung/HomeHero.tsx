@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { trackLead } from "@/lib/trackLead";
 import { lp, type Lang } from "@/lib/i18n";
 import FlowSpine from "./FlowSpine";
+import { trackWhatsApp, trackContactClick } from "@/lib/trackLead";
 
 declare global {
   interface Window {
@@ -130,7 +130,7 @@ export default function HomeHero({ lang }: { lang: Lang }) {
         >
           <Link
             href={lp(lang, "/kontakt")}
-            onClick={trackLead}
+            onClick={trackContactClick}
             className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber"
             style={{ background: "var(--amber)", color: "#161104", fontSize: 15.5 }}
           >
@@ -143,10 +143,7 @@ export default function HomeHero({ lang }: { lang: Lang }) {
             href={`https://wa.me/4917632273522?text=${encodeURIComponent(t.whatsappText)}`}
             target="_blank"
             rel="noopener"
-            onClick={() => {
-              trackLead();
-              if (typeof window.fbq === "function") window.fbq("trackCustom", "WhatsAppClick");
-            }}
+            onClick={trackWhatsApp}
             className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-ghost"
             style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}
           >

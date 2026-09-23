@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { trackLead } from "@/lib/trackLead";
 import type { Lang } from "@/lib/i18n";
+import { trackLead, trackWhatsApp } from "@/lib/trackLead";
 
 declare global {
   interface Window {
@@ -74,8 +74,6 @@ export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; bl
     const data = new FormData(form);
     if (data.get("bot-field")) return;
 
-    if (typeof window.fbq === "function") window.fbq("track", "Lead");
-
     const encoded = new URLSearchParams();
     data.forEach((value, key) => encoded.append(key, String(value)));
 
@@ -87,6 +85,7 @@ export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; bl
         body: encoded.toString(),
       });
       if (res.ok) {
+        trackLead();
         setStatus("ok");
         form.reset();
       } else {
@@ -217,10 +216,7 @@ export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; bl
             href={whatsappHref}
             target="_blank"
             rel="noopener"
-            onClick={() => {
-              trackLead();
-              if (typeof window.fbq === "function") window.fbq("trackCustom", "WhatsAppClick");
-            }}
+            onClick={trackWhatsApp}
             className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold"
             style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}
           >
@@ -240,10 +236,9 @@ export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; bl
           WhatsApp{" "}
           <a
             href="https://wa.me/4917632273522"
-            onClick={() => {
-              trackLead();
-              if (typeof window.fbq === "function") window.fbq("trackCustom", "WhatsAppClick");
-            }}
+            target="_blank"
+            rel="noopener"
+            onClick={trackWhatsApp}
             style={{ color: "var(--amber)" }}
           >
             {t.phoneDisplay}

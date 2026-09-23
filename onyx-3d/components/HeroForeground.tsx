@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { trackLead } from "@/lib/trackLead";
+import { trackContactClick } from "@/lib/trackLead";
 
 /**
  * The sharp HTML text layer (badge, kicker, headline, CTA) that sits above
@@ -93,7 +93,7 @@ export default function HeroForeground() {
         <div className="mt-9">
           <a
             href="#kontakt"
-            onClick={trackLead}
+            onClick={trackContactClick}
             className={`inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber ${entered ? "hero-cta-visible" : "hero-cta-hidden"}`}
             style={{
               background: "var(--amber)",

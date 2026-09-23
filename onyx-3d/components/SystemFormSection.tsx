@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { trackLead } from "@/lib/trackLead";
 
 declare global {
   interface Window {
@@ -19,8 +20,6 @@ export default function SystemFormSection() {
     const data = new FormData(form);
     if (data.get("bot-field")) return;
 
-    if (typeof window.fbq === "function") window.fbq("track", "Lead");
-
     const encoded = new URLSearchParams();
     data.forEach((value, key) => encoded.append(key, String(value)));
 
@@ -32,6 +31,7 @@ export default function SystemFormSection() {
         body: encoded.toString(),
       });
       if (res.ok) {
+        trackLead();
         setStatus("ok");
         form.reset();
       } else {

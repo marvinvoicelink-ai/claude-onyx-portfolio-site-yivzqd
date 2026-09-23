@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { trackLead } from "@/lib/trackLead";
 import { lp, type Lang } from "@/lib/i18n";
+import { trackContactClick } from "@/lib/trackLead";
 
 const TEXT: Record<
   Lang,
@@ -101,7 +101,7 @@ export default function ErfassungPreise({ lang }: { lang: Lang }) {
               </p>
               <Link
                 href={lp(lang, "/kontakt")}
-                onClick={trackLead}
+                onClick={trackContactClick}
                 className={`inline-flex items-center justify-center gap-2 rounded-[10px] px-5 py-3 font-semibold ${c.highlight ? "btn-amber" : "btn-ghost"}`}
                 style={
                   c.highlight

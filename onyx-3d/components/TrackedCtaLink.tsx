@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
-import { trackLead } from "@/lib/trackLead";
+import { trackContactClick } from "@/lib/trackLead";
 
 /**
  * Amber CTA button that links to the contact page and fires the Lead event
@@ -23,7 +23,7 @@ export default function TrackedCtaLink({
   style?: CSSProperties;
 }) {
   return (
-    <Link href={href} onClick={trackLead} className={className} style={style}>
+    <Link href={href} onClick={trackContactClick} className={className} style={style}>
       {children}
     </Link>
   );
