@@ -43,7 +43,7 @@ const TEXT: Record<
     whatsapp: "WhatsApp schreiben",
     whatsappText: "Hallo Marvin, ich interessiere mich für ein White-Label-System von Onyx.",
     booking: "30 Min. Termin buchen",
-    phoneDisplay: "0176 322 273 522",
+    phoneDisplay: "0176 3227 3522",
   },
   es: {
     kicker: "Contacto",
@@ -59,7 +59,7 @@ const TEXT: Record<
     whatsapp: "Escribir por WhatsApp",
     whatsappText: "Hola Marvin, me interesa un sistema de Onyx.",
     booking: "Reservar una cita de 30 min",
-    phoneDisplay: "+49 176 322 273 522",
+    phoneDisplay: "+49 176 3227 3522",
   },
 };
 
