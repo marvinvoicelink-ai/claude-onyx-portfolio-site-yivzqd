@@ -118,7 +118,7 @@ export default function UeberMichPage({ lang }: { lang: Lang }) {
       <section className="py-10">
         <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
           <div
-            className="rounded-2xl px-7 py-8 md:px-10 md:py-10"
+            className="rounded-2xl px-7 py-8 md:px-10 md:py-10 on-dark silver-rim"
             style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
           >
             <span
@@ -168,8 +168,8 @@ export default function UeberMichPage({ lang }: { lang: Lang }) {
       <section className="py-14">
         <div className="mx-auto px-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" style={{ maxWidth: 1180 }}>
           {TEAM.map((m) => (
-            <div key={m.name} className="rounded-2xl" style={{ boxShadow: "0 0 60px -10px rgba(232, 163, 61,0.45)" }}>
-              <div className="rounded-2xl overflow-hidden" style={{ background: "var(--near-black-2)" }}>
+            <div key={m.name} className="rounded-2xl" style={{ boxShadow: "0 0 60px -10px rgba(203, 203, 201,0.4)" }}>
+              <div className="rounded-2xl overflow-hidden on-dark silver-rim" style={{ background: "var(--near-black-2)" }}>
                 <div className="relative w-full" style={{ aspectRatio: "3 / 4" }}>
                   <Image src={m.image} alt={m.name} fill sizes="(max-width: 640px) 90vw, 280px" style={{ objectFit: "cover", objectPosition: "top" }} />
                 </div>

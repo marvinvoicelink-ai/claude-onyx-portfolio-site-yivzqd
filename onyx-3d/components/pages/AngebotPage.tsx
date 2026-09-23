@@ -3,6 +3,7 @@ import Link from "next/link";
 import OfferingsList from "@/components/OfferingsList";
 import IndustriesSection from "@/components/IndustriesSection";
 import CTABanner from "@/components/CTABanner";
+import DemoSignupSection from "@/components/DemoSignupSection";
 import Footer from "@/components/Footer";
 import { alternates, lp, type Lang } from "@/lib/i18n";
 import PageIntro, { IntroText } from "./PageIntro";
@@ -69,6 +70,9 @@ export default function AngebotPage({ lang }: { lang: Lang }) {
 
       <OfferingsList lang={lang} />
 
+      {/* Kostenlose Demo eines eigenen Systems — das Angebot für White-Label. */}
+      <DemoSignupSection lang={lang} />
+
       <section className="py-6">
         <div className="mx-auto px-7 text-center" style={{ maxWidth: 760 }}>
           <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.7 }}>{t.note}</p>
@@ -82,7 +86,7 @@ export default function AngebotPage({ lang }: { lang: Lang }) {
 
       <IndustriesSection lang={lang} />
 
-      <CTABanner lang={lang} heading={t.ctaHeading} sub={t.ctaSub} buttonText={t.ctaButton} />
+      <CTABanner lang={lang} heading={t.ctaHeading} sub={t.ctaSub} buttonText={t.ctaButton} source="Angebot-CTA" topic="demo" />
 
       <Footer lang={lang} />
     </main>

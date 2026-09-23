@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CTABanner from "@/components/CTABanner";
+import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
 import { AliveCase } from "@/components/alive/AliveChrome";
 import { alternates, type Lang } from "@/lib/i18n";
@@ -242,6 +243,8 @@ export default function ReferenzenPage({ lang }: { lang: Lang }) {
           />
         );
       })}
+
+      <Testimonials lang={lang} />
 
       <CTABanner lang={lang} heading={t.ctaHeading} sub={t.ctaSub} />
       <Footer lang={lang} />

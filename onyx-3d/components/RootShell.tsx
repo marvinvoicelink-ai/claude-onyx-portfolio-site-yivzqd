@@ -3,6 +3,7 @@ import "@/app/globals.css";
 import { fontClassNames } from "@/app/font-config";
 import Nav from "@/components/Nav";
 import CookieConsent from "@/components/CookieConsent";
+import ContactModal from "@/components/ContactModal";
 import { LANG_DETECT_SCRIPT, type Lang } from "@/lib/i18n";
 
 const SKIP_LINK: Record<Lang, string> = {
@@ -32,9 +33,23 @@ export default function RootShell({ lang, children }: { lang: Lang; children: Re
           <input type="tel" name="phone" />
           <textarea name="message" />
           <input type="text" name="language" />
+          <input type="text" name="anliegen" />
+          <input type="text" name="quelle" />
+          <input type="text" name="bot-field" />
+        </form>
+        {/* Eigenes Netlify-Formular für die Demo-Anmeldung (DemoSignupSection),
+            damit Demo-Eintragungen getrennt von Kontaktanfragen ankommen. */}
+        <form name="demo" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+          <input type="text" name="name" />
+          <input type="email" name="email" />
+          <input type="text" name="company" />
+          <textarea name="message" />
+          <input type="text" name="language" />
           <input type="text" name="bot-field" />
         </form>
         <div id="main-content">{children}</div>
+        {/* Ein Kontakt-Formular-Overlay, das jeder CTA-Button seitenweit öffnet (openContactForm). */}
+        <ContactModal lang={lang} />
         <CookieConsent lang={lang} />
       </body>
     </html>

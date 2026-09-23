@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { Lang } from "@/lib/i18n";
-import { trackLead, trackWhatsApp } from "@/lib/trackLead";
+import { trackLead, trackWhatsAppClick, trackCalendlyClick } from "@/lib/trackLead";
 
 declare global {
   interface Window {
@@ -14,7 +14,7 @@ const TEXT: Record<
   Lang,
   {
     kicker: string;
-    heading: string;
+    heading: [string, string, string];
     sub: string;
     fields: { name: string; email: string; phone: string };
     message: string;
@@ -31,7 +31,7 @@ const TEXT: Record<
 > = {
   de: {
     kicker: "Kontakt",
-    heading: "Lass uns dein System besprechen.",
+    heading: ["Lass uns ", "dein System", " besprechen"],
     sub: "Schreib direkt, was dein Unternehmen braucht — der Gründer antwortet selbst, kein Bot, keine Warteschlange.",
     fields: { name: "Name", email: "E-Mail", phone: "Telefonnummer" },
     message: "Was braucht dein Unternehmen?",
@@ -47,7 +47,7 @@ const TEXT: Record<
   },
   es: {
     kicker: "Contacto",
-    heading: "Hablemos de tu sistema.",
+    heading: ["Hablemos de ", "tu sistema", ""],
     sub: "Escríbenos directamente qué necesita tu empresa. Te responde el propio fundador: sin bots y sin colas de espera.",
     fields: { name: "Nombre", email: "Correo electrónico", phone: "Teléfono" },
     message: "¿Qué necesita tu empresa?",
@@ -85,6 +85,8 @@ export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; bl
         body: encoded.toString(),
       });
       if (res.ok) {
+        // Erst hier: vollständig ausgefüllt, abgeschickt und von Netlify
+        // angenommen. Ein Klick auf den Button allein ist noch keine Anfrage.
         trackLead();
         setStatus("ok");
         form.reset();
@@ -99,7 +101,7 @@ export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; bl
   return (
     <section
       id="kontakt"
-      className="py-14"
+      className="py-14 on-dark silver-rim"
       style={{ background: "var(--near-black-2)" }}
     >
       <div className="mx-auto px-7" style={{ maxWidth: 720 }}>
@@ -110,7 +112,11 @@ export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; bl
           >
             <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / ${t.kicker}` : t.kicker}
           </span>
-          <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)", marginBottom: 14 }}>{t.heading}</h2>
+          <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)", marginBottom: 14 }}>
+            {t.heading[0]}
+            <span className="accent">{t.heading[1]}</span>
+            {t.heading[2]}
+          </h2>
           <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", marginBottom: 36, maxWidth: "50ch" }}>
             {t.sub}
           </p>
@@ -142,7 +148,7 @@ export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; bl
                   name={field}
                   required
                   autoComplete={field === "phone" ? "tel" : field}
-                  className="w-full rounded-[10px] px-4 py-3"
+                  className="w-full rounded-[10px] px-4 py-3 on-dark"
                   style={{
                     background: "var(--near-black)",
                     border: "1px solid var(--hairline)",
@@ -162,7 +168,7 @@ export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; bl
               name="message"
               rows={4}
               required
-              className="w-full rounded-[10px] px-4 py-3"
+              className="w-full rounded-[10px] px-4 py-3 on-dark"
               style={{
                 background: "var(--near-black)",
                 border: "1px solid var(--hairline)",
@@ -179,7 +185,7 @@ export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; bl
             className="w-full rounded-[10px] py-4 font-semibold btn-amber"
             style={{
               background: "var(--amber)",
-              color: "#161104",
+              color: "#12141a",
               fontSize: 15.5,
               opacity: status === "sending" ? 0.6 : 1,
             }}
@@ -216,7 +222,7 @@ export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; bl
             href={whatsappHref}
             target="_blank"
             rel="noopener"
-            onClick={trackWhatsApp}
+            onClick={trackWhatsAppClick}
             className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold"
             style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}
           >
@@ -226,6 +232,7 @@ export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; bl
             href="https://calendly.com/onyx-ai/30min"
             target="_blank"
             rel="noopener"
+            onClick={trackCalendlyClick}
             className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold"
             style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}
           >
@@ -238,7 +245,7 @@ export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; bl
             href="https://wa.me/4917632273522"
             target="_blank"
             rel="noopener"
-            onClick={trackWhatsApp}
+            onClick={trackWhatsAppClick}
             style={{ color: "var(--amber)" }}
           >
             {t.phoneDisplay}

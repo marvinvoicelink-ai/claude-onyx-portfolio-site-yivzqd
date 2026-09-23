@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { lp, type Lang } from "@/lib/i18n";
-import { trackContactClick } from "@/lib/trackLead";
+import TrackedCtaLink from "@/components/TrackedCtaLink";
 
 const TEXT: Record<
   Lang,
@@ -82,7 +81,7 @@ export default function ErfassungPreise({ lang }: { lang: Lang }) {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-          {t.cards.map((c) => (
+          {t.cards.map((c, i) => (
             <div
               key={c.title}
               className="beam-border rounded-2xl px-6 py-7 flex flex-col alive-hover-card"
@@ -99,18 +98,19 @@ export default function ErfassungPreise({ lang }: { lang: Lang }) {
               <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.94rem", lineHeight: 1.6, marginBottom: 24, flex: 1 }}>
                 {c.text}
               </p>
-              <Link
+              <TrackedCtaLink
                 href={lp(lang, "/kontakt")}
-                onClick={trackContactClick}
+                source={`Preise-Karte-${i + 1}`}
+                topic="objekt"
                 className={`inline-flex items-center justify-center gap-2 rounded-[10px] px-5 py-3 font-semibold ${c.highlight ? "btn-amber" : "btn-ghost"}`}
                 style={
                   c.highlight
-                    ? { background: "var(--amber)", color: "#161104", fontSize: 14.5 }
+                    ? { background: "var(--amber)", color: "#12141a", fontSize: 14.5 }
                     : { background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 14.5 }
                 }
               >
                 {t.cta}
-              </Link>
+              </TrackedCtaLink>
             </div>
           ))}
         </div>

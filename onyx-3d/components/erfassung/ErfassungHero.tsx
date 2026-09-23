@@ -93,8 +93,10 @@ export default function ErfassungHero({ lang }: { lang: Lang }) {
         <div className={entered ? "hero-cta-visible" : "hero-cta-hidden"} style={{ ["--reveal-delay" as string]: "300ms", marginBottom: 40 }}>
           <TrackedCtaLink
             href={lp(lang, "/kontakt")}
+            source="Erfassung-Hero-CTA"
+            topic="objekt"
             className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-amber"
-            style={{ background: "var(--amber)", color: "#161104", fontSize: 15.5 }}
+            style={{ background: "var(--amber)", color: "#12141a", fontSize: 15.5 }}
           >
             {t.cta}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={14} height={14}>

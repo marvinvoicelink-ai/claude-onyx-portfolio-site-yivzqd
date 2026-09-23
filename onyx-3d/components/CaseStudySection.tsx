@@ -97,7 +97,7 @@ export default function CaseStudySection() {
                 />
               </div>
               <div
-                className="relative rounded-2xl"
+                className="relative rounded-2xl on-dark"
                 style={{
                   width: "100%",
                   maxWidth: 440,

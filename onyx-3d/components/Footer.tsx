@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { trackCalendlyClick } from "@/lib/trackLead";
 import type { Lang } from "@/lib/i18n";
 
 const TEXT: Record<Lang, { impressum: string; privacy: string; terms: string; cookies: string; booking: string; legalNote?: string }> = {
@@ -27,7 +28,7 @@ export default function Footer({ lang = "de" }: { lang?: Lang }) {
   const legalLang = lang === "de" ? undefined : "de";
 
   return (
-    <footer className="py-8">
+    <footer className="py-9 on-dark" style={{ background: "var(--near-black)" }}>
       <div
         className="mx-auto px-7 flex flex-wrap items-center justify-between gap-3.5 mono"
         style={{ maxWidth: 1180, fontSize: 12.5, color: "var(--warm-grey-faint)" }}
@@ -55,7 +56,7 @@ export default function Footer({ lang = "de" }: { lang?: Lang }) {
           >
             {t.cookies}
           </button>
-          <a href="https://calendly.com/onyx-ai/30min" target="_blank" rel="noopener" className="footer-link">
+          <a href="https://calendly.com/onyx-ai/30min" target="_blank" rel="noopener" onClick={trackCalendlyClick} className="footer-link">
             {t.booking}
           </a>
         </div>

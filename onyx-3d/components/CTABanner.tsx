@@ -1,7 +1,8 @@
 "use client";
 
 import { lp, type Lang } from "@/lib/i18n";
-import { trackWhatsApp, trackContactClick } from "@/lib/trackLead";
+import { trackWhatsAppClick } from "@/lib/trackLead";
+import { openContactForm, type ContactTopic } from "@/lib/contactModal";
 
 declare global {
   interface Window {
@@ -9,14 +10,16 @@ declare global {
   }
 }
 
-const TEXT: Record<Lang, { button: string; whatsapp: string; whatsappText: string }> = {
+const TEXT: Record<Lang, { button: string; or: string; whatsapp: string; whatsappText: string }> = {
   de: {
     button: "Jetzt Kontakt aufnehmen",
+    or: "oder schreib direkt mit mir",
     whatsapp: "WhatsApp schreiben",
     whatsappText: "Hallo Marvin, ich interessiere mich für ein White-Label-System von Onyx.",
   },
   es: {
     button: "Contactar ahora",
+    or: "o escríbeme directamente",
     whatsapp: "Escribir por WhatsApp",
     whatsappText: "Hola Marvin, me interesa un sistema de marca blanca de Onyx.",
   },
@@ -29,6 +32,8 @@ export default function CTABanner({
   sub,
   buttonText,
   ctaHref,
+  source = "CTA-Banner",
+  topic = "general",
 }: {
   lang?: Lang;
   kicker?: string;
@@ -36,13 +41,15 @@ export default function CTABanner({
   sub?: string;
   buttonText?: string;
   ctaHref?: string;
+  source?: string;
+  topic?: ContactTopic;
 }) {
   const t = TEXT[lang];
   return (
     <section className="py-7">
       <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
         <div
-          className="beam-border rounded-2xl px-8 py-10 md:px-12 md:py-12 flex flex-col md:flex-row items-center justify-between gap-6"
+          className="rounded-2xl px-8 py-10 md:px-12 md:py-12 flex flex-col md:flex-row items-center justify-between gap-6 on-dark beam-border"
           style={{
             background:
               "linear-gradient(135deg, var(--near-black-2) 0%, var(--near-black) 100%)",
@@ -64,12 +71,19 @@ export default function CTABanner({
               <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.98rem" }}>{sub}</p>
             )}
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          {/* Untereinander: der Hauptweg (Formular-Overlay) steht oben allein,
+              darunter führt eine Zeile mit Pfeil zu WhatsApp als zweitem,
+              schnellerem Weg. */}
+          <div className="flex flex-col items-center gap-3.5">
+            {/* Kein Lead beim Klick: öffnet nur das Formular. */}
             <a
               href={ctaHref ?? lp(lang, "/kontakt")}
-              onClick={trackContactClick}
+              onClick={(e) => {
+                e.preventDefault();
+                openContactForm(source, topic);
+              }}
               className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap btn-amber"
-              style={{ background: "var(--amber)", color: "#161104", fontSize: 15.5 }}
+              style={{ background: "var(--amber)", color: "#12141a", fontSize: 15.5 }}
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" width={18} height={18}>
                 <path d="M4 6h16v12H4z" fill="none" />
@@ -77,11 +91,19 @@ export default function CTABanner({
               </svg>
               {buttonText ?? t.button}
             </a>
+
+            <span className="mono inline-flex items-center gap-2" style={{ fontSize: 12.5, color: "var(--warm-grey-faint)" }}>
+              {t.or}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" width={14} height={14} aria-hidden="true">
+                <path d="M12 5v14M6 13l6 6 6-6" />
+              </svg>
+            </span>
+
             <a
               href={`https://wa.me/4917632273522?text=${encodeURIComponent(t.whatsappText)}`}
               target="_blank"
               rel="noopener"
-              onClick={trackWhatsApp}
+              onClick={trackWhatsAppClick}
               className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold whitespace-nowrap btn-ghost"
               style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}
             >

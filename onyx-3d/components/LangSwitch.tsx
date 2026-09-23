@@ -43,7 +43,7 @@ export default function LangSwitch({ lang }: { lang: Lang }) {
               padding: "4px 9px",
               letterSpacing: "0.04em",
               background: active ? "var(--amber)" : "transparent",
-              color: active ? "#161104" : "var(--warm-grey-dim)",
+              color: active ? "#12141a" : "var(--warm-grey-dim)",
               fontWeight: active ? 600 : 400,
               transition: "background 0.2s ease, color 0.2s ease",
             }}

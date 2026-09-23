@@ -20,17 +20,17 @@ const displayOrder = [
   "handwerk-bau",
 ];
 
-const TEXT: Record<Lang, { kicker: string; heading: string; body: string; listLabel: string; note: string }> = {
+const TEXT: Record<Lang, { kicker: string; heading: [string, string]; body: string; listLabel: string; note: string }> = {
   de: {
     kicker: "Für wen wir bauen",
-    heading: "Systeme für mittelständische Unternehmen.",
+    heading: ["Systeme für ", "mittelständische Unternehmen"],
     body: "Wir arbeiten mit mittelständischen Unternehmen, die aus gewachsenen Excel-Landschaften und verstreuten Tools herauswollen. Die Branche ist dabei zweitrangig. Entscheidend ist, dass es einen Ablauf gibt, der oft genug wiederkehrt, um sich zu lohnen. Ob das ein Kundenportal wird, ein Dashboard für die Geschäftsführung oder eine Automatisierung im Hintergrund, entscheidet dein Prozess.",
     listLabel: "Branchen, in denen wir bauen",
     note: "Beispiele, keine abschließende Liste — passt dein Prozess, passt Onyx.",
   },
   es: {
     kicker: "Para quién construimos",
-    heading: "Sistemas para medianas empresas.",
+    heading: ["Sistemas para ", "medianas empresas"],
     body: "Trabajamos con medianas empresas que quieren dejar atrás las hojas de Excel acumuladas y las herramientas dispersas. El sector es lo de menos. Lo decisivo es que haya un proceso que se repita lo bastante a menudo como para que merezca la pena. Si acaba siendo un portal de clientes, un panel para la dirección o una automatización en segundo plano, lo decide tu proceso.",
     listLabel: "Sectores en los que trabajamos",
     note: "Ejemplos, no una lista cerrada: si tu proceso encaja, Onyx encaja.",
@@ -53,7 +53,8 @@ export default function IndustriesSection({ lang = "de", blatt }: { lang?: Lang;
           <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / ${t.kicker}` : t.kicker}
         </span>
         <h2 className="mx-auto" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", maxWidth: "26ch", marginBottom: 14 }}>
-          {t.heading}
+          {t.heading[0]}
+          <span className="accent">{t.heading[1]}</span>
         </h2>
         <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", maxWidth: "62ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 26 }}>
           {t.body}
@@ -67,7 +68,7 @@ export default function IndustriesSection({ lang = "de", blatt }: { lang?: Lang;
             <Link
               key={industry.slug}
               href={lp(lang, `/branchen/${industry.slug}`)}
-              className="alive-hover-card flex items-center gap-3 rounded-xl px-5 py-4 text-left"
+              className="alive-hover-card flex items-center gap-3 rounded-xl px-5 py-4 text-left on-dark silver-rim"
               style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
             >
               <span className="mono" style={{ fontSize: 11.5, color: "var(--amber)", flexShrink: 0 }}>

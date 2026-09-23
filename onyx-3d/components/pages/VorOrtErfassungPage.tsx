@@ -10,6 +10,7 @@ import ErfassungPreise from "@/components/erfassung/ErfassungPreise";
 import { AliveFaq } from "@/components/alive/AliveChrome";
 import CTABanner from "@/components/CTABanner";
 import Footer from "@/components/Footer";
+import StickyCta from "@/components/StickyCta";
 import { alternates, type Lang } from "@/lib/i18n";
 import { ERFASSUNG_CTA, ERFASSUNG_FAQ } from "./erfassungShared";
 
@@ -46,12 +47,13 @@ export default function VorOrtErfassungPage({ lang }: { lang: Lang }) {
 
       <AliveFaq eyebrow={faq.eyebrow} heading={faq.heading} faqs={faq.items} />
 
-      <CTABanner lang={lang} heading={cta.heading} sub={cta.sub} buttonText={cta.button} />
+      <CTABanner lang={lang} heading={cta.heading} sub={cta.sub} buttonText={cta.button} source="Erfassung-Schluss-CTA" topic="objekt" />
       <p className="mono text-center" style={{ fontSize: 12, color: "var(--warm-grey-faint)", marginTop: -8, marginBottom: 32 }}>
         {cta.note}
       </p>
 
       <Footer lang={lang} />
+      <StickyCta lang={lang} />
     </main>
   );
 }

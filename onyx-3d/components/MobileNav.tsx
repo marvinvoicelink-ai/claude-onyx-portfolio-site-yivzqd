@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { lp, type Lang } from "@/lib/i18n";
 import { NAV_CTA, NAV_LINKS, offeringLinks } from "./navData";
-import { trackContactClick } from "@/lib/trackLead";
+import { openContactForm } from "@/lib/contactModal";
 
 const TEXT: Record<Lang, { open: string; close: string; offerings: string }> = {
   de: { open: "Menü öffnen", close: "Menü schließen", offerings: "Angebot" },
@@ -32,7 +32,7 @@ export default function MobileNav({ lang }: { lang: Lang }) {
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
         className="inline-flex items-center justify-center"
-        style={{ width: 36, height: 36, color: "#ffffff" }}
+        style={{ width: 36, height: 36, color: "var(--warm-grey)" }}
       >
         {open ? (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={22} height={22}>
@@ -48,9 +48,9 @@ export default function MobileNav({ lang }: { lang: Lang }) {
       {mounted && open &&
         createPortal(
           <div
-            className="fixed left-0 right-0 overflow-y-auto"
+            className="fixed left-0 right-0 overflow-y-auto on-dark"
             style={{
-              top: 80,
+              top: 76,
               bottom: 0,
               background: "var(--near-black)",
               zIndex: 100,
@@ -66,7 +66,7 @@ export default function MobileNav({ lang }: { lang: Lang }) {
                     onClick={() => setOpen(false)}
                     aria-current={pathname === href ? "page" : undefined}
                     className="mobile-nav-row"
-                    style={{ color: pathname === href ? "var(--amber)" : "#ffffff" }}
+                    style={{ color: pathname === href ? "var(--amber)" : "var(--warm-grey)" }}
                   >
                     {l.label}
                   </Link>
@@ -85,7 +85,7 @@ export default function MobileNav({ lang }: { lang: Lang }) {
                   href={l.href}
                   onClick={() => setOpen(false)}
                   className="mobile-nav-row"
-                  style={{ color: "#ffffff" }}
+                  style={{ color: "var(--warm-grey)" }}
                 >
                   {l.label}
                 </Link>
@@ -101,24 +101,25 @@ export default function MobileNav({ lang }: { lang: Lang }) {
                     onClick={() => setOpen(false)}
                     aria-current={active ? "page" : undefined}
                     className="mobile-nav-row"
-                    style={{ color: active ? "var(--amber)" : "#ffffff" }}
+                    style={{ color: active ? "var(--amber)" : "var(--warm-grey)" }}
                   >
                     {l.label}
                   </Link>
                 );
               })}
 
-              <Link
+              <a
                 href={lp(lang, "/kontakt")}
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   setOpen(false);
-                  trackContactClick();
+                  openContactForm("Mobilmenue-CTA", "objekt");
                 }}
                 className="inline-flex items-center justify-center rounded-full font-semibold btn-amber"
-                style={{ background: "var(--amber)", color: "#161104", fontSize: 16, padding: "16px 0", margin: "24px 0 32px" }}
+                style={{ background: "var(--amber)", color: "#12141a", fontSize: 16, padding: "16px 0", margin: "24px 0 32px" }}
               >
                 {NAV_CTA[lang]}
-              </Link>
+              </a>
             </nav>
           </div>,
           document.body

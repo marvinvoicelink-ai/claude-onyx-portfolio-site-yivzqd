@@ -23,7 +23,7 @@ export default function DifferentiatorsDetail({ lang = "de" }: { lang?: Lang }) 
               width={d.w}
               height={d.h}
               className="w-full h-auto block"
-              style={{ filter: "drop-shadow(0 0 40px rgba(232, 163, 61,0.35))" }}
+              style={{ filter: "drop-shadow(0 0 40px rgba(203, 203, 201,0.32))" }}
             />
           </div>
         );

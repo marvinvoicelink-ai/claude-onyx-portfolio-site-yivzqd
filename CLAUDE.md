@@ -39,18 +39,33 @@ HausManager Pro ist Referenz/Beweis eines gebauten Systems, kein Produkt zum
 Kaufen.
 
 ## Kontakt & Tracking
-Kontaktformular (Netlify Forms) ist der primäre CTA seitenweit. Meta-Pixel
-`Lead` zählt nur echten Kontakt (Entscheidung von Marvin, Stand 09/2026,
-ersetzt die frühere "jeder CTA-Klick ist ein Lead"-Regel):
-- Kontaktformular: `Lead` erst, wenn der Submit bei Netlify erfolgreich
-  angekommen ist (`res.ok`), nicht beim Klick auf "Absenden".
-- WhatsApp-Buttons: `Lead` + Custom-Event `WhatsAppClick` beim Klick — ob die
-  Nachricht in WhatsApp danach wirklich abgeschickt wird, kann die Website
-  technisch nicht sehen; der Klick ist der letzte messbare Punkt.
-- Buttons, die nur zum Formular führen (Nav-CTA, Hero, CTABanner, Preise …),
-  feuern nur das Custom-Event `ContactClick`, kein `Lead`.
-Alle Helfer in `lib/trackLead.ts`. Pixel lädt nur nach Cookie-Zustimmung.
-WhatsApp und Calendly bleiben als sekundäre, schnelle Kontaktwege bestehen.
+Kontaktformular (Netlify Forms) ist der primäre CTA seitenweit; jeder CTA-Button
+öffnet ein Formular-Overlay (`ContactModal`, `openContactForm(quelle, thema)`).
+Das Meta-Pixel-Event `Lead` feuert **nur bei echtem Kontakt** (Entscheidung von
+Marvin, Stand 09/2026 — in Facebook sollen nur Leads auftauchen, die sich
+tatsächlich gemeldet haben). Genau zwei Auslöser:
+
+1. **Abgeschicktes Formular** — erst wenn Netlify die Absendung angenommen hat
+   (`res.ok` in `handleSubmit` von `ContactSection`, `ContactModal`,
+   `DemoSignupSection`). Ein abgebrochener Versuch oder ein Fehler zählt nicht.
+2. **Klick auf einen WhatsApp-Button** — `trackWhatsAppClick()`, zusätzlich zum
+   `WhatsAppClick`-Custom-Event. Ob danach wirklich eine Nachricht geschrieben
+   wird, kann die Website nicht sehen; der Klick ist der letzte messbare Punkt.
+
+Calendly ist **kein** Lead mehr (Marvin, 09/2026), nur noch das Custom-Event
+`CalendlyClick`. Alles liegt in `lib/trackLead.ts`; nirgends sonst wird `fbq`
+für Leads aufgerufen.
+
+**Woher der Lead kam.** Buttons, die nur zum Formular führen (Hero, Nav,
+Mobilmenü, CTA-Banner, Preise, Gründer-Block, Sticky-CTA …), feuern nur das
+Custom-Event `ContactClick` und hinterlegen per `noteCtaSource()` ihren Namen im
+`sessionStorage`. Wird das Formular danach abgeschickt, hängt der Name als
+`content_name` am `Lead`. Nach dem Auslesen wird er gelöscht. WhatsApp-Leads
+tragen `WhatsApp` als Quelle.
+
+Ein Calendly-Embed (mit `calendly.event_scheduled`) ist bewusst **nicht**
+eingebaut: die Datenschutzerklärung sagt zu, dass nichts von Calendly
+nachgeladen wird. Pixel lädt nur nach Cookie-Zustimmung.
 
 ## Nicht-Ziele (Scope-Grenze)
 - Kein 3D, keine Scroll-Choreografie, keine WebGL-Effekte in Phase 1

@@ -1,30 +1,40 @@
 "use client";
 
-import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
-import { trackContactClick } from "@/lib/trackLead";
+import { openContactForm, type ContactTopic } from "@/lib/contactModal";
 
 /**
- * Amber CTA button that links to the contact page and fires the Lead event
- * on click, same as every other primary CTA on the site. Exists so
- * Server-Component pages (which can't hold an onClick themselves) can still
- * place a tracked contact CTA inline without turning the whole section into
- * a Client Component.
+ * CTA-Button, der das Kontakt-Formular-Overlay öffnet (kein Lead beim Klick,
+ * nur ContactClick + gemerkte Quelle, siehe lib/trackLead.ts). `href` bleibt
+ * als Ausweichziel ohne JavaScript. Existiert, damit auch Server-Components
+ * einen CTA einbauen können, ohne selbst Client-Component zu werden.
  */
 export default function TrackedCtaLink({
-  href = "/kontakt",
+  href,
+  source,
+  topic = "general",
   children,
   className,
   style,
 }: {
-  href?: string;
+  href: string;
+  source: string;
+  topic?: ContactTopic;
   children: ReactNode;
   className?: string;
   style?: CSSProperties;
 }) {
   return (
-    <Link href={href} onClick={trackContactClick} className={className} style={style}>
+    <a
+      href={href}
+      onClick={(e) => {
+        e.preventDefault();
+        openContactForm(source, topic);
+      }}
+      className={className}
+      style={style}
+    >
       {children}
-    </Link>
+    </a>
   );
 }

@@ -39,9 +39,9 @@ const FAQS_ES = [
   },
 ];
 
-const TEXT: Record<Lang, { kicker: string; heading: string; faqs: { q: string; a: string }[] }> = {
-  de: { kicker: "Rückfragen", heading: "Bevor du fragst.", faqs: FAQS_DE },
-  es: { kicker: "Preguntas", heading: "Antes de que preguntes.", faqs: FAQS_ES },
+const TEXT: Record<Lang, { kicker: string; heading: [string, string]; faqs: { q: string; a: string }[] }> = {
+  de: { kicker: "Rückfragen", heading: ["Bevor du ", "fragst"], faqs: FAQS_DE },
+  es: { kicker: "Preguntas", heading: ["Antes de que ", "preguntes"], faqs: FAQS_ES },
 };
 
 export default function FAQSection({ lang = "de", blatt }: { lang?: Lang; blatt?: string }) {
@@ -57,15 +57,18 @@ export default function FAQSection({ lang = "de", blatt }: { lang?: Lang; blatt?
           >
             <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / ${t.kicker}` : t.kicker}
           </span>
-          <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 30 }}>{t.heading}</h2>
+          <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 30 }}>
+            {t.heading[0]}
+            <span className="accent">{t.heading[1]}</span>
+          </h2>
         </div>
 
         <div>
           {t.faqs.map((f) => (
             <details key={f.q} className="group" style={{ borderBottom: "1px solid var(--hairline)", padding: "20px 0" }}>
               <summary
-                className="flex items-center justify-between cursor-pointer list-none"
-                style={{ fontWeight: 600, fontSize: "1.02rem" }}
+                className="display flex items-center justify-between cursor-pointer list-none"
+                style={{ fontWeight: 700, fontSize: "1.02rem", lineHeight: 1.3 }}
               >
                 {f.q}
                 <span className="mono" style={{ color: "var(--amber)", fontSize: "1.3rem" }}>

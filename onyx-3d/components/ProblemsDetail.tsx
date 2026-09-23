@@ -23,7 +23,7 @@ export default function ProblemsDetail({ lang = "de" }: { lang?: Lang }) {
               width={p.w}
               height={p.h}
               className="w-full h-auto block"
-              style={{ filter: "drop-shadow(0 0 40px rgba(232, 163, 61,0.35))" }}
+              style={{ filter: "drop-shadow(0 0 40px rgba(203, 203, 201,0.32))" }}
             />
           </div>
         );
