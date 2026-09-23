@@ -100,12 +100,12 @@ export function FuerDichPage({ lang }: { lang: Lang }) {
 
 const KONTAKT: Record<Lang, { meta: Meta; kicker: string; title: string }> = {
   de: {
-    meta: { title: "Kontakt — Onyx.AI", description: "Kontakt zu Onyx.AI aufnehmen — Formular, WhatsApp oder Termin buchen." },
+    meta: { title: "Kontakt — Onyx.AI", description: "Kontakt zu Onyx.AI aufnehmen — Formular, Infogespräch oder Termin buchen." },
     kicker: "Kontakt",
     title: "Reden wir über dein System.",
   },
   es: {
-    meta: { title: "Contacto — Onyx.AI", description: "Ponte en contacto con Onyx.AI: formulario, WhatsApp o reserva de cita." },
+    meta: { title: "Contacto — Onyx.AI", description: "Ponte en contacto con Onyx.AI: formulario, llamada informativa o reserva de cita." },
     kicker: "Contacto",
     title: "Hablemos de tu sistema.",
   },

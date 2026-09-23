@@ -13,11 +13,12 @@ import { noteCtaSource } from "./trackLead";
  * `topic` steuert Überschrift und Text im Overlay:
  *  - "objekt":  Vor-Ort-Erfassung mit einem echten Objekt ausprobieren
  *  - "demo":    kostenlose Demo eines eigenen White-Label-Systems
+ *  - "info":    Infogespräch vereinbaren (Telefonnummer Pflicht, Erreichbarkeit)
  *  - "general": allgemeine Anfrage
  */
 export const OPEN_CONTACT_EVENT = "onyx:open-contact";
 
-export type ContactTopic = "objekt" | "demo" | "general";
+export type ContactTopic = "objekt" | "demo" | "info" | "general";
 
 export function openContactForm(source: string, topic: ContactTopic = "general") {
   if (typeof window === "undefined") return;

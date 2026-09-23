@@ -151,7 +151,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
 
         <Footer lang={lang} />
 
-        {/* Handy: Objekt-Anfrage und WhatsApp jederzeit einen Daumen entfernt. */}
+        {/* Handy: Objekt-Anfrage und Infogespräch jederzeit einen Daumen entfernt. */}
         <StickyCta lang={lang} />
       </main>
     </SmoothScroll>

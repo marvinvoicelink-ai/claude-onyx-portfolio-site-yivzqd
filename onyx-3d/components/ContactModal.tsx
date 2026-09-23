@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { trackLead, trackWhatsAppClick, trackCalendlyClick } from "@/lib/trackLead";
+import { trackLead, trackCalendlyClick } from "@/lib/trackLead";
 import { OPEN_CONTACT_EVENT, type ContactTopic } from "@/lib/contactModal";
 import type { Lang } from "@/lib/i18n";
 
@@ -15,13 +15,15 @@ const TEXT: Record<
     name: string;
     email: string;
     phone: string;
+    phoneRequired: string;
+    reachable: string;
+    reachablePlaceholder: string;
     sending: string;
     idle: string;
     error: string;
     okTitle: string;
     okNext: string;
     book: string;
-    whatsapp: string;
     honeypot: string;
   }
 > = {
@@ -43,6 +45,14 @@ const TEXT: Record<
         message: "Was soll die Demo zeigen? (optional)",
         submit: "Kostenlose Demo anfragen",
       },
+      info: {
+        kicker: "Infogespräch",
+        heading: ["Vereinbare ein ", "Infogespräch", ""],
+        intro:
+          "Trag dich ein — Marvin ruft dich persönlich an und klärt mit dir in rund 30 Minuten, ob und wie Onyx.AI dir helfen kann. Kostenlos und unverbindlich.",
+        message: "Worum soll es gehen? (optional)",
+        submit: "Infogespräch anfragen",
+      },
       general: {
         kicker: "Kontakt",
         heading: ["Erzähl kurz, ", "worum es geht", ""],
@@ -56,13 +66,15 @@ const TEXT: Record<
     name: "Name",
     email: "E-Mail",
     phone: "Telefonnummer (optional)",
+    phoneRequired: "Telefonnummer",
+    reachable: "Wann bist du am besten erreichbar? (optional)",
+    reachablePlaceholder: "z. B. werktags ab 16 Uhr",
     sending: "Wird gesendet …",
     idle: "DSGVO-konform · Der Gründer meldet sich persönlich",
-    error: "Etwas ist schiefgelaufen. Schreib uns stattdessen direkt auf WhatsApp.",
+    error: "Etwas ist schiefgelaufen. Schreib uns stattdessen an info@onyx-ai.de.",
     okTitle: "Danke! Deine Anfrage ist angekommen — Marvin meldet sich persönlich.",
-    okNext: "Willst du es schneller? Dann buch dir direkt einen Termin oder schreib auf WhatsApp.",
+    okNext: "Willst du es schneller? Dann buch dir direkt einen Termin.",
     book: "Direkt Termin buchen →",
-    whatsapp: "Oder auf WhatsApp",
     honeypot: "Nicht ausfüllen:",
   },
   es: {
@@ -83,6 +95,14 @@ const TEXT: Record<
         message: "¿Qué debería mostrar la demo? (opcional)",
         submit: "Solicitar demo gratuita",
       },
+      info: {
+        kicker: "Llamada informativa",
+        heading: ["Reserva una ", "llamada informativa", ""],
+        intro:
+          "Déjanos tus datos: Marvin te llama personalmente y en unos 30 minutos vemos si Onyx.AI puede ayudarte y cómo. Gratis y sin compromiso.",
+        message: "¿De qué quieres hablar? (opcional)",
+        submit: "Solicitar llamada informativa",
+      },
       general: {
         kicker: "Contacto",
         heading: ["Cuéntanos brevemente ", "de qué se trata", ""],
@@ -95,13 +115,15 @@ const TEXT: Record<
     name: "Nombre",
     email: "Correo electrónico",
     phone: "Teléfono (opcional)",
+    phoneRequired: "Teléfono",
+    reachable: "¿Cuándo es mejor llamarte? (opcional)",
+    reachablePlaceholder: "p. ej., entre semana a partir de las 16 h",
     sending: "Enviando…",
     idle: "Conforme al RGPD · Te responde el propio fundador",
-    error: "Algo ha fallado. Escríbenos directamente por WhatsApp.",
+    error: "Algo ha fallado. Escríbenos a info@onyx-ai.de.",
     okTitle: "¡Gracias! Hemos recibido tu solicitud: Marvin te contactará personalmente.",
-    okNext: "¿Tienes prisa? Reserva una cita directamente o escríbenos por WhatsApp.",
+    okNext: "¿Tienes prisa? Reserva una cita directamente.",
     book: "Reservar cita →",
-    whatsapp: "O por WhatsApp",
     honeypot: "No rellenar:",
   },
 };
@@ -256,16 +278,6 @@ export default function ContactModal({ lang }: { lang: Lang }) {
               >
                 {t.book}
               </a>
-              <a
-                href="https://wa.me/4917632273522"
-                target="_blank"
-                rel="noopener"
-                onClick={trackWhatsAppClick}
-                className="inline-flex items-center gap-2 rounded-[10px] px-4 py-2.5 font-semibold btn-ghost"
-                style={{ border: "1px solid var(--hairline)", color: "var(--warm-grey)", fontSize: 14 }}
-              >
-                {t.whatsapp}
-              </a>
             </div>
           </div>
         ) : (
@@ -285,7 +297,9 @@ export default function ContactModal({ lang }: { lang: Lang }) {
                 [
                   { field: "name", label: t.name, type: "text", ac: "name", required: true },
                   { field: "email", label: t.email, type: "email", ac: "email", required: true },
-                  { field: "phone", label: t.phone, type: "tel", ac: "tel", required: false },
+                  topic === "info"
+                    ? { field: "phone", label: t.phoneRequired, type: "tel", ac: "tel", required: true }
+                    : { field: "phone", label: t.phone, type: "tel", ac: "tel", required: false },
                 ] as const
               ).map(({ field, label, type, ac, required }) => (
                 <label key={field} className="block">
@@ -295,6 +309,21 @@ export default function ContactModal({ lang }: { lang: Lang }) {
                   <input type={type} name={field} required={required} autoComplete={ac} className="w-full rounded-[10px] px-4 py-3 on-dark" style={inputStyle} />
                 </label>
               ))}
+
+              {topic === "info" && (
+                <label className="block">
+                  <span className="mono block mb-2" style={{ fontSize: 12.5, color: "var(--warm-grey-dim)" }}>
+                    {t.reachable}
+                  </span>
+                  <input
+                    type="text"
+                    name="erreichbar"
+                    placeholder={t.reachablePlaceholder}
+                    className="w-full rounded-[10px] px-4 py-3 on-dark"
+                    style={inputStyle}
+                  />
+                </label>
+              )}
 
               <label className="block">
                 <span className="mono block mb-2" style={{ fontSize: 12.5, color: "var(--warm-grey-dim)" }}>

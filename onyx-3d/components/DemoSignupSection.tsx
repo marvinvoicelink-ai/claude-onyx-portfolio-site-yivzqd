@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { trackLead, trackWhatsAppClick, trackCalendlyClick } from "@/lib/trackLead";
+import { trackLead, trackCalendlyClick } from "@/lib/trackLead";
 import DemoSlotsBadge from "./DemoSlotsBadge";
 import type { Lang } from "@/lib/i18n";
 
@@ -24,7 +24,6 @@ const TEXT: Record<
     error: string;
     idle: string;
     book: string;
-    whatsapp: string;
     honeypot: string;
   }
 > = {
@@ -47,10 +46,9 @@ const TEXT: Record<
     submit: "Kostenlose Demo sichern",
     sending: "Wird gesendet …",
     ok: "Danke! Wir melden uns mit deiner Demo bei dir.",
-    error: "Etwas ist schiefgelaufen. Schreib uns stattdessen direkt auf WhatsApp.",
+    error: "Etwas ist schiefgelaufen. Schreib uns stattdessen an info@onyx-ai.de.",
     idle: "DSGVO-konform · Kein Abo, keine Verpflichtung",
     book: "Direkt Termin buchen →",
-    whatsapp: "Oder auf WhatsApp",
     honeypot: "Nicht ausfüllen:",
   },
   es: {
@@ -72,10 +70,9 @@ const TEXT: Record<
     submit: "Conseguir demo gratuita",
     sending: "Enviando…",
     ok: "¡Gracias! Te contactaremos con tu demo.",
-    error: "Algo ha fallado. Escríbenos directamente por WhatsApp.",
+    error: "Algo ha fallado. Escríbenos a info@onyx-ai.de.",
     idle: "Conforme al RGPD · Sin suscripción ni compromiso",
     book: "Reservar cita →",
-    whatsapp: "O por WhatsApp",
     honeypot: "No rellenar:",
   },
 };
@@ -268,11 +265,8 @@ export default function DemoSignupSection({ lang = "de" }: { lang?: Lang }) {
                 {status === "idle" && t.idle}
               </p>
 
-              {/* Naechster Schritt direkt nach dem Absenden: Termin oder
-                  WhatsApp, damit aus dem Lead schneller ein Gespraech wird.
-                  Eigenes Tracking, denn das Formular allein bucht noch keinen
-                  Termin und schreibt keine WhatsApp-Nachricht — das ist ein
-                  zusaetzlicher, nicht automatischer Klick. */}
+              {/* Nächster Schritt direkt nach dem Absenden: Termin buchen (Calendly,
+                  nur Custom-Event, kein Lead). */}
               {status === "ok" && (
                 <div className="mt-4 flex flex-wrap gap-2.5">
                   <a
@@ -284,16 +278,6 @@ export default function DemoSignupSection({ lang = "de" }: { lang?: Lang }) {
                     style={{ border: "1px solid rgba(232,163,61,0.45)", color: "var(--amber)", fontSize: 14 }}
                   >
                     {t.book}
-                  </a>
-                  <a
-                    href="https://wa.me/4917632273522"
-                    target="_blank"
-                    rel="noopener"
-                    onClick={trackWhatsAppClick}
-                    className="inline-flex items-center gap-2 rounded-[10px] px-4 py-2.5 font-semibold btn-ghost"
-                    style={{ border: "1px solid var(--hairline)", color: "var(--warm-grey)", fontSize: 14 }}
-                  >
-                    {t.whatsapp}
                   </a>
                 </div>
               )}

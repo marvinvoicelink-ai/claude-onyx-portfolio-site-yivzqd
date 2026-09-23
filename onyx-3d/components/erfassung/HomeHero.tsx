@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { lp, type Lang } from "@/lib/i18n";
 import FlowSpine from "./FlowSpine";
-import { trackWhatsAppClick } from "@/lib/trackLead";
 import TrackedCtaLink from "@/components/TrackedCtaLink";
 
 declare global {
@@ -20,8 +19,7 @@ const TEXT: Record<
     intro: string;
     audiences: { title: string; text: string }[];
     cta: string;
-    whatsapp: string;
-    whatsappText: string;
+    info: string;
   }
 > = {
   de: {
@@ -35,8 +33,7 @@ const TEXT: Record<
       { title: "Handwerker", text: "Maße und Leistungen beim Rundgang erfassen statt später im Büro." },
     ],
     cta: "Mit einem Objekt ausprobieren",
-    whatsapp: "WhatsApp schreiben",
-    whatsappText: "Hallo Marvin, ich interessiere mich für die Vor-Ort-Erfassung von Onyx.",
+    info: "Infogespräch vereinbaren",
   },
   es: {
     kicker: "Onyx.AI para construcción, oficios e inmobiliarias",
@@ -49,8 +46,7 @@ const TEXT: Record<
       { title: "Profesionales de oficios", text: "Toma medidas y partidas durante el recorrido, no después en la oficina." },
     ],
     cta: "Probar con un inmueble",
-    whatsapp: "Escribir por WhatsApp",
-    whatsappText: "Hola Marvin, me interesa la captura in situ de Onyx.",
+    info: "Reservar llamada informativa",
   },
 };
 
@@ -140,16 +136,15 @@ export default function HomeHero({ lang }: { lang: Lang }) {
               <path d="M5 12h14M13 6l6 6-6 6" />
             </svg>
           </TrackedCtaLink>
-          <a
-            href={`https://wa.me/4917632273522?text=${encodeURIComponent(t.whatsappText)}`}
-            target="_blank"
-            rel="noopener"
-            onClick={trackWhatsAppClick}
+          <TrackedCtaLink
+            href={lp(lang, "/kontakt")}
+            source="Hero-Infogespraech"
+            topic="info"
             className="inline-flex items-center gap-2.5 rounded-[10px] px-7 py-4 font-semibold btn-ghost"
             style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}
           >
-            {t.whatsapp}
-          </a>
+            {t.info}
+          </TrackedCtaLink>
         </div>
 
         <FlowSpine lang={lang} />

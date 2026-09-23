@@ -35,6 +35,7 @@ export default function RootShell({ lang, children }: { lang: Lang; children: Re
           <input type="text" name="language" />
           <input type="text" name="anliegen" />
           <input type="text" name="quelle" />
+          <input type="text" name="erreichbar" />
           <input type="text" name="bot-field" />
         </form>
         {/* Eigenes Netlify-Formular für die Demo-Anmeldung (DemoSignupSection),

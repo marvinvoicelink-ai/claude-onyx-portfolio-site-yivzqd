@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { openContactForm } from "@/lib/contactModal";
-import { trackWhatsAppClick } from "@/lib/trackLead";
 import type { ContactTopic } from "@/lib/contactModal";
 import type { Lang } from "@/lib/i18n";
 
@@ -18,8 +17,7 @@ const TEXT: Record<
     p2: string;
     p3: Record<Variant, string>;
     cta: Record<Variant, string>;
-    whatsapp: string;
-    whatsappText: Record<Variant, string>;
+    info: string;
   }
 > = {
   de: {
@@ -34,11 +32,7 @@ const TEXT: Record<
       demo: "Trag dich ein, und ich melde mich persönlich. Kein Verkaufsgespräch, kein Foliensatz — du bekommst eine Demo, die zu deinem Betrieb passt, und entscheidest dann.",
     },
     cta: { objekt: "Objekt ausprobieren", demo: "Kostenlose Demo sichern" },
-    whatsapp: "Direkt auf WhatsApp schreiben",
-    whatsappText: {
-      objekt: "Hallo Marvin, ich möchte die Vor-Ort-Erfassung mit einem Objekt ausprobieren.",
-      demo: "Hallo Marvin, ich interessiere mich für eine kostenlose Demo von Onyx.",
-    },
+    info: "Infogespräch vereinbaren",
   },
   es: {
     kicker: "Quién está detrás",
@@ -52,11 +46,7 @@ const TEXT: Record<
       demo: "Apúntate y te contacto personalmente. Sin discursos de venta ni presentaciones: recibes una demo adaptada a tu empresa y después decides.",
     },
     cta: { objekt: "Probar con un inmueble", demo: "Conseguir demo gratuita" },
-    whatsapp: "Escribir por WhatsApp",
-    whatsappText: {
-      objekt: "Hola Marvin, quiero probar la captura in situ con un inmueble.",
-      demo: "Hola Marvin, me interesa una demo gratuita de Onyx.",
-    },
+    info: "Reservar llamada informativa",
   },
 };
 
@@ -114,16 +104,14 @@ export default function FounderBlock({ lang = "de", variant = "objekt" }: { lang
                 >
                   {t.cta[variant]}
                 </button>
-                <a
-                  href={`https://wa.me/4917632273522?text=${encodeURIComponent(t.whatsappText[variant])}`}
-                  target="_blank"
-                  rel="noopener"
-                  onClick={trackWhatsAppClick}
+                <button
+                  type="button"
+                  onClick={() => openContactForm("Gruender-Infogespraech", "info")}
                   className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-3.5 font-semibold btn-ghost"
-                  style={{ border: "1px solid var(--hairline)", color: "var(--warm-grey)", fontSize: 15 }}
+                  style={{ border: "1px solid var(--hairline)", color: "var(--warm-grey)", fontSize: 15, background: "transparent" }}
                 >
-                  {t.whatsapp}
-                </a>
+                  {t.info}
+                </button>
               </div>
             </div>
           </div>

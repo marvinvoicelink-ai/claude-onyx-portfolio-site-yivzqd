@@ -8,12 +8,15 @@ declare global {
  * Meta-Pixel-Events. Ohne Cookie-Zustimmung gibt es kein window.fbq, dann
  * passiert hier nichts.
  *
- * Ein `Lead` zählt nur bei echtem Kontakt (Entscheidung Marvin, 09/2026):
- *  1. Kontaktformular — erst wenn Netlify die Absendung angenommen hat
- *     (trackLead nach res.ok in ContactSection, ContactModal, …).
- *  2. Klick auf einen WhatsApp-Button (trackWhatsAppClick). Ob die Nachricht
- *     in WhatsApp danach wirklich abgeschickt wird, kann die Website nicht
- *     sehen — der Klick ist der letzte messbare Punkt.
+ * Ein `Lead` zählt nur, wenn ein Formular wirklich abgeschickt wurde
+ * (Entscheidung Marvin, 09/2026): erst wenn Netlify die Absendung angenommen
+ * hat (trackLead nach res.ok in ContactSection, ContactModal,
+ * DemoSignupSection). Damit stimmen Facebook-Leads und Netlify überein.
+ *
+ * WhatsApp-Buttons gibt es auf der Seite nicht mehr (Marvin, 09/2026); an
+ * ihrer Stelle steht „Infogespräch vereinbaren“ (Overlay-Thema "info").
+ * trackWhatsAppClick bleibt nur für die alten, nicht mehr eingebundenen
+ * Komponenten bestehen.
  *
  * Calendly ist kein Lead, nur das Custom-Event `CalendlyClick`.
  *
@@ -65,7 +68,7 @@ function takeCtaSource(): string | null {
   }
 }
 
-/** Lead — nur nach erfolgreich abgeschicktem Formular oder über trackWhatsAppClick. */
+/** Lead — nur nach erfolgreich abgeschicktem Formular. */
 export function trackLead(quelle?: string) {
   if (typeof window === "undefined" || typeof window.fbq !== "function") return;
 
@@ -77,7 +80,7 @@ export function trackLead(quelle?: string) {
   window.fbq("track", "Lead", name ? { content_name: name } : {});
 }
 
-/** WhatsApp-Button geklickt: Lead (Quelle „WhatsApp“) plus Custom-Event WhatsAppClick. */
+/** Nur noch von alten, nicht eingebundenen Komponenten genutzt (keine WhatsApp-Buttons mehr auf der Seite). */
 export function trackWhatsAppClick() {
   trackLead("WhatsApp");
   fbq("trackCustom", "WhatsAppClick");

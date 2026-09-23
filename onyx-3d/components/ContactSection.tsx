@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import type { Lang } from "@/lib/i18n";
-import { trackLead, trackWhatsAppClick, trackCalendlyClick } from "@/lib/trackLead";
+import { trackLead, trackCalendlyClick } from "@/lib/trackLead";
+import { openContactForm } from "@/lib/contactModal";
 
 declare global {
   interface Window {
@@ -23,8 +24,8 @@ const TEXT: Record<
     ok: string;
     error: string;
     or: string;
-    whatsapp: string;
-    whatsappText: string;
+    info: string;
+    phoneLabel: string;
     booking: string;
     phoneDisplay: string;
   }
@@ -38,10 +39,10 @@ const TEXT: Record<
     submit: "Nachricht senden",
     sending: "Wird gesendet …",
     ok: "Danke! Deine Nachricht ist angekommen — wir melden uns zeitnah.",
-    error: "Etwas ist schiefgelaufen. Schreib uns stattdessen direkt auf WhatsApp.",
+    error: "Etwas ist schiefgelaufen. Schreib uns stattdessen an info@onyx-ai.de.",
     or: "oder direkt",
-    whatsapp: "WhatsApp schreiben",
-    whatsappText: "Hallo Marvin, ich interessiere mich für ein White-Label-System von Onyx.",
+    info: "Infogespräch vereinbaren",
+    phoneLabel: "Telefon",
     booking: "30 Min. Termin buchen",
     phoneDisplay: "0176 3227 3522",
   },
@@ -54,10 +55,10 @@ const TEXT: Record<
     submit: "Enviar mensaje",
     sending: "Enviando…",
     ok: "¡Gracias! Hemos recibido tu mensaje y te responderemos pronto.",
-    error: "Algo ha fallado. Escríbenos directamente por WhatsApp.",
+    error: "Algo ha fallado. Escríbenos a info@onyx-ai.de.",
     or: "o directamente",
-    whatsapp: "Escribir por WhatsApp",
-    whatsappText: "Hola Marvin, me interesa un sistema de Onyx.",
+    info: "Reservar llamada informativa",
+    phoneLabel: "Teléfono",
     booking: "Reservar una cita de 30 min",
     phoneDisplay: "+49 176 3227 3522",
   },
@@ -66,7 +67,6 @@ const TEXT: Record<
 export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; blatt?: string }) {
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
   const t = TEXT[lang];
-  const whatsappHref = `https://wa.me/4917632273522?text=${encodeURIComponent(t.whatsappText)}`;
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -218,16 +218,14 @@ export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; bl
         </div>
 
         <div className="flex flex-wrap gap-3.5">
-          <a
-            href={whatsappHref}
-            target="_blank"
-            rel="noopener"
-            onClick={trackWhatsAppClick}
+          <button
+            type="button"
+            onClick={() => openContactForm("Kontaktseite-Infogespraech", "info")}
             className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold"
             style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}
           >
-            {t.whatsapp}
-          </a>
+            {t.info}
+          </button>
           <a
             href="https://calendly.com/onyx-ai/30min"
             target="_blank"
@@ -240,14 +238,8 @@ export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; bl
           </a>
         </div>
         <p className="mono mt-6" style={{ fontSize: 12.5, color: "var(--warm-grey-faint)" }}>
-          WhatsApp{" "}
-          <a
-            href="https://wa.me/4917632273522"
-            target="_blank"
-            rel="noopener"
-            onClick={trackWhatsAppClick}
-            style={{ color: "var(--amber)" }}
-          >
+          {t.phoneLabel}{" "}
+          <a href="tel:+4917632273522" style={{ color: "var(--amber)" }}>
             {t.phoneDisplay}
           </a>{" "}
           · info@onyx-ai.de
