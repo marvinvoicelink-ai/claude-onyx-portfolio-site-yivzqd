@@ -1,6 +1,26 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { Lang } from "@/lib/i18n";
+
+const TEXT: Record<Lang, { lead: string; strong: string; rest: string; link: string; decline: string; accept: string }> = {
+  de: {
+    lead: "Diese Seite nutzt ",
+    strong: "Cookies für Werbe-Tracking (Meta Pixel)",
+    rest: ", damit wir sehen, welche Anzeigen funktionieren. Ohne deine Zustimmung wird kein Pixel geladen — die Seite funktioniert in jedem Fall. Details dazu in der ",
+    link: "Datenschutzerklärung",
+    decline: "Ablehnen",
+    accept: "Akzeptieren",
+  },
+  es: {
+    lead: "Esta web usa ",
+    strong: "cookies de seguimiento publicitario (Meta Pixel)",
+    rest: " para saber qué anuncios funcionan. Sin tu consentimiento no se carga ningún píxel, y la web funciona igual. Más información en la ",
+    link: "política de privacidad (en alemán)",
+    decline: "Rechazar",
+    accept: "Aceptar",
+  },
+};
 
 declare global {
   interface Window {
@@ -43,7 +63,8 @@ function loadMetaPixel() {
   window.fbq?.("track", "PageView");
 }
 
-export default function CookieConsent() {
+export default function CookieConsent({ lang }: { lang: Lang }) {
+  const t = TEXT[lang];
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -78,7 +99,7 @@ export default function CookieConsent() {
 
   return (
     <div
-      className="fixed left-0 right-0 bottom-0"
+      className="fixed left-0 right-0 bottom-0 on-dark silver-rim"
       style={{
         zIndex: 200,
         background: "var(--near-black-2)",
@@ -89,11 +110,11 @@ export default function CookieConsent() {
     >
       <div className="mx-auto flex flex-wrap items-center justify-between gap-6" style={{ maxWidth: 1180 }}>
         <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.92rem", lineHeight: 1.6, maxWidth: "62ch", flex: "1 1 320px" }}>
-          Diese Seite nutzt <strong style={{ color: "var(--warm-grey)" }}>Cookies für Werbe-Tracking (Meta Pixel)</strong>,
-          damit wir sehen, welche Anzeigen funktionieren. Ohne deine Zustimmung wird kein Pixel geladen — die Seite
-          funktioniert in jedem Fall. Details dazu in der{" "}
+          {t.lead}
+          <strong style={{ color: "var(--warm-grey)" }}>{t.strong}</strong>
+          {t.rest}
           <a href="/datenschutz" style={{ color: "var(--amber)" }}>
-            Datenschutzerklärung
+            {t.link}
           </a>
           .
         </p>
@@ -104,15 +125,15 @@ export default function CookieConsent() {
             className="rounded-[10px] px-5 py-2.5 font-semibold btn-ghost"
             style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 14 }}
           >
-            Ablehnen
+            {t.decline}
           </button>
           <button
             type="button"
             onClick={accept}
             className="rounded-[10px] px-5 py-2.5 font-semibold btn-amber"
-            style={{ background: "var(--amber)", color: "#161104", fontSize: 14 }}
+            style={{ background: "var(--amber)", color: "#12141a", fontSize: 14 }}
           >
-            Akzeptieren
+            {t.accept}
           </button>
         </div>
       </div>

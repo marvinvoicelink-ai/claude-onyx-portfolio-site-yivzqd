@@ -5,12 +5,12 @@ Onyx.AI (Marvin Weiß-Drumm, Einzelunternehmen, Landau in der Pfalz). Eigene
 Portfolio-/Marketing-Site. Ziel: White-Label-Leistung (maßgeschneiderte
 Systeme, gebaut & übergeben) als Kern-Angebot klar kommunizieren und direkten,
 zuverlässig trackbaren Kontakt erzeugen (Kontaktformular als Haupt-CTA,
-WhatsApp/Calendly/E-Mail als sekundäre Kontaktwege).
+Infogespräch/Calendly/E-Mail als sekundäre Kontaktwege).
 
 ## Phase
 Phase 1: Statisch, kein 3D, keine Scroll-Effekte. Live-Kriterium: Beim
 ersten Scroll ist eindeutig erkennbar, was Onyx anbietet (White-Label-Systeme,
-gebaut & übergeben) und wie man Kontakt aufnimmt (Formular/WhatsApp/E-Mail).
+gebaut & übergeben) und wie man Kontakt aufnimmt (Formular/Infogespräch/E-Mail).
 
 ## Stack
 Statisches Single-File-HTML (eingebettetes CSS/JS, kein Build-Schritt) ·
@@ -39,18 +39,32 @@ HausManager Pro ist Referenz/Beweis eines gebauten Systems, kein Produkt zum
 Kaufen.
 
 ## Kontakt & Tracking
-Kontaktformular (Netlify Forms) ist der primäre CTA seitenweit. Meta-Pixel
-`Lead`-Event feuert bei Klick auf jeden Button/Link, der das Kontaktformular
-ist oder dorthin führt — Formular-Absenden-Button, Nav-CTAs, Hero-CTA,
-CTABanner, DemoShowcase-CTA — unabhängig vom Erfolg der jeweiligen Aktion
-(bewusste Entscheidung von Marvin, Stand 2026: jeder dieser Klicks soll als
-Lead in Facebook erscheinen). WhatsApp-Buttons feuern zusätzlich zum
-weiterhin bestehenden `WhatsAppClick`-Custom-Event ebenfalls `Lead` (gleiche
-Entscheidung, auf WhatsApp ausgeweitet) — WhatsApp-Klicks lassen sich
-technisch nicht bis zum "Nachricht abgeschickt"-Zeitpunkt zurückverfolgen,
-zählen aber genauso als Lead. WhatsApp und Calendly bleiben als sekundäre,
-schnelle Kontaktwege bestehen (Calendly hat mit `calendly.event_scheduled`
-ein eigenes zuverlässiges Completion-Event, unabhängig vom Lead-Tracking).
+Kontaktformular (Netlify Forms) ist der primäre CTA seitenweit; jeder CTA-Button
+öffnet ein Formular-Overlay (`ContactModal`, `openContactForm(quelle, thema)`).
+Das Meta-Pixel-Event `Lead` feuert **nur, wenn ein Formular wirklich
+abgeschickt wurde** (Entscheidung von Marvin, Stand 09/2026 — Facebook-Leads
+sollen mit den Netlify-Einträgen übereinstimmen): erst wenn Netlify die
+Absendung angenommen hat (`res.ok` in `handleSubmit` von `ContactSection`,
+`ContactModal`, `DemoSignupSection`). Ein abgebrochener Versuch oder ein Fehler
+zählt nicht.
+
+**Keine WhatsApp-Buttons** mehr auf der Seite (Marvin, 09/2026). An ihrer
+Stelle steht „Infogespräch vereinbaren“: öffnet das Overlay mit Thema `info`
+(Telefonnummer Pflicht, Feld „erreichbar“ für die Wunschzeit).
+
+Calendly ist **kein** Lead mehr (Marvin, 09/2026), nur noch das Custom-Event
+`CalendlyClick`. Alles liegt in `lib/trackLead.ts`; nirgends sonst wird `fbq`
+für Leads aufgerufen.
+
+**Woher der Lead kam.** Buttons, die nur zum Formular führen (Hero, Nav,
+Mobilmenü, CTA-Banner, Preise, Gründer-Block, Sticky-CTA, Infogespräch …), feuern nur das
+Custom-Event `ContactClick` und hinterlegen per `noteCtaSource()` ihren Namen im
+`sessionStorage`. Wird das Formular danach abgeschickt, hängt der Name als
+`content_name` am `Lead`. Nach dem Auslesen wird er gelöscht.
+
+Ein Calendly-Embed (mit `calendly.event_scheduled`) ist bewusst **nicht**
+eingebaut: die Datenschutzerklärung sagt zu, dass nichts von Calendly
+nachgeladen wird. Pixel lädt nur nach Cookie-Zustimmung.
 
 ## Nicht-Ziele (Scope-Grenze)
 - Kein 3D, keine Scroll-Choreografie, keine WebGL-Effekte in Phase 1

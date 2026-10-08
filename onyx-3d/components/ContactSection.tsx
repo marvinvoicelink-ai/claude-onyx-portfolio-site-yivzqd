@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { trackLead } from "@/lib/trackLead";
+import type { Lang } from "@/lib/i18n";
+import { trackLead, trackCalendlyClick } from "@/lib/trackLead";
+import { openContactForm } from "@/lib/contactModal";
 
 declare global {
   interface Window {
@@ -9,16 +11,68 @@ declare global {
   }
 }
 
-export default function ContactSection({ blatt }: { blatt?: string }) {
+const TEXT: Record<
+  Lang,
+  {
+    kicker: string;
+    heading: [string, string, string];
+    sub: string;
+    fields: { name: string; email: string; phone: string };
+    message: string;
+    submit: string;
+    sending: string;
+    ok: string;
+    error: string;
+    or: string;
+    info: string;
+    phoneLabel: string;
+    booking: string;
+    phoneDisplay: string;
+  }
+> = {
+  de: {
+    kicker: "Kontakt",
+    heading: ["Lass uns ", "dein System", " besprechen"],
+    sub: "Schreib direkt, was dein Unternehmen braucht — der Gründer antwortet selbst, kein Bot, keine Warteschlange.",
+    fields: { name: "Name", email: "E-Mail", phone: "Telefonnummer" },
+    message: "Was braucht dein Unternehmen?",
+    submit: "Nachricht senden",
+    sending: "Wird gesendet …",
+    ok: "Danke! Deine Nachricht ist angekommen — wir melden uns zeitnah.",
+    error: "Etwas ist schiefgelaufen. Schreib uns stattdessen an info@onyx-ai.de.",
+    or: "oder direkt",
+    info: "Infogespräch vereinbaren",
+    phoneLabel: "Telefon",
+    booking: "30 Min. Termin buchen",
+    phoneDisplay: "0176 3227 3522",
+  },
+  es: {
+    kicker: "Contacto",
+    heading: ["Hablemos de ", "tu sistema", ""],
+    sub: "Escríbenos directamente qué necesita tu empresa. Te responde el propio fundador: sin bots y sin colas de espera.",
+    fields: { name: "Nombre", email: "Correo electrónico", phone: "Teléfono" },
+    message: "¿Qué necesita tu empresa?",
+    submit: "Enviar mensaje",
+    sending: "Enviando…",
+    ok: "¡Gracias! Hemos recibido tu mensaje y te responderemos pronto.",
+    error: "Algo ha fallado. Escríbenos a info@onyx-ai.de.",
+    or: "o directamente",
+    info: "Reservar llamada informativa",
+    phoneLabel: "Teléfono",
+    booking: "Reservar una cita de 30 min",
+    phoneDisplay: "+49 176 3227 3522",
+  },
+};
+
+export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; blatt?: string }) {
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
+  const t = TEXT[lang];
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
     if (data.get("bot-field")) return;
-
-    if (typeof window.fbq === "function") window.fbq("track", "Lead");
 
     const encoded = new URLSearchParams();
     data.forEach((value, key) => encoded.append(key, String(value)));
@@ -31,6 +85,9 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
         body: encoded.toString(),
       });
       if (res.ok) {
+        // Erst hier: vollständig ausgefüllt, abgeschickt und von Netlify
+        // angenommen. Ein Klick auf den Button allein ist noch keine Anfrage.
+        trackLead();
         setStatus("ok");
         form.reset();
       } else {
@@ -44,7 +101,7 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
   return (
     <section
       id="kontakt"
-      className="py-14"
+      className="py-14 on-dark silver-rim"
       style={{ background: "var(--near-black-2)" }}
     >
       <div className="mx-auto px-7" style={{ maxWidth: 720 }}>
@@ -53,14 +110,15 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
             className="mono inline-flex items-center gap-2 mb-4"
             style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}
           >
-            <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Kontakt` : "Kontakt"}
+            <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / ${t.kicker}` : t.kicker}
           </span>
           <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)", marginBottom: 14 }}>
-            Lass uns dein System besprechen.
+            {t.heading[0]}
+            <span className="accent">{t.heading[1]}</span>
+            {t.heading[2]}
           </h2>
           <p className="mx-auto" style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", marginBottom: 36, maxWidth: "50ch" }}>
-            Schreib direkt, was dein Unternehmen braucht — der Gründer
-            antwortet selbst, kein Bot, keine Warteschlange.
+            {t.sub}
           </p>
         </div>
 
@@ -72,9 +130,10 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
           onSubmit={handleSubmit}
         >
           <input type="hidden" name="form-name" value="contact" />
+          <input type="hidden" name="language" value={lang} />
           <p style={{ position: "absolute", left: -9999 }}>
             <label>
-              Nicht ausfüllen: <input name="bot-field" tabIndex={-1} autoComplete="off" />
+              {lang === "es" ? "No rellenar:" : "Nicht ausfüllen:"} <input name="bot-field" tabIndex={-1} autoComplete="off" />
             </label>
           </p>
 
@@ -82,14 +141,14 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
             {(["name", "email", "phone"] as const).map((field) => (
               <label key={field} className="block">
                 <span className="mono block mb-2" style={{ fontSize: 12.5, color: "var(--warm-grey-dim)" }}>
-                  {field === "name" ? "Name" : field === "email" ? "E-Mail" : "Telefonnummer"}
+                  {t.fields[field]}
                 </span>
                 <input
                   type={field === "email" ? "email" : field === "phone" ? "tel" : "text"}
                   name={field}
                   required
-                  autoComplete={field}
-                  className="w-full rounded-[10px] px-4 py-3"
+                  autoComplete={field === "phone" ? "tel" : field}
+                  className="w-full rounded-[10px] px-4 py-3 on-dark"
                   style={{
                     background: "var(--near-black)",
                     border: "1px solid var(--hairline)",
@@ -103,13 +162,13 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
 
           <label className="block mb-5">
             <span className="mono block mb-2" style={{ fontSize: 12.5, color: "var(--warm-grey-dim)" }}>
-              Was braucht dein Unternehmen?
+              {t.message}
             </span>
             <textarea
               name="message"
               rows={4}
               required
-              className="w-full rounded-[10px] px-4 py-3"
+              className="w-full rounded-[10px] px-4 py-3 on-dark"
               style={{
                 background: "var(--near-black)",
                 border: "1px solid var(--hairline)",
@@ -126,12 +185,12 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
             className="w-full rounded-[10px] py-4 font-semibold btn-amber"
             style={{
               background: "var(--amber)",
-              color: "#161104",
+              color: "#12141a",
               fontSize: 15.5,
               opacity: status === "sending" ? 0.6 : 1,
             }}
           >
-            {status === "sending" ? "Wird gesendet …" : "Nachricht senden"}
+            {status === "sending" ? t.sending : t.submit}
           </button>
 
           <p
@@ -144,8 +203,8 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
               color: status === "ok" ? "var(--amber)" : "var(--warm-grey-dim)",
             }}
           >
-            {status === "ok" && "Danke! Deine Nachricht ist angekommen — wir melden uns zeitnah."}
-            {status === "error" && "Etwas ist schiefgelaufen. Schreib uns stattdessen direkt auf WhatsApp."}
+            {status === "ok" && t.ok}
+            {status === "error" && t.error}
           </p>
         </form>
 
@@ -154,45 +213,34 @@ export default function ContactSection({ blatt }: { blatt?: string }) {
           style={{ fontSize: 12, color: "var(--warm-grey-faint)", textTransform: "uppercase", letterSpacing: "0.08em" }}
         >
           <span style={{ flex: 1, height: 1, background: "var(--hairline)" }} />
-          oder direkt
+          {t.or}
           <span style={{ flex: 1, height: 1, background: "var(--hairline)" }} />
         </div>
 
         <div className="flex flex-wrap gap-3.5">
-          <a
-            href="https://wa.me/4917632273522?text=Hallo%20Marvin%2C%20ich%20interessiere%20mich%20f%C3%BCr%20ein%20White-Label-System%20von%20Onyx."
-            target="_blank"
-            rel="noopener"
-            onClick={() => {
-              trackLead();
-              if (typeof window.fbq === "function") window.fbq("trackCustom", "WhatsAppClick");
-            }}
+          <button
+            type="button"
+            onClick={() => openContactForm("Kontaktseite-Infogespraech", "info")}
             className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold"
             style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}
           >
-            WhatsApp schreiben
-          </a>
+            {t.info}
+          </button>
           <a
             href="https://calendly.com/onyx-ai/30min"
             target="_blank"
             rel="noopener"
+            onClick={trackCalendlyClick}
             className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold"
             style={{ background: "transparent", color: "var(--warm-grey)", border: "1px solid var(--hairline)", fontSize: 15.5 }}
           >
-            30 Min. Termin buchen
+            {t.booking}
           </a>
         </div>
         <p className="mono mt-6" style={{ fontSize: 12.5, color: "var(--warm-grey-faint)" }}>
-          WhatsApp{" "}
-          <a
-            href="https://wa.me/4917632273522"
-            onClick={() => {
-              trackLead();
-              if (typeof window.fbq === "function") window.fbq("trackCustom", "WhatsAppClick");
-            }}
-            style={{ color: "var(--amber)" }}
-          >
-            0176 322 273 522
+          {t.phoneLabel}{" "}
+          <a href="tel:+4917632273522" style={{ color: "var(--amber)" }}>
+            {t.phoneDisplay}
           </a>{" "}
           · info@onyx-ai.de
         </p>

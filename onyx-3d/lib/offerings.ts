@@ -1,3 +1,6 @@
+import type { Lang } from "./i18n";
+import { offeringsEs } from "./offerings.es";
+
 export type Offering = {
   slug: string;
   image: string;
@@ -254,6 +257,23 @@ export const offerings: Offering[] = [
   },
 ];
 
-export function getOffering(slug: string) {
-  return offerings.find((o) => o.slug === slug);
+/** Die übersetzbaren Teile eines Bausteins — Bilder, Logos und Slug bleiben in allen Sprachen gleich. */
+export type OfferingText = Pick<Offering, "title" | "subtitle" | "detail" | "bullets" | "meta" | "painPoints" | "beispiel"> & {
+  referenz?: Pick<NonNullable<Offering["referenz"]>, "tag" | "name" | "heading" | "desc" | "bullets">;
+};
+
+export function getOfferings(lang: Lang): Offering[] {
+  if (lang === "de") return offerings;
+  return offerings.map((o) => {
+    const t = offeringsEs[o.slug];
+    return {
+      ...o,
+      ...t,
+      referenz: o.referenz && t.referenz ? { ...o.referenz, ...t.referenz } : o.referenz,
+    };
+  });
+}
+
+export function getOffering(slug: string, lang: Lang = "de") {
+  return getOfferings(lang).find((o) => o.slug === slug);
 }

@@ -12,7 +12,7 @@ import { offerings } from "@/lib/offerings";
  * Stichpunkte und den Weg zur Detailseite.
  */
 export default function OfferingsAccordion({ blatt }: { blatt?: string }) {
-  const [open, setOpen] = useState(0);
+  const [open, setOpen] = useState(-1);
 
   return (
     <section className="py-10">
@@ -24,7 +24,7 @@ export default function OfferingsAccordion({ blatt }: { blatt?: string }) {
           <span style={{ opacity: 0.7 }}>§</span> {blatt ? `Blatt ${blatt} / Leistungen` : "Leistungen"}
         </span>
         <h2 style={{ fontSize: "clamp(1.9rem, 3.8vw, 2.7rem)", maxWidth: "20ch", marginBottom: 14 }}>
-          Das können wir für dich tun.
+          Das können wir <span className="accent">für dich tun</span>
         </h2>
         <p style={{ color: "var(--warm-grey-dim)", maxWidth: "58ch", fontSize: "1.02rem", lineHeight: 1.7, marginBottom: 30 }}>
           Sechs Bausteine, aus denen wir Systeme zusammensetzen. Kein Betrieb
@@ -32,7 +32,7 @@ export default function OfferingsAccordion({ blatt }: { blatt?: string }) {
         </p>
 
         <div
-          className="rounded-2xl overflow-hidden"
+          className="rounded-2xl overflow-hidden on-dark beam-border"
           style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}
         >
           {offerings.map((o, i) => {
@@ -49,7 +49,7 @@ export default function OfferingsAccordion({ blatt }: { blatt?: string }) {
                   aria-expanded={isOpen}
                   className="w-full flex items-center gap-4 px-5 py-5 sm:px-7 text-left"
                   style={{
-                    background: isOpen ? "rgba(212, 175, 106,0.06)" : "transparent",
+                    background: isOpen ? "rgba(232, 163, 61,0.06)" : "transparent",
                     transition: "background 0.2s ease",
                   }}
                 >
@@ -61,7 +61,7 @@ export default function OfferingsAccordion({ blatt }: { blatt?: string }) {
                   </span>
 
                   <span className="min-w-0 flex-1">
-                    <span className="block" style={{ fontWeight: 700, fontSize: "clamp(1.05rem, 2vw, 1.3rem)", lineHeight: 1.25 }}>
+                    <span className="display block" style={{ fontWeight: 700, fontSize: "clamp(1.05rem, 2vw, 1.3rem)", lineHeight: 1.2 }}>
                       {titlePlain}
                     </span>
                     {!isOpen && (
@@ -119,7 +119,7 @@ export default function OfferingsAccordion({ blatt }: { blatt?: string }) {
                       <Link
                         href={`/angebot/${o.slug}`}
                         className="inline-flex items-center gap-2 rounded-[10px] px-5 py-3 font-semibold btn-amber"
-                        style={{ background: "var(--amber)", color: "#161104", fontSize: 14.5 }}
+                        style={{ background: "var(--amber)", color: "#12141a", fontSize: 14.5 }}
                       >
                         {titlePlain} im Detail
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={14} height={14}>

@@ -14,7 +14,7 @@ export default function ImpressumContent() {
 
       <h2>Kontakt</h2>
       <p>
-        Telefon: <a href="tel:+4917632273522">0176 322 273 522</a>
+        Telefon: <a href="tel:+4917632273522">0176 3227 3522</a>
         <br />
         E-Mail: <a href="mailto:info@onyx-ai.de">info@onyx-ai.de</a>
       </p>

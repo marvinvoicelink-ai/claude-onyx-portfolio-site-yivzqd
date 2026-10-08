@@ -113,7 +113,7 @@ function html(industryLabel: string, intro: string, painPoints: string[], capabi
   <div class="footer">
     <p class="cta"><b style="color:${WARM_GREY}">Nächster Schritt:</b> 30 Minuten, um deinen Bedarf genau zu klären — daraus entsteht dein passendes, verbindliches Angebot.</p>
     <div class="contact">
-      <span>WHATSAPP <b>0176 322 273 522</b></span>
+      <span>WHATSAPP <b>0176 3227 3522</b></span>
       <span>E-MAIL <b>info@onyx-ai.de</b></span>
       <span>TERMIN <b>calendly.com/onyx-ai/30min</b></span>
     </div>
