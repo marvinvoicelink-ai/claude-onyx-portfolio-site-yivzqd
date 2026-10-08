@@ -99,8 +99,8 @@ export default function ErfassungRealCase({ lang }: { lang: Lang }) {
               href={LIVE_URL}
               target="_blank"
               rel="noopener"
-              className="mono inline-flex items-center gap-1.5 self-start"
-              style={{ fontSize: 13, color: "var(--amber)" }}
+              className="inline-flex items-center justify-center gap-2.5 self-stretch sm:self-start rounded-[12px] px-8 py-4 font-semibold btn-amber"
+              style={{ background: "var(--amber)", color: "#12141a", fontSize: 17 }}
             >
               {t.link}
             </a>
