@@ -16,6 +16,7 @@ const TEXT: Record<
   {
     kicker: string;
     h1: [string, string, string];
+    claim: string;
     intro: string;
     audiences: { title: string; text: string }[];
     cta: string;
@@ -25,6 +26,7 @@ const TEXT: Record<
   de: {
     kicker: "ONYX Studio für Makler & Bauträger · Balearen & Kanaren",
     h1: ["Deine Bauten. ", "Fertig gezeigt", ", bevor sie fertig\u00a0sind."],
+    claim: "Mit nur einer Software: ONYX\u00a0Studio.",
     intro:
       "ONYX Studio ist die Software für Makler und Bauträger auf den Inseln. Aus Fotos vom Rohbau oder Renovierungsobjekt werden fertig eingerichtete Räume und ein Drohnenflug durchs Haus, auf einer eigenen Website pro Objekt. Die Objektdaten sprichst du vor Ort ein, statt sie abends abzutippen.",
     audiences: [
@@ -38,6 +40,7 @@ const TEXT: Record<
   es: {
     kicker: "ONYX Studio para agencias y promotoras · Baleares y Canarias",
     h1: ["Tus obras. ", "Terminadas", " antes de\u00a0estarlo."],
+    claim: "Con un solo software: ONYX\u00a0Studio.",
     intro:
       "ONYX Studio es el software para agencias inmobiliarias y promotoras en las islas. Las fotos de la obra o del inmueble a reformar se convierten en estancias terminadas y amuebladas y en un vuelo de dron por la casa, en una web propia para cada inmueble. Los datos los dictas in situ, en lugar de teclearlos por la noche.",
     audiences: [
@@ -95,6 +98,13 @@ export default function HomeHero({ lang }: { lang: Lang }) {
           <span className="accent">{t.h1[1]}</span>
           {t.h1[2]}
         </h1>
+
+        <p
+          className={entered ? "hero-cta-visible" : "hero-cta-hidden"}
+          style={{ ["--reveal-delay" as string]: "50ms", color: "var(--warm-grey)", fontSize: "1.3rem", fontWeight: 600, lineHeight: 1.4, marginBottom: 14 }}
+        >
+          {t.claim}
+        </p>
 
         <p
           className={entered ? "hero-cta-visible" : "hero-cta-hidden"}
