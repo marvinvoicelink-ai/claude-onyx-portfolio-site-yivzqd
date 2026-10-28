@@ -20,14 +20,14 @@ import { ERFASSUNG_CTA, ERFASSUNG_FAQ } from "./erfassungShared";
 
 const META: Record<Lang, { title: string; description: string }> = {
   de: {
-    title: "Onyx.AI — Vor-Ort-Erfassung für Bau, Handwerk & Immobilien",
+    title: "ONYX Studio — Software für Makler & Bauträger auf den Inseln",
     description:
-      "Durchs Objekt gehen, sprechen, filmen — Onyx.AI macht daraus Aufmaß, Mängelprotokoll, Exposé und Scroll-Website. Dazu individuelle White-Label-Systeme und KI-Agenten.",
+      "Zeig das fertige Haus, bevor es fertig ist: ONYX Studio macht aus Rohbau- und Renovierungsfotos fertig eingerichtete Räume und einen Drohnenflug auf einer eigenen Website pro Objekt. Für Makler und Bauträger auf Mallorca, den Balearen und Kanaren.",
   },
   es: {
-    title: "Onyx.AI — Captura in situ para construcción, oficios e inmobiliarias",
+    title: "ONYX Studio — Software para agencias y promotoras en las islas",
     description:
-      "Recorre el inmueble, habla y graba: Onyx.AI lo convierte en mediciones, informes de defectos, dossier y web con scroll. Además, sistemas a medida en marca blanca y agentes de IA.",
+      "Enseña la casa terminada antes de que lo esté: ONYX Studio convierte las fotos de la obra o del inmueble a reformar en estancias amuebladas y un vuelo de dron en una web propia para cada inmueble. Para agencias y promotoras en Mallorca, Baleares y Canarias.",
   },
 };
 
