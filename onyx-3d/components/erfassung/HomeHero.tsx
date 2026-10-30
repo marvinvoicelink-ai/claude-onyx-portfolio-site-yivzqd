@@ -16,6 +16,7 @@ const TEXT: Record<
   {
     kicker: string;
     h1: [string, string, string];
+    claim: string;
     intro: string;
     audiences: { title: string; text: string }[];
     cta: string;
@@ -23,27 +24,29 @@ const TEXT: Record<
   }
 > = {
   de: {
-    kicker: "Onyx.AI für Bau, Handwerk & Immobilien",
-    h1: ["Du gehst durchs Objekt, sprichst – und der ", "Papierkram entsteht daraus", "."],
+    kicker: "ONYX Studio für Makler & Bauträger · Balearen & Kanaren",
+    h1: ["Deine Bauten. ", "Fertig gezeigt", ", bevor sie fertig\u00a0sind."],
+    claim: "Mit nur einer Software: ONYX\u00a0Studio.",
     intro:
-      "Onyx.AI hat ein eigenes System gebaut, das genau das übernimmt: Räume, Maße und Mängel direkt vor Ort einsprechen und filmen. Onyx.AI strukturiert die Angaben, erstellt eine schematische Zeichnung und baut daraus die Unterlagen, die du danach brauchst.",
+      "ONYX Studio ist die Software für Makler und Bauträger auf den Inseln. Aus Fotos vom Rohbau oder Renovierungsobjekt werden fertig eingerichtete Räume und ein Drohnenflug durchs Haus, auf einer eigenen Website pro Objekt. Die Objektdaten sprichst du vor Ort ein, statt sie abends abzutippen.",
     audiences: [
-      { title: "Bauunternehmer & Bauleiter", text: "Baudokumentation, Mängel und Aufmaß direkt vor Ort erfassen." },
-      { title: "Immobilienmakler", text: "Objektdaten erfassen und daraus Exposé und Scroll-Website erstellen." },
-      { title: "Handwerker", text: "Maße und Leistungen beim Rundgang erfassen statt später im Büro." },
+      { title: "Bauträger", text: "Häuser schon im Rohbau fertig eingerichtet zeigen, mit Drohnenflug durchs Haus." },
+      { title: "Immobilienmakler", text: "Objekt einsprechen statt abtippen, daraus Exposé und eigene Rundflug-Website." },
+      { title: "Bauunternehmen", text: "Mängel und Abnahme mit Fotos erfassen, Protokoll direkt zum Unterschreiben." },
     ],
     cta: "Mit einem Objekt ausprobieren",
     info: "Infogespräch vereinbaren",
   },
   es: {
-    kicker: "Onyx.AI para construcción, oficios e inmobiliarias",
-    h1: ["Recorres el inmueble, hablas – y ", "el papeleo sale solo", "."],
+    kicker: "ONYX Studio para agencias y promotoras · Baleares y Canarias",
+    h1: ["Tus obras. ", "Terminadas", " antes de\u00a0estarlo."],
+    claim: "Con un solo software: ONYX\u00a0Studio.",
     intro:
-      "Onyx.AI ha construido un sistema propio que se encarga justo de eso: dictas y grabas en el mismo lugar las estancias, las medidas y los defectos. Onyx.AI ordena los datos, dibuja un esquema y prepara con ello la documentación que necesitas después.",
+      "ONYX Studio es el software para agencias inmobiliarias y promotoras en las islas. Las fotos de la obra o del inmueble a reformar se convierten en estancias terminadas y amuebladas y en un vuelo de dron por la casa, en una web propia para cada inmueble. Los datos los dictas in situ, en lugar de teclearlos por la noche.",
     audiences: [
-      { title: "Constructores y jefes de obra", text: "Registra la documentación de obra, los defectos y las mediciones directamente in situ." },
-      { title: "Agentes inmobiliarios", text: "Registra los datos del inmueble y genera con ellos el dossier y la web con scroll." },
-      { title: "Profesionales de oficios", text: "Toma medidas y partidas durante el recorrido, no después en la oficina." },
+      { title: "Promotoras", text: "Enseña las viviendas terminadas y amuebladas cuando aún están en obra, con vuelo de dron por la casa." },
+      { title: "Agentes inmobiliarios", text: "Dicta el inmueble en vez de teclearlo y obtén el dossier y una web propia con recorrido." },
+      { title: "Constructoras", text: "Registra defectos y la entrega con fotos, con un acta lista para firmar." },
     ],
     cta: "Probar con un inmueble",
     info: "Reservar llamada informativa",
@@ -51,10 +54,11 @@ const TEXT: Record<
 };
 
 /**
- * Startseiten-Hero: Onyx.AI positioniert sich hier direkt als Erbauer des
- * eigenen Erfassungs-Systems für Bau, Handwerk und Immobilien — statt der
- * allgemeinen "White-Label für jeden Mittelstandsbetrieb"-Botschaft, die
- * jetzt auf den Nebenseiten bleibt.
+ * Startseiten-Hero: spricht direkt die Zielgruppe der Telefonakquise an,
+ * Makler und Bauträger auf Balearen und Kanaren, mit ONYX Studio als Angebot
+ * (fertige Ansicht aus dem Rohbau, Rundflug-Website, Einsprechen). Die
+ * allgemeine "White-Label für jeden Mittelstandsbetrieb"-Botschaft bleibt
+ * auf den Nebenseiten.
  */
 export default function HomeHero({ lang }: { lang: Lang }) {
   const [entered, setEntered] = useState(false);
@@ -94,6 +98,13 @@ export default function HomeHero({ lang }: { lang: Lang }) {
           <span className="accent">{t.h1[1]}</span>
           {t.h1[2]}
         </h1>
+
+        <p
+          className={entered ? "hero-cta-visible" : "hero-cta-hidden"}
+          style={{ ["--reveal-delay" as string]: "50ms", color: "var(--warm-grey)", fontSize: "1.3rem", fontWeight: 600, lineHeight: 1.4, marginBottom: 14 }}
+        >
+          {t.claim}
+        </p>
 
         <p
           className={entered ? "hero-cta-visible" : "hero-cta-hidden"}
