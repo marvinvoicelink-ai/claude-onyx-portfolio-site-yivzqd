@@ -10,8 +10,8 @@ const TEXT: Record<Lang, { kicker: string; heading: string; steps: { num: string
     steps: [
       {
         num: "01",
-        title: "Mit der App auf dem Objekt sprechen",
-        text: "Du bist mit der App auf der Baustelle oder im Objekt unterwegs und sprichst rein, was du siehst: Räume, Maße, Mängel, Besonderheiten. Die App erkennt und strukturiert das automatisch — kein Tippen, kein Formular vor Ort.",
+        title: "Mit der Software auf dem Objekt sprechen",
+        text: "Du bist mit der Software auf dem Handy auf der Baustelle oder im Objekt unterwegs und sprichst rein, was du siehst: Räume, Maße, Mängel, Besonderheiten. Die Software erkennt und strukturiert das automatisch — kein Tippen, kein Formular vor Ort.",
       },
       {
         num: "02",
@@ -36,8 +36,8 @@ const TEXT: Record<Lang, { kicker: string; heading: string; steps: { num: string
     steps: [
       {
         num: "01",
-        title: "Hablar con la app en el inmueble",
-        text: "Recorres la obra o el inmueble con la app y dictas lo que ves: estancias, medidas, defectos, particularidades. La app lo reconoce y lo ordena automáticamente: sin teclear y sin formularios en el lugar.",
+        title: "Hablar con el software en el inmueble",
+        text: "Recorres la obra o el inmueble con el software en el móvil y dictas lo que ves: estancias, medidas, defectos, particularidades. El software lo reconoce y lo ordena automáticamente: sin teclear y sin formularios en el lugar.",
       },
       {
         num: "02",

@@ -61,6 +61,22 @@ const TEXT: Record<
         message: "Worum geht es? (optional)",
         submit: "Anfrage senden",
       },
+      zeitraffer: {
+        kicker: "Zeitraffer-Video",
+        heading: ["Ein Zeitraffer für ", "dein Projekt", ""],
+        intro:
+          "Name und E-Mail reichen — Marvin meldet sich persönlich und bespricht mit dir, welche Fotos oder Pläne es für deinen Zeitraffer braucht.",
+        message: "Um welches Projekt geht es? (optional)",
+        submit: "Zeitraffer anfragen",
+      },
+      scrollflug: {
+        kicker: "Scrollflug-Website",
+        heading: ["Eine Scrollflug-Website für ", "dein Objekt", ""],
+        intro:
+          "Name und E-Mail reichen — Marvin meldet sich persönlich und bespricht mit dir, welches Objekt die eigene Website bekommt.",
+        message: "Um welches Objekt geht es? (optional)",
+        submit: "Website anfragen",
+      },
     },
     close: "Schließen",
     name: "Name",
@@ -109,6 +125,22 @@ const TEXT: Record<
         intro: "Basta con tu nombre y tu correo: Marvin te contacta personalmente. Sin bots y sin colas de espera.",
         message: "¿De qué se trata? (opcional)",
         submit: "Enviar solicitud",
+      },
+      zeitraffer: {
+        kicker: "Vídeo timelapse",
+        heading: ["Un timelapse para ", "tu proyecto", ""],
+        intro:
+          "Basta con tu nombre y tu correo: Marvin te contacta personalmente y vemos qué fotos o planos hacen falta para tu timelapse.",
+        message: "¿De qué proyecto se trata? (opcional)",
+        submit: "Pedir timelapse",
+      },
+      scrollflug: {
+        kicker: "Web con vuelo por la casa",
+        heading: ["Una web con vuelo para ", "tu inmueble", ""],
+        intro:
+          "Basta con tu nombre y tu correo: Marvin te contacta personalmente y vemos qué inmueble tendrá su propia web.",
+        message: "¿De qué inmueble se trata? (opcional)",
+        submit: "Pedir la web",
       },
     },
     close: "Cerrar",

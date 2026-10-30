@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import HomeHero from "@/components/erfassung/HomeHero";
+import AngebotSection from "@/components/erfassung/AngebotSection";
 import ErfassungDemo from "@/components/erfassung/ErfassungDemo";
 import ErfassungSteps from "@/components/erfassung/ErfassungSteps";
 import ErfassungRealCase from "@/components/erfassung/ErfassungRealCase";
@@ -22,12 +23,12 @@ const META: Record<Lang, { title: string; description: string }> = {
   de: {
     title: "ONYX Studio — Software für Makler & Bauträger auf den Inseln",
     description:
-      "Verkauf das Zuhause, nicht die Baustelle: Mit ONYX Studio werden aus Rohbau- und Renovierungsfotos fertig eingerichtete Räume und ein Drohnenflug auf einer eigenen Website pro Objekt. Für Makler und Bauträger auf Mallorca, den Balearen und Kanaren.",
+      "Renderings zeigen Bilder, ONYX Studio zeigt das ganze Haus: Scrollflug, Zeitraffer und fertig eingerichtete Räume auf einer eigenen Website pro Objekt. Für Makler und Bauträger auf Mallorca, den Balearen und Kanaren.",
   },
   es: {
     title: "ONYX Studio — Software para agencias y promotoras en las islas",
     description:
-      "Vende el hogar, no la obra: ONYX Studio convierte las fotos de la obra o del inmueble a reformar en estancias amuebladas y un vuelo de dron en una web propia para cada inmueble. Para agencias y promotoras en Mallorca, Baleares y Canarias.",
+      "Los renders muestran imágenes, ONYX Studio muestra la casa entera: vuelo con scroll, timelapse y estancias amuebladas en una web propia para cada inmueble. Para agencias y promotoras en Mallorca, Baleares y Canarias.",
   },
 };
 
@@ -99,6 +100,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
     <SmoothScroll>
       <main>
         <HomeHero lang={lang} />
+        <AngebotSection lang={lang} />
         <ErfassungDemo lang={lang} />
         <ErfassungSteps lang={lang} />
         <ErfassungRealCase lang={lang} />

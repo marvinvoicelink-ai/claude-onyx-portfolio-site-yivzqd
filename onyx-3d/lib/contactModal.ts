@@ -15,10 +15,12 @@ import { noteCtaSource } from "./trackLead";
  *  - "demo":    kostenlose Demo eines eigenen White-Label-Systems
  *  - "info":    Infogespräch vereinbaren (Telefonnummer Pflicht, Erreichbarkeit)
  *  - "general": allgemeine Anfrage
+ *  - "zeitraffer": Zeitraffer-Video für ein eigenes Projekt
+ *  - "scrollflug": Scrollflug-Website für ein Objekt
  */
 export const OPEN_CONTACT_EVENT = "onyx:open-contact";
 
-export type ContactTopic = "objekt" | "demo" | "info" | "general";
+export type ContactTopic = "objekt" | "demo" | "info" | "general" | "zeitraffer" | "scrollflug";
 
 export function openContactForm(source: string, topic: ContactTopic = "general") {
   if (typeof window === "undefined") return;

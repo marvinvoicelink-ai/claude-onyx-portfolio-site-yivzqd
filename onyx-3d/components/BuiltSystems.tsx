@@ -101,7 +101,7 @@ const systems = [
   {
     branche: "Immobilien & Makler",
     title: "Objekt, Exposé und Nachweise in einer Akte.",
-    text: "Fotos direkt am Objekt aufnehmen, Unterlagen, Investoren und Termine im selben Vorgang. Vor dem Versand prüft das System selbst, ob Provisionsvereinbarung, Widerrufsbelehrung und Adressvalidierung vorliegen, und hält das Exposé zurück, solange etwas fehlt. Ein Klick legt die Akte als App aufs Handy.",
+    text: "Fotos direkt am Objekt aufnehmen, Unterlagen, Investoren und Termine im selben Vorgang. Vor dem Versand prüft das System selbst, ob Provisionsvereinbarung, Widerrufsbelehrung und Adressvalidierung vorliegen, und hält das Exposé zurück, solange etwas fehlt. Ein Klick legt die Akte aufs Handy.",
     screens: [
       {
         src: "/generated/immo-akte.png",
