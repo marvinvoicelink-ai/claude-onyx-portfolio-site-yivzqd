@@ -25,7 +25,7 @@ const TEXT: Record<
 > = {
   de: {
     kicker: "ONYX Studio für Makler & Bauträger · Balearen & Kanaren",
-    h1: ["Deine Bauten. ", "Fertig gezeigt", ", bevor sie fertig\u00a0sind."],
+    h1: ["Verkauf das Zuhause, ", "nicht die\u00a0Baustelle", "."],
     claim: "Mit nur einer Software: ONYX\u00a0Studio.",
     intro:
       "ONYX Studio ist die Software für Makler und Bauträger auf den Inseln. Aus Fotos vom Rohbau oder Renovierungsobjekt werden fertig eingerichtete Räume und ein Drohnenflug durchs Haus, auf einer eigenen Website pro Objekt. Die Objektdaten sprichst du vor Ort ein, statt sie abends abzutippen.",
@@ -39,7 +39,7 @@ const TEXT: Record<
   },
   es: {
     kicker: "ONYX Studio para agencias y promotoras · Baleares y Canarias",
-    h1: ["Tus obras. ", "Terminadas", " antes de\u00a0estarlo."],
+    h1: ["Vende el hogar, ", "no la\u00a0obra", "."],
     claim: "Con un solo software: ONYX\u00a0Studio.",
     intro:
       "ONYX Studio es el software para agencias inmobiliarias y promotoras en las islas. Las fotos de la obra o del inmueble a reformar se convierten en estancias terminadas y amuebladas y en un vuelo de dron por la casa, en una web propia para cada inmueble. Los datos los dictas in situ, en lugar de teclearlos por la noche.",
