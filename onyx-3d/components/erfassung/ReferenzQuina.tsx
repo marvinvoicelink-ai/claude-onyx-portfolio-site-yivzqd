@@ -5,11 +5,16 @@ import type { Lang } from "@/lib/i18n";
  * Mallorca) hat bei Onyx Software, Zeitraffer- und Scroll-Through-Video
  * gekauft. Das Logo hat Marvin geschickt.
  *
- * Ein Zitat steht hier erst, wenn Quina García den Wortlaut freigegeben hat -
- * ein Satz, den wir ihr in den Mund legen, wäre eine erfundene Bewertung.
- * Bis dahin bleibt ZITAT null und der Block zeigt nur die Fakten.
+ * Das Zitat ist ihre eigene Rückmeldung an Marvin (30.10.2026), so nah am
+ * Wortlaut wie möglich - kein Satz, den wir ihr in den Mund legen. Ändert
+ * sich etwas, nur mit ihrem Okay; ohne Zitat ZITAT auf null setzen.
  */
-const ZITAT: Record<Lang, string> | null = null;
+const ZITAT: Record<Lang, string> | null = {
+  de: "Ich bin sehr froh, dass wir die Videos und eine eigene Website für unser Objekt gemacht haben. Auf einer normalen Website gehen genau die Objekte unter, die man wirklich verkaufen möchte.",
+  es: "Estoy muy contenta de haber hecho los vídeos y una web propia para nuestro inmueble. En una web normal se pierden justo los inmuebles que de verdad quieres vender.",
+};
+
+const ANFUEHRUNG: Record<Lang, [string, string]> = { de: ["„", "“"], es: ["«", "»"] };
 
 const TEXT: Record<
   Lang,
@@ -81,7 +86,12 @@ export default function ReferenzQuina({ lang }: { lang: Lang }) {
                   color: "var(--warm-grey)",
                 }}
               >
-                „{zitat}“
+                {ANFUEHRUNG[lang][0]}
+                {zitat}
+                {ANFUEHRUNG[lang][1]}
+                <footer className="mono" style={{ marginTop: 8, fontSize: 12.5, color: "var(--warm-grey-faint)" }}>
+                  — Quina García
+                </footer>
               </blockquote>
             )}
 
