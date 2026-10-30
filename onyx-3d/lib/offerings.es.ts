@@ -38,10 +38,10 @@ export const offeringsEs: Record<string, OfferingText> = {
   },
   "interne-tools": {
     title: "Herramientas internas.",
-    subtitle: "Gestión de proyectos, app para el equipo y control de inventario.",
+    subtitle: "Gestión de proyectos, software para el equipo y control de inventario.",
     detail:
       "Las hojas de Excel, los papelitos y las soluciones sueltas se convierten en un sistema que se adapta a tu forma de trabajar, y no al revés. Tú nos cuentas cómo se trabaja en tu empresa y nosotros lo convertimos en software.",
-    meta: "Gestión de proyectos, una app para el equipo y control de inventario en un solo sistema, construido según los procesos de tu empresa. Desarrollado por Onyx.AI y entregado por completo.",
+    meta: "Gestión de proyectos, un software para el equipo y control de inventario en un solo sistema, construido según los procesos de tu empresa. Desarrollado por Onyx.AI y entregado por completo.",
     painPoints: [
       "Las horas y los gastos se apuntan en cualquier sitio y luego se pasan a mano al sistema.",
       "Cada departamento lleva su propia lista y ninguna está completa.",
@@ -53,7 +53,7 @@ export const offeringsEs: Record<string, OfferingText> = {
     },
     bullets: [
       "Proyectos, citas, recursos y responsables en un solo lugar",
-      "App para el equipo: registrar horas, adjuntar documentos y cerrar trámites sobre la marcha",
+      "Software para el equipo: registrar horas, adjuntar documentos y cerrar trámites sobre la marcha",
       "Control de inventario con existencias mínimas y recuentos, también desde el móvil",
       "Sustituye un montón de hojas de Excel acumuladas por un sistema central",
       "Crece contigo si tus procesos cambian más adelante",
