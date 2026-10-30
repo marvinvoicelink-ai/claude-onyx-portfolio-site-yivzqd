@@ -23,12 +23,12 @@ const META: Record<Lang, { title: string; description: string }> = {
   de: {
     title: "ONYX Studio — Software für Makler & Bauträger auf den Inseln",
     description:
-      "Renderings zeigen Bilder, ONYX Studio zeigt das ganze Haus: Scrollflug, Zeitraffer und fertig eingerichtete Räume auf einer eigenen Website pro Objekt. Für Makler und Bauträger auf Mallorca, den Balearen und Kanaren.",
+      "Andere zeigen Bilder, wir zeigen komplette Begehungen – selbst bei unfertigen Bauten: Scroll-Through-3D-Videos, Zeitraffer-Videos und fertig eingerichtete Räume auf einer eigenen Website pro Objekt. Für Makler und Bauträger auf Mallorca, den Balearen und Kanaren.",
   },
   es: {
     title: "ONYX Studio — Software para agencias y promotoras en las islas",
     description:
-      "Los renders muestran imágenes, ONYX Studio muestra la casa entera: vuelo con scroll, timelapse y estancias amuebladas en una web propia para cada inmueble. Para agencias y promotoras en Mallorca, Baleares y Canarias.",
+      "Otros muestran imágenes, nosotros recorridos completos, incluso en obras sin terminar: vídeos 3D con scroll, timelapse y estancias amuebladas en una web propia para cada inmueble. Para agencias y promotoras en Mallorca, Baleares y Canarias.",
   },
 };
 
