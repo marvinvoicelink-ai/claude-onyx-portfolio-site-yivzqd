@@ -25,8 +25,8 @@ const TEXT: Record<
 > = {
   de: {
     kicker: "ONYX Studio für Makler & Bauträger · Balearen & Kanaren",
-    h1: ["Renderings zeigen Bilder. ", "Wir zeigen das ganze\u00a0Haus", "."],
-    claim: "Scrollflug, Zeitraffer und eigene Website pro Objekt. Mit nur einer Software: ONYX\u00a0Studio.",
+    h1: ["Andere zeigen Bilder. ", "Wir zeigen komplette Begehungen", "."],
+    claim: "Selbst bei unfertigen Bauten: mit Scroll-Through-3D-Videos, Zeitraffer-Videos und eigener Website pro Objekt. Mit nur einer Software: ONYX\u00a0Studio.",
     intro:
       "ONYX Studio ist die Software für Makler und Bauträger auf den Inseln. Aus Fotos vom Rohbau oder Renovierungsobjekt werden fertig eingerichtete Räume und ein Drohnenflug durchs Haus, auf einer eigenen Website pro Objekt. Die Objektdaten sprichst du vor Ort ein, statt sie abends abzutippen.",
     audiences: [
@@ -39,8 +39,8 @@ const TEXT: Record<
   },
   es: {
     kicker: "ONYX Studio para agencias y promotoras · Baleares y Canarias",
-    h1: ["Los renders muestran imágenes. ", "Nosotros, la casa\u00a0entera", "."],
-    claim: "Vuelo con scroll, timelapse y web propia para cada inmueble. Con un solo software: ONYX\u00a0Studio.",
+    h1: ["Otros muestran imágenes. ", "Nosotros, recorridos completos", "."],
+    claim: "Incluso en obras sin terminar: vídeos 3D con scroll, vídeos timelapse y web propia para cada inmueble. Con un solo software: ONYX\u00a0Studio.",
     intro:
       "ONYX Studio es el software para agencias inmobiliarias y promotoras en las islas. Las fotos de la obra o del inmueble a reformar se convierten en estancias terminadas y amuebladas y en un vuelo de dron por la casa, en una web propia para cada inmueble. Los datos los dictas in situ, en lugar de teclearlos por la noche.",
     audiences: [
