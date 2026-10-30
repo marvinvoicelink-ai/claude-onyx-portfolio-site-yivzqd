@@ -3,6 +3,7 @@ import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import HomeHero from "@/components/erfassung/HomeHero";
 import AngebotSection from "@/components/erfassung/AngebotSection";
+import ReferenzQuina from "@/components/erfassung/ReferenzQuina";
 import ErfassungDemo from "@/components/erfassung/ErfassungDemo";
 import ErfassungSteps from "@/components/erfassung/ErfassungSteps";
 import ErfassungRealCase from "@/components/erfassung/ErfassungRealCase";
@@ -101,6 +102,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
       <main>
         <HomeHero lang={lang} />
         <AngebotSection lang={lang} />
+        <ReferenzQuina lang={lang} />
         <ErfassungDemo lang={lang} />
         <ErfassungSteps lang={lang} />
         <ErfassungRealCase lang={lang} />
