@@ -1,0 +1,5 @@
+# Sprach-Erkennung per Land — nur Fallback, wenn die Browsersprache weder
+# Deutsch noch Spanisch ist (siehe LANG_DETECT_SCRIPT in lib/i18n.ts).
+# Besucher aus spanischsprachigen Ländern bekommen statt geo.json die
+# Datei geo-es.json. "200!" erzwingt das, obwohl geo.json existiert.
+/geo.json  /geo-es.json  200!  Country=es,mx,ar,co,cl,pe,ve,ec,gt,cu,bo,do,hn,py,sv,ni,cr,pa,uy,pr,gq

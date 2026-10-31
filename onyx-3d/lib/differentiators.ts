@@ -1,3 +1,6 @@
+import type { Lang } from "./i18n";
+import { differentiatorsEs } from "./differentiators.es";
+
 export type Differentiator = {
   slug: string;
   image: string;
@@ -79,3 +82,11 @@ export const differentiators: Differentiator[] = [
     ],
   },
 ];
+
+/** Übersetzbare Teile — Bilder, Icons und Slug bleiben in allen Sprachen gleich. */
+export type DifferentiatorText = Pick<Differentiator, "title" | "subtitle" | "detail" | "bullets">;
+
+export function getDifferentiators(lang: Lang): Differentiator[] {
+  if (lang === "de") return differentiators;
+  return differentiators.map((x) => ({ ...x, ...differentiatorsEs[x.slug] }));
+}

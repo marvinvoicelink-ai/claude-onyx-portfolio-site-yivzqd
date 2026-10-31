@@ -17,7 +17,7 @@ export default function ExplainerSection() {
             textTransform: "uppercase",
             color: "var(--amber)",
             background: "var(--amber-soft)",
-            border: "1px solid rgba(212, 175, 106,0.3)",
+            border: "1px solid rgba(232, 163, 61,0.3)",
           }}
         >
           Erklärt in 60 Sekunden
@@ -61,7 +61,7 @@ export default function ExplainerSection() {
             />
           </div>
           <div
-            className="relative rounded-2xl w-full"
+            className="relative rounded-2xl w-full on-dark"
             style={{
               padding: 10,
               background: "var(--near-black)",

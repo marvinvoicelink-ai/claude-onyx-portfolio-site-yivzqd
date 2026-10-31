@@ -1,4 +1,7 @@
 import type { ReactNode } from "react";
+import type { Lang } from "./i18n";
+import { automatisierungenEs } from "./automatisierungen.es";
+
 
 export type Automatisierung = {
   slug: string;
@@ -114,3 +117,11 @@ export const automatisierungen: Automatisierung[] = [
     ),
   },
 ];
+
+/** Übersetzbare Teile — Bilder, Icons und Slug bleiben in allen Sprachen gleich. */
+export type AutomatisierungText = Pick<Automatisierung, "title" | "subtitle" | "detail" | "bullets">;
+
+export function getAutomatisierungen(lang: Lang): Automatisierung[] {
+  if (lang === "de") return automatisierungen;
+  return automatisierungen.map((x) => ({ ...x, ...automatisierungenEs[x.slug] }));
+}

@@ -1,3 +1,6 @@
+import type { Lang } from "./i18n";
+import { offeringsEs } from "./offerings.es";
+
 export type Offering = {
   slug: string;
   image: string;
@@ -73,10 +76,10 @@ export const offerings: Offering[] = [
     w: 992,
     h: 630,
     title: "Interne Tools.",
-    subtitle: "Projektsteuerung, App fürs Team und Bestandsverwaltung.",
+    subtitle: "Projektsteuerung, Software fürs Team und Bestandsverwaltung.",
     detail:
       "Aus Excel-Listen, Zetteln und Insellösungen wird ein System, das zu deinem Ablauf passt statt umgekehrt. Du beschreibst, wie bei dir gearbeitet wird, wir übersetzen es in Software.",
-    meta: "Projektsteuerung, eine App fürs Team und Bestandsverwaltung in einem System, gebaut nach dem Ablauf deines Unternehmens. Von Onyx.AI entwickelt und vollständig übergeben.",
+    meta: "Projektsteuerung, eine Software fürs Team und Bestandsverwaltung in einem System, gebaut nach dem Ablauf deines Unternehmens. Von Onyx.AI entwickelt und vollständig übergeben.",
     painPoints: [
       "Zeiten und Aufwände werden irgendwo notiert und später von Hand ins System übertragen.",
       "Jede Abteilung führt ihre eigene Liste, und keine davon stimmt vollständig.",
@@ -88,7 +91,7 @@ export const offerings: Offering[] = [
     },
     bullets: [
       "Projekte, Termine, Ressourcen und Zuständigkeiten an einem Ort",
-      "App fürs Team: Zeiten erfassen, Dokumente anhängen, Vorgänge unterwegs abschließen",
+      "Software fürs Team: Zeiten erfassen, Dokumente anhängen, Vorgänge unterwegs abschließen",
       "Bestandsverwaltung mit Mindestmengen und Inventur, auch mobil",
       "Ersetzt gewachsene Excel-Landschaften durch ein zentrales System",
       "Wächst mit, wenn sich dein Prozess später ändert",
@@ -254,6 +257,23 @@ export const offerings: Offering[] = [
   },
 ];
 
-export function getOffering(slug: string) {
-  return offerings.find((o) => o.slug === slug);
+/** Die übersetzbaren Teile eines Bausteins — Bilder, Logos und Slug bleiben in allen Sprachen gleich. */
+export type OfferingText = Pick<Offering, "title" | "subtitle" | "detail" | "bullets" | "meta" | "painPoints" | "beispiel"> & {
+  referenz?: Pick<NonNullable<Offering["referenz"]>, "tag" | "name" | "heading" | "desc" | "bullets">;
+};
+
+export function getOfferings(lang: Lang): Offering[] {
+  if (lang === "de") return offerings;
+  return offerings.map((o) => {
+    const t = offeringsEs[o.slug];
+    return {
+      ...o,
+      ...t,
+      referenz: o.referenz && t.referenz ? { ...o.referenz, ...t.referenz } : o.referenz,
+    };
+  });
+}
+
+export function getOffering(slug: string, lang: Lang = "de") {
+  return getOfferings(lang).find((o) => o.slug === slug);
 }

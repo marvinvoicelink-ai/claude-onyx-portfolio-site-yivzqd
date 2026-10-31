@@ -1,4 +1,7 @@
 import type { ReactNode } from "react";
+import type { Lang } from "./i18n";
+import { kiAgentenEs } from "./kiAgenten.es";
+
 
 export type KiAgent = {
   slug: string;
@@ -83,3 +86,11 @@ export const kiAgenten: KiAgent[] = [
     h: 896,
   },
 ];
+
+/** Übersetzbare Teile — Bilder, Icons und Slug bleiben in allen Sprachen gleich. */
+export type KiAgentText = Pick<KiAgent, "title" | "subtitle" | "detail" | "bullets">;
+
+export function getKiAgenten(lang: Lang): KiAgent[] {
+  if (lang === "de") return kiAgenten;
+  return kiAgenten.map((x) => ({ ...x, ...kiAgentenEs[x.slug] }));
+}
