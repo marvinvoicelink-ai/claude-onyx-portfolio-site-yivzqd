@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<!-- Zielseite der Meta-Anzeigen. Kopie von marvinvoicelink-ai.github.io/beispiele
+     (dorthin führen die schon verschickten Mails) - Änderungen in beiden machen.
+     <base> sorgt dafür, dass media/ und finca/ auch ohne Schrägstrich am Ende passen. -->
+<base href="/beispiele/">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ONYX Studio – Beispiele</title>
+<meta name="description" content="Vorher/Nachher, Zeitraffer, Drohnenflug und Scroll-Website: Beispiele von ONYX Studio an einer echten Finca auf Mallorca.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#111111;--bg2:#191816;--text:#F5F2EC;--dim:rgba(245,242,236,.74);--faint:rgba(245,242,236,.5);--amber:#E8A33D;--gold:#C9A774;--line:rgba(167,169,172,.24);--line-gold:rgba(176,141,87,.5)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:"Instrument Sans",system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  header{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}
+  header img{height:30px;display:block}
+  .mono{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+  header .mono{color:var(--faint)}
+  .hphone{display:flex;flex-direction:column;align-items:flex-end;text-decoration:none;border:1px solid var(--line-gold);border-radius:10px;padding:7px 12px}
+  .hphone .mono{font-size:10px}
+  .hphone b{font-family:"Archivo";font-size:17px;color:var(--text);white-space:nowrap}
+  h1,h2,h3{font-family:"Archivo",sans-serif;line-height:1.08;letter-spacing:-.01em}
+  .hero{padding:56px 0 30px}
+  .kicker{color:var(--amber);margin-bottom:14px;display:block}
+  h1{font-size:clamp(34px,6vw,60px);font-weight:800;max-width:16ch}
+  h1 em{font-style:normal;color:var(--amber)}
+  .lead{color:var(--dim);font-size:19px;max-width:60ch;margin-top:16px}
+  nav.jump{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+  nav.jump a{text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px;color:var(--dim)}
+  nav.jump a:hover{border-color:var(--amber);color:var(--text)}
+  section{padding:46px 0;border-top:1px solid var(--line)}
+  h2{font-size:clamp(26px,4vw,38px);margin-bottom:10px}
+  h2 span{color:var(--gold)}
+  .sub{color:var(--dim);max-width:62ch;margin-bottom:24px}
+  .badge{position:absolute;top:10px;left:10px;font-family:"IBM Plex Mono";font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding:4px 8px;border-radius:4px;z-index:2;pointer-events:none}
+  .b-echt{background:rgba(17,17,17,.8);border:1px solid rgba(245,242,236,.35)}
+  .b-ki{background:var(--amber);color:#111}
+  .videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .vid{position:relative;border-radius:10px;overflow:hidden;background:var(--bg2);border:1px solid var(--line)}
+  .vid video{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;background:#000}
+  .vid .cap{padding:10px 14px;color:var(--dim);font-size:15px}
+  .flight video{aspect-ratio:9/16;max-height:78vh;width:auto;margin:0 auto}
+  .flight{display:grid;grid-template-columns:minmax(0,360px) 1fr;gap:28px;align-items:center}
+  .compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+  .cmp{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:3/4;background:var(--bg2);border:1px solid var(--line);touch-action:pan-y;user-select:none;cursor:ew-resize}
+  .cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .cmp .after{clip-path:inset(0 0 0 50%)}
+  .cmp .handle{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--text);transform:translateX(-1px);z-index:3}
+  .cmp .handle::after{content:"↔";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;background:var(--bg);border:1px solid var(--line-gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:17px}
+  .cmp .b-ki{left:auto;right:10px}
+  .cmp-t{margin-top:10px;font-family:"Archivo";font-weight:600;font-size:18px}
+  .cmp-t small{display:block;font-family:"Instrument Sans";font-weight:400;font-size:15px;color:var(--dim);margin-top:2px}
+  .card{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:26px}
+  .btn{display:inline-block;text-decoration:none;background:var(--amber);color:#111;font-weight:600;border-radius:10px;padding:13px 20px;margin-top:16px}
+  .btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);margin-left:8px}
+  .cta{border:1px solid var(--line-gold);border-radius:14px;padding:34px 28px;background:linear-gradient(135deg,rgba(176,141,87,.14),rgba(17,17,17,0) 60%)}
+  .cta h2{font-size:clamp(28px,4.4vw,42px)}
+  .contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:22px}
+  .contact div{border-top:1px solid var(--line);padding-top:10px}
+  .contact .mono{color:var(--faint);display:block;font-size:11px;margin-bottom:3px}
+  .contact b{font-size:18px}
+  footer{padding:34px 0 50px;color:var(--faint);font-size:13.5px;border-top:1px solid var(--line)}
+  footer a{color:var(--dim)}
+  .wa{display:inline-flex;align-items:center;gap:9px;text-decoration:none;background:#25D366;color:#0b1f12;font-weight:700;border-radius:10px;padding:13px 20px}
+  .wa:hover{filter:brightness(1.06)}
+  .wa-head{display:inline-flex;align-items:center;gap:7px;text-decoration:none;background:#25D366;color:#0b1f12;font-weight:700;border-radius:10px;padding:9px 13px;font-size:15px;white-space:nowrap}
+  .head-r{display:flex;gap:10px;align-items:center}
+  .wa-float{position:fixed;right:16px;bottom:16px;z-index:50;display:flex;align-items:center;gap:8px;text-decoration:none;background:#25D366;color:#0b1f12;font-weight:700;border-radius:999px;padding:13px 18px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:24px}
+  .hero-cta small{color:var(--faint);font-size:14px}
+  @media (max-width:640px){.hphone{display:none}.wa-head span{display:none}.wa-head{padding:9px 11px}}
+  @media (max-width:520px){header img{height:24px}.hphone b{font-size:15px}}
+  @media (max-width:720px){.flight{grid-template-columns:1fr}.btn.ghost{margin-left:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="media/onyx-logo.png" alt="Onyx.AI">
+    <div class="head-r">
+      <a class="hphone" href="tel:+34607948476"><span class="mono">Ihr Ansprechpartner Thorsten</span><b>+34 607 948 476</b></a>
+      <a class="wa-head js-wa" href="https://wa.me/4917632273522?text=Hallo%20Marvin%2C%20ich%20habe%20mir%20die%20ONYX-Studio-Beispiele%20angesehen%20und%20m%C3%B6chte%20das%20an%20einem%20eigenen%20Objekt%20sehen." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2l-.4-.2z"/></svg><span>WhatsApp</span></a>
+    </div>
+  </header>
+
+  <div class="hero">
+    <span class="mono kicker">Für Makler &amp; Bauträger · Balearen &amp; Kanaren</span>
+    <h1>Ihre Bauten. <em>Fertig gezeigt,</em> bevor sie fertig sind.</h1>
+    <p class="lead">Alle Beispiele auf dieser Seite stammen aus einer echten Finca auf Mallorca, mitten im Ausbau. Echte Fotos sind als „echtes Foto“ markiert, alles Erzeugte als „KI-Visualisierung“.</p>
+    <div class="hero-cta">
+      <a class="wa js-wa" href="https://wa.me/4917632273522?text=Hallo%20Marvin%2C%20ich%20habe%20mir%20die%20ONYX-Studio-Beispiele%20angesehen%20und%20m%C3%B6chte%20das%20an%20einem%20eigenen%20Objekt%20sehen." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2l-.4-.2z"/></svg>Direkt per WhatsApp schreiben</a>
+      <small>Marvin Weiß-Drumm, Gründer – antwortet persönlich.</small>
+    </div>
+    <nav class="jump">
+      <a href="#zeitraffer">Zeitraffer</a><a href="#vorher-nachher">Vorher / Nachher</a><a href="#rundflug">Drohnenflug</a><a href="#website">Scroll-Website</a><a href="#kontakt">Demo-Termin</a>
+    </nav>
+  </div>
+
+  <section id="zeitraffer">
+    <span class="mono kicker">Zeitraffer</span>
+    <h2>Vom Rohbau zum fertigen Raum <span>in acht Sekunden.</span></h2>
+    <p class="sub">Aus einem echten Baustellenfoto und der fertigen Visualisierung entsteht ein Zeitraffer: Schutt verschwindet, Küche und Möbel kommen. Gemacht für Instagram, WhatsApp-Status und die Objekt-Website.</p>
+    <div class="videos">
+      <div class="vid"><span class="badge b-ki">KI-Visualisierung</span><video src="media/zeitraffer-innen.mp4" poster="media/zeitraffer-innen.jpg" autoplay muted loop playsinline controls preload="metadata"></video><div class="cap">Innen: Wohnbereich mit Küche</div></div>
+      <div class="vid"><span class="badge b-ki">KI-Visualisierung</span><video src="media/zeitraffer-aussen.mp4" poster="media/zeitraffer-aussen.jpg" autoplay muted loop playsinline controls preload="metadata"></video><div class="cap">Außen: Terrasse vor der Fassade</div></div>
+    </div>
+  </section>
+
+  <section id="vorher-nachher">
+    <span class="mono kicker">Vorher / Nachher</span>
+    <h2>Gleiches Haus. Gleiche Perspektive. <span>Einmal echt, einmal fertig gedacht.</span></h2>
+    <p class="sub">Ziehen Sie den Regler nach links und rechts. Links das unbearbeitete Handyfoto, rechts die Visualisierung von ONYX Studio.</p>
+    <div class="compare">
+      <div><div class="cmp"><img src="media/p1-vorher.jpg" alt="Wohnbereich im Ausbau, echtes Foto"><img class="after" src="media/p1-nachher.jpg" alt="Wohnbereich eingerichtet, KI-Visualisierung"><span class="badge b-echt">Echtes Foto</span><span class="badge b-ki">KI-Visualisierung</span><span class="handle"></span></div><p class="cmp-t">Wohnbereich mit Küche<small>Werkzeug raus, Sofa und Kücheninsel rein.</small></p></div>
+      <div><div class="cmp"><img src="media/p2-vorher.jpg" alt="Offener Raum im Ausbau, echtes Foto"><img class="after" src="media/p2-nachher.jpg" alt="Offener Raum mit Kochinsel, KI-Visualisierung"><span class="badge b-echt">Echtes Foto</span><span class="badge b-ki">KI-Visualisierung</span><span class="handle"></span></div><p class="cmp-t">Offener Raum mit Kochinsel<small>Wo heute Anschlüsse aus der Wand kommen, steht die Insel.</small></p></div>
+      <div><div class="cmp"><img src="media/p3-vorher.jpg" alt="Leeres Schlafzimmer, echtes Foto"><img class="after" src="media/p3-nachher.jpg" alt="Eingerichtetes Schlafzimmer, KI-Visualisierung"><span class="badge b-echt">Echtes Foto</span><span class="badge b-ki">KI-Visualisierung</span><span class="handle"></span></div><p class="cmp-t">Schlafzimmer mit Blick<small>Balken, Schiebetüren und Ausblick sind echt.</small></p></div>
+      <div><div class="cmp"><img src="media/p4-vorher.jpg" alt="Terrasse mit Schlauch, echtes Foto"><img class="after" src="media/p4-nachher.jpg" alt="Terrasse mit Lounge, KI-Visualisierung"><span class="badge b-echt">Echtes Foto</span><span class="badge b-ki">KI-Visualisierung</span><span class="handle"></span></div><p class="cmp-t">Terrasse &amp; Fassade<small>Das Haus bleibt, wie es ist. Ergänzt wird nur, was fehlt.</small></p></div>
+      <div><div class="cmp"><img src="media/p5-vorher.jpg" alt="Leerer Pool, echtes Foto"><img class="after" src="media/p5-nachher.jpg" alt="Gefüllter Pool, KI-Visualisierung"><span class="badge b-echt">Echtes Foto</span><span class="badge b-ki">KI-Visualisierung</span><span class="handle"></span></div><p class="cmp-t">Pool<small>Mit Wasser zeigt das Becken den Sommer.</small></p></div>
+    </div>
+  </section>
+
+  <section id="rundflug">
+    <span class="mono kicker">Drohnenflug durchs Haus</span>
+    <div class="flight">
+      <div class="vid"><span class="badge b-ki">KI-Visualisierung</span><video src="finca/assets/vuelo.mp4" poster="finca/assets/vuelo-poster.jpg" muted playsinline controls preload="none"></video></div>
+      <div>
+        <h2>Ein Rundflug von der Einfahrt <span>bis ins Schlafzimmer.</span></h2>
+        <p class="sub">Erzeugt aus normalen Handyfotos: kein Drohnenpilot, kein Flugtag, kein fertiges Haus nötig. 60 Sekunden durchs Tor, an der Fassade vorbei, durch Wohnraum und Küche bis ins Schlafzimmer und hinaus zum Pool.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="website">
+    <span class="mono kicker">3D-Scroll-Website pro Objekt</span>
+    <div class="card">
+      <h2>Beim Scrollen fliegt Ihr Käufer <span>durchs Haus.</span></h2>
+      <p class="sub" style="margin-bottom:0">Eine eigene Seite nur für dieses Objekt: oben der Flug, darunter die echten Fotos, Vorher/Nachher und die Eckdaten. Dieses Beispiel ist auf Spanisch, auf Wunsch auch auf Deutsch oder Englisch. Am besten auf dem Handy öffnen.</p>
+      <a class="btn" href="finca/">Beispiel-Website öffnen →</a>
+      <a class="btn ghost" href="ONYX-Studio-Infoblatt.pdf" download>Infoblatt als PDF</a>
+    </div>
+  </section>
+
+  <section id="kontakt" style="border-top:none">
+    <div class="cta">
+      <span class="mono kicker">Ihr nächster Schritt</span>
+      <h2>Sehen Sie es an Ihrem <span style="color:var(--amber)">eigenen Objekt.</span></h2>
+      <p class="sub" style="margin-bottom:0">15–20 Minuten per Videocall, unverbindlich. Schreiben Sie Marvin per WhatsApp zwei Terminvorschläge, und wenn Sie mögen, zwei, drei Handyfotos von einem aktuellen Rohbau.</p>
+      <a class="wa js-wa" href="https://wa.me/4917632273522?text=Hallo%20Marvin%2C%20ich%20habe%20mir%20die%20ONYX-Studio-Beispiele%20angesehen%20und%20m%C3%B6chte%20das%20an%20einem%20eigenen%20Objekt%20sehen." target="_blank" rel="noopener" style="margin-top:18px"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2l-.4-.2z"/></svg>Jetzt per WhatsApp schreiben</a>
+      <div class="contact">
+        <div><span class="mono">Am einfachsten</span><b><a class="js-wa" href="https://wa.me/4917632273522?text=Hallo%20Marvin%2C%20ich%20habe%20mir%20die%20ONYX-Studio-Beispiele%20angesehen%20und%20m%C3%B6chte%20das%20an%20einem%20eigenen%20Objekt%20sehen." target="_blank" rel="noopener">WhatsApp an Marvin</a></b></div>
+        <div><span class="mono">Telefon · Thorsten</span><b><a href="tel:+34607948476">+34 607 948 476</a></b></div>
+        <div><span class="mono">Demo mit</span><b>Marvin Weiß-Drumm, Gründer</b></div>
+      </div>
+    </div>
+  </section>
+</div>
+<a class="wa-float js-wa" href="https://wa.me/4917632273522?text=Hallo%20Marvin%2C%20ich%20habe%20mir%20die%20ONYX-Studio-Beispiele%20angesehen%20und%20m%C3%B6chte%20das%20an%20einem%20eigenen%20Objekt%20sehen." target="_blank" rel="noopener" aria-label="Per WhatsApp schreiben"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2l-.4-.2z"/></svg>WhatsApp</a>
+<footer>
+  <div class="wrap">
+    Alle als „KI-Visualisierung“ gekennzeichneten Bilder und Videos sind computergenerierte Darstellungen auf Basis echter Fotos und zeigen einen möglichen, nicht den tatsächlichen Zustand. Einrichtung und Bepflanzung sind beispielhaft.<br>
+    Onyx.AI · Marvin Weiß-Drumm · Landau in der Pfalz · <a href="/impressum">Impressum</a> · <a href="/datenschutz">Datenschutz</a>
+  </div>
+</footer>
+<script>
+  // Kommt jemand über die Anzeige (?utm_source=facebook / instagram), steht
+  // das gleich in der WhatsApp-Nachricht - so sieht Marvin, woher der Kontakt kam.
+  (function(){
+    var q = new URLSearchParams(location.search);
+    var quelle = (q.get('utm_source') || q.get('quelle') || '').toLowerCase();
+    if (!/facebook|instagram|fb|ig|meta/.test(quelle)) return;
+    var text = 'Hallo Marvin, ich komme über eure Anzeige und habe mir die ONYX-Studio-Beispiele angesehen. Ich möchte das an einem eigenen Objekt sehen.';
+    document.querySelectorAll('a.js-wa').forEach(function(a){
+      a.href = 'https://wa.me/4917632273522?text=' + encodeURIComponent(text);
+    });
+  })();
+  document.querySelectorAll('.cmp').forEach(function(box){
+    var after = box.querySelector('.after'), handle = box.querySelector('.handle'), active = false;
+    function set(x){
+      var r = box.getBoundingClientRect();
+      var p = Math.max(0, Math.min(100, (x - r.left) / r.width * 100));
+      after.style.clipPath = 'inset(0 0 0 ' + p + '%)';
+      handle.style.left = p + '%';
+    }
+    box.addEventListener('pointerdown', function(e){ active = true; set(e.clientX); });
+    window.addEventListener('pointermove', function(e){ if (active) set(e.clientX); });
+    window.addEventListener('pointerup', function(){ active = false; });
+  });
+</script>
+</body>
+</html>

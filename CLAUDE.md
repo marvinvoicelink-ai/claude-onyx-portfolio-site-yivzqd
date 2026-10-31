@@ -48,7 +48,7 @@ Absendung angenommen hat (`res.ok` in `handleSubmit` von `ContactSection`,
 `ContactModal`, `DemoSignupSection`). Ein abgebrochener Versuch oder ein Fehler
 zählt nicht.
 
-**Keine WhatsApp-Buttons** mehr auf der Seite (Marvin, 09/2026). An ihrer
+**Keine WhatsApp-Buttons** mehr auf der Seite (Marvin, 09/2026). Ausnahme: die Anzeigen-Zielseite `/beispiele/` (statisch in `onyx-3d/public/beispiele/`) hat WhatsApp-Knöpfe direkt an Marvin (Marvin, 10/2026). An ihrer
 Stelle steht „Infogespräch vereinbaren“: öffnet das Overlay mit Thema `info`
 (Telefonnummer Pflicht, Feld „erreichbar“ für die Wunschzeit).
 
