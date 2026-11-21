@@ -49,7 +49,7 @@ const TEXT: Record<
         kicker: "Infogespräch",
         heading: ["Vereinbare ein ", "Infogespräch", ""],
         intro:
-          "Trag dich ein — Marvin ruft dich persönlich an und klärt mit dir in rund 30 Minuten, ob und wie Onyx.AI dir helfen kann. Kostenlos und unverbindlich.",
+          "Trag dich ein — Marvin ruft dich persönlich an und klärt mit dir in rund 15 Minuten, ob und wie Onyx.AI dir helfen kann. Kostenlos und unverbindlich.",
         message: "Worum soll es gehen? (optional)",
         submit: "Infogespräch anfragen",
       },
@@ -115,7 +115,7 @@ const TEXT: Record<
         kicker: "Llamada informativa",
         heading: ["Reserva una ", "llamada informativa", ""],
         intro:
-          "Déjanos tus datos: Marvin te llama personalmente y en unos 30 minutos vemos si Onyx.AI puede ayudarte y cómo. Gratis y sin compromiso.",
+          "Déjanos tus datos: Marvin te llama personalmente y en unos 15 minutos vemos si Onyx.AI puede ayudarte y cómo. Gratis y sin compromiso.",
         message: "¿De qué quieres hablar? (opcional)",
         submit: "Solicitar llamada informativa",
       },
@@ -301,7 +301,7 @@ export default function ContactModal({ lang }: { lang: Lang }) {
             <p style={{ fontSize: 14.5, color: "var(--warm-grey-dim)", lineHeight: 1.6, marginBottom: 14 }}>{t.okNext}</p>
             <div className="flex flex-wrap gap-2.5">
               <a
-                href="https://calendly.com/onyx-ai/30min"
+                href="https://calendly.com/onyx-ai/15min"
                 target="_blank"
                 rel="noopener"
                 onClick={trackCalendlyClick}

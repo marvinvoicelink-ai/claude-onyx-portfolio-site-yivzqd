@@ -43,7 +43,7 @@ const TEXT: Record<
     or: "oder direkt",
     info: "Infogespräch vereinbaren",
     phoneLabel: "Telefon · Thorsten",
-    booking: "30 Min. Termin buchen",
+    booking: "15 Min. Termin buchen",
     phoneDisplay: "+34 607 948 476",
   },
   es: {
@@ -59,7 +59,7 @@ const TEXT: Record<
     or: "o directamente",
     info: "Reservar llamada informativa",
     phoneLabel: "Teléfono · Thorsten",
-    booking: "Reservar una cita de 30 min",
+    booking: "Reservar una cita de 15 min",
     phoneDisplay: "+34 607 948 476",
   },
 };
@@ -227,7 +227,7 @@ export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; bl
             {t.info}
           </button>
           <a
-            href="https://calendly.com/onyx-ai/30min"
+            href="https://calendly.com/onyx-ai/15min"
             target="_blank"
             rel="noopener"
             onClick={trackCalendlyClick}
