@@ -38,6 +38,33 @@ hostet selbst, nicht dass Onyx einen gebrandeten Link hostet.
 HausManager Pro ist Referenz/Beweis eines gebauten Systems, kein Produkt zum
 Kaufen.
 
+## Kernbotschaft Immobilien (verbindlich, Marvin 21.11.2026)
+Für alle Texte an Makler und Bauträger: Startseite, /beispiele, Outreach-Mail
+(CRM `lib/outreach/mail.ts`), Anzeigen, Instagram. Überall dasselbe sagen:
+
+1. **Objekt komplett zeigen, vom Rohbau bis fertig:** der Bau im Zeitraffer,
+   die Räume mit unserer KI fertig eingerichtet (auch wenn noch leer).
+2. **Eigene Website zum Durchgehen:** Käufer gehen am Handy durch jeden Raum
+   und sehen alle Daten (Fläche, Zimmer, Grundriss, Lage, Preis).
+3. **Anzeigen an Suchende:** Facebook- und Instagram-Anzeigen bringen die
+   Website zu Menschen, die gerade eine Immobilie suchen.
+4. **Darum mehr wert als ein Video:** Ein Video schaut man an, durch die Website
+   geht man selbst – wer danach anfragt, kennt das Objekt schon.
+
+Kurzform: „Vom Rohbau bis fertig eingerichtet: Käufer gehen am Handy durch
+jeden Raum und sehen alle Daten – auf einer eigenen Website pro Objekt.“
+Leitsatz Startseite: „Andere zeigen Bilder. Wir zeigen komplette Begehungen.“
+
+Grenzen der Aussage:
+- Nicht „ohne Besichtigung“ versprechen. Richtig: zur Besichtigung kommen
+  Käufer, die schon wissen, was sie erwartet.
+- Nicht behaupten, wir filtern Wohnungssuchende per Interessen heraus: Bei
+  Immobilienanzeigen schränkt Meta die Zielgruppen-Auswahl ein (Sonderkategorie
+  Wohnen). Die Anzeige selbst bringt die Suchenden, nicht ein Interessen-Filter.
+- Freies Herumlaufen „wie im Spiel“ erst bewerben, wenn eine Demo davon
+  existiert. Heute: Scroll-Website, durch die man Raum für Raum geht.
+- KI-Bilder immer als „KI-Visualisierung“ kennzeichnen.
+
 ## Kontakt & Tracking
 Kontaktformular (Netlify Forms) ist der primäre CTA seitenweit; jeder CTA-Button
 öffnet ein Formular-Overlay (`ContactModal`, `openContactForm(quelle, thema)`).
