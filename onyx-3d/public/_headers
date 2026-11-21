@@ -1,0 +1,8 @@
+/geo.json
+  Cache-Control: no-store
+/geo-es.json
+  Cache-Control: no-store
+# Bilder der Outreach-Mail: Mailprogramme laden sie direkt von hier.
+# Lange cachen, Dateinamen ändern statt Inhalt austauschen.
+/mail/*
+  Cache-Control: public, max-age=604800
