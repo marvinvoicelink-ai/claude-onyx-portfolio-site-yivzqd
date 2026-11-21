@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>ONYX Studio – Beispiele</title>
-<meta name="description" content="Vorher/Nachher, Zeitraffer, Drohnenflug und Scroll-Website: Beispiele von ONYX Studio an einer echten Finca auf Mallorca.">
+<meta name="description" content="Vorher/Nachher, Zeitraffer, Drohnenflug, Scroll-Website und Anzeigen: Beispiele von ONYX Studio an einer echten Finca auf Mallorca.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -86,6 +86,17 @@
   .feat li{color:var(--dim);font-size:16px;line-height:1.5;padding-left:22px;position:relative}
   .feat li::before{content:"›";position:absolute;left:4px;top:-1px;color:var(--amber);font-weight:700}
   .feat li b{color:var(--text);font-weight:600}
+  .ablauf{display:block;width:100%;max-width:760px;height:auto;border-radius:12px;border:1px solid var(--line);margin:4px 0 26px}
+  .vs{width:100%;border-collapse:collapse;margin-top:14px;font-size:15px;line-height:1.5}
+  .vs th,.vs td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  .vs th{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:500}
+  .vs th:last-child{color:var(--amber)}
+  .vs td:first-child{color:var(--dim);width:50%}
+  .vs td:last-child{color:var(--text)}
+  .vs td:last-child::before{content:"✓ ";color:var(--amber);font-weight:700}
+  .feat.zwei{grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media (max-width:720px){.feat.zwei{grid-template-columns:1fr}.vs th,.vs td{padding:10px 8px}}
+  .system{margin-top:22px;border-left:2px solid var(--amber);padding-left:16px;color:var(--text);max-width:70ch}
   @media (max-width:520px){header img{height:24px}.hphone b{font-size:15px}}
   @media (max-width:720px){.flight{grid-template-columns:1fr}.btn.ghost{margin-left:0}}
 </style>
@@ -108,7 +119,7 @@
       <small>Marvin Weiß-Drumm, Gründer – antwortet persönlich.</small>
     </div>
     <nav class="jump">
-      <a href="#zeitraffer">Zeitraffer</a><a href="#vorher-nachher">Vorher / Nachher</a><a href="#rundflug">Drohnenflug</a><a href="#website">Scroll-Website</a><a href="#software">Software</a><a href="#kontakt">Demo-Termin</a>
+      <a href="#zeitraffer">Zeitraffer</a><a href="#vorher-nachher">Vorher / Nachher</a><a href="#rundflug">Drohnenflug</a><a href="#website">Scroll-Website</a><a href="#anzeigen">Anzeigen</a><a href="#software">Software</a><a href="#kontakt">Demo-Termin</a>
     </nav>
   </div>
 
@@ -153,6 +164,46 @@
       <p class="sub" style="margin-bottom:0">Eine eigene Seite nur für dieses Objekt: oben der Flug, darunter die echten Fotos, Vorher/Nachher und die Eckdaten. Dieses Beispiel ist auf Spanisch, auf Wunsch auch auf Deutsch oder Englisch. Am besten auf dem Handy öffnen.</p>
       <a class="btn" href="finca/">Beispiel-Website öffnen →</a>
       <a class="btn ghost" href="ONYX-Studio-Infoblatt.pdf" download>Infoblatt als PDF</a>
+    </div>
+  </section>
+
+  <section id="anzeigen">
+    <span class="mono kicker">Anzeigen auf Ihre 3D-Website</span>
+    <h2>Wir bringen die Käufer auf die Seite – <span>und sie melden sich selbst.</span></h2>
+    <p class="sub">Wir schalten Anzeigen auf Instagram und Facebook, die direkt auf die 3D-Website Ihres Objekts führen – gezielt nach Region, Alter, Interessen und Kaufkraft. Wer sich für das Haus interessiert, trägt sich am Ende der Seite mit Namen und Telefonnummer ein. Die Anfrage landet sofort bei Ihnen.</p>
+    <img class="ablauf" src="media/anzeigen-ablauf.jpg" width="1120" height="620" loading="lazy" alt="Ablauf: 1. Anzeige im Feed, 2. 3D-Rundgang auf der Objekt-Website, 3. die Anfrage landet beim Makler (Beispiel)">
+    <div class="feat zwei">
+      <div class="card">
+        <h3><small>Vertrauen</small>Erst sehen, dann fragen</h3>
+        <ul><li>Wer 500.000 € oder 3 Millionen € ausgibt, will vorher wissen, worauf er sich einlässt. Der Rundgang beantwortet die ersten Fragen sofort – das schafft Vertrauen, bevor überhaupt jemand telefoniert.</li></ul>
+      </div>
+      <div class="card">
+        <h3><small>Emotion</small>Kopfkino statt Fotostrecke</h3>
+        <ul><li>Beim Flug durchs Haus stellt man sich unwillkürlich vor, dort zu wohnen. Diese Bindung entsteht bei einzelnen Fotos kaum – und wer sie spürt, will mehr: Grundriss, Preis, Besichtigung.</li></ul>
+      </div>
+      <div class="card">
+        <h3><small>Klarheit</small>Ein klarer nächster Schritt</h3>
+        <ul><li>Am Ende der Seite wartet genau ein Angebot: Exposé mit Grundriss anfordern oder Besichtigung anfragen. Kein Suchen, keine anderen Objekte daneben.</li></ul>
+      </div>
+      <div class="card">
+        <h3><small>Qualität</small>Ernsthafte statt neugierige Anfragen</h3>
+        <ul><li>Wer nach dem Rundgang noch anfragt, kennt das Objekt schon und will es wirklich. Weniger Besichtigungstouristen – gerade in höheren Preisklassen und bei Käufern aus dem Ausland, die nicht mal eben vorbeikommen.</li></ul>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:22px">
+      <h3 style="font-size:22px">Warum sich Käufer bei Ihnen melden – <span style="color:var(--amber)">und nicht beim nächsten Inserat.</span></h3>
+      <table class="vs">
+        <thead><tr><th>Normales Portal-Inserat</th><th>Ihre 3D-Website mit Anzeige</th></tr></thead>
+        <tbody>
+          <tr><td>Ihr Objekt steht zwischen Hunderten, die Konkurrenz direkt daneben.</td><td>Eine Seite nur für dieses Haus – nichts lenkt ab.</td></tr>
+          <tr><td>Ein paar Fotos, den Rest muss sich der Käufer zusammenreimen.</td><td>Der Flug durchs ganze Haus, von der Einfahrt bis zum Pool.</td></tr>
+          <tr><td>Käufer müssen das Objekt erst finden.</td><td>Die Anzeige bringt es zu Käufern, die zu Region, Budget und Interessen passen.</td></tr>
+          <tr><td>Viele Anfragen von Leuten, die nur schauen wollen.</td><td>Anfragen von Leuten, die das Haus schon gesehen haben – mit Name, Telefon und Wunsch.</td></tr>
+        </tbody>
+      </table>
+      <p class="system">Das ist unser selbst entwickeltes System, alles aus einer Hand: Sie schicken uns Handyfotos, wir machen daraus Zeitraffer, 3D-Website, Rundgang und Anzeigen. Das Werbebudget legen Sie selbst fest.</p>
+      <a class="btn" href="https://calendly.com/onyx-ai/30min?utm_source=beispiele&amp;utm_medium=website&amp;utm_campaign=anzeigen" target="_blank" rel="noopener">Anzeigen für Ihr Objekt besprechen – Termin wählen →</a>
     </div>
   </section>
 
