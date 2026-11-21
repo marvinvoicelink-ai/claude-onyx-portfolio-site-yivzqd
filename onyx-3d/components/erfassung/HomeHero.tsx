@@ -28,11 +28,11 @@ const TEXT: Record<
     h1: ["Andere zeigen Bilder. ", "Wir zeigen komplette Begehungen", "."],
     claim: "Vom Rohbau bis fertig eingerichtet: Käufer gehen am Handy durch jeden Raum und sehen alle Daten – auf einer eigenen Website pro Objekt.",
     intro:
-      "Statt nur ein Video anzuschauen, gehen Interessenten selbst durch dein Objekt – und wer dann anfragt, kennt es schon. Per Facebook- und Instagram-Anzeige kommt die Website zu Menschen, die gerade eine Immobilie suchen. Alles aus einer Hand, mit unserer eigenen Software ONYX\u00a0Studio.",
+      "Unsere Videos vom fertigen Haus laufen als Facebook- und Instagram-Anzeige bei Menschen, die gerade eine Immobilie suchen. Bewegte Bilder bleiben beim Scrollen hängen – die Anzeige wird viel genauer angeschaut, und wer klickt, geht selbst durch dein Objekt. Das bringt mehr Anfragen und mehr Verkäufe. Alles aus einer Hand, mit unserer eigenen Software ONYX\u00a0Studio.",
     audiences: [
       { title: "Vom Rohbau bis fertig", text: "Der Bau im Zeitraffer und die Räume mit KI fertig eingerichtet, auch wenn noch alles leer ist." },
       { title: "Durchgehen am Handy", text: "Eigene Website pro Objekt: jeden Raum ansehen, mit allen Daten von der Fläche bis zum Preis." },
-      { title: "Anzeigen an Suchende", text: "Facebook und Instagram bringen die Website zu Menschen, die gerade suchen. Anfragen gehen direkt an dich." },
+      { title: "Anzeigen, die man anschaut", text: "Unsere Videos laufen auf Facebook und Instagram bei Menschen, die gerade suchen, und werden viel genauer angeschaut als Fotos. Anfragen gehen direkt an dich." },
     ],
     cta: "Mit einem Objekt ausprobieren",
     info: "Infogespräch vereinbaren",
@@ -42,11 +42,11 @@ const TEXT: Record<
     h1: ["Otros muestran imágenes. ", "Nosotros, recorridos completos", "."],
     claim: "De la obra a la vivienda amueblada: los compradores recorren cada estancia desde el móvil y ven todos los datos, en una web propia para cada inmueble.",
     intro:
-      "En lugar de solo ver un vídeo, los interesados recorren tu inmueble por sí mismos, y quien pregunta después ya lo conoce. Con anuncios en Facebook e Instagram, la web llega a personas que están buscando vivienda. Todo de una sola mano, con nuestro propio software ONYX\u00a0Studio.",
+      "Nuestros vídeos de la casa terminada se publican como anuncios en Facebook e Instagram para personas que están buscando vivienda. Las imágenes en movimiento detienen el scroll: el anuncio se mira con mucha más atención, y quien hace clic recorre tu inmueble por sí mismo. Eso trae más solicitudes y más ventas. Todo de una sola mano, con nuestro propio software ONYX\u00a0Studio.",
     audiences: [
       { title: "De la obra al final", text: "La obra en timelapse y las estancias amuebladas con IA, aunque todavía esté todo vacío." },
       { title: "Recorrido en el móvil", text: "Web propia para cada inmueble: cada estancia, con todos los datos, de la superficie al precio." },
-      { title: "Anuncios a quien busca", text: "Facebook e Instagram llevan la web a personas que están buscando. Las solicitudes te llegan directamente." },
+      { title: "Anuncios que se miran", text: "Nuestros vídeos se publican en Facebook e Instagram para quien está buscando, y se miran con mucha más atención que las fotos. Las solicitudes te llegan directamente." },
     ],
     cta: "Probar con un inmueble",
     info: "Reservar llamada informativa",

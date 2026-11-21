@@ -24,12 +24,12 @@ const META: Record<Lang, { title: string; description: string }> = {
   de: {
     title: "ONYX Studio — Objekte komplett zeigen, für Makler & Bauträger",
     description:
-      "Andere zeigen Bilder, wir zeigen komplette Begehungen: vom Rohbau bis fertig eingerichtet, auf einer eigenen Website, durch die Käufer am Handy gehen und alle Daten sehen. Dazu Facebook- und Instagram-Anzeigen an Menschen, die gerade eine Immobilie suchen.",
+      "Andere zeigen Bilder, wir zeigen komplette Begehungen: vom Rohbau bis fertig eingerichtet, auf einer eigenen Website, durch die Käufer am Handy gehen und alle Daten sehen. Unsere Videos machen Facebook- und Instagram-Anzeigen sehenswert – für mehr Anfragen und mehr Verkäufe.",
   },
   es: {
     title: "ONYX Studio — Inmuebles mostrados por completo, para agencias y promotoras",
     description:
-      "Otros muestran imágenes, nosotros recorridos completos: de la obra a la vivienda amueblada, en una web propia que los compradores recorren desde el móvil con todos los datos. Además, anuncios en Facebook e Instagram para personas que están buscando vivienda.",
+      "Otros muestran imágenes, nosotros recorridos completos: de la obra a la vivienda amueblada, en una web propia que los compradores recorren desde el móvil con todos los datos. Nuestros vídeos hacen que los anuncios en Facebook e Instagram se miren de verdad: más solicitudes y más ventas.",
   },
 };
 
