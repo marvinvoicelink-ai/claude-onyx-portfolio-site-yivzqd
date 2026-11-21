@@ -42,9 +42,9 @@ const TEXT: Record<
     error: "Etwas ist schiefgelaufen. Schreib uns stattdessen an info@onyx-ai.de.",
     or: "oder direkt",
     info: "Infogespräch vereinbaren",
-    phoneLabel: "Telefon · Thorsten",
+    phoneLabel: "Telefon · Marvin",
     booking: "15 Min. Termin buchen",
-    phoneDisplay: "+34 607 948 476",
+    phoneDisplay: "+49 176 32273522",
   },
   es: {
     kicker: "Contacto",
@@ -58,9 +58,9 @@ const TEXT: Record<
     error: "Algo ha fallado. Escríbenos a info@onyx-ai.de.",
     or: "o directamente",
     info: "Reservar llamada informativa",
-    phoneLabel: "Teléfono · Thorsten",
+    phoneLabel: "Teléfono · Marvin",
     booking: "Reservar una cita de 15 min",
-    phoneDisplay: "+34 607 948 476",
+    phoneDisplay: "+49 176 32273522",
   },
 };
 
@@ -239,7 +239,7 @@ export default function ContactSection({ lang = "de", blatt }: { lang?: Lang; bl
         </div>
         <p className="mono mt-6" style={{ fontSize: 12.5, color: "var(--warm-grey-faint)" }}>
           {t.phoneLabel}{" "}
-          <a href="tel:+34607948476" style={{ color: "var(--amber)" }}>
+          <a href="tel:+4917632273522" style={{ color: "var(--amber)" }}>
             {t.phoneDisplay}
           </a>{" "}
           · info@onyx-ai.de
