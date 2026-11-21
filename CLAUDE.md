@@ -46,16 +46,23 @@ Für alle Texte an Makler und Bauträger: Startseite, /beispiele, Outreach-Mail
    die Räume mit unserer KI fertig eingerichtet (auch wenn noch leer).
 2. **Eigene Website zum Durchgehen:** Käufer gehen am Handy durch jeden Raum
    und sehen alle Daten (Fläche, Zimmer, Grundriss, Lage, Preis).
-3. **Anzeigen an Suchende:** Facebook- und Instagram-Anzeigen bringen die
-   Website zu Menschen, die gerade eine Immobilie suchen.
-4. **Darum mehr wert als ein Video:** Ein Video schaut man an, durch die Website
-   geht man selbst – wer danach anfragt, kennt das Objekt schon.
+3. **Unsere Videos machen die Anzeigen interessant:** Sie laufen als Facebook-
+   und Instagram-Anzeige bei Menschen, die gerade eine Immobilie suchen.
+   Bewegte Bilder vom fertigen Haus bleiben beim Scrollen hängen und werden
+   viel genauer angeschaut als Fotos. **Das bringt mehr Anfragen und mehr
+   Verkäufe** – diese Kette (Video → Aufmerksamkeit → Anfrage → Verkauf) muss
+   überall erkennbar sein.
+4. **Die Website ist mehr wert als ein Video:** Das Video in der Anzeige weckt
+   das Interesse, durch die Website geht man selbst – wer danach anfragt,
+   kennt das Objekt schon.
 
 Kurzform: „Vom Rohbau bis fertig eingerichtet: Käufer gehen am Handy durch
 jeden Raum und sehen alle Daten – auf einer eigenen Website pro Objekt.“
 Leitsatz Startseite: „Andere zeigen Bilder. Wir zeigen komplette Begehungen.“
 
 Grenzen der Aussage:
+- Keine Zahlen („3x mehr Anfragen“), bis es eigene Kampagnen-Zahlen gibt.
+  „Mehr Anfragen und mehr Verkäufe“ ja, „garantiert“ oder Prozente nein.
 - Nicht „ohne Besichtigung“ versprechen. Richtig: zur Besichtigung kommen
   Käufer, die schon wissen, was sie erwartet.
 - Nicht behaupten, wir filtern Wohnungssuchende per Interessen heraus: Bei
