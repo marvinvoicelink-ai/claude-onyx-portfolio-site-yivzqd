@@ -24,29 +24,29 @@ const TEXT: Record<
   }
 > = {
   de: {
-    kicker: "ONYX Studio für Makler & Bauträger · Balearen & Kanaren",
+    kicker: "ONYX Studio für Makler & Bauträger",
     h1: ["Andere zeigen Bilder. ", "Wir zeigen komplette Begehungen", "."],
-    claim: "Selbst bei unfertigen Bauten: mit Scroll-Through-3D-Videos, Zeitraffer-Videos und eigener Website pro Objekt. Mit nur einer Software: ONYX\u00a0Studio.",
+    claim: "Vom Rohbau bis fertig eingerichtet: Käufer gehen am Handy durch jeden Raum und sehen alle Daten – auf einer eigenen Website pro Objekt.",
     intro:
-      "ONYX Studio ist die Software für Makler und Bauträger auf den Inseln. Aus Fotos vom Rohbau oder Renovierungsobjekt werden fertig eingerichtete Räume und ein Drohnenflug durchs Haus, auf einer eigenen Website pro Objekt. Die Objektdaten sprichst du vor Ort ein, statt sie abends abzutippen.",
+      "Statt nur ein Video anzuschauen, gehen Interessenten selbst durch dein Objekt – und wer dann anfragt, kennt es schon. Per Facebook- und Instagram-Anzeige kommt die Website zu Menschen, die gerade eine Immobilie suchen. Alles aus einer Hand, mit unserer eigenen Software ONYX\u00a0Studio.",
     audiences: [
-      { title: "Bauträger", text: "Häuser schon im Rohbau fertig eingerichtet zeigen, mit Drohnenflug durchs Haus." },
-      { title: "Immobilienmakler", text: "Objekt einsprechen statt abtippen, daraus Exposé und eigene Rundflug-Website." },
-      { title: "Bauunternehmen", text: "Mängel und Abnahme mit Fotos erfassen, Protokoll direkt zum Unterschreiben." },
+      { title: "Vom Rohbau bis fertig", text: "Der Bau im Zeitraffer und die Räume mit KI fertig eingerichtet, auch wenn noch alles leer ist." },
+      { title: "Durchgehen am Handy", text: "Eigene Website pro Objekt: jeden Raum ansehen, mit allen Daten von der Fläche bis zum Preis." },
+      { title: "Anzeigen an Suchende", text: "Facebook und Instagram bringen die Website zu Menschen, die gerade suchen. Anfragen gehen direkt an dich." },
     ],
     cta: "Mit einem Objekt ausprobieren",
     info: "Infogespräch vereinbaren",
   },
   es: {
-    kicker: "ONYX Studio para agencias y promotoras · Baleares y Canarias",
+    kicker: "ONYX Studio para agencias y promotoras",
     h1: ["Otros muestran imágenes. ", "Nosotros, recorridos completos", "."],
-    claim: "Incluso en obras sin terminar: vídeos 3D con scroll, vídeos timelapse y web propia para cada inmueble. Con un solo software: ONYX\u00a0Studio.",
+    claim: "De la obra a la vivienda amueblada: los compradores recorren cada estancia desde el móvil y ven todos los datos, en una web propia para cada inmueble.",
     intro:
-      "ONYX Studio es el software para agencias inmobiliarias y promotoras en las islas. Las fotos de la obra o del inmueble a reformar se convierten en estancias terminadas y amuebladas y en un vuelo de dron por la casa, en una web propia para cada inmueble. Los datos los dictas in situ, en lugar de teclearlos por la noche.",
+      "En lugar de solo ver un vídeo, los interesados recorren tu inmueble por sí mismos, y quien pregunta después ya lo conoce. Con anuncios en Facebook e Instagram, la web llega a personas que están buscando vivienda. Todo de una sola mano, con nuestro propio software ONYX\u00a0Studio.",
     audiences: [
-      { title: "Promotoras", text: "Enseña las viviendas terminadas y amuebladas cuando aún están en obra, con vuelo de dron por la casa." },
-      { title: "Agentes inmobiliarios", text: "Dicta el inmueble en vez de teclearlo y obtén el dossier y una web propia con recorrido." },
-      { title: "Constructoras", text: "Registra defectos y la entrega con fotos, con un acta lista para firmar." },
+      { title: "De la obra al final", text: "La obra en timelapse y las estancias amuebladas con IA, aunque todavía esté todo vacío." },
+      { title: "Recorrido en el móvil", text: "Web propia para cada inmueble: cada estancia, con todos los datos, de la superficie al precio." },
+      { title: "Anuncios a quien busca", text: "Facebook e Instagram llevan la web a personas que están buscando. Las solicitudes te llegan directamente." },
     ],
     cta: "Probar con un inmueble",
     info: "Reservar llamada informativa",
@@ -54,11 +54,12 @@ const TEXT: Record<
 };
 
 /**
- * Startseiten-Hero: spricht direkt die Zielgruppe der Telefonakquise an,
- * Makler und Bauträger auf Balearen und Kanaren, mit ONYX Studio als Angebot
- * (fertige Ansicht aus dem Rohbau, Rundflug-Website, Einsprechen). Die
- * allgemeine "White-Label für jeden Mittelstandsbetrieb"-Botschaft bleibt
- * auf den Nebenseiten.
+ * Startseiten-Hero: spricht Makler und Bauträger an, mit der Kernbotschaft
+ * (Marvin, 21.11.2026, siehe CLAUDE.md): Objekt komplett zeigen, vom Rohbau
+ * bis fertig eingerichtet, eigene Website zum Durchgehen am Handy mit allen
+ * Daten, Anzeigen an Menschen, die gerade suchen. Die drei Karten sind die
+ * drei Teile dieses Angebots. Die allgemeine "White-Label für jeden
+ * Mittelstandsbetrieb"-Botschaft bleibt auf den Nebenseiten.
  */
 export default function HomeHero({ lang }: { lang: Lang }) {
   const [entered, setEntered] = useState(false);

@@ -22,14 +22,14 @@ import { ERFASSUNG_CTA, ERFASSUNG_FAQ } from "./erfassungShared";
 
 const META: Record<Lang, { title: string; description: string }> = {
   de: {
-    title: "ONYX Studio — Software für Makler & Bauträger auf den Inseln",
+    title: "ONYX Studio — Objekte komplett zeigen, für Makler & Bauträger",
     description:
-      "Andere zeigen Bilder, wir zeigen komplette Begehungen – selbst bei unfertigen Bauten: Scroll-Through-3D-Videos, Zeitraffer-Videos und fertig eingerichtete Räume auf einer eigenen Website pro Objekt. Für Makler und Bauträger auf Mallorca, den Balearen und Kanaren.",
+      "Andere zeigen Bilder, wir zeigen komplette Begehungen: vom Rohbau bis fertig eingerichtet, auf einer eigenen Website, durch die Käufer am Handy gehen und alle Daten sehen. Dazu Facebook- und Instagram-Anzeigen an Menschen, die gerade eine Immobilie suchen.",
   },
   es: {
-    title: "ONYX Studio — Software para agencias y promotoras en las islas",
+    title: "ONYX Studio — Inmuebles mostrados por completo, para agencias y promotoras",
     description:
-      "Otros muestran imágenes, nosotros recorridos completos, incluso en obras sin terminar: vídeos 3D con scroll, timelapse y estancias amuebladas en una web propia para cada inmueble. Para agencias y promotoras en Mallorca, Baleares y Canarias.",
+      "Otros muestran imágenes, nosotros recorridos completos: de la obra a la vivienda amueblada, en una web propia que los compradores recorren desde el móvil con todos los datos. Además, anuncios en Facebook e Instagram para personas que están buscando vivienda.",
   },
 };
 
