@@ -270,7 +270,7 @@ export default function DemoSignupSection({ lang = "de" }: { lang?: Lang }) {
               {status === "ok" && (
                 <div className="mt-4 flex flex-wrap gap-2.5">
                   <a
-                    href="https://calendly.com/onyx-ai/30min"
+                    href="https://calendly.com/onyx-ai/15min"
                     target="_blank"
                     rel="noopener"
                     onClick={trackCalendlyClick}

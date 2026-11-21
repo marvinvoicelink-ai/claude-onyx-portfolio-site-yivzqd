@@ -56,7 +56,7 @@ export default function Footer({ lang = "de" }: { lang?: Lang }) {
           >
             {t.cookies}
           </button>
-          <a href="https://calendly.com/onyx-ai/30min" target="_blank" rel="noopener" onClick={trackCalendlyClick} className="footer-link">
+          <a href="https://calendly.com/onyx-ai/15min" target="_blank" rel="noopener" onClick={trackCalendlyClick} className="footer-link">
             {t.booking}
           </a>
         </div>
