@@ -159,7 +159,7 @@ export default function HomeHero({ lang }: { lang: Lang }) {
           </TrackedCtaLink>
         </div>
 
-        <FlowSpine lang={lang} />
+        <FlowSpine lang={lang} immo />
       </div>
     </section>
   );

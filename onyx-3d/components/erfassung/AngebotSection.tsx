@@ -25,78 +25,72 @@ const TEXT: Record<
   }
 > = {
   de: {
-    kicker: "Was wir verkaufen",
-    heading: "Vier Leistungen. Einzeln buchbar oder alles aus einer Hand.",
+    kicker: "Was wir machen",
+    heading: "Vom Rohbau bis zur Anfrage. Alles aus einer Hand.",
     zeitraffer: {
-      titel: "Zeitraffer-Video",
-      text: "Vom leeren Grundstück bis zur fertigen Finca in einem Film: Aushub, Fundament, Rohbau, fertiges Haus. Für deine Website, Social Media und das Exposé. Aus Fotos deines Grundstücks oder Rohbaus.",
-      cta: "So ein Video für mein Projekt anfragen",
+      titel: "Vom Rohbau bis fertig – im Zeitraffer",
+      text: "Vom leeren Grundstück bis zum fertig eingerichteten Haus in einem Film: Aushub, Rohbau, Fassade, eingerichtete Räume. Aus Handyfotos deines Grundstücks oder Rohbaus – so verkaufst du schon, bevor das Haus steht.",
+      cta: "So ein Video für mein Objekt anfragen",
       aria: "Zeitraffer einer Finca auf Mallorca vom Grundstück bis zum fertigen Haus",
     },
     karten: [
       {
-        titel: "Scrollflug-Website",
-        text: "Eine eigene Website pro Objekt: Beim Scrollen fliegt die Kamera durchs fertige Haus. Per Link verschickt, auf dem Handy wie am Rechner.",
+        titel: "Mit KI fertig eingerichtet",
+        text: "Leere Räume und Baustellen werden zu fertig eingerichteten Zimmern. Fenster, Böden und Maße bleiben echt – jede Visualisierung ist gekennzeichnet, die echten Fotos stehen daneben.",
+        cta: "Mit einem Objekt ausprobieren",
+        topic: "objekt",
+        quelle: "Angebot-Einrichtung",
+      },
+      {
+        titel: "3D-Website zum Durchgehen",
+        text: "Eine eigene Website pro Objekt: Beim Scrollen geht der Käufer am Handy durch jeden Raum und sieht alle Daten – Fläche, Zimmer, Lage, Preis.",
         cta: "Website anfragen",
         topic: "scrollflug",
         quelle: "Angebot-Scrollflug",
         beispiel: "Beispiel ansehen ↗",
       },
       {
-        titel: "ONYX Studio – die Software",
-        text: "Die komplette Software für dein Büro. Ein Konto, alles drin:",
-        punkte: [
-          "Makler: Objekt einsprechen, Exposé und Scrollflug-Website daraus",
-          "Bauträger: Rohbau fertig eingerichtet zeigen, Zeitraffer, Verkaufsstand je Einheit",
-        ],
-        cta: "Mit einem Objekt ausprobieren",
+        titel: "Anzeigen, die man anschaut",
+        text: "Unsere Videos laufen als Facebook- und Instagram-Anzeige bei Menschen, die gerade eine Immobilie suchen – und führen direkt auf die 3D-Website.",
+        punkte: ["Läuft in deinem eigenen Werbekonto", "Das Budget legst du selbst fest", "Anfragen gehen direkt an dich"],
+        cta: "Anzeigen besprechen",
         topic: "objekt",
-        quelle: "Angebot-Software",
-      },
-      {
-        titel: "Software nach Maß",
-        text: "Für Bauunternehmen und Makler bauen wir eigene Software nach euren Abläufen: Portale, Dashboards, interne Werkzeuge. Fertig übergeben – Code und Daten gehören euch.",
-        cta: "Infogespräch vereinbaren",
-        topic: "info",
-        quelle: "Angebot-Individuell",
+        quelle: "Angebot-Anzeigen",
       },
     ],
   },
   es: {
-    kicker: "Lo que ofrecemos",
-    heading: "Cuatro servicios. Por separado o todo en uno.",
+    kicker: "Lo que hacemos",
+    heading: "De la obra a la consulta. Todo de una sola mano.",
     zeitraffer: {
-      titel: "Vídeo timelapse",
-      text: "Del terreno vacío a la finca terminada en un solo vídeo: excavación, cimientos, obra, casa terminada. Para tu web, redes sociales y el dossier. A partir de fotos de tu terreno o de la obra.",
-      cta: "Pedir un vídeo así para mi proyecto",
+      titel: "De la obra al final, en timelapse",
+      text: "Del terreno vacío a la casa amueblada en un solo vídeo: excavación, obra, fachada, estancias amuebladas. A partir de fotos del móvil de tu terreno o de la obra: así vendes antes de que la casa exista.",
+      cta: "Pedir un vídeo así para mi inmueble",
       aria: "Timelapse de una finca en Mallorca, del terreno a la casa terminada",
     },
     karten: [
       {
-        titel: "Web con vuelo por la casa",
-        text: "Una web propia para cada inmueble: al hacer scroll, la cámara recorre la casa terminada. Se envía por enlace y funciona en el móvil y en el ordenador.",
+        titel: "Amueblado con IA",
+        text: "Estancias vacías y obras se convierten en espacios amueblados. Ventanas, suelos y medidas siguen siendo reales: cada visualización está marcada y las fotos reales van al lado.",
+        cta: "Probar con un inmueble",
+        topic: "objekt",
+        quelle: "Angebot-Einrichtung",
+      },
+      {
+        titel: "Web 3D para recorrer",
+        text: "Una web propia para cada inmueble: al hacer scroll, el comprador recorre cada estancia desde el móvil y ve todos los datos: superficie, habitaciones, ubicación, precio.",
         cta: "Pedir la web",
         topic: "scrollflug",
         quelle: "Angebot-Scrollflug",
         beispiel: "Ver ejemplo ↗",
       },
       {
-        titel: "ONYX Studio – el software",
-        text: "El software completo para tu oficina. Una cuenta, todo incluido:",
-        punkte: [
-          "Agencias: dicta el inmueble y obtén el dossier y la web con vuelo",
-          "Promotoras: enseña la obra ya amueblada, timelapse y estado de venta por unidad",
-        ],
-        cta: "Probar con un inmueble",
+        titel: "Anuncios que se miran",
+        text: "Nuestros vídeos se publican como anuncios en Facebook e Instagram para personas que están buscando vivienda, y llevan directamente a la web 3D.",
+        punkte: ["En tu propia cuenta publicitaria", "El presupuesto lo decides tú", "Las consultas te llegan directamente"],
+        cta: "Hablar de anuncios",
         topic: "objekt",
-        quelle: "Angebot-Software",
-      },
-      {
-        titel: "Software a medida",
-        text: "Para constructoras y agencias desarrollamos software propio según vuestros procesos: portales, paneles, herramientas internas. Entregado por completo: el código y los datos son vuestros.",
-        cta: "Reservar llamada informativa",
-        topic: "info",
-        quelle: "Angebot-Individuell",
+        quelle: "Angebot-Anzeigen",
       },
     ],
   },
@@ -105,8 +99,9 @@ const TEXT: Record<
 const knopf = "inline-flex items-center gap-2 rounded-[10px] px-5 py-3 font-semibold";
 
 /**
- * Das Angebot direkt unter dem Hero: Zeitraffer-Video groß (mit dem echten
- * Film), darunter Scrollflug-Website, die Software und Software nach Maß.
+ * Das Angebot direkt unter dem Hero, nach der Kernbotschaft (CLAUDE.md):
+ * Zeitraffer groß (mit dem echten Film), darunter KI-Einrichtung,
+ * 3D-Website zum Durchgehen und Anzeigen.
  * Jeder Knopf öffnet das Anfrageformular mit passendem Thema.
  */
 export default function AngebotSection({ lang }: { lang: Lang }) {

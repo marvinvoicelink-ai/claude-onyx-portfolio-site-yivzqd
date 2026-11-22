@@ -56,6 +56,14 @@ Für alle Texte an Makler und Bauträger: Startseite, /beispiele, Outreach-Mail
    das Interesse, durch die Website geht man selbst – wer danach anfragt,
    kennt das Objekt schon.
 
+5. **Warum Anzeigen mit uns funktionieren (Abgrenzung, Marvin 22.11.2026):**
+   Die übliche Immobilienanzeige zeigt Fotos und schickt den Klick auf ein
+   Portal-Inserat. Bei uns hält schon das Video an, und der Klick landet auf
+   einer kompletten 3D-Scrollflug-Website nur für dieses Objekt – wer dort
+   durch jeden Raum gegangen ist, fragt ernsthaft an. Dazu: schon im Rohbau
+   verkaufen, alles aus einer Hand, Konto und Daten beim Kunden. Formulieren
+   als „die übliche Anzeige“, nicht als „nur wir“ (Startseite: `ImmoAnzeigen`).
+
 Kurzform: „Vom Rohbau bis fertig eingerichtet: Käufer gehen am Handy durch
 jeden Raum und sehen alle Daten – auf einer eigenen Website pro Objekt.“
 Leitsatz Startseite: „Andere zeigen Bilder. Wir zeigen komplette Begehungen.“
