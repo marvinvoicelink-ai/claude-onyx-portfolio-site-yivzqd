@@ -69,6 +69,10 @@ jeden Raum und sehen alle Daten – auf einer eigenen Website pro Objekt.“
 Leitsatz Startseite: „Andere zeigen Bilder. Wir zeigen komplette Begehungen.“
 
 Grenzen der Aussage:
+- **Preise nie öffentlich** (Marvin, 22.11.2026): keine Beträge auf Website,
+  /beispiele, Mail oder Infoblatt. Öffentlich nur „erstes Objekt geschenkt“,
+  „bezahlt wird pro Objekt“, „kein Abo“. Die Preisliste steht intern im CRM
+  (Skript & Preise, Produkte) und in Marvins Drive.
 - Keine Zahlen („3x mehr Anfragen“), bis es eigene Kampagnen-Zahlen gibt.
   „Mehr Anfragen und mehr Verkäufe“ ja, „garantiert“ oder Prozente nein.
 - Nicht „ohne Besichtigung“ versprechen. Richtig: zur Besichtigung kommen
