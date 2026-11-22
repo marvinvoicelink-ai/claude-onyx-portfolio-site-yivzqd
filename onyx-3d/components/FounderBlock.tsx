@@ -16,6 +16,8 @@ const TEXT: Record<
     p1: string;
     p2: string;
     p3: Record<Variant, string>;
+    /** Startseite (Objekt komplett zeigen + Anzeigen): ersetzt p2 und p3. */
+    immo: { p2: string; p3: string };
     cta: Record<Variant, string>;
     info: string;
   }
@@ -33,6 +35,10 @@ const TEXT: Record<
     },
     cta: { objekt: "Objekt ausprobieren", demo: "Kostenlose Demo sichern" },
     info: "Infogespräch vereinbaren",
+    immo: {
+      p2: "Ich habe zu oft gesehen, wie gute Objekte auf den Portalen untergehen – zwischen Hunderten anderen, mit ein paar Fotos. Deshalb zeige ich jedes Objekt komplett, vom Rohbau bis fertig eingerichtet, und bringe es per Anzeige zu Menschen, die gerade suchen. Video, Website und Anzeige aus einer Hand – und du redest immer mit mir.",
+      p3: "Schreib mir, und ich melde mich persönlich. Kein Verkaufsgespräch, kein Foliensatz — wir machen dein erstes Objekt fertig, vom Rohbau bis zur Website, und du entscheidest dann.",
+    },
   },
   es: {
     kicker: "Quién está detrás",
@@ -47,6 +53,10 @@ const TEXT: Record<
     },
     cta: { objekt: "Probar con un inmueble", demo: "Conseguir demo gratuita" },
     info: "Reservar llamada informativa",
+    immo: {
+      p2: "He visto demasiadas veces cómo buenos inmuebles se pierden en los portales, entre cientos de otros y con unas pocas fotos. Por eso muestro cada inmueble por completo, de la obra a la vivienda amueblada, y lo llevo con anuncios a personas que están buscando. Vídeo, web y anuncio de una sola mano, y siempre hablas conmigo.",
+      p3: "Escríbeme y te contacto personalmente. Sin discursos de venta ni presentaciones: preparamos tu primer inmueble, de la obra a la web, y después decides.",
+    },
   },
 };
 
@@ -57,7 +67,7 @@ const TEXT: Record<
  * der Block direkt vor dem Demo-Formular — Gesicht, Name, Ort, dann die
  * Bitte. Alle Angaben sind echt (Impressum), kein Team, kein Buero-Stockfoto.
  */
-export default function FounderBlock({ lang = "de", variant = "objekt" }: { lang?: Lang; variant?: Variant }) {
+export default function FounderBlock({ lang = "de", variant = "objekt", immo = false }: { lang?: Lang; variant?: Variant; immo?: boolean }) {
   const t = TEXT[lang];
   const pStyle = { color: "var(--warm-grey-dim)", fontSize: "1.04rem", lineHeight: 1.75, marginBottom: 12, maxWidth: "50ch" } as const;
   return (
@@ -93,8 +103,8 @@ export default function FounderBlock({ lang = "de", variant = "objekt" }: { lang
                 <span className="accent">{t.heading[1]}</span>
               </h2>
               <p style={pStyle}>{t.p1}</p>
-              <p style={pStyle}>{t.p2}</p>
-              <p style={{ ...pStyle, marginBottom: 24 }}>{t.p3[variant]}</p>
+              <p style={pStyle}>{immo ? t.immo.p2 : t.p2}</p>
+              <p style={{ ...pStyle, marginBottom: 24 }}>{immo ? t.immo.p3 : t.p3[variant]}</p>
               <div className="flex flex-wrap gap-3">
                 <button
                   type="button"

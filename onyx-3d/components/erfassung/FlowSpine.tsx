@@ -5,14 +5,20 @@ const STEPS: Record<Lang, string[]> = {
   es: ["Voz + vídeo", "Datos estructurados", "Esquema", "Documentación lista"],
 };
 
+/** Startseite (Objekt komplett zeigen + Anzeigen): vom Handyfoto bis zur Anfrage. */
+const STEPS_IMMO: Record<Lang, string[]> = {
+  de: ["Handyfotos", "Video", "3D-Website", "Anzeige", "Anfrage"],
+  es: ["Fotos del móvil", "Vídeo", "Web 3D", "Anuncio", "Consulta"],
+};
+
 /**
  * Wiederkehrender visueller Beleg für das Grundprinzip der Seite: aus dem
  * Rundgang werden nacheinander Daten, eine Zeichnung und Unterlagen. Bewusst
  * ohne Kartenrahmen und ohne Bewegung — nur eine leichte mono Kette, die auf
  * mehreren Sections auftaucht, statt einmalig groß erklärt zu werden.
  */
-export default function FlowSpine({ lang }: { lang: Lang }) {
-  const steps = STEPS[lang];
+export default function FlowSpine({ lang, immo = false }: { lang: Lang; immo?: boolean }) {
+  const steps = (immo ? STEPS_IMMO : STEPS)[lang];
   return (
     <div
       className="mono flex flex-wrap items-center justify-center"
