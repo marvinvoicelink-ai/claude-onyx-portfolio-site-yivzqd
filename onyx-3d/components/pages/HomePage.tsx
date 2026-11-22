@@ -6,7 +6,6 @@ import ImmoAnzeigen from "@/components/erfassung/ImmoAnzeigen";
 import ReferenzQuina from "@/components/erfassung/ReferenzQuina";
 import ErfassungRealCase from "@/components/erfassung/ErfassungRealCase";
 import ImmoAblauf from "@/components/erfassung/ImmoAblauf";
-import ImmoPakete from "@/components/erfassung/ImmoPakete";
 import { AliveFaq } from "@/components/alive/AliveChrome";
 import CTABanner from "@/components/CTABanner";
 import FounderBlock from "@/components/FounderBlock";
@@ -52,7 +51,6 @@ export default function HomePage({ lang }: { lang: Lang }) {
         <ReferenzQuina lang={lang} />
         <ErfassungRealCase lang={lang} />
         <ImmoAblauf lang={lang} />
-        <ImmoPakete lang={lang} />
         <FounderBlock lang={lang} variant="objekt" immo />
 
         <AliveFaq eyebrow={faq.eyebrow} heading={faq.heading} faqs={faq.items} />
