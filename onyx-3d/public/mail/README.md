@@ -9,7 +9,7 @@ leere Kästen. Neue Fassung = neuer Dateiname.
 - `vorher-nachher(-es).gif` – Wisch-Vergleich, Paare p1 und p5 aus beispiele/media
 - `scroll-website(-es).gif` – Flug durchs Haus im Handy (aus beispiele/finca/assets/vuelo.mp4)
 - `drohnen-rundgang.gif` – Drohnen-Rundgang im Querformat (aus generated/finca-scrollflug.mp4, Bilder ohne schwarze Ränder)
-- `anzeigen-ablauf.jpg` – Grafik Anzeige → 3D-Rundgang → Anfrage (auch auf /beispiele unter media/)
+- `anzeigen-ablauf(-es).jpg` – Grafik Anzeige → 3D-Rundgang → Anfrage (deutsch auch auf /beispiele unter media/)
 - `onyx-logo.png`, `quina-garcia.png`, `marvin.jpg` – Kopf, Referenz, Unterschrift
 
 Alle erzeugten Bilder sind als KI-Visualisierung gekennzeichnet.
