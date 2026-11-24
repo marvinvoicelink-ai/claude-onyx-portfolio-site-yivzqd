@@ -181,15 +181,39 @@ a{color:inherit}
 .karte360 p{color:rgba(245,242,236,.86);margin:0 0 24px}
 .karte360 .knopf-voll{background:var(--hell);color:var(--blau-tief)}
 
-.kontakt{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,6vw,80px);align-items:center}
+.kontakt{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(32px,6vw,80px);align-items:start}
+.anfrage{background:#fff;border:1px solid var(--linie);border-radius:18px;padding:clamp(22px,3vw,32px);display:grid;gap:16px}
+.feldreihe{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:560px){.feldreihe{grid-template-columns:1fr}}
+.feld{display:grid;gap:6px;font-size:13px;font-weight:600;color:var(--tinte-2);letter-spacing:.02em;border:0;margin:0;padding:0;min-width:0}
+.feld input,.feld textarea{font:400 16px/1.4 var(--sans);color:var(--tinte);background:var(--hell);border:1px solid var(--linie);border-radius:10px;padding:12px 14px;width:100%}
+.feld textarea{resize:vertical;min-height:110px}
+.feld input:focus,.feld textarea:focus{outline:none;border-color:var(--blau);box-shadow:0 0 0 3px rgba(12,60,133,.15)}
+.feld input[aria-invalid="true"]{border-color:#b3261e}
+.anliegen legend{margin-bottom:8px}
+.anliegen{display:flex;flex-wrap:wrap;gap:8px}
+.anliegen legend{width:100%}
+.anliegen label{cursor:pointer}
+.anliegen input{position:absolute;opacity:0;pointer-events:none}
+.anliegen span{display:inline-block;padding:9px 14px;border-radius:999px;border:1px solid var(--linie);font-weight:500;font-size:14px;color:var(--tinte);background:var(--hell);transition:background .2s,color .2s,border-color .2s}
+.anliegen input:checked + span{background:var(--blau);border-color:var(--blau);color:#fff}
+.anliegen input:focus-visible + span{outline:3px solid rgba(12,60,133,.35);outline-offset:2px}
+.anfrage .knopf{justify-self:start;padding:14px 26px;font-size:15px}
+.anfrage .knopf[disabled]{opacity:.6;cursor:wait;transform:none}
+.hinweis-klein{margin:0;font-size:12.5px;color:var(--tinte-2);line-height:1.5}
+.anfrage-status{margin:0;font-size:14px;color:#b3261e}
+.anfrage-status:empty{display:none}
+.anfrage-danke{background:#fff;border:1px solid var(--linie);border-left:4px solid var(--blau);border-radius:18px;padding:28px}
+.anfrage-danke p{margin:0;color:#36322c}
+.kontaktkarte .objektnr{margin:22px 0 0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.7)}
 @media (max-width:900px){.kontakt{grid-template-columns:1fr}}
 .kontaktkarte{background:var(--blau);color:#fff;border-radius:22px;padding:clamp(28px,4vw,44px)}
+@media (min-width:901px){.kontaktkarte{position:sticky;top:96px}}
 .kontaktkarte img{height:70px;width:auto;margin-bottom:22px}
 .kontaktkarte p{margin:0 0 6px;color:rgba(255,255,255,.85)}
 .kontaktkarte a.zeile{display:flex;align-items:center;gap:12px;text-decoration:none;font:600 22px/1.3 var(--serif);color:#fff;padding:10px 0;border-top:1px solid rgba(255,255,255,.2)}
 .kontaktkarte a.zeile:last-of-type{border-bottom:1px solid rgba(255,255,255,.2)}
 .kontaktkarte a.zeile svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.6;flex:none}
-.kontaktkarte .knopf{margin-top:24px;background:#fff;color:var(--blau-tief)}
 
 .fuss{background:var(--nacht);color:rgba(245,242,236,.7);font-size:13px;padding:48px var(--rand) calc(48px + env(safe-area-inset-bottom))}
 .fuss-innen{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr;gap:28px}
@@ -386,7 +410,32 @@ dialog.bild::backdrop{background:rgba(10,9,8,.94)}
       <div>
         <p class="ueberzeile">Besichtigung</p>
         <h2 id="h-kontakt">Sehen Sie sich die Finca vor Ort an</h2>
-        <p class="einleitung" style="margin-bottom:0">Sie kennen das Haus jetzt schon von innen. Bei der Besichtigung zeigen wir Ihnen alles Weitere: Grundstück, Stall, Technik und Unterlagen. Nennen Sie bei Ihrer Anfrage bitte die Objekt-Nr. 007 M.</p>
+        <p class="einleitung">Sie kennen das Haus jetzt schon von innen. Bei der Besichtigung zeigen wir Ihnen alles Weitere: Grundstück, Stall, Technik und Unterlagen.</p>
+
+        <form class="anfrage" id="anfrage" name="anfrage-007m" method="POST" action="/objekte/finca-son-carrio/?gesendet=1#kontakt" data-netlify="true" data-netlify-honeypot="bot-field" novalidate>
+          <input type="hidden" name="form-name" value="anfrage-007m">
+          <input type="hidden" name="objekt" value="007 M – Luxusfinca Sant Llorenç (de Haas &amp; Partner)">
+          <p class="sr-only"><label>Bitte leer lassen <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+          <div class="feldreihe">
+            <label class="feld"><span>Name *</span><input name="name" autocomplete="name" required></label>
+            <label class="feld"><span>Telefon</span><input name="telefon" type="tel" autocomplete="tel" inputmode="tel"></label>
+          </div>
+          <label class="feld"><span>E-Mail *</span><input name="email" type="email" autocomplete="email" required></label>
+          <fieldset class="feld anliegen">
+            <legend>Ihr Anliegen</legend>
+            <label><input type="radio" name="anliegen" value="Besichtigung" checked><span>Besichtigung</span></label>
+            <label><input type="radio" name="anliegen" value="Rückruf"><span>Rückruf</span></label>
+            <label><input type="radio" name="anliegen" value="Fragen zum Objekt"><span>Fragen zum Objekt</span></label>
+          </fieldset>
+          <label class="feld"><span>Nachricht</span><textarea name="nachricht" rows="4" placeholder="z. B. Wunschtermin, Fragen zur Vermietlizenz …"></textarea></label>
+          <button class="knopf knopf-voll" type="submit" id="anfrage-knopf">Anfrage senden</button>
+          <p class="hinweis-klein">Ihre Anfrage geht direkt an de Haas &amp; Partner Immobilien. Die Übermittlung läuft über unseren Dienstleister Netlify; mehr dazu in der <a href="/datenschutz">Datenschutzerklärung</a>.</p>
+          <p class="anfrage-status" id="anfrage-status" role="status" aria-live="polite"></p>
+        </form>
+        <div class="anfrage-danke" id="anfrage-danke" hidden>
+          <h3>Vielen Dank für Ihre Anfrage</h3>
+          <p>de Haas &amp; Partner Immobilien meldet sich in Kürze bei Ihnen. Eilt es, erreichen Sie das Büro direkt unter <a href="tel:+34971836972">+34 971 83 69 72</a>.</p>
+        </div>
       </div>
       <div class="kontaktkarte">
         <img src="img/logo-dehaas-hell.svg" alt="de Haas &amp; Partner Immobilien" width="128" height="70">
@@ -394,7 +443,7 @@ dialog.bild::backdrop{background:rgba(10,9,8,.94)}
         <p style="margin-bottom:18px">07540 Sant Llorenç des Cardassar · Mallorca</p>
         <a class="zeile" href="tel:+34971836972"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>+34 971 83 69 72</a>
         <a class="zeile" href="mailto:info@dehaas-immobilien.com?subject=Anfrage%20Objekt%20007%20M%20%E2%80%93%20Luxusfinca%20Sant%20Lloren%C3%A7"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>info@dehaas-immobilien.com</a>
-        <a class="knopf" href="mailto:info@dehaas-immobilien.com?subject=Besichtigung%20Objekt%20007%20M%20%E2%80%93%20Luxusfinca%20Sant%20Lloren%C3%A7&amp;body=Guten%20Tag%2C%0A%0Aich%20interessiere%20mich%20f%C3%BCr%20die%20Luxusfinca%20(Objekt-Nr.%20007%20M)%20und%20m%C3%B6chte%20gern%20einen%20Besichtigungstermin%20vereinbaren.%0A%0AMein%20Wunschtermin%3A%20%0AMeine%20Telefonnummer%3A%20%0A%0AViele%20Gr%C3%BC%C3%9Fe">Besichtigung per E-Mail anfragen</a>
+        <p class="objektnr">Objekt-Nr. 007 M</p>
       </div>
     </div>
   </section>
@@ -409,7 +458,7 @@ dialog.bild::backdrop{background:rgba(10,9,8,.94)}
     </div>
     <div>
       <p class="ki"><strong style="color:var(--hell)">KI-Hinweis:</strong> Die Kamerafahrten im Flug wurden mit KI aus den Originalfotos animiert. Architektur, Ausstattung und Möblierung entsprechen den Fotos; einzelne Details können in der Bewegung abweichen. Die Galerie zeigt unbearbeitete Originalfotos.</p>
-      <p>Website: <a href="https://onyx-ai.de" target="_blank" rel="noopener">ONYX Studio</a> · <a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a></p>
+      <p>Website: <a href="https://onyx-ai.de" target="_blank" rel="noopener">ONYX Studio</a> · <a href="/impressum">Impressum</a> · <a href="/datenschutz">Datenschutz</a></p>
     </div>
   </div>
 </footer>
@@ -638,6 +687,35 @@ dialog.bild::backdrop{background:rgba(10,9,8,.94)}
     });
     $("#filme").hidden = false;
   }
+
+  /* ---------- Anfrageformular (Netlify Forms) ---------- */
+  const form = $("#anfrage"), knopf = $("#anfrage-knopf"), status = $("#anfrage-status"), danke = $("#anfrage-danke");
+  const zeigeDanke = () => { form.hidden = true; danke.hidden = false; };
+  if (new URLSearchParams(location.search).has("gesendet")) zeigeDanke();
+  form.addEventListener("input", (e) => { e.target.removeAttribute("aria-invalid"); status.textContent = ""; });
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    status.textContent = "";
+    const pflicht = [form.elements.name, form.elements.email];
+    let ok = true;
+    for (const f of pflicht) {
+      const gueltig = f.value.trim() !== "" && f.checkValidity();
+      f.setAttribute("aria-invalid", gueltig ? "false" : "true");
+      if (!gueltig && ok) { f.focus(); ok = false; }
+    }
+    if (!ok) { status.textContent = "Bitte Name und eine gültige E-Mail-Adresse angeben."; return; }
+    knopf.disabled = true; knopf.textContent = "Wird gesendet …";
+    try {
+      const daten = new URLSearchParams(new FormData(form));
+      const res = await fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: daten.toString() });
+      if (!res.ok) throw new Error(String(res.status));
+      zeigeDanke();
+      danke.scrollIntoView({ behavior: ruhig ? "auto" : "smooth", block: "center" });
+    } catch {
+      status.innerHTML = 'Das hat leider nicht geklappt. Bitte rufen Sie an (<a href="tel:+34971836972">+34 971 83 69 72</a>) oder schreiben Sie an <a href="mailto:info@dehaas-immobilien.com">info@dehaas-immobilien.com</a>.';
+      knopf.disabled = false; knopf.textContent = "Anfrage senden";
+    }
+  });
 
   /* ---------- Galerie + Lightbox ---------- */
   const GALERIE = [
