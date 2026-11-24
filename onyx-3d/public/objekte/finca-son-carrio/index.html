@@ -490,12 +490,16 @@ dialog.bild::backdrop{background:rgba(10,9,8,.94)}
     const k = KAPITEL[i];
     if (!k || !k.frames || ruhig) return;
     if (frames[k.id] && frames[k.id].satz === satz) return;
-    const bilder = [];
-    for (let n = 1; n <= k.frames; n++) {
-      const img = new Image();
-      img.decoding = "async";
-      img.src = `f/${k.id}/${satz}/${String(n).padStart(4, "0")}.webp`;
-      bilder.push(img);
+    // Grob nach fein laden: erst jedes 8. Bild, dann die Lücken. So ist der Flug
+    // nach wenigen Bildern schon scrollbar und wird beim Weiterladen flüssiger.
+    const bilder = Array.from({ length: k.frames }, () => new Image());
+    const reihenfolge = [0, k.frames - 1]; // erstes und letztes Bild zuerst (Kettenübergang)
+    for (const schritt of [8, 4, 2, 1]) {
+      for (let n = 0; n < k.frames; n += schritt) if (!reihenfolge.includes(n)) reihenfolge.push(n);
+    }
+    for (const n of reihenfolge) {
+      bilder[n].decoding = "async";
+      bilder[n].src = `f/${k.id}/${satz}/${String(n + 1).padStart(4, "0")}.webp`;
     }
     frames[k.id] = { satz, bilder };
   }
