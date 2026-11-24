@@ -31,7 +31,7 @@
   --linie-hell:rgba(245,242,236,.16);
   --serif:"Cormorant",Georgia,"Times New Roman",serif;
   --sans:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --kapitel-hoehe:165vh;
+  --kapitel-hoehe:140vh;
   --rand:clamp(20px,5vw,64px);
 }
 *{box-sizing:border-box}
@@ -63,7 +63,7 @@ a{color:inherit}
 
 /* ---------- Flug ---------- */
 .flug{position:relative;background:var(--nacht)}
-.flug-bahn{height:calc(var(--kapitel-hoehe) * var(--anzahl, 11))}
+.flug-bahn{height:calc(var(--kapitel-hoehe) * var(--anzahl, 10))}
 .buehne{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--nacht)}
 .buehne canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .schleier{position:absolute;inset:0;pointer-events:none;
@@ -96,7 +96,7 @@ a{color:inherit}
 @keyframes tropfen{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 .ladebalken{position:absolute;left:0;top:0;height:2px;background:var(--sand);width:0;transition:width .3s,opacity .6s}
 @media (max-width:720px){
-  :root{--kapitel-hoehe:150vh}
+  :root{--kapitel-hoehe:125vh}
   .fortschritt{top:auto;bottom:calc(30px + env(safe-area-inset-bottom));right:var(--rand);transform:none;flex-direction:row;gap:5px}
   .fortschritt li span{display:none}
   .fortschritt li b{width:8px}
@@ -432,17 +432,17 @@ dialog.bild::backdrop{background:rgba(10,9,8,.94)}
      frames: Anzahl Einzelbilder in f/<id>/d und f/<id>/m (0 = noch kein Clip, dann ruhige Fahrt übers Foto)
      still:  Foto aus img/still, fx = horizontaler Bildschwerpunkt (0 links … 1 rechts) für Hochformat */
   const KAPITEL = [
-    { id:"00", still:"24", frames:0,  fx:.72, kurz:"Anflug",    augenbraue:"Sant Llorenç des Cardassar · Mallorca", titel:"Luxusfinca über Son Carrió", text:"16.156 m² in Alleinlage, Süd-West-Ausrichtung, freier Blick über das Land bis zur Kirche des Dorfes." },
-    { id:"01", still:"05", frames:0,  fx:.48, kurz:"Lage",      augenbraue:"Alleinlage",            titel:"Ruhe ringsum",           text:"Absolute Privatsphäre und trotzdem schnell am Meer: Cala Millor und Porto Cristo liegen ganz in der Nähe." },
-    { id:"02", still:"33", frames:0,  fx:.42, kurz:"Ankommen",  augenbraue:"Ankommen",              titel:"Naturstein und Bougainvillea", text:"Grüne Fensterläden, Zypressen, ein blühender Garten und eine hohe Holztür." },
-    { id:"03", still:"37", frames:52, fx:.45, kurz:"Wohnhalle", augenbraue:"Die Wohnhalle",         titel:"Fünf Meter Licht",       text:"Hohe Holzbalkendecke, Wohn- und Essbereich in einem Raum und große Fenster mit Blick ins Land." },
-    { id:"04", still:"12", frames:0,  fx:.55, kurz:"Kamin",     augenbraue:"Kamin & Wohnen",        titel:"Das Herz des Hauses",    text:"Der Kamin vor der Natursteinwand, dahinter öffnet sich die Küche." },
-    { id:"05", still:"34", frames:0,  fx:.40, kurz:"Küche",     augenbraue:"Die Küche",             titel:"Kochen mit Weitblick",   text:"Offene Küche mit Insel, voll ausgestattet, und direkt daneben die Terrasse." },
-    { id:"06", still:"36", frames:52, fx:.50, kurz:"Terrasse",  augenbraue:"Die Terrasse",          titel:"Draußen wohnen",         text:"70 m², teils überdacht, mit Lounge, Sommerküche und Blick auf den Pool." },
-    { id:"07", still:"26", frames:0,  fx:.45, kurz:"Pool",      augenbraue:"Der Pool",              titel:"Infinity über dem Land", text:"Beheizter Salzwasser-Infinity-Pool mit 40 m² und rund 100 m² Sonnenterrassen." },
-    { id:"08", still:"22", frames:0,  fx:.45, kurz:"Suiten",    augenbraue:"Die Schlafzimmer",      titel:"Vier Suiten mit Bad",    text:"Sechs Schlafzimmer insgesamt, vier davon an der Wohnhalle mit eigenem Bad en suite." },
-    { id:"09", still:"11", frames:52, fx:.55, kurz:"Sauna",     augenbraue:"Die Sauna",             titel:"Wärme mit Aussicht",     text:"Holzsauna im Garten, mit Panoramafenster ins Grüne." },
-    { id:"10", still:"02", frames:0,  fx:.50, kurz:"Abend",     augenbraue:"Am Abend",              titel:"Wenn die Sonne sinkt",   text:"Pool, Garten und Einfahrt leuchten, der Himmel über Son Carrió glüht.", ende:true }
+    // Durchgehender Drohnenflug: kette = nahtloser Übergang ins nächste Kapitel (Endbild = Startbild des nächsten Clips)
+    { id:"00", still:"24", frames:0,  fx:.72, kette:true, kurz:"Anflug",     augenbraue:"Sant Llorenç des Cardassar · Mallorca", titel:"Luxusfinca über Son Carrió", text:"16.156 m² in Alleinlage, Süd-West-Ausrichtung, freier Blick über das Land bis zur Kirche des Dorfes." },
+    { id:"01", still:"26", frames:0,  fx:.45, kette:true, kurz:"Überflug",   augenbraue:"Alleinlage",          titel:"Ruhe ringsum",            text:"Absolute Privatsphäre und trotzdem schnell am Meer: Cala Millor und Porto Cristo liegen ganz in der Nähe." },
+    { id:"02", still:"05", frames:0,  fx:.48, kette:true, kurz:"Ankommen",   augenbraue:"Ankommen",            titel:"Naturstein und Bougainvillea", text:"Grüne Fensterläden, Zypressen, ein blühender Garten und eine hohe Holztür." },
+    { id:"03", still:"33", frames:0,  fx:.42, kette:true, kurz:"Eingang",    augenbraue:"Die Wohnhalle",       titel:"Fünf Meter Licht",        text:"Durch die Holztür in die lichtdurchflutete Halle mit Holzbalkendecke und Blick ins Land." },
+    { id:"04", still:"37", frames:52, fx:.45, kette:true, kurz:"Wohnen",     augenbraue:"Wohnen & Küche",      titel:"Das Herz des Hauses",     text:"Kamin vor der Natursteinwand, ein langer Esstisch und dahinter die offene Küche mit Insel." },
+    { id:"05", still:"34", frames:0,  fx:.40, kette:true, kurz:"Terrasse",   augenbraue:"Die Terrasse",        titel:"Draußen wohnen",          text:"Große Schiebetüren, dahinter 70 m² Terrasse mit Lounge und Sommerküche." },
+    { id:"06", still:"36", frames:52, fx:.50,             kurz:"Pool",       augenbraue:"Der Pool",            titel:"Infinity über dem Land",  text:"Beheizter Salzwasser-Infinity-Pool mit 40 m² und rund 100 m² Sonnenterrassen." },
+    { id:"07", still:"11", frames:52, fx:.55,             kurz:"Sauna",      augenbraue:"Die Sauna",           titel:"Wärme mit Aussicht",      text:"Holzsauna im Garten, mit Panoramafenster ins Grüne." },
+    { id:"08", still:"22", frames:0,  fx:.45,             kurz:"Suiten",     augenbraue:"Die Schlafzimmer",    titel:"Vier Suiten mit Bad",     text:"Sechs Schlafzimmer insgesamt, vier davon an der Wohnhalle mit eigenem Bad en suite." },
+    { id:"09", still:"02", frames:0,  fx:.50,             kurz:"Abend",      augenbraue:"Am Abend",            titel:"Wenn die Sonne sinkt",    text:"Pool, Garten und Einfahrt leuchten, der Himmel über Son Carrió glüht.", ende:true }
   ];
 
   const $ = (s) => document.querySelector(s);
@@ -451,7 +451,12 @@ dialog.bild::backdrop{background:rgba(10,9,8,.94)}
   const hinweis = $("#scrollhinweis"), liste = $("#fortschritt"), ladebalken = $("#ladebalken"), kopf = $("#kopf");
   const ruhig = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const N = KAPITEL.length;
-  document.documentElement.style.setProperty("--anzahl", N);
+  // Scroll-Länge je Kapitel: ein 5-s-Clip (52 Bilder) = 1 Einheit, ein 10-s-Clip = 2, Foto = 1
+  const LAENGE = KAPITEL.map((k) => (k.frames ? k.frames / 52 : 1));
+  const GRENZE = LAENGE.reduce((a, l) => (a.push(a[a.length - 1] + l), a), [0]);
+  const SUMME = GRENZE[N];
+  document.documentElement.style.setProperty("--anzahl", SUMME);
+  const nahtlos = (i) => !!(KAPITEL[i] && KAPITEL[i].kette && KAPITEL[i].frames && KAPITEL[i + 1] && KAPITEL[i + 1].frames && !ruhig);
 
   /* Hochformat bekommt eigene, mittig zugeschnittene Einzelbilder */
   let satz = innerWidth / innerHeight < 0.9 ? "m" : "d";
@@ -467,7 +472,7 @@ dialog.bild::backdrop{background:rgba(10,9,8,.94)}
   function springeZu(i) {
     const start = bahn.getBoundingClientRect().top + scrollY;
     const gesamt = bahn.offsetHeight - innerHeight;
-    scrollTo({ top: start + gesamt * ((i + 0.3) / N), behavior: ruhig ? "auto" : "smooth" });
+    scrollTo({ top: start + gesamt * ((GRENZE[i] + LAENGE[i] * 0.3) / SUMME), behavior: ruhig ? "auto" : "smooth" });
   }
 
   /* ---------- Bilder laden ---------- */
@@ -514,11 +519,11 @@ dialog.bild::backdrop{background:rgba(10,9,8,.94)}
     ctx.drawImage(img, dx, dy, dw, dh);
     ctx.globalAlpha = 1;
   }
-  function zeichneKapitel(i, t) {
+  function zeichneKapitel(i, t, alpha = 1) {
     const k = KAPITEL[i];
     const f = frames[k.id];
     if (f && f.satz === satz && !ruhig) {
-      const pos = t * (k.frames - 1);
+      const pos = Math.min(t, 1) * (k.frames - 1);
       const a = Math.floor(pos), b = Math.min(a + 1, k.frames - 1), mix = pos - a;
       let A = f.bilder[a], B = f.bilder[b];
       if (!fertig(A)) { // nächstes geladenes Bild in der Nähe suchen
@@ -528,9 +533,8 @@ dialog.bild::backdrop{background:rgba(10,9,8,.94)}
         }
       }
       if (fertig(A)) {
-        const fxF = satz === "m" ? 0.5 : 0.5;
-        zeichneBild(A, fxF, 1, 1);
-        if (fertig(B) && B !== A && mix > 0.02) zeichneBild(B, fxF, 1, mix);
+        zeichneBild(A, 0.5, 1, alpha);
+        if (fertig(B) && B !== A && mix > 0.02) zeichneBild(B, 0.5, 1, mix * alpha);
         return;
       }
     }
@@ -538,7 +542,7 @@ dialog.bild::backdrop{background:rgba(10,9,8,.94)}
     if (fertig(s)) {
       const zoom = ruhig ? 1.02 : 1.03 + 0.09 * t;
       const fx = satz === "m" ? k.fx : 0.5;
-      zeichneBild(s, fx, zoom, 1);
+      zeichneBild(s, fx, zoom, alpha);
     }
   }
 
@@ -550,8 +554,10 @@ dialog.bild::backdrop{background:rgba(10,9,8,.94)}
     const r = bahn.getBoundingClientRect();
     const gesamt = bahn.offsetHeight - innerHeight;
     const p = Math.min(Math.max(-r.top / gesamt, 0), 0.99999);
-    const pos = p * N;
-    const i = Math.floor(pos), t = pos - i;
+    const u = p * SUMME;
+    let i = 0;
+    while (i < N - 1 && u >= GRENZE[i + 1]) i++;
+    const t = (u - GRENZE[i]) / LAENGE[i];
 
     if (i !== zuletzt) {
       const k = KAPITEL[i];
@@ -564,11 +570,11 @@ dialog.bild::backdrop{background:rgba(10,9,8,.94)}
       zuletzt = i;
     }
 
-    // Kapitelwechsel durch Abblenden maskieren (nicht am Anfang des ersten und am Ende des letzten Kapitels)
-    const rand = 0.14;
+    // Kapitelwechsel: in der Flugkette nahtlos, sonst durch Abblenden maskieren
+    const rand = Math.min(0.14 / LAENGE[i], 0.2);
     let o = 0;
-    if (t < rand && i > 0) o = 1 - glatt(t / rand);
-    else if (t > 1 - rand && i < N - 1) o = glatt((t - (1 - rand)) / rand);
+    if (t < rand && i > 0 && !nahtlos(i - 1)) o = 1 - glatt(t / rand);
+    else if (t > 1 - rand && i < N - 1 && !nahtlos(i)) o = glatt((t - (1 - rand)) / rand);
     blende.style.opacity = o.toFixed(3);
 
     // Text: einblenden, stehen lassen, ausblenden
@@ -582,6 +588,9 @@ dialog.bild::backdrop{background:rgba(10,9,8,.94)}
     hinweis.style.opacity = p < 0.02 ? 1 : 0;
 
     zeichneKapitel(i, t);
+    // Nahtloser Übergang: die letzten Bilder weich ins erste Bild des nächsten Clips überblenden
+    const ueber = 0.06 / LAENGE[i];
+    if (nahtlos(i) && t > 1 - ueber) zeichneKapitel(i + 1, 0, glatt((t - (1 - ueber)) / ueber));
 
     // Kopfzeile: über dem Flug hell auf dunkel, danach dunkel auf hell
     kopf.classList.toggle("hell", r.bottom <= 70);
