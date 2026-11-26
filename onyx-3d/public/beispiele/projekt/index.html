@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- Beispiel einer Projektseite für Bauträger (ONYX Studio). Projekt, Einheiten, Preise,
+     Termine und Lage sind ausgedacht. Bilder: KI-Visualisierungen (Zeitraffer, Typ B) und echte
+     Ausbau-Fotos einer Finca auf Mallorca mit KI-eingerichteten Gegenstücken (Typ A, aus /beispiele). -->
+<meta name="robots" content="noindex">
+<title>Residencial Ejemplo – Beispiel einer Projektseite</title>
+<meta name="description" content="Beispiel von ONYX Studio: So sieht eine Projektseite für Bauträger aus – Zeitraffer vom Grundstück bis fertig, Rundgang am Handy, alle Villen mit Verfügbarkeit, Bau-Updates.">
+<meta property="og:title" content="Residencial Ejemplo – Beispiel einer Projektseite für Bauträger">
+<meta property="og:description" content="Vom Grundstück bis fertig eingerichtet: Käufer gehen am Handy durch jede Villa und sehen alle Daten. Beispiel von ONYX Studio.">
+<meta property="og:image" content="https://onyx-ai.de/beispiele/projekt/img/bau-5.webp">
+<style>
+@font-face{font-family:C;src:url(fonts/cormorant.woff2) format("woff2");font-weight:300 700;font-display:swap}
+@font-face{font-family:C;src:url(fonts/cormorant-italic.woff2) format("woff2");font-style:italic;font-weight:300 700;font-display:swap}
+@font-face{font-family:M;src:url(fonts/manrope.woff2) format("woff2");font-weight:200 800;font-display:swap}
+:root{--sand:#f6f3ee;--sand2:#ece6dc;--ink:#1d1b18;--dim:#5d574e;--faint:#8b8378;--gold:#a8834f;--gold2:#c9a774;--dark:#121110;--line:#ddd5c8;--ok:#2f7d4f;--res:#b07a1e;--sold:#8b8378}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--sand);color:var(--ink);font:500 16px/1.6 M,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:C,Georgia,serif;font-weight:600;line-height:1.02;letter-spacing:-.01em}
+h2{font-size:clamp(34px,5vw,54px);margin-bottom:14px}
+h3{font-size:28px}
+.ueber{font:700 12px/1.2 M;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.lead{font-size:18px;color:var(--dim);max-width:640px}
+section.abschnitt{padding:96px 0}
+.ki{display:inline-block;font:700 10.5px/1 M;letter-spacing:.08em;text-transform:uppercase;padding:6px 9px;border-radius:999px;background:rgba(18,17,16,.62);color:#f6f3ee;border:1px solid rgba(246,243,238,.3)}
+/* Hinweisleiste */
+.beispiel{background:var(--dark);color:#e9e3d8;font-size:13px;line-height:1.45;padding:9px 0;text-align:center}
+.beispiel b{color:var(--gold2)}
+.beispiel a{color:var(--gold2);font-weight:700;text-decoration:none;white-space:nowrap}
+/* Kopf */
+.kopf{position:sticky;top:0;z-index:40;background:rgba(246,243,238,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.kopf .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:62px}
+.marke{font:600 24px/1 C;text-decoration:none;white-space:nowrap}
+.marke small{font:700 10px/1 M;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-left:8px;vertical-align:middle}
+.kopf nav{display:flex;gap:22px;font-size:14px;font-weight:600}
+.kopf nav a{text-decoration:none;color:var(--dim)}
+.kopf nav a:hover{color:var(--ink)}
+.knopf{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:700 14.5px/1 M;text-decoration:none;padding:14px 20px;border-radius:999px;background:var(--ink);color:var(--sand);border:0;cursor:pointer;white-space:nowrap}
+.knopf.hell{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.knopf.gold{background:var(--gold2);color:var(--dark)}
+.kopf .knopf .kurz{display:none}
+@media (max-width:860px){.kopf nav{display:none}}
+@media (max-width:520px){.kopf .knopf{padding:11px 14px;font-size:13px}.kopf .knopf .lang{display:none}.kopf .knopf .kurz{display:inline}.marke{font-size:21px}.marke small{display:none}}
+/* Hero */
+.hero{position:relative;min-height:min(88vh,820px);color:#f6f3ee;display:flex;align-items:flex-end;overflow:hidden;background:#2b2722}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,17,16,.15) 0%,rgba(18,17,16,.05) 40%,rgba(18,17,16,.78) 100%)}
+.hero .inhalt{position:relative;z-index:2;padding:0 20px 56px;max-width:1140px;margin:0 auto;width:100%;text-shadow:0 1px 18px rgba(0,0,0,.35)}
+.hero .ki{position:absolute;top:18px;right:20px;z-index:3}
+.hero h1{font-size:clamp(48px,8vw,96px);margin:6px 0 10px}
+.hero p.sub{font-size:19px;max-width:620px;color:rgba(246,243,238,.9)}
+.hero .ueber{color:var(--gold2)}
+.hero .aktionen{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.hero .knopf{background:var(--sand);color:var(--ink)}
+.hero .knopf.hell{background:transparent;color:var(--sand);border-color:rgba(246,243,238,.7)}
+.zeitbalken{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(246,243,238,.18);z-index:3}
+.zeitbalken i{display:block;height:100%;width:0;background:var(--gold2)}
+.etappe{position:absolute;left:20px;top:18px;z-index:3;font:700 12px/1 M;letter-spacing:.12em;text-transform:uppercase;background:rgba(18,17,16,.55);padding:8px 12px;border-radius:999px}
+/* Zahlen */
+.zahlen{background:var(--dark);color:var(--sand)}
+.zahlen .wrap{display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+.zahlen div{padding:24px 16px;border-left:1px solid rgba(246,243,238,.12)}
+.zahlen div:first-child{border-left:0}
+.zahlen dt{font:700 11px/1.2 M;letter-spacing:.14em;text-transform:uppercase;color:var(--gold2);margin-bottom:6px}
+.zahlen dd{font:600 30px/1 C}
+@media (max-width:860px){.zahlen .wrap{grid-template-columns:repeat(2,1fr)}.zahlen div{border-left:0;border-top:1px solid rgba(246,243,238,.12)}}
+/* Heute und fertig */
+.vergleich-raster{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px;align-items:center;margin-top:36px}
+@media (max-width:860px){.vergleich-raster{grid-template-columns:1fr;gap:24px}}
+.vergleich{position:relative;aspect-ratio:3/4;max-height:78vh;border-radius:14px;overflow:hidden;background:#ccc;user-select:none;touch-action:pan-y;cursor:ew-resize;margin:0 auto;width:100%}
+.vergleich img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vergleich .nachher{clip-path:inset(0 0 0 50%)}
+.vergleich .griff{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+.vergleich .griff::after{content:"‹ ›";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:#fff;color:var(--ink);font:700 18px/46px M;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.25)}
+.vergleich .schild{position:absolute;top:14px;z-index:2}
+.vergleich .schild.l{left:14px}.vergleich .schild.r{right:14px}
+.reiter{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}
+.reiter button{font:700 13px/1 M;padding:11px 14px;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--dim);cursor:pointer}
+.reiter button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--sand)}
+.hinweis{font-size:13px;color:var(--faint);margin-top:10px}
+/* Rundgang */
+.rundgang{position:relative;height:420vh;background:var(--dark);color:var(--sand);overflow:clip}
+.rundgang .fest{position:sticky;top:62px;height:calc(100vh - 62px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:48px;align-items:center;max-width:1140px;margin:0 auto;padding:24px 20px}
+.rundgang .text h2{color:var(--sand)}
+.rundgang .text .lead{color:rgba(246,243,238,.75)}
+.schritte{list-style:none;margin-top:26px;border-left:2px solid rgba(246,243,238,.15)}
+.schritte li{padding:9px 0 9px 18px;color:rgba(246,243,238,.45);font-weight:600;transition:color .3s}
+.schritte li.an{color:var(--sand)}
+.schritte li.an::before{content:"";position:absolute;margin:8px 0 0 -25px;width:12px;height:12px;border-radius:50%;background:var(--gold2)}
+.handy{position:relative;height:min(76vh,720px);aspect-ratio:9/16;border-radius:38px;padding:10px;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.handy video{width:100%;height:100%;object-fit:cover;border-radius:30px;background:#222}
+.handy .ki{position:absolute;top:26px;left:26px}
+.handy .pista{position:absolute;right:-16px;top:12%;bottom:12%;width:3px;background:rgba(246,243,238,.15);border-radius:2px}
+.handy .pista i{display:block;width:100%;height:0;background:var(--gold2);border-radius:2px}
+@media (max-width:860px){
+  .rundgang .fest{grid-template-columns:minmax(0,1fr);gap:14px;align-content:start;justify-items:center;padding-top:18px}
+  .rundgang .text{justify-self:stretch}
+  .handy .pista{right:8px}
+  .rundgang .text .lead,.schritte{display:none}
+  .rundgang .text h2{font-size:30px;margin:0}
+  .handy{height:calc(100vh - 62px - 120px);max-width:100%;margin:0 auto}
+}
+/* Villen */
+.filter{display:flex;align-items:center;gap:10px;margin:26px 0 14px;font-weight:600;color:var(--dim);font-size:14px}
+.filter input{width:18px;height:18px;accent-color:var(--ink)}
+table.villen{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 1px 0 var(--line)}
+.villen th{font:700 11px/1.2 M;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);text-align:left;padding:14px 16px;border-bottom:1px solid var(--line);background:#fbfaf7}
+.villen td{padding:16px;border-bottom:1px solid var(--line);vertical-align:middle}
+.villen tr:last-child td{border-bottom:0}
+.villen td.nr{font:600 24px/1 C}
+.villen .preis{font-weight:800;white-space:nowrap}
+.status{display:inline-flex;align-items:center;gap:7px;font:700 12.5px/1 M;white-space:nowrap}
+.status::before{content:"";width:9px;height:9px;border-radius:50%;background:currentColor}
+.status.frei{color:var(--ok)}.status.reserviert{color:var(--res)}.status.verkauft{color:var(--sold)}
+tr.verkauft td{color:var(--faint)}
+.villen .zeile-knopf{font:700 13px/1 M;padding:10px 14px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;cursor:pointer;color:var(--ink);white-space:nowrap}
+tr.verkauft .zeile-knopf{display:none}
+@media (max-width:760px){
+  table.villen,.villen tbody,.villen tr,.villen td{display:block;width:100%}
+  .villen thead{display:none}
+  .villen tr{border-bottom:1px solid var(--line);padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:4px 12px}
+  .villen td{border:0;padding:0}
+  .villen td[data-l]::before{content:attr(data-l) ": ";color:var(--faint);font-weight:600}
+  .villen td.nr{grid-column:1/2}
+  .villen td.st{grid-column:2/3;grid-row:1/2;text-align:right}
+  .villen td.ak{grid-column:1/3;margin-top:8px}
+}
+/* Haustypen */
+.typen{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:36px}
+@media (max-width:860px){.typen{grid-template-columns:1fr}}
+.typ{background:#fff;border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.typ .bild{position:relative;aspect-ratio:16/10;background:#ddd;overflow:hidden}
+.typ .bild img,.typ .bild video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.typ .bild .ki{position:absolute;top:12px;left:12px}
+.typ .inhalt{padding:22px 22px 24px;display:flex;flex-direction:column;gap:12px;flex:1}
+.fakten{display:flex;flex-wrap:wrap;gap:8px}
+.fakten span{font:700 12.5px/1 M;padding:8px 10px;border-radius:8px;background:var(--sand)}
+.grundriss{margin-top:4px;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fbfaf7}
+.grundriss .geschosse{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grundriss svg{width:100%;height:auto}
+@media (max-width:520px){.grundriss .geschosse{grid-template-columns:1fr}}
+.grundriss figcaption{font-size:12px;color:var(--faint);margin-top:6px}
+/* Bau-Updates */
+.updates{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:36px}
+@media (max-width:980px){.updates{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.updates{grid-template-columns:1fr}}
+.update{background:#fff;border-radius:14px;overflow:hidden}
+.update img{aspect-ratio:16/10;width:100%;object-fit:cover}
+.update div{padding:14px 14px 16px}
+.update time{font:700 11px/1 M;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.update h3{font-size:22px;margin:6px 0 4px}
+.update p{font-size:14px;color:var(--dim)}
+.update.geplant{border:1.5px dashed var(--gold2);background:transparent}
+/* Lage */
+.lage{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-top:30px}
+@media (max-width:860px){.lage{grid-template-columns:1fr}}
+.wege{list-style:none;background:#fff;border-radius:14px}
+.wege li{display:flex;justify-content:space-between;gap:12px;padding:15px 18px;border-bottom:1px solid var(--line);font-weight:600}
+.wege li:last-child{border-bottom:0}
+.wege li span:last-child{color:var(--dim);font-weight:700;white-space:nowrap}
+/* Anfrage */
+.anfrage{background:var(--sand2)}
+.formular{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px;max-width:760px}
+.formular label{display:flex;flex-direction:column;gap:6px;font:700 12px/1 M;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+.formular .breit{grid-column:1/3}
+.formular input,.formular select,.formular textarea{font:500 16px/1.4 M;padding:13px 14px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);text-transform:none;letter-spacing:0}
+.formular textarea{min-height:96px;resize:vertical}
+@media (max-width:620px){.formular{grid-template-columns:1fr}.formular .breit{grid-column:auto}}
+.danke{display:none;margin-top:22px;max-width:760px;background:#fff;border-left:4px solid var(--gold2);padding:18px 20px;border-radius:10px}
+.danke.an{display:block}
+/* ONYX */
+.onyx{background:var(--dark);color:var(--sand)}
+.onyx h2{color:var(--sand)}
+.onyx .lead{color:rgba(246,243,238,.75)}
+.liste{list-style:none;margin:26px 0;display:grid;grid-template-columns:1fr 1fr;gap:10px 28px;max-width:860px}
+@media (max-width:720px){.liste{grid-template-columns:1fr}}
+.liste li{padding-left:22px;position:relative;color:rgba(246,243,238,.88)}
+.liste li::before{content:"";position:absolute;left:0;top:9px;width:9px;height:9px;border-radius:50%;background:var(--gold2)}
+.onyx .aktionen{display:flex;flex-wrap:wrap;gap:12px}
+.onyx .knopf.hell{color:var(--sand);border-color:rgba(246,243,238,.6)}
+footer{background:var(--dark);color:rgba(246,243,238,.55);font-size:12.5px;line-height:1.6;padding:30px 0 40px;border-top:1px solid rgba(246,243,238,.1)}
+footer a{color:rgba(246,243,238,.75)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="beispiel">
+  <div class="wrap"><b>Beispielseite von ONYX Studio:</b> So sieht eine Projektseite für Bauträger aus. Projekt, Villen, Preise, Termine und Lage sind ausgedacht. <a href="#onyx">Für Ihr Projekt →</a></div>
+</div>
+
+<header class="kopf">
+  <div class="wrap">
+    <a class="marke" href="#">Residencial Ejemplo<small>Beispiel</small></a>
+    <nav aria-label="Abschnitte">
+      <a href="#fertig">Heute &amp; fertig</a>
+      <a href="#rundgang">Rundgang</a>
+      <a href="#villen">Villen</a>
+      <a href="#updates">Bau-Updates</a>
+      <a href="#lage">Lage</a>
+    </nav>
+    <a class="knopf" href="#anfrage"><span class="lang">Besichtigung anfragen</span><span class="kurz">Anfragen</span></a>
+  </div>
+</header>
+
+<!-- Hero: Zeitraffer vom Grundstück bis fertig (KI-Visualisierung) -->
+<section class="hero" aria-label="Zeitraffer vom Grundstück bis zur fertigen Villa">
+  <video id="hero-video" autoplay muted loop playsinline preload="metadata" poster="img/hero-poster.webp">
+    <source src="media/hero.mp4" type="video/mp4">
+  </video>
+  <span class="etappe" id="etappe">Grundstück</span>
+  <span class="ki">KI-Visualisierung</span>
+  <div class="inhalt">
+    <p class="ueber">6 Villen mit Pool · Ostküste Mallorca</p>
+    <h1>Residencial Ejemplo</h1>
+    <p class="sub">Vom Grundstück bis fertig eingerichtet: Gehen Sie schon heute am Handy durch Ihre Villa – lange bevor sie steht.</p>
+    <div class="aktionen">
+      <a class="knopf" href="#villen">Verfügbare Villen</a>
+      <a class="knopf hell" href="#rundgang">Durch die Villa gehen</a>
+    </div>
+  </div>
+  <div class="zeitbalken"><i id="zeitbalken"></i></div>
+</section>
+
+<dl class="zahlen">
+  <div class="wrap">
+    <div><dt>Villen</dt><dd>6</dd></div>
+    <div><dt>Haustypen</dt><dd>2</dd></div>
+    <div><dt>Verfügbar</dt><dd id="z-frei">3</dd></div>
+    <div><dt>Übergabe</dt><dd>Herbst 2027</dd></div>
+    <div><dt>Verfügbar ab</dt><dd id="z-ab">1.210.000 €</dd></div>
+  </div>
+</dl>
+
+<!-- Heute und fertig -->
+<section class="abschnitt" id="fertig">
+  <div class="wrap">
+    <p class="ueber">Heute &amp; fertig</p>
+    <h2>So sieht es heute aus –<br>so wird es.</h2>
+    <div class="vergleich-raster">
+      <div>
+        <div class="vergleich" id="vergleich" role="img" aria-label="Vergleich: Foto von heute und KI-Visualisierung fertig eingerichtet">
+          <img class="vorher" id="v-vorher" src="../media/p1-vorher.jpg" alt="Foto von heute, unbearbeitet" draggable="false">
+          <img class="nachher" id="v-nachher" src="../media/p1-nachher.jpg" alt="KI-Visualisierung: fertig eingerichtet" draggable="false">
+          <span class="ki schild l">Foto von heute</span>
+          <span class="ki schild r">KI-Visualisierung</span>
+          <div class="griff" id="griff"></div>
+        </div>
+      </div>
+      <div>
+        <p class="lead">Leere Räume und Baustellen verkaufen sich schwer. Hier sehen Käufer beides: das echte Foto von heute und daneben, wie der Raum fertig eingerichtet aussieht. Ziehen Sie den Regler.</p>
+        <div class="reiter" id="reiter" role="group" aria-label="Raum wählen">
+          <button type="button" data-p="1" aria-pressed="true">Wohnen</button>
+          <button type="button" data-p="2">Wohnen &amp; Küche</button>
+          <button type="button" data-p="3">Schlafzimmer</button>
+          <button type="button" data-p="4">Terrasse</button>
+          <button type="button" data-p="5">Pool</button>
+        </div>
+        <p class="hinweis">Links das unbearbeitete Foto, rechts eine KI-Visualisierung. Sie zeigt einen möglichen, nicht den tatsächlichen Zustand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Rundgang: Scroll steuert das Video -->
+<section class="rundgang" id="rundgang" aria-label="Rundgang durch Haustyp A">
+  <div class="fest">
+    <div class="text">
+      <p class="ueber" style="color:var(--gold2)">Rundgang · Haustyp A</p>
+      <h2>Einfach weiterscrollen –<br>Sie gehen durch die Villa.</h2>
+      <p class="lead">Vom Tor über den Weg zum Pool, dann ins Haus: Wohnen, Küche mit Insel, Treppe, Schlafzimmer. So erleben Käufer jede Villa am Handy, bevor sie anreisen.</p>
+      <ol class="schritte" id="schritte">
+        <li data-ab="0">Tor &amp; Zufahrt</li>
+        <li data-ab=".2">Garten &amp; Pool</li>
+        <li data-ab=".42">Wohnen</li>
+        <li data-ab=".62">Küche mit Insel</li>
+        <li data-ab=".82">Obergeschoss &amp; Schlafzimmer</li>
+      </ol>
+    </div>
+    <div class="handy">
+      <video id="rundgang-video" muted playsinline preload="auto" poster="../finca/assets/vuelo-poster.jpg">
+        <source src="../finca/assets/vuelo.mp4" type="video/mp4">
+      </video>
+      <span class="ki">KI-animiert aus Fotos</span>
+      <div class="pista"><i id="rundgang-balken"></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- Villen mit Verfügbarkeit -->
+<section class="abschnitt" id="villen">
+  <div class="wrap">
+    <p class="ueber">Die Villen</p>
+    <h2>Alle Einheiten, aktueller Stand.</h2>
+    <p class="lead">Verfügbarkeit, Fläche, Grundstück und Preis auf einen Blick. Der Bauträger pflegt den Stand selbst – verkauft ist verkauft, ohne neue Exposés.</p>
+    <label class="filter"><input type="checkbox" id="nur-frei"> Nur verfügbare Villen zeigen</label>
+    <table class="villen" id="villen-tabelle">
+      <thead><tr><th>Villa</th><th>Typ</th><th>Grundstück</th><th>Wohnfläche</th><th>Zimmer</th><th>Preis</th><th>Status</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <p class="hinweis">Alle Angaben in diesem Beispiel sind ausgedacht.</p>
+  </div>
+</section>
+
+<!-- Haustypen -->
+<section class="abschnitt" id="typen" style="padding-top:0">
+  <div class="wrap">
+    <p class="ueber">Haustypen</p>
+    <h2>Zwei Typen, jeder zum Durchgehen.</h2>
+    <div class="typen">
+      <article class="typ">
+        <div class="bild"><img src="img/typ-a.webp" alt="Haustyp A: zweigeschossige Natursteinvilla mit eingerichteter Terrasse (KI-Visualisierung)" loading="lazy"><span class="ki">KI-Visualisierung</span></div>
+        <div class="inhalt">
+          <h3>Typ A · Natursteinvilla</h3>
+          <div class="fakten"><span>2 Geschosse</span><span>210 m² Wohnfläche</span><span>4 Schlafzimmer</span><span>3 Bäder</span><span>Pool 10 × 4 m</span></div>
+          <p class="lead" style="font-size:15px">Offener Wohn- und Essbereich mit Küche zur Terrasse, Schlafzimmer oben mit Blick über das Land. Villen 1 bis 4.</p>
+          <figure class="grundriss">
+            <div class="geschosse">
+              <svg viewBox="0 0 254 228" role="img" aria-label="Grundriss-Schema Typ A, Erdgeschoss">
+                <g font-family="Manrope, sans-serif" font-size="11" font-weight="700" fill="#5d574e">
+                  <text x="2" y="12" fill="#a8834f" letter-spacing="1.5">ERDGESCHOSS</text>
+                  <g fill="none" stroke="#1d1b18" stroke-width="2.2"><rect x="2" y="22" width="250" height="200"/><line x1="152" y1="22" x2="152" y2="222"/><line x1="152" y1="122" x2="252" y2="122"/><line x1="2" y1="150" x2="152" y2="150"/></g>
+                  <text x="18" y="88">Wohnen / Essen</text><text x="18" y="104" font-weight="500">58 m²</text>
+                  <text x="166" y="66">Küche</text><text x="166" y="82" font-weight="500">18 m²</text>
+                  <text x="166" y="168">Schlafzimmer</text><text x="166" y="184" font-weight="500">16 m²</text>
+                  <text x="18" y="186">Bad · Abstellraum</text>
+                </g>
+              </svg>
+              <svg viewBox="0 0 254 228" role="img" aria-label="Grundriss-Schema Typ A, Obergeschoss">
+                <g font-family="Manrope, sans-serif" font-size="11" font-weight="700" fill="#5d574e">
+                  <text x="2" y="12" fill="#a8834f" letter-spacing="1.5">OBERGESCHOSS</text>
+                  <g fill="none" stroke="#1d1b18" stroke-width="2.2"><rect x="2" y="22" width="250" height="200"/><line x1="132" y1="22" x2="132" y2="222"/><line x1="2" y1="140" x2="132" y2="140"/><line x1="132" y1="110" x2="252" y2="110"/></g>
+                  <text x="16" y="78">Master</text><text x="16" y="94" font-weight="500">24 m² + Bad</text>
+                  <text x="16" y="180">Schlafzimmer</text><text x="16" y="196" font-weight="500">15 m²</text>
+                  <text x="146" y="64">Schlafzimmer</text><text x="146" y="80" font-weight="500">15 m²</text>
+                  <text x="146" y="168">Bad</text><text x="146" y="184" font-weight="500">+ Balkon</text>
+                </g>
+              </svg>
+            </div>
+            <figcaption>Schema zur Orientierung (Beispiel) – auf der echten Seite der Grundriss des Architekten.</figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="typ">
+        <div class="bild">
+          <video muted loop playsinline preload="none" poster="img/bau-5.webp" id="typ-b-video"><source src="media/hero.mp4" type="video/mp4"></video>
+          <span class="ki">KI-Visualisierung</span>
+        </div>
+        <div class="inhalt">
+          <h3>Typ B · Eingeschossige Villa</h3>
+          <div class="fakten"><span>1 Geschoss</span><span>165 m² Wohnfläche</span><span>3 Schlafzimmer</span><span>2 Bäder</span><span>Pool 8 × 4 m</span></div>
+          <p class="lead" style="font-size:15px">Alles auf einer Ebene, große Fensterfront zum Garten, Patio mit Olivenbaum. Villen 5 und 6. Das Video zeigt den Bau vom Grundstück bis zur fertigen Villa.</p>
+          <button class="knopf hell" type="button" id="typ-b-start" style="align-self:flex-start">▶ Zeitraffer abspielen</button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Bau-Updates -->
+<section class="abschnitt" id="updates" style="background:#fff">
+  <div class="wrap">
+    <p class="ueber">Bau-Updates</p>
+    <h2>Jeden Monat ein neuer Stand.</h2>
+    <p class="lead">Wer reserviert hat, sieht hier, wie sein Haus wächst. Und jedes Update ist neues Material für die Anzeige.</p>
+    <div class="updates">
+      <article class="update"><img src="img/bau-1.webp" alt="Grundstück mit Absteckung (KI-Visualisierung)" loading="lazy"><div><time>Februar 2026</time><h3>Absteckung</h3><p>Baugenehmigung da, die Villen 5 und 6 sind abgesteckt.</p></div></article>
+      <article class="update"><img src="img/bau-2.webp" alt="Fundament mit Bewehrung (KI-Visualisierung)" loading="lazy"><div><time>April 2026</time><h3>Fundament</h3><p>Bewehrung und Fundament sind fertig.</p></div></article>
+      <article class="update"><img src="img/bau-3.webp" alt="Rohbau mit Dachkonstruktion (KI-Visualisierung)" loading="lazy"><div><time>Juli 2026</time><h3>Rohbau</h3><p>Mauern stehen, das Dach wird aufgesetzt.</p></div></article>
+      <article class="update"><img src="img/bau-4.webp" alt="Fassade mit Naturstein (KI-Visualisierung)" loading="lazy"><div><time>November 2026</time><h3>Fassade</h3><p>Naturstein, Fenster und Dach sind fertig.</p></div></article>
+      <article class="update geplant"><img src="img/bau-5.webp" alt="Fertige Villa mit Garten (KI-Visualisierung)" loading="lazy"><div><time>Herbst 2027 · geplant</time><h3>Übergabe</h3><p>Garten, Pool und Einrichtung – so wird es.</p></div></article>
+    </div>
+    <p class="hinweis">Beispiel-Updates: Termine ausgedacht, Bilder als KI-Visualisierung.</p>
+  </div>
+</section>
+
+<!-- Lage -->
+<section class="abschnitt" id="lage">
+  <div class="wrap">
+    <p class="ueber">Lage</p>
+    <h2>Ruhig gelegen, schnell am Meer.</h2>
+    <div class="lage">
+      <p class="lead">Am Rand eines Dorfes im Osten Mallorcas, zwischen Olivenhainen, mit Blick über das Land. Auf der echten Seite stehen hier Karte, Umgebung und Wege – mit den Angaben des Bauträgers.</p>
+      <ul class="wege">
+        <li><span>Strand</span><span>10 Min.</span></li>
+        <li><span>Dorfzentrum, Bäcker, Markt</span><span>5 Min.</span></li>
+        <li><span>Golfplatz</span><span>15 Min.</span></li>
+        <li><span>Flughafen Palma</span><span>55 Min.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Anfrage (Beispiel, sendet nichts) -->
+<section class="abschnitt anfrage" id="anfrage">
+  <div class="wrap">
+    <p class="ueber">Anfrage</p>
+    <h2>Besichtigung anfragen.</h2>
+    <p class="lead">Die Anfrage geht direkt an das Vertriebsteam des Bauträgers – mit der Villa, für die sich der Käufer interessiert.</p>
+    <form class="formular" id="formular" novalidate>
+      <label>Name<input name="name" autocomplete="name" required></label>
+      <label>Telefon<input name="telefon" type="tel" autocomplete="tel"></label>
+      <label class="breit">E-Mail<input name="email" type="email" autocomplete="email"></label>
+      <label class="breit">Villa<select name="villa" id="villa-wahl"><option value="">Noch offen</option></select></label>
+      <label class="breit">Nachricht<textarea name="nachricht" placeholder="Wann passt Ihnen eine Besichtigung?"></textarea></label>
+      <div class="breit"><button class="knopf" type="submit">Anfrage senden</button></div>
+    </form>
+    <div class="danke" id="danke" role="status">
+      <b>Beispiel – hier wird nichts verschickt.</b><br>
+      Auf Ihrer Projektseite landet diese Anfrage sofort bei Ihrem Vertrieb, mit Name, Telefon und der gewählten Villa. Wer so anfragt, ist schon durch das Haus gegangen.
+    </div>
+  </div>
+</section>
+
+<!-- ONYX: für Bauträger -->
+<section class="abschnitt onyx" id="onyx">
+  <div class="wrap">
+    <p class="ueber" style="color:var(--gold2)">ONYX Studio · für Bauträger</p>
+    <h2>Diese Seite für Ihr Projekt.</h2>
+    <p class="lead">Sie schicken Baustellenfotos und Pläne, wir bauen die Seite, das Video und die Anzeige. Das Video fällt in der Anzeige auf, auf der Seite geht der Käufer selbst durch die Villa – wer danach anfragt, kennt sie schon. So verkaufen Sie schon im Rohbau. Konto und Daten bleiben bei Ihnen.</p>
+    <ul class="liste">
+      <li>Rohbau mit KI fertig gebaut – innen und außen</li>
+      <li>Jeder Haus- oder Wohnungstyp fertig eingerichtet, zum Durchgehen</li>
+      <li>Zeitraffer vom Grundstück bis fertig – das Video für Ihre Anzeigen</li>
+      <li>Alle Einheiten mit Verfügbarkeit, Grundriss, Lage und Preis</li>
+      <li>Bau-Updates für Käufer, die schon reserviert haben</li>
+      <li>Facebook- und Instagram-Anzeigen, der Klick landet auf Ihrer Projektseite</li>
+    </ul>
+    <div class="aktionen">
+      <a class="knopf gold" href="https://wa.me/4917632273522?text=Hallo%20Marvin%2C%20ich%20habe%20mir%20die%20Beispiel-Projektseite%20angesehen%20und%20m%C3%B6chte%20das%20f%C3%BCr%20unser%20Projekt%20besprechen." target="_blank" rel="noopener">Per WhatsApp anfragen</a>
+      <a class="knopf hell" href="mailto:info@onyx-ai.de?subject=Projektseite%20f%C3%BCr%20unser%20Bauprojekt">info@onyx-ai.de</a>
+      <a class="knopf hell" href="../">Weitere Beispiele</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b>Hinweis:</b> Dies ist eine Beispielseite von ONYX Studio. Projektname, Villen, Preise, Termine und Lage sind ausgedacht. Die Fotos „von heute“ zeigen eine echte Finca auf Mallorca im Ausbau. Als KI-Visualisierung gekennzeichnete Bilder und Videos sind computergenerierte Darstellungen und zeigen einen möglichen, nicht den tatsächlichen Zustand.</p>
+    <p style="margin-top:10px">ONYX Studio · Marvin Weiß-Drumm · <a href="https://onyx-ai.de/impressum">Impressum</a> · <a href="https://onyx-ai.de/datenschutz">Datenschutz</a></p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  "use strict";
+  const $ = (s) => document.querySelector(s);
+  const ruhig = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Villen (Beispieldaten) ---------- */
+  const VILLEN = [
+    { nr: 1, typ: "A", grund: 1120, flaeche: 210, zimmer: 4, baeder: 3, preis: 1290000, status: "verkauft" },
+    { nr: 2, typ: "A", grund: 1050, flaeche: 210, zimmer: 4, baeder: 3, preis: 1250000, status: "frei" },
+    { nr: 3, typ: "A", grund: 1380, flaeche: 210, zimmer: 4, baeder: 3, preis: 1390000, status: "reserviert" },
+    { nr: 4, typ: "A", grund: 1200, flaeche: 210, zimmer: 4, baeder: 3, preis: 1320000, status: "frei" },
+    { nr: 5, typ: "B", grund: 980, flaeche: 165, zimmer: 3, baeder: 2, preis: 1190000, status: "verkauft" },
+    { nr: 6, typ: "B", grund: 1040, flaeche: 165, zimmer: 3, baeder: 2, preis: 1210000, status: "frei" },
+  ];
+  const STATUS = { frei: "Verfügbar", reserviert: "Reserviert", verkauft: "Verkauft" };
+  const euro = (n) => n.toLocaleString("de-DE") + " €";
+  const tbody = $("#villen-tabelle tbody");
+  const wahl = $("#villa-wahl");
+  VILLEN.forEach((v) => {
+    const tr = document.createElement("tr");
+    tr.className = v.status;
+    tr.innerHTML =
+      `<td class="nr">Villa ${v.nr}</td><td data-l="Typ">${v.typ}</td><td data-l="Grundstück">${v.grund.toLocaleString("de-DE")} m²</td>` +
+      `<td data-l="Wohnfläche">${v.flaeche} m²</td><td data-l="Zimmer">${v.zimmer} SZ · ${v.baeder} Bad</td>` +
+      `<td data-l="Preis" class="preis">${v.status === "verkauft" ? "–" : euro(v.preis)}</td>` +
+      `<td class="st"><span class="status ${v.status}">${STATUS[v.status]}</span></td>` +
+      `<td class="ak"><button type="button" class="zeile-knopf" data-villa="${v.nr}">Anfragen</button></td>`;
+    tbody.appendChild(tr);
+    if (v.status !== "verkauft") {
+      const o = document.createElement("option");
+      o.value = "Villa " + v.nr;
+      o.textContent = `Villa ${v.nr} · Typ ${v.typ} · ${euro(v.preis)}${v.status === "reserviert" ? " (reserviert)" : ""}`;
+      wahl.appendChild(o);
+    }
+  });
+  const frei = VILLEN.filter((v) => v.status === "frei");
+  $("#z-frei").textContent = frei.length;
+  $("#z-ab").textContent = euro(Math.min(...frei.map((v) => v.preis)));
+  $("#nur-frei").addEventListener("change", (e) => {
+    tbody.querySelectorAll("tr").forEach((tr) => { tr.hidden = e.target.checked && !tr.classList.contains("frei"); });
+  });
+  tbody.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-villa]");
+    if (!b) return;
+    wahl.value = "Villa " + b.dataset.villa;
+    $("#anfrage").scrollIntoView({ behavior: ruhig ? "auto" : "smooth" });
+  });
+
+  /* ---------- Formular (Beispiel: sendet nichts) ---------- */
+  $("#formular").addEventListener("submit", (e) => {
+    e.preventDefault();
+    $("#danke").classList.add("an");
+    $("#danke").scrollIntoView({ behavior: ruhig ? "auto" : "smooth", block: "nearest" });
+  });
+
+  /* ---------- Hero: Etappen des Zeitraffers ---------- */
+  const hero = $("#hero-video"), etappe = $("#etappe"), balken = $("#zeitbalken");
+  const ETAPPEN = [[0, "Grundstück"], [0.12, "Absteckung"], [0.3, "Fundament"], [0.48, "Rohbau"], [0.68, "Fassade"], [0.85, "Fertig"]];
+  if (ruhig) { hero.removeAttribute("autoplay"); hero.pause(); }
+  hero.addEventListener("timeupdate", () => {
+    if (!hero.duration) return;
+    const t = hero.currentTime / hero.duration;
+    balken.style.width = (t * 100).toFixed(1) + "%";
+    let name = ETAPPEN[0][1];
+    for (const [ab, n] of ETAPPEN) if (t >= ab) name = n;
+    if (etappe.textContent !== name) etappe.textContent = name;
+  });
+
+  /* ---------- Heute & fertig: Vergleichsregler ---------- */
+  const ver = $("#vergleich"), nach = $("#v-nachher"), vor = $("#v-vorher"), griff = $("#griff");
+  let anteil = 0.5, ziehen = false;
+  const setze = (a) => {
+    anteil = Math.min(1, Math.max(0, a));
+    nach.style.clipPath = `inset(0 0 0 ${(anteil * 100).toFixed(2)}%)`;
+    griff.style.left = (anteil * 100).toFixed(2) + "%";
+  };
+  const ausEvent = (e) => { const r = ver.getBoundingClientRect(); return (e.clientX - r.left) / r.width; };
+  ver.addEventListener("pointerdown", (e) => { ziehen = true; ver.setPointerCapture(e.pointerId); setze(ausEvent(e)); });
+  ver.addEventListener("pointermove", (e) => { if (ziehen) setze(ausEvent(e)); });
+  ver.addEventListener("pointerup", () => { ziehen = false; });
+  ver.addEventListener("pointercancel", () => { ziehen = false; });
+  $("#reiter").addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-p]");
+    if (!b) return;
+    document.querySelectorAll("#reiter button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    vor.src = `../media/p${b.dataset.p}-vorher.jpg`;
+    nach.src = `../media/p${b.dataset.p}-nachher.jpg`;
+    setze(0.5);
+  });
+  // Kurzer Hinweis-Schwenk, sobald der Vergleich ins Bild kommt
+  if (!ruhig && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((eintraege) => {
+      if (!eintraege[0].isIntersecting) return;
+      io.disconnect();
+      let t0 = null;
+      const lauf = (ts) => {
+        if (ziehen) return;
+        t0 ??= ts;
+        const p = (ts - t0) / 1600;
+        if (p >= 1) { setze(0.5); return; }
+        setze(0.5 + Math.sin(p * Math.PI * 2) * 0.18);
+        requestAnimationFrame(lauf);
+      };
+      requestAnimationFrame(lauf);
+    }, { threshold: 0.6 });
+    io.observe(ver);
+  }
+
+  /* ---------- Rundgang: Scroll steuert das Video ---------- */
+  const rv = $("#rundgang-video"), rsec = $("#rundgang"), rbal = $("#rundgang-balken");
+  const schritte = [...document.querySelectorAll("#schritte li")];
+  let rbereit = false;
+  rv.addEventListener("loadedmetadata", () => { rbereit = true; rundgang(); });
+  function rundgang() {
+    const r = rsec.getBoundingClientRect();
+    const hoch = rsec.offsetHeight - window.innerHeight;
+    if (hoch <= 0) return;
+    const a = Math.min(1, Math.max(0, -r.top / hoch));
+    rbal.style.height = (a * 100).toFixed(1) + "%";
+    let aktiv = 0;
+    schritte.forEach((li, i) => { if (a >= parseFloat(li.dataset.ab)) aktiv = i; });
+    schritte.forEach((li, i) => li.classList.toggle("an", i === aktiv));
+    if (!rbereit || !rv.duration) return;
+    const t = a * (rv.duration - 0.05);
+    if (Number.isFinite(t) && Math.abs(rv.currentTime - t) > 0.04) { try { rv.currentTime = t; } catch (_) {} }
+  }
+  if (ruhig) {
+    rv.loop = true; rv.autoplay = true; rv.play().catch(() => {});
+  } else {
+    let wartet = false;
+    const anstossen = () => { if (wartet) return; wartet = true; requestAnimationFrame(() => { rundgang(); wartet = false; }); };
+    window.addEventListener("scroll", anstossen, { passive: true });
+    window.addEventListener("resize", anstossen);
+    rv.load();
+    rundgang();
+  }
+
+  /* ---------- Typ B: Zeitraffer auf Klick ---------- */
+  const tb = $("#typ-b-video");
+  $("#typ-b-start").addEventListener("click", (e) => {
+    if (tb.paused) { tb.play().catch(() => {}); e.currentTarget.textContent = "❚❚ Pause"; }
+    else { tb.pause(); e.currentTarget.textContent = "▶ Zeitraffer abspielen"; }
+  });
+})();
+</script>
+</body>
+</html>
