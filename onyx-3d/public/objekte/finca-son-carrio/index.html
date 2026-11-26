@@ -487,11 +487,11 @@ dialog.bild::backdrop{background:rgba(10,9,8,.94)}
     { id:"02", still:"05", frames:81, laenge:2, fx:.48, kette:true, kurz:"Ankommen",   augenbraue:"Ankommen",            titel:"Naturstein und Bougainvillea", text:"Grüne Fensterläden, Zypressen, ein blühender Garten und eine hohe Holztür." },
     { id:"03", still:"33", frames:81, laenge:2, fx:.42, kette:true, kurz:"Eingang",    augenbraue:"Die Wohnhalle",       titel:"Fünf Meter Licht",        text:"Durch die Holztür in die lichtdurchflutete Halle mit Holzbalkendecke und Blick ins Land." },
     { id:"04", still:"37", frames:81, laenge:2, fx:.45, kette:true, kurz:"Wohnen",     augenbraue:"Wohnen & Küche",      titel:"Das Herz des Hauses",     text:"Kamin vor der Natursteinwand, ein langer Esstisch und dahinter die offene Küche mit Insel." },
-    { id:"05", still:"34", frames:0,  laenge:2, fx:.40, kette:true, kurz:"Terrasse",   augenbraue:"Die Terrasse",        titel:"Draußen wohnen",          text:"Große Schiebetüren, dahinter 70 m² Terrasse mit Lounge und Sommerküche." },
+    { id:"05", still:"34", frames:81, laenge:2, fx:.40, kette:true, kurz:"Terrasse",   augenbraue:"Die Terrasse",        titel:"Draußen wohnen",          text:"Große Schiebetüren, dahinter 70 m² Terrasse mit Lounge und Sommerküche." },
     { id:"06", still:"36", frames:52,           fx:.50, kette:true, kurz:"Pool",       augenbraue:"Der Pool",            titel:"Infinity über dem Land",  text:"Beheizter Salzwasser-Infinity-Pool mit 40 m² und rund 100 m² Sonnenterrassen." },
-    { id:"07", still:"20", frames:0,  laenge:2, fx:.50, kette:true, kurz:"Garten",     augenbraue:"Der Garten",          titel:"Durch den Garten",        text:"Vorbei an Pool und Sonnenliegen führt der Weg durch den Garten zum Saunahaus." },
-    { id:"08", still:"11", frames:0,  laenge:2, fx:.55, kette:true, kurz:"Sauna",      augenbraue:"Die Sauna",           titel:"Wärme mit Aussicht",      text:"Holzsauna im Garten, mit Panoramafenster ins Grüne." },
-    { id:"09", still:"02", frames:0,  laenge:2, fx:.50,             kurz:"Abend",      augenbraue:"Am Abend",            titel:"Wenn die Sonne sinkt",    text:"Pool, Garten und Einfahrt leuchten, der Himmel über Son Carrió glüht.", ende:true }
+    { id:"07", still:"20", frames:81, laenge:2, fx:.50, kette:true, kurz:"Garten",     augenbraue:"Der Garten",          titel:"Durch den Garten",        text:"Vorbei an Pool und Sonnenliegen führt der Weg durch den Garten zum Saunahaus." },
+    { id:"08", still:"11", frames:81, laenge:2, fx:.55, kette:true, kurz:"Sauna",      augenbraue:"Die Sauna",           titel:"Wärme mit Aussicht",      text:"Holzsauna im Garten, mit Panoramafenster ins Grüne." },
+    { id:"09", still:"02", frames:81, laenge:2, fx:.50,             kurz:"Abend",      augenbraue:"Am Abend",            titel:"Wenn die Sonne sinkt",    text:"Pool, Garten und Einfahrt leuchten, der Himmel über Son Carrió glüht.", ende:true }
   ];
 
   const $ = (s) => document.querySelector(s);
@@ -674,8 +674,8 @@ dialog.bild::backdrop{background:rgba(10,9,8,.94)}
 
   /* ---------- Filme (werden ergänzt, sobald fertig) ---------- */
   const FILME = [
-    // { datei:"video/ums-haus.mp4", poster:"img/still/05.webp", titel:"Einmal ums Haus", text:"Drohnenflug rund um die Finca" },
-    // { datei:"video/rundgang.mp4", poster:"img/still/37.webp", titel:"Durch die Finca", text:"Vom Eingang über die Wohnhalle bis zum Pool" }
+    { datei:"video/ums-haus.mp4", poster:"img/still/24.webp", titel:"Einmal ums Haus", text:"Drohnenflug über das Grundstück und das Haus, 20 Sekunden" },
+    { datei:"video/rundgang.mp4", poster:"img/still/37.webp", titel:"Durch die Finca", text:"Ein Weg ohne Schnitt: Ankunft, Wohnhalle, Küche, Terrasse, Pool, Garten, Sauna und der Abend, 75 Sekunden" }
   ];
   if (FILME.length) {
     const box = $("#filmliste");
