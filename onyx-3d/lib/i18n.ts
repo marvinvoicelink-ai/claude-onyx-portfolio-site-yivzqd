@@ -5,7 +5,8 @@ export type Lang = "de" | "es";
 export const LANG_STORAGE_KEY = "onyx-lang";
 
 /** Rechtstexte bleiben auf Deutsch (rechtlich maßgebliche Fassung), Testseiten sind intern. */
-const DE_ONLY_PREFIXES = ["/impressum", "/datenschutz", "/agb"];
+// /immobilien: Landingpage der Makler-/Bauträger-Anzeigen, nur auf Deutsch.
+const DE_ONLY_PREFIXES = ["/impressum", "/datenschutz", "/agb", "/immobilien"];
 
 function isDeOnly(path: string) {
   return DE_ONLY_PREFIXES.some((p) => path === p || path.startsWith(`${p}/`));
