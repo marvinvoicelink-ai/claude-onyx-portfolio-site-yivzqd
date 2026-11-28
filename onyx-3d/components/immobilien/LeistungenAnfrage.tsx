@@ -25,15 +25,24 @@ function quelleAusAdresse() {
     const q = new URLSearchParams(window.location.search);
     const ausAnzeige = q.get("utm_source") === "meta" || q.has("fbclid");
     const motiv = q.get("utm_content");
-    const basis = ausAnzeige ? "Facebook-Anzeige · Landingpage" : "Landingpage /immobilien";
+    // Welche Seite: /immobilien, /immobilien/bautraeger, /immobilien/zeitraffer …
+    const pfad = window.location.pathname.replace(/\.html$|\/$/g, "") || "/immobilien";
+    const basis = ausAnzeige ? `Facebook-Anzeige · Landingpage ${pfad}` : `Landingpage ${pfad}`;
     return (motiv ? `${basis} · ${motiv}` : basis).slice(0, 90);
   } catch {
     return "Landingpage /immobilien";
   }
 }
 
-/** vorauswahl: Leistung aus der Anzeige, die schon angehakt ist (Einstiege /immobilien/…). */
-export default function LeistungenAnfrage({ vorauswahl }: { vorauswahl?: LeistungId } = {}) {
+/**
+ * vorauswahl: Leistung aus der Anzeige, die schon angehakt ist (Einstiege /immobilien/…).
+ * rolle: auf den Seiten für Bauträger bzw. Makler schon ausgewählt.
+ */
+export default function LeistungenAnfrage({
+  vorauswahl,
+  rolle,
+  objektBeispiel = "z. B. Neubau mit 6 Villen, Finca mit Pool, Wohnung im Rohbau",
+}: { vorauswahl?: LeistungId; rolle?: (typeof ROLLEN)[number]; objektBeispiel?: string } = {}) {
   const [gewaehlt, setGewaehlt] = useState<Set<string>>(() => new Set(vorauswahl ? [vorauswahl] : []));
   const [status, setStatus] = useState<"bereit" | "sendet" | "ok" | "fehler">("bereit");
 
@@ -192,7 +201,7 @@ export default function LeistungenAnfrage({ vorauswahl }: { vorauswahl?: Leistun
         <div className="flex flex-wrap gap-2.5">
           {ROLLEN.map((r) => (
             <label key={r} className="flex items-center gap-2.5 rounded-[10px] px-4 py-3 cursor-pointer" style={{ border: "1px solid var(--hairline)", background: "var(--near-black)" }}>
-              <input type="radio" name="rolle" value={r} required style={{ accentColor: "#e8a33d", width: 18, height: 18 }} />
+              <input type="radio" name="rolle" value={r} required defaultChecked={r === rolle} style={{ accentColor: "#e8a33d", width: 18, height: 18 }} />
               <span style={{ fontSize: 15 }}>{r}</span>
             </label>
           ))}
@@ -220,7 +229,7 @@ export default function LeistungenAnfrage({ vorauswahl }: { vorauswahl?: Leistun
 
       <label>
         <span style={label}>Um welches Objekt oder Projekt geht es?</span>
-        <input name="objekt" placeholder="z. B. Neubau mit 6 Villen, Finca mit Pool, Wohnung im Rohbau" className="w-full rounded-[10px] px-4 py-3" style={feld} />
+        <input name="objekt" placeholder={objektBeispiel} className="w-full rounded-[10px] px-4 py-3" style={feld} />
       </label>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
