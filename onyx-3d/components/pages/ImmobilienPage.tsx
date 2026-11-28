@@ -5,6 +5,7 @@ import LeistungWaehlen from "@/components/immobilien/LeistungWaehlen";
 import LazyVideo from "@/components/immobilien/LazyVideo";
 import AnfrageSticky from "@/components/immobilien/AnfrageSticky";
 import { LEISTUNGEN, type Leistung } from "@/components/immobilien/leistungen";
+import { STANDARD_HERO, VARIANTEN, varianteZu, type HeroMedium, type Variante } from "@/components/immobilien/varianten";
 
 /**
  * Landingpage für die Facebook-/Instagram-Anzeigen an Makler und Bauträger
@@ -20,13 +21,21 @@ const TITEL = "Objekte fertig zeigen, bevor sie fertig sind – für Makler & Ba
 const BESCHREIBUNG =
   "3D-Rundgang, Zeitraffer, KI-Einrichtung, Rundflug-Video, Projektseite und Anzeigen: Wir zeigen Ihr Objekt vom Rohbau bis fertig eingerichtet. Sie wählen, was Sie brauchen. Ihr erstes Objekt ist geschenkt.";
 
-export function immobilienMetadata(): Metadata {
+export function immobilienMetadata(varianteId?: string): Metadata {
+  const v = varianteId ? varianteZu(varianteId) : undefined;
+  const titel = v?.metaTitel ?? TITEL;
+  const beschreibung = v ? `${v.text} Ihr erstes Objekt ist geschenkt.` : BESCHREIBUNG;
   return {
-    title: TITEL,
-    description: BESCHREIBUNG,
+    title: titel,
+    description: beschreibung,
+    // Die Einstiege sind Anzeigen-Zielseiten derselben Seite: für Suchmaschinen zählt /immobilien.
     alternates: { canonical: "/immobilien" },
-    openGraph: { title: TITEL, description: BESCHREIBUNG, images: ["/assets/immobilien/rundflug.jpg"], locale: "de_DE", type: "website" },
+    openGraph: { title: titel, description: beschreibung, images: ["/assets/immobilien/rundflug.jpg"], locale: "de_DE", type: "website" },
   };
+}
+
+export function immobilienVariantenParams() {
+  return VARIANTEN.map((v) => ({ variante: v.id }));
 }
 
 const kicker = {
@@ -76,6 +85,60 @@ function Medium({ l }: { l: Leistung }) {
   );
 }
 
+const etikett = {
+  fontSize: 11,
+  letterSpacing: "0.08em",
+  textTransform: "uppercase" as const,
+  padding: "6px 10px",
+  borderRadius: 999,
+  background: "rgba(17,17,17,.72)",
+  color: "var(--warm-grey)",
+};
+
+function HeroBild({ m }: { m: HeroMedium }) {
+  const rahmen = { aspectRatio: "16 / 9", background: "#141414", border: "1px solid var(--hairline)" };
+  const klasse = "relative overflow-hidden rounded-2xl order-first lg:order-none";
+
+  if (m.art === "vorher-nachher") {
+    return (
+      <div className={`${klasse} grid grid-cols-2`} style={rahmen}>
+        <div className="relative">
+          <img src={m.vorher} alt="Raum im Ausbau, echtes Foto" className="absolute inset-0 w-full h-full object-cover" />
+          <span className="mono absolute" style={{ ...etikett, top: 10, left: 10 }}>Foto von heute</span>
+        </div>
+        <div className="relative" style={{ borderLeft: "2px solid var(--amber)" }}>
+          <img src={m.nachher} alt="Derselbe Raum fertig eingerichtet, KI-Visualisierung" className="absolute inset-0 w-full h-full object-cover" />
+          <KiHinweis />
+        </div>
+      </div>
+    );
+  }
+
+  if (m.art === "handy") {
+    return (
+      <div className={`${klasse} flex items-center justify-center`} style={{ ...rahmen, aspectRatio: "5 / 4", background: "radial-gradient(ellipse at center, #232019 0%, #141414 70%)" }}>
+        <div className="relative overflow-hidden" style={{ height: "88%", aspectRatio: "9 / 16", borderRadius: 22, border: "5px solid #2b2b2b", background: "#000", boxShadow: "0 20px 50px rgba(0,0,0,.55)" }}>
+          <video src={m.src} poster={m.poster} autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" aria-label={m.label} />
+        </div>
+        {m.ki && <KiHinweis />}
+        <span className="mono absolute" style={{ ...etikett, left: 12, bottom: 12 }}>{m.beschriftung}</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className={klasse} style={rahmen}>
+      {m.art === "video" ? (
+        <video src={m.src} poster={m.poster} autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" aria-label={m.label} />
+      ) : (
+        <img src={m.src} alt={m.alt} className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: "top left" }} />
+      )}
+      {m.ki && <KiHinweis />}
+      <span className="mono absolute" style={{ ...etikett, left: 12, bottom: 12 }}>{m.beschriftung}</span>
+    </div>
+  );
+}
+
 const SCHRITTE = [
   { titel: "Fotos schicken", text: "Handy- oder Baustellenfotos, dazu Pläne und die Eckdaten. Per WhatsApp oder Mail reicht." },
   { titel: "Wir bauen", text: "Rundgang, Zeitraffer, eingerichtete Räume oder Projektseite – was Sie gewählt haben. Online geht nur, was Sie freigeben." },
@@ -90,7 +153,10 @@ const FAQ = [
   { f: "Wem gehört das danach?", a: "Ihnen. Website, Videos und Bilder können Sie überall nutzen – im Portal, auf Ihrer Website, auf Instagram. Läuft eine Anzeige, dann in Ihrem eigenen Werbekonto." },
 ];
 
-export default function ImmobilienPage() {
+export default function ImmobilienPage({ variante }: { variante?: Variante } = {}) {
+  const hero = variante ?? STANDARD_HERO;
+  // Die Leistung aus der Anzeige zuerst, der Rest in gewohnter Reihenfolge.
+  const leistungen = variante ? [...LEISTUNGEN].sort((a, b) => Number(b.id === variante.leistung) - Number(a.id === variante.leistung)) : LEISTUNGEN;
   return (
     <main>
       <style>{`
@@ -103,18 +169,14 @@ export default function ImmobilienPage() {
       `}</style>
 
       {/* Hero */}
-      <section className="pt-24 pb-16 md:pt-36 md:pb-20">
+      <section className="pt-6 pb-14 md:pt-14 md:pb-20">
         <div className="mx-auto px-7 grid gap-10 lg:grid-cols-[1.05fr_1fr] items-center" style={{ maxWidth: 1180 }}>
           <div className="text-left">
             <span className="mono inline-flex items-center gap-2 mb-5" style={kicker}>
-              <span style={{ opacity: 0.7 }}>§</span> Für Makler & Bauunternehmen
+              <span style={{ opacity: 0.7 }}>§</span> {hero.kicker}
             </span>
-            <h1 style={{ fontSize: "clamp(2rem, 4.6vw, 3.4rem)", lineHeight: 1.05, marginBottom: 20 }}>
-              Wir zeigen Ihr Objekt fertig – bevor es fertig ist.
-            </h1>
-            <p style={{ fontSize: "1.12rem", lineHeight: 1.65, color: "var(--warm-grey-dim)", maxWidth: 560, marginBottom: 28 }}>
-              3D-Rundgang, Zeitraffer, eingerichtete Räume und Anzeigen: Käufer sehen Ihren Rohbau oder Ihr leeres Objekt so, wie es fertig aussieht – und fragen an, weil sie schon wissen, was sie erwartet. Sie wählen, was Sie brauchen.
-            </p>
+            <h1 style={{ fontSize: "clamp(1.9rem, 3.9vw, 3.05rem)", lineHeight: 1.06, marginBottom: 20 }}>{hero.titel}</h1>
+            <p style={{ fontSize: "1.12rem", lineHeight: 1.65, color: "var(--warm-grey-dim)", maxWidth: 560, marginBottom: 28 }}>{hero.text}</p>
             <div className="flex flex-wrap gap-3.5">
               <a href="#anfrage" className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold btn-amber" style={{ color: "#12141a" }}>
                 Erstes Objekt geschenkt – anfragen <span aria-hidden="true">→</span>
@@ -124,22 +186,7 @@ export default function ImmobilienPage() {
               </a>
             </div>
           </div>
-          <div className="relative overflow-hidden rounded-2xl order-first lg:order-none" style={{ aspectRatio: "16 / 9", background: "#1b1b1b", border: "1px solid var(--hairline)" }}>
-            <video
-              src="/beispiele/projekt/media/hero.mp4"
-              poster="/beispiele/projekt/img/hero-poster.webp"
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-              aria-label="Zeitraffer vom leeren Grundstück bis zur fertigen Villa"
-            />
-            <KiHinweis />
-            <span className="mono absolute" style={{ left: 12, bottom: 12, fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase", padding: "6px 10px", borderRadius: 999, background: "rgba(17,17,17,.72)", color: "var(--warm-grey)" }}>
-              Vom Grundstück bis fertig
-            </span>
-          </div>
+          <HeroBild m={hero.medium} />
         </div>
       </section>
 
@@ -154,7 +201,7 @@ export default function ImmobilienPage() {
             Einzeln oder zusammen – jede Leistung gibt es schon als echtes Beispiel.
           </p>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {LEISTUNGEN.map((l) => (
+            {leistungen.map((l) => (
               <article key={l.id} className="flex flex-col rounded-2xl p-4" style={{ background: "var(--near-black)", border: "1px solid var(--hairline)" }}>
                 <Medium l={l} />
                 <div className="flex flex-col flex-1 px-1.5 pt-5 pb-1.5">
@@ -216,7 +263,7 @@ export default function ImmobilienPage() {
             </ul>
           </div>
           <div id="anfrage-formular" className="rounded-2xl p-6 md:p-8" style={{ background: "var(--near-black)", border: "1px solid var(--hairline)", scrollMarginTop: 90 }}>
-            <LeistungenAnfrage />
+            <LeistungenAnfrage vorauswahl={variante?.leistung} />
           </div>
         </div>
       </section>
