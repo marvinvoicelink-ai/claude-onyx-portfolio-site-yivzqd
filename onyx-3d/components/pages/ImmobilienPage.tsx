@@ -145,10 +145,15 @@ const SCHRITTE = [
   { titel: "Käufer fragen an", text: "Über die Website und die Anzeigen – Menschen, die durch Ihr Objekt gegangen sind und wissen, was sie erwartet." },
 ];
 
+// Drei Sätze, die die häufigsten Bedenken vor dem Klick abfangen – alle aus dem Angebotsmodell (CLAUDE.md).
+const VERTRAUEN = ["Aus Ihren Fotos und Plänen – die Architektur bleibt echt", "Sie sehen alles, bevor es online geht", "Website, Videos und Daten gehören Ihnen"];
+
 const FAQ = [
+  { f: "Wo ist der Haken beim geschenkten ersten Objekt?", a: "Es gibt keinen. Wir möchten, dass Sie an einem echten Objekt sehen, was wir können, bevor Sie etwas bezahlen. Gefällt es Ihnen, machen wir die nächsten Objekte zusammen – bezahlt pro Objekt, ohne Abo. Gefällt es Ihnen nicht, ist nichts weiter zu tun." },
+  { f: "Für wen ist das?", a: "Für Bauträger mit Neubauprojekten und für Makler mit Objekten, die jetzt in die Vermarktung gehen – vom Rohbau über leere Räume bis zum fertigen Haus, das besser gezeigt werden soll. In Spanien und im deutschsprachigen Raum." },
   { f: "Was brauchen Sie von mir?", a: "Fotos vom Objekt oder von der Baustelle – Handyfotos reichen –, bei Neubauten die Pläne, dazu Fläche, Zimmer, Lage und Preis. Den Rest machen wir." },
   { f: "Muss ich alles nehmen?", a: "Nein. Sie wählen, was Sie brauchen: nur einen Zeitraffer, nur eingerichtete Räume oder alles zusammen mit Website und Anzeigen." },
-  { f: "Was kostet das?", a: "Bezahlt wird pro Objekt, ohne Abo. Den Preis nennen wir Ihnen im Gespräch, wenn wir wissen, was Sie brauchen. Ihr erstes Objekt ist geschenkt." },
+  { f: "Was kostet das?", a: "Bezahlt wird pro Objekt, ohne Abo. Den Preis nennen wir Ihnen im Gespräch, wenn wir wissen, was Sie brauchen. Ihr erstes Objekt ist geschenkt. Schalten Sie Anzeigen, zahlen Sie das Werbebudget direkt an Meta – aus Ihrem eigenen Werbekonto." },
   { f: "Sind die Bilder echt?", a: "Die Architektur ist echt, sie kommt aus Ihren Fotos und Plänen. Möbel, Einrichtung und fertige Bauabschnitte ergänzt die KI. Solche Bilder und Videos kennzeichnen wir immer als KI-Visualisierung." },
   { f: "Wem gehört das danach?", a: "Ihnen. Website, Videos und Bilder können Sie überall nutzen – im Portal, auf Ihrer Website, auf Instagram. Läuft eine Anzeige, dann in Ihrem eigenen Werbekonto." },
 ];
@@ -185,6 +190,14 @@ export default function ImmobilienPage({ variante }: { variante?: Variante } = {
                 Leistungen ansehen
               </a>
             </div>
+            <ul className="mt-6 grid gap-2" style={{ color: "var(--warm-grey-dim)", fontSize: "0.95rem" }}>
+              {VERTRAUEN.map((x) => (
+                <li key={x} className="flex gap-2.5">
+                  <span aria-hidden="true" style={{ color: "var(--amber)" }}>✓</span>
+                  {x}
+                </li>
+              ))}
+            </ul>
           </div>
           <HeroBild m={hero.medium} />
         </div>
@@ -239,6 +252,38 @@ export default function ImmobilienPage({ variante }: { variante?: Variante } = {
               </li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      {/* Wer dahinter steht – Texte wie FounderBlock der Startseite, hier in der Sie-Form */}
+      <section className="py-16">
+        <div className="mx-auto px-7 grid gap-10 md:grid-cols-[300px_1fr] items-center" style={{ maxWidth: 980 }}>
+          <div className="relative overflow-hidden rounded-2xl mx-auto md:mx-0 max-w-[220px] md:max-w-[300px]" style={{ width: "100%", aspectRatio: "4 / 5", border: "1px solid var(--hairline)" }}>
+            <img src="/assets/marvin-portrait.jpg" alt="Marvin Weiß-Drumm, Gründer von ONYX" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: "50% 12%" }} loading="lazy" />
+          </div>
+          <div className="text-left">
+            <span className="mono inline-flex items-center gap-2 mb-4" style={kicker}>
+              <span style={{ opacity: 0.7 }}>§</span> Wer das für Sie macht
+            </span>
+            <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: 14 }}>Kein Callcenter. Sie sprechen mit Marvin.</h2>
+            <p style={{ color: "var(--warm-grey-dim)", lineHeight: 1.7, marginBottom: 12 }}>
+              Ich bin Marvin Weiß-Drumm, Gründer von ONYX aus Landau in der Pfalz. Website, Videos und Anzeigen für Ihr Objekt baue ich selbst – vom ersten Telefonat bis zur fertigen Seite sprechen Sie mit mir, nicht mit einem Vertrieb, der Sie weiterreicht.
+            </p>
+            <p style={{ color: "var(--warm-grey-dim)", lineHeight: 1.7, marginBottom: 12 }}>
+              Ich habe zu oft gesehen, wie gute Objekte auf den Portalen untergehen – zwischen Hunderten anderen, mit ein paar Fotos. Deshalb zeige ich jedes Objekt komplett, vom Rohbau bis fertig eingerichtet, und bringe es per Anzeige zu Menschen, die gerade suchen.
+            </p>
+            <p style={{ color: "var(--warm-grey-dim)", lineHeight: 1.7, marginBottom: 22 }}>
+              Schreiben Sie mir, und ich rufe Sie persönlich an. Kein Verkaufsgespräch, kein Foliensatz – wir machen Ihr erstes Objekt fertig, und Sie entscheiden dann.
+            </p>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+              <a href="#anfrage-formular" className="inline-flex items-center gap-2.5 rounded-[10px] px-6 py-4 font-semibold btn-amber" style={{ color: "#12141a" }}>
+                Erstes Objekt geschenkt – anfragen <span aria-hidden="true">→</span>
+              </a>
+              <a href="tel:+4917632273522" style={{ color: "var(--warm-grey)", fontSize: 15 }}>
+                Lieber direkt anrufen: <span style={{ color: "var(--amber)", textDecoration: "underline", textUnderlineOffset: 3 }}>0176 3227 3522</span>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 

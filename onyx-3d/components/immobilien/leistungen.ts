@@ -30,7 +30,7 @@ export const LEISTUNGEN: Leistung[] = [
     fuer: "Makler & Bauträger",
     medium: { art: "video", src: "/assets/immobilien/rundgang.mp4", poster: "/assets/immobilien/rundgang.jpg", hoch: true },
     ki: true,
-    beispiel: { href: "/beispiele/finca/", text: "Beispiel durchgehen" },
+    beispiel: { href: "/beispiele/projekt/#rundgang", text: "Beispiel durchgehen" },
   },
   {
     id: "zeitraffer",
