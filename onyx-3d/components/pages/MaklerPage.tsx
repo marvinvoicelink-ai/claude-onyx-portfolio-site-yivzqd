@@ -35,16 +35,79 @@ import {
  * Material nur aus ONYX-Beispielen (Finca-Demo und Beispielprojekt).
  */
 
-const TITEL = "Objektvideo wie mit der Drohne – aus Ihren Fotos | ONYX Studio für Makler";
+export type Markt = "es" | "de";
+
+/**
+ * Zwei Märkte, ein Aufbau (Marvin, 28.11.2026: „Baue bitte alles auch für den
+ * deutschen Markt auf“). Spanien zeigt die Finca-Demo und Idealista,
+ * Deutschland eine Stadtvilla mit Garten und ImmoScout24/Immowelt.
+ * Die deutschen Bilder sind komplett KI-Visualisierung und so gekennzeichnet.
+ */
+const MARKT = {
+  es: {
+    pfad: "/immobilien/makler",
+    titel: "Objektvideo wie mit der Drohne – aus Ihren Fotos | ONYX Studio für Makler",
+    kicker: "Für Immobilienmakler",
+    portal: "Idealista",
+    portale: "Idealista oder ImmoScout24",
+    held: { src: "/assets/immobilien/rundflug.mp4", poster: "/assets/immobilien/rundflug.jpg", label: "Flug um eine Natursteinvilla wie mit der Drohne, erstellt aus Fotos" },
+    flug: {
+      src: "/assets/immobilien/drohnenflug.mp4",
+      poster: "/assets/immobilien/drohnenflug.jpg",
+      label: "Flug durch eine Natursteinvilla: Einfahrt, Wohnzimmer, Küche, Schlafzimmer, Pool",
+      text: "Aus Ihren Fotos entsteht ein Flug: die Einfahrt hinauf, durch Wohnzimmer, Küche und Schlafzimmer, hinaus über Pool und Garten – so, als wäre eine Drohne geflogen. Ohne Drehtermin, ohne Kamerateam, ohne Drohne.",
+    },
+    leer: {
+      vorher: "/beispiele/finca/assets/05-sala-antes.jpg",
+      nachher: "/beispiele/finca/assets/06-sala-despues.jpg",
+      vorherAlt: "Leeres Wohnzimmer mit Küche, echtes Foto",
+      nachherAlt: "Dasselbe Wohnzimmer mit Sofa und Kochinsel, KI-Visualisierung",
+      vorherText: "Foto von heute",
+    },
+    vorschau: { bild: "/assets/immobilien/link-vorschau.jpg", alt: "Vorschau der Objekt-Website: Natursteinvilla, echtes Foto", titel: "Natursteinvilla mit Pool", ki: false },
+    objektBeispiel: "z. B. Villa mit Meerblick, leere Penthouse-Wohnung, Finca mit Pool",
+    linkBeispiel: "z. B. Ihr Inserat auf Idealista oder ImmoScout24",
+    ogBild: "/assets/immobilien/drohnenflug.jpg",
+  },
+  de: {
+    pfad: "/immobilien/makler/deutschland",
+    titel: "Objektvideo wie mit der Drohne – aus Ihren Fotos | ONYX Studio für Makler in Deutschland",
+    kicker: "Für Immobilienmakler in Deutschland",
+    portal: "ImmoScout24",
+    portale: "ImmoScout24, Immowelt oder Kleinanzeigen",
+    held: { src: "/assets/immobilien/de/flug-hoch.mp4", poster: "/assets/immobilien/de/flug-hoch.jpg", label: "Flug über Garten und Stadtvilla wie mit der Drohne, KI-Visualisierung" },
+    flug: {
+      src: "/assets/immobilien/de/rundgang-hoch.mp4",
+      poster: "/assets/immobilien/de/rundgang-hoch.jpg",
+      label: "Flug über den Garten auf die Stadtvilla zu und durch das Wohnzimmer",
+      text: "Aus Ihren Fotos entsteht ein Flug: über den Garten auf das Haus zu, an der Terrasse vorbei und durchs Wohnzimmer bis zu den Fenstern – so, als wäre eine Drohne geflogen. Ohne Drehtermin, ohne Kamerateam, ohne Drohne.",
+    },
+    leer: {
+      vorher: "/assets/immobilien/de/leer-vorher.jpg",
+      nachher: "/assets/immobilien/de/leer-nachher.jpg",
+      vorherAlt: "Leeres Altbau-Wohnzimmer, KI-Visualisierung",
+      nachherAlt: "Dasselbe Wohnzimmer eingerichtet, KI-Visualisierung",
+      vorherText: "Leer · KI-Visualisierung",
+    },
+    vorschau: { bild: "/assets/immobilien/de/link-vorschau.jpg", alt: "Vorschau der Objekt-Website: Stadtvilla mit Garten, KI-Visualisierung", titel: "Stadtvilla mit Garten", ki: true },
+    objektBeispiel: "z. B. Einfamilienhaus mit Garten, leere Altbauwohnung, Stadtvilla",
+    linkBeispiel: "z. B. Ihr Inserat auf ImmoScout24 oder Immowelt",
+    ogBild: "/assets/immobilien/de/flug-hoch.jpg",
+  },
+} as const;
+
 const BESCHREIBUNG =
   "Für Immobilienmakler: ein Objektvideo wie mit der Drohne, erstellt aus Ihren Fotos – ohne Drehtermin. Leere Räume mit KI eingerichtet und eine eigene Website pro Objekt, die Sie jedem Interessenten schicken. Ihr erstes Objekt ist geschenkt.";
 
-export const maklerMetadata: Metadata = {
-  title: TITEL,
-  description: BESCHREIBUNG,
-  alternates: { canonical: "/immobilien/makler" },
-  openGraph: { title: TITEL, description: BESCHREIBUNG, images: ["/assets/immobilien/drohnenflug.jpg"], locale: "de_DE", type: "website" },
-};
+export function maklerMetadata(markt: Markt = "es"): Metadata {
+  const m = MARKT[markt];
+  return {
+    title: m.titel,
+    description: BESCHREIBUNG,
+    alternates: { canonical: m.pfad },
+    openGraph: { title: m.titel, description: BESCHREIBUNG, images: [m.ogBild], locale: "de_DE", type: "website" },
+  };
+}
 
 const PROBLEME = [
   { titel: "Im Portal sieht Ihr Objekt aus wie jedes andere.", text: "Gleiches Raster, gleiche Fotos, daneben die Konkurrenz. Was ein hochwertiges Objekt besonders macht, geht zwischen hundert Inseraten unter." },
@@ -66,7 +129,7 @@ const VERGLEICH = [
 
 const LINK_EINSATZ = [
   { wohin: "An Interessenten", wie: "per WhatsApp oder Mail – statt PDF-Anhang" },
-  { wohin: "Ins Inserat", wie: "auf Idealista oder ImmoScout24 verlinkt" },
+  { wohin: "Ins Inserat", wie: "im Portal-Inserat verlinkt" },
   { wohin: "In Anzeigen", wie: "auf Facebook und Instagram, bei Menschen, die gerade suchen" },
   { wohin: "Zum Eigentümer", wie: "im Akquisegespräch zeigen, wie Sie vermarkten" },
   { wohin: "Diskret", wie: "nur an vorgemerkte Kunden, ohne Portal" },
@@ -94,7 +157,7 @@ function Hochkant({ children, klasse }: { children: ReactNode; klasse: "hoch-hel
 }
 
 /** So kommt der Link beim Interessenten an: eine Chat-Nachricht mit Vorschau (Beispiel). */
-function LinkNachricht() {
+function LinkNachricht({ v }: { v: { bild: string; alt: string; titel: string; ki: boolean } }) {
   return (
     <div className="relative mx-auto" style={{ width: "100%", maxWidth: 340 }}>
       <div className="rounded-[28px] p-3" style={{ background: "#0c0c0c", border: "6px solid #262626", boxShadow: "0 24px 60px rgba(0,0,0,.55)" }}>
@@ -108,10 +171,11 @@ function LinkNachricht() {
           <div className="ml-auto rounded-2xl rounded-br-md p-1.5" style={{ maxWidth: "88%", background: "#3a2c14" }}>
             <div className="overflow-hidden rounded-xl" style={{ background: "#1d1a14" }}>
               <div className="relative" style={{ aspectRatio: "16 / 10" }}>
-                <img src="/assets/immobilien/link-vorschau.jpg" alt="Vorschau der Objekt-Website: Natursteinvilla, echtes Foto" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                <img src={v.bild} alt={v.alt} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                {v.ki && <KiHinweis style={{ top: 6, right: 6, fontSize: 9, padding: "3px 7px" }} />}
               </div>
               <div className="px-3 py-2.5">
-                <div style={{ fontSize: 13.5, fontWeight: 600, lineHeight: 1.3 }}>Natursteinvilla mit Pool</div>
+                <div style={{ fontSize: 13.5, fontWeight: 600, lineHeight: 1.3 }}>{v.titel}</div>
                 <div style={{ fontSize: 12, color: "var(--warm-grey-dim)", lineHeight: 1.4, marginTop: 2 }}>Rundgang durch alle Räume · Video · Grundriss · Lage</div>
                 <div className="mono" style={{ fontSize: 10.5, color: "var(--warm-grey-faint)", marginTop: 5 }}>villa.ihr-maklerbuero.de</div>
               </div>
@@ -149,15 +213,16 @@ function Werkzeug({ nr, id, titel, text, punkte, bild, rechts, extra }: { nr: st
   );
 }
 
-export default function MaklerPage() {
+export default function MaklerPage({ markt = "es" }: { markt?: Markt } = {}) {
+  const m = MARKT[markt];
   return (
     <main>
       <style>{HELD_CSS + WECHSEL_CSS + HOCH_CSS}</style>
 
       <Held
-        kicker="Für Immobilienmakler"
+        kicker={m.kicker}
         titel="Ein Objektvideo wie mit der Drohne – aus Ihren Fotos."
-        text="Kein Drehtermin, niemand muss vorbeikommen. Leere Räume richten wir mit KI ein, und alles kommt auf eine eigene Website für Ihr Objekt: ein Link, den Sie jedem Interessenten schicken. Mehr als ein Exposé und ein Inserat auf Idealista."
+        text={`Kein Drehtermin, niemand muss vorbeikommen. Leere Räume richten wir mit KI ein, und alles kommt auf eine eigene Website für Ihr Objekt: ein Link, den Sie jedem Interessenten schicken. Mehr als ein Exposé und ein Inserat auf ${m.portal}.`}
         knoepfe={
           <>
             <AnfrageKnopf />
@@ -169,7 +234,7 @@ export default function MaklerPage() {
         punkte={["Fotos, Exposé oder Ihre Anzeige reichen – kein Termin vor Ort", "Leere Räume eingerichtet, gekennzeichnet als KI-Visualisierung", "Anfragen gehen direkt an Sie"]}
         bild={
           <Hochkant klasse="hoch-held">
-            <video src="/assets/immobilien/rundflug.mp4" poster="/assets/immobilien/rundflug.jpg" autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" aria-label="Flug um eine Natursteinvilla wie mit der Drohne, erstellt aus Fotos" />
+            <video src={m.held.src} poster={m.held.poster} autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" aria-label={m.held.label} />
             <KiHinweis />
             <Etikett style={{ left: 12, bottom: 12, fontSize: 11 }}>Aus Fotos – ohne Drohne</Etikett>
           </Hochkant>
@@ -199,12 +264,12 @@ export default function MaklerPage() {
               nr="01"
               id="rundflug"
               titel="Objektvideo wie ein Drohnenflug"
-              text="Aus Ihren Fotos entsteht ein Flug: die Einfahrt hinauf, durch Wohnzimmer, Küche und Schlafzimmer, hinaus über Pool und Garten – so, als wäre eine Drohne geflogen. Ohne Drehtermin, ohne Kamerateam, ohne Drohne."
+              text={m.flug.text}
               punkte={["Für Instagram, Facebook und Ihr Inserat", "Niemand muss zum Objekt kommen", "Gekennzeichnet als KI-Visualisierung"]}
               bild={
                 <div className="mx-auto w-full" style={{ maxWidth: 400 }}>
                   <Hochkant klasse="hoch-flug">
-                    <LazyVideo src="/assets/immobilien/drohnenflug.mp4" poster="/assets/immobilien/drohnenflug.jpg" label="Flug durch eine Natursteinvilla: Einfahrt, Wohnzimmer, Küche, Schlafzimmer, Pool" className="absolute inset-0 w-full h-full object-cover" />
+                    <LazyVideo src={m.flug.src} poster={m.flug.poster} label={m.flug.label} className="absolute inset-0 w-full h-full object-cover" />
                     <KiHinweis />
                     <Etikett style={{ left: 12, bottom: 12, fontSize: 11 }}>Erstellt aus Fotos</Etikett>
                   </Hochkant>
@@ -220,12 +285,7 @@ export default function MaklerPage() {
               punkte={["Ohne Home-Staging, ohne Möbelwagen", "Als Bild, im Video und auf der Website", "Immer gekennzeichnet als KI-Visualisierung"]}
               bild={
                 <div className="mx-auto w-full" style={{ maxWidth: 440 }}>
-                  <Wechselbild
-                    vorher="/beispiele/finca/assets/05-sala-antes.jpg"
-                    nachher="/beispiele/finca/assets/06-sala-despues.jpg"
-                    vorherAlt="Leeres Wohnzimmer mit Küche, echtes Foto"
-                    nachherAlt="Dasselbe Wohnzimmer mit Sofa und Kochinsel, KI-Visualisierung"
-                  />
+                  <Wechselbild vorher={m.leer.vorher} nachher={m.leer.nachher} vorherAlt={m.leer.vorherAlt} nachherAlt={m.leer.nachherAlt} vorherText={m.leer.vorherText} />
                 </div>
               }
             />
@@ -235,7 +295,7 @@ export default function MaklerPage() {
               titel="Eine eigene Website für das Objekt"
               text="Rundgang durch jeden Raum, Objektvideo, Grundriss, Lage und alle Daten – auf einer Seite nur für dieses Objekt. Sie schicken den Link per WhatsApp oder Mail, Ihr Interessent öffnet ihn am Handy und geht durchs Haus."
               punkte={["Ein Link statt PDF-Anhang", "Anfragen gehen direkt an Sie", "Auf Wunsch diskret: nur per Link erreichbar"]}
-              bild={<LinkNachricht />}
+              bild={<LinkNachricht v={m.vorschau} />}
               extra={
                 <a href="/beispiele/projekt/#rundgang" target="_blank" rel="noopener" style={{ fontSize: 14.5, color: "var(--amber)", textDecoration: "underline", textUnderlineOffset: 3 }}>
                   Beispiel durchgehen
@@ -250,7 +310,7 @@ export default function MaklerPage() {
         knopf="Objekt schicken – erstes Objekt geschenkt"
         titel="Schicken Sie uns Ihr Objekt. Wir machen das Video."
         text="Sie müssen uns nichts glauben. Schicken Sie uns Fotos Ihrer Immobilie, Ihr Exposé oder einfach den Link zu Ihrer Anzeige. Daraus erstellen wir ein Objektvideo wie mit der Drohne und richten leere Räume mit KI ein. Ihr erstes Objekt ist geschenkt."
-        reicht={["Fotos Ihrer Immobilie – auch vom Handy", "oder Ihr Exposé als PDF", "oder den Link zu Ihrer Anzeige, z. B. auf Idealista oder ImmoScout24"]}
+        reicht={["Fotos Ihrer Immobilie – auch vom Handy", "oder Ihr Exposé als PDF", `oder den Link zu Ihrer Anzeige, z. B. auf ${m.portale}`]}
         schritte={[
           { titel: "Objekt eintragen", text: "Link zu Ihrer Anzeige ins Formular – oder kurz sagen, um welches Objekt es geht." },
           { titel: "Wir machen das Video", text: "Niemand muss vorbeikommen. Marvin ruft Sie an, falls noch etwas fehlt." },
@@ -313,7 +373,8 @@ export default function MaklerPage() {
       <Angebot
         text="Tragen Sie den Link zu Ihrer Anzeige ein oder sagen Sie uns, um welches Objekt es geht. Marvin ruft Sie an – und Sie sehen das Video, bevor Sie es irgendwo zeigen."
         rolle="Makler"
-        objektBeispiel="z. B. Villa mit Meerblick, leere Penthouse-Wohnung, Finca mit Pool"
+        objektBeispiel={m.objektBeispiel}
+        linkBeispiel={m.linkBeispiel}
         auswahl={["rundflug", "einrichtung", "rundgang", "anzeigen"]}
         linkFeld
       />

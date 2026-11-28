@@ -46,7 +46,15 @@ export default function LeistungenAnfrage({
   objektBeispiel = "z. B. Neubau mit 6 Villen, Finca mit Pool, Wohnung im Rohbau",
   auswahl,
   linkFeld,
-}: { vorauswahl?: LeistungId; rolle?: (typeof ROLLEN)[number]; objektBeispiel?: string; auswahl?: LeistungId[]; linkFeld?: boolean } = {}) {
+  linkBeispiel = "z. B. Ihr Inserat auf Idealista oder ImmoScout24",
+}: {
+  vorauswahl?: LeistungId;
+  rolle?: (typeof ROLLEN)[number];
+  objektBeispiel?: string;
+  auswahl?: LeistungId[];
+  linkFeld?: boolean;
+  linkBeispiel?: string;
+} = {}) {
   const angebot = auswahl ? auswahl.map((id) => LEISTUNGEN.find((l) => l.id === id)!).filter(Boolean) : LEISTUNGEN;
   const [gewaehlt, setGewaehlt] = useState<Set<string>>(() => new Set(vorauswahl ? [vorauswahl] : []));
   const [status, setStatus] = useState<"bereit" | "sendet" | "ok" | "fehler">("bereit");
@@ -234,14 +242,16 @@ export default function LeistungenAnfrage({
       </div>
 
       <label>
-        <span style={label}>Um welches Objekt oder Projekt geht es?</span>
-        <input name="objekt" placeholder={objektBeispiel} className="w-full rounded-[10px] px-4 py-3" style={feld} />
+        <span style={label}>Um welches Objekt oder Projekt geht es? *</span>
+        {/* Pflicht (Marvin, 28.11.2026): Wer kein Objekt nennen kann, ist kein Kandidat
+            für „erstes Objekt geschenkt“ – filtert die „nur mal eingetragen“-Anfragen. */}
+        <input name="objekt" required placeholder={objektBeispiel} className="w-full rounded-[10px] px-4 py-3" style={feld} />
       </label>
 
       {linkFeld && (
         <label>
           <span style={label}>Link zu Ihrer Anzeige oder Ihrem Exposé (optional)</span>
-          <input name="link" inputMode="url" autoComplete="url" placeholder="z. B. Ihr Inserat auf Idealista oder ImmoScout24" className="w-full rounded-[10px] px-4 py-3" style={feld} />
+          <input name="link" inputMode="url" autoComplete="url" placeholder={linkBeispiel} className="w-full rounded-[10px] px-4 py-3" style={feld} />
         </label>
       )}
 
