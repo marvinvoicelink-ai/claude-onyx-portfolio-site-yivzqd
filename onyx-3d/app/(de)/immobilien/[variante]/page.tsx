@@ -3,8 +3,7 @@ import { notFound } from "next/navigation";
 import ImmobilienPage, { immobilienMetadata, immobilienVariantenParams } from "@/components/pages/ImmobilienPage";
 import { varianteZu } from "@/components/immobilien/varianten";
 
-// Ein Einstieg pro Anzeige (/immobilien/einrichtung, /zeitraffer, /projektseite, /rundgang)
-// und je eine Seite pro Zielgruppe (/immobilien/bautraeger, /makler).
+// Ein Einstieg pro Anzeige: /immobilien/einrichtung, /zeitraffer, /projektseite, /rundgang.
 type Props = { params: Promise<{ variante: string }> };
 
 export const dynamicParams = false;
