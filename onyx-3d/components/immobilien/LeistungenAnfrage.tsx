@@ -7,13 +7,12 @@ import { LEISTUNGEN, LEISTUNG_WAEHLEN, type LeistungId } from "./leistungen";
 /**
  * Anfrage-Formular der Landingpage /immobilien.
  *
- * Eine Absendung geht an zwei Stellen:
- *  1. Netlify Forms (Formular "leistungen") – wie alle Formulare der Seite.
- *     Erst wenn Netlify annimmt, zählt sie als Meta-`Lead` (Regel 09/2026).
- *  2. Das CRM (/api/anfrage): Lead mit Status „Neu“, Push und SMS an Marvin,
- *     Bestätigungsmail an den Absender. Marvin, 27.11.2026: „Wichtig ist, dass
- *     die Kontakte, die sich wirklich eintragen, im CRM stehen.“
- * Klappt eine der beiden Stellen, ist die Anfrage angekommen.
+ * Eine Absendung geht an Netlify Forms (Formular "leistungen"). Netlify leitet
+ * sie selbst an das CRM weiter (/api/anfrage): Lead mit Status „Neu“, Push und
+ * SMS an Marvin, Bestätigungsmail an den Absender. Marvin, 27.11.2026:
+ * „Wichtig ist, dass die Kontakte, die sich wirklich eintragen, im CRM stehen.“
+ * Erst wenn Netlify annimmt, zählt sie als Meta-`Lead` (Regel 09/2026).
+ * Fällt Netlify aus, geht die Anfrage direkt ans CRM.
  */
 
 const CRM_ANFRAGE = "https://onyxai-crm.vercel.app/api/anfrage";
@@ -80,15 +79,33 @@ export default function LeistungenAnfrage() {
     d.forEach((v, k) => netlifyDaten.append(k, String(v)));
     netlifyDaten.set("leistungen", leistungen.join(", "));
     netlifyDaten.set("quelle", quelle);
+    // Netlify leitet jede Absendung selbst ans CRM weiter (/api/anfrage liest
+    // dort "wunsch"). Deshalb hier nur EIN Weg – sonst gäbe es jeden Lead und
+    // jede SMS doppelt (Livetest 28.11.2026).
+    netlifyDaten.set("wunsch", wunsch);
 
     setStatus("sendet");
-    const [netlify, crm] = await Promise.allSettled([
-      fetch("/", {
+    let netlifyOk = false;
+    try {
+      const res = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: netlifyDaten.toString(),
-      }),
-      fetch(CRM_ANFRAGE, {
+      });
+      netlifyOk = res.ok;
+    } catch {
+      netlifyOk = false;
+    }
+
+    if (netlifyOk) {
+      trackLead(`Landingpage: ${leistungen[0] ?? "allgemein"}`);
+      fertig();
+      return;
+    }
+
+    // Nur wenn Netlify ausfällt: direkt ins CRM, damit die Anfrage nicht verloren geht.
+    try {
+      const res = await fetch(CRM_ANFRAGE, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -100,18 +117,20 @@ export default function LeistungenAnfrage() {
           quelle,
           website: "",
         }),
-      }),
-    ]);
-    const netlifyOk = netlify.status === "fulfilled" && netlify.value.ok;
-    const crmOk = crm.status === "fulfilled" && crm.value.ok;
+      });
+      if (res.ok) {
+        fertig();
+        return;
+      }
+    } catch {
+      // fällt unten in die Fehlermeldung
+    }
+    setStatus("fehler");
 
-    if (netlifyOk) trackLead(`Landingpage: ${leistungen[0] ?? "allgemein"}`);
-    if (netlifyOk || crmOk) {
+    function fertig() {
       setStatus("ok");
       form.reset();
       setGewaehlt(new Set());
-    } else {
-      setStatus("fehler");
     }
   }
 
@@ -141,6 +160,7 @@ export default function LeistungenAnfrage() {
       {/* Werden beim Absenden gesetzt; stehen hier, damit Netlify dieselben Felder sieht wie im RootShell-Duplikat. */}
       <input type="hidden" name="leistungen" value="" />
       <input type="hidden" name="quelle" value="" />
+      <input type="hidden" name="wunsch" value="" />
       <p hidden>
         <label>
           Nicht ausfüllen: <input name="bot-field" tabIndex={-1} autoComplete="off" />
