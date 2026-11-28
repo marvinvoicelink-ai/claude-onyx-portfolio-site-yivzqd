@@ -4,46 +4,35 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { offerings } from "@/lib/offerings";
-import { trackLead } from "@/lib/trackLead";
+import { lp, type Lang } from "@/lib/i18n";
+import { NAV_CTA, NAV_LINKS, offeringLinks } from "./navData";
+import { openContactForm } from "@/lib/contactModal";
 
-const pageLinks = [
-  { href: "/", label: "Startseite" },
-  { href: "/fuer-dich", label: "Für dich" },
-  { href: "/problem", label: "Problem" },
-  { href: "/referenzen", label: "Referenzen" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/ueber-mich", label: "Über mich" },
-];
+const TEXT: Record<Lang, { open: string; close: string; offerings: string }> = {
+  de: { open: "Menü öffnen", close: "Menü schließen", offerings: "Angebot" },
+  es: { open: "Abrir menú", close: "Cerrar menú", offerings: "Servicios" },
+};
 
-/** Per-offering deep links — automatisierung gets its own dedicated pages instead of an /angebot anchor. */
-const offeringLinks = offerings.flatMap((o) =>
-  o.slug === "automatisierung"
-    ? [
-        { href: "/ki-agenten", label: "KI-Agenten" },
-        { href: "/automatisierungen", label: "Automatisierungen" },
-      ]
-    : [{ href: `/angebot/${o.slug}`, label: o.title.replace(/\.$/, "") }],
-);
-
-export default function MobileNav() {
+export default function MobileNav({ lang }: { lang: Lang }) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+  const t = TEXT[lang];
+  const pageLinks = NAV_LINKS[lang].filter((l) => l.href !== "/angebot");
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <button
         type="button"
-        aria-label={open ? "Menü schließen" : "Menü öffnen"}
+        aria-label={open ? t.close : t.open}
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
         className="inline-flex items-center justify-center"
-        style={{ width: 36, height: 36, color: "#ffffff" }}
+        style={{ width: 36, height: 36, color: "var(--warm-grey)" }}
       >
         {open ? (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width={22} height={22}>
@@ -59,73 +48,78 @@ export default function MobileNav() {
       {mounted && open &&
         createPortal(
           <div
-            className="fixed left-0 right-0 overflow-y-auto"
+            className="fixed left-0 right-0 overflow-y-auto on-dark"
             style={{
-              top: 80,
+              top: 76,
               bottom: 0,
               background: "var(--near-black)",
               zIndex: 100,
             }}
           >
             <nav className="flex flex-col px-7 py-2">
-              {pageLinks.slice(0, 1).map((l) => (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  aria-current={pathname === l.href ? "page" : undefined}
-                  className="mobile-nav-row"
-                  style={{ color: pathname === l.href ? "var(--amber)" : "#ffffff" }}
-                >
-                  {l.label}
-                </Link>
-              ))}
-
-              <span
-                className="mono"
-                style={{ fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--warm-grey-faint)", padding: "18px 0 6px" }}
-              >
-                Angebot
-              </span>
-              {offeringLinks.map((l) => (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="mobile-nav-row"
-                  style={{ color: "#ffffff" }}
-                >
-                  {l.label}
-                </Link>
-              ))}
-
-              {pageLinks.slice(1).map((l) => {
-                const active = pathname === l.href;
+              {pageLinks.slice(0, 1).map((l) => {
+                const href = lp(lang, l.href);
                 return (
                   <Link
                     key={l.href}
-                    href={l.href}
+                    href={href}
                     onClick={() => setOpen(false)}
-                    aria-current={active ? "page" : undefined}
+                    aria-current={pathname === href ? "page" : undefined}
                     className="mobile-nav-row"
-                    style={{ color: active ? "var(--amber)" : "#ffffff" }}
+                    style={{ color: pathname === href ? "var(--amber)" : "var(--warm-grey)" }}
                   >
                     {l.label}
                   </Link>
                 );
               })}
 
-              <Link
-                href="/kontakt"
-                onClick={() => {
+              <span
+                className="mono"
+                style={{ fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--warm-grey-faint)", padding: "18px 0 6px" }}
+              >
+                {t.offerings}
+              </span>
+              {offeringLinks(lang).map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className="mobile-nav-row"
+                  style={{ color: "var(--warm-grey)" }}
+                >
+                  {l.label}
+                </Link>
+              ))}
+
+              {pageLinks.slice(1).map((l) => {
+                const href = lp(lang, l.href);
+                const active = pathname === href;
+                return (
+                  <Link
+                    key={l.href}
+                    href={href}
+                    onClick={() => setOpen(false)}
+                    aria-current={active ? "page" : undefined}
+                    className="mobile-nav-row"
+                    style={{ color: active ? "var(--amber)" : "var(--warm-grey)" }}
+                  >
+                    {l.label}
+                  </Link>
+                );
+              })}
+
+              <a
+                href={lp(lang, "/kontakt")}
+                onClick={(e) => {
+                  e.preventDefault();
                   setOpen(false);
-                  trackLead();
+                  openContactForm("Mobilmenue-CTA", "objekt");
                 }}
                 className="inline-flex items-center justify-center rounded-full font-semibold btn-amber"
-                style={{ background: "var(--amber)", color: "#161104", fontSize: 16, padding: "16px 0", margin: "24px 0 32px" }}
+                style={{ background: "var(--amber)", color: "#12141a", fontSize: 16, padding: "16px 0", margin: "24px 0 32px" }}
               >
-                Kontakt aufnehmen
-              </Link>
+                {NAV_CTA[lang]}
+              </a>
             </nav>
           </div>,
           document.body

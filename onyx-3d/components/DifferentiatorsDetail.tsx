@@ -1,5 +1,8 @@
 import Image from "next/image";
-import { differentiators } from "@/lib/differentiators";
+import { getDifferentiators } from "@/lib/differentiators";
+import type { Lang } from "@/lib/i18n";
+
+const LABEL: Record<Lang, string> = { de: "Unterschied", es: "Diferencia" };
 
 /**
  * The detailed explanation each homepage differentiator-card link lands
@@ -7,10 +10,10 @@ import { differentiators } from "@/lib/differentiators";
  * straight to it), image alternating sides for rhythm, real bullets
  * instead of just repeating the homepage's one-line teaser.
  */
-export default function DifferentiatorsDetail() {
+export default function DifferentiatorsDetail({ lang = "de" }: { lang?: Lang }) {
   return (
     <div>
-      {differentiators.map((d, i) => {
+      {getDifferentiators(lang).map((d, i) => {
         const imageRight = i % 2 === 1;
         const media = (
           <div className="relative flex items-center justify-center">
@@ -20,7 +23,7 @@ export default function DifferentiatorsDetail() {
               width={d.w}
               height={d.h}
               className="w-full h-auto block"
-              style={{ filter: "drop-shadow(0 0 40px rgba(212, 175, 106,0.35))" }}
+              style={{ filter: "drop-shadow(0 0 40px rgba(203, 203, 201,0.32))" }}
             />
           </div>
         );
@@ -34,10 +37,10 @@ export default function DifferentiatorsDetail() {
                 textTransform: "uppercase",
                 color: "var(--amber)",
                 background: "var(--amber-soft)",
-                border: "1px solid rgba(212, 175, 106,0.3)",
+                border: "1px solid rgba(232, 163, 61,0.3)",
               }}
             >
-              Unterschied {String(i + 1).padStart(2, "0")}
+              {LABEL[lang]} {String(i + 1).padStart(2, "0")}
             </span>
             <h2 style={{ fontSize: "clamp(1.5rem, 2.8vw, 2rem)", marginBottom: 16 }}>{d.title}</h2>
             <p style={{ color: "var(--warm-grey-dim)", fontSize: "1.02rem", lineHeight: 1.75, marginBottom: 24 }}>

@@ -1,4 +1,7 @@
 import type { ReactNode } from "react";
+import type { Lang } from "./i18n";
+import { problemsEs } from "./problems.es";
+
 
 export type Problem = {
   slug: string;
@@ -129,3 +132,11 @@ export const problems: Problem[] = [
     h: 594,
   },
 ];
+
+/** Übersetzbare Teile — Bilder, Icons und Slug bleiben in allen Sprachen gleich. */
+export type ProblemText = Pick<Problem, "title" | "highlight" | "desc" | "detail" | "bullets">;
+
+export function getProblems(lang: Lang): Problem[] {
+  if (lang === "de") return problems;
+  return problems.map((x) => ({ ...x, ...problemsEs[x.slug] }));
+}

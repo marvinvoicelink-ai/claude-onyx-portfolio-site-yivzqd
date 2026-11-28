@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finca — Vuelo 3D</title>
+<meta name="description" content="Recorrido cinematográfico de una finca en construcción avanzada, con material fotográfico real.">
+<style>
+  :root{
+    --negro:#111111;
+    --negro-2:#17161a;
+    --ambar:#E8A33D;
+    --gris-calido:#F5F2EC;
+    --texto-tenue:#bdb8ad;
+    --linea:rgba(245,242,236,0.12);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--negro);
+    color:var(--gris-calido);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,video{max-width:100%;display:block;}
+
+  /* ---- Vuelo 3D: sección alta, vídeo fijo controlado por el scroll ---- */
+  section.vuelo{
+    position:relative;
+    height:400vh;
+  }
+  .vuelo-fijo{
+    position:sticky;
+    top:0;
+    height:100svh;
+    overflow:hidden;
+    background:#000;
+  }
+  .vuelo-fijo video{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+  }
+  .vuelo-velo{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 70%, rgba(17,17,17,0.95) 100%);
+    pointer-events:none;
+  }
+  .vuelo-texto{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    padding:6vh 6vw 7vh;
+  }
+  .etiqueta{
+    display:inline-flex; align-items:center; gap:7px;
+    font-size:11px; letter-spacing:.12em; text-transform:uppercase; font-weight:700;
+    padding:6px 11px; border-radius:3px;
+    background:rgba(232,163,61,0.15); color:var(--ambar); border:1px dashed var(--ambar);
+    margin-bottom:16px;
+  }
+  h1{
+    font-size:clamp(28px,5.5vw,56px);
+    line-height:1.08;
+    margin:0 0 14px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    max-width:720px;
+  }
+  .sub{
+    font-size:clamp(14px,1.8vw,17px);
+    color:var(--texto-tenue);
+    max-width:560px;
+    line-height:1.55;
+    margin:0;
+  }
+  .scroll-pista{
+    position:absolute;
+    top:50%; right:5vw;
+    transform:translateY(-50%);
+    width:3px; height:40vh;
+    background:rgba(245,242,236,0.15);
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .scroll-pista i{
+    display:block; width:100%;
+    background:var(--ambar);
+    border-radius:2px;
+    height:0%;
+  }
+  @media (max-width:720px){ .scroll-pista{ display:none; } }
+
+  main{max-width:1180px; margin:0 auto; padding:0 6vw;}
+
+  section.estacion{
+    padding:12vh 0;
+    border-top:1px solid var(--linea);
+  }
+  section.estacion:first-of-type{border-top:none; padding-top:9vh;}
+
+  .num{ font-size:13px; color:var(--ambar); letter-spacing:.14em; font-weight:700; margin:0 0 10px; }
+  .titulo-estacion{ font-size:clamp(22px,3.2vw,34px); font-weight:600; margin:0 0 16px; letter-spacing:-0.01em; }
+  .texto-estacion{ font-size:16px; line-height:1.7; color:var(--texto-tenue); max-width:620px; margin:0 0 26px; }
+  .texto-estacion strong{ color:var(--gris-calido); font-weight:600; }
+
+  .grid-img{ display:grid; gap:18px; }
+  .grid-1{grid-template-columns:1fr;}
+  .grid-2{grid-template-columns:1fr 1fr;}
+  @media (max-width:720px){ .grid-2{grid-template-columns:1fr;} }
+
+  .marco{ border-radius:4px; overflow:hidden; border:1px solid var(--linea); background:var(--negro-2); }
+  .marco img{width:100%; height:auto; display:block;}
+
+  .insignia{
+    display:inline-flex; align-items:center; gap:7px;
+    font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-weight:700;
+    padding:5px 10px; border-radius:3px; margin:14px 14px 0; width:fit-content;
+  }
+  .insignia.real{ background:rgba(245,242,236,0.08); color:var(--texto-tenue); }
+  .insignia.ia{ background:rgba(232,163,61,0.12); color:var(--ambar); border:1px dashed var(--ambar); }
+
+  .aviso-vacio{
+    border:1px dashed var(--linea); border-radius:4px; padding:18px 20px;
+    font-size:14px; color:var(--texto-tenue); line-height:1.6; margin-top:22px;
+  }
+  .aviso-vacio b{color:var(--gris-calido);}
+
+  .ficha{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
+    background:var(--linea); border:1px solid var(--linea); border-radius:4px; overflow:hidden; margin:26px 0;
+  }
+  .ficha div{background:var(--negro); padding:18px 20px;}
+  .ficha .k{font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--texto-tenue); margin-bottom:6px;}
+  .ficha .v{font-size:18px; font-weight:600; color:var(--gris-calido); font-variant-numeric:tabular-nums;}
+  .ficha .v.pend{color:var(--texto-tenue); font-weight:400; font-size:14px;}
+
+  footer{ border-top:1px solid var(--linea); padding:8vh 6vw 10vh; max-width:1180px; margin:0 auto; }
+  footer p{ font-size:13px; color:var(--texto-tenue); line-height:1.7; max-width:620px; }
+  footer .marca{ font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--ambar); font-weight:700; margin-bottom:18px; }
+</style>
+</head>
+<body>
+
+<section class="vuelo" id="vuelo">
+  <div class="vuelo-fijo">
+    <video id="video-vuelo" muted playsinline preload="auto" poster="assets/vuelo-poster.jpg">
+      <source src="assets/vuelo.mp4" type="video/mp4">
+    </video>
+    <div class="vuelo-velo"></div>
+    <div class="scroll-pista"><i id="barra-scroll"></i></div>
+    <div class="vuelo-texto">
+      <p class="etiqueta">Visualización cinematográfica — no es metraje real</p>
+      <h1>Un vuelo por la finca, por dentro y por fuera</h1>
+      <p class="sub">Desplázate para recorrerla: el portón, el camino, la piscina y el ala blanca, y luego dentro — el salón, la cocina con isla, la escalera y el dormitorio principal. Generado con IA a partir de fotografías reales del inmueble — las fotos reales están más abajo, sin retocar.</p>
+    </div>
+  </div>
+</section>
+
+<main>
+
+  <section class="estacion" id="real">
+    <p class="num">Material real</p>
+    <h2 class="titulo-estacion">Así se ve hoy, sin editar</h2>
+    <p class="texto-estacion">El vuelo de arriba es una recreación. Estas fotografías, en cambio, son <strong>exactamente lo que hay</strong> — incluida la obra sin terminar.</p>
+
+    <div class="grid-img grid-2">
+      <figure class="marco">
+        <span class="insignia real">Foto real</span>
+        <img src="assets/01-tor.jpg" alt="Portón corredero real de láminas de acero oxidado junto a un pilar de piedra">
+      </figure>
+      <figure class="marco">
+        <span class="insignia real">Foto real</span>
+        <img src="assets/02-fachada.jpg" alt="Fachada real de piedra natural de la finca">
+      </figure>
+      <figure class="marco">
+        <span class="insignia real">Foto real</span>
+        <img src="assets/03-pool.jpg" alt="Piscina real sin terminar de llenar, con olivos y montaña al fondo">
+      </figure>
+      <figure class="marco">
+        <span class="insignia real">Foto real</span>
+        <img src="assets/04-weisser-fluegel.jpg" alt="Ala blanca real de la misma finca, con palmeras y pérgola">
+      </figure>
+      <figure class="marco">
+        <span class="insignia real">Foto real</span>
+        <img src="assets/09-fachada-jardin.jpg" alt="Fachada real vista desde el jardín trasero, con el porche en planta baja y el balcón superior">
+      </figure>
+      <figure class="marco">
+        <span class="insignia real">Foto real</span>
+        <img src="assets/10-pool-angulo2.jpg" alt="Piscina real desde otro ángulo, con olivos y vistas al campo al fondo">
+      </figure>
+    </div>
+    <div class="aviso-vacio">
+      El ala de fachada blanca con palmeras y pérgola es <b>la misma finca</b>, una zona distinta del conjunto — confirmado por el propietario, no una suposición.
+    </div>
+  </section>
+
+  <section class="estacion" id="cocina">
+    <p class="num">Antes / después</p>
+    <h2 class="titulo-estacion">Salón y cocina, un único espacio abierto</h2>
+    <p class="texto-estacion">La parte delantera de la sala es el salón; al fondo, junto a la fila de ventanas, está la cocina. Donde hoy sale una <strong>manguera del suelo</strong> irá la isla de cocina. La imagen de la derecha muestra cómo quedaría — visualización, no estado actual.</p>
+    <div class="grid-img grid-2">
+      <figure class="marco">
+        <span class="insignia real">Estado real</span>
+        <img src="assets/05-sala-antes.jpg" alt="Sala vacía en obra, salón delante y zona de cocina al fondo con una manguera saliendo del suelo">
+      </figure>
+      <figure class="marco">
+        <span class="insignia ia">Visualización IA — no es el estado real</span>
+        <img src="assets/06-sala-despues.jpg" alt="La misma sala, visualización con sofá y televisor en el salón e isla de cocina al fondo, añadidos por IA">
+      </figure>
+    </div>
+  </section>
+
+  <section class="estacion" id="mas">
+    <p class="num">Más fotos reales</p>
+    <h2 class="titulo-estacion">Dormitorio y terraza</h2>
+    <div class="grid-img grid-2">
+      <figure class="marco">
+        <span class="insignia real">Foto real</span>
+        <img src="assets/07-dormitorio-real.jpg" alt="Dormitorio real en obra, techo con vigas, balcones con vistas al campo">
+      </figure>
+      <figure class="marco">
+        <span class="insignia real">Foto real</span>
+        <img src="assets/08-terraza-real.jpg" alt="Terraza trasera real con muebles de exterior y vistas al campo">
+      </figure>
+      <figure class="marco">
+        <span class="insignia real">Foto real</span>
+        <img src="assets/11-bano-medio-muro.jpg" alt="Medio muro real junto al dormitorio principal, con el baño en obra abierto detrás">
+      </figure>
+    </div>
+    <p class="texto-estacion" style="margin-top:22px;">Detrás del medio muro que verás junto a la cama en el vuelo inicial hay, en la realidad, un <strong>baño abierto</strong> — así es como se ve hoy, en obra.</p>
+  </section>
+
+  <section class="estacion" id="datos">
+    <p class="num">Ficha</p>
+    <h2 class="titulo-estacion">Datos y estado</h2>
+    <div class="ficha">
+      <div><div class="k">Habitaciones</div><div class="v">4</div></div>
+      <div><div class="k">Superficie</div><div class="v pend">Pendiente de confirmar</div></div>
+      <div><div class="k">Ubicación</div><div class="v pend">Pendiente de confirmar</div></div>
+      <div><div class="k">Precio</div><div class="v pend">Pendiente de confirmar</div></div>
+    </div>
+    <p class="texto-estacion" style="margin-top:0;">El inmueble está <strong>en fase de acabado</strong>, no listo para entrar a vivir. Nada de esto se ha retocado ni disimulado en las fotos reales.</p>
+  </section>
+
+</main>
+
+<footer>
+  <p class="marca">Onyx Studio</p>
+  <p>El vuelo inicial es una <b>visualización generada por inteligencia artificial</b> a partir de fotografías reales del inmueble (incluido el portón, la fachada y el ala blanca) y está marcada expresamente como tal — no es un vídeo de dron real. Todas las fotografías de la sección "Material real" son fotografías sin editar. Superficie, ubicación y precio están pendientes de confirmación y no se han estimado. Información sujeta a comprobación, sin garantía.</p>
+</footer>
+
+<script>
+(function(){
+  var video = document.getElementById('video-vuelo');
+  var barra = document.getElementById('barra-scroll');
+  var seccion = document.getElementById('vuelo');
+  var listo = false;
+
+  video.addEventListener('loadedmetadata', function(){ listo = true; actualizar(); });
+  // Algunos navegadores móviles necesitan un toque para permitir el seek inicial.
+  video.load();
+
+  function actualizar(){
+    if(!listo || !video.duration) return;
+    var rect = seccion.getBoundingClientRect();
+    var alto = seccion.offsetHeight - window.innerHeight;
+    if(alto <= 0) return;
+    var avance = Math.min(1, Math.max(0, -rect.top / alto));
+    barra.style.height = (avance * 100) + '%';
+    var t = avance * video.duration;
+    if(Number.isFinite(t) && Math.abs(video.currentTime - t) > 0.04){
+      try { video.currentTime = t; } catch(e) {}
+    }
+  }
+
+  var pedido = false;
+  function enScroll(){
+    if(pedido) return;
+    pedido = true;
+    requestAnimationFrame(function(){ actualizar(); pedido = false; });
+  }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // Reproducción normal en bucle en vez de scroll-scrub, para no forzar movimiento.
+    video.loop = true;
+    video.autoplay = true;
+    video.play().catch(function(){});
+  } else {
+    window.addEventListener('scroll', enScroll, { passive: true });
+    window.addEventListener('resize', enScroll);
+    actualizar();
+  }
+})();
+</script>
+
+</body>
+</html>

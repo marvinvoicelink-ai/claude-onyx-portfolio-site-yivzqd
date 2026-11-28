@@ -14,17 +14,18 @@ export default function DatenschutzContent() {
         <br />
         E-Mail: <a href="mailto:info@onyx-ai.de">info@onyx-ai.de</a>
         <br />
-        Telefon: <a href="tel:+4917632273522">0176 322 273 522</a>
+        Telefon: <a href="tel:+4917632273522">0176 3227 3522</a>
       </p>
 
       <h2>2. Allgemeines zur Datenverarbeitung</h2>
       <p>
         Diese Website hat <strong>keine eigene Datenbank und keinen eigenen
-        Server-Code</strong>, in der bzw. dem wir personenbezogene Daten von
-        Besuchern speichern. Kontakt läuft über das Kontaktformular
-        (verarbeitet von Netlify Forms, siehe Punkt 5), WhatsApp und
-        Calendly (Terminbuchung) — beides externe Links zu Diensten
-        Dritter, die eigenständig Daten verarbeiten (siehe Punkt 6 und 7).
+        Server-Code</strong>. Kontakt läuft über die Kontaktformulare
+        (verarbeitet von Netlify Forms; Anfragen über die Seite
+        &bdquo;Immobilien&ldquo; zusätzlich in unserem
+        Kundenverwaltungssystem, siehe Punkt 5), WhatsApp und Calendly
+        (Terminbuchung) — beides externe Links zu Diensten Dritter, die
+        eigenständig Daten verarbeiten (siehe Punkt 6 und 7).
       </p>
       <p>
         Beim Aufruf dieser Website verarbeitet unser Hosting-Anbieter
@@ -87,9 +88,8 @@ export default function DatenschutzContent() {
       </p>
       <p>
         Die Übermittlung und Speicherung der Formulardaten übernimmt{" "}
-        <strong>Netlify Forms</strong> (Netlify, Inc., USA) — wir betreiben
-        kein eigenes Formular-Backend. Netlify verarbeitet die Daten dabei
-        als unser Auftragsverarbeiter. Die Daten werden so lange
+        <strong>Netlify Forms</strong> (Netlify, Inc., USA). Netlify
+        verarbeitet die Daten dabei als unser Auftragsverarbeiter. Die Daten werden so lange
         gespeichert, wie es zur Bearbeitung deiner Anfrage erforderlich ist,
         und danach gelöscht, sofern keine gesetzlichen
         Aufbewahrungspflichten entgegenstehen. Weitere Informationen findest
@@ -98,6 +98,45 @@ export default function DatenschutzContent() {
           Datenschutzerklärung von Netlify
         </a>
         .
+      </p>
+      <p>
+        <strong>Anfragen über die Seite &bdquo;Immobilien&ldquo;</strong>{" "}
+        (onyx-ai.de/immobilien) speichern wir zusätzlich in unserem eigenen
+        Kundenverwaltungssystem (CRM), damit keine Anfrage verloren geht und
+        wir dich zurückrufen können. Gespeichert werden die Angaben aus dem
+        Formular (Name, Firma, Telefon, E-Mail, gewünschte Leistungen,
+        Objekt, Link zum Inserat oder Exposé, Erreichbarkeit, Nachricht)
+        und über welche Seite bzw. Anzeige die Anfrage kam. Schickst du uns
+        danach Pläne, Fotos oder ein Exposé, nutzen wir sie nur, um die
+        Visualisierungen und Videos für dein Objekt zu erstellen. Dafür
+        setzen wir als Auftragsverarbeiter ein:
+      </p>
+      <ul>
+        <li>
+          <strong>Supabase</strong> (Supabase, Inc., USA) für die Datenbank,
+          Speicherort Frankfurt am Main (EU);
+        </li>
+        <li>
+          <strong>Vercel</strong> (Vercel Inc., USA), auf dessen Servern die
+          CRM-Anwendung läuft, die die Anfrage entgegennimmt;
+        </li>
+        <li>
+          <strong>Twilio</strong> (Twilio Inc., USA): Über den Eingang einer
+          Anfrage werden wir per SMS benachrichtigt. Die SMS enthält Name bzw.
+          Firma, Telefonnummer, E-Mail-Adresse und den Anfang deiner
+          Nachricht.
+        </li>
+      </ul>
+      <p>
+        Gibst du eine E-Mail-Adresse an, schicken wir dir eine
+        Eingangsbestätigung über unser E-Mail-Postfach (Strato AG, Berlin).
+        Soweit Daten dabei in die USA übermittelt werden, erfolgt das auf
+        Grundlage geeigneter Garantien nach Art. 46 DSGVO bzw. des EU-U.S.
+        Data Privacy Framework. Rechtsgrundlage ist wie oben Art. 6 Abs. 1
+        lit. b DSGVO. Die Daten im CRM löschen wir, sobald sie für die
+        Bearbeitung deiner Anfrage und eine mögliche Zusammenarbeit nicht
+        mehr gebraucht werden und keine gesetzlichen Aufbewahrungspflichten
+        entgegenstehen.
       </p>
 
       <h2>6. WhatsApp</h2>
