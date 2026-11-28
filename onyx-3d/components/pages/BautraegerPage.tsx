@@ -4,6 +4,7 @@ import AnfrageSticky from "@/components/immobilien/AnfrageSticky";
 import {
   Angebot,
   AnfrageKnopf,
+  Beweis,
   Etikett,
   FRAGE,
   Fragen,
@@ -14,7 +15,6 @@ import {
   Kicker,
   LeistungsKarte,
   Probleme,
-  Schritte,
   WECHSEL_CSS,
   ZweiterKnopf,
 } from "@/components/immobilien/bausteine";
@@ -153,6 +153,18 @@ export default function BautraegerPage() {
         </div>
       </section>
 
+      <Beweis
+        knopf="Pläne schicken – erstes Objekt geschenkt"
+        titel="Schicken Sie uns Ihre Pläne. Wir zeigen Ihnen, was daraus wird."
+        text="Sie müssen uns nichts glauben. Schicken Sie uns die Pläne Ihres Projekts – gern dazu Fotos vom Grundstück oder vom Rohbau. Wir machen daraus das fertige Haus: außen, innen, jedes Zimmer eingerichtet. Ihr erstes Objekt ist geschenkt."
+        reicht={["Grundrisse und Ansichten – als PDF oder Foto", "Baubeschreibung oder Ausstattungsliste", "Fotos vom Grundstück oder Rohbau, falls vorhanden – Handyfotos reichen"]}
+        schritte={[
+          { titel: "Anfrage senden", text: "Kurz eintragen, um welches Projekt es geht. Marvin ruft Sie an." },
+          { titel: "Pläne schicken", text: "Per Mail – Marvin sagt Ihnen im Gespräch, wohin." },
+          { titel: "Ergebnis ansehen", text: "Sie sehen das fertige Haus, bevor irgendetwas online geht." },
+        ]}
+      />
+
       {/* Bauphasen */}
       <section className="py-16" style={{ background: "var(--near-black-2)" }}>
         <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
@@ -249,19 +261,10 @@ export default function BautraegerPage() {
         </div>
       </section>
 
-      <Schritte
-        titel="Drei Schritte. Sie machen nur den ersten."
-        schritte={[
-          { titel: "Pläne und Fotos schicken", text: "Grundrisse, Ansichten, Baubeschreibung und Fotos vom Grundstück oder Rohbau. Handyfotos reichen." },
-          { titel: "Wir zeigen es fertig", text: "Zeitraffer, eingerichtete Räume, Rundgang, Projektseite – was Sie brauchen. Online geht nur, was Sie freigeben." },
-          { titel: "Ihr Vertrieb verkauft", text: "Mit Link, Videos und Anzeigen – an Käufer, die das fertige Haus schon gesehen haben." },
-        ]}
-      />
-
       <Gruender warum="Ich habe zu oft gesehen, wie gute Projekte erst verkauft werden, wenn sie fertig sind – weil sich vorher niemand vorstellen konnte, wie sie aussehen. Deshalb zeige ich jedes Haus vom Rohbau bis fertig eingerichtet und bringe es per Anzeige zu Menschen, die gerade suchen." />
 
       <Angebot
-        text="Sagen Sie uns, welches Projekt Sie gerade vermarkten und was Sie zeigen möchten. Marvin ruft Sie an, schaut sich Pläne und Fotos mit Ihnen an – und Sie sehen das Ergebnis, bevor etwas online geht."
+        text="Sagen Sie uns, welches Projekt Sie gerade vermarkten. Marvin ruft Sie an und sagt Ihnen, wohin Sie die Pläne schicken – und Sie sehen das Ergebnis, bevor etwas online geht."
         rolle="Bauträger / Bauunternehmen"
         objektBeispiel="z. B. 6 Villen im Rohbau, Wohnanlage mit 12 Einheiten"
         auswahl={["zeitraffer", "einrichtung", "rundgang", "projektseite", "anzeigen", "rundflug"]}
