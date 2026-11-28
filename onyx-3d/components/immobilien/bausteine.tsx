@@ -153,12 +153,14 @@ export function Angebot({
   objektBeispiel,
   auswahl,
   linkFeld,
+  linkBeispiel,
 }: {
   text: string;
   rolle: "Bauträger / Bauunternehmen" | "Makler";
   objektBeispiel: string;
   auswahl: LeistungId[];
   linkFeld?: boolean;
+  linkBeispiel?: string;
 }) {
   return (
     <section id="anfrage" className="py-16" style={{ background: "var(--near-black-2)", scrollMarginTop: 80 }}>
@@ -170,7 +172,7 @@ export function Angebot({
           <Haken punkte={["Bezahlt wird pro Objekt – kein Abo", "Videos, Bilder und Website gehören Ihnen", "Werbekonto und Daten bleiben bei Ihnen"]} style={{ color: "var(--warm-grey)", fontSize: "0.98rem" }} />
         </div>
         <div id="anfrage-formular" className="rounded-2xl p-6 md:p-8" style={{ background: "var(--near-black)", border: "1px solid var(--hairline)", scrollMarginTop: 90 }}>
-          <LeistungenAnfrage rolle={rolle} objektBeispiel={objektBeispiel} auswahl={auswahl} linkFeld={linkFeld} />
+          <LeistungenAnfrage rolle={rolle} objektBeispiel={objektBeispiel} auswahl={auswahl} linkFeld={linkFeld} linkBeispiel={linkBeispiel} />
         </div>
       </div>
     </section>

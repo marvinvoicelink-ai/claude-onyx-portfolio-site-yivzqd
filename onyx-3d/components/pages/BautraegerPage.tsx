@@ -30,16 +30,63 @@ import {
  * „Verkaufen, bevor es fertig ist“). Material nur aus ONYX-Beispielen.
  */
 
-const TITEL = "Verkaufen, bevor es fertig ist – für Bauträger | ONYX Studio";
+export type Markt = "es" | "de";
+
+/**
+ * Zwei Märkte, ein Aufbau (Marvin, 28.11.2026: „Baue bitte alles auch für den
+ * deutschen Markt auf“). Spanien (/immobilien/bautraeger) zeigt die Villa auf
+ * Mallorca, Deutschland (/immobilien/bautraeger/deutschland) ein
+ * Mehrfamilienhaus im Neubaugebiet – beides Beispielprojekte, KI-Visualisierung.
+ */
+const MARKT = {
+  es: {
+    pfad: "/immobilien/bautraeger",
+    titel: "Verkaufen, bevor es fertig ist – für Bauträger | ONYX Studio",
+    kicker: "Für Bauträger & Bauunternehmen",
+    held: { src: "/beispiele/projekt/media/hero.mp4", poster: "/beispiele/projekt/img/hero-poster.webp", label: "Zeitraffer: vom leeren Grundstück bis zur fertigen Villa" },
+    bauphasen: [
+      { bild: "/beispiele/projekt/img/bau-1.webp", phase: "Absteckung" },
+      { bild: "/beispiele/projekt/img/bau-2.webp", phase: "Fundament" },
+      { bild: "/beispiele/projekt/img/bau-3.webp", phase: "Rohbau" },
+      { bild: "/beispiele/projekt/img/bau-4.webp", phase: "Fassade" },
+      { bild: "/beispiele/projekt/img/bau-5.webp", phase: "So wird es" },
+    ],
+    zeitraffer: { src: "/assets/immobilien/zeitraffer.mp4", poster: "/assets/immobilien/zeitraffer.jpg", label: "Zeitraffer vom Grundstück bis fertig" },
+    rundflug: { src: "/assets/immobilien/rundflug.mp4", poster: "/assets/immobilien/rundflug.jpg", label: "Rundflug um eine fertige Villa" },
+    objektBeispiel: "z. B. 6 Villen im Rohbau, Wohnanlage mit 12 Einheiten",
+    ogBild: "/beispiele/projekt/img/bau-5.webp",
+  },
+  de: {
+    pfad: "/immobilien/bautraeger/deutschland",
+    titel: "Verkaufen, bevor es fertig ist – für Bauträger in Deutschland | ONYX Studio",
+    kicker: "Für Bauträger in Deutschland",
+    held: { src: "/assets/immobilien/de/zeitraffer-quer.mp4", poster: "/assets/immobilien/de/zeitraffer-quer.jpg", label: "Zeitraffer: vom leeren Grundstück bis zum fertigen Mehrfamilienhaus" },
+    bauphasen: [
+      { bild: "/assets/immobilien/de/bau-1.webp", phase: "Grundstück" },
+      { bild: "/assets/immobilien/de/bau-2.webp", phase: "Baugrube" },
+      { bild: "/assets/immobilien/de/bau-3.webp", phase: "Rohbau" },
+      { bild: "/assets/immobilien/de/bau-4.webp", phase: "Fassade" },
+      { bild: "/assets/immobilien/de/bau-5.webp", phase: "So wird es" },
+    ],
+    zeitraffer: { src: "/assets/immobilien/de/zeitraffer-hoch.mp4", poster: "/assets/immobilien/de/zeitraffer-hoch.jpg", label: "Zeitraffer eines Mehrfamilienhauses von der Baugrube bis fertig" },
+    rundflug: { src: "/assets/immobilien/de/flug-hoch.mp4", poster: "/assets/immobilien/de/flug-hoch.jpg", label: "Flug über Garten und Haus wie mit der Drohne" },
+    objektBeispiel: "z. B. Mehrfamilienhaus mit 12 Wohnungen, 6 Reihenhäuser",
+    ogBild: "/assets/immobilien/de/bau-5.webp",
+  },
+} as const;
+
 const BESCHREIBUNG =
   "Wir zeigen Ihr Haus oder Ihre Wohnung komplett fertig – außen, innen, jedes Zimmer eingerichtet. Aus Ihren Bauplänen und Baustellenfotos, damit Käufer schon in der Bauphase sehen, was sie kaufen. Ihr erstes Objekt ist geschenkt.";
 
-export const bautraegerMetadata: Metadata = {
-  title: TITEL,
-  description: BESCHREIBUNG,
-  alternates: { canonical: "/immobilien/bautraeger" },
-  openGraph: { title: TITEL, description: BESCHREIBUNG, images: ["/beispiele/projekt/img/bau-5.webp"], locale: "de_DE", type: "website" },
-};
+export function bautraegerMetadata(markt: Markt = "es"): Metadata {
+  const m = MARKT[markt];
+  return {
+    title: m.titel,
+    description: BESCHREIBUNG,
+    alternates: { canonical: m.pfad },
+    openGraph: { title: m.titel, description: BESCHREIBUNG, images: [m.ogBild], locale: "de_DE", type: "website" },
+  };
+}
 
 const PROBLEME = [
   { titel: "Grundrisse versteht kaum ein Käufer.", text: "Wie groß ist das Wohnzimmer wirklich, wo fällt das Licht hin? Aus Strichen auf Papier macht sich niemand ein Bild von seinem Zuhause." },
@@ -67,27 +114,21 @@ const HEUTE = [
   },
 ];
 
-const BAUPHASEN = [
-  { bild: "/beispiele/projekt/img/bau-1.webp", phase: "Absteckung" },
-  { bild: "/beispiele/projekt/img/bau-2.webp", phase: "Fundament" },
-  { bild: "/beispiele/projekt/img/bau-3.webp", phase: "Rohbau" },
-  { bild: "/beispiele/projekt/img/bau-4.webp", phase: "Fassade" },
-  { bild: "/beispiele/projekt/img/bau-5.webp", phase: "So wird es" },
-];
-
 const VERTRIEB = [
   { titel: "Käufer legen sich früher fest", text: "Wer die fertige Wohnung gesehen hat, muss nicht bis zur Übergabe warten, um sich zu entscheiden." },
   { titel: "Ihr Vertrieb schickt einen Link", text: "Statt Grundriss-PDF, Baubeschreibung und Außenrendering: eine Seite, auf der alles ist – am Handy." },
   { titel: "Zur Baustelle kommen die Richtigen", text: "Wer nach dem Rundgang anfragt, weiß, was er will. Auch Käufer, die weit weg wohnen, kennen das Haus schon." },
 ];
 
-export default function BautraegerPage() {
+export default function BautraegerPage({ markt = "es" }: { markt?: Markt } = {}) {
+  const m = MARKT[markt];
+  const BAUPHASEN = m.bauphasen;
   return (
     <main>
       <style>{HELD_CSS + WECHSEL_CSS}</style>
 
       <Held
-        kicker="Für Bauträger & Bauunternehmen"
+        kicker={m.kicker}
         titel="Verkaufen, bevor es fertig ist."
         text="Wir zeigen Ihr Haus oder Ihre Wohnung komplett fertig – außen, innen, jedes Zimmer eingerichtet. Aus Ihren Bauplänen und Baustellenfotos, lange bevor der letzte Stein gesetzt ist. So sehen Ihre Käufer, was sie kaufen."
         knoepfe={
@@ -99,7 +140,7 @@ export default function BautraegerPage() {
         punkte={["Aus Ihren Plänen und Fotos – die Architektur bleibt echt", "Jedes Bild geben Sie frei, bevor es online geht", "Immer gekennzeichnet als KI-Visualisierung"]}
         bild={
           <div className="relative overflow-hidden rounded-2xl" style={{ aspectRatio: "16 / 9", background: "#141414", border: "1px solid var(--hairline)" }}>
-            <video src="/beispiele/projekt/media/hero.mp4" poster="/beispiele/projekt/img/hero-poster.webp" autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" aria-label="Zeitraffer: vom leeren Grundstück bis zur fertigen Villa" />
+            <video src={m.held.src} poster={m.held.poster} autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" aria-label={m.held.label} />
             <KiHinweis />
             <Etikett style={{ left: 12, bottom: 12, fontSize: 11 }}>Vom Grundstück bis fertig</Etikett>
           </div>
@@ -205,8 +246,8 @@ export default function BautraegerPage() {
             <LeistungsKarte
               id="zeitraffer"
               titel="Zeitraffer vom Grundstück bis fertig"
-              text="In Sekunden wächst Ihr Haus aus der Baugrube zur fertigen Villa. Das Video, das in Ihren Anzeigen hängen bleibt."
-              medium={{ art: "video", src: "/assets/immobilien/zeitraffer.mp4", poster: "/assets/immobilien/zeitraffer.jpg", label: "Zeitraffer vom Grundstück bis fertig", ki: true }}
+              text="In Sekunden wächst Ihr Projekt aus der Baugrube bis zum fertigen Haus. Das Video, das in Ihren Anzeigen hängen bleibt."
+              medium={{ art: "video", ...m.zeitraffer, ki: true }}
             />
             <LeistungsKarte
               id="einrichtung"
@@ -238,7 +279,7 @@ export default function BautraegerPage() {
               id="rundflug"
               titel="Rundflug um das fertige Haus"
               text="Ein Flug um das Haus und durch die Räume, wie mit der Drohne – schon während noch gebaut wird."
-              medium={{ art: "video", src: "/assets/immobilien/rundflug.mp4", poster: "/assets/immobilien/rundflug.jpg", label: "Rundflug um eine fertige Villa", ki: true }}
+              medium={{ art: "video", ...m.rundflug, ki: true }}
             />
           </div>
         </div>
@@ -266,7 +307,7 @@ export default function BautraegerPage() {
       <Angebot
         text="Sagen Sie uns, welches Projekt Sie gerade vermarkten. Marvin ruft Sie an und sagt Ihnen, wohin Sie die Pläne schicken – und Sie sehen das Ergebnis, bevor etwas online geht."
         rolle="Bauträger / Bauunternehmen"
-        objektBeispiel="z. B. 6 Villen im Rohbau, Wohnanlage mit 12 Einheiten"
+        objektBeispiel={m.objektBeispiel}
         auswahl={["zeitraffer", "einrichtung", "rundgang", "projektseite", "anzeigen", "rundflug"]}
       />
 
