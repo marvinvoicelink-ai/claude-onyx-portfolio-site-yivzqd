@@ -32,8 +32,9 @@ function quelleAusAdresse() {
   }
 }
 
-export default function LeistungenAnfrage() {
-  const [gewaehlt, setGewaehlt] = useState<Set<string>>(new Set());
+/** vorauswahl: Leistung aus der Anzeige, die schon angehakt ist (Einstiege /immobilien/…). */
+export default function LeistungenAnfrage({ vorauswahl }: { vorauswahl?: LeistungId } = {}) {
+  const [gewaehlt, setGewaehlt] = useState<Set<string>>(() => new Set(vorauswahl ? [vorauswahl] : []));
   const [status, setStatus] = useState<"bereit" | "sendet" | "ok" | "fehler">("bereit");
 
   useEffect(() => {
