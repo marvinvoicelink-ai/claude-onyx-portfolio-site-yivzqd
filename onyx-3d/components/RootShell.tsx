@@ -60,6 +60,7 @@ export default function RootShell({ lang, children }: { lang: Lang; children: Re
           <input type="text" name="erreichbar" />
           <input type="text" name="nachricht" />
           <input type="text" name="quelle" />
+          <input type="text" name="wunsch" />
           <input type="text" name="bot-field" />
         </form>
         <div id="main-content">{children}</div>
