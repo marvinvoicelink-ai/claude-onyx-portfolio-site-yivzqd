@@ -48,6 +48,20 @@ export default function RootShell({ lang, children }: { lang: Lang; children: Re
           <input type="text" name="language" />
           <input type="text" name="bot-field" />
         </form>
+        {/* Anfrage-Formular der Landingpage /immobilien (LeistungenAnfrage). */}
+        <form name="leistungen" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+          <input type="text" name="name" />
+          <input type="text" name="firma" />
+          <input type="tel" name="telefon" />
+          <input type="email" name="email" />
+          <input type="text" name="rolle" />
+          <input type="text" name="leistungen" />
+          <input type="text" name="objekt" />
+          <input type="text" name="erreichbar" />
+          <input type="text" name="nachricht" />
+          <input type="text" name="quelle" />
+          <input type="text" name="bot-field" />
+        </form>
         <div id="main-content">{children}</div>
         {/* Ein Kontakt-Formular-Overlay, das jeder CTA-Button seitenweit öffnet (openContactForm). */}
         <ContactModal lang={lang} />
