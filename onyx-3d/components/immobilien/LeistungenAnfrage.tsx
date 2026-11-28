@@ -243,6 +243,7 @@ export default function LeistungenAnfrage({ vorauswahl }: { vorauswahl?: Leistun
           {status === "sendet" ? "Wird gesendet …" : "Anfrage senden"}
         </button>
         <p style={{ fontSize: 12.5, color: "var(--warm-grey-faint)", lineHeight: 1.5 }}>
+          <span style={{ display: "block", color: "var(--warm-grey-dim)", fontSize: 14, marginBottom: 4 }}>Marvin ruft Sie persönlich an, in der Regel innerhalb eines Werktags. Kein Newsletter.</span>
           Ihre Angaben nutzen wir nur, um Sie zu Ihrer Anfrage zu kontaktieren. Mehr in der <a href="/datenschutz" style={{ textDecoration: "underline" }}>Datenschutzerklärung</a>.
         </p>
       </div>
