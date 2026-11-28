@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Luxusfinca über Son Carrió · Objekt 007 M · de Haas &amp; Partner Immobilien</title>
+<meta name="description" content="Luxusfinca mit Infinity-Pool, Sauna und unbefristeter Ferienvermietlizenz in Alleinlage über Son Carrió, Mallorca. 275 m² Wohnfläche, 16.156 m² Grundstück, 6 Schlafzimmer.">
+<meta property="og:title" content="Luxusfinca über Son Carrió · Mallorca">
+<meta property="og:description" content="Ein Flug durch die Finca: Wohnhalle, Kamin, Terrasse, Infinity-Pool, Sauna. 275 m² · 16.156 m² · 6 Schlafzimmer.">
+<meta property="og:image" content="img/og.jpg">
+<meta name="theme-color" content="#0e0d0b">
+<link rel="preload" href="fonts/cormorant.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Cormorant";src:url(fonts/cormorant.woff2) format("woff2");font-weight:300 700;font-style:normal;font-display:swap}
+@font-face{font-family:"Cormorant";src:url(fonts/cormorant-italic.woff2) format("woff2");font-weight:300 700;font-style:italic;font-display:swap}
+@font-face{font-family:"Manrope";src:url(fonts/manrope.woff2) format("woff2");font-weight:200 800;font-style:normal;font-display:swap}
+
+:root{
+  --nacht:#0e0d0b;
+  --nacht-2:#171512;
+  --hell:#f5f2ec;
+  --hell-tief:#ece6da;
+  --tinte:#1c1a17;
+  --tinte-2:#5d574e;
+  --blau:#0c3c85;
+  --blau-tief:#082b61;
+  --sand:#c9a878;
+  --linie:rgba(28,26,23,.12);
+  --linie-hell:rgba(245,242,236,.16);
+  --serif:"Cormorant",Georgia,"Times New Roman",serif;
+  --sans:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --kapitel-hoehe:140vh;
+  --rand:clamp(20px,5vw,64px);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--nacht);color:var(--hell);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- Kopfzeile ---------- */
+.kopf{position:fixed;inset:0 0 auto 0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:calc(14px + env(safe-area-inset-top)) var(--rand) 14px;transition:background .35s,box-shadow .35s,color .35s;color:var(--hell)}
+.kopf .logo{display:block;height:44px;width:auto}
+.kopf .logo-dunkel{display:none}
+.kopf.hell{background:rgba(245,242,236,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--linie);color:var(--tinte)}
+.kopf.hell .logo-hell{display:none}
+.kopf.hell .logo-dunkel{display:block}
+.kopf nav{display:flex;align-items:center;gap:clamp(10px,2vw,22px);font-size:14px;font-weight:500}
+.kopf nav a{text-decoration:none;opacity:.88}
+.kopf nav a:hover{opacity:1}
+.knopf{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:12px 22px;font:600 14px/1 var(--sans);
+  letter-spacing:.02em;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:transform .2s,background .2s,color .2s,border-color .2s}
+.knopf:hover{transform:translateY(-1px)}
+.knopf-voll{background:var(--hell);color:var(--nacht)}
+.kopf.hell .knopf-voll,.hell-bereich .knopf-voll{background:var(--blau);color:#fff}
+.knopf-rand{border-color:currentColor;color:inherit;background:transparent}
+.nur-breit{display:inline}
+@media (max-width:640px){.nur-breit{display:none}.kopf .logo{height:36px}.kopf .knopf{padding:10px 16px;font-size:13px}}
+
+/* ---------- Flug ---------- */
+.flug{position:relative;background:var(--nacht)}
+.flug-bahn{height:calc(var(--kapitel-hoehe) * var(--anzahl, 10))}
+.buehne{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--nacht)}
+.buehne canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.schleier{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(14,13,11,.5) 0%,rgba(14,13,11,0) 20%,rgba(14,13,11,0) 38%,rgba(14,13,11,.5) 60%,rgba(14,13,11,.88) 100%)}
+.blende{position:absolute;inset:0;background:var(--nacht);opacity:0;pointer-events:none}
+.kapiteltext{position:absolute;left:var(--rand);right:var(--rand);bottom:calc(84px + env(safe-area-inset-bottom));max-width:640px;
+  opacity:0;transform:translateY(18px);will-change:opacity,transform;text-shadow:0 1px 28px rgba(0,0,0,.35)}
+.augenbraue{font:600 12px/1.3 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:#e6c897;margin:0 0 12px}
+.kapiteltext h1,.kapiteltext h2{font:600 clamp(38px,7vw,84px)/1.0 var(--serif);margin:0 0 14px;letter-spacing:-.01em;text-wrap:balance}
+.kapiteltext p.text{font-size:clamp(15px,1.6vw,18px);color:rgba(245,242,236,.86);margin:0;max-width:520px;text-wrap:pretty}
+.kapiteltext .aktionen{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px;text-shadow:none}
+.kapiteltext .aktionen[hidden]{display:none}
+.ki-hinweis{position:absolute;left:var(--rand);bottom:calc(26px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:8px;
+  font-size:11px;letter-spacing:.06em;color:rgba(245,242,236,.78);background:rgba(14,13,11,.45);border:1px solid var(--linie-hell);
+  padding:6px 11px;border-radius:999px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.ki-hinweis i{width:6px;height:6px;border-radius:50%;background:var(--sand);display:block}
+.ueberspringen{position:absolute;right:var(--rand);bottom:calc(22px + env(safe-area-inset-bottom));font-size:12px;letter-spacing:.06em;
+  color:rgba(245,242,236,.75);text-decoration:none;padding:6px 0;border-bottom:1px solid rgba(245,242,236,.35)}
+.ueberspringen:hover{color:var(--hell)}
+.fortschritt{position:absolute;right:var(--rand);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;list-style:none;margin:0;padding:0}
+.fortschritt li{display:flex;align-items:center;justify-content:flex-end;gap:10px;font-size:11px;letter-spacing:.08em;color:rgba(245,242,236,.5);cursor:pointer}
+.fortschritt li span{opacity:0;transform:translateX(6px);transition:opacity .3s,transform .3s;white-space:nowrap}
+.fortschritt li b{display:block;width:18px;height:2px;background:rgba(245,242,236,.35);transition:width .3s,background .3s}
+.fortschritt li.aktiv{color:var(--hell)}
+.fortschritt li.aktiv span,.fortschritt:hover li span{opacity:1;transform:none}
+.fortschritt li.aktiv b{width:34px;background:var(--sand)}
+.scrollhinweis{position:absolute;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;
+  font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,242,236,.8);transition:opacity .4s;pointer-events:none}
+.scrollhinweis i{display:block;width:1px;height:42px;background:linear-gradient(var(--hell),transparent);animation:tropfen 1.8s ease-in-out infinite}
+@keyframes tropfen{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.ladebalken{position:absolute;left:0;top:0;height:2px;background:var(--sand);width:0;transition:width .3s,opacity .6s}
+@media (max-width:720px){
+  :root{--kapitel-hoehe:125vh}
+  .fortschritt{top:auto;bottom:calc(30px + env(safe-area-inset-bottom));right:var(--rand);transform:none;flex-direction:row;gap:5px}
+  .fortschritt li span{display:none}
+  .fortschritt li b{width:8px}
+  .fortschritt li.aktiv b{width:20px}
+  .ueberspringen{display:none}
+  .kapiteltext{bottom:calc(74px + env(safe-area-inset-bottom))}
+  .ki-hinweis{bottom:calc(24px + env(safe-area-inset-bottom));font-size:10px}
+}
+
+/* ---------- Heller Teil ---------- */
+.hell-bereich{background:var(--hell);color:var(--tinte)}
+.abschnitt{padding:clamp(72px,11vw,140px) var(--rand);max-width:1240px;margin:0 auto}
+.abschnitt + .abschnitt{border-top:1px solid var(--linie)}
+.ueberzeile{font:600 12px/1.3 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--blau);margin:0 0 14px}
+.hell-bereich h2{font:600 clamp(34px,5vw,60px)/1.04 var(--serif);margin:0 0 22px;letter-spacing:-.01em;text-wrap:balance}
+.hell-bereich h3{font:600 26px/1.15 var(--serif);margin:0 0 10px}
+.einleitung{font-size:clamp(17px,1.8vw,20px);color:var(--tinte-2);max-width:720px;margin:0 0 40px;text-wrap:pretty}
+
+.preisband{display:flex;flex-wrap:wrap;align-items:baseline;gap:14px 28px;padding:26px 0 30px;border-bottom:1px solid var(--linie);margin-bottom:34px}
+.preis{font:600 clamp(40px,6vw,64px)/1 var(--serif);color:var(--blau)}
+.preis-zusatz{font-size:14px;color:var(--tinte-2)}
+.preis-zusatz strong{color:var(--tinte)}
+.zahlen{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--linie);border-radius:16px;overflow:hidden;background:#fff}
+.zahl{padding:24px 22px;border-right:1px solid var(--linie);border-bottom:1px solid var(--linie)}
+.zahl:nth-child(4n){border-right:none}
+.zahl:nth-last-child(-n+4){border-bottom:none}
+.zahl dt{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--tinte-2);margin:0 0 6px}
+.zahl dd{margin:0;font:600 30px/1.1 var(--serif);color:var(--tinte)}
+.zahl dd small{font:500 14px var(--sans);color:var(--tinte-2)}
+@media (max-width:820px){
+  .zahlen{grid-template-columns:repeat(2,1fr)}
+  .zahl:nth-child(4n){border-right:1px solid var(--linie)}
+  .zahl:nth-child(2n){border-right:none}
+  .zahl:nth-last-child(-n+4){border-bottom:1px solid var(--linie)}
+  .zahl:nth-last-child(-n+2){border-bottom:none}
+}
+
+.zwei-spalten{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(32px,6vw,80px);align-items:start}
+@media (max-width:900px){.zwei-spalten{grid-template-columns:1fr}}
+.fliesstext p{margin:0 0 18px;color:#36322c;font-size:17px;text-wrap:pretty}
+.raumliste{list-style:none;margin:0;padding:0;border-top:1px solid var(--linie)}
+.raumliste li{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--linie);font-size:15px}
+.raumliste li span:last-child{color:var(--tinte-2);text-align:right}
+.raumkarte{background:#fff;border:1px solid var(--linie);border-radius:16px;padding:26px}
+.raumkarte h3{margin-bottom:14px}
+.raumkarte + .raumkarte{margin-top:18px}
+
+.merkmale{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:900px){.merkmale{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.merkmale{grid-template-columns:1fr}}
+.merkmal{background:#fff;border:1px solid var(--linie);border-radius:16px;padding:24px;display:flex;gap:16px;align-items:flex-start}
+.merkmal svg{flex:none;width:28px;height:28px;stroke:var(--blau);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.merkmal h3{font-size:22px;margin:0 0 4px}
+.merkmal p{margin:0;font-size:14.5px;color:var(--tinte-2)}
+
+.filme{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media (max-width:820px){.filme{grid-template-columns:1fr}}
+.film{background:var(--nacht);border-radius:16px;overflow:hidden;color:var(--hell)}
+.film video{width:100%;aspect-ratio:16/9;display:block;background:#000;object-fit:cover}
+.film div{padding:18px 22px 22px}
+.film h3{color:var(--hell);font-size:24px;margin:0 0 4px}
+.film p{margin:0;font-size:14px;color:rgba(245,242,236,.7)}
+
+.galerie{columns:3 300px;column-gap:14px}
+.galerie button{all:unset;display:block;width:100%;margin:0 0 14px;cursor:zoom-in;border-radius:12px;overflow:hidden;break-inside:avoid;position:relative;background:var(--hell-tief)}
+.galerie button:focus-visible{outline:3px solid var(--blau);outline-offset:3px}
+.galerie img{width:100%;height:auto;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.galerie button:hover img{transform:scale(1.03)}
+
+.lage{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center}
+@media (max-width:900px){.lage{grid-template-columns:1fr}}
+.lage img{border-radius:16px;aspect-ratio:4/3;object-fit:cover;width:100%}
+.wege{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wege li{background:#fff;border:1px solid var(--linie);border-radius:12px;padding:14px 16px;font-size:14px;color:var(--tinte-2)}
+.wege li strong{display:block;font:600 24px/1.1 var(--serif);color:var(--tinte)}
+
+.karte360{position:relative;border-radius:22px;overflow:hidden;min-height:380px;display:flex;align-items:flex-end;color:var(--hell)}
+.karte360 img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.karte360::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,20,45,.88) 0%,rgba(8,20,45,.55) 55%,rgba(8,20,45,.2) 100%)}
+.karte360 div{position:relative;z-index:1;padding:clamp(28px,5vw,56px);max-width:620px}
+.karte360 h2{color:var(--hell)}
+.karte360 p{color:rgba(245,242,236,.86);margin:0 0 24px}
+.karte360 .knopf-voll{background:var(--hell);color:var(--blau-tief)}
+
+.kontakt{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(32px,6vw,80px);align-items:start}
+.anfrage{background:#fff;border:1px solid var(--linie);border-radius:18px;padding:clamp(22px,3vw,32px);display:grid;gap:16px}
+.feldreihe{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:560px){.feldreihe{grid-template-columns:1fr}}
+.feld{display:grid;gap:6px;font-size:13px;font-weight:600;color:var(--tinte-2);letter-spacing:.02em;border:0;margin:0;padding:0;min-width:0}
+.feld input,.feld textarea{font:400 16px/1.4 var(--sans);color:var(--tinte);background:var(--hell);border:1px solid var(--linie);border-radius:10px;padding:12px 14px;width:100%}
+.feld textarea{resize:vertical;min-height:110px}
+.feld input:focus,.feld textarea:focus{outline:none;border-color:var(--blau);box-shadow:0 0 0 3px rgba(12,60,133,.15)}
+.feld input[aria-invalid="true"]{border-color:#b3261e}
+.anliegen legend{margin-bottom:8px}
+.anliegen{display:flex;flex-wrap:wrap;gap:8px}
+.anliegen legend{width:100%}
+.anliegen label{cursor:pointer}
+.anliegen input{position:absolute;opacity:0;pointer-events:none}
+.anliegen span{display:inline-block;padding:9px 14px;border-radius:999px;border:1px solid var(--linie);font-weight:500;font-size:14px;color:var(--tinte);background:var(--hell);transition:background .2s,color .2s,border-color .2s}
+.anliegen input:checked + span{background:var(--blau);border-color:var(--blau);color:#fff}
+.anliegen input:focus-visible + span{outline:3px solid rgba(12,60,133,.35);outline-offset:2px}
+.anfrage .knopf{justify-self:start;padding:14px 26px;font-size:15px}
+.anfrage .knopf[disabled]{opacity:.6;cursor:wait;transform:none}
+.hinweis-klein{margin:0;font-size:12.5px;color:var(--tinte-2);line-height:1.5}
+.anfrage-status{margin:0;font-size:14px;color:#b3261e}
+.anfrage-status:empty{display:none}
+.anfrage-danke{background:#fff;border:1px solid var(--linie);border-left:4px solid var(--blau);border-radius:18px;padding:28px}
+.anfrage-danke p{margin:0;color:#36322c}
+.kontaktkarte .objektnr{margin:22px 0 0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+@media (max-width:900px){.kontakt{grid-template-columns:1fr}}
+.kontaktkarte{background:var(--blau);color:#fff;border-radius:22px;padding:clamp(28px,4vw,44px)}
+@media (min-width:901px){.kontaktkarte{position:sticky;top:96px}}
+.kontaktkarte img{height:70px;width:auto;margin-bottom:22px}
+.kontaktkarte p{margin:0 0 6px;color:rgba(255,255,255,.85)}
+.kontaktkarte a.zeile{display:flex;align-items:center;gap:12px;text-decoration:none;font:600 22px/1.3 var(--serif);color:#fff;padding:10px 0;border-top:1px solid rgba(255,255,255,.2)}
+.kontaktkarte a.zeile:last-of-type{border-bottom:1px solid rgba(255,255,255,.2)}
+.kontaktkarte a.zeile svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.6;flex:none}
+
+.fuss{background:var(--nacht);color:rgba(245,242,236,.7);font-size:13px;padding:48px var(--rand) calc(48px + env(safe-area-inset-bottom))}
+.fuss-innen{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr;gap:28px}
+@media (max-width:820px){.fuss-innen{grid-template-columns:1fr}}
+.fuss p{margin:0 0 10px}
+.fuss a{color:rgba(245,242,236,.9)}
+.fuss .ki{border:1px solid var(--linie-hell);border-radius:12px;padding:14px 16px}
+
+/* ---------- Lightbox ---------- */
+dialog.bild{border:none;padding:0;background:transparent;max-width:none;max-height:none;width:100vw;height:100vh;height:100dvh}
+dialog.bild::backdrop{background:rgba(10,9,8,.94)}
+.bild-innen{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:56px 16px}
+.bild-innen img{max-width:100%;max-height:100%;object-fit:contain;border-radius:6px}
+.bild-knopf{all:unset;cursor:pointer;color:var(--hell);background:rgba(245,242,236,.12);width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:22px}
+.bild-knopf:focus-visible{outline:2px solid var(--hell)}
+.bild-zu{position:absolute;top:14px;right:14px}
+.bild-zurueck{position:absolute;left:14px;top:50%;transform:translateY(-50%)}
+.bild-weiter{position:absolute;right:14px;top:50%;transform:translateY(-50%)}
+.bild-zeile{position:absolute;left:0;right:0;bottom:16px;text-align:center;color:rgba(245,242,236,.7);font-size:13px}
+
+@media (prefers-reduced-motion:reduce){
+  .scrollhinweis i{animation:none}
+  .galerie img{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header class="kopf" id="kopf">
+  <a href="#flug" aria-label="de Haas &amp; Partner Immobilien – zum Anfang">
+    <img class="logo logo-hell" src="img/logo-dehaas-hell.svg" alt="de Haas &amp; Partner Immobilien" width="80" height="44">
+    <img class="logo logo-dunkel" src="img/logo-dehaas.svg" alt="" width="80" height="44">
+  </a>
+  <nav aria-label="Hauptnavigation">
+    <a class="nur-breit" href="#objekt">Das Objekt</a>
+    <a class="nur-breit" href="#galerie">Fotos</a>
+    <a class="nur-breit" href="#rundgang360">360°-Rundgang</a>
+    <a class="knopf knopf-voll" href="#kontakt">Besichtigung anfragen</a>
+  </nav>
+</header>
+
+<!-- ========== Flug durch die Finca (Scroll steuert die Kamerafahrt) ========== -->
+<section class="flug" id="flug" aria-label="Flug durch die Finca">
+  <div class="flug-bahn" id="flugbahn">
+    <div class="buehne" id="buehne">
+      <canvas id="leinwand" aria-hidden="true"></canvas>
+      <div class="schleier"></div>
+      <div class="blende" id="blende"></div>
+      <div class="ladebalken" id="ladebalken"></div>
+
+      <div class="kapiteltext" id="kapiteltext" aria-live="polite">
+        <p class="augenbraue" id="kt-augenbraue"></p>
+        <h1 id="kt-titel">Luxusfinca über Son Carrió</h1>
+        <p class="text" id="kt-text"></p>
+        <div class="aktionen" id="kt-aktionen" hidden>
+          <a class="knopf knopf-voll" href="#kontakt">Besichtigung anfragen</a>
+          <a class="knopf knopf-rand" href="#objekt">Alle Daten ansehen</a>
+        </div>
+      </div>
+
+      <div class="scrollhinweis" id="scrollhinweis"><span>Scrollen</span><i></i></div>
+      <ol class="fortschritt" id="fortschritt" aria-label="Kapitel"></ol>
+      <p class="ki-hinweis"><i></i>Kamerafahrten KI-animiert aus Originalfotos</p>
+      <a class="ueberspringen" href="#objekt">Flug überspringen</a>
+    </div>
+  </div>
+</section>
+
+<main class="hell-bereich" id="inhalt">
+
+  <!-- ========== Eckdaten ========== -->
+  <section class="abschnitt" id="objekt" aria-labelledby="h-objekt">
+    <p class="ueberzeile">Objekt-Nr. 007 M · Sant Llorenç des Cardassar</p>
+    <h2 id="h-objekt">Hochwertige Luxusfinca mit Landschaftsblick und Vermietlizenz</h2>
+    <p class="einleitung">Neuwertig, ebenerdig, in Alleinlage oberhalb von Son Carrió: eine Finca aus hochwertigsten Materialien, mit Infinity-Pool, Sauna und einer unbefristeten Ferienvermietlizenz für 8 Betten.</p>
+
+    <div class="preisband">
+      <span class="preis">2.950.000 €</span>
+      <span class="preis-zusatz"><strong>Provisionsfrei</strong> für den Käufer · Baujahr 2021 · Zustand neuwertig</span>
+    </div>
+
+    <dl class="zahlen">
+      <div class="zahl"><dt>Wohnfläche</dt><dd>275 <small>m²</small></dd></div>
+      <div class="zahl"><dt>Nutzfläche</dt><dd>574 <small>m²</small></dd></div>
+      <div class="zahl"><dt>Grundstück</dt><dd>16.156 <small>m²</small></dd></div>
+      <div class="zahl"><dt>Zimmer</dt><dd>8</dd></div>
+      <div class="zahl"><dt>Schlafzimmer</dt><dd>6</dd></div>
+      <div class="zahl"><dt>Badezimmer</dt><dd>6</dd></div>
+      <div class="zahl"><dt>Pool</dt><dd>40 <small>m² · beheizt</small></dd></div>
+      <div class="zahl"><dt>Stellplätze</dt><dd>5 + 10 <small>Garage · außen</small></dd></div>
+    </dl>
+  </section>
+
+  <!-- ========== Beschreibung ========== -->
+  <section class="abschnitt" aria-labelledby="h-haus">
+    <div class="zwei-spalten">
+      <div class="fliesstext">
+        <p class="ueberzeile">Das Haus</p>
+        <h2 id="h-haus">Fünf Meter Raumhöhe und ein Blick bis zur Kirche von Son Carrió</h2>
+        <p>Durch eine hohe Holztür betreten Sie die lichtdurchflutete Wohnhalle. Der weitläufige Wohn- und Essbereich mit Kamin vor einer Natursteinwand geht in die offene Küche mit Kochinsel über.</p>
+        <p>Große Schiebetüren verbinden das Haus fast nahtlos mit der 70 m² großen, teils überdachten Terrasse mit Lounge und Sommerküche. Ein paar Stufen tiefer liegt der beheizte Salzwasser-Infinity-Pool mit rund 100 m² weiteren Sonnenterrassen.</p>
+        <p>An die Wohnhalle grenzen vier der Schlafzimmer, alle mit eigenem Bad en suite mit Fenster; eines davon mit Badewanne und Panoramablick. Im Garten steht eine Holzsauna mit Panoramafenster, auf dem eingezäunten Grundstück zusätzlich ein großer Stall mit Wasser und Strom.</p>
+        <p>Nachts beleuchtet eine Ambientebeleuchtung automatisch Einfahrt, Haus und Garten.</p>
+      </div>
+      <div>
+        <div class="raumkarte">
+          <h3>Erdgeschoss · 275 m²</h3>
+          <ul class="raumliste">
+            <li><span>Wohnhalle mit Wohn- und Essbereich</span><span>5 m hoch, Kamin</span></li>
+            <li><span>Offene Küche</span><span>mit Insel, voll ausgestattet</span></li>
+            <li><span>4 Schlafzimmer</span><span>je Bad en suite, 2 verbunden</span></li>
+            <li><span>Gästebad</span><span>mit Dusche</span></li>
+            <li><span>Hauswirtschaftsraum</span><span>auch als Schlafzimmer oder Büro</span></li>
+          </ul>
+        </div>
+        <div class="raumkarte">
+          <h3>Untergeschoss</h3>
+          <ul class="raumliste">
+            <li><span>Schlafzimmer</span><span>mit Bad und Dusche</span></li>
+            <li><span>Tiefgarage</span><span>mind. 5 Autos, Wallbox</span></li>
+            <li><span>Technik</span><span>Zisterne, Solartechnik</span></li>
+            <li><span>Reserve</span><span>Platz für Fitness, Bodega, Kino</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Ausstattung ========== -->
+  <section class="abschnitt" aria-labelledby="h-ausstattung">
+    <p class="ueberzeile">Ausstattung</p>
+    <h2 id="h-ausstattung">Durchdacht bis in die Technik</h2>
+    <div class="merkmale">
+      <div class="merkmal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 16c2 0 2-1.5 4-1.5S8 16 10 16s2-1.5 4-1.5S16 16 18 16s2-1.5 4-1.5M2 20c2 0 2-1.5 4-1.5S8 20 10 20s2-1.5 4-1.5S16 20 18 20s2-1.5 4-1.5M7 13V5a2 2 0 0 1 4 0M13 13V5a2 2 0 0 1 4 0M7 8h6"/></svg><div><h3>Infinity-Pool</h3><p>40 m², Salzwasser, beheizbar, mit Sonnenterrassen von ca. 100 m².</p></div></div>
+      <div class="merkmal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V9l8-6 8 6v12M9 21v-6h6v6M8 11h0M16 11h0"/></svg><div><h3>Holzsauna</h3><p>Im Garten, mit Panoramafenster ins Grüne.</p></div></div>
+      <div class="merkmal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c2 3 5 4.5 5 9a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5 0 2 1 3 2 3 0-3 0-5 1-7.5z"/></svg><div><h3>Kamin</h3><p>Vor einer beeindruckenden Natursteinwand in der Wohnhalle.</p></div></div>
+      <div class="merkmal"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><div><h3>Solarstrom</h3><p>Große Solaranlage mit 15-kW-Lithium-Speicher, 2 Wallboxen, Solarthermie.</p></div></div>
+      <div class="merkmal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10h18M5 10v9h14v-9M8 10V6a4 4 0 0 1 8 0v4"/></svg><div><h3>Komfort</h3><p>Smart Home mit Klimaautomatik, Fußbodenheizung, 2 Wärmepumpen.</p></div></div>
+      <div class="merkmal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c3.5 4.2 6 7.6 6 11a6 6 0 0 1-12 0c0-3.4 2.5-6.8 6-11z"/></svg><div><h3>Eigenes Wasser</h3><p>Tiefenbrunnen mit großer Zisterne, Entkalkungsanlage, Bewässerung.</p></div></div>
+      <div class="merkmal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6l8-3z"/></svg><div><h3>Sicherheit</h3><p>Alarmanlage, Gegensprechanlage mit Monitor, elektrische Tore, Tresor.</p></div></div>
+      <div class="merkmal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M2 9a14 14 0 0 1 20 0"/><circle cx="12" cy="19.5" r="1"/></svg><div><h3>Starlink</h3><p>Schnelles Internet, Telekommunikationsdosen in allen Räumen.</p></div></div>
+      <div class="merkmal"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><div><h3>ETV-Lizenz</h3><p>Unbefristete Ferienvermietlizenz für 8 Betten.</p></div></div>
+    </div>
+  </section>
+
+  <!-- ========== Filme (erscheint, sobald Videos hinterlegt sind) ========== -->
+  <section class="abschnitt" id="filme" aria-labelledby="h-filme" hidden>
+    <p class="ueberzeile">Filme</p>
+    <h2 id="h-filme">Das Anwesen in Bewegung</h2>
+    <div class="filme" id="filmliste"></div>
+  </section>
+
+  <!-- ========== Galerie ========== -->
+  <section class="abschnitt" id="galerie" aria-labelledby="h-galerie">
+    <p class="ueberzeile">Originalfotos</p>
+    <h2 id="h-galerie">Die Finca in Bildern</h2>
+    <div class="galerie" id="galerieliste"></div>
+  </section>
+
+  <!-- ========== Lage ========== -->
+  <section class="abschnitt" id="lage" aria-labelledby="h-lage">
+    <div class="lage">
+      <div>
+        <p class="ueberzeile">Lage</p>
+        <h2 id="h-lage">Alleinlage über Son Carrió</h2>
+        <p class="fliesstext" style="margin:0;color:#36322c;font-size:17px">Die Finca liegt oberhalb des beschaulichen Dorfes Son Carrió in der Gemeinde Sant Llorenç des Cardassar, über eine sehr gute Zuwegung erreichbar und mit absoluter Privatsphäre. Das Grundstück ist nach Süd-West ausgerichtet und komplett eingezäunt.</p>
+        <ul class="wege">
+          <li><strong>Meer</strong>Cala Millor und Porto Cristo schnell erreichbar</li>
+          <li><strong>4 Golfplätze</strong>in der Umgebung</li>
+          <li><strong>45 Min.</strong>zum Flughafen Palma</li>
+          <li><strong>55 Min.</strong>nach Palma</li>
+        </ul>
+      </div>
+      <img src="img/g/24.webp" alt="Luftaufnahme: die Finca in der Landschaft, im Hintergrund Son Carrió" loading="lazy" width="1280" height="720">
+    </div>
+  </section>
+
+  <!-- ========== 360°-Rundgang ========== -->
+  <section class="abschnitt" id="rundgang360" aria-labelledby="h-360">
+    <div class="karte360">
+      <img src="img/still/37.webp" alt="" loading="lazy" width="1600" height="900">
+      <div>
+        <p class="ueberzeile" style="color:var(--sand)">Digitale Besichtigung</p>
+        <h2 id="h-360">Jeden Raum selbst begehen</h2>
+        <p>Im 360°-Rundgang gehen Sie frei durch das ganze Haus, lassen sich Raummaße anzeigen und können sogar die Möbel ausblenden.</p>
+        <a class="knopf knopf-voll" href="https://my.matterport.com/show/?m=r6sYKym312v" target="_blank" rel="noopener">360°-Rundgang öffnen ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Kontakt ========== -->
+  <section class="abschnitt" id="kontakt" aria-labelledby="h-kontakt">
+    <div class="kontakt">
+      <div>
+        <p class="ueberzeile">Besichtigung</p>
+        <h2 id="h-kontakt">Sehen Sie sich die Finca vor Ort an</h2>
+        <p class="einleitung">Sie kennen das Haus jetzt schon von innen. Bei der Besichtigung zeigen wir Ihnen alles Weitere: Grundstück, Stall, Technik und Unterlagen.</p>
+
+        <form class="anfrage" id="anfrage" name="anfrage-007m" method="POST" action="/objekte/finca-son-carrio/?gesendet=1#kontakt" data-netlify="true" data-netlify-honeypot="bot-field" novalidate>
+          <input type="hidden" name="form-name" value="anfrage-007m">
+          <input type="hidden" name="objekt" value="007 M – Luxusfinca Sant Llorenç (de Haas &amp; Partner)">
+          <p class="sr-only"><label>Bitte leer lassen <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+          <div class="feldreihe">
+            <label class="feld"><span>Name *</span><input name="name" autocomplete="name" required></label>
+            <label class="feld"><span>Telefon</span><input name="telefon" type="tel" autocomplete="tel" inputmode="tel"></label>
+          </div>
+          <label class="feld"><span>E-Mail *</span><input name="email" type="email" autocomplete="email" required></label>
+          <fieldset class="feld anliegen">
+            <legend>Ihr Anliegen</legend>
+            <label><input type="radio" name="anliegen" value="Besichtigung" checked><span>Besichtigung</span></label>
+            <label><input type="radio" name="anliegen" value="Rückruf"><span>Rückruf</span></label>
+            <label><input type="radio" name="anliegen" value="Fragen zum Objekt"><span>Fragen zum Objekt</span></label>
+          </fieldset>
+          <label class="feld"><span>Nachricht</span><textarea name="nachricht" rows="4" placeholder="z. B. Wunschtermin, Fragen zur Vermietlizenz …"></textarea></label>
+          <button class="knopf knopf-voll" type="submit" id="anfrage-knopf">Anfrage senden</button>
+          <p class="hinweis-klein">Ihre Anfrage geht direkt an de Haas &amp; Partner Immobilien. Die Übermittlung läuft über unseren Dienstleister Netlify; mehr dazu in der <a href="/datenschutz">Datenschutzerklärung</a>.</p>
+          <p class="anfrage-status" id="anfrage-status" role="status" aria-live="polite"></p>
+        </form>
+        <div class="anfrage-danke" id="anfrage-danke" hidden>
+          <h3>Vielen Dank für Ihre Anfrage</h3>
+          <p>de Haas &amp; Partner Immobilien meldet sich in Kürze bei Ihnen. Eilt es, erreichen Sie das Büro direkt unter <a href="tel:+34971836972">+34 971 83 69 72</a>.</p>
+        </div>
+      </div>
+      <div class="kontaktkarte">
+        <img src="img/logo-dehaas-hell.svg" alt="de Haas &amp; Partner Immobilien" width="128" height="70">
+        <p>de Haas &amp; Partner Immobilien</p>
+        <p style="margin-bottom:18px">07540 Sant Llorenç des Cardassar · Mallorca</p>
+        <a class="zeile" href="tel:+34971836972"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>+34 971 83 69 72</a>
+        <a class="zeile" href="mailto:info@dehaas-immobilien.com?subject=Anfrage%20Objekt%20007%20M%20%E2%80%93%20Luxusfinca%20Sant%20Lloren%C3%A7"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>info@dehaas-immobilien.com</a>
+        <p class="objektnr">Objekt-Nr. 007 M</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="fuss">
+  <div class="fuss-innen">
+    <div>
+      <p><strong style="color:var(--hell)">Luxusfinca über Son Carrió · Objekt-Nr. 007 M</strong></p>
+      <p>Alle Angaben beruhen auf Angaben des Verkäufers. Für Richtigkeit und Vollständigkeit wird keine Gewähr übernommen; Zwischenverkauf und Irrtümer vorbehalten.</p>
+      <p>Vollständiges Exposé: <a href="https://www.dehaas-immobilien.com/de/0__443_suche1_3_0/luxusfinca-sant-llorenc-etv-pool.html" target="_blank" rel="noopener">dehaas-immobilien.com</a></p>
+    </div>
+    <div>
+      <p class="ki"><strong style="color:var(--hell)">KI-Hinweis:</strong> Die Kamerafahrten im Flug wurden mit KI aus den Originalfotos animiert. Architektur, Ausstattung und Möblierung entsprechen den Fotos; einzelne Details können in der Bewegung abweichen. Die Galerie zeigt unbearbeitete Originalfotos.</p>
+      <p>Website: <a href="https://onyx-ai.de" target="_blank" rel="noopener">ONYX Studio</a> · <a href="/impressum">Impressum</a> · <a href="/datenschutz">Datenschutz</a></p>
+    </div>
+  </div>
+</footer>
+
+<dialog class="bild" id="lightbox" aria-label="Foto vergrößert">
+  <div class="bild-innen">
+    <img id="lb-bild" alt="">
+    <button class="bild-knopf bild-zu" id="lb-zu" aria-label="Schließen">✕</button>
+    <button class="bild-knopf bild-zurueck" id="lb-zurueck" aria-label="Vorheriges Foto">‹</button>
+    <button class="bild-knopf bild-weiter" id="lb-weiter" aria-label="Nächstes Foto">›</button>
+    <p class="bild-zeile" id="lb-zeile"></p>
+  </div>
+</dialog>
+
+<script>
+(() => {
+  "use strict";
+
+  /* ---------- Kapitel des Flugs ----------
+     frames: Anzahl Einzelbilder in f/<id>/d und f/<id>/m (0 = noch kein Clip, dann ruhige Fahrt übers Foto)
+     still:  Foto aus img/still, fx = horizontaler Bildschwerpunkt (0 links … 1 rechts) für Hochformat */
+  const KAPITEL = [
+    // Durchgehender Drohnenflug: kette = nahtloser Übergang ins nächste Kapitel (Endbild = Startbild des nächsten Clips)
+    { id:"00", still:"24", frames:81, laenge:2, fx:.72, kette:true, kurz:"Anflug",     augenbraue:"Sant Llorenç des Cardassar · Mallorca", titel:"Luxusfinca über Son Carrió", text:"16.156 m² in Alleinlage, Süd-West-Ausrichtung, freier Blick über das Land bis zur Kirche des Dorfes." },
+    { id:"01", still:"26", frames:81, laenge:2, fx:.45, kette:true, kurz:"Überflug",   augenbraue:"Alleinlage",          titel:"Ruhe ringsum",            text:"Absolute Privatsphäre und trotzdem schnell am Meer: Cala Millor und Porto Cristo liegen ganz in der Nähe." },
+    { id:"02", still:"05", frames:81, laenge:2, fx:.48, kette:true, kurz:"Ankommen",   augenbraue:"Ankommen",            titel:"Naturstein und Bougainvillea", text:"Grüne Fensterläden, Zypressen, ein blühender Garten und eine hohe Holztür." },
+    { id:"03", still:"33", frames:81, laenge:2, fx:.42, kette:true, kurz:"Eingang",    augenbraue:"Die Wohnhalle",       titel:"Fünf Meter Licht",        text:"Durch die Holztür in die lichtdurchflutete Halle mit Holzbalkendecke und Blick ins Land." },
+    { id:"04", still:"37", frames:81, laenge:2, fx:.45, kette:true, kurz:"Wohnen",     augenbraue:"Wohnen & Küche",      titel:"Das Herz des Hauses",     text:"Kamin vor der Natursteinwand, ein langer Esstisch und dahinter die offene Küche mit Insel." },
+    { id:"05", still:"34", frames:81, laenge:2, fx:.40, kette:true, kurz:"Terrasse",   augenbraue:"Die Terrasse",        titel:"Draußen wohnen",          text:"Große Schiebetüren, dahinter 70 m² Terrasse mit Lounge und Sommerküche." },
+    { id:"06", still:"36", frames:52,           fx:.50, kette:true, kurz:"Pool",       augenbraue:"Der Pool",            titel:"Infinity über dem Land",  text:"Beheizter Salzwasser-Infinity-Pool mit 40 m² und rund 100 m² Sonnenterrassen." },
+    { id:"07", still:"20", frames:81, laenge:2, fx:.50, kette:true, kurz:"Garten",     augenbraue:"Der Garten",          titel:"Durch den Garten",        text:"Vorbei an Pool und Sonnenliegen führt der Weg durch den Garten zum Saunahaus." },
+    { id:"08", still:"11", frames:81, laenge:2, fx:.55, kette:true, kurz:"Sauna",      augenbraue:"Die Sauna",           titel:"Wärme mit Aussicht",      text:"Holzsauna im Garten, mit Panoramafenster ins Grüne." },
+    { id:"09", still:"02", frames:81, laenge:2, fx:.50,             kurz:"Abend",      augenbraue:"Am Abend",            titel:"Wenn die Sonne sinkt",    text:"Pool, Garten und Einfahrt leuchten, der Himmel über Son Carrió glüht.", ende:true }
+  ];
+
+  const $ = (s) => document.querySelector(s);
+  const bahn = $("#flugbahn"), leinwand = $("#leinwand"), ctx = leinwand.getContext("2d");
+  const blende = $("#blende"), ktBox = $("#kapiteltext"), ktAug = $("#kt-augenbraue"), ktTitel = $("#kt-titel"), ktText = $("#kt-text"), ktAkt = $("#kt-aktionen");
+  const hinweis = $("#scrollhinweis"), liste = $("#fortschritt"), ladebalken = $("#ladebalken"), kopf = $("#kopf");
+  const ruhig = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const N = KAPITEL.length;
+  // Scroll-Länge je Kapitel: ein 5-s-Clip (52 Bilder) = 1 Einheit, 10-s-Clips (81 Bilder, laenge:2) = 2, Foto = 1
+  const LAENGE = KAPITEL.map((k) => k.laenge || (k.frames ? k.frames / 52 : 1));
+  const GRENZE = LAENGE.reduce((a, l) => (a.push(a[a.length - 1] + l), a), [0]);
+  const SUMME = GRENZE[N];
+  document.documentElement.style.setProperty("--anzahl", SUMME);
+  const nahtlos = (i) => !!(KAPITEL[i] && KAPITEL[i].kette && KAPITEL[i].frames && KAPITEL[i + 1] && KAPITEL[i + 1].frames && !ruhig);
+
+  /* Hochformat bekommt eigene, mittig zugeschnittene Einzelbilder */
+  let satz = innerWidth / innerHeight < 0.9 ? "m" : "d";
+
+  /* ---------- Fortschritt ---------- */
+  KAPITEL.forEach((k, i) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<span>${k.kurz}</span><b></b>`;
+    li.addEventListener("click", () => springeZu(i));
+    liste.appendChild(li);
+  });
+  const punkte = [...liste.children];
+  function springeZu(i) {
+    const start = bahn.getBoundingClientRect().top + scrollY;
+    const gesamt = bahn.offsetHeight - innerHeight;
+    scrollTo({ top: start + gesamt * ((GRENZE[i] + LAENGE[i] * 0.3) / SUMME), behavior: ruhig ? "auto" : "smooth" });
+  }
+
+  /* ---------- Bilder laden ---------- */
+  const stills = {};
+  function ladeStill(k) {
+    if (stills[k.id]) return stills[k.id];
+    const img = new Image();
+    img.decoding = "async";
+    img.src = `img/still/${k.still}.webp`;
+    stills[k.id] = img;
+    return img;
+  }
+  const frames = {}; // id -> {satz, bilder:[]}
+  function ladeFrames(i) {
+    const k = KAPITEL[i];
+    if (!k || !k.frames || ruhig) return;
+    if (frames[k.id] && frames[k.id].satz === satz) return;
+    // Grob nach fein laden: erst jedes 8. Bild, dann die Lücken. So ist der Flug
+    // nach wenigen Bildern schon scrollbar und wird beim Weiterladen flüssiger.
+    const bilder = Array.from({ length: k.frames }, () => new Image());
+    const reihenfolge = [0, k.frames - 1]; // erstes und letztes Bild zuerst (Kettenübergang)
+    for (const schritt of [8, 4, 2, 1]) {
+      for (let n = 0; n < k.frames; n += schritt) if (!reihenfolge.includes(n)) reihenfolge.push(n);
+    }
+    for (const n of reihenfolge) {
+      bilder[n].decoding = "async";
+      bilder[n].src = `f/${k.id}/${satz}/${String(n + 1).padStart(4, "0")}.webp`;
+    }
+    frames[k.id] = { satz, bilder };
+  }
+  KAPITEL.forEach(ladeStill);
+  ladeFrames(0); ladeFrames(1);
+
+  /* ---------- Zeichnen ---------- */
+  function groesse() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    leinwand.width = Math.round(innerWidth * dpr);
+    leinwand.height = Math.round(innerHeight * dpr);
+  }
+  function fertig(img) { return img && img.complete && img.naturalWidth > 0; }
+  function zeichneBild(img, fx, zoom, alpha) {
+    const W = leinwand.width, H = leinwand.height;
+    const iw = img.naturalWidth, ih = img.naturalHeight;
+    const s = Math.max(W / iw, H / ih) * zoom;
+    const dw = iw * s, dh = ih * s;
+    const dx = (W - dw) * fx, dy = (H - dh) / 2;
+    ctx.globalAlpha = alpha;
+    ctx.drawImage(img, dx, dy, dw, dh);
+    ctx.globalAlpha = 1;
+  }
+  function zeichneKapitel(i, t, alpha = 1) {
+    const k = KAPITEL[i];
+    const f = frames[k.id];
+    if (f && f.satz === satz && !ruhig) {
+      const pos = Math.min(t, 1) * (k.frames - 1);
+      const a = Math.floor(pos), b = Math.min(a + 1, k.frames - 1), mix = pos - a;
+      let A = f.bilder[a], B = f.bilder[b];
+      if (!fertig(A)) { // nächstes geladenes Bild in der Nähe suchen
+        for (let d = 1; d < k.frames; d++) {
+          if (fertig(f.bilder[a - d])) { A = f.bilder[a - d]; break; }
+          if (fertig(f.bilder[a + d])) { A = f.bilder[a + d]; break; }
+        }
+      }
+      if (fertig(A)) {
+        zeichneBild(A, 0.5, 1, alpha);
+        if (fertig(B) && B !== A && mix > 0.02) zeichneBild(B, 0.5, 1, mix * alpha);
+        return;
+      }
+    }
+    const s = stills[k.id];
+    if (fertig(s)) {
+      const zoom = ruhig ? 1.02 : 1.03 + 0.09 * t;
+      const fx = satz === "m" ? k.fx : 0.5;
+      zeichneBild(s, fx, zoom, alpha);
+    }
+  }
+
+  /* ---------- Scroll → Kapitel ---------- */
+  let zuletzt = -1, angefordert = false;
+  const glatt = (x) => x * x * (3 - 2 * x);
+  function aktualisiere() {
+    angefordert = false;
+    const r = bahn.getBoundingClientRect();
+    const gesamt = bahn.offsetHeight - innerHeight;
+    const p = Math.min(Math.max(-r.top / gesamt, 0), 0.99999);
+    const u = p * SUMME;
+    let i = 0;
+    while (i < N - 1 && u >= GRENZE[i + 1]) i++;
+    const t = (u - GRENZE[i]) / LAENGE[i];
+
+    if (i !== zuletzt) {
+      const k = KAPITEL[i];
+      ktAug.textContent = i ? `${String(i).padStart(2, "0")} · ${k.augenbraue}` : k.augenbraue;
+      ktTitel.textContent = k.titel;
+      ktText.textContent = k.text;
+      ktAkt.hidden = !(i === 0 || k.ende);
+      punkte.forEach((li, n) => li.classList.toggle("aktiv", n === i));
+      ladeFrames(i); ladeFrames(i + 1); ladeFrames(i + 2);
+      zuletzt = i;
+    }
+
+    // Kapitelwechsel: in der Flugkette nahtlos, sonst durch Abblenden maskieren
+    const rand = Math.min(0.14 / LAENGE[i], 0.2);
+    let o = 0;
+    if (t < rand && i > 0 && !nahtlos(i - 1)) o = 1 - glatt(t / rand);
+    else if (t > 1 - rand && i < N - 1 && !nahtlos(i)) o = glatt((t - (1 - rand)) / rand);
+    blende.style.opacity = o.toFixed(3);
+
+    // Text: einblenden, stehen lassen, ausblenden
+    let to;
+    if (i === 0) to = t < 0.7 ? 1 : 1 - glatt((t - 0.7) / 0.15);
+    else if (KAPITEL[i].ende) to = t < 0.18 ? 0 : glatt(Math.min((t - 0.18) / 0.15, 1));
+    else to = t < 0.16 ? 0 : t < 0.3 ? glatt((t - 0.16) / 0.14) : t < 0.7 ? 1 : t < 0.84 ? 1 - glatt((t - 0.7) / 0.14) : 0;
+    to = Math.max(0, Math.min(1, to));
+    ktBox.style.opacity = to.toFixed(3);
+    ktBox.style.transform = `translateY(${((1 - to) * 18).toFixed(1)}px)`;
+    hinweis.style.opacity = p < 0.02 ? 1 : 0;
+
+    zeichneKapitel(i, t);
+    // Nahtloser Übergang: die letzten Bilder weich ins erste Bild des nächsten Clips überblenden
+    const ueber = 0.06 / LAENGE[i];
+    if (nahtlos(i) && t > 1 - ueber) zeichneKapitel(i + 1, 0, glatt((t - (1 - ueber)) / ueber));
+
+    // Kopfzeile: über dem Flug hell auf dunkel, danach dunkel auf hell
+    kopf.classList.toggle("hell", r.bottom <= 70);
+  }
+  function anfordern() { if (!angefordert) { angefordert = true; requestAnimationFrame(aktualisiere); } }
+  addEventListener("scroll", anfordern, { passive: true });
+  addEventListener("resize", () => {
+    const neu = innerWidth / innerHeight < 0.9 ? "m" : "d";
+    groesse();
+    if (neu !== satz) { satz = neu; zuletzt = -1; }
+    anfordern();
+  });
+  groesse();
+
+  // Neu zeichnen, sobald Bilder ankommen (sonst bleibt der Anfang schwarz)
+  let geladen = 0;
+  const zuLaden = KAPITEL.length;
+  Object.values(stills).forEach((img) => img.addEventListener("load", () => {
+    geladen++;
+    ladebalken.style.width = `${(geladen / zuLaden) * 100}%`;
+    if (geladen >= zuLaden) setTimeout(() => (ladebalken.style.opacity = 0), 400);
+    anfordern();
+  }));
+  // Frames des aktuellen Kapitels: nach dem Laden neu zeichnen
+  const beobachter = setInterval(anfordern, 250);
+  setTimeout(() => clearInterval(beobachter), 20000);
+  anfordern();
+
+  /* ---------- Filme (werden ergänzt, sobald fertig) ---------- */
+  const FILME = [
+    { datei:"video/ums-haus.mp4", poster:"img/still/24.webp", titel:"Einmal ums Haus", text:"Drohnenflug über das Grundstück und das Haus, 20 Sekunden" },
+    { datei:"video/rundgang.mp4", poster:"img/still/37.webp", titel:"Durch die Finca", text:"Ein Weg ohne Schnitt: Ankunft, Wohnhalle, Küche, Terrasse, Pool, Garten, Sauna und der Abend, 75 Sekunden" }
+  ];
+  if (FILME.length) {
+    const box = $("#filmliste");
+    FILME.forEach((f) => {
+      const el = document.createElement("article");
+      el.className = "film";
+      el.innerHTML = `<video src="${f.datei}" poster="${f.poster}" controls playsinline preload="none"></video><div><h3>${f.titel}</h3><p>${f.text} · KI-animiert aus Originalfotos</p></div>`;
+      box.appendChild(el);
+    });
+    $("#filme").hidden = false;
+  }
+
+  /* ---------- Anfrageformular (Netlify Forms) ---------- */
+  const form = $("#anfrage"), knopf = $("#anfrage-knopf"), status = $("#anfrage-status"), danke = $("#anfrage-danke");
+  const zeigeDanke = () => { form.hidden = true; danke.hidden = false; };
+  if (new URLSearchParams(location.search).has("gesendet")) zeigeDanke();
+  form.addEventListener("input", (e) => { e.target.removeAttribute("aria-invalid"); status.textContent = ""; });
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    status.textContent = "";
+    const pflicht = [form.elements.name, form.elements.email];
+    let ok = true;
+    for (const f of pflicht) {
+      const gueltig = f.value.trim() !== "" && f.checkValidity();
+      f.setAttribute("aria-invalid", gueltig ? "false" : "true");
+      if (!gueltig && ok) { f.focus(); ok = false; }
+    }
+    if (!ok) { status.textContent = "Bitte Name und eine gültige E-Mail-Adresse angeben."; return; }
+    knopf.disabled = true; knopf.textContent = "Wird gesendet …";
+    try {
+      const daten = new URLSearchParams(new FormData(form));
+      const res = await fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: daten.toString() });
+      if (!res.ok) throw new Error(String(res.status));
+      zeigeDanke();
+      danke.scrollIntoView({ behavior: ruhig ? "auto" : "smooth", block: "center" });
+    } catch {
+      status.innerHTML = 'Das hat leider nicht geklappt. Bitte rufen Sie an (<a href="tel:+34971836972">+34 971 83 69 72</a>) oder schreiben Sie an <a href="mailto:info@dehaas-immobilien.com">info@dehaas-immobilien.com</a>.';
+      knopf.disabled = false; knopf.textContent = "Anfrage senden";
+    }
+  });
+
+  /* ---------- Galerie + Lightbox ---------- */
+  const GALERIE = [
+    ["05","Die Finca von oben, im Hintergrund Son Carrió"],["33","Natursteinfassade mit Eingang"],["15","Pool und Haus"],
+    ["26","Infinity-Pool mit Blick ins Land"],["25","Überdachte Terrasse"],["36","Lounge mit Poolblick"],
+    ["10","Terrasse mit Sommerküche"],["37","Wohnhalle mit 5 m Raumhöhe"],["14","Wohn- und Essbereich"],
+    ["12","Wohnen mit Kamin"],["17","Kamin vor der Natursteinwand"],["18","Essbereich"],
+    ["21","Küche mit Insel"],["34","Küche mit Blick auf die Terrasse"],["22","Schlafzimmer mit Bad en suite"],
+    ["04","Bad en suite"],["13","Schlafzimmer"],["07","Schlafzimmer"],["23","Bad"],
+    ["11","Sauna mit Panoramafenster"],["20","Holzsauna im Garten"],["24","Lage in der Landschaft"],
+    ["02","Sonnenuntergang am Pool"],["01","Abendstimmung"],["03","Blick über das Land"]
+  ];
+  const galerie = $("#galerieliste");
+  GALERIE.forEach(([n, text], idx) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-label", `${text} – vergrößern`);
+    b.innerHTML = `<img src="img/g/${n}-t.webp" alt="${text}" loading="lazy">`;
+    b.addEventListener("click", () => zeige(idx));
+    galerie.appendChild(b);
+  });
+  const lb = $("#lightbox"), lbBild = $("#lb-bild"), lbZeile = $("#lb-zeile");
+  let aktuell = 0;
+  function zeige(idx) {
+    aktuell = (idx + GALERIE.length) % GALERIE.length;
+    const [n, text] = GALERIE[aktuell];
+    lbBild.src = `img/g/${n}.webp`;
+    lbBild.alt = text;
+    lbZeile.textContent = `${text} · ${aktuell + 1} / ${GALERIE.length}`;
+    if (!lb.open) lb.showModal();
+  }
+  $("#lb-zu").addEventListener("click", () => lb.close());
+  $("#lb-zurueck").addEventListener("click", () => zeige(aktuell - 1));
+  $("#lb-weiter").addEventListener("click", () => zeige(aktuell + 1));
+  lb.addEventListener("click", (e) => { if (e.target === lb || e.target.classList.contains("bild-innen")) lb.close(); });
+  lb.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") zeige(aktuell - 1);
+    if (e.key === "ArrowRight") zeige(aktuell + 1);
+  });
+  let wischStart = null;
+  lb.addEventListener("touchstart", (e) => (wischStart = e.touches[0].clientX), { passive: true });
+  lb.addEventListener("touchend", (e) => {
+    if (wischStart === null) return;
+    const d = e.changedTouches[0].clientX - wischStart;
+    if (Math.abs(d) > 50) zeige(aktuell + (d < 0 ? 1 : -1));
+    wischStart = null;
+  });
+})();
+</script>
+</body>
+</html>

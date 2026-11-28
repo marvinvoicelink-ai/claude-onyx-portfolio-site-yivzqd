@@ -100,6 +100,16 @@ export default function DatenschutzContent() {
         .
       </p>
       <p>
+        <strong>Objektseiten für Makler.</strong> Unter onyx-ai.de/objekte/
+        stellen wir einzelne Immobilien im Auftrag des jeweiligen Maklers
+        vor. Fragst du dort über das Anfrageformular an, leiten wir deine
+        Angaben (Name, E-Mail-Adresse, Telefonnummer, Nachricht) an den auf
+        der Seite genannten Makler weiter, damit er dir antworten und eine
+        Besichtigung vereinbaren kann. Ab dann verarbeitet der Makler deine
+        Daten in eigener Verantwortung. Rechtsgrundlage ist ebenfalls Art. 6
+        Abs. 1 lit. b DSGVO.
+      </p>
+      <p>
         <strong>Anfragen über die Seite &bdquo;Immobilien&ldquo;</strong>{" "}
         (onyx-ai.de/immobilien) speichern wir zusätzlich in unserem eigenen
         Kundenverwaltungssystem (CRM), damit keine Anfrage verloren geht und
