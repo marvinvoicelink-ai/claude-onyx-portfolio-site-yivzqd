@@ -57,6 +57,7 @@ export default function RootShell({ lang, children }: { lang: Lang; children: Re
           <input type="text" name="rolle" />
           <input type="text" name="leistungen" />
           <input type="text" name="objekt" />
+          <input type="text" name="link" />
           <input type="text" name="erreichbar" />
           <input type="text" name="nachricht" />
           <input type="text" name="quelle" />

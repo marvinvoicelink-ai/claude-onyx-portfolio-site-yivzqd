@@ -8,6 +8,7 @@ import { LEISTUNGEN, type LeistungId } from "@/components/immobilien/leistungen"
 import {
   Angebot,
   AnfrageKnopf,
+  Beweis,
   Etikett,
   FRAGE,
   Fragen,
@@ -18,7 +19,6 @@ import {
   KiHinweis,
   Kicker,
   Probleme,
-  Schritte,
   WECHSEL_CSS,
   Wechselbild,
   ZweiterKnopf,
@@ -166,7 +166,7 @@ export default function MaklerPage() {
             </ZweiterKnopf>
           </>
         }
-        punkte={["Nur Ihre Fotos – kein Termin vor Ort", "Leere Räume eingerichtet, gekennzeichnet als KI-Visualisierung", "Anfragen gehen direkt an Sie"]}
+        punkte={["Fotos, Exposé oder Ihre Anzeige reichen – kein Termin vor Ort", "Leere Räume eingerichtet, gekennzeichnet als KI-Visualisierung", "Anfragen gehen direkt an Sie"]}
         bild={
           <Hochkant klasse="hoch-held">
             <video src="/assets/immobilien/rundflug.mp4" poster="/assets/immobilien/rundflug.jpg" autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" aria-label="Flug um eine Natursteinvilla wie mit der Drohne, erstellt aus Fotos" />
@@ -246,6 +246,18 @@ export default function MaklerPage() {
         </div>
       </section>
 
+      <Beweis
+        knopf="Objekt schicken – erstes Objekt geschenkt"
+        titel="Schicken Sie uns Ihr Objekt. Wir machen das Video."
+        text="Sie müssen uns nichts glauben. Schicken Sie uns Fotos Ihrer Immobilie, Ihr Exposé oder einfach den Link zu Ihrer Anzeige. Daraus erstellen wir ein Objektvideo wie mit der Drohne und richten leere Räume mit KI ein. Ihr erstes Objekt ist geschenkt."
+        reicht={["Fotos Ihrer Immobilie – auch vom Handy", "oder Ihr Exposé als PDF", "oder den Link zu Ihrer Anzeige, z. B. auf Idealista oder ImmoScout24"]}
+        schritte={[
+          { titel: "Objekt eintragen", text: "Link zu Ihrer Anzeige ins Formular – oder kurz sagen, um welches Objekt es geht." },
+          { titel: "Wir machen das Video", text: "Niemand muss vorbeikommen. Marvin ruft Sie an, falls noch etwas fehlt." },
+          { titel: "Video ansehen", text: "Sie sehen es, bevor es irgendwo online geht – und entscheiden dann." },
+        ]}
+      />
+
       {/* Vergleich */}
       <section className="py-16" style={{ background: "var(--near-black-2)" }}>
         <div className="mx-auto px-7" style={{ maxWidth: 980 }}>
@@ -296,27 +308,19 @@ export default function MaklerPage() {
         </div>
       </section>
 
-      <Schritte
-        titel="Drei Schritte. Sie machen nur den ersten."
-        schritte={[
-          { titel: "Fotos schicken", text: "Ihre Objektfotos, auch vom Handy, dazu Grundriss und Eckdaten. Niemand muss vorbeikommen." },
-          { titel: "Wir bauen Video und Website", text: "Objektvideo, eingerichtete Räume und die Website zum Objekt. Sie sehen alles, bevor es online geht." },
-          { titel: "Sie schicken den Link", text: "An Interessenten, im Inserat, in Anzeigen. Anfragen kommen direkt zu Ihnen." },
-        ]}
-      />
-
       <Gruender warum="Ich habe zu oft gesehen, wie gute Objekte auf den Portalen untergehen – zwischen Hunderten anderen, mit ein paar Fotos und einem PDF. Deshalb zeige ich jedes Objekt so, wie ein Käufer es erleben will: im Video, eingerichtet und Raum für Raum." />
 
       <Angebot
-        text="Sagen Sie uns, welches Objekt Sie gerade vermarkten. Marvin ruft Sie an – und Sie sehen Video und Website, bevor Sie den ersten Link verschicken."
+        text="Tragen Sie den Link zu Ihrer Anzeige ein oder sagen Sie uns, um welches Objekt es geht. Marvin ruft Sie an – und Sie sehen das Video, bevor Sie es irgendwo zeigen."
         rolle="Makler"
         objektBeispiel="z. B. Villa mit Meerblick, leere Penthouse-Wohnung, Finca mit Pool"
         auswahl={["rundflug", "einrichtung", "rundgang", "anzeigen"]}
+        linkFeld
       />
 
       <Fragen
         eintraege={[
-          { f: "Muss jemand zum Objekt kommen?", a: "Nein. Ihre Fotos reichen, auch vom Handy – dazu Grundriss und Eckdaten. Kein Drehtermin, kein Kamerateam, keine Drohne." },
+          { f: "Muss jemand zum Objekt kommen?", a: "Nein. Ihre Fotos reichen, auch vom Handy – oder Ihr Exposé oder der Link zu Ihrer Anzeige. Kein Drehtermin, kein Kamerateam, keine Drohne." },
           { f: "Für welche Objekte lohnt sich das?", a: "Für Objekte, bei denen die Präsentation den Unterschied macht: hochwertige Häuser und Wohnungen, Fincas, Neubauten, leere Räume. Für eine einfache Wohnung reicht oft das Portal." },
           { f: "Kann die Website diskret bleiben?", a: "Ja. Auf Wunsch ist sie nur über den Link erreichbar und erscheint nicht bei Google – für Verkäufer, die nicht im Portal stehen möchten." },
           { f: "Wohin gehen die Anfragen?", a: "Direkt an Sie. Auf der Website stehen Ihr Name und Ihre Kontaktdaten." },

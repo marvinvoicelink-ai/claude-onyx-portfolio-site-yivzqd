@@ -116,26 +116,6 @@ export function Probleme({ punkte }: { punkte: { titel: string; text: string }[]
   );
 }
 
-export function Schritte({ titel, schritte }: { titel: string; schritte: { titel: string; text: string }[] }) {
-  return (
-    <section className="py-16">
-      <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
-        <Kicker>So läuft es ab</Kicker>
-        <h2 style={{ fontSize: "clamp(1.5rem, 2.8vw, 2rem)", marginBottom: 32 }}>{titel}</h2>
-        <ol className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {schritte.map((s, i) => (
-            <li key={s.titel} className="rounded-xl p-6" style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}>
-              <div style={{ fontFamily: "var(--font-archivo, inherit)", fontWeight: 800, fontSize: "2rem", lineHeight: 1, color: "var(--amber)", marginBottom: 12 }}>{i + 1}</div>
-              <h3 style={{ fontSize: "1.1rem", marginBottom: 8 }}>{s.titel}</h3>
-              <p style={{ color: "var(--warm-grey-dim)", fontSize: "0.95rem", lineHeight: 1.6 }}>{s.text}</p>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-  );
-}
-
 /** Wer dahinter steht – wie FounderBlock der Startseite, in der Sie-Form. */
 export function Gruender({ warum }: { warum: string }) {
   return (
@@ -172,11 +152,13 @@ export function Angebot({
   rolle,
   objektBeispiel,
   auswahl,
+  linkFeld,
 }: {
   text: string;
   rolle: "Bauträger / Bauunternehmen" | "Makler";
   objektBeispiel: string;
   auswahl: LeistungId[];
+  linkFeld?: boolean;
 }) {
   return (
     <section id="anfrage" className="py-16" style={{ background: "var(--near-black-2)", scrollMarginTop: 80 }}>
@@ -188,7 +170,7 @@ export function Angebot({
           <Haken punkte={["Bezahlt wird pro Objekt – kein Abo", "Videos, Bilder und Website gehören Ihnen", "Werbekonto und Daten bleiben bei Ihnen"]} style={{ color: "var(--warm-grey)", fontSize: "0.98rem" }} />
         </div>
         <div id="anfrage-formular" className="rounded-2xl p-6 md:p-8" style={{ background: "var(--near-black)", border: "1px solid var(--hairline)", scrollMarginTop: 90 }}>
-          <LeistungenAnfrage rolle={rolle} objektBeispiel={objektBeispiel} auswahl={auswahl} />
+          <LeistungenAnfrage rolle={rolle} objektBeispiel={objektBeispiel} auswahl={auswahl} linkFeld={linkFeld} />
         </div>
       </div>
     </section>
@@ -323,5 +305,44 @@ export function LeistungsKarte({ id, titel, text, medium, beispiel }: { id: Leis
         </div>
       </div>
     </article>
+  );
+}
+
+/**
+ * „Überzeugen Sie sich selbst“: Der Kunde schickt sein Material, wir zeigen,
+ * was daraus wird (Marvin, 28.11.2026). Bauträger schicken Pläne, Makler
+ * Fotos, Exposé oder den Link zur Anzeige. Ersetzt den allgemeinen Ablauf.
+ */
+export function Beweis({ titel, text, reicht, schritte, knopf }: { titel: string; text: string; reicht: string[]; schritte: { titel: string; text: string }[]; knopf: string }) {
+  return (
+    <section id="beweis" className="py-16" style={{ scrollMarginTop: 80 }}>
+      <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
+        <div className="rounded-3xl p-7 md:p-12" style={{ border: "1px solid rgba(232,163,61,.5)", background: "linear-gradient(160deg, rgba(232,163,61,.10) 0%, rgba(232,163,61,.03) 45%, rgba(17,17,17,0) 100%)" }}>
+          <div className="grid gap-10 lg:grid-cols-[1.15fr_1fr] items-start">
+            <div className="text-left">
+              <Kicker>Überzeugen Sie sich selbst</Kicker>
+              <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.3rem)", marginBottom: 16 }}>{titel}</h2>
+              <p style={{ color: "var(--warm-grey-dim)", lineHeight: 1.65, marginBottom: 26, maxWidth: 560 }}>{text}</p>
+              <AnfrageKnopf text={knopf} />
+            </div>
+            <div className="rounded-2xl p-6" style={{ background: "var(--near-black)", border: "1px solid var(--hairline)" }}>
+              <span className="mono block mb-4" style={{ fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--amber)" }}>Das reicht uns</span>
+              <Haken punkte={reicht} style={{ color: "var(--warm-grey)", fontSize: "0.98rem", gap: 12 }} />
+            </div>
+          </div>
+          <ol className="grid gap-4 md:grid-cols-3 mt-10">
+            {schritte.map((x, i) => (
+              <li key={x.titel} className="flex gap-4">
+                <span style={{ fontFamily: "var(--font-archivo, inherit)", fontWeight: 800, fontSize: "1.7rem", lineHeight: 1, color: "var(--amber)" }}>{i + 1}</span>
+                <span>
+                  <span style={{ display: "block", fontWeight: 650, fontSize: "1.02rem", marginBottom: 4 }}>{x.titel}</span>
+                  <span style={{ color: "var(--warm-grey-dim)", fontSize: "0.94rem", lineHeight: 1.55 }}>{x.text}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
   );
 }

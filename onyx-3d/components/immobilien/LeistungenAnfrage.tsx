@@ -38,13 +38,15 @@ function quelleAusAdresse() {
  * vorauswahl: Leistung aus der Anzeige, die schon angehakt ist (Einstiege /immobilien/…).
  * rolle: auf den Seiten für Bauträger bzw. Makler schon ausgewählt.
  * auswahl: nur diese Leistungen zum Ankreuzen (Makler brauchen keinen Zeitraffer).
+ * linkFeld: Feld für den Link zur Anzeige oder zum Exposé (Makler schicken uns ihr Objekt).
  */
 export default function LeistungenAnfrage({
   vorauswahl,
   rolle,
   objektBeispiel = "z. B. Neubau mit 6 Villen, Finca mit Pool, Wohnung im Rohbau",
   auswahl,
-}: { vorauswahl?: LeistungId; rolle?: (typeof ROLLEN)[number]; objektBeispiel?: string; auswahl?: LeistungId[] } = {}) {
+  linkFeld,
+}: { vorauswahl?: LeistungId; rolle?: (typeof ROLLEN)[number]; objektBeispiel?: string; auswahl?: LeistungId[]; linkFeld?: boolean } = {}) {
   const angebot = auswahl ? auswahl.map((id) => LEISTUNGEN.find((l) => l.id === id)!).filter(Boolean) : LEISTUNGEN;
   const [gewaehlt, setGewaehlt] = useState<Set<string>>(() => new Set(vorauswahl ? [vorauswahl] : []));
   const [status, setStatus] = useState<"bereit" | "sendet" | "ok" | "fehler">("bereit");
@@ -82,6 +84,7 @@ export default function LeistungenAnfrage({
       `Rolle: ${text("rolle")}`,
       `Interesse: ${leistungen.length ? leistungen.join(", ") : "noch offen"}`,
       text("objekt") && `Objekt/Projekt: ${text("objekt")}`,
+      text("link") && `Link Anzeige/Exposé: ${text("link")}`,
       `Erreichbar: ${text("erreichbar")}`,
       text("nachricht") && `Nachricht: ${text("nachricht")}`,
     ]
@@ -234,6 +237,13 @@ export default function LeistungenAnfrage({
         <span style={label}>Um welches Objekt oder Projekt geht es?</span>
         <input name="objekt" placeholder={objektBeispiel} className="w-full rounded-[10px] px-4 py-3" style={feld} />
       </label>
+
+      {linkFeld && (
+        <label>
+          <span style={label}>Link zu Ihrer Anzeige oder Ihrem Exposé (optional)</span>
+          <input name="link" inputMode="url" autoComplete="url" placeholder="z. B. Ihr Inserat auf Idealista oder ImmoScout24" className="w-full rounded-[10px] px-4 py-3" style={feld} />
+        </label>
+      )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <label>
