@@ -37,12 +37,15 @@ function quelleAusAdresse() {
 /**
  * vorauswahl: Leistung aus der Anzeige, die schon angehakt ist (Einstiege /immobilien/…).
  * rolle: auf den Seiten für Bauträger bzw. Makler schon ausgewählt.
+ * auswahl: nur diese Leistungen zum Ankreuzen (Makler brauchen keinen Zeitraffer).
  */
 export default function LeistungenAnfrage({
   vorauswahl,
   rolle,
   objektBeispiel = "z. B. Neubau mit 6 Villen, Finca mit Pool, Wohnung im Rohbau",
-}: { vorauswahl?: LeistungId; rolle?: (typeof ROLLEN)[number]; objektBeispiel?: string } = {}) {
+  auswahl,
+}: { vorauswahl?: LeistungId; rolle?: (typeof ROLLEN)[number]; objektBeispiel?: string; auswahl?: LeistungId[] } = {}) {
+  const angebot = auswahl ? auswahl.map((id) => LEISTUNGEN.find((l) => l.id === id)!).filter(Boolean) : LEISTUNGEN;
   const [gewaehlt, setGewaehlt] = useState<Set<string>>(() => new Set(vorauswahl ? [vorauswahl] : []));
   const [status, setStatus] = useState<"bereit" | "sendet" | "ok" | "fehler">("bereit");
 
@@ -180,7 +183,7 @@ export default function LeistungenAnfrage({
       <fieldset>
         <legend style={label}>Was interessiert Sie? (mehrere möglich)</legend>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-          {[...LEISTUNGEN.map((l) => ({ id: l.id as string, name: l.name })), { id: "sonstiges", name: "Etwas anderes" }].map((l) => {
+          {[...angebot.map((l) => ({ id: l.id as string, name: l.name })), { id: "sonstiges", name: "Etwas anderes" }].map((l) => {
             const an = gewaehlt.has(l.id);
             return (
               <label

@@ -4,8 +4,8 @@ import LeistungenAnfrage from "@/components/immobilien/LeistungenAnfrage";
 import LeistungWaehlen from "@/components/immobilien/LeistungWaehlen";
 import LazyVideo from "@/components/immobilien/LazyVideo";
 import AnfrageSticky from "@/components/immobilien/AnfrageSticky";
-import { LEISTUNGEN, type Leistung, type LeistungId } from "@/components/immobilien/leistungen";
-import { STANDARD_HERO, VARIANTEN, ZIELGRUPPEN, varianteZu, type HeroMedium, type Variante } from "@/components/immobilien/varianten";
+import { LEISTUNGEN, type Leistung } from "@/components/immobilien/leistungen";
+import { STANDARD_HERO, VARIANTEN, varianteZu, type HeroMedium, type Variante } from "@/components/immobilien/varianten";
 
 /**
  * Landingpage für die Facebook-/Instagram-Anzeigen an Makler und Bauträger
@@ -103,11 +103,11 @@ function HeroBild({ m }: { m: HeroMedium }) {
     return (
       <div className={`${klasse} grid grid-cols-2`} style={rahmen}>
         <div className="relative">
-          <img src={m.vorher} alt={m.vorherAlt ?? "Raum im Ausbau, echtes Foto"} className="absolute inset-0 w-full h-full object-cover" />
+          <img src={m.vorher} alt="Raum im Ausbau, echtes Foto" className="absolute inset-0 w-full h-full object-cover" />
           <span className="mono absolute" style={{ ...etikett, top: 10, left: 10 }}>Foto von heute</span>
         </div>
         <div className="relative" style={{ borderLeft: "2px solid var(--amber)" }}>
-          <img src={m.nachher} alt={m.nachherAlt ?? "Derselbe Raum fertig eingerichtet, KI-Visualisierung"} className="absolute inset-0 w-full h-full object-cover" />
+          <img src={m.nachher} alt="Derselbe Raum fertig eingerichtet, KI-Visualisierung" className="absolute inset-0 w-full h-full object-cover" />
           <KiHinweis />
         </div>
       </div>
@@ -160,15 +160,8 @@ const FAQ = [
 
 export default function ImmobilienPage({ variante }: { variante?: Variante } = {}) {
   const hero = variante ?? STANDARD_HERO;
-  const zg = variante?.zielgruppe ? ZIELGRUPPEN[variante.zielgruppe] : undefined;
-  // Die Leistung aus der Anzeige zuerst, danach die Reihenfolge der Zielgruppe, sonst die gewohnte.
-  const rang = (id: LeistungId) => {
-    if (id === variante?.leistung) return -1;
-    const i = zg ? zg.reihenfolge.indexOf(id) : LEISTUNGEN.findIndex((l) => l.id === id);
-    return i < 0 ? 99 : i;
-  };
-  const leistungen = [...LEISTUNGEN].sort((a, b) => rang(a.id) - rang(b.id));
-  const faq = zg ? [...FAQ.map((x) => (x.f === "Für wen ist das?" ? { ...x, a: zg.fuerWen } : x)), ...zg.faq] : FAQ;
+  // Die Leistung aus der Anzeige zuerst, der Rest in gewohnter Reihenfolge.
+  const leistungen = variante ? [...LEISTUNGEN].sort((a, b) => Number(b.id === variante.leistung) - Number(a.id === variante.leistung)) : LEISTUNGEN;
   return (
     <main>
       <style>{`
@@ -209,29 +202,6 @@ export default function ImmobilienPage({ variante }: { variante?: Variante } = {
           <HeroBild m={hero.medium} />
         </div>
       </section>
-
-      {/* Probleme der Zielgruppe (nur /bautraeger, /makler und Bauträger-Einstiege) */}
-      {zg && (
-        <section className="pb-16" aria-labelledby="probleme-titel">
-          <div className="mx-auto px-7" style={{ maxWidth: 1180 }}>
-            <span className="mono inline-flex items-center gap-2 mb-4" style={kicker}>
-              <span style={{ opacity: 0.7 }}>§</span> Kennen Sie das?
-            </span>
-            <h2 id="probleme-titel" style={{ fontSize: "clamp(1.5rem, 2.8vw, 2rem)", marginBottom: 28, maxWidth: 760 }}>{zg.probleme.titel}</h2>
-            <ul className="grid gap-4 md:grid-cols-2">
-              {zg.probleme.punkte.map((p) => (
-                <li key={p.problem} className="rounded-xl p-6" style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}>
-                  <p style={{ fontWeight: 600, fontSize: "1.06rem", marginBottom: 10 }}>{p.problem}</p>
-                  <p className="flex gap-2.5" style={{ color: "var(--warm-grey-dim)", fontSize: "0.97rem", lineHeight: 1.6 }}>
-                    <span aria-hidden="true" style={{ color: "var(--amber)" }}>→</span>
-                    <span>{p.loesung}</span>
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )}
 
       {/* Leistungen */}
       <section id="leistungen" className="py-16" style={{ background: "var(--near-black-2)" }}>
@@ -338,7 +308,7 @@ export default function ImmobilienPage({ variante }: { variante?: Variante } = {
             </ul>
           </div>
           <div id="anfrage-formular" className="rounded-2xl p-6 md:p-8" style={{ background: "var(--near-black)", border: "1px solid var(--hairline)", scrollMarginTop: 90 }}>
-            <LeistungenAnfrage vorauswahl={variante?.leistung} rolle={zg?.rolle} objektBeispiel={zg?.objektBeispiel} />
+            <LeistungenAnfrage vorauswahl={variante?.leistung} />
           </div>
         </div>
       </section>
@@ -351,7 +321,7 @@ export default function ImmobilienPage({ variante }: { variante?: Variante } = {
           </span>
           <h2 style={{ fontSize: "clamp(1.5rem, 2.8vw, 2rem)", marginBottom: 24 }}>Kurz beantwortet</h2>
           <div className="grid gap-3">
-            {faq.map((x) => (
+            {FAQ.map((x) => (
               <details key={x.f} className="rounded-xl px-5 py-4" style={{ background: "var(--near-black-2)", border: "1px solid var(--hairline)" }}>
                 <summary style={{ cursor: "pointer", fontWeight: 600, fontSize: "1.02rem" }}>{x.f}</summary>
                 <p style={{ color: "var(--warm-grey-dim)", lineHeight: 1.6, marginTop: 10 }}>{x.a}</p>
