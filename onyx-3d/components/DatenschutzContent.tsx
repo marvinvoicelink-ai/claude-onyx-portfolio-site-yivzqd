@@ -105,9 +105,11 @@ export default function DatenschutzContent() {
         Kundenverwaltungssystem (CRM), damit keine Anfrage verloren geht und
         wir dich zurückrufen können. Gespeichert werden die Angaben aus dem
         Formular (Name, Firma, Telefon, E-Mail, gewünschte Leistungen,
-        Objekt, Erreichbarkeit, Nachricht) und über welche Seite bzw.
-        Anzeige die Anfrage kam. Dafür setzen wir als Auftragsverarbeiter
-        ein:
+        Objekt, Link zum Inserat oder Exposé, Erreichbarkeit, Nachricht)
+        und über welche Seite bzw. Anzeige die Anfrage kam. Schickst du uns
+        danach Pläne, Fotos oder ein Exposé, nutzen wir sie nur, um die
+        Visualisierungen und Videos für dein Objekt zu erstellen. Dafür
+        setzen wir als Auftragsverarbeiter ein:
       </p>
       <ul>
         <li>
